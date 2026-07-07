@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>吳恩達 8 門 AI 課程清單 — 2026 普通人學 AI</title>
+<style>
+  :root {
+    --bg: #0f1419;
+    --card: #1a2129;
+    --border: #2a3441;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --accent: #58a6ff;
+    --gold: #f0b429;
+    --green: #3fb950;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 2rem 1rem;
+  }
+  .container { max-width: 1100px; margin: 0 auto; }
+  header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  h1 {
+    font-size: 1.9rem;
+    margin-bottom: 0.5rem;
+    color: var(--accent);
+  }
+  .subtitle { color: var(--muted); font-size: 0.95rem; }
+  .meta {
+    display: inline-block;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.4rem 0.8rem;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .meta strong { color: var(--text); }
+
+  .summary {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 6px;
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .summary h2 { font-size: 1.1rem; color: var(--accent); margin-bottom: 0.6rem; }
+  .summary p { color: var(--muted); font-size: 0.92rem; }
+  .summary ul { margin-top: 0.6rem; padding-left: 1.3rem; color: var(--muted); font-size: 0.9rem; }
+  .summary li { margin-bottom: 0.25rem; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    font-size: 0.92rem;
+  }
+  thead { background: #1f2733; }
+  th {
+    text-align: left;
+    padding: 0.9rem 1rem;
+    font-weight: 600;
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #1e2630; }
+  .num {
+    font-weight: 700;
+    color: var(--gold);
+    font-size: 1.05rem;
+  }
+  .course-name {
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.3rem;
+  }
+  .course-name-en {
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+  .layer {
+    display: inline-block;
+    background: #1f2733;
+    color: var(--accent);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.15rem 0.55rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .rating {
+    font-weight: 700;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+  .rating .star { color: var(--gold); }
+  .tag {
+    display: inline-block;
+    background: #1f2733;
+    color: var(--green);
+    border: 1px solid #2d4a37;
+    border-radius: 3px;
+    padding: 0.1rem 0.5rem;
+    font-size: 0.78rem;
+    margin: 0.15rem 0.2rem 0.15rem 0;
+  }
+  .tag.skip {
+    color: var(--muted);
+    border-color: var(--border);
+  }
+  .top-pick {
+    background: linear-gradient(90deg, rgba(240,180,41,0.12), transparent);
+    border-left: 3px solid var(--gold);
+  }
+  .footer {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.85rem;
+    text-align: center;
+  }
+  .footer a { color: var(--accent); text-decoration: none; }
+  .footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 720px) {
+    table, thead, tbody, th, td, tr { display: block; }
+    thead { display: none; }
+    tr {
+      margin-bottom: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.5rem;
+    }
+    td {
+      border-bottom: none;
+      padding: 0.5rem;
+    }
+    td::before {
+      content: attr(data-label);
+      display: block;
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+      letter-spacing: 0.05em;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <h1>吳恩達 8 門 AI 課程清單</h1>
+    <div class="subtitle">2026 普通人學 AI｜補齊知識地圖的系統化學習路線</div>
+    <div class="meta">
+      來源影片: <strong>2026普通人学AI：推荐吴恩达这8门课，帮你补齐知识地图</strong> ｜
+      講師: <strong>靈姐說AI</strong> ｜
+      平台: <strong>吳恩達 deeplearning.AI</strong>
+    </div>
+  </header>
+
+  <section class="summary">
+    <h2>📌 課程總覽</h2>
+    <p>本清單整理自靈姐說 AI 頻道推薦的 8 門吳恩達 deeplearning.AI 課程,依「提示詞 → 做作品 → 結構化輸出 → 工作流 → MCP → 多模態 / Agent 評估」串成一條系統化學習路線,對應 6 大 AI 核心能力層次。</p>
+    <ul>
+      <li><strong>適用對象</strong>:AI 零基礎入門者、想補齊知識地圖的進階學習者、自動化 / 開發者</li>
+      <li><strong>靈姐最推薦 3 門</strong>:AI Prompting for Everyone、Agent Skills with Anthropic、Evaluating AI Agents</li>
+      <li><strong>2026 學 AI 的核心轉變</strong>:從「學提示詞」進化到「把 AI 變成自己的工作系統」</li>
+    </ul>
+  </section>
+
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>層次 / 能力</th>
+        <th>課程名稱</th>
+        <th>目標</th>
+        <th>課程介紹</th>
+        <th>適合對象</th>
+        <th>推薦度</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr class="top-pick">
+        <td data-label="#" class="num">1</td>
+        <td data-label="層次"><span class="layer">第 1 層</span><br><small>學會和 AI 協作</small></td>
+        <td data-label="課程">
+          <div class="course-name">AI Prompting for Everyone</div>
+          <div class="course-name-en">提示詞入門</div>
+        </td>
+        <td data-label="目標">
+          學會寫出完整的提示詞,把 AI 從「搜索框」升級為「協作者 / 合伙人」,並能用 AI 反問釐清自身需求。
+        </td>
+        <td data-label="介紹">
+          一個好的 prompt 至少要包含 <strong>8 個要素</strong>:目標、背景、對象、角色、素材、步驟、格式、標準。提示詞的本質是「管理上下文的協作者」,而非單純下指令。<br>
+          核心觀點:不要急著讓 AI 輸出結果,而是讓 AI 先反問你,把需求變清楚再開始。<br>
+          <span class="tag">2026 新上線</span>
+        </td>
+        <td data-label="對象">
+          <span class="tag">零基礎</span>
+          <span class="tag">完全沒接觸過 AI 的人</span>
+          <span class="tag">所有人</span>
+        </td>
+        <td data-label="推薦度" class="rating">⭐⭐⭐⭐⭐ 5.0<br><small>五星必看</small></td>
+      </tr>
+
+      <tr>
+        <td data-label="#" class="num">2a</td>
+        <td data-label="層次"><span class="layer">第 2 層</span><br><small>會用 AI 做東西</small></td>
+        <td data-label="課程">
+          <div class="course-name">Build with Andrew</div>
+          <div class="course-name-en">從想法到原型的實作課</div>
+        </td>
+        <td data-label="目標">
+          讓你第一次擁有「把想法快速做成原型」的能力,體會從提問跨越到創造的過程。
+        </td>
+        <td data-label="介紹">
+          告訴你 AI 不只能聊天,還能把你的想法做成小工具、小網站、小應用。重點工作流:<strong>先寫 PRD → 再畫線框圖 → 最後才動手寫程式</strong>。本質精神是「先規劃、再動手」。<br>
+          <span class="tag">Vibe Coding</span>
+          <span class="tag">不需要自己會寫程式</span>
+        </td>
+        <td data-label="對象">
+          <span class="tag">零基礎</span>
+          <span class="tag">想做出第一個 AI 作品的人</span>
+        </td>
+        <td data-label="推薦度" class="rating">⭐⭐⭐⭐ 4.5</td>
+      </tr>
+
+      <tr>
+        <td data-label="#" class="num">2b</td>
+        <td data-label="層次"><span class="layer">第 2 層</span><br><small>會用 AI 做東西</small></td>
+        <td data-label="課程">
+          <div class="course-name">Vibe Coding 101</div>
+          <div class="course-name-en">氛圍式編程入門</div>
+        </td>
+        <td data-label="目標">
+          用 AI 做出實際可見的東西,從純提問跨越到「創造」,建立 AI 實作手感。
+        </td>
+        <td data-label="介紹">
+          與 Build with Andrew 同屬「做出作品」階段,讓你用 Vibe Coding(氛圍式編程)方式直接用 AI 寫程式,即使完全不會寫程式也能產出可運行的小工具或網站。
+        </td>
+        <td data-label="對象">
+          <span class="tag">零基礎</span>
+          <span class="tag">想體驗 Vibe Coding 的人</span>
+        </td>
+        <td data-label="推薦度" class="rating">⭐⭐⭐⭐ 4.5</td>
+      </tr>
+
+      <tr>
+        <td data-label="#" class="num">3</td>
+        <td data-label="層次"><span class="layer">第 3 層</span><br><small>讓 AI 輸出可控</small></td>
+        <td data-label="課程">
+          <div class="course-name">Getting Structured LLM Output</div>
+          <div class="course-name-en">結構化 LLM 輸出</div>
+        </td>
+        <td data-label="目標">
+          讓 AI 輸出從「自然語言」變成「結構化語言」,使結果穩定、可被系統處理。
+        </td>
+        <td data-label="介紹">
+          自然語言適合人讀,<strong>結構化語言才適合系統處理</strong>。越複雜的系統、越多步驟,每一步就越需要固定欄位,AI 回答的結構格式必須穩定才能讓自動化真正落地。<br>
+          學完會更懂「機器的語言」,下指令時會更精準。
+        </td>
+        <td data-label="對象">
+          <span class="tag">深度使用者</span>
+          <span class="tag skip">零基礎可先跳過</span>
+        </td>
+        <td data-label="推薦度" class="rating">⭐⭐⭐⭐ 4.0</td>
+      </tr>
+
+      <tr>
+        <td data-label="#" class="num">4</td>
+        <td data-label="層次"><span class="layer">第 3 層</span><br><small>加裝數據護欄</small></td>
+        <td data-label="課程">
+          <div class="course-name">Pydantic for LLM Workflows</div>
+          <div class="course-name-en">LLM 工作流資料驗證</div>
+        </td>
+        <td data-label="目標">
+          讓 AI 輸出的結構化資料<strong>可被驗證</strong>:格式是否合格、欄位型別對不對、有無缺失、能否進入下一步。
+        </td>
+        <td data-label="介紹">
+          解決「AI 輸出不但要結構化,還要能驗證」的問題。例如需求單裡的每個字串格式(網址型、字典型等),都需要透過特定方式做限定,才能進入生產環節。<br>
+          偏開發導向,講 AI 自動化中的<strong>可靠性問題</strong>。
+        </td>
+        <td data-label="對象">
+          <span class="tag">半技術用戶</span>
+          <span class="tag">自動化用戶</span>
+          <span class="tag skip">普通小白可往後放</span>
+        </td>
+        <td data-label="推薦度" class="rating">⭐⭐⭐⭐ 4.0</td>
+      </tr>
+
+      <tr class="top-pick">
+        <td data-label="#" class="num">5</td>
+        <td data-label="層次"><span class="layer">第 4 層</span><br><small>封裝工作流</small></td>
+        <td data-label="課程">
+          <div class="course-name">Agent Skills with Anthropic</div>
+          <div class="course-name-en">與 Anthropic 合作的技能封裝課</div>
+        </td>
+        <td data-label="目標">
+          把過往的經驗、流程、模板、審查標準<strong>沉澱為可重複調用的資產</strong>,從 Prompt 時代走向 Skill 時代。
+        </td>
+        <td data-label="介紹">
+          這是靈姐<strong>重點推薦</strong>的一門課。Skill 是能力的資料夾,通常包含:主說明、腳本、參考資料、模板、素材。<br>
+          核心概念對比:
+          <ul style="padding-left:1.2rem;margin-top:0.4rem;font-size:0.88rem;">
+            <li><strong>Tool</strong> = 錘子(AI 的手腳:讀寫檔、跑指令、查網頁)</li>
+            <li><strong>MCP</strong> = 水管與介面(連接外部系統的協議)</li>
+            <li><strong>Skill</strong> = 施工圖紙(告訴 AI 怎麼完成某類任務)</li>
+            <li><strong>Sub-agent</strong> = 分工工人(把任務拆給不同 agent)</li>
+          </ul>
+        </td>
+        <td data-label="對象">
+          <span class="tag">想理解 AI 運行機制的人</span>
+          <span class="tag">想累積可複用資產的人</span>
+        </td>
+        <td data-label="推薦度" class="rating">⭐⭐⭐⭐⭐ 4.8<br><small>重點推薦</small></td>
+      </tr>
+
+      <tr>
+        <td data-label="#" class="num">6</td>
+        <td data-label="層次"><span class="layer">第 5 層</span><br><small>連接外部世界</small></td>
+        <td data-label="課程">
+          <div class="course-name">MCP: Build Rich-Context AI Apps</div>
+          <div class="course-name-en">MCP:構建富上下文 AI 應用</div>
+        </td>
+        <td data-label="目標">
+          讓 AI 連接外部資料、工具與企業系統(資料庫、企業資料),從純對話升級為可執行真實工作。
+        </td>
+        <td data-label="介紹">
+          解決「如何讓 AI 連接外部資料、工具、系統」的問題。<br>
+          與 RAG 的差異:<strong>RAG 從知識庫檢索資料增強回答</strong>;<strong>MCP 不只取資料,還能暴露工具、交換資料資源,讓 AI 與外部系統雙向互動</strong>。
+        </td>
+        <td data-label="對象">
+          <span class="tag">重度 AI 工作流用戶</span>
+          <span class="tag">Agent 開發者</span>
+          <span class="tag skip">小白可放後</span>
+        </td>
+        <td data-label="推薦度" class="rating">⭐⭐⭐⭐ 4.2</td>
+      </tr>
+
+      <tr>
+        <td data-label="#" class="num">7</td>
+        <td data-label="層次"><span class="layer">第 6 層</span><br><small>多模態生產</small></td>
+        <td data-label="課程">
+          <div class="course-name">Image &amp; Video Agents</div>
+          <div class="course-name-en">圖像與視訊 Agent</div>
+        </td>
+        <td data-label="目標">
+          掌握<strong>多模態生成的 Loop 思維</strong>:生成 → 判斷 → 迭代,直到達標。
+        </td>
+        <td data-label="介紹">
+          對比「舊模式 vs 新模式」:
+          <ul style="padding-left:1.2rem;margin-top:0.4rem;font-size:0.88rem;">
+            <li>舊模式:不斷手工「抽卡」</li>
+            <li>新模式:自動評估 → 發現問題 → 修改迭代 → 直到達標</li>
+          </ul>
+          視訊生成必須<strong>結構化分鏡</strong>(場景一 / 場景二 / 場景三),完成後還要評估分鏡節奏、人物是否變形、字跡是否清晰,然後二次迭代。<br>
+          <span class="tag">Loop 思維</span>
+          <span class="tag">多模態核心公式</span>
+        </td>
+        <td data-label="對象">
+          <span class="tag">圖像 / 視訊創作者</span>
+          <span class="tag">想建立 Loop 思維的人</span>
+        </td>
+        <td data-label="推薦度" class="rating">⭐⭐⭐⭐ 4.3</td>
+      </tr>
+
+      <tr class="top-pick">
+        <td data-label="#" class="num">8</td>
+        <td data-label="層次"><span class="layer">第 6 層</span><br><small>Agent 評估</small></td>
+        <td data-label="課程">
+          <div class="course-name">Evaluating AI Agents</div>
+          <div class="course-name-en">AI Agent 評估</div>
+        </td>
+        <td data-label="目標">
+          衡量 Agent 是否真正靠譜,建立可觀察、可改進的生產系統,讓 AI 真正成為生產力。
+        </td>
+        <td data-label="介紹">
+          給出 <strong>8 個評估維度</strong>,重點在評估「Agent 生成的過程」而非最終 Demo 效果。<br>
+          拆解每一步的可觀察性:是理解錯了?路由錯了?工具選錯了?參數錯了?分析錯了?還是表達錯了?<br>
+          核心觀點:<strong>評估標準要在一開始建構任務時就設立</strong>,後面的生成過程才能可觀察、可改進,系統才能持續迭代成為真正的生產力系統。
+        </td>
+        <td data-label="對象">
+          <span class="tag">Agent 開發者</span>
+          <span class="tag">想建立可迭代系統的人</span>
+        </td>
+        <td data-label="推薦度" class="rating">⭐⭐⭐⭐⭐ 4.9<br><small>靈姐最推薦</small></td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <div class="footer">
+    📺 原始影片:<a href="https://youtu.be/qItTBcbEe2k" target="_blank">2026普通人学AI：推荐吴恩达这8门课,帮你补齐知识地图 | AI入门系统化学习</a><br>
+    📚 課程平台:<a href="https://www.deeplearning.ai" target="_blank">deeplearning.AI</a>(吳恩達創辦,與 Anthropic / Google 合作)<br>
+    ✏️ 本清單整理自影片字幕,所有課程名稱與評分以 deeplearning.AI 官方為準
+  </div>
+
+</div>
+</body>
+</html>
