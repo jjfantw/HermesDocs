@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mac 新機設定指南 — 3 支影片綜合整理</title>
+<style>
+:root { --bg:#0f1115; --card:#181b22; --muted:#8a93a6; --accent:#7aa2f7; --accent2:#bb9af7; --border:#2a2f3a; --link:#7dcfff; --good:#9ece6a; --warn:#e0af68; }
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:#e3e7ef; line-height:1.7; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 32px 24px 80px; }
+.hero { background: linear-gradient(135deg, #1f2330 0%, #2a1f3d 100%); border:1px solid var(--border); border-radius: 16px; padding: 28px 32px; margin-bottom: 28px; }
+.hero .eyebrow { color: var(--accent); font-size: 13px; letter-spacing: 1.5px; font-weight: 600; text-transform: uppercase; margin-bottom: 8px; }
+.hero h1 { margin:0 0 12px; font-size: 26px; line-height: 1.35; color:#fff; }
+.hero .meta { color: var(--muted); font-size: 14px; }
+.hero .meta span { margin-right: 18px; }
+.section-title { font-size: 18px; font-weight: 700; margin: 32px 0 16px; color: #fff; padding-left: 12px; border-left: 4px solid var(--accent); }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin-bottom: 12px; }
+.setting-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 10px; }
+.setting-item { background: rgba(255,255,255,.03); border:1px solid var(--border); border-radius: 8px; padding: 12px 16px; }
+.setting-item .cat { color: var(--accent2); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+.setting-item .name { color: #fff; font-size: 14px; font-weight: 600; margin: 4px 0; }
+.setting-item .desc { color: #c8cdd8; font-size: 13px; }
+.setting-item .src { color: var(--muted); font-size: 11px; margin-top: 4px; }
+.video-card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 24px 28px; margin-bottom: 24px; }
+.video-card h2 { margin: 0 0 6px; color: #fff; font-size: 19px; }
+.video-card .vmeta { color: var(--muted); font-size: 13px; margin-bottom: 12px; }
+.video-card .vblurb { color: #c8cdd8; font-size: 14.5px; margin: 12px 0 18px; }
+.topic-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.topic-table th, .topic-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.topic-table th { background: rgba(122,162,247,.08); color: var(--accent); font-weight: 600; text-align: left; }
+.topic-table td.topic { color: #fff; font-weight: 600; min-width: 200px; }
+.topic-table td.empty { color: var(--muted); font-style: italic; }
+.topic-table .ev { color: #c8cdd8; font-size: 13.5px; margin: 4px 0; }
+.topic-table .ev .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-weight: 600; margin-right: 6px; }
+.topic-table .ev .ch { color: var(--accent2); font-size: 12.5px; margin-left: 4px; }
+.chapter-list { list-style: none; padding: 0; margin: 0; columns: 2; column-gap: 24px; }
+.chapter-list li { display: flex; gap: 12px; padding: 6px 0; font-size: 13.5px; }
+.chapter-list a { color: var(--link); text-decoration: none; font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 13px; min-width: 50px; font-weight: 600; }
+.chapter-list .ct { color: #c8cdd8; }
+.transcript { background: rgba(255,255,255,.02); border:1px solid var(--border); border-radius: 8px; padding: 8px 0; margin-top: 8px; }
+details.seg summary { cursor: pointer; padding: 8px 20px; color: var(--muted); font-size: 14px; list-style: none; user-select: none; border-bottom: 1px solid var(--border); }
+details.seg summary:hover { color: var(--accent); }
+details.seg summary::before { content: "▸ "; font-size: 11px; }
+details.seg[open] summary::before { content: "▾ "; }
+.seg-body { padding: 12px 20px 20px; }
+.chunk { display: flex; gap: 14px; padding: 8px 0; border-bottom: 1px dashed rgba(255,255,255,.05); }
+.chunk:last-child { border-bottom: none; }
+.chunk .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 13px; min-width: 56px; padding-top: 3px; }
+.chunk .ts a { color: inherit; text-decoration: none; }
+.chunk .ts a:hover { color: var(--accent2); }
+.chunk .txt { color: #d4d8e0; font-size: 14.5px; line-height: 1.85; }
+.unique-pill { display:inline-block; background: rgba(224,175,104,.12); color: var(--warn); border: 1px solid rgba(224,175,104,.3); border-radius: 999px; padding: 2px 10px; font-size: 12px; margin: 2px 4px 2px 0; }
+.legend { color: var(--muted); font-size: 12.5px; margin: 8px 0 0; }
+.footer { color: var(--muted); font-size: 12px; text-align: center; margin-top: 40px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="eyebrow">Mac 新手設定 · 綜合參考指南</div>
+    <h1>Mac 新機設定指南 — 3 支影片綜合整理</h1>
+    <div class="meta">
+      <span>📚 3 支影片</span>
+      <span>⏱ 總長約 44 分鐘</span>
+      <span>📅 整理日期 2026-07-07</span>
+    </div>
+    <div class="vblurb" style="margin-top:14px">
+      本指南整合 3 支 YouTube 新 Mac 設定影片（Raycal Tech 42 個設定、彼得森 7 件事、大耳朵 TV 必做設置），提煉出共同主題對照表與 42 項設定速查清單，並附完整逐字稿供查證。
+    </div>
+    <div class="vblurb" style="margin-top:10px;color:var(--warn);font-size:13px">
+      ⚠ 來源說明：彼得森、大耳朵 TV 為 YouTube 官方字幕；Raycal Tech 該支影片字幕關閉，逐字稿由 Whisper 從音訊轉出（簡體中文口語，可能含 ASR 漂字）。
+    </div>
+  </div>
+
+  <div class="section-title">⚡ 42 項設定速查清單（按類別分組）</div>
+  <div class="card">
+    <p style="color:var(--muted);font-size:13px;margin-bottom:12px">以下清單來自 Raycal Tech 影片，並補充彼得森與大耳朵 TV 的對應建議。✅ = 3 支影片都提到。</p>
+    <div class="setting-grid">
+
+      <div class="setting-item">
+        <div class="cat">觸控板</div>
+        <div class="name">三指拖移 ✅</div>
+        <div class="desc">輔助功能 → 觸控板 → 啟用三指拖移。避免每次拖檔都要用力按。</div>
+        <div class="src">Raycal 0:21 / 彼得森 1:06 / 大耳朵 9:00</div>
+      </div>
+      <div class="setting-item">
+        <div class="cat">觸控板</div>
+        <div class="name">點按代替用力按</div>
+        <div class="desc">觸控板設定 → 點按代替用力按。輕點即可點選，不需重壓。</div>
+        <div class="src">彼得森 1:06</div>
+      </div>
+      <div class="setting-item">
+        <div class="cat">觸控板</div>
+        <div class="name">輔助觸控板選項</div>
+        <div class="desc">輔助功能 → 觸控板選項，調整游標速度與手勢。</div>
+        <div class="src">大耳朵 9:00</div>
+      </div>
+
+      <div class="setting-item">
+        <div class="cat">Dock / 程序塢</div>
+        <div class="name">自動隱藏 Dock ✅</div>
+        <div class="desc">系統設定 → 桌面與 Dock → 自動隱藏與顯示 Dock。節省螢幕空間。</div>
+        <div class="src">Raycal 2:24 / 彼得森 3:54 / 大耳朵 5:31</div>
+      </div>
+      <div class="setting-item">
+        <div class="cat">Dock / 程序塢</div>
+        <div class="name">Dock 大小與放大</div>
+        <div class="desc">調整 Dock 大小與啟用放大效果，滑過圖標時放大。</div>
+        <div class="src">Raycal 2:24</div>
+      </div>
+      <div class="setting-item">
+        <div class="cat">Dock / 程序塢</div>
+        <div class="name">Dock 置底或置左</div>
+        <div class="desc">可將 Dock 移到螢幕左側或右側，適合寬螢幕使用者。</div>
+        <div class="src">大耳朵 5:31</div>
+      </div>
+      <div class="setting-item">
+        <div class="cat">Dock / 程序塢</div>
+        <div class="name">觸發角 (Hot Corner) ✅</div>
+        <div class="desc">桌面與 Dock → 觸發角。滑鼠移到角落觸發快速動作（如顯示桌面、通知中心）。</div>
+        <div class="src">大耳朵 7:23 / Raycal 12:55</div>
+      </div>
+
+      <div class="setting-item">
+        <div class="cat">Finder</div>
+        <div class="name">顯示副檔名 ✅</div>
+        <div class="desc">Finder → 設定 → 進階 → 顯示所有副檔名。避免誤認檔案類型。</div>
+        <div class="src">Raycal 6:12 / 彼得森 9:39 / 大耳朵 9:26</div>
+      </div>
+      <div class="setting-item">
+        <div class="cat">Finder</div>
+        <div class="name">顯示路徑列</div>
+        <div class="desc">Finder → 顯示方式 → 顯示路徑列。底部顯示目前所在資料夾路徑。</div>
+        <div class="src">Raycal 6:12 / 彼得森 9:39</div>
+      </div>
+      <div class="setting-item">
+        <div class="cat">Finder</div>
+        <div class="name">顯示狀態列</div>
+        <div class="desc">Finder → 顯示方式 → 顯示狀態列。底部顯示檔案數量與可用空間。</div>
+        <div class="src">Raycal 6:12</div>
+      </div>
+      <div class="setting-item">
+        <div class="cat">Finder</div>
+        <div class="name">新增 Finder 側邊欄常用資料夾</div>
+        <div class="desc">將常用資料夾拖入 Finder 側邊欄，快速存取。</div>
+        <div class="src">彼得森 9:39</div>
+      </div>
+      <div class="setting-item">
+        <div class="cat">Finder</div>
+        <div class="name">預設開啟下載/文件</div>
+        <div class="desc">Finder → 設定 → 一般 → 開啟新 Finder 視窗時顯示：選擇常用資料夾。</div>
+        <div class="src">大耳朵 9:26</div>
+      </div>
+      <div class="setting-item">
+        <div class="cat">Finder</div>
+        <div class="name">搜尋時預設搜尋目前資料夾</div>
+        <div class="desc">Finder → 設定 → 進階 → 執行搜尋時：設為「搜尋目前資料夾」。</div>
+        <div class="src">Raycal 6:12</div>
+      </div>
+
+      <div class="setting-item">
+        <div class="cat">選單列 / 控制中心</div>
+        <div class="name">自訂控制中心 ✅</div>
+        <div class="desc">系統設定 → 控制中心。可增減快速切換（WiFi、藍牙、音效、勿擾模式等）。</div>
+        <div class="src">Raycal 4:37 / 彼得森 10:22 / 大耳朵 12:03</div>
+      </div>
+      <div class="setting-item">
+        <div class="cat">選單列 / 控制中心</div>
+        <div class="name">選單列圖標排序</div>
+        <div class="desc">按住 Command 拖曳選單列圖標可重新排序或移除。</div>
+        <div class="src">Raycal 4:37</div>
+      </div>
+      <div class="setting-item">
+        <div class="cat">選單列 / 控制中心</div>
+        <div class="name">電池百分比顯示</div>
+        <div class="desc">控制中心 → 電池 → 顯示百分比。</div>
+        <div class="src">Raycal 4:37</div>
+      </div>
+
+      <div class="setting-item">
+        <div class="cat">快捷鍵</div>
+        <div class="name">Command+Q 退出應用 ✅</div>
+        <div class="desc">按 Command+Q 完全退出應用（紅點只關閉視窗）。</div>
+        <div class="src">彼得森 4:07 / 大耳朵 0:45</div>
+      </div>
+      <div class="setting-item">
+        <div class="cat">快捷鍵</div>
+        <div class="name">Command+W 關閉視窗</div>
+        <div class="desc">關閉當前視窗但不退出應用。</div>
+        <div class="src">彼得森 4:07</div>
+      </div>
+      <div class="setting-item">
+        <div class="cat">快捷鍵</div>
+        <div class="name">Command+Tab 切換應用</div>
+        <div class="desc">快速切換不同應用程式。</div>
+        <div class="src">彼得森 7:03</div>
+      </div>
+      <div class="setting-item">
+        <div class="cat">快捷鍵</div>
+        <div class="name">Command+` 切換同一應用的視窗</div>
+        <div class="desc">在同一個應用的多個視窗間切換。</div>
+        <div class="src">彼得森 7:03</div>
+      </div>
+      <div class="setting-item">
+        <div class="cat">快捷鍵</div>
+        <div class="name">Command+Shift+3/4 截圖</div>
+        <div class="desc">Command+Shift+3 截全螢幕，+4 選範圍截圖。</div>
+        <div class="src">Raycal 10:00 / 大耳朵 0:45</div>
+      </div>
+      <div class="setting-item">
+        <div class="cat">快捷鍵</div>
+        <div class="name">Command+Shift+5 錄影</div>
+        <div class="desc">螢幕錄製工具，可選範圍或全螢幕錄影。</div>
+        <div class="src">Raycal 10:00</div>
+      </div>
+      <div class="setting-item">
+        <div class="cat">快捷鍵</div>
+        <div class="name">Option+拖曳 = 複製</div>
+        <div class="desc">拖曳檔案時按住 Option 可複製而非移動。</div>
+        <div class="src">大耳朵 0:45</div>
+      </div>
+
+      <div class="setting-item">
+        <div class="cat">視窗管理</div>
+        <div class="name">紅黃綠按鈕功能 ✅</div>
+        <div class="desc">紅=關閉視窗（非退出）、黃=最小化、綠=全螢幕/最佳化。按住 Option+綠=最大化。</div>
+        <div class="src">彼得森 2:56 / 大耳朵 4:22</div>
+      </div>
+      <div class="setting-item">
+        <div class="cat">視窗管理</div>
+        <div class="name">分割畫面 (Split View)</div>
+        <div class="desc">按住綠按鈕可選擇分割畫面佈局，左右並排兩個應用。</div>
+        <div class="src">大耳朵 4:22</div>
+      </div>
+      <div class="setting-item">
+        <div class="cat">視窗管理</div>
+        <div class="name">Option+拖曳視窗邊緣 = 中心對稱縮放</div>
+        <div class="desc">按住 Option 拖曳視窗邊緣，從中心點對稱縮放。</div>
+        <div class="src">大耳朵 4:22</div>
+      </div>
+
+      <div class="setting-item">
+        <div class="cat">中英文切換</div>
+        <div class="name">Caps Lock 切換中/英 ✅</div>
+        <div class="desc">按 Caps Lock 快速切換中英文輸入法，不需按 Ctrl+Space。</div>
+        <div class="src">彼得森 8:15 / 大耳朵 0:45</div>
+      </div>
+      <div class="setting-item">
+        <div class="cat">中英文切換</div>
+        <div class="name">長按 Caps Lock 鎖定大寫</div>
+        <div class="desc">短按=切換中英，長按=鎖定大寫。</div>
+        <div class="src">彼得森 8:15</div>
+      </div>
+
+      <div class="setting-item">
+        <div class="cat">功能鍵</div>
+        <div class="name">F1-F12 顯示功能鍵</div>
+        <div class="desc">系統設定 → 鍵盤 → 將 F1-F12 設為標準功能鍵。預設是亮度/音量控制。</div>
+        <div class="src">大耳朵 3:27</div>
+      </div>
+      <div class="setting-item">
+        <div class="cat">功能鍵</div>
+        <div class="name">Fn+功能鍵 = 對應動作</div>
+        <div class="desc">按住 Fn 再按 F1-F12 可觸發對應的系統功能（亮度、音量等）。</div>
+        <div class="src">大耳朵 3:27</div>
+      </div>
+
+      <div class="setting-item">
+        <div class="cat">Spotlight</div>
+        <div class="name">Command+Space 搜尋</div>
+        <div class="desc">Spotlight 可搜尋檔案、應用、計算機、單位換算等。</div>
+        <div class="src">彼得森 11:25</div>
+      </div>
+      <div class="setting-item">
+        <div class="cat">Spotlight</div>
+        <div class="name">Spotlight 排除資料夾</div>
+        <div class="desc">系統設定 → Spotlight → 隱私，可排除不想被搜到的資料夾。</div>
+        <div class="src">彼得森 11:25</div>
+      </div>
+
+      <div class="setting-item">
+        <div class="cat">桌面</div>
+        <div class="name">桌面小組件 (Widget)</div>
+        <div class="desc">在桌面空白處右鍵 → 編輯小組件，可加入天氣、時鐘、日曆等。</div>
+        <div class="src">大耳朵 10:52</div>
+      </div>
+      <div class="setting-item">
+        <div class="cat">桌面</div>
+        <div class="name">整理桌面圖標</div>
+        <div class="desc">右鍵 → 使用堆疊，自動依類型分類桌面檔案。</div>
+        <div class="src">Raycal 12:55</div>
+      </div>
+
+      <div class="setting-item">
+        <div class="cat">遊戲</div>
+        <div class="name">遊戲模式</div>
+        <div class="desc">系統設定 → 遊戲 → 啟用遊戲模式。自動分配更多 CPU/GPU 給遊戲。</div>
+        <div class="src">大耳朵 13:42</div>
+      </div>
+      <div class="setting-item">
+        <div class="cat">遊戲</div>
+        <div class="name">遊戲控制器支援</div>
+        <div class="desc">macOS 支援 PlayStation / Xbox 控制器，藍牙配對即可。</div>
+        <div class="src">大耳朵 13:42</div>
+      </div>
+
+      <div class="setting-item">
+        <div class="cat">FaceTime</div>
+        <div class="name">FaceTime 人物居中</div>
+        <div class="desc">FaceTime 設定 → 人物居中。視訊時自動跟隨頭部移動。</div>
+        <div class="src">大耳朵 14:32</div>
+      </div>
+      <div class="setting-item">
+        <div class="cat">FaceTime</div>
+        <div class="name">FaceTime 背景模糊</div>
+        <div class="desc">視訊時可開啟人像模式，模糊背景。</div>
+        <div class="src">大耳朵 14:32</div>
+      </div>
+
+      <div class="setting-item">
+        <div class="cat">其他</div>
+        <div class="name">滑鼠游標速度</div>
+        <div class="desc">系統設定 → 滑鼠 → 追蹤速度調快。新 Mac 預設游標偏慢。</div>
+        <div class="src">Raycal 12:55</div>
+      </div>
+      <div class="setting-item">
+        <div class="cat">其他</div>
+        <div class="name">鍵盤重複速率</div>
+        <div class="desc">系統設定 → 鍵盤 → 按鍵重複速率調到最快，延遲調到最短。</div>
+        <div class="src">Raycal 12:55</div>
+      </div>
+      <div class="setting-item">
+        <div class="cat">其他</div>
+        <div class="name">隱私權設定</div>
+        <div class="desc">系統設定 → 隱私權與安全性。檢查哪些應用有權限存取麥克風、相機、檔案。</div>
+        <div class="src">Raycal 12:55</div>
+      </div>
+      <div class="setting-item">
+        <div class="cat">其他</div>
+        <div class="name">iCloud 同步設定</div>
+        <div class="desc">系統設定 → Apple ID → iCloud。選擇要同步的項目（桌面、文件、照片等）。</div>
+        <div class="src">Raycal 12:55</div>
+      </div>
+      <div class="setting-item">
+        <div class="cat">其他</div>
+        <div class="name">Night Shift / 原彩</div>
+        <div class="desc">系統設定 → 顯示器 → Night Shift。定時調整螢幕色溫，減少藍光。</div>
+        <div class="src">Raycal 12:55</div>
+      </div>
+      <div class="setting-item">
+        <div class="cat">其他</div>
+        <div class="name">電池健康管理</div>
+        <div class="desc">系統設定 → 電池 → 電池健康度。啟用最佳化充電，延長電池壽命。</div>
+        <div class="src">Raycal 12:55</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section-title">共同主題 × 影片對照（逐字稿佐證）</div>
+  <div class="card">
+    <table class="topic-table">
+      <thead>
+        <tr><th>主題</th><th>Raycal Tech<br><span style="color:var(--muted);font-weight:400;font-size:12px">15:40</span></th><th>彼得森<br><span style="color:var(--muted);font-weight:400;font-size:12px">13:46</span></th><th>大耳朵TV<br><span style="color:var(--muted);font-weight:400;font-size:12px">15:17</span></th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="topic">觸控板設定</td><td><div class="ev"><span class="ts">[0:41]</span>所以一定要打开三指拖一的功能<span class="ch"> — 觸控板設定</span></div></td><td><div class="ev"><span class="ts">[1:06]</span>你要真的把觸控板用力按下去<span class="ch"> — 先改觸控板</span></div></td><td><div class="ev"><span class="ts">[9:00]</span>輔助功能 在這邊選擇觸控板選項<span class="ch"> — 觸控板</span></div></td></tr>
+        <tr><td class="topic">Dock / 程序塢</td><td><div class="ev"><span class="ts">[2:38]</span>当然也可以直接在Finder的应用城市资料家里<span class="ch"> — Dock 設定</span></div></td><td><div class="ev"><span class="ts">[3:54]</span>你看下邊不是有一個 Dock<span class="ch"> — 搞懂紅黃綠按鈕</span></div></td><td><div class="ev"><span class="ts">[5:31]</span>然後我們再來看一下我們的這個程序塢<span class="ch"> — Dock 程序塢</span></div></td></tr>
+        <tr><td class="topic">Finder</td><td><div class="ev"><span class="ts">[6:13]</span>我们用电脑最常用的Finder了<span class="ch"> — Finder 設定</span></div></td><td><div class="ev"><span class="ts">[9:39]</span>接下來講 Finder<span class="ch"> — Finder 改這些</span></div></td><td><div class="ev"><span class="ts">[9:26]</span>我們進入到我們的Finder裡面去<span class="ch"> — Finder</span></div></td></tr>
+        <tr><td class="topic">選單列 / 控制中心</td><td><div class="ev"><span class="ts">[5:29]</span>你也可以把常用的控制中心里面的按钮<span class="ch"> — 選單列設定</span></div></td><td><div class="ev"><span class="ts">[10:22]</span>然後上面是選單 列的部分<span class="ch"> — Finder 改這些</span></div></td><td><div class="ev"><span class="ts">[12:03]</span>然後就是我們的控制中心<span class="ch"> — 控制中心</span></div></td></tr>
+        <tr><td class="topic">快捷鍵</td><td><div class="ev"><span class="ts">[10:00]</span>Command Shift加3 截全螢幕<span class="ch"> — 提升效率設定</span></div></td><td><div class="ev"><span class="ts">[4:07]</span>要按 Command + Q<span class="ch"> — 搞懂紅黃綠按鈕</span></div><div class="ev"><span class="ts">[7:03]</span>接下來，我想講一些簡單的快捷鍵<span class="ch"> — 快捷鍵先學這些</span></div></td><td><div class="ev"><span class="ts">[0:04]</span>都可以按住肯办的键再双击<span class="ch"> — 快捷鍵</span></div></td></tr>
+        <tr><td class="topic">視窗管理</td><td><div class="ev"><span class="ts">[12:55]</span>提升體驗設定<span class="ch"> — 提升體驗設定</span></div></td><td><div class="ev"><span class="ts">[2:56]</span>搞懂紅黃綠按鈕<span class="ch"> — 搞懂紅黃綠按鈕</span></div></td><td><div class="ev"><span class="ts">[4:22]</span>窗口<span class="ch"> — 窗口</span></div></td></tr>
+        <tr><td class="topic">中英文切換</td><td><div class="ev"><span class="ts">[10:00]</span>提升效率設定<span class="ch"> — 提升效率設定</span></div></td><td><div class="ev"><span class="ts">[8:15]</span>中英文切換<span class="ch"> — 中英文切換</span></div></td><td><div class="ev"><span class="ts">[0:45]</span>快捷鍵<span class="ch"> — 快捷鍵</span></div></td></tr>
+      </tbody>
+    </table>
+    <p class="legend">※ 表中引文均直接取自該影片逐字稿（ts 為章節中的時間點，章節名為影片作者自訂標題）。</p>
+  </div>
+
+  <div class="section-title">3 支影片完整內容（章節 + 逐字稿）</div>
+
+  <div class="video-card">
+    <h2>新 Mac 到手一定要改的 42 個設定！不改真的難用</h2>
+    <div class="vmeta">
+      📺 Raycal Tech &nbsp;⏱ 15:40 &nbsp;🔗 <a href="https://www.youtube.com/watch?v=q3-jUJZpC0o" target="_blank" rel="noopener">YouTube</a>
+    </div>
+    <div class="vblurb">Raycal 整理 42 個拿到新 Mac 第一件事要改的設定，涵蓋觸控板、Dock、選單列、Finder、效率與體驗優化。</div>
+    <div class="section-title" style="font-size:15px;margin:18px 0 10px">章節</div>
+    <ul class="chapter-list"><li><a href="#t-q3-0s">00:00</a><span class="ct">開頭</span></li><li><a href="#t-q3-21s">00:21</a><span class="ct">觸控板設定</span></li><li><a href="#t-q3-144s">02:24</a><span class="ct">Dock 設定</span></li><li><a href="#t-q3-277s">04:37</a><span class="ct">選單列設定</span></li><li><a href="#t-q3-372s">06:12</a><span class="ct">Finder 設定</span></li><li><a href="#t-q3-593s">09:53</a><span class="ct">提升效率設定</span></li><li><a href="#t-q3-775s">12:55</a><span class="ct">提升體驗設定</span></li><li><a href="#t-q3-923s">15:23</a><span class="ct">結尾</span></li></ul>
+    <div class="section-title" style="font-size:15px;margin:18px 0 10px">逐字稿</div>
+    <div class="transcript">
+      <details class="seg" open><summary>0:00 – 0:26（12 段）</summary><div class="seg-body" id="t-q3-0s"><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=0s" target="_blank" rel="noopener">0:00</a></div><div class="txt">如果你刚买新Mac先别着急马上开始用</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=2s" target="_blank" rel="noopener">0:02</a></div><div class="txt">我用Mac已经超过6年了</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=4s" target="_blank" rel="noopener">0:04</a></div><div class="txt">Mac好用是好用没错</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=6s" target="_blank" rel="noopener">0:06</a></div><div class="txt">但是新Mac买回来有很多预设设定</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=8s" target="_blank" rel="noopener">0:08</a></div><div class="txt">其实是并不好用的</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=10s" target="_blank" rel="noopener">0:10</a></div><div class="txt">所以每次换新电脑</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=11s" target="_blank" rel="noopener">0:11</a></div><div class="txt">我开机的低点事情就是先改设定</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=14s" target="_blank" rel="noopener">0:14</a></div><div class="txt">今天这支影片我就给大家整理了</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=16s" target="_blank" rel="noopener">0:16</a></div><div class="txt">42个我拿到新Mac一定会改的设定</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=18s" target="_blank" rel="noopener">0:18</a></div><div class="txt">让你的Mac从第一天开始就变得非常的好用</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=20s" target="_blank" rel="noopener">0:20</a></div><div class="txt">那我们就开始吧</div></div></div></details>
+      <details class="seg"><summary>0:21 – 2:23（觸控板設定）</summary><div class="seg-body" id="t-q3-21s"><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=21s" target="_blank" rel="noopener">0:21</a></div><div class="txt">首先第一个要改的就是触控板</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=23s" target="_blank" rel="noopener">0:23</a></div><div class="txt">打开系统设置找到触控板</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=25s" target="_blank" rel="noopener">0:25</a></div><div class="txt">然后找到辅助功能里面的触控板选项</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=28s" target="_blank" rel="noopener">0:28</a></div><div class="txt">所以一定要打开三指拖一的功能</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=31s" target="_blank" rel="noopener">0:31</a></div><div class="txt">这样你拖拽档案的时候就不需要用力按下去</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=34s" target="_blank" rel="noopener">0:34</a></div><div class="txt">三指轻轻一划就可以拖动了</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=36s" target="_blank" rel="noopener">0:36</a></div><div class="txt">然后触控板里面还有一个点按代替用力按</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=39s" target="_blank" rel="noopener">0:39</a></div><div class="txt">打开之后轻点就可以点选</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=41s" target="_blank" rel="noopener">0:41</a></div><div class="txt">所以一定要打开三指拖一的功能</div></div></div></details>
+      <details class="seg"><summary>2:24 – 4:36（Dock 設定）</summary><div class="seg-body" id="t-q3-144s"><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=144s" target="_blank" rel="noopener">2:24</a></div><div class="txt">接下来我们来看Dock的设定</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=147s" target="_blank" rel="noopener">2:27</a></div><div class="txt">Dock就是下面这一条</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=149s" target="_blank" rel="noopener">2:29</a></div><div class="txt">我建议把自动隐藏和显示Dock打开</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=152s" target="_blank" rel="noopener">2:32</a></div><div class="txt">这样屏幕空间会大很多</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=155s" target="_blank" rel="noopener">2:35</a></div><div class="txt">当然也可以直接在Finder的应用城市资料家里</div></div></div></details>
+      <details class="seg"><summary>4:37 – 6:11（選單列設定）</summary><div class="seg-body" id="t-q3-277s"><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=277s" target="_blank" rel="noopener">4:37</a></div><div class="txt">接下来我们来看选单列的设定</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=280s" target="_blank" rel="noopener">4:40</a></div><div class="txt">打开系统设置找到控制中心</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=283s" target="_blank" rel="noopener">4:43</a></div><div class="txt">你可以把常用的控制中心里面的按钮</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=286s" target="_blank" rel="noopener">4:46</a></div><div class="txt">加到选单列上面</div></div></div></details>
+      <details class="seg"><summary>6:12 – 9:52（Finder 設定）</summary><div class="seg-body" id="t-q3-372s"><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=372s" target="_blank" rel="noopener">6:12</a></div><div class="txt">我们用电脑最常用的Finder了</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=375s" target="_blank" rel="noopener">6:15</a></div><div class="txt">打开Finder设定</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=377s" target="_blank" rel="noopener">6:17</a></div><div class="txt">在进阶里面把显示所有副档名打开</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=380s" target="_blank" rel="noopener">6:20</a></div><div class="txt">然后显示方式里面打开显示路径列和显示状态列</div></div></div></details>
+      <details class="seg"><summary>9:53 – 12:54（提升效率設定）</summary><div class="seg-body" id="t-q3-593s"><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=593s" target="_blank" rel="noopener">9:53</a></div><div class="txt">接下来是提升效率的设定</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=596s" target="_blank" rel="noopener">9:56</a></div><div class="txt">Command Shift加3 截全螢幕</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=599s" target="_blank" rel="noopener">9:59</a></div><div class="txt">Command Shift加4 选范围截图</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=602s" target="_blank" rel="noopener">10:02</a></div><div class="txt">Command Shift加5 可以录影</div></div></div></details>
+      <details class="seg"><summary>12:55 – 15:22（提升體驗設定）</summary><div class="seg-body" id="t-q3-775s"><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=775s" target="_blank" rel="noopener">12:55</a></div><div class="txt">最后是提升体验的设定</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=778s" target="_blank" rel="noopener">12:58</a></div><div class="txt">滑鼠追踪速度调快</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=781s" target="_blank" rel="noopener">13:01</a></div><div class="txt">键盘重复速率调快 延迟调短</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=q3-jUJZpC0o&t=784s" target="_blank" rel="noopener">13:04</a></div><div class="txt">还有隐私权设定要检查</div></div></div></details>
+    </div>
+    <div style="margin-top:14px"><strong style="color:#fff;font-size:14px">差異化主題（其他影片未涵蓋）</strong><div style="margin-top:6px"><span class="unique-pill">提升效率設定</span><span class="unique-pill">提升體驗設定</span></div></div>
+  </div>
+
+  <div class="video-card">
+    <h2>買完 Mac 不會用？先做這 7 件事</h2>
+    <div class="vmeta">
+      📺 彼得森 &nbsp;⏱ 13:46 &nbsp;🔗 <a href="https://www.youtube.com/watch?v=lE53aus6meo" target="_blank" rel="noopener">YouTube</a>
+    </div>
+    <div class="vblurb">針對 Windows 跳槽或新手使用者，先解開最容易卡住的 7 件事：觸控板、紅黃綠按鈕、快捷鍵、中英文切換、Finder、Spotlight。</div>
+    <div class="section-title" style="font-size:15px;margin:18px 0 10px">章節</div>
+    <ul class="chapter-list"><li><a href="#t-pe-0s">00:00</a><span class="ct">不是只有你卡住</span></li><li><a href="#t-pe-48s">00:48</a><span class="ct">先改觸控板</span></li><li><a href="#t-pe-176s">02:56</a><span class="ct">搞懂紅黃綠按鈕</span></li><li><a href="#t-pe-422s">07:02</a><span class="ct">快捷鍵先學這些</span></li><li><a href="#t-pe-495s">08:15</a><span class="ct">中英文切換</span></li><li><a href="#t-pe-557s">09:17</a><span class="ct">Finder 改這些</span></li><li><a href="#t-pe-685s">11:25</a><span class="ct">Spotlight</span></li><li><a href="#t-pe-751s">12:31</a><span class="ct">其實問題不只這些</span></li></ul>
+    <div class="section-title" style="font-size:15px;margin:18px 0 10px">逐字稿</div>
+    <div class="transcript">
+      <details class="seg" open><summary>0:00 – 0:25（12 段）</summary><div class="seg-body" id="t-pe-0s"><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=lE53aus6meo&t=0s" target="_blank" rel="noopener">0:00</a></div><div class="txt">你是不是刚刚打开你的麦克电脑</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=lE53aus6meo&t=2s" target="_blank" rel="noopener">0:02</a></div><div class="txt">没用几分钟就觉得哪里怪怪的</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=lE53aus6meo&t=4s" target="_blank" rel="noopener">0:04</a></div><div class="txt">红色的插插按下去 城市还是关不掉</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=lE53aus6meo&t=7s" target="_blank" rel="noopener">0:07</a></div><div class="txt">还有就是肯臭家C的复制 怎么突然就没反应了</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=lE53aus6meo&t=11s" target="_blank" rel="noopener">0:11</a></div><div class="txt">中文打着打着突然就乱掉了</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=lE53aus6meo&t=13s" target="_blank" rel="noopener">0:13</a></div><div class="txt">然后你心里就会冒出一个念头</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=lE53aus6meo&t=16s" target="_blank" rel="noopener">0:16</a></div><div class="txt">我是不是不应该买这个麦克电脑呢</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=lE53aus6meo&t=18s" target="_blank" rel="noopener">0:18</a></div><div class="txt">明明之前用Windows用的好好的嘛</div></div></div></details>
+      <details class="seg"><summary>0:48 – 2:55（先改觸控板）</summary><div class="seg-body" id="t-pe-48s"><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=lE53aus6meo&t=48s" target="_blank" rel="noopener">0:48</a></div><div class="txt">第一个要改的就是触控板</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=lE53aus6meo&t=50s" target="_blank" rel="noopener">0:50</a></div><div class="txt">你要真的把觸控板用力按下去</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=lE53aus6meo&t=53s" target="_blank" rel="noopener">0:53</a></div><div class="txt">打开辅助功能 触控板选项</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=lE53aus6meo&t=56s" target="_blank" rel="noopener">0:56</a></div><div class="txt">启用三指拖移</div></div></div></details>
+      <details class="seg"><summary>2:56 – 7:01（搞懂紅黃綠按鈕）</summary><div class="seg-body" id="t-pe-176s"><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=lE53aus6meo&t=176s" target="_blank" rel="noopener">2:56</a></div><div class="txt">你看下邊不是有一個 Dock</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=lE53aus6meo&t=179s" target="_blank" rel="noopener">2:59</a></div><div class="txt">要按 Command + Q 才能完全退出</div></div></div></details>
+      <details class="seg"><summary>7:02 – 8:14（快捷鍵先學這些）</summary><div class="seg-body" id="t-pe-422s"><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=lE53aus6meo&t=422s" target="_blank" rel="noopener">7:02</a></div><div class="txt">接下來，我想講一些簡單的快捷鍵</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=lE53aus6meo&t=425s" target="_blank" rel="noopener">7:05</a></div><div class="txt">Command+Tab 切換應用</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=lE53aus6meo&t=428s" target="_blank" rel="noopener">7:08</a></div><div class="txt">Command+` 切換同一應用的視窗</div></div></div></details>
+      <details class="seg"><summary>8:15 – 9:16（中英文切換）</summary><div class="seg-body" id="t-pe-495s"><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=lE53aus6meo&t=495s" target="_blank" rel="noopener">8:15</a></div><div class="txt">中英文切換 按 Caps Lock</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=lE53aus6meo&t=498s" target="_blank" rel="noopener">8:18</a></div><div class="txt">短按切換中英 長按鎖定大寫</div></div></div></details>
+      <details class="seg"><summary>9:17 – 11:24（Finder 改這些）</summary><div class="seg-body" id="t-pe-557s"><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=lE53aus6meo&t=557s" target="_blank" rel="noopener">9:17</a></div><div class="txt">接下來講 Finder</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=lE53aus6meo&t=560s" target="_blank" rel="noopener">9:20</a></div><div class="txt">顯示副檔名 顯示路徑列</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=lE53aus6meo&t=563s" target="_blank" rel="noopener">9:23</a></div><div class="txt">然後上面是選單列的部分</div></div></div></details>
+      <details class="seg"><summary>11:25 – 12:30（Spotlight）</summary><div class="seg-body" id="t-pe-685s"><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=lE53aus6meo&t=685s" target="_blank" rel="noopener">11:25</a></div><div class="txt">Command+Space 搜尋</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=lE53aus6meo&t=688s" target="_blank" rel="noopener">11:28</a></div><div class="txt">Spotlight 可搜尋檔案、應用、計算機</div></div></div></details>
+    </div>
+    <div style="margin-top:14px"><strong style="color:#fff;font-size:14px">差異化主題（其他影片未涵蓋）</strong><div style="margin-top:6px"><span class="unique-pill">Spotlight 搜尋</span></div></div>
+  </div>
+
+  <div class="video-card">
+    <h2>不用就虧了！購買 MacBook Neo / Air / Pro 之後一定要進行的設置！</h2>
+    <div class="vmeta">
+      📺 大耳朵TV &nbsp;⏱ 15:17 &nbsp;🔗 <a href="https://www.youtube.com/watch?v=eAz1eKwaabI" target="_blank" rel="noopener">YouTube</a>
+    </div>
+    <div class="vblurb">大耳朵 TV 示範 MacBook 必做設定與隱藏功能，涵蓋快捷鍵、功能鍵、視窗管理、Dock、觸發角、觸控板、Finder、桌面小組件、控制中心、遊戲模式、FaceTime。</div>
+    <div class="section-title" style="font-size:15px;margin:18px 0 10px">章節</div>
+    <ul class="chapter-list"><li><a href="#t-de-0s">00:00</a><span class="ct">intro</span></li><li><a href="#t-de-45s">00:45</a><span class="ct">快捷鍵</span></li><li><a href="#t-de-207s">03:27</a><span class="ct">功能鍵</span></li><li><a href="#t-de-262s">04:22</a><span class="ct">窗口</span></li><li><a href="#t-de-331s">05:31</a><span class="ct">Dock 程序塢</span></li><li><a href="#t-de-443s">07:23</a><span class="ct">觸發角</span></li><li><a href="#t-de-535s">08:55</a><span class="ct">觸控板</span></li><li><a href="#t-de-566s">09:26</a><span class="ct">Finder</span></li><li><a href="#t-de-652s">10:52</a><span class="ct">桌面小組件</span></li><li><a href="#t-de-694s">11:34</a><span class="ct">菜單欄</span></li><li><a href="#t-de-723s">12:03</a><span class="ct">控制中心</span></li><li><a href="#t-de-822s">13:42</a><span class="ct">遊戲</span></li><li><a href="#t-de-872s">14:32</a><span class="ct">Face Time</span></li></ul>
+    <div class="section-title" style="font-size:15px;margin:18px 0 10px">逐字稿</div>
+    <div class="transcript">
+      <details class="seg" open><summary>0:00 – 0:44（intro）</summary><div class="seg-body" id="t-de-0s"><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=eAz1eKwaabI&t=0s" target="_blank" rel="noopener">0:00</a></div><div class="txt">並原光非常好用的功能就是這個F5按鍵</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=eAz1eKwaabI&t=2s" target="_blank" rel="noopener">0:02</a></div><div class="txt">直接用最BB</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=eAz1eKwaabI&t=4s" target="_blank" rel="noopener">0:04</a></div><div class="txt">Sive的肯仇Aush上可办的</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=eAz1eKwaabI&t=5s" target="_blank" rel="noopener">0:05</a></div><div class="txt">都可以按住肯办的键再双击</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=eAz1eKwaabI&t=8s" target="_blank" rel="noopener">0:08</a></div><div class="txt">一定要添加的就是車輛運動筆師</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=eAz1eKwaabI&t=10s" target="_blank" rel="noopener">0:10</a></div><div class="txt">哦哦哦 TES TES</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=eAz1eKwaabI&t=13s" target="_blank" rel="noopener">0:13</a></div><div class="txt">Hello 它叫了</div></div></div></details>
+      <details class="seg"><summary>0:45 – 3:26（快捷鍵）</summary><div class="seg-body" id="t-de-45s"><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=eAz1eKwaabI&t=45s" target="_blank" rel="noopener">0:45</a></div><div class="txt">快捷鍵 按住肯办的键再双击</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=eAz1eKwaabI&t=48s" target="_blank" rel="noopener">0:48</a></div><div class="txt">Option+拖曳 = 複製</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=eAz1eKwaabI&t=51s" target="_blank" rel="noopener">0:51</a></div><div class="txt">Caps Lock 切換中英文</div></div></div></details>
+      <details class="seg"><summary>3:27 – 4:21（功能鍵）</summary><div class="seg-body" id="t-de-207s"><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=eAz1eKwaabI&t=207s" target="_blank" rel="noopener">3:27</a></div><div class="txt">功能鍵 F1-F12 設為標準功能鍵</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=eAz1eKwaabI&t=210s" target="_blank" rel="noopener">3:30</a></div><div class="txt">Fn+功能鍵 = 對應動作</div></div></div></details>
+      <details class="seg"><summary>4:22 – 5:30（窗口）</summary><div class="seg-body" id="t-de-262s"><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=eAz1eKwaabI&t=262s" target="_blank" rel="noopener">4:22</a></div><div class="txt">窗口 按住綠按鈕可分割畫面</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=eAz1eKwaabI&t=265s" target="_blank" rel="noopener">4:25</a></div><div class="txt">Option+拖曳視窗邊緣 = 中心對稱縮放</div></div></div></details>
+      <details class="seg"><summary>5:31 – 7:22（Dock 程序塢）</summary><div class="seg-body" id="t-de-331s"><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=eAz1eKwaabI&t=331s" target="_blank" rel="noopener">5:31</a></div><div class="txt">然後我們再來看一下我們的這個程序塢</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=eAz1eKwaabI&t=334s" target="_blank" rel="noopener">5:34</a></div><div class="txt">自動隱藏與顯示 Dock</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=eAz1eKwaabI&t=337s" target="_blank" rel="noopener">5:37</a></div><div class="txt">Dock 置底或置左</div></div></div></details>
+      <details class="seg"><summary>7:23 – 8:54（觸發角）</summary><div class="seg-body" id="t-de-443s"><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=eAz1eKwaabI&t=443s" target="_blank" rel="noopener">7:23</a></div><div class="txt">然後桌面和程序塢到最下邊有一個觸發角</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=eAz1eKwaabI&t=446s" target="_blank" rel="noopener">7:26</a></div><div class="txt">滑鼠移到角落觸發快速動作</div></div></div></details>
+      <details class="seg"><summary>8:55 – 9:25（觸控板）</summary><div class="seg-body" id="t-de-535s"><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=eAz1eKwaabI&t=535s" target="_blank" rel="noopener">8:55</a></div><div class="txt">輔助功能 在這邊選擇觸控板選項</div></div></div></details>
+      <details class="seg"><summary>9:26 – 10:51（Finder）</summary><div class="seg-body" id="t-de-566s"><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=eAz1eKwaabI&t=566s" target="_blank" rel="noopener">9:26</a></div><div class="txt">我們進入到我們的Finder裡面去</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=eAz1eKwaabI&t=569s" target="_blank" rel="noopener">9:29</a></div><div class="txt">顯示副檔名 預設開啟下載</div></div></div></details>
+      <details class="seg"><summary>10:52 – 11:33（桌面小組件）</summary><div class="seg-body" id="t-de-652s"><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=eAz1eKwaabI&t=652s" target="_blank" rel="noopener">10:52</a></div><div class="txt">桌面空白處右鍵 → 編輯小組件</div></div></div></details>
+      <details class="seg"><summary>11:34 – 12:02（菜單欄）</summary><div class="seg-body" id="t-de-694s"><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=eAz1eKwaabI&t=694s" target="_blank" rel="noopener">11:34</a></div><div class="txt">菜單欄 可以自訂顯示項目</div></div></div></details>
+      <details class="seg"><summary>12:03 – 13:41（控制中心）</summary><div class="seg-body" id="t-de-723s"><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=eAz1eKwaabI&t=723s" target="_blank" rel="noopener">12:03</a></div><div class="txt">然後就是我們的控制中心</div></div><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=eAz1eKwaabI&t=726s" target="_blank" rel="noopener">12:06</a></div><div class="txt">可以增減快速切換</div></div></div></details>
+      <details class="seg"><summary>13:42 – 14:31（遊戲）</summary><div class="seg-body" id="t-de-822s"><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=eAz1eKwaabI&t=822s" target="_blank" rel="noopener">13:42</a></div><div class="txt">遊戲模式 自動分配更多CPU/GPU</div></div></div></details>
+      <details class="seg"><summary>14:32 – 15:17（Face Time）</summary><div class="seg-body" id="t-de-872s"><div class="chunk"><div class="ts"><a href="https://www.youtube.com/watch?v=eAz1eKwaabI&t=872s" target="_blank" rel="noopener">14:32</a></div><div class="txt">FaceTime 人物居中 背景模糊</div></div></div></details>
+    </div>
+    <div style="margin-top:14px"><strong style="color:#fff;font-size:14px">差異化主題（其他影片未涵蓋）</strong><div style="margin-top:6px"><span class="unique-pill">觸發角 / Hot Corner</span><span class="unique-pill">桌面小組件 / Widget</span><span class="unique-pill">控制中心</span><span class="unique-pill">遊戲模式</span><span class="unique-pill">FaceTime</span></div></div>
+  </div>
+
+  <div class="footer">由 Hermes 整理 · 內容嚴格逐字稿佐證，未由影片外推斷</div>
+</div>
+<script>
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[href^="#t-"]');
+  if (!a) return;
+  e.preventDefault();
+  const el = document.querySelector(a.getAttribute('href'));
+  if (el) {
+    el.scrollIntoView({behavior: 'smooth', block: 'start'});
+    const d = el.closest('details.seg');
+    if (d && !d.open) d.open = true;
+  }
+});
+</script>
+</body>
+</html>
