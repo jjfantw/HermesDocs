@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """
-HermesDocs 自動化發布腳本
+HermesDocs 自動化發布腳本 (v2 — 雙軌發布)
 Usage: python3 deploy.py <path/to/new_article.html>
 
 流程：
   1. 複製新文章至 docs/videos/
   2. 掃描 docs/videos/ 所有 HTML，重新渲染首頁
-  3. Git add → commit → push
-  4. 輪詢 Cloudflare Pages 驗證部署成功
+  3. Google Drive 備份（try-except 保護，失敗不影響發布）
+  4. Git add → commit → push
+  5. 輪詢 Cloudflare Pages 驗證部署成功
 """
 
 import os
@@ -32,6 +33,11 @@ SITE_URL = "https://hermesdocs.pages.dev"
 POLL_INTERVAL = 10  # seconds
 POLL_TIMEOUT = 180  # seconds
 
+# ── Google Drive 路徑 ─────────────────────────────────────
+# Drive for Desktop 掛載點（zh-Hant locale）
+DRIVE_ROOT = os.path.expanduser("~/Google Drive/我的雲端硬碟")
+HERMES_DRIVE_DIR = os.path.join(DRIVE_ROOT, "Hermes")
+
 
 def log(msg: str):
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -52,16 +58,6 @@ def extract_title(html_path: str) -> str:
     if match:
         return match.group(1).strip()
     return os.path.splitext(os.path.basename(html_path))[0]
-
-
-def extract_body_content(html_path: str) -> str:
-    """Extract content between <body> and </body> for article pages."""
-    with open(html_path, "r", encoding="utf-8") as f:
-        content = f.read()
-    match = re.search(r"<body[^>]*>(.*?)</body>", content, re.IGNORECASE | re.DOTALL)
-    if match:
-        return match.group(1).strip()
-    return content
 
 
 def scan_video_docs() -> list[dict]:
@@ -104,6 +100,41 @@ def render_index(entries: list[dict]) -> str:
     template = template.replace("<!--__LAST_UPDATED__-->", now_str)
 
     return template
+
+
+def upload_to_drive(article_path: str, article_title: str) -> bool:
+    """
+    Copy article + index.html to Google Drive sync folder.
+    Uses Drive for Desktop (方案 A) — no API needed.
+    Returns True if successful, False on failure (non-blocking).
+    """
+    try:
+        if not os.path.isdir(DRIVE_ROOT):
+            log("⚠️  Google Drive root not found — skipping Drive backup")
+            return False
+
+        # Create dated folder under Hermes/
+        today_str = datetime.now().strftime("%Y-%m-%d")
+        drive_folder = os.path.join(HERMES_DRIVE_DIR, f"{today_str}_HermesDocs")
+        os.makedirs(drive_folder, exist_ok=True)
+
+        # Copy article HTML
+        article_filename = os.path.basename(article_path)
+        drive_article_path = os.path.join(drive_folder, article_filename)
+        shutil.copy2(article_path, drive_article_path)
+        log(f"☁️  Copied article → Google Drive: {drive_article_path}")
+
+        # Copy index.html
+        drive_index_path = os.path.join(drive_folder, "index.html")
+        shutil.copy2(INDEX_OUTPUT, drive_index_path)
+        log(f"☁️  Copied index.html → Google Drive: {drive_index_path}")
+
+        log(f"✅ Google Drive backup complete ({drive_folder})")
+        return True
+
+    except Exception as e:
+        log(f"⚠️  Google Drive backup failed (non-blocking): {e}")
+        return False
 
 
 def git_has_changes() -> bool:
@@ -185,7 +216,10 @@ def main():
         f.write(index_html)
     log(f"🏠 Updated index.html ({len(entries)} entries)")
 
-    # ── 3. Git automation ──
+    # ── 3. Google Drive backup (non-blocking) ──
+    upload_to_drive(src_path, title)
+
+    # ── 4. Git automation ──
     if not git_has_changes():
         log("No changes detected. Sync stopped.")
         sys.exit(0)
@@ -194,7 +228,7 @@ def main():
         log("❌ Git push failed. Aborting deployment verification.")
         sys.exit(1)
 
-    # ── 4. Poll Cloudflare Pages ──
+    # ── 5. Poll Cloudflare Pages ──
     poll_deployment(title)
     log("🎉 Deployment process complete!")
 

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>雙軌發布測試：網路 + 雲端硬碟</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: #333; background: #f8f9fa; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: #343a40; padding: 12px 0; }
+    .back-bar a { color: #fff; text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: #fff; border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: #212529; }
+    article .meta { color: #868e96; font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #e9ecef; }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content ul { margin: 8px 0 16px 24px; }
+    footer { background: #343a40; color: #868e96; text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>雙軌發布測試：網路 + 雲端硬碟</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-07-07</span>
+      </div>
+      <div class="content">
+        <p>此測試檔案用於驗證 HermesDocs deploy.py v2 的雙軌發布功能。</p>
+        <p>測試項目：</p>
+        <ul>
+          <li>✅ 檔案複製至 docs/videos/</li>
+          <li>✅ 首頁自動重新渲染</li>
+          <li>✅ Google Drive 備份（Drive for Desktop 同步資料夾）</li>
+          <li>✅ Git Commit & Push</li>
+          <li>✅ Cloudflare Pages 部署驗證</li>
+        </ul>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+</body>
+</html>
