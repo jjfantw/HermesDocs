@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Action-Reference Framework — Tiago Forte</title>
+<style>
+  :root {
+    --bg: #0b1020; --bg-soft: #131a35; --fg: #e6ecff; --muted: #8a93b8;
+    --accent: #6ee7ff;
+    --action: #22d3ee;   /* 行動側 - 冷色 */
+    --reference: #f472b6; /* 參考側 - 暖色 */
+    --border: rgba(255,255,255,0.08);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Microsoft JhengHei",
+      "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  .container { max-width: 880px; margin: 0 auto; padding: 32px 24px 80px; }
+  header.hero { background: linear-gradient(135deg, #1e3a8a 0%, #6d28d9 60%, #be185d 100%);
+    border-radius: 18px; padding: 36px 28px; margin-bottom: 28px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
+  .eyebrow { font-size: 12px; letter-spacing: 0.18em; color: #a5b4fc;
+    text-transform: uppercase; margin-bottom: 10px; font-weight: 600; }
+  h1 { font-size: 30px; line-height: 1.35; margin: 0 0 14px; font-weight: 700; }
+  .subtitle { font-size: 17px; color: #cbd5e1; margin: 0 0 18px; }
+  .meta { display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; color: #cbd5e1; }
+  .meta span { background: rgba(255,255,255,0.08); padding: 4px 12px; border-radius: 999px; }
+  h2 { font-size: 22px; margin: 36px 0 14px; padding-left: 14px;
+    border-left: 4px solid var(--accent); }
+  h3 { font-size: 18px; margin: 24px 0 10px; }
+  p { color: #d1d8f0; margin: 0 0 12px; }
+  .card { background: var(--bg-soft); border: 1px solid var(--border);
+    border-radius: 14px; padding: 22px 24px; margin: 16px 0; }
+
+  /* 決策樹 */
+  .tree { background: var(--bg-soft); border: 1px solid var(--border);
+    border-radius: 14px; padding: 24px; margin: 18px 0; overflow-x: auto; }
+  .tree-root { text-align: center; margin-bottom: 16px; }
+  .tree-root .node { display: inline-block; background: var(--accent); color: #0b1020;
+    padding: 8px 20px; border-radius: 999px; font-weight: 700; font-size: 14px; }
+  .tree-q { text-align: center; color: var(--muted); font-size: 13px; margin: 14px 0 6px; }
+  .tree-row { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+  .tree-hemi { flex: 1; min-width: 280px; max-width: 420px;
+    border-radius: 12px; padding: 14px 16px; }
+  .tree-hemi.action { background: rgba(34, 211, 238, 0.08);
+    border: 1px solid rgba(34, 211, 238, 0.3); }
+  .tree-hemi.reference { background: rgba(244, 114, 182, 0.08);
+    border: 1px solid rgba(244, 114, 182, 0.3); }
+  .tree-hemi h4 { margin: 0 0 8px; font-size: 14px; letter-spacing: 0.05em; }
+  .tree-hemi.action h4 { color: var(--action); }
+  .tree-hemi.reference h4 { color: var(--reference); }
+  .leaf { background: rgba(255,255,255,0.04); border-radius: 8px; padding: 10px 12px;
+    margin-top: 8px; }
+  .leaf .name { font-weight: 700; font-size: 14px; color: var(--fg); }
+  .leaf .tool { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .leaf .eg { font-size: 12px; color: #cbd5e1; margin-top: 4px; font-style: italic; }
+
+  /* 四象限 */
+  .quad-grid { display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 14px; margin: 18px 0; }
+  .quad { background: var(--bg-soft); border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px 18px 16px; }
+  .quad.q1 { border-top: 4px solid var(--action); }
+  .quad.q2 { border-top: 4px solid #38bdf8; }
+  .quad.q3 { border-top: 4px solid #c084fc; }
+  .quad.q4 { border-top: 4px solid var(--reference); }
+  .quad .q-tag { display: inline-block; font-size: 11px; font-weight: 700;
+    color: var(--muted); letter-spacing: 0.08em; }
+  .quad .q-name { font-size: 18px; font-weight: 700; margin: 4px 0 2px; }
+  .quad .q-tool { font-size: 13px; color: var(--accent); margin-bottom: 8px; }
+  .quad .q-eg { font-size: 13px; color: #cbd5e1; margin: 4px 0; }
+  @media (max-width: 560px) { .quad-grid { grid-template-columns: 1fr; } h1 { font-size: 24px; } }
+
+  /* 章節 */
+  .chapter { background: var(--bg-soft); border: 1px solid var(--border);
+    border-radius: 14px; padding: 20px 22px; margin: 14px 0;
+    border-left: 6px solid var(--accent); }
+  .chapter .ch-head { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .chapter .ch-time { background: var(--accent); color: #0b1020; font-weight: 800;
+    padding: 4px 12px; border-radius: 999px; font-size: 13px;
+    font-variant-numeric: tabular-nums; }
+  .chapter .ch-name { font-size: 17px; font-weight: 700; color: var(--accent); }
+  .chapter .ch-body { color: #d1d8f0; font-size: 14px; line-height: 1.7; }
+
+  .quote { margin-top: 12px; padding: 10px 14px;
+    background: rgba(110, 231, 255, 0.08);
+    border-left: 3px solid var(--accent);
+    border-radius: 6px; font-style: italic; color: #cbd5e1; font-size: 14px; }
+  .quote::before { content: "\201C"; color: var(--accent); font-size: 20px; margin-right: 4px; }
+  .quote::after { content: "\201D"; color: var(--accent); font-size: 20px; margin-left: 4px; }
+
+  .summary-grid { display: grid; gap: 12px; margin: 14px 0; }
+  .summary-row { display: flex; gap: 14px; padding: 10px 14px;
+    background: var(--bg-soft); border-radius: 10px; border: 1px solid var(--border); }
+  .summary-row b { color: var(--accent); min-width: 90px; flex-shrink: 0; }
+  .takeaways { list-style: none; padding: 0; margin: 12px 0; counter-reset: li; }
+  .takeaways li { padding: 12px 14px 12px 40px; position: relative;
+    background: var(--bg-soft); border: 1px solid var(--border);
+    border-radius: 10px; margin-bottom: 10px; }
+  .takeaways li::before { content: counter(li); counter-increment: li;
+    position: absolute; left: 12px; top: 12px;
+    width: 22px; height: 22px; line-height: 22px; text-align: center;
+    background: var(--accent); color: #0b1020; border-radius: 50%;
+    font-weight: 700; font-size: 13px; }
+  .cta { background: linear-gradient(135deg, #4f46e5, #db2777);
+    border-radius: 14px; padding: 22px 26px; margin-top: 28px; }
+  .cta h3 { margin: 0 0 8px; color: #fff; }
+  .cta p { color: #f5d0fe; margin: 0; }
+  footer { margin-top: 36px; text-align: center; color: var(--muted); font-size: 12px; }
+  footer a { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header class="hero">
+  <div class="eyebrow">影片分析報告 · Action-Reference Framework</div>
+  <h1>找不到筆記?把資訊放進對的格子</h1>
+  <p class="subtitle">Tiago Forte 提出的 Action-Reference Framework — 一個 yes/no 決策樹,把每則資訊分流到對的 App。</p>
+  <div class="meta">
+    <span>📺 Tiago Forte / Forte Labs</span>
+    <span>⏱ 6:26</span>
+    <span>🔗 youtu.be/S_M4ocbt3RE</span>
+  </div>
+</header>
+
+<section>
+  <h2>一句話總結</h2>
+  <div class="card">
+    <p>「第二大腦(Second Brain)」不是某個 App,而是一套把資訊分流到<strong>行動 / 參考</strong>兩半球的系統;<strong>資訊進來時只問兩個 yes/no 問題,就能放到對的格子</strong>。</p>
+  </div>
+</section>
+
+<section>
+  <h2>核心:決策樹</h2>
+  <div class="tree">
+    <div class="tree-root">
+      <div class="node">📥 資訊進來</div>
+    </div>
+    <div class="tree-q">Q1: 短期內需要做嗎?(Action vs Reference)</div>
+    <div class="tree-row">
+      <div class="tree-hemi action">
+        <h4>▶ 行動側(短期要做)</h4>
+        <div class="tree-q">Q2: 有指定時間嗎?</div>
+        <div class="leaf">
+          <div class="name">📅 行事曆(Calendar)</div>
+          <div class="tool">Google Calendar</div>
+          <div class="eg">會議、Zoom、活動 — 時間不能改</div>
+        </div>
+        <div class="leaf">
+          <div class="name">✅ 待辦清單(Task Manager)</div>
+          <div class="tool">Things 3 / Apple Reminders</div>
+          <div class="eg">寫文章、報稅 — 沒時間壓力</div>
+        </div>
+      </div>
+      <div class="tree-hemi reference">
+        <h4>▶ 參考側(留著以後用)</h4>
+        <div class="tree-q">要保留原格式或檔案很大?</div>
+        <div class="leaf">
+          <div class="name">📝 筆記 App(Notes)</div>
+          <div class="tool">隨意 — 主戰場</div>
+          <div class="eg">一句話、想法、連結、照片(隨手記)</div>
+        </div>
+        <div class="leaf">
+          <div class="name">📁 雲端硬碟(File Storage)</div>
+          <div class="tool">Google Drive</div>
+          <div class="eg">PDF、Google Doc 等共享文件</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>四個象限速查</h2>
+  <div class="quad-grid">
+    <div class="quad q1">
+      <div class="q-tag">Q1 · 行動 · 有時間</div>
+      <div class="q-name">📅 行事曆</div>
+      <div class="q-tool">Google Calendar</div>
+      <div class="q-eg">2pm 週二開會、Zoom call、活動</div>
+    </div>
+    <div class="quad q2">
+      <div class="q-tag">Q2 · 行動 · 無時間</div>
+      <div class="q-name">✅ 待辦清單</div>
+      <div class="q-tool">Things 3 / Apple Reminders</div>
+      <div class="q-eg">寫一篇 personal essay、報稅</div>
+    </div>
+    <div class="quad q3">
+      <div class="q-tag">Q3 · 參考 · 文字圖像</div>
+      <div class="q-name">📝 筆記 App</div>
+      <div class="q-tool">隨手記的內容</div>
+      <div class="q-eg">書中一句話、想法、連結、照片</div>
+    </div>
+    <div class="quad q4">
+      <div class="q-tag">Q4 · 參考 · 大檔/共享</div>
+      <div class="q-name">📁 雲端硬碟</div>
+      <div class="q-tool">Google Drive</div>
+      <div class="q-eg">研究用的 PDF、Google Doc 共享文件</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>章節整理</h2>
+
+  <div class="chapter">
+    <div class="ch-head">
+      <span class="ch-time">00:00</span>
+      <span class="ch-name">資訊過載 — 為什麼找不到東西</span>
+    </div>
+    <div class="ch-body">
+      訊息、會議、通知、文件、書、播客、YouTube — 全部都是資訊。你知道「明明存過」但找不到,那是因為你試著用<strong>石器時代的大腦</strong>處理 21 世紀的資訊量。該讓 App 接手一部份負載。
+    </div>
+  </div>
+
+  <div class="chapter">
+    <div class="ch-head">
+      <span class="ch-time">00:50</span>
+      <span class="ch-name">兩個腦半球 — 行動 vs 參考</span>
+    </div>
+    <div class="ch-body">
+      就像大腦的左右半球,你的「第二大腦」也可以分兩邊:<strong>左 = 分析 / 行動(任務、待辦、會議)</strong>;<strong>右 = 自由 / 參考(學習、思考、未來可能用到的內容)</strong>。這套分流最早來自 David Allen《Getting Things Done》。
+    </div>
+  </div>
+
+  <div class="chapter">
+    <div class="ch-head">
+      <span class="ch-time">01:38</span>
+      <span class="ch-name">行動側 — 行事曆 vs 待辦</span>
+    </div>
+    <div class="ch-body">
+      行動側再切一刀:<strong>有指定時間的</strong>(會議、Zoom、活動)→ 行事曆;用 Google Calendar 因為穩、可分享;<strong>沒指定時間的</strong>(寫文章)→ 待辦清單;新手用 Apple Reminders,進階用 Things 3。重點是:不要把待辦塞進參考側的雜訊裡。
+    </div>
+  </div>
+
+  <div class="chapter">
+    <div class="ch-head">
+      <span class="ch-time">03:42</span>
+      <span class="ch-name">參考側 — 筆記 vs 雲端</span>
+    </div>
+    <div class="ch-body">
+      筆記 App 是<strong>你的工作室/實驗室</strong> — 開工第一件事就是打開它;適合書中一句話、想法、連結、照片。但 PDF、共享文件、太大或需保留原格式的東西,放雲端硬碟(Google Drive)。書中引文 → 筆記;研究用的 PDF → Drive。
+    </div>
+  </div>
+
+  <div class="chapter">
+    <div class="ch-head">
+      <span class="ch-time">05:10</span>
+      <span class="ch-name">結論 — It's not you, it's your system</span>
+    </div>
+    <div class="ch-body">
+      把生產力想成<strong>「系統」而不是「你自己」</strong>。當資訊過載感升起,不要怪自己,問:「我系統的哪裡出錯了?」這就是 PARA 的出場點 — 它橫切四個象限,給你一套組織所有資訊的統一規則(本片未展開 PARA,留到後續影片)。
+    </div>
+    <div class="quote">It's not you, it's your system.</div>
+  </div>
+
+  <div class="chapter" style="border-left-color: var(--muted); opacity: 0.7;">
+    <div class="ch-head">
+      <span class="ch-time" style="background: var(--muted);">05:55</span>
+      <span class="ch-name" style="color: var(--muted);">NG 片段 (Bloopers)</span>
+    </div>
+    <div class="ch-body">花絮 — 拍攝失誤與重來畫面。</div>
+  </div>
+
+</section>
+
+<section>
+  <h2>關鍵洞察</h2>
+  <ul class="takeaways">
+    <li><strong>「第二大腦」是系統,不是 App。</strong>同一支 App(例如 Notion)可以裝四象限的內容;框架決定你「怎麼放」,不是叫你「換工具」。</li>
+    <li><strong>Yes/No 二分法比資料夾分類省腦。</strong>不必想十層資料夾,只要問兩個問題就能決定歸位。</li>
+    <li><strong>把行動從參考的雜訊中拉出來。</strong>待辦淹沒在有趣的內容裡,自然會忘;放進獨立 App 才會被完成。</li>
+    <li><strong>筆記 App = 主戰場。</strong>作者每天開工第一件事就是打開它 — 它是工作室,不是垃圾桶。</li>
+    <li><strong>不是你的問題,是系統的問題。</strong>當你感到資訊過載,先檢查系統,不要自責。</li>
+    <li><strong>PARA 是這支影片的延伸鉤子。</strong>本片只點到「橫切四象限」,沒展開 Projects / Areas / Resources / Archives — 那是 Forte Labs 下一支影片。</li>
+  </ul>
+</section>
+
+<section>
+  <h2>影片資訊</h2>
+  <div class="summary-grid">
+    <div class="summary-row"><b>標題</b><span>Tired of Lost Notes? The Simple System to Organize Everything!</span></div>
+    <div class="summary-row"><b>頻道</b><span>Tiago Forte / Forte Labs</span></div>
+    <div class="summary-row"><b>長度</b><span>6:26</span></div>
+    <div class="summary-row"><b>類型</b><span>一般影片(16:9 橫式;非 Shorts)</span></div>
+    <div class="summary-row"><b>語言</b><span>英文(口白)+ 英文(逐字稿)</span></div>
+    <div class="summary-row"><b>逐字稿</b><span>✓ 有(Whisper-style 自動字幕,156 段)</span></div>
+    <div class="summary-row"><b>核心框架</b><span>Action-Reference Framework + 預告 PARA</span></div>
+  </div>
+</section>
+
+<div class="cta">
+  <h3>🎯 一句話行動</h3>
+  <p>下次任何東西進到你的 inbox,先問自己一個問題:<strong>「這是 Action 還是 Reference?」</strong>然後照決策樹分流到對的 App。</p>
+</div>
+
+<footer>
+  <p>分析對象：<a href="https://youtu.be/S_M4ocbt3RE" target="_blank">youtu.be/S_M4ocbt3RE</a> · Tiago Forte · 2024</p>
+  <p>本報告所有內容均直接擷取自影片逐字稿與章節說明,未加油添醋。</p>
+</footer>
+
+</div>
+</body>
+</html>
