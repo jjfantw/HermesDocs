@@ -13,6 +13,7 @@ Usage: python3 deploy.py <path/to/new_article.html>
 
 import os
 import re
+import json
 import sys
 import glob
 import time
@@ -48,6 +49,36 @@ def run_cmd(cmd: list, cwd: str = BASE_DIR) -> tuple[str, str, int]:
     """Run a shell command and return (stdout, stderr, exit_code)."""
     result = subprocess.run(cmd, capture_output=True, text=True, cwd=cwd)
     return result.stdout.strip(), result.stderr.strip(), result.returncode
+
+
+def extract_plain_text(html_path: str) -> str:
+    """Strip HTML tags from an article, return clean text for search indexing."""
+    with open(html_path, "r", encoding="utf-8") as f:
+        content = f.read()
+    # Remove <style> and <script> blocks
+    content = re.sub(r"<style[^>]*>.*?</style>", "", content, flags=re.DOTALL | re.IGNORECASE)
+    content = re.sub(r"<script[^>]*>.*?</script>", "", content, flags=re.DOTALL | re.IGNORECASE)
+    # Remove HTML tags
+    content = re.sub(r"<[^>]+>", " ", content)
+    # Decode common entities
+    content = content.replace("&nbsp;", " ").replace("&amp;", "&").replace("&lt;", "<").replace("&gt;", ">").replace("&quot;", "\"").replace("&#39;", "'")
+    # Collapse whitespace
+    content = re.sub(r"\s+", " ", content).strip()
+    return content
+
+
+def build_search_index(entries: list[dict]) -> list[dict]:
+    """Build search index from all articles (title + plain text)."""
+    index = []
+    for e in entries:
+        text = extract_plain_text(e["path"])
+        index.append({
+            "title": e["title"],
+            "url": f"videos/{e['filename']}",
+            "date": datetime.fromtimestamp(e["mtime"], tz=timezone.utc).strftime("%Y-%m-%d %H:%M"),
+            "content": text[:500],  # 全文索引，存前 500 字
+        })
+    return index
 
 
 def extract_title(html_path: str) -> str:
@@ -205,8 +236,11 @@ def main():
     title = extract_title(src_path)
     filename = os.path.basename(src_path)
     dest_path = os.path.join(VIDEOS_DIR, filename)
-    shutil.copy2(src_path, dest_path)
-    log(f"📄 Copied '{filename}' → {dest_path}")
+    if os.path.normpath(src_path) == os.path.normpath(dest_path):
+        log(f"📄 Article already in videos/ — skipping copy")
+    else:
+        shutil.copy2(src_path, dest_path)
+        log(f"📄 Copied '{filename}' → {dest_path}")
 
     # ── 2. Re-render index ──
     entries = scan_video_docs()
@@ -215,6 +249,14 @@ def main():
     with open(INDEX_OUTPUT, "w", encoding="utf-8") as f:
         f.write(index_html)
     log(f"🏠 Updated index.html ({len(entries)} entries)")
+
+    # ── 2.5 Build search index ──
+    search_index = build_search_index(entries)
+    search_index_path = os.path.join(DOCS_DIR, "assets", "js", "search-index.json")
+    os.makedirs(os.path.dirname(search_index_path), exist_ok=True)
+    with open(search_index_path, "w", encoding="utf-8") as f:
+        json.dump(search_index, f, ensure_ascii=False, indent=2)
+    log(f"🔍 Built search index ({len(search_index)} entries) → {search_index_path}")
 
     # ── 3. Google Drive backup (non-blocking) ──
     upload_to_drive(src_path, title)
