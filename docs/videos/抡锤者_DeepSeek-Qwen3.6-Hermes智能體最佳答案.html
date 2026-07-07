@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeepSeek + Qwen3.6 + Hermes：當下智能體最佳答案 | 抡锤者</title>
+<style>
+  :root {
+    --bg: #0b1020; --bg-soft: #131a35; --fg: #e6ecff; --muted: #8a93b8;
+    --accent: #6ee7ff; --gold: #fbbf24; --rose: #f472b6; --green: #4ade80;
+    --red: #f87171; --indigo: #818cf8; --purple: #a78bfa;
+    --border: rgba(255,255,255,0.08);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Microsoft JhengHei",
+      "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  .container { max-width: 920px; margin: 0 auto; padding: 32px 24px 80px; }
+  header.hero { background: linear-gradient(135deg, #1e3a8a 0%, #6d28d9 60%, #be185d 100%);
+    border-radius: 18px; padding: 36px 28px; margin-bottom: 28px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
+  .eyebrow { font-size: 12px; letter-spacing: 0.18em; color: #a5b4fc;
+    text-transform: uppercase; margin-bottom: 10px; font-weight: 600; }
+  h1 { font-size: 28px; line-height: 1.35; margin: 0 0 14px; font-weight: 700; }
+  .subtitle { font-size: 16px; color: #cbd5e1; margin: 0 0 18px; }
+  .meta { display: flex; flex-wrap: wrap; gap: 10px; font-size: 13px; color: #cbd5e1; }
+  .meta span { background: rgba(255,255,255,0.08); padding: 4px 12px; border-radius: 999px; }
+  h2 { font-size: 22px; margin: 36px 0 14px; padding-left: 14px;
+    border-left: 4px solid var(--accent); }
+  h3 { font-size: 18px; margin: 22px 0 8px; color: var(--accent); }
+  p { color: #d1d8f0; margin: 0 0 12px; }
+  .card { background: var(--bg-soft); border: 1px solid var(--border);
+    border-radius: 14px; padding: 22px 24px; margin: 16px 0; }
+  .card.highlight { border-left: 5px solid var(--gold); }
+  .card.tldr { background: linear-gradient(135deg, rgba(110,231,255,0.1), rgba(167,139,250,0.1));
+    border: 1px solid rgba(110,231,255,0.3); }
+  .badge { display: inline-block; font-size: 11px; font-weight: 700;
+    padding: 3px 10px; border-radius: 999px; letter-spacing: 0.04em;
+    background: rgba(255,255,255,0.08); color: var(--accent); margin-right: 6px; }
+  .badge.cloud { color: var(--green); }
+  .badge.local { color: var(--gold); }
+  .badge.brain { color: var(--purple); }
+  .badge.warn { color: var(--red); }
+  .badge.ok { color: var(--green); }
+  .ts { color: var(--muted); font-family: "SF Mono", Menlo, monospace;
+    font-size: 13px; background: rgba(0,0,0,0.3); padding: 1px 8px;
+    border-radius: 4px; margin-right: 6px; }
+  .quote { margin: 12px 0; padding: 12px 16px;
+    background: rgba(110, 231, 255, 0.08);
+    border-left: 3px solid var(--accent);
+    border-radius: 6px; font-style: italic; color: #cbd5e1; font-size: 15px; }
+  .quote::before { content: "\201C"; color: var(--accent); font-size: 20px; margin-right: 4px; }
+  .quote::after { content: "\201D"; color: var(--accent); font-size: 20px; margin-left: 4px; }
+  .warn-box { background: rgba(248, 113, 113, 0.08); border: 1px solid rgba(248, 113, 113, 0.3);
+    border-left: 4px solid var(--red); border-radius: 10px; padding: 16px 18px; margin: 14px 0; }
+  .warn-box b { color: var(--red); }
+  table { width: 100%; border-collapse: collapse; margin: 14px 0;
+    background: var(--bg-soft); border-radius: 10px; overflow: hidden; }
+  th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border);
+    font-size: 14px; }
+  th { background: rgba(255,255,255,0.04); color: var(--accent);
+    font-weight: 600; font-size: 13px; }
+  tr:last-child td { border-bottom: none; }
+  td code { background: rgba(0,0,0,0.4); padding: 1px 6px; border-radius: 3px;
+    font-size: 13px; color: var(--gold); }
+  .stack-grid { display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 12px; margin: 16px 0; }
+  .stack-card { background: var(--bg-soft); border: 1px solid var(--border);
+    border-radius: 12px; padding: 16px; border-top: 4px solid var(--c, var(--accent)); }
+  .stack-card.cloud { --c: var(--green); }
+  .stack-card.local { --c: var(--gold); }
+  .stack-card.brain { --c: var(--purple); }
+  .stack-card h4 { margin: 0 0 6px; color: var(--c); font-size: 15px; }
+  .stack-card .role { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+  .stack-card ul { margin: 0; padding-left: 18px; font-size: 13px; color: #cbd5e1; }
+  .stack-card ul li { margin-bottom: 4px; }
+  @media (max-width: 640px) { .stack-grid { grid-template-columns: 1fr; } h1 { font-size: 22px; } }
+  .takeaways { list-style: none; padding: 0; margin: 12px 0; counter-reset: li; }
+  .takeaways li { padding: 12px 14px 12px 44px; position: relative;
+    background: var(--bg-soft); border: 1px solid var(--border);
+    border-radius: 10px; margin-bottom: 10px; font-size: 14px; }
+  .takeaways li::before { content: counter(li); counter-increment: li;
+    position: absolute; left: 12px; top: 12px;
+    width: 24px; height: 24px; line-height: 24px; text-align: center;
+    background: var(--accent); color: #0b1020; border-radius: 50%;
+    font-weight: 700; font-size: 13px; }
+  .unsure { background: rgba(251, 191, 36, 0.05); border-left: 3px solid var(--gold);
+    padding: 8px 12px; margin: 10px 0; font-size: 13px; color: #fde68a; border-radius: 4px; }
+  .chapter { background: var(--bg-soft); border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px 20px; margin: 12px 0;
+    border-left: 4px solid var(--indigo); }
+  .chapter h3 { margin-top: 0; color: var(--indigo); }
+  .chapter .ch-meta { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+  .info-grid { display: grid; grid-template-columns: 130px 1fr; gap: 8px 16px;
+    font-size: 14px; }
+  .info-grid b { color: var(--muted); }
+  footer { margin-top: 40px; text-align: center; color: var(--muted); font-size: 12px; padding-top: 20px; border-top: 1px solid var(--border); }
+  footer a { color: var(--accent); text-decoration: none; }
+  .nav { display: flex; gap: 8px; flex-wrap: wrap; margin: 16px 0; }
+  .nav a { color: var(--accent); text-decoration: none; font-size: 13px;
+    padding: 4px 10px; background: rgba(110,231,255,0.08);
+    border-radius: 999px; border: 1px solid rgba(110,231,255,0.2); }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header class="hero">
+  <div class="eyebrow">影片分析報告 · 抡锤者</div>
+  <h1>DeepSeek + Qwen3.6 + Hermes：當下智能體最佳答案</h1>
+  <p class="subtitle">雲端 DeepSeek API 為主 + 本地 Qwen3.6 27B 為輔 + Hermes Agent 為大腦——99% 通用任務 + 抗審查場景全覆蓋,別被新名詞唬住</p>
+  <div class="meta">
+    <span>📺 抡锤者</span>
+    <span>📅 2026-06-25</span>
+    <span>⏱ 9:47</span>
+    <span>🎬 一般影片</span>
+    <span>🔗 <a href="https://youtu.be/1Bjv9NQ1cao" style="color:#a5b4fc;text-decoration:none;">youtu.be/1Bjv9NQ1cao</a></span>
+  </div>
+  <div class="nav" style="margin-top:16px;">
+    <a href="#summary">一句話總結</a>
+    <a href="#stack">三層堆疊</a>
+    <a href="#chapters">章節整理</a>
+    <a href="#ability">能力拆分</a>
+    <a href="#asr">ASR 漂字對照</a>
+    <a href="#takeaways">核心論點</a>
+    <a href="#unknown">未提及項</a>
+  </div>
+</header>
+
+<section id="summary">
+  <h2>一句話總結</h2>
+  <div class="card tldr">
+    <p style="font-size:16px;line-height:1.8;">
+      <span class="badge cloud">雲端主力</span><span class="badge local">本地輔助</span><span class="badge brain">通用大腦</span><br>
+      <b>DeepSeek 官網 API（V3 Flash）+ 本地 Qwen3.6 27B + Hermes Agent</b>,就能覆蓋 99% 通用智能體任務與抗審查場景。<br>
+      <b>根本不需要</b>花大錢上 RTX Pro 6000 / 雙卡本地部署,也不需要追「Loop Engine 2」等新概念——<b>先跑起來、落地賺錢才是王道</b>。
+    </p>
+  </div>
+</section>
+
+<section id="stack">
+  <h2>三層堆疊:雲 + 本地 + 大腦</h2>
+  <div class="stack-grid">
+    <div class="stack-card cloud">
+      <h4>☁️ 雲端主力</h4>
+      <div class="role">DeepSeek V3 Flash (API)</div>
+      <ul>
+        <li>官網 API 整鏈碾壓本地</li>
+        <li>緩存機制:命中率≈免費</li>
+        <li>響應速度 / 穩定性遠超本地</li>
+        <li>複雜任務切 V3 Pro / 高階備援</li>
+      </ul>
+    </div>
+    <div class="stack-card local">
+      <h4>💻 本地輔助</h4>
+      <div class="role">Qwen3.6 27B (Q4_K_M 量化)</div>
+      <ul>
+        <li>20GB 級顯存可跑,精度妥協仍高效</li>
+        <li>支援數據隱私、繞過審查</li>
+        <li>搭配搜索工具可彌補知識庫</li>
+        <li>完全去審查版是隱藏變現賽道</li>
+      </ul>
+    </div>
+    <div class="stack-card brain">
+      <h4>🧠 通用大腦</h4>
+      <div class="role">Hermes Agent (Codex / Claude Code 備援)</div>
+      <ul>
+        <li>聊天 / 記憶 / 規劃 / 工具調用</li>
+        <li>比編程 agent 更強:跨任務泛化</li>
+        <li>比拼的是工具調用、推理、長上下文</li>
+        <li>知識庫用搜索補,非換更大模型</li>
+      </ul>
+    </div>
+  </div>
+  <div class="unsure">⚠️ 影片把 <code>Harness</code> 譯音為 <code>Hermes</code> 沿用標題慣例,實際指通用任務 AI Agent 框架(類似 Hermes / Hermes),非 Nous Research 的 Hermes 模型。詳見下方 ASR 漂字對照。</div>
+</section>
+
+<section id="chapters">
+  <h2>章節整理(共 9 段)</h2>
+
+  <div class="chapter">
+    <h3>1️⃣ 開篇定位:Hermes 為何仍是論壇討論度最高的通用任務神器</h3>
+    <div class="ch-meta"><span class="ts">00:00–00:40</span></div>
+    <p>當下 AI agent 百花齊放——<b>Claude Code、Codex、DeepSeek、TUI、OpenCode、Cursor</b> 等各有所長。純看編程能力,Hermes 可能不如其他 agent;但<b>回到「通用智能任務」(聊天 / 規劃 / 工具調用 / 記憶),Hermes 毫無疑問仍是最好的</b>。Codex 最近表現不錯,也能接 DeepSeek 或本地模型,但「作為大腦」仍遜於 Hermes。</p>
+    <p><b>核心判斷:</b>沒有特殊需求(資料隱私、繞過審查等)的話,完全不必要在本地部署大模型。</p>
+  </div>
+
+  <div class="chapter">
+    <h3>2️⃣ 雲端 DeepSeek API 為何優於本地部署</h3>
+    <div class="ch-meta"><span class="ts">00:40–02:00</span></div>
+    <p>論壇有人買 <b>RTX Pro 6000、雙卡、DDR5 伺服器 + 1D 記憶體 + 獨立顯卡</b>——硬體條件具備,但主講人認為完全划不來。</p>
+    <p><b>DeepSeek 官網 API 不只提供模型,還提供整套工具鏈:</b></p>
+    <ul>
+      <li>緩存結構:應管上 + HCA + CSS 混合機制(用戶無需理解原理)</li>
+      <li>「效率非常高、響應速度非常快、命中後基本白嫖」</li>
+      <li>穩定性遠超本地構建</li>
+      <li>還要考慮噪音、發熱等物理問題</li>
+    </ul>
+    <div class="quote">論壇買了 RTX Pro 6000 的人,拿來跑 AI 繪圖/影片/音頻(不是大模型聊天)才是正路。</div>
+  </div>
+
+  <div class="chapter">
+    <h3>3️⃣ DeepSeek V3 Flash 真實使用案例</h3>
+    <div class="ch-meta"><span class="ts">02:00–03:30</span></div>
+    <p>主講人過往影片已展示用 <b>DeepSeek V3 Flash + Hermes</b> 做:編程、維護伺服器、管理論壇後台、配置 UI、量產環境、自動生成宣傳影片。</p>
+    <p><b>本次案例:</b>重構之前的自動發文系統(中短規模項目)——只花一天多,總調用費用 <b>十幾塊錢不到二十塊</b>。</p>
+    <div class="quote">99% 觀眾不是技術大神,如果覺得 DeepSeek V3 Flash + Hermes 不夠用,<b>一定是你自己沒用好,從自身找問題,不要懷疑模型</b>。換更好的模型多花十幾倍甚至幾十倍的錢,只不過是讓你在項目初期對話中順利解決幾個入門小問題——不能找到自身能力缺欠,後續問題依然無解。</div>
+  </div>
+
+  <div class="chapter">
+    <h3>4️⃣ V3 Flash 寫作案例:客戶專案</h3>
+    <div class="ch-meta"><span class="ts">03:30–04:00</span></div>
+    <p>客戶要求把之前的自動發文系統(行文部分用 V3 Flash + 範文 + 複雜寫作規則 + AI 教育程序,在人類教育為主的論壇中產出深度關鍵字內容)升級——用 Hermes 替代大部分人工介入,僅少數核心管理人員審核。</p>
+    <p>一開始以為 V3 Flash 寫作會被 V3 Pro 碾壓。<b>實測結果:V3 Flash 與 V3 Pro 寫出來的文章效果「其實沒什麼區別」。</b></p>
+    <p><b>更好的解法不是換更大模型,而是給它配備搜索能力。</b></p>
+  </div>
+
+  <div class="chapter">
+    <h3>5️⃣ 搜索能力:為何能讓 V3 Flash 跨界吊打 V3 Pro</h3>
+    <div class="ch-meta"><span class="ts">04:00–05:15</span></div>
+    <p><b>範例:寫「霍爾木茲海峽局勢分析報告」</b></p>
+    <ul>
+      <li><b>離線情況下:</b>V3 Pro 知識儲備明顯碾壓 V3 Flash,文章質量勝出</li>
+      <li><b>實戰話題:</b>大模型知識儲備再強,也抵不過龐大的互聯網資訊;既有的信息分析再準,也沒有「既成事實」更有參考性</li>
+    </ul>
+    <div class="quote">開打前普通人都認為「美 + 以會碾壓伊朗」,現實是美國<b>不僅停戰,還要解凍伊朗資金、幫助重建、甚至默認伊朗在海峽收保護費</b>。協議都簽訂了、已經實際停戰了,大模型再分析有什麼意義?它能比事實還更有參考性嗎?</div>
+    <p><b>接入搜索後:</b></p>
+    <ul>
+      <li>V3 Flash + 搜索 ≈ V3 Pro + 搜索(差距明顯消失)</li>
+      <li>V3 Pro 不接搜索反而會被接入搜索的 V3 Flash 碾壓</li>
+      <li>搜索帶來的成本提升「背趨位可忽略」</li>
+    </ul>
+    <div class="quote">驅動 Hermes 這樣的 Agent 需要的模型能力其實並不高——比拼的是<b>工具調用、推理準確性、長上下文、一致性</b>等基礎能力。</div>
+  </div>
+
+  <div class="chapter">
+    <h3>6️⃣ 本地小模型:Qwen3.6 27B 為何夠用</h3>
+    <div class="ch-meta"><span class="ts">05:15–06:50</span></div>
+    <p>條件約束下,本地小模型也可以勝任——</p>
+    <ul>
+      <li>Qwen3.6 20B / Qwen3.6 27B 等本地部署模型</li>
+      <li>即便是 <code>Q4_K_M 量化</code> + <code>Q8 KV 量化</code>、精度多次妥協,「依然可以高效工作」</li>
+      <li>能力跟在線模型的差距可以接受</li>
+    </ul>
+    <p><b>協作能力:</b>Qwen3.6 27B 感覺比 DeepSeek 差;即便是 Qwen 家族在線大模型,協作能力也「全指瞬」不如 DeepSeek。</p>
+    <p><b>💡 「抄作業」玩法:</b></p>
+    <ul>
+      <li>先讓 <b>DeepSeek 跑一次</b>,得到草稿/總結</li>
+      <li>再調用 <b>本地 Qwen3.6 模型</b>基於這個草稿跑——這就是本地部署 AI 大模型的意義所在</li>
+      <li>因為本地模型搭配一個好的搜索工具,可以彌補知識庫缺陷</li>
+      <li>網絡資訊無窮無盡,只要做好規則設定、邏輯密合,Qwen3.6 完全能讓你「在本地經用一個慢一點的 DeepSeek 的能力」</li>
+    </ul>
+    <p><b>客觀判斷:</b></p>
+    <ul>
+      <li>Qwen3.6 27B 的智力水平已足以完成<b>絕大多數工作</b></li>
+      <li><b>27B–32B 級距的模型是大多數開源 AI 玩家的必爭之地</b></li>
+      <li>阿里會持續更新推出有競爭力的新模型</li>
+      <li>即便它以後不更新,就 Qwen3.6 27B 當前展現的能力固化,也非常有生產力,值得花時間研究</li>
+    </ul>
+  </div>
+
+  <div class="chapter">
+    <h3>7️⃣ 去審查版本:本地部署的特殊優勢</h3>
+    <div class="ch-meta"><span class="ts">06:50–07:45</span></div>
+    <p>Qwen3.6 27B 有不少<b>完全去審查</b>的特殊版本——「你可以用它來幹很多事,形成在線模型不具備的特殊優勢」。</p>
+    <p><span class="badge warn">商業敏感</span> <b>不要小看這個能力——很多客戶願意出重金購買</b>,因為它們確實深受審查困擾。當然,不要馬上聯想到違法犯罪——主講人舉例自己做過 AI 精細評審、圖片自動化量產,「很多需求明明合理,但是你就是會被 AI 拒絕」。</p>
+    <p><b>組合配置:</b></p>
+    <ul>
+      <li><b>Qwen3.6 + Hermes</b>(主力,本地隱私 + 抗審查)</li>
+      <li><b>搭配 DeepSeek V3 Flash 作為在線備選</b>(防止本地模型有時能力不夠任務執行不下去時掉出來撐一下)</li>
+      <li>在很多細分領域可以做出成績、賺到錢</li>
+    </ul>
+  </div>
+
+  <div class="chapter">
+    <h3>8️⃣ Agent 能力拆分:基礎 vs 繁華</h3>
+    <div class="ch-meta"><span class="ts">07:45–09:15</span></div>
+    <p>主講人把 Agent 能力拆成兩層:</p>
+    <table>
+      <thead>
+        <tr><th>層級</th><th>內容</th><th>適用模型</th><th>賦能對象</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge ok">基礎能力</span></td>
+          <td>驅動 Agent 的<b>聊天、記憶、規劃任務、調用工具</b></td>
+          <td>Qwen3.6 27B 或 DeepSeek V3 Flash + Hermes</td>
+          <td>不懂編程/技術的人——相當於開發能力,讓想像力與創新能力能接觸 AI 技術落地</td>
+        </tr>
+        <tr>
+          <td><span class="badge warn">繁華能力</span></td>
+          <td>高階模型擁有更龐大、全面的<b>知識庫</b>,<b>跨領域規劃複雜任務</b></td>
+          <td>DeepSeek V3 Pro 等在線大模型</td>
+          <td>視野開闊但專業深度不夠的人——突破專業知識壁壘做出跨界產品</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><b>高階玩法範例:</b>通過配置搜索能力 + 借助龐大的實時互聯網時事信息來彌補模型知識庫差距。</p>
+    <p>類似的概念:AI 技能 / RAG(緊縮信息增強) / LoRA / 大語言模型微調——AI 新概念層出不窮,<b>本質都是利用大模型的繁華能力打破專業門檻</b>。</p>
+  </div>
+
+  <div class="chapter">
+    <h3>9️⃣ 結語:別被新概念唬住,先跑起來再說</h3>
+    <div class="ch-meta"><span class="ts">09:15–09:47</span></div>
+    <p>如果看完還是一頭霧水,<b>不用懷疑自己智商</b>——AI 新概念每天都在提,「目不暇接」,很多也是虛頭/捏造出來的(例如 <code>Loop Engine 2</code> 等等)。</p>
+    <p><b>建議路徑:</b></p>
+    <ol>
+      <li>先把 <b>Hermes、OpenCode、Claude Code</b> 等 agent 都跑起來</li>
+      <li>接入大模型實現一些簡單小功能</li>
+      <li>搞成工幾次,自然會明白基礎概念</li>
+    </ol>
+    <div class="quote">不要太糾結模型跑分、Agent 哪個好用。其實只要是頭部產品,<b>都足夠利用了</b>。早一點時間,<b>早點賺錢才是王道</b>(王健林梗:先賺它一個億)。</div>
+  </div>
+</section>
+
+<section id="ability">
+  <h2>能力對比表</h2>
+  <table>
+    <thead>
+      <tr><th>場景</th><th>首選</th><th>備援</th><th>備註</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>通用對話 / 規劃 / 工具調用</td>
+        <td>DeepSeek V3 Flash</td>
+        <td>Qwen3.6 27B (本地)</td>
+        <td>大腦一律 Hermes Agent</td>
+      </tr>
+      <tr>
+        <td>複雜編程 / 維護伺服器</td>
+        <td>DeepSeek V3 Flash + Hermes</td>
+        <td>Codex + Claude Code</td>
+        <td>主講人案例:&lt;20 元搞定中型項目</td>
+      </tr>
+      <tr>
+        <td>寫作(教育/深度內容)</td>
+        <td>V3 Flash + 搜索</td>
+        <td>V3 Pro + 搜索(差距不大)</td>
+        <td>接入搜索後 V3 Flash ≈ V3 Pro</td>
+      </tr>
+      <tr>
+        <td>即時新聞分析(局勢/財經)</td>
+        <td>V3 Flash + 搜索</td>
+        <td>Qwen3.6 27B + 搜索</td>
+        <td>離線模型必被現實打臉(霍爾木茲海峽案例)</td>
+      </tr>
+      <tr>
+        <td>數據隱私場景</td>
+        <td>Qwen3.6 27B (本地)</td>
+        <td>DeepSeek API + 脫敏</td>
+        <td>本地量化版仍高效</td>
+      </tr>
+      <tr>
+        <td>繞過審查 / 自動化量產</td>
+        <td>Qwen3.6 27B 去審查版</td>
+        <td>其他開源去審查模型</td>
+        <td>合理需求被拒是真實痛點,商業隱藏賽道</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="asr">
+  <h2>ASR 漂字對照(Whisper base → 原意還原)</h2>
+  <div class="warn-box">
+    <b>本影片無字幕軌。</b>透過 <code>yt-dlp</code> 下載音訊後,以 <code>whisper</code> (base, zh, CPU) 進行語音轉文字。Whisper base 對英文/拉丁文專有名詞漂字嚴重,以下為主要對照,所有上方整理均已還原為影片原意:
+  </div>
+  <table>
+    <thead>
+      <tr><th>Whisper 漂字</th><th>原意</th><th>說明</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>DPC</code> / <code>DPCK</code> / <code>DDC</code></td><td>DeepSeek</td><td>主要雲端模型</td></tr>
+      <tr><td><code>ViceFlash</code> / <code>WiseFelaxi</code> / <code>WiseFlash</code></td><td>DeepSeek V3 Flash</td><td>DeepSeek 主力輕量模型</td></tr>
+      <tr><td><code>VicePro</code> / <code>WisePro</code></td><td>DeepSeek V3 Pro / 高階模型</td><td>知識庫更大的版本</td></tr>
+      <tr><td><code>親吻3.6</code> / <code>清吻3.6</code> / <code>千萬3.6</code> / <code>清吻3.627b</code> / <code>千萬3.620gb</code></td><td>Qwen3.6 27B / Qwen3 20B</td><td>阿里開源模型,本地部署主力</td></tr>
+      <tr><td><code>Harness</code></td><td>Hermes Agent</td><td>通用任務 AI Agent 框架(非 Nous Research 的 Hermes 模型)</td></tr>
+      <tr><td><code>OpenCloud</code> / <code>Coog</code> / <code>Cloud Code</code></td><td>Claude Code</td><td>Anthropic 編碼 agent</td></tr>
+      <tr><td><code>T UI</code> / <code>OpenCode</code> / <code>Cursor</code> / <code>趣</code></td><td>TUI / OpenCode / Cursor 等</td><td>影片開頭列舉的各 agent</td></tr>
+      <tr><td><code>Loop Engine 2</code></td><td>Loop Engine 2</td><td>主講人反例:虛頭/捏造的新概念</td></tr>
+      <tr><td><code>背趨位可忽略</code></td><td>成本可忽略(可能為「背趨位/背趨背」= 比喻性表達)</td><td>語句不通,語意推斷</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="takeaways">
+  <h2>影片核心論點(7 點)</h2>
+  <ol class="takeaways">
+    <li><b>雲優先:</b>有網路就用 DeepSeek 官網 API(V3 Flash 為主力,V3 Pro / 高階為備援)——工具鏈完整、緩存機制優秀、穩定性遠超本地</li>
+    <li><b>本地必要時再上:</b>僅在「資料隱私、繞過審查」兩種場景才部署本地模型</li>
+    <li><b>本地選型:</b>Qwen3.6 27B 是當前最優性價比(量化後 20GB 級顯存可跑,協作略遜 DeepSeek 但搭配搜索與「抄作業」可補)</li>
+    <li><b>大腦選擇:</b>通用任務 Hermes 仍是首選,Codex 也可作為備援大腦</li>
+    <li><b>能力差異在「繁華」不在「基礎」:</b>工具調用、推理準確性、長上下文、一致性才是 Agent 核心比拼,知識庫可用搜索補</li>
+    <li><b>抗審查價值:</b>Qwen3.6 去審查版本是商業變現的隱藏賽道——合理需求被 AI 拒絕是真實痛點</li>
+    <li><b>心態:</b>別追新概念、跑分、Agent 品牌——先讓頭部產品跑起來、做出小功能、搞成工幾次再談判斷</li>
+  </ol>
+</section>
+
+<section id="unknown">
+  <h2>影片未提及 / 不確定項</h2>
+  <div class="unsure">⚠️ 以下為影片未明確提供的細節,實際應用需自行研究補充:</div>
+  <ul>
+    <li>未明確推薦 <b>OpenCode、Cursor、TUI、Codex</b> 的具體使用情境(僅在開頭列舉)</li>
+    <li>未給出具體的 <b>Qwen3.6 27B 量化方案</b>下載連結 / 部署命令</li>
+    <li>未提供「搜索增強」的具體工具名稱(MCP?自建 RAG? Tavily? 影片只口頭說「配備搜索能力」)</li>
+    <li>未提供 Hermes 的最新版本號、配置差異</li>
+    <li>Loop Engine 2 在影片中以「虛頭/捏造」例子帶過,主講人並未詳細介紹</li>
+    <li><b>「千萬3.620gb」</b> 影片中可能為「Qwen3 20B」或「Qwen3.6 20GB 顯存佔用」——Whisper 漂字嚴重,以上下文「27b」「20b」交錯,難以 100% 還原</li>
+    <li>影片未提供定價比較表格(DeepSeek 各版本 / Qwen3.6 部署 / 搜尋工具成本)</li>
+    <li>「背趨位可忽略」語句原文不明(Whisper 漂字),語意推斷為「成本可忽略」</li>
+  </ul>
+</section>
+
+<section>
+  <h2>影片資訊</h2>
+  <div class="info-grid">
+    <b>頻道</b><span>抡锤者</span>
+    <b>影片 ID</b><span>1Bjv9NQ1cao</span>
+    <b>上傳日期</b><span>2026-06-25</span>
+    <b>長度</b><span>9:47 (587s)</span>
+    <b>形態</b><span>一般影片 (16:9, watch?v= 路由, isShort=None)</span>
+    <b>類別</b><span>People &amp; Blogs</span>
+    <b>字幕</b><span>無字幕軌</span>
+    <b>取得路徑</b><span>yt-dlp (720p HLS) + ffmpeg → whisper base (zh, CPU) → 人工還原漂字</span>
+    <b>分析工具</b><span>Hermes Agent (minimax-m3) · 2026-07-04</span>
+  </div>
+</section>
+
+<footer>
+  <p>分析對象:<a href="https://youtu.be/1Bjv9NQ1cao" target="_blank">https://youtu.be/1Bjv9NQ1cao</a> · 抡锤者 · 2026</p>
+  <p>本報告所有內容均直接擷取自影片音訊(Whisper STT),並標註 ASR 漂字對照還原為影片原意。</p>
+</footer>
+
+</div>
+</body>
+</html>
