@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>瘋背提示詞、優化KPI反而更完蛋？AI時代如何終結盲目努力？ — 思想實驗室 EP102 章節整理</title>
+<style>
+  :root {
+    --bg: #0f1419;
+    --card: #1a1f26;
+    --card-border: #2a3140;
+    --text: #e6e8eb;
+    --text-muted: #9aa3b1;
+    --accent: #ff6b35;
+    --accent-soft: #ff6b3520;
+    --gold: #f5b941;
+    --green: #4ade80;
+    --blue: #60a5fa;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 2rem 1rem;
+  }
+  .container { max-width: 880px; margin: 0 auto; }
+  header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--card-border);
+  }
+  .badge {
+    display: inline-block;
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 0.3rem 0.8rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  h1 {
+    font-size: 1.75rem;
+    line-height: 1.4;
+    margin-bottom: 0.75rem;
+    color: var(--text);
+  }
+  .subtitle {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+  }
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.75rem;
+    text-align: left;
+    background: var(--card);
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--card-border);
+    font-size: 0.85rem;
+  }
+  .meta-item { display: flex; flex-direction: column; }
+  .meta-label { color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .meta-value { color: var(--text); margin-top: 0.2rem; }
+
+  .note {
+    background: var(--card);
+    border-left: 3px solid var(--gold);
+    padding: 1rem 1.25rem;
+    margin-bottom: 2rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+  .note strong { color: var(--gold); }
+
+  h2 {
+    font-size: 1.4rem;
+    color: var(--accent);
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--accent);
+  }
+  h3 {
+    font-size: 1.1rem;
+    color: var(--gold);
+    margin: 1.5rem 0 0.75rem;
+  }
+  .theme-grid {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .theme-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-left: 4px solid var(--accent);
+    border-radius: 6px;
+    padding: 1.25rem;
+  }
+  .theme-card .theme-title {
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    font-size: 1.05rem;
+  }
+  .theme-card p { color: var(--text-muted); font-size: 0.95rem; }
+  .check {
+    color: var(--green);
+    font-weight: 700;
+    margin-right: 0.4rem;
+  }
+  .bolt {
+    color: var(--gold);
+    font-weight: 700;
+    margin-right: 0.4rem;
+  }
+
+  .chapters {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 1rem;
+  }
+  .chapter {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 1rem;
+    padding: 0.85rem 0.5rem;
+    border-bottom: 1px solid var(--card-border);
+    align-items: start;
+  }
+  .chapter:last-child { border-bottom: none; }
+  .chapter .ts {
+    color: var(--blue);
+    font-family: "SF Mono", Monaco, monospace;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding-top: 0.1rem;
+  }
+  .chapter .content {
+    color: var(--text);
+    font-size: 0.95rem;
+  }
+
+  .quote-block {
+    background: var(--card);
+    border-left: 4px solid var(--gold);
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 4px;
+    font-size: 1.05rem;
+    color: var(--text);
+    font-weight: 500;
+  }
+  footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--card-border);
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+  }
+  footer a { color: var(--blue); text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <span class="badge">🎙 思想實驗室 Video Podcast · EP102</span>
+  <h1>瘋背提示詞、優化KPI反而更完蛋？<br>AI時代如何終結盲目努力？</h1>
+  <div class="subtitle">ft. 世界觀學院創辦人 李佳達</div>
+  <div class="meta-grid">
+    <div class="meta-item">
+      <span class="meta-label">頻道</span>
+      <span class="meta-value">知識長國威・思想實驗室 Podcast</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">主持</span>
+      <span class="meta-value">泛科知識 鄭國威 知識長</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">來賓</span>
+      <span class="meta-value">李佳達(世界觀學院創辦人)</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">片長</span>
+      <span class="meta-value">49 分 20 秒</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">YouTube ID</span>
+      <span class="meta-value">085FIscjotk</span>
+    </div>
+  </div>
+</header>
+
+<div class="note">
+  <strong>資料來源說明:</strong> 影片本身<strong>未提供字幕/逐字稿</strong>(官方 description 註明「(CC字幕由 AI生成,如有錯字還請見諒)」,但 transcript API 取不到任何語言的字幕軌)。本章節整理<strong>完全依據官方 YouTube shortDescription 的 16 個 timestamp 章節與主題描述</strong>,未對內容做額外推論或補充。
+</div>
+
+<h2>📌 本集四大核心主題</h2>
+<div class="theme-grid">
+
+  <div class="theme-card">
+    <div class="theme-title">一、為什麼盲目學工具是白忙?</div>
+    <p>大家都以為懂 AI 就是多學工具。但工作保不住往往不是工具不夠強,<strong>而是我們大腦做判斷的方式還沒準備好</strong>。<span class="check">✅</span>職位被「結構化」才是被取代的真相。</p>
+  </div>
+
+  <div class="theme-card">
+    <div class="theme-title">二、密涅瓦大學的「思考外部化」</div>
+    <p>如何把底層思考<strong>像積木一樣拆解</strong>。<span class="check">✅</span> 經驗無法傳承? 決策科學如何讓管理邏輯可驗證與可複製? 拒絕死記硬背。</p>
+  </div>
+
+  <div class="theme-card">
+    <div class="theme-title">三、哈佛教授提倡的「附帶學習」</div>
+    <p>如何讓肉體大腦真正開竅。<span class="check">✅</span> 一萬小時定律在科技時代失效,如何靠「附帶學習」真正解決真實痛點。</p>
+  </div>
+
+  <div class="theme-card">
+    <div class="theme-title">四、媒介理論:AI 是大腦的延伸</div>
+    <p>為什麼要把 AI 當成大腦的延伸,而不是高高在上的專家。<span class="check">✅</span> 從西洋棋大師暴增三倍,看科技如何延伸人類能力。</p>
+  </div>
+
+</div>
+
+<div class="quote-block">
+  <span class="bolt">⚡</span>AI 兩秒就能給出標準答案,但唯有真正的「判斷力」,才是你立足未來的終極資產!
+</div>
+
+<h2>📺 16 個章節時間軸</h2>
+<div class="chapters">
+
+  <div class="chapter">
+    <div class="ts">00:00</div>
+    <div class="content">開場</div>
+  </div>
+
+  <div class="chapter">
+    <div class="ts">01:28</div>
+    <div class="content">如何利用 AI 將想像力真正轉化為現實?</div>
+  </div>
+
+  <div class="chapter">
+    <div class="ts">02:36</div>
+    <div class="content">越努力越被鎖死? 白領工作者如何識別 KPI 系統的「局部最佳解」?</div>
+  </div>
+
+  <div class="chapter">
+    <div class="ts">03:50</div>
+    <div class="content">什麼是思考外部化? 密涅瓦大學如何將複雜思維拆解為結構積木?</div>
+  </div>
+
+  <div class="chapter">
+    <div class="ts">05:15</div>
+    <div class="content">經驗無法傳承? 決策科學如何讓管理邏輯可驗證與可複製?</div>
+  </div>
+
+  <div class="chapter">
+    <div class="ts">06:22</div>
+    <div class="content">精通工具也會被淘汰? 職位能被 AI「結構化打包 = 可取代?」</div>
+  </div>
+
+  <div class="chapter">
+    <div class="ts">11:04</div>
+    <div class="content">組織溝通流於對立? 如何用四個底層條件與老闆大腦精準對齊?</div>
+  </div>
+
+  <div class="chapter">
+    <div class="ts">17:46</div>
+    <div class="content">奠定兩百年決策智慧: 密涅瓦大師課壓軸的「自我覺察」教什麼?</div>
+  </div>
+
+  <div class="chapter">
+    <div class="ts">21:26</div>
+    <div class="content">向上管理只能憑直覺? 資安長如何用 Drive Train 模型摸透決策偏好?</div>
+  </div>
+
+  <div class="chapter">
+    <div class="ts">23:59</div>
+    <div class="content">企業導入 AI 為何失敗? 為什麼不該找最資深的員工當測試先鋒?</div>
+  </div>
+
+  <div class="chapter">
+    <div class="ts">26:13</div>
+    <div class="content">一萬小時定律在科技時代失效? 如何靠「附帶學習」真正解決真實痛點?</div>
+  </div>
+
+  <div class="chapter">
+    <div class="ts">30:52</div>
+    <div class="content">人類究竟如何比 AI 更兇? 從西洋棋大師暴增三倍看科技的媒介延伸</div>
+  </div>
+
+  <div class="chapter">
+    <div class="ts">35:06</div>
+    <div class="content">簡報與摘要瞬間生成是毒藥? 如何用問題規格書打破「秒懂的幻覺」?</div>
+  </div>
+
+  <div class="chapter">
+    <div class="ts">38:33</div>
+    <div class="content">餵古籍 AI 卻吐出垃圾資料? 老中醫如何利用文本工程與批判思維重塑診療</div>
+  </div>
+
+  <div class="chapter">
+    <div class="ts">44:50</div>
+    <div class="content">2028 思想實驗: 全面自動化 vs. 刻意慢思考,未來 CEO 如何抉擇?</div>
+  </div>
+
+</div>
+
+<h2>🎯 來賓背景與節目資訊</h2>
+<div class="theme-card">
+  <div class="theme-title">李佳達 — 世界觀學院創辦人</div>
+  <p>親歷三菱重工併購、興櫃上市、公司破產,每一次都能快速接近決策核心,這套思維現在可以直接運用 AI 交給你。「AI 超級大腦課」主打 21 天新手任務 / 20 種職場實戰案例 / 25+ 獨創 AI 工具 / 一對一諮詢。</p>
+</div>
+
+<h3>製作團隊</h3>
+<ul style="color: var(--text-muted); padding-left: 1.5rem;">
+  <li>主持:泛科知識 #鄭國威知識長</li>
+  <li>企劃:廖儀瑄</li>
+</ul>
+
+<h3>標籤</h3>
+<p style="color: var(--text-muted);">#AI時代 #提示詞 #決策科學 #被取代 #思想實驗室 #思考習慣</p>
+
+<footer>
+  <p>📅 整理日期:2026-07-04 · 影片原始上傳於 知識長國威・思想實驗室 Podcast</p>
+  <p>資料來源:YouTube 官方 shortDescription · 影片 ID: 085FIscjotk</p>
+  <p>逐字稿無法取得,改以官方章節整理稿呈現</p>
+</footer>
+
+</div>
+</body>
+</html>
