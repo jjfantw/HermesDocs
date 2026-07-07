@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hermes Docs</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Hermes Docs</h1>
+      <p class="subtitle">AI 文件發布平台</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="search" class="search-section">
+      <h2>搜尋文件</h2>
+      <input type="text" id="search-input" placeholder="輸入關鍵字搜尋文件..." disabled>
+      <p class="hint">🔍 搜尋功能即將上線</p>
+    </section>
+
+    <section id="intro">
+      <h2>關於本站</h2>
+      <p>Hermes Docs 是一個由 AI 自動化產生的文件發布平台，用於存放、管理與展示各類技術文件、教學資源與專案說明文件。</p>
+    </section>
+
+    <section id="doc-list">
+      <h2>文件列表</h2>
+      <ul id="doc-list-placeholder">
+        <li class="placeholder">📄 尚無文件 — 即將新增</li>
+      </ul>
+    </section>
+
+    <section id="last-updated">
+      <p class="last-updated">最後更新時間：<span id="update-time">—</span></p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
