@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude 六段位 AI 高手攻略｜影片分析</title>
+<style>
+  :root {
+    --bg: #0b1020;
+    --bg-soft: #131a35;
+    --fg: #e6ecff;
+    --muted: #8a93b8;
+    --accent: #6ee7ff;
+    --accent-2: #c084fc;
+    --l1: #22d3ee;
+    --l2: #38bdf8;
+    --l3: #818cf8;
+    --l4: #a78bfa;
+    --l5: #c084fc;
+    --l6: #f472b6;
+    --l6plus: #f59e0b;
+    --border: rgba(255,255,255,0.08);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Microsoft JhengHei",
+      "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  .container { max-width: 880px; margin: 0 auto; padding: 32px 24px 80px; }
+  header.hero {
+    background: linear-gradient(135deg, #1e3a8a 0%, #6d28d9 60%, #be185d 100%);
+    border-radius: 18px; padding: 36px 28px; margin-bottom: 28px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+  }
+  .eyebrow { font-size: 12px; letter-spacing: 0.18em; color: #a5b4fc; text-transform: uppercase;
+    margin-bottom: 10px; font-weight: 600; }
+  h1 { font-size: 30px; line-height: 1.35; margin: 0 0 14px; font-weight: 700; }
+  .subtitle { font-size: 17px; color: #cbd5e1; margin: 0 0 18px; }
+  .meta { display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; color: #cbd5e1; }
+  .meta span { background: rgba(255,255,255,0.08); padding: 4px 12px; border-radius: 999px; }
+  h2 { font-size: 22px; margin: 36px 0 14px; padding-left: 14px;
+    border-left: 4px solid var(--accent); }
+  h3 { font-size: 18px; margin: 24px 0 10px; color: var(--fg); }
+  p { color: #d1d8f0; margin: 0 0 12px; }
+  .card {
+    background: var(--bg-soft); border: 1px solid var(--border);
+    border-radius: 14px; padding: 22px 24px; margin: 16px 0;
+  }
+  .stage-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin: 18px 0; }
+  .stage-card {
+    background: var(--bg-soft); border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px 18px 16px;
+    border-top: 4px solid var(--c, var(--accent));
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .stage-card .badge {
+    display: inline-block; font-size: 12px; font-weight: 700;
+    color: var(--c); background: rgba(255,255,255,0.06);
+    padding: 2px 10px; border-radius: 999px; align-self: flex-start;
+  }
+  .stage-card .stage-title { font-size: 16px; font-weight: 700; margin: 4px 0 2px; }
+  .stage-card .stage-tag { font-size: 12px; color: var(--muted); }
+  .stage-card .stage-handoff { margin-top: 10px; padding: 8px 10px;
+    background: rgba(255,255,255,0.04); border-radius: 8px;
+    font-size: 13px; color: var(--c); font-weight: 600; }
+  @media (max-width: 560px) { .stage-grid { grid-template-columns: 1fr; } h1 { font-size: 24px; } }
+  .level { background: var(--bg-soft); border: 1px solid var(--border);
+    border-radius: 14px; padding: 20px 22px; margin: 14px 0;
+    border-left: 6px solid var(--c, var(--accent));
+  }
+  .level .level-head { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .level .level-tag {
+    background: var(--c); color: #0b1020; font-weight: 800;
+    padding: 4px 12px; border-radius: 999px; font-size: 13px;
+  }
+  .level .level-name { font-size: 17px; font-weight: 700; color: var(--c); }
+  .level .level-handoff {
+    display: inline-block; margin-left: auto;
+    background: rgba(255,255,255,0.06); color: var(--fg);
+    padding: 4px 12px; border-radius: 999px; font-size: 12px;
+  }
+  .level .row { margin-top: 10px; font-size: 14px; }
+  .level .row b { color: var(--muted); font-weight: 600; display: block;
+    font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase;
+    margin-bottom: 2px; }
+  .level .quote {
+    margin-top: 12px; padding: 10px 14px;
+    background: rgba(110, 231, 255, 0.08);
+    border-left: 3px solid var(--c);
+    border-radius: 6px; font-style: italic; color: #cbd5e1; font-size: 14px;
+  }
+  .quote::before { content: "“"; color: var(--c); font-size: 20px; margin-right: 4px; }
+  .quote::after { content: "”"; color: var(--c); font-size: 20px; margin-left: 4px; }
+  .summary-grid { display: grid; gap: 12px; margin: 14px 0; }
+  .summary-row { display: flex; gap: 14px; padding: 10px 14px;
+    background: var(--bg-soft); border-radius: 10px; border: 1px solid var(--border); }
+  .summary-row b { color: var(--c, var(--accent)); min-width: 90px; flex-shrink: 0; }
+  .takeaways { list-style: none; padding: 0; margin: 12px 0; }
+  .takeaways li {
+    padding: 12px 14px 12px 40px; position: relative;
+    background: var(--bg-soft); border: 1px solid var(--border);
+    border-radius: 10px; margin-bottom: 10px;
+  }
+  .takeaways li::before {
+    content: counter(li); counter-increment: li;
+    position: absolute; left: 12px; top: 12px;
+    width: 22px; height: 22px; line-height: 22px; text-align: center;
+    background: var(--accent); color: #0b1020; border-radius: 50%;
+    font-weight: 700; font-size: 13px;
+  }
+  .takeaways { counter-reset: li; }
+  .cta { background: linear-gradient(135deg, #4f46e5, #db2777);
+    border-radius: 14px; padding: 22px 26px; margin-top: 28px; }
+  .cta h3 { margin: 0 0 8px; color: #fff; }
+  .cta p { color: #f5d0fe; margin: 0; }
+  footer { margin-top: 36px; text-align: center; color: var(--muted); font-size: 12px; }
+  footer a { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header class="hero">
+  <div class="eyebrow">影片分析報告</div>
+  <h1>Claude 不只是聊天工具：六段位教你變成真正的 AI 高手</h1>
+  <p class="subtitle">從聊天問答到系統整合｜讓 AI 真正為你工作</p>
+  <div class="meta">
+    <span>📺 楊竹筠</span>
+    <span>⏱ 3 分 29 秒</span>
+    <span>👁 觀看次數 449</span>
+    <span>🔗 youtu.be/sneSp7BJ8fw</span>
+  </div>
+</header>
+
+<section>
+  <h2>一句話總結</h2>
+  <div class="card">
+    <p>作者把 Claude 使用者分成 <b>L1 ~ L6 六個段位</b>，每升一級就是把某一層「工作」交給 AI——從任務、流程、能力、SOP、資料，一路交到營運；過了 L6 之後，真正的高手不是技術更強，而是<b>持續迭代</b>。</p>
+  </div>
+</section>
+
+<section>
+  <h2>段位總覽</h2>
+  <div class="stage-grid">
+    <div class="stage-card" style="--c: var(--l1)">
+      <span class="badge">第一段位</span>
+      <div class="stage-title">L1 – L2</div>
+      <div class="stage-tag">基本互動</div>
+    </div>
+    <div class="stage-card" style="--c: var(--l3)">
+      <span class="badge">第二段位</span>
+      <div class="stage-title">L3 – L4</div>
+      <div class="stage-tag">能力與流程</div>
+    </div>
+    <div class="stage-card" style="--c: var(--l5)">
+      <span class="badge">第三段位</span>
+      <div class="stage-title">L5 – L6</div>
+      <div class="stage-tag">資料與營運</div>
+    </div>
+    <div class="stage-card" style="--c: var(--l6plus)">
+      <span class="badge">第四段位</span>
+      <div class="stage-title">L6+</div>
+      <div class="stage-tag">持續迭代</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>六大段位詳解</h2>
+
+  <div class="level" style="--c: var(--l1)">
+    <div class="level-head">
+      <span class="level-tag">L1</span>
+      <span class="level-name">把任務交給 AI</span>
+      <span class="level-handoff">把任務交給 AI</span>
+    </div>
+    <div class="row"><b>段位定義</b>還是把 Claude 當 ChatBot 用，問問題、寫文案、做翻譯</div>
+    <div class="row"><b>痛點</b>對話框過完即丟，沒有記憶、不能做事、無法自動化</div>
+    <div class="quote">L1 還停留在打字機時代，AI 對你來說只是個搜尋引擎</div>
+  </div>
+
+  <div class="level" style="--c: var(--l2)">
+    <div class="level-head">
+      <span class="level-tag">L2</span>
+      <span class="level-name">把流程交給 AI</span>
+      <span class="level-handoff">把流程交給 AI</span>
+    </div>
+    <div class="row"><b>段位定義</b>用 Claude Code 串 IDE 工具，AI 可讀檔、改檔、執行指令</div>
+    <div class="row"><b>痛點</b>Claude Code 太自由，沒有 SOP 容易亂跑；執行記錄無法回顧</div>
+    <div class="quote">L2 讓 AI 開始動手做事，但還需要人盯著</div>
+  </div>
+
+  <div class="level" style="--c: var(--l3)">
+    <div class="level-head">
+      <span class="level-tag">L3</span>
+      <span class="level-name">把能力交給 AI</span>
+      <span class="level-handoff">把能力交給 AI</span>
+    </div>
+    <div class="row"><b>段位定義</b>自建 Skill / MCP 工具，AI 能使用你專屬的功能與資料源</div>
+    <div class="row"><b>痛點</b>寫了 Skill 卻忘了有；MCP 安裝失敗不知從何排查</div>
+    <div class="quote">L3 開始有了專屬裝備，但還沒串成系統</div>
+  </div>
+
+  <div class="level" style="--c: var(--l4)">
+    <div class="level-head">
+      <span class="level-tag">L4</span>
+      <span class="level-name">把 SOP 交給 AI</span>
+      <span class="level-handoff">把 SOP 交給 AI</span>
+    </div>
+    <div class="row"><b>段位定義</b>寫出 Skill 流程，SOP 化執行，可重複、可交接</div>
+    <div class="row"><b>痛點</b>流程寫得很完整，實際使用常常卡住</div>
+    <div class="quote">L4 開始有了 SOP，但仍需要親自執行</div>
+  </div>
+
+  <div class="level" style="--c: var(--l5)">
+    <div class="level-head">
+      <span class="level-tag">L5</span>
+      <span class="level-name">把資料交給 AI</span>
+      <span class="level-handoff">把資料交給 AI</span>
+    </div>
+    <div class="row"><b>段位定義</b>透過 MCP 串接 Email / Drive / Slack 等外部服務，AI 可直接讀寫</div>
+    <div class="row"><b>痛點</b>Token 額度、權限審查、錯誤排查變得複雜</div>
+    <div class="quote">L5 開始和你的真實世界接軌，但仍要小心地圖</div>
+  </div>
+
+  <div class="level" style="--c: var(--l6)">
+    <div class="level-head">
+      <span class="level-tag">L6</span>
+      <span class="level-name">把營運交給 AI</span>
+      <span class="level-handoff">把營運交給 AI</span>
+    </div>
+    <div class="row"><b>段位定義</b>建構長期可運作的 AI Agent 系統，可自動排程、自主決策</div>
+    <div class="row"><b>痛點</b>除錯時間越來越長、錯誤互相連動</div>
+    <div class="quote">L6 開始有了自己的節奏，你終於能下班</div>
+  </div>
+
+  <div class="level" style="--c: var(--l6plus)">
+    <div class="level-head">
+      <span class="level-tag">L6+</span>
+      <span class="level-name">下個段位：不是技術，是持續迭代</span>
+      <span class="level-handoff">把迭代交給 AI</span>
+    </div>
+    <div class="row"><b>段位定義</b>技術到頂後，真正的高手來自<b>持續迭代</b>：把新發現的痛點與新工具持續接回系統</div>
+    <div class="row"><b>行動建議</b>掃 QR Code 加 LINE 群，免費領取完整技能樹 + Claude 進階手冊</div>
+    <div class="quote">AI 高手的下個段位：不是技術，是持續迭代</div>
+  </div>
+</section>
+
+<section>
+  <h2>影片主張的關鍵洞察</h2>
+  <ul class="takeaways">
+    <li>進化的軸心不是工具，而是<b>你願意把哪一層工作交給 AI</b>——任務 → 流程 → 能力 → SOP → 資料 → 營運 → 迭代。</li>
+    <li>每一級都有<b>對應的痛點</b>：記憶、不可控、找嘸工具、SOP 卡住、權限複雜、除錯連鎖；這些痛點正是升級的入口。</li>
+    <li>L3 開始需要<b>Skill + MCP 雙軌並進</b>：沒有 MCP，Skill 只能在本機跑；沒有 Skill，MCP 只是空殼。</li>
+    <li>L5 起<b>真實世界的摩擦</b>才開始出現（Token、權限、錯誤排查），這也是 L6 Agent 系統設計的核心考量。</li>
+    <li>最終的高手不是 L6，而是<b>L6+</b>：技術到位後，靠<b>持續迭代</b>拉開差距。</li>
+  </ul>
+</section>
+
+<section>
+  <h2>影片資訊</h2>
+  <div class="summary-grid">
+    <div class="summary-row" style="--c: var(--accent)"><b>頻道</b><span>楊竹筠</span></div>
+    <div class="summary-row" style="--c: var(--accent)"><b>長度</b><span>3 分 29 秒</span></div>
+    <div class="summary-row" style="--c: var(--accent)"><b>形式</b><span>Shorts 風格直式短片，AI 虛擬主播 + 投影片背景 + 章節字幕條</span></div>
+    <div class="summary-row" style="--c: var(--accent)"><b>字幕</b><span>未提供字幕（影片本身無字幕軌，分析以畫面文字 OCR 為主）</span></div>
+    <div class="summary-row" style="--c: var(--accent)"><b>關鍵字</b><span>Claude AI tutorial、AI automation workflows、Claude integration guide、advanced AI prompting、AI system building、Claude for productivity</span></div>
+    <div class="summary-row" style="--c: var(--accent)"><b>CTA</b><span>加 LINE 群領完整技能樹 + Claude 進階手冊</span></div>
+  </div>
+</section>
+
+<div class="cta">
+  <h3>📥 完整技能樹 + Claude 進階手冊</h3>
+  <p>作者於片尾提供 LINE 群 QR Code，免費索取完整技能樹與進階手冊（影片原資訊）。</p>
+</div>
+
+<footer>
+  <p>分析對象：<a href="https://youtu.be/sneSp7BJ8fw" target="_blank">youtu.be/sneSp7BJ8fw</a> · 楊竹筠 · 2026</p>
+  <p>本報告所有內容均直接擷取自影片畫面文字（OCR），並未外加推測。</p>
+</footer>
+
+</div>
+</body>
+</html>
