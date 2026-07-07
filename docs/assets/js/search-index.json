@@ -1,5 +1,11 @@
 [
   {
+    "title": "How to Build A Self-Improving System with Claude Code - Hermes Docs",
+    "url": "videos/claude-code-self-improving-system.html",
+    "date": "2026-07-07 14:57",
+    "content": "How to Build A Self-Improving System with Claude Code - Hermes Docs 返回首頁 How to Build A Self-Improving System with Claude Code 發布時間：2026-07-07 YouTube 影片重點整理 How to Build A Self-Improving System with Claude Code 📺 Austin Marchese ⏱ 16:46 🗓 2026-06-28 🌐 en 🔗 https://www.youtube.com/watch?v=2fc0NX9vIJ8 Austin Marchese 分享了一套名為 B.U.I.L.D. 的五步驟框架，教你如何用 Claude Code 打造一個能自我改進的 AI 系統。他融合了 Andrej Karpathy 的 LLM 知識庫概念、Anthropic 團隊的經驗，以及自己實際教學數百人的心得。從建立專案基礎、大量匯入歷史資料、設定自動化資料管線、建立改進迴圈，到最後的心態調整，逐步說明如何讓系統隨著使用而"
+  },
+  {
     "title": "Stop Watching Tutorials - Build These 4 Claude Projects to 10x Output - Hermes Docs",
     "url": "videos/AustinMarchese_ClaudeCode4專案.html",
     "date": "2026-07-07 14:51",

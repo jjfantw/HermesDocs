@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Build A Self-Improving System with Claude Code - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: #333; background: #f8f9fa; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: #343a40; padding: 12px 0; }
+    .back-bar a { color: #fff; text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: #fff; border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: #212529; }
+    article .meta { color: #868e96; font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #e9ecef; }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: #f1f3f5; padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; }
+    article .content code { background: #f1f3f5; padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid #667eea; padding-left: 16px; color: #495057; margin: 16px 0; }
+    footer { background: #343a40; color: #868e96; text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; }
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>How to Build A Self-Improving System with Claude Code</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-07-07</span>
+      </div>
+      <div class="content">
+        <div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">How to Build A Self-Improving System with Claude Code</h1>
+    <div class="meta"><span data-field="channel">📺 Austin Marchese</span><span data-field="duration">⏱ 16:46</span><span data-field="published_date">🗓 2026-06-28</span><span data-field="original_language">🌐 en</span><a data-field="source_url" href="https://www.youtube.com/watch?v=2fc0NX9vIJ8" target="_blank" rel="noopener">🔗 https://www.youtube.com/watch?v=2fc0NX9vIJ8</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>Austin Marchese 分享了一套名為 B.U.I.L.D. 的五步驟框架，教你如何用 Claude Code 打造一個能自我改進的 AI 系統。他融合了 Andrej Karpathy 的 LLM 知識庫概念、Anthropic 團隊的經驗，以及自己實際教學數百人的心得。從建立專案基礎、大量匯入歷史資料、設定自動化資料管線、建立改進迴圈，到最後的心態調整，逐步說明如何讓系統隨著使用而越來越聰明。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">Step 1: BASE — 建立改進框架</h2><span class="ts-badge" data-field="lesson_timestamp">0:20</span></div><div class="body" data-field="lesson_body"><p>在開始之前，你需要建立一個專案，包含兩個部分：<strong>知識庫（Knowledge Base）</strong> 與 <strong>技能（Skills）</strong>。</p><p>知識庫參考 Andrej Karpathy 的 LLM 知識庫概念：一個 <strong>raw 資料夾</strong>存放原始資源（如通話逐字稿），一個 <strong>wiki 資料夾</strong>作為目錄索引，讓 AI 知道去哪裡找資訊，而不必讀完整本書。</p><p>技能則是針對重複性任務的標準化流程。第一個建議建立的技能是「add new resource」，它會將原始檔案匯入 raw 資料夾，再由 Claude 分析並更新 wiki 條目。這些工具技能（Utility Skills）後續可組合成更大的編排技能（Orchestration Skills）。</p><span class="tag" data-field="lesson_tag">專案初始化</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">Step 2: UPLOAD — 大量匯入資料</h2><span class="ts-badge" data-field="lesson_timestamp">1:59</span></div><div class="body" data-field="lesson_body"><p>在建立自我改進系統之前，你需要先匯入所有<strong>已經存在的歷史資料</strong>。Austin 建議從三個方向著手：</p><p><strong>第一：AI 輸入資料</strong>。這是你使用 AI 時產生的對話記錄，Claude 會在本機儲存所有 session 歷史。你可以用一個 prompt 分析這些記錄，從中提煉學習點和技能建議。關鍵句是：「suggest ways we can improve my system」。</p><p><strong>第二：個人生態系資料</strong>。用 Claude Code 掃描你的電腦找出有價值的檔案；用 Google Takeout 或 Outlook Export 匯出 Email 歷史，讓 Claude 分析你的寫作風格。</p><p><strong>第三：人生故事與專案目標</strong>。錄下自己談論人生、專案目標和想達成的事，上傳給 Claude 分析並面試你補足遺漏，最後加入專案作為訓練資料。</p><span class="tag" data-field="lesson_tag">資料匯入</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">Step 3: INFLOW — 設定資料管線</h2><span class="ts-badge" data-field="lesson_timestamp">4:26</span></div><div class="body" data-field="lesson_body"><p>把系統想像成一個湖泊：第二步把湖填滿了水，但如果沒有新水源持續流入，湖水終究會蒸發。這一步就是要建立四條「河流」——自動化的資料管線。</p><p><strong>管線一：自身輸入同步</strong>。建立「sync Claude sessions」技能，定期將你的對話歷史匯入專案的 process 資料夾。</p><p><strong>管線二：個人生態系資料</strong>。根據你日常產生資料的地方設定連線：Austin 用 Grainola 記錄會議、用 Slack 直接連線拉取聊天記錄、用 YouTube 公開影片的逐字稿。</p><p><strong>管線三：精選內容</strong>。來自外部資源的資料，Austin 最推薦的是電子報——用 Email alias（如 brad+newsletter@gmail.com）過濾訂閱內容，只匯入高訊號比的資源。</p><p><strong>管線四：定期資料傾倒</strong>。每天或每週結束時，用語音轉文字工具（Hex 或 Whisper Flow）把學到的教訓錄下來，再用 add new resource 技能匯入系統。</p><span class="tag" data-field="lesson_tag">資料管線</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">Step 4: LOOP — 建立改進迴圈</h2><span class="ts-badge" data-field="lesson_timestamp">9:39</span></div><div class="body" data-field="lesson_body"><p>這是大部分人搞錯「自我改進」的地方。Austin 用健身比喻來說明：完全自動化的系統可能只練胸肌不練腿，六個月後你的胸肌很大但腿像牙籤。</p><p>他的解法是<strong>分桶策略（Bucketing）</strong>，將改進建議分為三類：</p><p><strong>第一類：自動核准</strong>。低風險項目如資料膨脹、遺漏的連結、明顯的修正——Claude 自動套用並記錄在 changelog 中，你不需要看到。</p><p><strong>第二類：需簽核</strong>。高風險項目如編輯 skill 或建立新 skill——寫入 output/review 資料夾，附上 approve / reject / approve and don&#x27;t ask again 三個選項。</p><p><strong>第三類：需更多資訊</strong>。系統無法自行判斷的項目，需要你提供更多背景。</p><p>Austin 用 Claude Code Desktop 的 <strong>Routines</strong> 功能排程自動化：建立 data ingestion routine（每週二、五早上 9 點執行）、system improvements routine（同一天稍晚執行）、以及 human review routine（你的人工審查流程）。</p><span class="tag" data-field="lesson_tag">改進迴圈</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">Step 5: DRIVE — 執行，不要過度設計</h2><span class="ts-badge" data-field="lesson_timestamp">14:46</span></div><div class="body" data-field="lesson_body"><p>最後一步是心態層面。Austin 分享四個策略：</p><p><strong>1. 慢即是順，順即是快</strong>。不要一次做所有事，一步一步來。</p><p><strong>2. 你是領導者，系統服務於你</strong>。如果某個環節沒有讓系統變得更好，就刪掉它。你不需要等誰的許可。</p><p><strong>3. 壓縮回饋迴圈</strong>。自我改進系統的價值在於壓縮回饋時間，但迴圈只在你真正使用工具時才會學習。如果 skill 不如預期，直接對 Claude 說：「Based on this conversation, improve this skill。」</p><p><strong>4. 沒那麼嚴重，行動勝於分析</strong>。人們常糾結於「該用 raw/inputs 還是 raw/sessions 資料夾？」——這些小事真的不重要。唯一錯誤的選擇是過度思考。引用 Coinbase CEO Brian Armstrong 的名言：「Action produces information。」</p><span class="tag" data-field="lesson_tag">執行心法</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">「Action produces information.」—— Brian Armstrong, Coinbase CEO</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="0:20"><span class="ts">0:20</span><span class="text" data-field="key_point_text">Step 1: BASE — 建立專案框架，包含知識庫（raw + wiki 資料夾）與技能（Skills）兩大部分</span></li><li data-field="key_point" data-timestamp="1:59"><span class="ts">1:59</span><span class="text" data-field="key_point_text">Step 2: UPLOAD — 大量匯入歷史資料，來源包括 AI 對話記錄、個人生態系資料（電腦檔案、Email）、以及人生故事與專案目標錄音</span></li><li data-field="key_point" data-timestamp="4:26"><span class="ts">4:26</span><span class="text" data-field="key_point_text">Step 3: INFLOW — 設定四種資料管線：自身輸入同步、個人生態系資料、精選內容（如電子報）、定期資料傾倒</span></li><li data-field="key_point" data-timestamp="9:39"><span class="ts">9:39</span><span class="text" data-field="key_point_text">Step 4: LOOP — 建立改進迴圈，將改進建議分為三類：自動核准、需簽核、需更多資訊，並用 Claude Code Desktop 的 Routines 排程自動化</span></li><li data-field="key_point" data-timestamp="14:46"><span class="ts">14:46</span><span class="text" data-field="key_point_text">Step 5: DRIVE — 執行心法：慢即是快、系統服務於你、壓縮回饋迴圈、行動勝於分析</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="Claude Code">Claude Code</span><span class="tag-chip" data-tag="AI 工作流">AI 工作流</span><span class="tag-chip" data-tag="自我改進系統">自我改進系統</span><span class="tag-chip" data-tag="B.U.I.L.D. Framework">B.U.I.L.D. Framework</span><span class="tag-chip" data-tag="知識庫">知識庫</span><span class="tag-chip" data-tag="自動化">自動化</span><span class="tag-chip" data-tag="LLM">LLM</span></div>
+  </section>
+
+  
+  
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="description"><div class="raw-label">YouTube 描述</div><pre>Get my free 5-day AI playbook (what I used to build a $25M+ startup): https://the-ai-playbook.com/sis
+
+In this video, I break down the exact 5-step B.U.I.L.D. Framework I use to turn Claude Code into a self-improving system. After studying Andrej Karpathy, the Anthropic team, and running my own setup, this is everything you need to ingest your own data, automate the pipelines, and let the system get smarter every week. Most people get &quot;self-improving&quot; completely wrong, and I&#x27;ll show you why.
+
+Timestamps:
+(0:00) - How to Build a Self-Improving System with Claude Code
+(0:20) - Step 1: BASE — Create the Framework
+(1:59) - Step 2: UPLOAD — Bulk Ingest Your Data
+(4:26) - Step 3: INFLOW — Set Up Your Data Pipelines
+(9:39) - Step 4: LOOP — The Improvement Loop
+(14:46) - Step 5: DRIVE — Run It, Don&#x27;t Over-Engineer</pre></div><div class="raw-block" data-field="raw_source_item" data-raw-type="transcript"><div class="raw-label">逐字稿（英文原文）</div><pre>完整逐字稿（英文，16:46，544 行）已存於 /tmp/yt_transcript_2fc0NX9vIJ8.txt</pre></div></details>
+
+  
+</div>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
