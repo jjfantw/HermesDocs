@@ -1,5 +1,11 @@
 [
   {
+    "title": "Harness 才是主戰場 — 翁荔論 Harness Engineering、Scaling Law 與 AI 自我改進 - Hermes Docs",
+    "url": "videos/harness-engineering-weng-li.html",
+    "date": "2026-07-08 23:18",
+    "content": "Harness 才是主戰場 — 翁荔論 Harness Engineering、Scaling Law 與 AI 自我改進 - Hermes Docs 返回首頁 Harness 才是主戰場 — 翁荔論 Harness Engineering、Scaling Law 與 AI 自我改進 發布時間：2026-07-09 🌙 YouTube 影片重點整理 Harness 纔是主戰場 — 翁荔論 Harness Engineering、Scaling Law 與 AI 自我改進 📺 Nana Chen Studio ⏱ 15:49 🗓 2026-07 🌐 zh-Hans 🔗 https://youtu.be/S99JvyQAj9M 本集從翁荔（Lilian Weng）2026 年 7 月連發的兩篇技術長文出發，分析 AI 進步為何正從單純堆疊模型規模，轉向模型外部的工具、記憶、評估、工作流與權限設計。影片先回顧 Scaling Law 的侷限——參數計算方式、loss 擬合細節、高品質資料稀缺等工程細節會影響數十億美金的訓練決策。接著深入 Harness Engineering 的概念：Har"
+  },
+  {
     "title": "真正毀掉你的，不是壓力…（最新研究發現） | 維思維 - Hermes Docs",
     "url": "videos/維思維_壓力不是敵人_心理學.html",
     "date": "2026-07-08 05:05",
