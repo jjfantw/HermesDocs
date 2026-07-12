@@ -105,7 +105,63 @@ footer a { color: var(--accent); }
 header.hero { position:relative; }
 
 </style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">I Forked Karpathy&#x27;s LLM Council project... The Result is INSANE! 🚀</h1>
+    <div class="meta"><span data-field="channel">📺 Gen AI Spotlight</span><span data-field="duration">⏱ 12:16</span><span data-field="published_date">🗓 2026-07-12</span><span data-field="original_language">🌐 en</span><a data-field="source_url" href="https://www.youtube.com/watch?v=HOdyIyccOCE" target="_blank" rel="noopener">🔗 https://www.youtube.com/watch?v=HOdyIyccOCE</a></div>
+  </header>
 
+  <section class="intro" data-field="summary"><p>Jacob 展示了 LLM Council Plus，一個基於 Andrej Karpathy 的 LLM Council 原始專案所擴充的 fork。他發現原始工具雖然概念出色，但缺乏友善的使用者體驗——需要手動設定環境變數與 config 檔，且僅支援 OpenRouter 單一 API 提供者。Jacob 花費數個週末進行改良，加入了完整的設定頁面、Ollama 本機模型支援、多種 API 提供者（OpenAI、Anthropic、Google、Groq、DeepSeek 等）的直接整合、可自訂的系統提示詞與溫度參數、多種搜尋引擎（DuckDuckGo、Tavily、Brave、Jina AI），以及「I&#x27;m Feeling Lucky」隨機模型探索功能。影片中他實際展示了完整的 Council 審議流程——多模型同時回答、同儕互評、視覺化排行榜，最後由主席模型給出最終裁決。專案程式碼已開源在 GitHub。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">原始問題：Karpathy 的 LLM Council 雖有潛力但難以使用</h2><span class="ts-badge" data-field="lesson_timestamp">0:00</span></div><div class="body" data-field="lesson_body"><p>Andrej Karpathy 幾個月前發布了 LLM Council 工具，概念是讓多個 LLM 同時回答問題、彼此評分，最後由一位主席模型決定最佳答案。但 Jacob 發現原始工具的操作體驗非常粗糙——需要手動設定環境變數（.env 檔）、編輯 config 檔來指定 LLM，且僅支援 OpenRouter 單一 API 提供者。</p><p><strong>這不是為一般使用者設計的工具</strong>，更像是一個概念驗證。Jacob 決定 fork 原始專案並進行全面升級。</p><span class="tag" data-field="lesson_tag">Vibe Coding</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">LLM Council Plus：完整升級的三大核心功能</h2><span class="ts-badge" data-field="lesson_timestamp">2:05</span></div><div class="body" data-field="lesson_body"><p>Jacob 的升級版稱為 <strong>LLM Council Plus</strong>，主要新增三大功能：</p><p><strong>1. 專業 UI 與設定頁面</strong> — 不再需要手動編輯 config 檔，所有設定都在圖形化介面中完成，API 金鑰安全儲存在本地端。</p><p><strong>2. Ollama 本機模型支援</strong> — 由於測試時 OpenRouter 帳單不斷攀升，Jacob 加入了 Ollama 整合，讓使用者可以同時執行本機模型（如 Phi-4）與遠端 API 模型，進行 side-by-side 比較。</p><p><strong>3. 多 API 提供者直接支援</strong> — 除了 OpenRouter，還可個別加入 OpenAI、Anthropic、Google、Groq、Mistral、DeepSeek 等 API 金鑰，甚至支援自訂 API Base URL（如 Together AI 或其他相容提供者）。</p><span class="tag" data-field="lesson_tag">Ollama / API 整合</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">可自訂的系統提示詞與溫度控制</h2><span class="ts-badge" data-field="lesson_timestamp">5:33</span></div><div class="body" data-field="lesson_body"><p>LLM Council Plus 讓使用者可以<strong>完全控制每個階段的系統提示詞</strong>——回答階段、同儕互評階段、主席裁決階段各有獨立的提示詞設定。</p><p>例如，將提示詞設為「你是個搞笑的助手」，所有模型就會以搞笑風格回應。提示詞支援變數（`{{query}}`、`{{stage}}`），方便動態插入內容。</p><p>此外還有<strong>溫度（Temperature）參數</strong>，可控制回答的創意程度——調低時回答保守，調高時可能出現天馬行空的回應。如果修改後想復原，一鍵即可重置為預設值。</p><span class="tag" data-field="lesson_tag">系統提示詞 / Temperature</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">網頁搜尋整合：突破知識截止日期限制</h2><span class="ts-badge" data-field="lesson_timestamp">6:50</span></div><div class="body" data-field="lesson_body"><p>Jacob 發現原始 LLM Council 的回答受限於模型的訓練資料截止日期（部分模型停在 2024 年底），無法回答需要最新資訊的問題。他的第一個升級就是加入<strong>網頁搜尋功能</strong>。</p><p>支援的搜尋引擎包括：<strong>DuckDuckGo</strong>（免費但有使用限制）、<strong>Tavily</strong>（專為 LLM 設計的搜尋 API）、<strong>Brave Search</strong>，以及 <strong>Jina AI</strong>（用於擷取網頁文章內容的服務）。</p><p>搜尋查詢處理支援兩種模式：<strong>Direct</strong>（直接搜尋原始問題）與<strong>Keyword</strong>（自動提取關鍵詞後搜尋）。搜尋結果會以 AI 友善的格式餵入模型，讓模型能基於即時資訊進行回答。</p><span class="tag" data-field="lesson_tag">Web Search / DuckDuckGo / Jina AI</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">「I&#x27;m Feeling Lucky」與靈活的模型選擇</h2><span class="ts-badge" data-field="lesson_timestamp">8:08</span></div><div class="body" data-field="lesson_body"><p>Council 成員設定頁面是「有趣的部分」——使用者可以：</p><p>- 選擇特定提供者（如僅用 OpenRouter 模型）</p><p>- 搜尋模型名稱</p><p>- 只顯示免費模型（省錢模式）</p><p>- 加入最多 <strong>8 位 Council 成員</strong></p><p>- 使用 <strong>「I&#x27;m Feeling Lucky」</strong> 按鈕隨機探索並選用模型</p><p>Jacob 也加入了實用警告：若使用同一提供者的多個免費模型，可能觸發 rate limit 導致錯誤；系統有軟性容錯（soft failover）機制處理此情況。主席模型也可獨立選擇（遠端或本機），並分別設定溫度參數。</p><span class="tag" data-field="lesson_tag">模型選擇 / Rate Limit</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">實際演示：完整 Council 審議流程</h2><span class="ts-badge" data-field="lesson_timestamp">10:35</span></div><div class="body" data-field="lesson_body"><p>Jacob 以「<strong>20 世紀加拿大最偉大的發明是什麼？</strong>」為題進行實際示範。他選用了 DuckDuckGo 搜尋引擎，並設定了 Gemini、ChatGPT-5.2 和一個本機模型作為 Council 成員。</p><p>流程分為三個階段：</p><p><strong>第一階段</strong>：各模型基於搜尋結果直接回答問題。</p><p><strong>第二階段（Peer Ranking）</strong>：模型們互相評分對方的回答，產生視覺化排行榜。</p><p><strong>第三階段（主席裁決）</strong>：主席模型（Claude Haiku 4.5）綜觀所有回答與評分，給出最終裁決——答案是<strong>胰島素（Insulin）</strong>。</p><p>Jacob 也提到未來想加入類似 Chatbot Arena 的個人排行榜功能，讓使用者根據自己的查詢歷史累積模型排名，但時間有限未能實現。</p><span class="tag" data-field="lesson_tag">Live Demo / Peer Ranking</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">07</span><h2 data-field="lesson_title">匯出／匯入與開源</h2><span class="ts-badge" data-field="lesson_timestamp">12:02</span></div><div class="body" data-field="lesson_body"><p>LLM Council Plus 支援<strong>匯出與匯入</strong>功能，使用者可以將精心設定的 Council 配置（包含選定的模型、提示詞、溫度設定等）打包分享或重複使用。</p><p>也有「危險區域（Danger Zone）」功能可將所有設定恢復為預設值（但不會刪除 API 金鑰）。</p><p>專案程式碼已開源在 <strong>GitHub</strong>：github.com/jacob-bd/llm-council-plus，原始 Karpathy 專案連結也在影片描述中。</p><span class="tag" data-field="lesson_tag">Open Source / GitHub</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">在 Vibe Coding 時代，我們人類的角色不再是寫程式，而是成為產品經理——告訴 AI 我們要什麼、長什麼樣子、怎麼運作，然後 AI 幫我們把程式碼生出來。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="0:00"><span class="ts">0:00</span><span class="text" data-field="key_point_text">Karpathy 的原始 LLM Council 工具操作門檻高，需要手動設定環境變數與 config 檔</span></li><li data-field="key_point" data-timestamp="2:05"><span class="ts">2:05</span><span class="text" data-field="key_point_text">LLM Council Plus 是完整升級版，加入圖形化介面、網頁搜尋、多 API 提供者支援</span></li><li data-field="key_point" data-timestamp="3:20"><span class="ts">3:20</span><span class="text" data-field="key_point_text">新增 Ollama 本機模型支援，可同時比較本機與遠端模型的表現</span></li><li data-field="key_point" data-timestamp="5:33"><span class="ts">5:33</span><span class="text" data-field="key_point_text">可自訂每階段的系統提示詞與溫度參數，支援多種使用場景</span></li><li data-field="key_point" data-timestamp="6:50"><span class="ts">6:50</span><span class="text" data-field="key_point_text">整合 DuckDuckGo、Tavily、Brave、Jina AI 等多種搜尋引擎，突破模型訓練資料的時間限制</span></li><li data-field="key_point" data-timestamp="8:08"><span class="ts">8:08</span><span class="text" data-field="key_point_text">「I&#x27;m Feeling Lucky」按鈕可隨機探索並選用不同模型作為 Council 成員</span></li><li data-field="key_point" data-timestamp="10:35"><span class="ts">10:35</span><span class="text" data-field="key_point_text">實際示範：以「20 世紀加拿大最偉大的發明」為題，展示搜尋→多模型回答→同儕互評→主席裁決的完整流程</span></li><li data-field="key_point" data-timestamp="12:02"><span class="ts">12:02</span><span class="text" data-field="key_point_text">專案程式碼已開源在 GitHub，連結在影片描述中</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="LLM Council">LLM Council</span><span class="tag-chip" data-tag="Andrej Karpathy">Andrej Karpathy</span><span class="tag-chip" data-tag="Ollama">Ollama</span><span class="tag-chip" data-tag="Vibe Coding">Vibe Coding</span><span class="tag-chip" data-tag="OpenRouter">OpenRouter</span><span class="tag-chip" data-tag="LLM Council Plus">LLM Council Plus</span><span class="tag-chip" data-tag="Web Search">Web Search</span><span class="tag-chip" data-tag="Peer Ranking">Peer Ranking</span><span class="tag-chip" data-tag="GitHub">GitHub</span><span class="tag-chip" data-tag="Open Source">Open Source</span></div>
+  </section>
+
+  
+  
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="description"><div class="raw-label">YouTube 影片描述</div><pre>Did Andrej Karpathy&#x27;s excellent &quot;LLM Council&quot; feel too raw and limited? I fixed it. In this video, I reveal &quot;LLM Council Plus&quot; - a fully upgraded fork that adds a professional UI, web search capabilities, and full support for ANY LLMs via APIs as local models through Ollama.
+
+ABOUT THIS VIDEO:
+The original LLM Council was a brilliant concept, but it lacked usability and choice. I spent a couple of weekends improving it and adding tons of options. I cover how to connect OpenRouter, run local Ollama models like Phi-4, and use a real-time web search tool.
+
+KEY TAKEAWAYS:
+✅ Run Local LLM Councils using Ollama (Privacy-focused) and remote AI providers
+✅ Compare 8+ Models simultaneously with a Visual Leaderboard
+✅ Enable Web Search for real-time fact-checking
+
+CHAPTERS:
+00:00 - The Problem with Raw Python Scripts
+02:05 - Introducing LLM Council Plus (The Upgrade)
+03:20 - Adding Local Models (Ollama Support)
+05:33 - Customizing System Prompts &amp; Temperature
+06:50 - Enabling Web Search (DuckDuckGo &amp; Jina)
+08:08 - The &quot;I&#x27;m Feeling Lucky&quot; Model Selector
+10:35 - Live Demo: Full Council Deliberation
+11:45 - The Final Verdict &amp; Rankings
+12:02 - How to Get the Code
+
+RESOURCES &amp; LINKS:
+🔗 Get the Code (GitHub): https://github.com/jacob-bd/llm-council-plus
+🔗 Original Repo (Karpathy): https://github.com/karpathy/llm-council
+
+🔔 Subscribe for more cool AI projects and Vibe Coding tips.</pre></div><div class="raw-block" data-field="raw_source_item" data-raw-type="transcript"><div class="raw-label">YouTube 逐字稿（英文原文）</div><pre>Hello world. Uh Jacob here. Thank you for joining me today. I wanted to show you another project that I recently worked on was one of my more product focused on user experience. Uh that was my learning objective and I was trying Google anti-gravity at that time. So so essentially it&#x27;s based on uh Andre Kapathy&#x27;s and he kind of came up with the term vibe coding. So one of the tools that he released a couple of months ago was it&#x27;s called LLM council. It allows you to ask a question multiple LLMs and they&#x27;re gonna provide their answer and then they&#x27;re going to receive and rate the answers of the other LLM and in the end of the liberation there is a chairman who looks at all the responses and ratings and decide which answer was the most accurate...</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://www.youtube.com/watch?v=HOdyIyccOCE" target="_blank" rel="noopener">https://www.youtube.com/watch?v=HOdyIyccOCE</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
 <script>
 (function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
 </script>

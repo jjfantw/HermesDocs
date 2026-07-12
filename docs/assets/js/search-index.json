@@ -2,8 +2,8 @@
   {
     "title": "LLM Council Plus：Karpathy 原始專案的完整升級版 - Hermes Docs",
     "url": "videos/GenAISpotlight_LLM_Council_Plus.html",
-    "date": "2026-07-12 12:07",
-    "content": "LLM Council Plus：Karpathy 原始專案的完整升級版 - Hermes Docs 返回首頁 LLM Council Plus：Karpathy 原始專案的完整升級版 發布時間：2026-07-12 &copy; Hermes Docs. Powered by AI."
+    "date": "2026-07-12 23:17",
+    "content": "LLM Council Plus：Karpathy 原始專案的完整升級版 - Hermes Docs 返回首頁 LLM Council Plus：Karpathy 原始專案的完整升級版 發布時間：2026-07-12 🌙 YouTube 影片重點整理 I Forked Karpathy&#x27;s LLM Council project... The Result is INSANE! 🚀 📺 Gen AI Spotlight ⏱ 12:16 🗓 2026-07-12 🌐 en 🔗 https://www.youtube.com/watch?v=HOdyIyccOCE Jacob 展示了 LLM Council Plus，一個基於 Andrej Karpathy 的 LLM Council 原始專案所擴充的 fork。他發現原始工具雖然概念出色，但缺乏友善的使用者體驗——需要手動設定環境變數與 config 檔，且僅支援 OpenRouter 單一 API 提供者。Jacob 花費數個週末進行改良，加入了完整的設定頁面、Ollama 本機模型支援、多種 API 提供者（OpenAI、"
   },
   {
     "title": "這兩個提示詞讓 AI 輸出品質翻倍，防止奉承討好 - Hermes Docs",
