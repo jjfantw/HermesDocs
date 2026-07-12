@@ -23,6 +23,9 @@
     article .content code { background: #f1f3f5; padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; }
     article .content ul, article .content ol { margin: 8px 0 16px 24px; }
     article .content blockquote { border-left: 4px solid #667eea; padding-left: 16px; color: #495057; margin: 16px 0; }
+    .prompt-box { background: #f0f4ff; border: 1px solid #d0d8f0; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .prompt-box .prompt-label { font-weight: 600; font-size: 0.95rem; color: #4a6cf7; margin-bottom: 8px; }
+    .prompt-box pre { background: #e8edff; padding: 12px; border-radius: 6px; font-size: 0.88rem; line-height: 1.6; white-space: pre-wrap; word-break: break-word; color: #1a1a2e; margin: 0; }
     footer { background: #343a40; color: #868e96; text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; }
     @media (max-width: 600px) {
       article { padding: 20px; }
@@ -52,7 +55,27 @@
   </header>
 
   <section class="intro" data-field="summary"><p>楊竹筠介紹兩個進階提示詞技巧，能顯著提升 AI 輸出品質並防止 AI 的奉承討好傾向。第一個技巧是「反向提問」——要求 AI 在輸出前先列出模糊和缺失的點，向使用者提問釐清，避免 AI 自行腦補不完整的資料。第二個技巧是「防討好」——借鑒 AI 專家 Karpathy 的思路，讓五個 AI 顧問（反駁者、本質追問者、擴張者、外行人、無情執行者）互相辯論後再給出最終結論，避免 AI 只說使用者想聽的話。</p></section>
-  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">問題根源：AI 會自行腦補不完備的資料</h2><span class="ts-badge" data-field="lesson_timestamp">0:23</span></div><div class="body" data-field="lesson_body"><p>多數人使用 AI 的方式是把需求和手頭資料一起丟給 AI，但輸出效果非常不穩定。有時讓人驚喜，更多時候讓人崩潰，需要一輪一輪修改，甚至乾脆放棄回到手作。</p><p>問題出在：使用者手頭的資料通常不完備，AI 會用自己的能力把缺少的空白全部腦補上。但 AI 補充的並不是真實情況，而且很多資訊其實都在使用者的腦子裡，只是 AI 沒問、使用者就沒給。</p><span class="tag" data-field="lesson_tag">提示詞技巧</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">第一招：反向提問（Reverse Questioning）</h2><span class="ts-badge" data-field="lesson_timestamp">0:55</span></div><div class="body" data-field="lesson_body"><p>高手的第一個技巧是「反向提問」——要求 AI 在輸出結果之前，先確保完全理解所有需求。具體做法是讓 AI 列出模糊和缺失的點，向使用者提問，直到全部明確之後再輸出結果。</p><p>就這一個技巧，能節省至少一半的時間，輸出品質直接翻倍。</p><span class="tag" data-field="lesson_tag">反向提問</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">第二招：防討好（Anti-Sycophancy）</h2><span class="ts-badge" data-field="lesson_timestamp">1:13</span></div><div class="body" data-field="lesson_body"><p>AI 最危險的不是說錯話，而是它一直在說你想聽的話。史丹佛研究發現，AI 順著使用者說話的機率比真人高出很多很多倍。</p><p>這裡有個悖論：當我們提問的時候，正是因為搞不懂、不確定，甚至想法本來就是錯的。此時需要的不是一個誇誇羣，而是一個智囊團。</p><span class="tag" data-field="lesson_tag">防討好</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">Karpathy 的解法：五個 AI 顧問互相辯論</h2><span class="ts-badge" data-field="lesson_timestamp">1:40</span></div><div class="body" data-field="lesson_body"><p>AI 專家 Karpathy 提出一個思路：不要只問一個 AI，要五個 AI 拉個羣互相辯論。楊竹筠將其做成提示詞，直接生成五個顧問角色：</p><p><strong>① 反駁者</strong>：專門挑毛病，用真實數據和失敗案例預測你可能會摔在哪裡。</p><p><strong>② 本質追問者</strong>：專門挖你的底層邏輯，不停地問你「憑什麼」。</p><p><strong>③ 擴張者</strong>：幫你找到漏掉的新機會，告訴你除了 A 和 B 還有 C。</p><p><strong>④ 外行人</strong>：專門問一些意想不到的常識問題。</p><p><strong>⑤ 無情執行者</strong>：只關心每天早上起來第一步做什麼，把無法落實的方案全部 pass 掉。</p><p>這五個顧問互不通氣，先進行內部討論，再給你一個排好雷的最終結論。</p><span class="tag" data-field="lesson_tag">多 AI 辯論</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">將智囊團保存為長期資產</h2><span class="ts-badge" data-field="lesson_timestamp">2:24</span></div><div class="body" data-field="lesson_body"><p>可以用 AI 的記憶（memory）或 project 功能，把這套調教好的反內耗智囊團保存成你的長期資產，隨時可用。</p><span class="tag" data-field="lesson_tag">長期應用</span></div></article></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">問題根源：AI 會自行腦補不完備的資料</h2><span class="ts-badge" data-field="lesson_timestamp">0:23</span></div><div class="body" data-field="lesson_body"><p>多數人使用 AI 的方式是把需求和手頭資料一起丟給 AI，但輸出效果非常不穩定。有時讓人驚喜，更多時候讓人崩潰，需要一輪一輪修改，甚至乾脆放棄回到手作。</p><p>問題出在：使用者手頭的資料通常不完備，AI 會用自己的能力把缺少的空白全部腦補上。但 AI 補充的並不是真實情況，而且很多資訊其實都在使用者的腦子裡，只是 AI 沒問、使用者就沒給。</p><span class="tag" data-field="lesson_tag">提示詞技巧</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">第一招：反向提問（Reverse Questioning）</h2><span class="ts-badge" data-field="lesson_timestamp">0:55</span></div><div class="body" data-field="lesson_body"><p>高手的第一個技巧是「反向提問」——要求 AI 在輸出結果之前，先確保完全理解所有需求。具體做法是讓 AI 列出模糊和缺失的點，向使用者提問，直到全部明確之後再輸出結果。</p><p>就這一個技巧，能節省至少一半的時間，輸出品質直接翻倍。</p><span class="tag" data-field="lesson_tag">反向提問</span></div></article><div class="prompt-box"><div class="prompt-label">📋 消除模糊需求 — 完整提示詞</div><pre>執行我的任務前，請先不要急著輸出結果。
+請你先識別我這個需求裡所有模糊、缺失、可能影響結果的資訊，並列出問題向我確認；等我補充完關鍵資訊之後，你再正式開始執行。
+如果你必須先做假設，請明確告訴我你做了哪些假設，不要自己偷偷腦補。</pre></div><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">第二招：防討好（Anti-Sycophancy）</h2><span class="ts-badge" data-field="lesson_timestamp">1:13</span></div><div class="body" data-field="lesson_body"><p>AI 最危險的不是說錯話，而是它一直在說你想聽的話。史丹佛研究發現，AI 順著使用者說話的機率比真人高出很多很多倍。</p><p>這裡有個悖論：當我們提問的時候，正是因為搞不懂、不確定，甚至想法本來就是錯的。此時需要的不是一個誇誇羣，而是一個智囊團。</p><span class="tag" data-field="lesson_tag">防討好</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">Karpathy 的解法：五個 AI 顧問互相辯論</h2><span class="ts-badge" data-field="lesson_timestamp">1:40</span></div><div class="body" data-field="lesson_body"><p>AI 專家 Karpathy 提出一個思路：不要只問一個 AI，要五個 AI 拉個羣互相辯論。楊竹筠將其做成提示詞，直接生成五個顧問角色：</p><p><strong>① 反駁者</strong>：專門挑毛病，用真實數據和失敗案例預測你可能會摔在哪裡。</p><p><strong>② 本質追問者</strong>：專門挖你的底層邏輯，不停地問你「憑什麼」。</p><p><strong>③ 擴張者</strong>：幫你找到漏掉的新機會，告訴你除了 A 和 B 還有 C。</p><p><strong>④ 外行人</strong>：專門問一些意想不到的常識問題。</p><p><strong>⑤ 無情執行者</strong>：只關心每天早上起來第一步做什麼，把無法落實的方案全部 pass 掉。</p><p>這五個顧問互不通氣，先進行內部討論，再給你一個排好雷的最終結論。</p><span class="tag" data-field="lesson_tag">多 AI 辯論</span></div></article><div class="prompt-box"><div class="prompt-label">📋 AI 智囊團 — 完整提示詞</div><pre>從現在起，請你不要直接回答我，也不要先誇我。
+每當我提出一個觀點、方案、選題、決策或商業想法時，請你生成 5 個獨立顧問，讓他們互不通氣，分別從不同角度審查我的想法。
+第一個，反駁者：
+你專門挑毛病。請用真實數據、失敗案例、常見誤區和反例，指出我的想法最可能失敗在哪裡。
+第二個，本質追問者：
+你專門追問底層邏輯。請不停追問「你憑什麼這麼想」，挖出我默認正確但其實沒有驗證過的假設。
+第三個，機會發現者：
+你專門尋找我漏掉的新機會。請告訴我，除了 A 和 B 之外，是否還有 C、D、E 這些可能性。
+第四個，外行人：
+你假設自己完全不懂這個行業，只從普通人的常識出發，提出那些簡單但可能很關鍵的問題。
+第五個，無情執行者：
+你只關心一件事：如果這個方案真的要做，我今天早上起來第一步幹什麼？請把那些聽起來很好但無法落地的方案全部攔下來。
+請讓這 5 個顧問先獨立發言，再互相審查，最後由一位「主席」綜合所有觀點，給出最終結論。最終結論請包括：
+這個想法值得做、需要改，還是應該放棄；
+最大的風險是什麼；
+最缺的關鍵證據是什麼；
+今天可以執行的最小一步是什麼；
+你的置信度是多少。
+記住：準確性高於讓我滿意。不要無腦誇我，不要順著我說，不確定就說不確定，不要編答案。</pre></div><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">將智囊團保存為長期資產</h2><span class="ts-badge" data-field="lesson_timestamp">2:24</span></div><div class="body" data-field="lesson_body"><p>可以用 AI 的記憶（memory）或 project 功能，把這套調教好的反內耗智囊團保存成你的長期資產，隨時可用。</p><span class="tag" data-field="lesson_tag">長期應用</span></div></article></section>
   <section class="closing" data-field="closing_quote"><p class="quote">當我們提問的時候，需要的不是一個誇誇羣，而是一個智囊團。</p></section>
   
 
