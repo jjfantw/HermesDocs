@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>32B 逼近 Claude Opus｜斯坦福 AutoMem：不堆參數 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: #333; background: #f8f9fa; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: #343a40; padding: 12px 0; }
+    .back-bar a { color: #fff; text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: #fff; border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: #212529; }
+    article .meta { color: #868e96; font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #e9ecef; }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: #f1f3f5; padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; }
+    article .content code { background: #f1f3f5; padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid #667eea; padding-left: 16px; color: #495057; margin: 16px 0; }
+    footer { background: #343a40; color: #868e96; text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; }
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>32B 逼近 Claude Opus｜斯坦福 AutoMem：不堆參數</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-07-14 09:04</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">32B 逼近 Claude Opus｜斯坦福 AutoMem：不堆參數</h1>
+    <div class="meta"><span data-field="channel">📺 wow</span><span data-field="duration">⏱ 21:04</span><span data-field="published_date">🗓 2025-07-14</span><span data-field="original_language">🌐 zh-Hans</span><a data-field="source_url" href="https://youtu.be/kZP9c_dvbzY" target="_blank" rel="noopener">🔗 https://youtu.be/kZP9c_dvbzY</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>本期視頻硬核拆解斯坦福大學的最新研究《AutoMem: Learning to Memorize as a Cognitive Skill》。傳統思路把大模型的記憶當成被動的硬盤（RAG、向量數據庫、無限上下文窗口），但 AutoMem 徹底顛覆了這個範式——它把記憶管理變成一種可以被訓練、可優化的主動技能。通過雙環自動優化架構（結構優化環 + 能力訓練環），一個 32B 的開源小模型 Qwen 2.5 32B Instruct 在長週期遊戲任務中性能翻了 2-4 倍，不僅碾壓自家 72B 大模型，甚至逼近 Claude Opus 4.5 和 Gemini 3.1 Pro Thinking 的閉源天花板。視頻深入拆解了 AutoMem 的架構設計、文件系統動作空間、Log-Plan 雙階段循環、LoRA 記憶專家解耦、以及從 V0 到 V2 的記憶文件 schema 演化過程。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">AutoMem 核心設計：文件系統動作空間</h2><span class="ts-badge" data-field="lesson_timestamp">1:59</span></div><div class="body" data-field="lesson_body"><p>AutoMem 不再給大模型外掛靜態的記憶模塊，而是直接把記憶管理變成一種可以被訓練的主動動作。模型獲得一套標準的文件系統指令：<strong>Read, Write, Search, Append</strong>。</p><p>每走一步，Agent 都要跑兩個標準歷程：<strong>Log 階段</strong>（自問自答剛纔發生了什麼，哪些值得記下來）→ <strong>Plan 階段</strong>（查什麼資料才能決定下一步，搜索文件讀取關鍵信息，最後發出真實動作）。</p><p>這就把大模型黑盒式的隱式狀態跟蹤，變成了顯式的、可控的、可審查的系統文本指令。</p><span class="tag" data-field="lesson_tag">架構設計</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">雙環自動優化架構</h2><span class="ts-badge" data-field="lesson_timestamp">4:48</span></div><div class="body" data-field="lesson_body"><p><strong>低層：結構優化環</strong> — Meta-LM（Claude Opus 4.6）像擁有上帝視角的高級架構師，讀取幾萬步完整執行軌跡，診斷底層 agent 記憶格式的問題，直接重寫 prompt 和記憶文件的 schema 格式。</p><p><strong>高層：能力訓練環</strong> — 系統讓模型自己玩幾百局產生海量軌跡，Meta-LM（Claude Opus 4.7）作爲數據篩選器，挑選出模型偶爾做得漂亮的記憶操作，打包成高質量微調數據集。</p><p>用差異化最強的兩代模型去優化訓練流程裏兩個完全不同的環節，這是 AutoMem 設計上的精妙對稱。</p><span class="tag" data-field="lesson_tag">架構設計</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">LoRA 記憶專家：讀寫分離解耦</h2><span class="ts-badge" data-field="lesson_timestamp">6:07</span></div><div class="body" data-field="lesson_body"><p>作者沒有把整個模型拿去無腦微調（會導致災難性遺忘），而是徹底解耦：單獨用 <strong>LoRA 訓練一個記憶專家</strong>。</p><p>實戰部署時，Log 階段和檢索階段由被微調過的記憶專家接管；一旦要輸出具體的遊戲操作，立刻做一次短暫的交接棒，把上下文丟給原封不動、凍結權重的基礎模型來決定怎麼打怪。</p><p>準確率一丁點沒掉，但記憶操作的能力直接拉滿——這是生產環境架構裏讀寫分離服務解耦的教科書級應用。</p><span class="tag" data-field="lesson_tag">工程實踐</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">記憶文件 Schema 演化：V0 → V1 → V2</h2><span class="ts-badge" data-field="lesson_timestamp">8:44</span></div><div class="body" data-field="lesson_body"><p><strong>V0（初始版本）</strong>：無界追加日誌——每走一步就往文件末尾加一行，在房間裏來回徘徊 100 步就有 100 行重複座標。這不是記憶，是一筆爛賬。</p><p><strong>V1（Upsert Map）</strong>：Meta-LM 引入帶座標去重的 Upsert 操作——同一個座標的新觀察直接覆蓋舊記錄。每步記憶文件上下文增量從 <strong>138 個字符爆降到 6 個字符</strong>，95% 的空間壓縮率。</p><p><strong>V2（自動同步揹包 + 戰略指南）</strong>：框架層面加入自動同步揹包機制和預先加載的戰略指南，模型不需要浪費 API 調用去反覆確認目標和揹包狀態。</p><span class="tag" data-field="lesson_tag">技術細節</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">實驗結果：32B 逼近閉源天花板</h2><span class="ts-badge" data-field="lesson_timestamp">7:06</span></div><div class="body" data-field="lesson_body"><p>在完全不修改模型權重、僅跑通第一環結構優化的情況下：</p><p><strong>Crafter</strong> 通關率從 25% → 47.27%（疊加第二環後 → 51.36%）</p><p><strong>MiniHack</strong> 從 7.5% → 27.5%（疊加後 → 30%）</p><p><strong>NetHack</strong> 從 0.42% → 1.57%（疊加後 → 1.85%，經驗等級從 1 爬到 4，存活數千步）</p><p>一個 32B 的開源模型不僅越級打爆自家 72B 老大哥，還極其逼近 Claude Opus 4.5 和 Gemini 3.1 Pro Thinking。這證明：<strong>在長週期任務裏，優化記憶的條理，槓桿率遠遠大於無腦堆大模型的參數量</strong>。</p><span class="tag" data-field="lesson_tag">實驗結果</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">四個侷限性</h2><span class="ts-badge" data-field="lesson_timestamp">13:13</span></div><div class="body" data-field="lesson_body"><p><strong>① 會話級記憶非持久化</strong>：目前 AutoMem 的記憶是情景式的，每次重啓就像 Docker 容器被清空，無法做到跨越世代的知識留存。</p><p><strong>② 遊戲沙盒與真實物理世界的鴻溝</strong>：Crafter 和 NetHack 是擁有絕對真理的離散遊戲環境，搬到自動駕駛、金融審計、醫療病理等場景存在巨大的領域遷移挑戰。</p><p><strong>③ 高昂的領域定製泛化成本</strong>：Crafter 最佳優化到 V5，MiniHack 到 V4，NetHack 到 V2——不存在包打天下的通用記憶文件格式，每個新場景都要 Meta-LM 消耗巨大算力量身定製。</p><p><strong>④ 安全漏洞與越權風險</strong>：當大模型可以自由執行類似操作系統的讀寫指令時，外部惡意 prompt 注入可能導致核心記憶文件被劫持。</p><span class="tag" data-field="lesson_tag">侷限性</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">07</span><h2 data-field="lesson_title">三條核心洞察</h2><span class="ts-badge" data-field="lesson_timestamp">17:47</span></div><div class="body" data-field="lesson_body"><p><strong>① 記憶管理是獨立可學習的技能</strong>：不要再試圖用幾萬字的超長 prompt 讓模型既當超強推理機又當速記員。把這兩件事拆開，讓專門的輕量級專家模型接管記憶庫，保留基座模型純粹的業務推理能力。</p><p><strong>② 隱式 context 管理變成可追溯的系統調用</strong>：當記憶從黑盒裏自動拼接的字符串變成標準的離散文件讀寫指令時，你就擁有了全鏈路的可觀測性——可以精確計算哪次寫操作冗餘、哪次檢索落空，爲 CI/CD 自動化迴歸奠定基石。</p><p><strong>③ 不要迷信無限上下文，注意力壓縮纔是王道</strong>：記憶的本質不是存儲，而是壓縮。AutoMem 把 138 個字符壓縮到 6 個字符，作用類似於知識蒸餾。未來的世界模型一定不是靠無限長窗口硬扛歷史噪音，而是靠一套自動演化的記憶結構去蕪存菁。</p><span class="tag" data-field="lesson_tag">洞察總結</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">真正的智能不在於它出廠時參數有多大、算力有多猛，而在於它懂得如何在這個充滿噪音的世界裏，冷靜地搭建起屬於自己的知識工作臺。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="0:00"><span class="ts">0:00</span><span class="text" data-field="key_point_text">大模型擁有 200 萬 Token 超長上下文，但在需要連續執行幾萬步的真實工程環境中仍然會像無頭蒼蠅一樣打轉</span></li><li data-field="key_point" data-timestamp="0:20"><span class="ts">0:20</span><span class="text" data-field="key_point_text">傳統思路把大模型記憶當成被動硬盤（RAG、向量數據庫、無限上下文窗口），但 AutoMem 顛覆了這個範式</span></li><li data-field="key_point" data-timestamp="0:50"><span class="ts">0:50</span><span class="text" data-field="key_point_text">斯坦福大學研究論文《AutoMem: Learning to Memorize as a Cognitive Skill》——把記憶管理變成可訓練的主動技能</span></li><li data-field="key_point" data-timestamp="1:14"><span class="ts">1:14</span><span class="text" data-field="key_point_text">僅通過優化「怎麼做筆記」這一個環節，32B 的 Qwen 2.5 32B Instruct 性能翻了 2-4 倍</span></li><li data-field="key_point" data-timestamp="1:59"><span class="ts">1:59</span><span class="text" data-field="key_point_text">AutoMem 的核心設計：爲模型提供一套標準的文件系統（Read, Write, Search, Append 指令）</span></li><li data-field="key_point" data-timestamp="2:42"><span class="ts">2:42</span><span class="text" data-field="key_point_text">每步 Agent 跑兩個標準歷程：Log 階段（自問自答剛纔發生了什麼）→ Plan 階段（查資料後決定下一步）</span></li><li data-field="key_point" data-timestamp="3:44"><span class="ts">3:44</span><span class="text" data-field="key_point_text">三個測試環境：Crafter（2D 生存遊戲，~1000 步）、MiniHack（解謎戰鬥，幾百步）、NetHack（修羅場，幾萬到十萬步，200+ 動作）</span></li><li data-field="key_point" data-timestamp="4:48"><span class="ts">4:48</span><span class="text" data-field="key_point_text">雙環自動優化架構：低層結構優化環（Meta-LM 上帝視角審查軌跡，重寫 prompt 和記憶 schema）+ 高層能力訓練環（篩選高質量記憶操作做微調數據）</span></li><li data-field="key_point" data-timestamp="6:07"><span class="ts">6:07</span><span class="text" data-field="key_point_text">最精妙的工程設計：用 LoRA 單獨訓練記憶專家，Log 和檢索階段由記憶專家接管，遊戲操作交給凍結權重的基礎模型——讀寫分離解耦</span></li><li data-field="key_point" data-timestamp="7:06"><span class="ts">7:06</span><span class="text" data-field="key_point_text">實驗結果：Crafter 通關率從 25% → 51.36%，MiniHack 從 7.5% → 30%，NetHack 從 0.42% → 1.85%</span></li><li data-field="key_point" data-timestamp="8:44"><span class="ts">8:44</span><span class="text" data-field="key_point_text">記憶文件 schema 演化：V0 無界追加日誌 → V1 Upsert Map（座標去重，上下文增量從 138 字符降到 6 字符，95% 壓縮率）→ V2 自動同步揹包 + 戰略指南</span></li><li data-field="key_point" data-timestamp="10:18"><span class="ts">10:18</span><span class="text" data-field="key_point_text">優化效果：冗餘寫入下降 68%-83%，空搜索率降 13%-50%，無效動作下降 65%，輸入上下文縮減 30%</span></li><li data-field="key_point" data-timestamp="12:34"><span class="ts">12:34</span><span class="text" data-field="key_point_text">MiniHack Corridor R3 任務：基礎模型通關率 0%，加上記憶 specialist 後直接反轉至 100%</span></li><li data-field="key_point" data-timestamp="13:13"><span class="ts">13:13</span><span class="text" data-field="key_point_text">四個侷限性：① 會話級記憶非持久化；② 遊戲沙盒與真實物理世界鴻溝；③ 高昂的領域定製泛化成本；④ 高風險場景的安全漏洞與越權風險</span></li><li data-field="key_point" data-timestamp="14:40"><span class="ts">14:40</span><span class="text" data-field="key_point_text">學術譜系：1979 年 Flavell 和 Nelson 提出元記憶（Meta Memory）概念——監控和調節自己記憶過程的能力</span></li><li data-field="key_point" data-timestamp="16:34"><span class="ts">16:34</span><span class="text" data-field="key_point_text">與 MemGPT 和傳統 RAG 對比：AutoMem 把記憶當成可學習的技能，既優化了祕書整理資料的制度，又讓老闆親自學會翻箱倒櫃</span></li><li data-field="key_point" data-timestamp="17:47"><span class="ts">17:47</span><span class="text" data-field="key_point_text">三條核心洞察：① 記憶管理是獨立可學習的技能，讀寫分離解耦；② 隱式 context 管理變成可追溯的系統調用；③ 不要迷信無限上下文，注意力壓縮纔是王道</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="AutoMem">AutoMem</span><span class="tag-chip" data-tag="AI Agent">AI Agent</span><span class="tag-chip" data-tag="Stanford">Stanford</span><span class="tag-chip" data-tag="LLM">LLM</span><span class="tag-chip" data-tag="Claude">Claude</span><span class="tag-chip" data-tag="Qwen">Qwen</span><span class="tag-chip" data-tag="Gemini">Gemini</span><span class="tag-chip" data-tag="RAG">RAG</span><span class="tag-chip" data-tag="記憶管理">記憶管理</span><span class="tag-chip" data-tag="大模型">大模型</span><span class="tag-chip" data-tag="長週期任務">長週期任務</span><span class="tag-chip" data-tag="LoRA">LoRA</span><span class="tag-chip" data-tag="NetHack">NetHack</span></div>
+  </section>
+
+  
+  <section class="glossary" data-field="asr_glossary"><h2>🎙️ ASR 漂字對照表</h2><div class="card"><table class="glossary"><tr data-field="asr_glossary_row"><td data-field="heard">窩頭倉</td><td>→</td><td data-field="corrected">無頭蒼蠅</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Queen 2.5</td><td>→</td><td data-field="corrected">Qwen 2.5</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">CloudOP / Color Ops</td><td>→</td><td data-field="corrected">Claude Opus</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Jamlet / Gemlet</td><td>→</td><td data-field="corrected">Gemini</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Ultomand / Ultman / Ottomem / AUTOMAN / UltMEM</td><td>→</td><td data-field="corrected">AutoMem</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">NET HANK / Netank / NetHang</td><td>→</td><td data-field="corrected">NetHack</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">MINI HANK / MiniHank</td><td>→</td><td data-field="corrected">MiniHack</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">GRAPTOR</td><td>→</td><td data-field="corrected">Crafter</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Laura</td><td>→</td><td data-field="corrected">LoRA</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Brown / prown</td><td>→</td><td data-field="corrected">prompt</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Opster Map</td><td>→</td><td data-field="corrected">Upsert Map</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Corander R3</td><td>→</td><td data-field="corrected">Corridor R3</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">卡夫克消息對冽</td><td>→</td><td data-field="corrected">Kafka 消息隊列</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Flavo</td><td>→</td><td data-field="corrected">Flavell</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Nielson</td><td>→</td><td data-field="corrected">Nelson</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">SCHAMA</td><td>→</td><td data-field="corrected">schema</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">specialist</td><td>→</td><td data-field="corrected">specialist (記憶專家)</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">UpSearch</td><td>→</td><td data-field="corrected">Upsert (覆蓋寫入)</td></tr></table></div></section>
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="description"><div class="raw-label">頻道描述原文</div><pre>你想过没有，为什么现在的大模型，哪怕拥有两百万 tokens 的超长上下文，在真实的复杂工程环境里依然会像无头苍蝇一样打转？因为我们一直以来的直觉可能全错了——记忆不应该是一块被动的硬盘，而是一门需要练习的手艺！本期视频，我将硬核拆解斯坦福大学的顶尖研究《AutoMem》，揭秘如何将「记忆管理」变成 AI 的主动动作。不再迷信无限上下文，看看一个 32B 的开源小模型如何通过「自己做笔记」，在十万步的极限沙盒中暴打 72B 大模型，甚至逼近 Claude Opus 4.5 和 Gemini 3.1 Pro 的闭源天花板！</pre></div><div class="raw-block" data-field="raw_source_item" data-raw-type="whisper"><div class="raw-label">Whisper STT 逐字稿（含時間戳）</div><pre>[0.0s] 你有没有想过为什么现在的大模型
+[2.8s] 哪怕宣称拥有200万Token的超长上下文
+[6.7s] 但只要你把它扔进一个
+[8.6s] 需要连续执行几万步操作的
+[11.2s] 真实工程环境理事
+[12.9s] 它很快就会像个窝头仓一样原地打转呢
+[16.5s] 因为我们一直以来的直觉可能全错了
+[20.5s] 我们总是把大模型的记忆
+[22.7s] 当成是一块被动的硬盘
+[24.5s] 不管是RAG 是向量数据库
+[27.1s] 还是无线滑动的上下文窗口
+[29.6s] 思路都是系统替模型存
+[32.2s] 需要的时候替模型搜
+[34.2s] 但是试想一下
+[36.4s] 如果你在工作的时候
+[37.9s] 所有的笔记 草稿 参考资料
+[40.7s] 都是别人替你记
+[42.1s] 然后再强行塞进你的视野里
+[44.8s] 你能做好复杂的长期项目吗
+[47.5s] 这就是今天我们要拆解的硬核突破
+[50.8s] 今天这期视频我们要来看一篇
+[53.2s] 来自斯坦福大学的研究者的顶尖工作
+[56.4s] 题目叫自动学习记忆
+[58.6s] 作为一种认知技能
+[60.3s] 他们做了一件急剧破坏性的事情
+[63.3s] 那就是不再给大模型外挂静态的记忆模块
+[67.4s] 而是直接把记忆管理变成一种可以被训练的
+[71.7s] 类似敲击键盘一样的主动动作
+[74.6s] 结果我们看屏幕的Figure 1
+[77.2s] 仅仅通过优化怎么做笔记这一个环节
+[80.9s] 连模型本体的执行任务权重都没有碰
+[84.4s] 一个32B的开源小模型
+[86.6s] Queen 2.5 32B Instruct
+[89.4s] 在超级长周期的极客游戏里
+[92.4s] 新能直接翻了2-4倍
+[94.3s] 它不仅把72B的老大哥按在地上摩擦
+[97.9s] 甚至一跃达到了碧原天花板CloudOP4.5
+[102.0s] 和Jamlet 3.1 ProThinking的同等水平
+[105.4s] 这期视频的信息量极大
+[107.8s] 我们会直接深入到Ultomand的架构图和代码演化里
+[112.3s] 帮你把这种能够落地到生产环境的记忆工程学抛开
+[117.5s] 我们先来拆解它的核心玩法
+[119.8s] 你看如果要让模型自己管理记忆
+[122.8s] 第一步该做什么呢
+[124.2s] 作者给出的答案非常具有工程感
+[127.3s] 那就是为他提供一套标准的文件系统
+[131.3s] 在Ultomand的设计里
+[132.7s] 大模型的动作空间被彻底解藕了
+[135.5s] 什么叫解藕呢
+[136.8s] 就像你在一座巨大的图书馆里
+[139.8s] 本来你只能执行找书和看书的操作
+[143.2s] 现在系统给了你一间独立的阅览室
+[146.1s] 不仅允许你在这里新建文件夹写备忘录
+[149.8s] 还允许你用Read, Write, Search, Append
+[153.2s] 这些标准的系统指令来管理你的专属草稿纸
+[157.1s] 你看这套内观逻辑
+[159.1s] 每走一步
+[160.2s] Agent都要跑两个标准的历程
+[162.6s] 首先是Log阶段
+[164.0s] 这就像是模型在自问自答
+[166.2s] 刚才发生了什么
+[167.5s] 环境给了我什么反馈
+[169.2s] 哪些值得记下来
+[170.8s] 模型可以自己决定
+[172.5s] 是不是要把新探索到的地图坐标
+[175.0s] 追加进文件里
+[176.7s] 或者创建一个新文件来记录
+[179.3s] 刚才遇到的怪物的属性
+[181.5s] 接着是Plan阶段
+[183.1s] 在做出下一个动作之前
+[184.8s] 他要问自己
+[185.9s] 我需要查什么资料
+[187.3s] 才能决定下一步呢
+[188.9s] 于是他去搜索自己刚刚建好的文件
+[192.2s] 读取关键信息
+[193.7s] 最后才向游戏世界发出一个真实的动作
+[196.8s] 比如向东走或者准备长剑
+[199.7s] 这就把大模型脑子里
+[201.3s] 那种黑盒式的影视状态跟踪
+[203.9s] 变成了显示的可控的U盘热插吧
+[207.5s] 你的每一步记忆操作
+[209.4s] 都是记录在案的系统文本指令
+[212.2s] 这就意味着它是可以被审查
+[215.1s] 是可以被持续集成的流水线优化的
+[218.4s] 为了验证这套
+[219.7s] 自己写日记的系统有多强
+[221.8s] 作者选了三个程序化生成游戏
+[224.7s] 你注意
+[225.5s] 这不是那种走两步就结束的玩具测试
+[228.9s] 这是真正的长周期战场
+[230.9s] 第一款
+[231.8s] GRAPTOR
+[232.5s] 一个2D版的生存游戏
+[234.6s] 17种动作
+[236.0s] 22种成就
+[237.2s] 需要采集制造战斗
+[239.6s] 每局大概1000步
+[241.1s] 对大模型来说算是开胃小菜
+[243.7s] 第二款MINI HANK
+[245.2s] 基于NET HANK引擎的解谜和战斗环境
+[248.8s] 每局几百步
+[250.3s] 主要考虑空间导航和特定任务的逻辑链
+[253.9s] 第三款NET HANK
+[255.5s] 这可是大模型测试的修罗厂
+[258.6s] 一局游戏动辄几万步甚至十万步
+[262.1s] 它有200多种动作
+[263.9s] 面对的是极其庞大
+[265.7s] 每次开局都完全随机生成的复杂地下城
+[269.5s] 人类玩家想通关
+[271.6s] 都要以年为单位来练习
+[273.6s] 在这里
+[274.8s] 什么滑动窗口
+[276.1s] 什么无线上下温
+[277.3s] 统统都会被十万步的垃圾信息称爆
+[280.8s] 那AUTOMAN
+[282.1s] 怎么在这种修罗厂里训练大模型呢
+[285.1s] 核心在于它的双环自动优化架构
+[288.6s] 低层循环叫做结构优化环
+[291.9s] 你想想如果你让大模型自己去玩NET HANK
+[295.6s] 一开始它肯定是个糊涂蛋
+[297.7s] 容易记一本烂账
+[299.4s] 比如第五
+[300.0s] 50步看到一个金币他记一笔
+[302.0s] 第500步又路过这里他又记一笔
+[305.0s] 几万步下来他的日记本成了一座垃圾山
+[309.0s] 自己搜什么都搜不到
+[311.0s] 如果是传统做法
+[312.0s] 这时候就要苦逼的人类工程师去改Brown
+[316.0s] 去改代码了
+[317.0s] 但在长周期任务里
+[319.0s] 10万步的log人类看一眼都要吐血
+[322.0s] 根本没法review
+[323.0s] 所以作者引入了一个meta-lm
+[326.0s] 就像一个拥有上帝视角的高级架构式
+[329.0s] 他会读取这几万步的完整执行轨迹
+[333.0s] 去诊断在哪一步底层agent的记忆格式出了问题
+[337.0s] 导致他后面迷路了
+[339.0s] 然后这个架构师会直接重写
+[342.0s] 底层agent的代码
+[344.0s] prown的提示词
+[345.0s] 以及记忆文件的schema格式
+[348.0s] 这是一种极其聪明的tradeoff
+[350.0s] 我们就要让模型自由发挥
+[352.0s] 要防止它寄出垃圾
+[355.0s] 所以用架构师的规矩来给它设天花板
+[358.0s] 有了好的规矩
+[360.0s] 接下来就是第二层循环
+[362.0s] 能力训练环
+[364.0s] 架构师制定了新的文件格式
+[366.0s] 但32B的基础模型可能脑子比较笨
+[368.0s] 没法熟练使用这种高级格式
+[372.0s] 怎么办呢?
+[373.0s] 系统会让它自己去玩几百局
+[376.0s] 产生海量的真实轨迹
+[378.0s] 然后meta-lm再次下场
+[380.0s] 这次它不是来改大马的
+[382.0s] 而是作为一个冷酷的数据筛选器
+[385.0s] 它会从Nan里里挑选出那些
+[388.0s] 模型偶尔做得极其漂亮的记忆操作
+[391.0s] 剔除掉那些无效操作
+[393.0s] 打包成高质量的微调数据机
+[396.0s] 这里有个挺微妙的工程细节
+[398.0s] 那就是外环1的架构师用的是Color Ops 4.6
+[402.0s] 外环2的训练引擎用的是Color Ops 4.7
+[406.0s] 两个最强必源模型
+[408.0s] 刚好配成一对
+[409.0s] 一个负责改结构
+[411.0s] 一个负责练能力
+[413.0s] 这不是巧合
+[414.0s] 而是automan设计上的精妙对称
+[418.0s] 用差异化最强的两代模型
+[420.0s] 去优化训练流程里
+[422.0s] 两个完全不同的环节
+[424.0s] 好
+[425.0s] 最绝妙的工程设计来了
+[427.0s] 你注意看图里的模型切分
+[429.0s] 作者在这里
+[430.0s] 没有把整个模型拿去无脑微调
+[433.0s] 如果你把任务能力和记忆能力混在一起训
+[437.0s] 往往会造成灾难性遗忘
+[439.0s] 也就是激情变好了
+[441.0s] 但是连怪物都不会打了
+[443.0s] 作者的做法是彻底解藕
+[445.0s] 他们单独用Laura训练了一个记忆专家
+[449.0s] 在实战部署时
+[451.0s] Log阶段和检索阶段
+[453.0s] 由这个被微调过的记忆专家接管
+[455.0s] 一旦要输出具体的游戏操作
+[458.0s] 立刻做一次短暂的交接棒
+[460.0s] 把上下文丢给原封不动
+[463.0s] 冻结权重的基础模型
+[465.0s] 来决定怎么打怪
+[467.0s] 这样一来准确率一丁点没掉
+[469.0s] 但记忆操作的能力却直接拉满了
+[472.0s] 这简就是我们做生产环境架构时
+[475.0s] 读写分离服务解藕的教科书籍应用
+[479.0s] 你可能会问
+[480.0s] 想了这么多精巧的架构设计
+[482.0s] 到底能打出多狠的战绩呢
+[484.0s] 我们来看表格
+[486.0s] 直接上主实验table1
+[488.0s] 这里两个绝对反直觉的拐点
+[490.0s] 第一
+[491.0s] 在完全不修改模型权重
+[493.0s] 仅仅只跑通了第一环的结构优化的情况下
+[496.0s] Crafter的进度率从25%飙升到了47.27%
+[501.0s] miniHank从7.5%暴涨到了27.5%
+[506.0s] 直接翻了将近4倍
+[508.0s] 极其变态的Netank
+[510.0s] 也从可怜的0.42%涨到了1.57%
+[515.0s] 接下来叠加了第二环的记忆训练后
+[518.0s] 增量依然极其可观
+[520.0s] Crafter在47.27%的基础上
+[523.0s] 又硬生生拔高了4.09个百分点
+[526.0s] 冲到了51.36%
+[528.0s] miniHank涨了2.5个百分点
+[530.0s] 来到了30%
+[532.0s] 而最难的Netank也涨了0.28个百分点
+[536.0s] 达到了1.85%
+[538.0s] 在这个游戏里
+[539.0s] 经验等级从1直接爬到了4
+[542.0s] 存活了数千步
+[544.0s] 这是什么概念呢
+[545.0s] 这是32B的开源模型
+[548.0s] 不许越级打爆了自家的72B老大哥
+[551.0s] 还极其逼近了超强的CloudOP 4.5和
+[555.0s] Gemlet 3.1 ProThinking
+[557.0s] 这证明了一件极其违背直觉的事
+[560.0s] 那就是在长周期任务里
+[562.0s] 优化记忆的条理
+[564.0s] 杠杆率远远大于无脑堆大模型的参数量
+[569.0s] 光看最终的分数还不够过瘾
+[571.0s] 我们必须看看这些宏观分数背后
+[574.0s] 具体发生了什么工程奇迹
+[576.0s] 等会你注意看图5和图4
+[579.0s] 我们先来看看这套记忆文件的SCHAMA
+[582.0s] 到底是怎么一步步演化的
+[584.0s] 也就是外环1到底做了什么
+[587.0s] 你仔细看图5
+[588.0s] 这绝对是全篇最让我兴奋的工程细节
+[591.0s] 在没有优化的V0初始版本里
+[594.0s] 模型维护的NetHang地图文件
+[597.0s] 简直就是一场灾难
+[599.0s] 它是一个无界追击的
+[600.0s] 这就好像一个初级程序员在用卡夫克消息对冽打日子
+[605.3s] 不管3721每走一步
+[607.7s] 只要看到地图上的一堵墙
+[609.8s] 就往文件末尾加上一行
+[612.1s] 坐标44-49是一堵墙
+[614.3s] 如果你在一个房间里来回徘徊了100步
+[618.0s] 你的文件里就会出现100行重复的墙壁坐标
+[622.1s] 这根本不是记忆
+[623.8s] 这是一笔庞大的烂涨
+[625.5s] 到了V1版本
+[626.9s] 上帝视角的架构是MetaLM
+[629.2s] 审查轨迹之后实在看不下去了
+[632.2s] 大笔一挥
+[632.9s] 引入了一个极其优雅的操作
+[634.9s] Opster Map
+[636.0s] 这是一个带有坐标建制队的驱虫操作
+[639.4s] 这就把原本愚蠢的追加日志
+[641.8s] 变成了一个极其高效的Redis KV缓存库
+[645.2s] 只要是同一个坐标
+[646.9s] 新的观察结果直接覆盖旧的记录
+[650.0s] 这个小小的改动带来了一个极其暴力的收益
+[653.4s] 你听好
+[654.2s] 就是模型的每部记忆文件上下文增量
+[658.1s] 直接从138个字符
+[660.5s] 瞬间爆降到了仅仅6个字符
+[663.5s] 这是整整95%的空间压缩率
+[666.8s] 再进化到VR版本
+[668.7s] 架构师进一步发现
+[670.3s] 模型在管理背包时老是出错
+[672.8s] 于是直接在框架层面
+[675.1s] 加入了自动同步背包机制
+[677.4s] 以及预先加载好的战略指南
+[680.4s] 模型不需要再浪费API调用
+[683.0s] 去反复确认我的目标是什么
+[685.3s] 我的背包里有什么系统会自动帮他维持好当前状态
+[690.7s] 这种结构上的降维打击直接反映在了模型的行为指标上
+[695.2s] 我们看图四
+[696.2s] 因为格数规范了
+[698.0s] 模型无意义的冗余写入断崖是下跌了68%到83%
+[703.7s] 空搜索率降了13%到50%
+[707.1s] 对于我们开发者来说
+[709.1s] 这意味着什么呢
+[710.1s] 在真实的生产环境里
+[712.5s] API是按Token计费的
+[714.6s] GPU显存是按上下文长度占用的
+[718.0s] 准确率不仅没掉
+[719.8s] 每一步的输入上下文直接缩减了30%
+[723.8s] 也就是你的显存和API账单能闭眼省下30%
+[728.9s] 这就是这一篇论文最暴力的算力账本
+[732.3s] 并且这不仅仅是基于效率提高了
+[735.5s] 连模型执行任务的行为也变聪明了
+[738.5s] 你看图四最左侧这个图
+[740.5s] 游戏里的无效动作
+[742.1s] 比如卡在墙角抽搐
+[744.1s] 或者在走廊里来回踱步
+[746.2s] 直接下降了将近65%
+[749.2s] 如果你觉得还不直观
+[750.6s] 我们看图六里
+[751.6s] Mini Hank的这个Corander R3任务
+[754.3s] 要求是在迷宫一样的走廊里
+[757.0s] 找到向下的楼梯
+[758.5s] 基础模型和紧优化结构的模型
+[761.8s] 都在这里原地打转
+[763.5s] 不断重走走过的死胡同
+[765.7s] 直到部署耗尽
+[767.4s] 通关率是0%
+[769.1s] 但是加上了专门训练的
+[771.6s] 读写记忆的specialist之后
+[773.8s] 他内化了先查资料再写日志的习惯
+[776.9s] 他成功穿透了迷宫
+[778.8s] 通过率直接反转
+[780.9s] 从0到了完美的100%
+[783.5s] 这是一个巨大的极其震撼的飞跃
+[786.5s] 当然研究者们不吹神花
+[789.5s] 不掩饰缺陷
+[790.8s] 论文在最后也坦承了目前的局限性
+[793.6s] 基于我自己的工程直觉
+[795.4s] 我认为这篇论文在实地落地时
+[798.3s] 会面临四个极其尖锐的痛点
+[800.9s] 第一它是顺势容器记忆
+[803.3s] 而不是持久化机
+[804.7s] 目前Ultman的记忆是情景式的
+[808.0s] 这就好比你每次重启一个Dark容器
+[810.9s] 它的文件系统就被彻底清空了
+[814.1s] 它只能应对单次万步级别的长任务
+[817.9s] 如果你想让它像一个陪伴你10年的AI助理
+[821.7s] 带着几百个对话Session的记忆
+[823.7s] 跨越过去和未来
+[825.4s] 这套机制目前还做不到跨越世代的知识留存
+[829.3s] 第二游戏沙盒与真实物理世界的鸿沟
+[832.9s] 论文里的Crafter和Netank虽然复杂
+[836.3s] 但毕竟是拥有绝对真理的离散游戏环境
+[840.1s] 如果把这套系统搬到自动驾驶的杂乱视觉环境里
+[845.1s] 或者充满了人类模糊意志的金融审计
+[848.4s] 医疗病理梳理之中
+[850.2s] 它能不能这么精准的提取出结构化的Upsert坐标呢
+[855.4s] 这里存在一个巨大的领域迁移挑战
+[858.6s] 第三高昂的领域定制放化成本
+[861.8s] 你注意看Full里的细节
+[863.7s] Crafter的最佳优化结构是V5
+[866.7s] MiniHack优化到了V4
+[868.5s] 而Netank是V2
+[870.2s] 这意味着什么呢
+[871.8s] 这意味着不存在一套包打天下的通用记忆文件夹格式
+[876.9s] 你面对每一个具体的新业务场景
+[879.8s] 都得让上帝视角的Meta LM消耗巨大的算力
+[884.0s] 重新为你量身定制一套特化的文件Schemma
+[887.8s] 这种高昂的定制成本在复杂的企业级系统里
+[891.9s] 必然会带来极大的部署摩擦
+[894.0s] 第四高风险场景的安全漏洞与越权风险
+[899.1s] 路安明确
+[900.0s] 指出这套系统尚未经过安全审计
+[903.4s] 当大模型可以自由执行类似操作系统的读写指令时
+[908.5s] 如果外部环境注入了恶意的prompt
+[911.5s] 它会不会把恶意的指令写入自己的核心记忆文件里
+[915.6s] 导致后续的逻辑彻底崩溃或者被劫持呢
+[919.8s] 在金融和工业级应用前
+[922.1s] 这是必须锁死的红线
+[924.6s] 接下来我们把视线拉远
+[926.7s] 把这篇论文放进学术谱系里
+[929.4s] 看看它在整个时间线上的位置
+[931.6s] 首先这篇论文的灵魂也是真正的奠基性启发
+[935.8s] 甚至不是来自计算机科学
+[938.5s] 而是来自认知科学
+[940.1s] 早在1979年
+[941.9s] John Flavo和Nielson就提出了Meta Memory的概念
+[945.4s] 什么是原记忆呢
+[947.1s] 它指的不是你能记住多少东西
+[949.8s] 而是你监控和调节自己记忆过程的能力
+[953.8s] 你知道该记住什么
+[955.7s] 什么时候该去回忆
+[957.1s] 以及怎么整理你的知识库
+[959.1s] Ottomem就是把这个40多年前的抽象经理学概念
+[963.7s] 第一次用大模型的代码动作空间
+[966.3s] 给具象化成了一个工程优化目标
+[969.4s] 正这个思路往下
+[971.3s] 你在做RAG相关的开发时
+[973.7s] 肯定绕不开2020年的
+[975.9s] Lewis那篇经典的DPR论文
+[978.7s] 或者最近很火的MEM GPT和Generative Agency
+[982.6s] 这就是我们要对比的路线
+[985.0s] 在MEM GPT和传统的RAG里
+[987.5s] 大模型是个被动的消费者
+[989.6s] 就像一个公司老板
+[991.2s] 资料室的秘书给他送来什么报告
+[993.8s] 他就看什么
+[994.8s] 如果秘书送错了
+[996.2s] 老板就只能做出错误决策
+[998.4s] 但Ottomem不一样
+[999.9s] 他的论文原文有这样一句极其霸气的话
+[1003.5s] 用大白话就是
+[1005.0s] 之前的这些研究者
+[1006.6s] 要么只搞外挂的检索结构
+[1009.6s] 要么只调模型的权重
+[1011.5s] 而我们把G当成了可学习的技能
+[1015.0s] 我们既用架构失环
+[1016.5s] 优化了秘书整理资料的制度
+[1019.3s] 又通过海量的监督数据微调
+[1021.6s] 让老板亲自学会了
+[1023.4s] 怎么去资料库里翻箱倒柜
+[1025.8s] 这是架构维度的双杀
+[1028.3s] 这一些同类的最新尝试
+[1030.8s] 比如让大模型持续长期状态的MEM LM
+[1034.0s] 或者是COLA架构
+[1036.5s] 以及让操作转化为动作的MEM ACT
+[1040.1s] 他们虽然看到了
+[1041.9s] 记忆及动作的重要性
+[1043.4s] 但依然只是给了模型
+[1045.3s] 一套静态的API
+[1046.8s] 他们没能像UltMEM这样
+[1048.8s] 利用看完十万部
+[1050.5s] 完整游戏录像
+[1051.7s] 来自动化的重构
+[1053.3s] 记忆规则本身
+[1054.8s] 最后这篇论文看下来
+[1057.1s] 对于我们这些
+[1058.0s] 正在一线死磕AI架构的工程师
+[1060.5s] 或者对聚生智能
+[1062.1s] 和世界模型感兴趣的朋友来说
+[1064.1s] 到底能提炼出什么insight呢
+[1066.4s] 我总结了三条
+[1068.0s] 第一条在A10的工程中
+[1070.0s] 记忆管理必须被视为一项
+[1072.4s] 独立可学习的技能
+[1074.1s] 以后不要再傻乎的去尝试
+[1076.5s] 用一个几万字的超长prompt
+[1078.9s] 势头上模型
+[1080.0s] 既当超强推理机
+[1082.0s] 又当无微不至的速记员了
+[1083.9s] 把这两件事拆开
+[1085.9s] 记忆结构与模型能力的双环优化
+[1089.0s] 才是真正的工业极流水线
+[1091.4s] 就像软件开发里的架构设计
+[1094.4s] 加上单元测试
+[1095.6s] 让专门的轻量级专家模型
+[1098.3s] 接管记忆库
+[1099.6s] 保留基座模型纯粹的业务推理能力
+[1103.3s] 第二把影视的context管理
+[1106.0s] 变成可追溯的系统调用
+[1108.4s] 当你把大模型的记忆
+[1110.4s] 从黑盒里自动拼接的字符串
+[1113.1s] 变成了标准的离散的文件读写指令时
+[1116.7s] 你就拥有了全链路的可观测
+[1119.0s] 你可以精确计算出
+[1120.7s] 它哪一次写操作是冗余的
+[1123.2s] 哪一次检索是落空的
+[1125.4s] 这我们以后通过类似CICD的自动化回归门
+[1129.5s] 来持续迭代agent
+[1131.1s] 奠定了底层基石
+[1132.8s] 第三
+[1133.7s] 不要迷信无线上下温
+[1136.0s] 注意力压缩才是王道
+[1138.5s] 记忆的本质不是存储
+[1140.3s] 而是压缩
+[1141.2s] 像Ottoman这样
+[1142.3s] 通过优秀的结构设计
+[1144.1s] 把138个字符压缩到6个字符
+[1147.1s] 它起到的作用类似于模型压缩中的知识蒸馏
+[1151.2s] 未来的世界模型
+[1152.7s] 一定不是靠无限长的窗口
+[1155.0s] 去硬扛所有的历史噪音
+[1157.0s] 而是靠一套自动演化的记忆结构
+[1159.6s] 去无存经
+[1160.7s] 想象一个场景
+[1162.3s] 在未来的某一天
+[1163.8s] 你作为公司的首席架构师
+[1165.7s] 正在海边休假
+[1166.9s] 突然接到夺命连环扣
+[1169.1s] 公司那个运行了10年
+[1171.2s] 拥有几百万行史山代码
+[1173.6s] 打了无数补丁的遗留核心数据库
+[1176.4s] 突然当机了
+[1177.7s] 你没有爬起来去翻找
+[1179.6s] 10年前的运维文档
+[1181.4s] 你只是拿起手机
+[1183.1s] 启动了一个搭载了类似
+[1184.9s] Ottoman机制的自动化牌账agent
+[1187.8s] 这个agent像幽灵一样
+[1190.0s] 潜入服务器集群
+[1191.8s] 他没有一上来就胡乱执行重启命令
+[1195.4s] 他自己创建了一个专属的牌账日志文件夹
+[1198.8s] 在扫描
+[1199.9s] 但他可以
+[1210.0s] 应该是无敌别对土 Lud话
+[1212.4s] 进入案周园出城了
+[1200.0s] 到异常端口时
+[1201.4s] 他从容的用Search指令
+[1203.2s] 搜索自己10分钟前写下的网络脱补笔记
+[1206.8s] 在面对瞬间喷涌而出的10万行
+[1210.0s] 错误日志时
+[1211.0s] 他精准的使用UpSearch指令
+[1213.4s] 只提炼出三个关键坐标
+[1215.8s] 优雅的覆盖掉所有的冗余噪音
+[1218.5s] 5分钟后
+[1219.7s] 他向你的手机推送了一条干净利落的消息
+[1223.0s] 发现底层事物死索
+[1224.9s] 以参考历史处理记录
+[1226.9s] 自动执行熔断重启
+[1228.8s] 当前内存占用极低
+[1230.9s] 系统已恢复
+[1232.2s] 真正的智能不在于他出厂时
+[1235.5s] 参数有多大算力有多猛
+[1237.8s] 而在于他懂得如何在这个
+[1240.0s] 充满噪音的世界里
+[1241.9s] 冷静的搭建起属于自己的知识工作台
+[1245.1s] 好的
+[1245.8s] 这里是Wall Insight
+[1247.1s] 今天的视频就先聊到这里
+[1249.0s] 如果你喜欢今天的节目
+[1250.3s] 别忘了点赞分享并订阅我的频道
+[1252.7s] 及时获取科技资讯和深度解析
+[1255.0s] 如果你觉得对你有帮助
+[1256.7s] 欢迎加入我的会员
+[1258.0s] 每月一杯咖啡的钱
+[1259.6s] 这就是对我最大的支持
+[1261.3s] 好 感谢观看
+[1262.7s] 我们下期论文拆解再见</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://youtu.be/kZP9c_dvbzY" target="_blank" rel="noopener">https://youtu.be/kZP9c_dvbzY</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
