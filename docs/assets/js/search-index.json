@@ -2,8 +2,8 @@
   {
     "title": "32B 逼近 Claude Opus｜斯坦福 AutoMem：不堆參數 - Hermes Docs",
     "url": "videos/AutoMem_斯坦福記憶管理.html",
-    "date": "2026-07-14 01:04",
-    "content": "32B 逼近 Claude Opus｜斯坦福 AutoMem：不堆參數 - Hermes Docs 返回首頁 32B 逼近 Claude Opus｜斯坦福 AutoMem：不堆參數 發布時間：2026-07-14 09:04 🌙 YouTube 影片重點整理 32B 逼近 Claude Opus｜斯坦福 AutoMem：不堆參數 📺 wow ⏱ 21:04 🗓 2025-07-14 🌐 zh-Hans 🔗 https://youtu.be/kZP9c_dvbzY 本期視頻硬核拆解斯坦福大學的最新研究《AutoMem: Learning to Memorize as a Cognitive Skill》。傳統思路把大模型的記憶當成被動的硬盤（RAG、向量數據庫、無限上下文窗口），但 AutoMem 徹底顛覆了這個範式——它把記憶管理變成一種可以被訓練、可優化的主動技能。通過雙環自動優化架構（結構優化環 + 能力訓練環），一個 32B 的開源小模型 Qwen 2.5 32B Instruct 在長週期遊戲任務中性能翻了 2-4 倍，不僅碾壓自家 72B 大模型，甚至逼近 Claude Op"
+    "date": "2026-07-14 01:18",
+    "content": "32B 逼近 Claude Opus｜斯坦福 AutoMem：不堆參數 - Hermes Docs 返回首頁 32B 逼近 Claude Opus｜斯坦福 AutoMem：不堆參數 發布時間：2026-07-14 09:18 🌙 YouTube 影片重點整理 32B 逼近 Claude Opus｜斯坦福 AutoMem：不堆參數 📺 wow ⏱ 21:04 🗓 2025-07-14 🌐 zh-Hans 🔗 https://youtu.be/kZP9c_dvbzY 本期視頻硬核拆解斯坦福大學的最新研究《AutoMem: Learning to Memorize as a Cognitive Skill》。傳統思路把大模型的記憶當成被動的硬盤（RAG、向量數據庫、無限上下文窗口），但 AutoMem 徹底顛覆了這個範式——它把記憶管理變成一種可以被訓練、可優化的主動技能。通過雙環自動優化架構（結構優化環 + 能力訓練環），一個 32B 的開源小模型 Qwen 2.5 32B Instruct 在長週期遊戲任務中性能翻了 2-4 倍，不僅碾壓自家 72B 大模型，甚至逼近 Claude Op"
   },
   {
     "title": "比修仙還爽！斯坦福教授每天5分鐘「元意識」修煉！ - Hermes Docs",
