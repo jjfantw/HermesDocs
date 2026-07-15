@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI進階用法指南：豆包辦公任務模式與五句話提示詞法 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .meta .star-rating { color: #f1c40f; letter-spacing: 1px; font-size: 1.1rem; }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>AI進階用法指南：豆包辦公任務模式與五句話提示詞法</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-07-15 20:47</span>
+        <span class="star-rating"></span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">AI進階用法指南，五分鐘教會你！</h1>
+    <div class="meta"><span data-field="channel">📺 林亦LYi</span><span data-field="duration">⏱ 5:44</span><span data-field="published_date">🗓 2026-07-15</span><span data-field="original_language">🌐 zh-Hans</span><a data-field="source_url" href="https://youtu.be/xtBVMGL0RM4" target="_blank" rel="noopener">🔗 https://youtu.be/xtBVMGL0RM4</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>林亦介紹豆包（Doubao）AI 的「辦公任務模式」，展示如何用「五句話說清楚」提示詞方法，讓 AI 從零到一搭建可長期使用的小工具。影片以兩個實例——熱點靈感庫網站與圖片處理工具——示範如何將模糊需求拆解為五個關鍵要素（做什麼、給誰用、解決什麼問題、基於什麼資料、交付成什麼），讓 AI 自動生成 HTML 網頁工具，並可透過自然語言微調。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">AI 辦公的真相：不只是寫文案</h2><span class="ts-badge" data-field="lesson_timestamp">0:26</span></div><div class="body" data-field="lesson_body"><p>很多人對 AI 辦公有誤解，以為它只是幫忙寫寫文案、改改措辭、做做總結。<strong>真正煩人的辦公任務，往往是那種碎片化、重複性高、還特別耗時間的流程。</strong></p><p>豆包最近更新的「辦公任務模式」和以前只能聊天的 AI 不同，它是個能自己動手幹活的 AI，專門負責處理複雜任務。</p></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">核心方法：「五句話說清楚」</h2><span class="ts-badge" data-field="lesson_timestamp">1:16</span></div><div class="body" data-field="lesson_body"><p>做任何 AI 小工具，不建議一上來就說「幫我做個工具」，而是先告訴 AI 這個工具到底要解決什麼痛點。<strong>把需求拆成五句話：</strong></p><p><strong>① 我們要做什麼</strong> — 明確工具的名稱與功能
+<strong>② 給誰用</strong> — 目標使用者是誰
+<strong>③ 解決什麼問題</strong> — 核心痛點是什麼
+<strong>④ 基於什麼資料</strong> — 需要哪些輸入素材
+<strong>⑤ 最後交付成什麼樣</strong> — 輸出格式與規格</p><p>把這幾個需求說清楚，豆包就可以有條理地幫你完成任務。</p></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">案例一：熱點靈感庫網站</h2><span class="ts-badge" data-field="lesson_timestamp">1:28</span></div><div class="body" data-field="lesson_body"><p><strong>痛點：</strong> 每天接觸大量碎片化資訊，刷到影片、工作號覺得有用就收藏，結果收藏數量一直漲，但上次瀏覽時間停留在遙遠的上次。</p><p><strong>操作步驟：</strong>
+1. 打開豆包左上角的「辦公任務模式」
+2. 選擇「本地電腦」，建立新資料夾「熱點靈感庫」
+3. 點擊「技能」，選擇「應用生成」
+4. 用五句話寫提示詞：要做一個熱點靈感庫、給自己用、解決資訊太散收藏不看的問題、基於準備好的檔案分析、交付成 HTML 網頁</p><p>豆包會根據提示詞先讀取帳號資料、判斷內容方向、搜尋近期熱點、篩掉重複無關資訊，最後把素材整理成一張張選題卡片。<strong>不用自己從零寫程式碼，AI 就能把網頁實打實做出來，放到網路上生成獨立訪問連結。</strong></p></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">案例二：圖片處理工具（Coverfit）</h2><span class="ts-badge" data-field="lesson_timestamp">3:35</span></div><div class="body" data-field="lesson_body"><p><strong>痛點：</strong> 上傳證件照要求不能超過多少 KB，上傳簽證報名材料要求圖片格式必須是 JPEG 或 PNG，每次都得花幾分鐘到處找網站。</p><p>同樣用「辦公任務模式」→「本地電腦」→ 建立「Coverfit 工具」資料夾 → 技能選擇「應用生成」。五句話對應：做一個圖片處理工具、給自己用、解決不同平台圖片比例格式要求不一致的問題、基於使用者上傳的圖片進行裁切和壓縮、交付成 HTML 網頁工具並附帶使用說明。</p><p><strong>描述得越具體、場景越清楚，成品就越可能接近想要的樣子。</strong></p></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">自然語言微調與延伸應用</h2><span class="ts-badge" data-field="lesson_timestamp">4:36</span></div><div class="body" data-field="lesson_body"><p>AI 生成之後，可以點擊右上角的「編輯」，哪個模組不滿意都可以讓豆包直接修改。<strong>整個過程完全用自然語言</strong>——例如「我覺得這個按鈕太小」，就可以讓它按鈕再大一點，完全不需要自己動手寫程式碼。</p><p><strong>延伸應用：</strong>
+- 求職者：把個人簡歷 + 目標公司招聘要求丟進去，讓它生成面試題庫
+- 學生：把課程筆記、論文、教材目錄丟進去，讓它生成複習卡片</p></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">AI 確實把從想法到第一版的门槛往下壓了一大截。以前很多項目之所以夭折，就是因為它連第一版都沒有。而現在，做出第一版可能真沒那麼難了。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="0:00"><span class="ts">0:00</span><span class="text" data-field="key_point_text">開場：AI 直接根據需求做出靈感庫網站和圖片壓縮工具</span></li><li data-field="key_point" data-timestamp="0:26"><span class="ts">0:26</span><span class="text" data-field="key_point_text">許多人對 AI 辦公的誤解——以為只是寫文案改措辭，但真正煩人的是碎片化、重複性高的流程</span></li><li data-field="key_point" data-timestamp="0:37"><span class="ts">0:37</span><span class="text" data-field="key_point_text">案例一：設定自動化任務，讓豆包每天早上 10 點自動播報 AI 新聞並彙整成 Excel</span></li><li data-field="key_point" data-timestamp="1:16"><span class="ts">1:16</span><span class="text" data-field="key_point_text">「五句話說清楚」提示詞方法：做什麼、給誰用、解決什麼問題、基於什麼資料、交付成什麼</span></li><li data-field="key_point" data-timestamp="1:28"><span class="ts">1:28</span><span class="text" data-field="key_point_text">案例二：熱點靈感庫——用辦公任務模式 + 本地資料夾 + 技能（應用生成），五句話提示詞生成 HTML 網頁</span></li><li data-field="key_point" data-timestamp="3:23"><span class="ts">3:23</span><span class="text" data-field="key_point_text">延伸應用：求職者可生成面試題庫，學生可生成複習卡片</span></li><li data-field="key_point" data-timestamp="3:35"><span class="ts">3:35</span><span class="text" data-field="key_point_text">案例三：圖片處理工具（Coverfit）——解決不同平台圖片比例格式要求不一致的問題</span></li><li data-field="key_point" data-timestamp="4:36"><span class="ts">4:36</span><span class="text" data-field="key_point_text">豆包執行過程中會自己思考架構、撰寫功能、檢查程式碼，產出後可用自然語言微調</span></li><li data-field="key_point" data-timestamp="5:13"><span class="ts">5:13</span><span class="text" data-field="key_point_text">結語：AI 把從想法到第一版的门槛大幅降低，但最終判斷仍需人類決定</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="豆包">豆包</span><span class="tag-chip" data-tag="Doubao">Doubao</span><span class="tag-chip" data-tag="AI辦公">AI辦公</span><span class="tag-chip" data-tag="提示詞">提示詞</span><span class="tag-chip" data-tag="五句話說清楚">五句話說清楚</span><span class="tag-chip" data-tag="AI工具">AI工具</span><span class="tag-chip" data-tag="辦公任務模式">辦公任務模式</span><span class="tag-chip" data-tag="教學">教學</span></div>
+  </section>
+
+  
+  
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="whisper"><div class="raw-label">Whisper 原始輸出<button class="copy-btn" id="raw_whisper_4382417664_srt" onclick="copyRaw(this,'raw_whisper_4382417664_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_whisper_4382417664_text" onclick="copyRawText(this,'raw_whisper_4382417664_text')">📋 複製純文字</button></div><pre>1
+00:00:00,000 --&gt; 00:00:02,200
+以前想都不敢想的灵感库网站
+
+2
+00:00:02,200 --&gt; 00:00:03,480
+AI直接帮我做出来了
+
+3
+00:00:03,480 --&gt; 00:00:05,500
+我让他帮我做一个压缩照片的工具
+
+4
+00:00:05,500 --&gt; 00:00:06,560
+他也直接搞定了
+
+5
+00:00:06,560 --&gt; 00:00:07,560
+这两个项目
+
+6
+00:00:07,560 --&gt; 00:00:09,300
+我只是对着AI说了我的需求
+
+7
+00:00:09,300 --&gt; 00:00:12,240
+用的就是豆包最近更新的办公任务模式
+
+8
+00:00:12,240 --&gt; 00:00:14,000
+和以前只能聊天的AI不同
+
+9
+00:00:14,000 --&gt; 00:00:16,140
+它现在是个能自己动手干活的AI
+
+10
+00:00:16,140 --&gt; 00:00:18,480
+专门负责替咱们摆平复杂的任务
+
+11
+00:00:18,480 --&gt; 00:00:19,620
+我们内部有一个招
+
+12
+00:00:19,620 --&gt; 00:00:20,980
+叫五句话说清楚
+
+13
+00:00:20,980 --&gt; 00:00:22,620
+掌握这套提示词方法
+
+14
+00:00:22,620 --&gt; 00:00:24,280
+你也能拿它做你想做的事情
+
+15
+00:00:24,280 --&gt; 00:00:25,360
+欢迎大家点个关注
+
+16
+00:00:25,360 --&gt; 00:00:26,320
+咱们直接开机
+
+17
+00:00:26,320 --&gt; 00:00:28,540
+很多人对AI办公有一个误解
+
+18
+00:00:28,540 --&gt; 00:00:30,280
+以为它就是帮你写写文案
+
+19
+00:00:30,280 --&gt; 00:00:31,520
+改改措辞做做总结
+
+20
+00:00:31,520 --&gt; 00:00:32,940
+真正烦人的办公任务
+
+21
+00:00:32,940 --&gt; 00:00:34,240
+往往是那种碎片化
+
+22
+00:00:34,240 --&gt; 00:00:34,940
+重复性高
+
+23
+00:00:34,940 --&gt; 00:00:36,520
+还特别耗时间的流程
+
+24
+00:00:36,520 --&gt; 00:00:37,320
+举个例子
+
+25
+00:00:37,320 --&gt; 00:00:39,560
+我每天都要看AI行业的最新动态
+
+26
+00:00:39,560 --&gt; 00:00:41,400
+信息分散在不同网站里
+
+27
+00:00:41,400 --&gt; 00:00:42,580
+看完还要筛重点
+
+28
+00:00:42,580 --&gt; 00:00:43,080
+做摘要
+
+29
+00:00:43,080 --&gt; 00:00:44,600
+时间全都花在了搬运上
+
+30
+00:00:44,600 --&gt; 00:00:46,400
+我就设置了一个自动化任务
+
+31
+00:00:46,400 --&gt; 00:00:47,780
+让豆包每天早上10点
+
+32
+00:00:47,780 --&gt; 00:00:49,500
+自动播报近期AI新闻
+
+33
+00:00:49,500 --&gt; 00:00:51,980
+并且把重点内容汇总成Excel表格
+
+34
+00:00:51,980 --&gt; 00:00:53,620
+这里我用了一下豆包的技能
+
+35
+00:00:53,620 --&gt; 00:00:55,260
+选择表格和市场热点
+
+36
+00:00:55,260 --&gt; 00:00:58,060
+这样它就能更稳定的帮我创建编辑表格
+
+37
+00:00:58,060 --&gt; 00:00:59,140
+说清楚规则后
+
+38
+00:00:59,140 --&gt; 00:01:00,920
+豆包就可以按时间自动执行
+
+39
+00:01:00,920 --&gt; 00:01:02,000
+接下来的两个案例
+
+40
+00:01:02,000 --&gt; 00:01:03,240
+咱们再往前走一步
+
+41
+00:01:03,240 --&gt; 00:01:04,780
+不只是让AI处理信息
+
+42
+00:01:04,780 --&gt; 00:01:06,860
+而是直接让它帮我从零到一
+
+43
+00:01:06,860 --&gt; 00:01:08,960
+搭一个能长期使用的小工具
+
+44
+00:01:08,960 --&gt; 00:01:10,580
+做任何AI小工具
+
+45
+00:01:10,580 --&gt; 00:01:11,800
+不建议大家一上来
+
+46
+00:01:11,800 --&gt; 00:01:12,900
+就说帮我做个工具
+
+47
+00:01:12,900 --&gt; 00:01:14,080
+而是先告诉它
+
+48
+00:01:14,080 --&gt; 00:01:16,180
+这个工具到底要解决什么痛点
+
+49
+00:01:16,180 --&gt; 00:01:18,000
+我们先把需求拆成五句话
+
+50
+00:01:18,000 --&gt; 00:01:19,100
+我们要做什么
+
+51
+00:01:19,100 --&gt; 00:01:19,620
+给谁用
+
+52
+00:01:19,620 --&gt; 00:01:20,440
+解决什么问题
+
+53
+00:01:20,440 --&gt; 00:01:21,280
+基于什么资料
+
+54
+00:01:21,280 --&gt; 00:01:22,800
+最后交付成什么样
+
+55
+00:01:22,800 --&gt; 00:01:24,360
+把这几个需求说清楚
+
+56
+00:01:24,360 --&gt; 00:01:26,140
+豆包就可以调理清晰的
+
+57
+00:01:26,140 --&gt; 00:01:27,060
+帮你完成一个任务
+
+58
+00:01:27,060 --&gt; 00:01:28,880
+我们拿热点灵感库来举例
+
+59
+00:01:28,880 --&gt; 00:01:30,420
+我们每天都会接触到
+
+60
+00:01:30,420 --&gt; 00:01:31,640
+大量的碎片化信息
+
+61
+00:01:31,640 --&gt; 00:01:32,520
+刷到一个视频
+
+62
+00:01:32,520 --&gt; 00:01:33,200
+一个工作号
+
+63
+00:01:33,200 --&gt; 00:01:34,820
+感觉哪个卡着都有点用
+
+64
+00:01:34,820 --&gt; 00:01:35,640
+得收藏一下
+
+65
+00:01:35,640 --&gt; 00:01:37,700
+结果收藏数量层层往上涨
+
+66
+00:01:37,700 --&gt; 00:01:39,160
+但上次的浏览时间
+
+67
+00:01:39,160 --&gt; 00:01:40,880
+也停留在了遥远的上次
+
+68
+00:01:40,880 --&gt; 00:01:42,100
+确定通点之后
+
+69
+00:01:42,100 --&gt; 00:01:43,540
+我们打开豆包左上角的
+
+70
+00:01:43,540 --&gt; 00:01:44,440
+办公任务模式
+
+71
+00:01:44,440 --&gt; 00:01:46,380
+我推荐大家选择本地电脑
+
+72
+00:01:46,380 --&gt; 00:01:47,760
+创建一个新的文件夹
+
+73
+00:01:47,760 --&gt; 00:01:48,840
+热点灵感库
+
+74
+00:01:48,840 --&gt; 00:01:49,580
+那么接下来
+
+75
+00:01:49,580 --&gt; 00:01:50,940
+豆包所有的工作文件
+
+76
+00:01:50,940 --&gt; 00:01:53,280
+包括他自己写的代码生成的网页
+
+77
+00:01:53,280 --&gt; 00:01:55,100
+都会自动保存到这个文件夹里
+
+78
+00:01:55,100 --&gt; 00:01:56,820
+之后我们再点击技能
+
+79
+00:01:56,820 --&gt; 00:01:57,580
+豆包这里
+
+80
+00:01:57,580 --&gt; 00:01:59,180
+其实预设了不少技能
+
+81
+00:01:59,180 --&gt; 00:02:00,100
+我们要做网页
+
+82
+00:02:00,100 --&gt; 00:02:01,700
+就可以选择应用生成
+
+83
+00:02:01,700 --&gt; 00:02:02,380
+技能的作用
+
+84
+00:02:02,380 --&gt; 00:02:03,340
+就是把我们过去
+
+85
+00:02:03,340 --&gt; 00:02:05,260
+每次都要重复解释的经验
+
+86
+00:02:05,260 --&gt; 00:02:07,240
+规则流程和输出标准
+
+87
+00:02:07,240 --&gt; 00:02:08,380
+浓缩成一份精华
+
+88
+00:02:08,380 --&gt; 00:02:10,240
+变成AI可以稳定读取
+
+89
+00:02:10,240 --&gt; 00:02:11,320
+稳定执行的能力
+
+90
+00:02:11,320 --&gt; 00:02:13,140
+接下来就是写提示词
+
+91
+00:02:13,140 --&gt; 00:02:14,320
+换到这个案例里
+
+92
+00:02:14,320 --&gt; 00:02:15,720
+五句话就分别对应
+
+93
+00:02:15,720 --&gt; 00:02:17,220
+我要做一个热点灵感库
+
+94
+00:02:17,220 --&gt; 00:02:18,220
+是给自己用的
+
+95
+00:02:18,220 --&gt; 00:02:20,100
+解决的是每天信息太散
+
+96
+00:02:20,100 --&gt; 00:02:21,320
+收藏了却不看的问题
+
+97
+00:02:21,320 --&gt; 00:02:23,860
+要基于我的准备好的文件进行分析
+
+98
+00:02:23,860 --&gt; 00:02:26,200
+最后交付成一个HTML网页
+
+99
+00:02:26,200 --&gt; 00:02:27,740
+大家也可以再往下
+
+100
+00:02:27,740 --&gt; 00:02:29,760
+细化各个执行环节的具体要求
+
+101
+00:02:29,760 --&gt; 00:02:31,120
+比如评价标准
+
+102
+00:02:31,120 --&gt; 00:02:32,240
+输出的文件格式
+
+103
+00:02:32,240 --&gt; 00:02:33,280
+页面的设计风格
+
+104
+00:02:33,280 --&gt; 00:02:34,540
+你看这里面
+
+105
+00:02:34,540 --&gt; 00:02:36,640
+其实也没啥高级技术用语
+
+106
+00:02:36,640 --&gt; 00:02:38,020
+咱们组织好提示词之后
+
+107
+00:02:38,020 --&gt; 00:02:39,180
+就可以发送给豆包
+
+108
+00:02:39,180 --&gt; 00:02:40,940
+它会根据我们给的提示词
+
+109
+00:02:40,940 --&gt; 00:02:42,160
+先读取账号资料
+
+110
+00:02:42,160 --&gt; 00:02:43,060
+判断内容方向
+
+111
+00:02:43,060 --&gt; 00:02:44,260
+再搜索近期热点
+
+112
+00:02:44,260 --&gt; 00:02:46,000
+筛掉重复和无关的信息
+
+113
+00:02:46,000 --&gt; 00:02:47,340
+最后基于要求
+
+114
+00:02:47,340 --&gt; 00:02:49,240
+把素材整理成一张张选题卡片
+
+115
+00:02:49,240 --&gt; 00:02:51,580
+这就是豆包的专属妙搭能力
+
+116
+00:02:51,580 --&gt; 00:02:53,020
+不用自己从零敲代码
+
+117
+00:02:53,020 --&gt; 00:02:54,920
+它就能把网页实打实的给做出来
+
+118
+00:02:54,920 --&gt; 00:02:56,060
+放到网上托关好
+
+119
+00:02:56,060 --&gt; 00:02:58,140
+直接生成一个独立的访问链接
+
+120
+00:02:58,140 --&gt; 00:02:59,720
+复制链接分享给朋友
+
+121
+00:02:59,720 --&gt; 00:03:01,000
+对方也能直接点开
+
+122
+00:03:01,000 --&gt; 00:03:03,200
+最后AI生成了一个HTML网页
+
+123
+00:03:03,200 --&gt; 00:03:04,400
+直接点开就能用了
+
+124
+00:03:04,400 --&gt; 00:03:06,780
+里面每个选题都被整理成卡片
+
+125
+00:03:06,780 --&gt; 00:03:08,240
+比如标题切入角度
+
+126
+00:03:08,240 --&gt; 00:03:10,340
+推荐理由参考来源都已经列好了
+
+127
+00:03:10,340 --&gt; 00:03:12,140
+当然这个版本还只是demo
+
+128
+00:03:12,140 --&gt; 00:03:13,020
+不是最终成品
+
+129
+00:03:13,020 --&gt; 00:03:15,000
+但它已经完成了最关键的一步
+
+130
+00:03:15,000 --&gt; 00:03:16,920
+从我脑子里有一个模糊的需求
+
+131
+00:03:16,920 --&gt; 00:03:19,080
+变成了我本地有一个真的能打开
+
+132
+00:03:19,080 --&gt; 00:03:20,180
+能继续迭代的工具
+
+133
+00:03:20,180 --&gt; 00:03:22,280
+这也是我们以后做任何AI项目
+
+134
+00:03:22,280 --&gt; 00:03:23,300
+都可以复用的思路
+
+135
+00:03:23,300 --&gt; 00:03:24,520
+正在求职的朋友
+
+136
+00:03:24,520 --&gt; 00:03:25,700
+就可以把个人简历
+
+137
+00:03:25,700 --&gt; 00:03:27,340
+目标公司招聘要求围进去
+
+138
+00:03:27,340 --&gt; 00:03:28,680
+让它生成面试题库
+
+139
+00:03:28,680 --&gt; 00:03:30,280
+正在学习的小小弟小小妹
+
+140
+00:03:30,280 --&gt; 00:03:33,140
+也可以把课程笔记论文教材目录围进去
+
+141
+00:03:33,140 --&gt; 00:03:34,520
+让它生成复习卡片
+
+142
+00:03:34,520 --&gt; 00:03:35,620
+采用同样方法
+
+143
+00:03:35,620 --&gt; 00:03:36,940
+我还做了一个图片处理工具
+
+144
+00:03:36,940 --&gt; 00:03:39,240
+这里我们继续验证刚才那个方法
+
+145
+00:03:39,240 --&gt; 00:03:40,320
+还是五句话
+
+146
+00:03:40,320 --&gt; 00:03:41,960
+先提出要做什么工具
+
+147
+00:03:41,960 --&gt; 00:03:43,720
+面向什么人群解决什么问题
+
+148
+00:03:43,720 --&gt; 00:03:45,240
+最后交付成什么样
+
+149
+00:03:45,240 --&gt; 00:03:46,900
+不涉及上传资料的时候
+
+150
+00:03:46,900 --&gt; 00:03:48,700
+可以忽略基于什么资料这一点
+
+151
+00:03:48,700 --&gt; 00:03:50,180
+我们描述的越具体
+
+152
+00:03:50,180 --&gt; 00:03:51,020
+场景越清楚
+
+153
+00:03:51,020 --&gt; 00:03:53,540
+成品就越可能接近我们想要的样子
+
+154
+00:03:53,540 --&gt; 00:03:56,000
+我是被各种格式要求折磨过的
+
+155
+00:03:56,000 --&gt; 00:03:56,820
+上传个证件照
+
+156
+00:03:56,820 --&gt; 00:03:58,180
+要求不能超过多少KB
+
+157
+00:03:58,180 --&gt; 00:03:59,640
+上传签证报名材料
+
+158
+00:03:59,640 --&gt; 00:04:02,260
+要求图片格式必须是JPEG或者PNG
+
+159
+00:04:02,260 --&gt; 00:04:04,740
+每次都得花上个几分钟到处找网站
+
+160
+00:04:04,740 --&gt; 00:04:06,400
+我就干脆自己做个工具
+
+161
+00:04:06,400 --&gt; 00:04:08,380
+我们还是选择办公任务模式
+
+162
+00:04:08,380 --&gt; 00:04:09,260
+选择本地电脑
+
+163
+00:04:09,260 --&gt; 00:04:11,580
+创建一个名为Coverfit工具的文件夹
+
+164
+00:04:11,580 --&gt; 00:04:12,820
+之后点击技能
+
+165
+00:04:12,820 --&gt; 00:04:14,460
+这里我们选择应用生成
+
+166
+00:04:14,460 --&gt; 00:04:16,020
+接下来写提示词的时候
+
+167
+00:04:16,020 --&gt; 00:04:18,560
+我按照五句话说清楚的原则来组织
+
+168
+00:04:18,560 --&gt; 00:04:19,760
+放到这个案例里
+
+169
+00:04:19,760 --&gt; 00:04:20,680
+就分别对应
+
+170
+00:04:20,680 --&gt; 00:04:22,300
+我要做一个图片处理工具
+
+171
+00:04:22,300 --&gt; 00:04:23,140
+给自己使用
+
+172
+00:04:23,140 --&gt; 00:04:25,620
+解决不同平台图片比例格式
+
+173
+00:04:25,620 --&gt; 00:04:26,960
+大写要求不一致的问题
+
+174
+00:04:26,960 --&gt; 00:04:28,400
+基于用户上传的图片
+
+175
+00:04:28,400 --&gt; 00:04:29,480
+进行裁气和压缩
+
+176
+00:04:29,480 --&gt; 00:04:32,140
+最后交付成一个HTML网页工具
+
+177
+00:04:32,140 --&gt; 00:04:33,660
+并且附带使用说明
+
+178
+00:04:33,660 --&gt; 00:04:35,300
+这五句话讲清楚之后
+
+179
+00:04:35,300 --&gt; 00:04:36,880
+我们再开始让豆包执行
+
+180
+00:04:36,880 --&gt; 00:04:39,260
+运行过程中豆包也会结合提示词
+
+181
+00:04:39,260 --&gt; 00:04:41,560
+自己思考怎么搭页面写功能
+
+182
+00:04:41,560 --&gt; 00:04:43,540
+最后还会自己检查代码
+
+183
+00:04:43,540 --&gt; 00:04:44,180
+生成之后
+
+184
+00:04:44,180 --&gt; 00:04:45,740
+我们还可以对内容进行微调
+
+185
+00:04:45,740 --&gt; 00:04:47,700
+我们可以点击右上角的编辑
+
+186
+00:04:47,700 --&gt; 00:04:48,880
+哪个模块不满意
+
+187
+00:04:48,880 --&gt; 00:04:50,320
+都可以让豆包直接修改
+
+188
+00:04:50,320 --&gt; 00:04:52,900
+这个过程我们也完全用的自然语言
+
+189
+00:04:52,900 --&gt; 00:04:54,420
+比如我觉得这个按钮太小
+
+190
+00:04:54,420 --&gt; 00:04:55,780
+就可以让它按钮再大一点
+
+191
+00:04:55,780 --&gt; 00:04:57,480
+我们压根不需要自己动手
+
+192
+00:04:57,480 --&gt; 00:04:59,280
+只要把使用场景功能要求
+
+193
+00:04:59,280 --&gt; 00:05:00,320
+交付形式说清楚
+
+194
+00:05:00,320 --&gt; 00:05:02,380
+豆包就直接帮你把工具做出来
+
+195
+00:05:02,380 --&gt; 00:05:04,600
+你看这俩项目虽然不一样
+
+196
+00:05:04,600 --&gt; 00:05:07,080
+但提示词的写作逻辑其实是一样的
+
+197
+00:05:07,080 --&gt; 00:05:08,460
+借着这个提示词思路
+
+198
+00:05:08,460 --&gt; 00:05:10,720
+现在你也可以让AI帮你做个小工具了
+
+199
+00:05:10,720 --&gt; 00:05:12,400
+大家完全可以自由发挥
+
+200
+00:05:12,400 --&gt; 00:05:13,980
+拓展到你自己熟悉的领域
+
+201
+00:05:13,980 --&gt; 00:05:16,880
+但AI目前还不能替我们做所有的判断
+
+202
+00:05:16,880 --&gt; 00:05:18,100
+哪些内容能用
+
+203
+00:05:18,100 --&gt; 00:05:18,980
+哪些地方要改
+
+204
+00:05:18,980 --&gt; 00:05:19,980
+哪些需求该卡
+
+205
+00:05:19,980 --&gt; 00:05:21,880
+终究还是要靠人类决定
+
+206
+00:05:21,880 --&gt; 00:05:25,020
+但AI也确实把从想法到第一版的门槛
+
+207
+00:05:25,020 --&gt; 00:05:26,080
+往下压了一大截
+
+208
+00:05:26,080 --&gt; 00:05:27,980
+以前很多项目之所以夭折
+
+209
+00:05:27,980 --&gt; 00:05:29,620
+就是因为它连第一版都没有
+
+210
+00:05:29,620 --&gt; 00:05:32,060
+而现在做出第一版可能真没那么难了
+
+211
+00:05:32,060 --&gt; 00:05:32,540
+我是林一
+
+212
+00:05:32,540 --&gt; 00:05:34,540
+咱们下个视频见
+
+</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://youtu.be/xtBVMGL0RM4" target="_blank" rel="noopener">https://youtu.be/xtBVMGL0RM4</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
