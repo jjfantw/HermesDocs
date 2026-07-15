@@ -1,0 +1,3915 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Windows跑AI Agent，WSL才是终极答案 — WSL保姆级全攻略 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>Windows跑AI Agent，WSL才是终极答案 — WSL保姆级全攻略</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-07-15 08:14</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">Windows跑AI Agent，WSL才是终极答案，别羡慕Mac了 — WSL保姆级全攻略，海量实战教程，一期视频精通</h1>
+    <div class="meta"><span data-field="channel">📺 技术爬爬虾 TechShrimp</span><span data-field="duration">⏱ 31:31</span><span data-field="published_date">🗓 2026-07-13</span><span data-field="original_language">🌐 zh-Hans</span><a data-field="source_url" href="https://www.youtube.com/watch?v=gE2Ju2qoGbU" target="_blank" rel="noopener">🔗 https://www.youtube.com/watch?v=gE2Ju2qoGbU</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>這是一支完整的 WSL（Windows Subsystem for Linux）實戰教學影片，從安裝到進階應用全面覆蓋。講者首先點出 Windows 上跑 AI Agent 的主要痛點——PowerShell 對 AI 不夠友好，而 WSL 只需一行命令就能在 Windows 上運行 Linux 子系統，讓 Agent 運行更穩、效率更高、與生產環境更一致、環境隔離更安全。影片依序示範：CPU 虛擬化檢查與 WSL 安裝、多發行版與多實例管理、在 WSL 中運行 Py Agent 並用 Next.js 開發坦克大戰遊戲、VSCode 整合與 Git 操作、安裝 Hermes Agent / Claude Code / Codex CLI 三大 Agent 工具、Docker 安裝與 Redis 實戰、NVIDIA 顯卡直通與 vLLM 推理框架部署、WSLG 圖形界面與完整桌面遠端連線、NAT 與鏡像網路模式切換、.wslconfig 與 wsl.conf 配置檔詳解，以及虛擬機備份克隆與跨命令列互通等進階功能。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">為什麼 WSL 是 Windows 跑 AI Agent 的最佳解</h2><span class="ts-badge" data-field="lesson_timestamp">00:00</span></div><div class="body" data-field="lesson_body"><p>AI Agent 在 Windows 上的表現不如 MacOS，<strong>主要原因就是 PowerShell 對 AI 不夠友好</strong>。AI 大模型訓練語料中的命令列操作大部分是 Linux 和 MacOS 風格，在 Linux 環境中出錯率明顯更低、效果更好。</p><p>WSL（Windows Subsystem for Linux）只需一行命令就能在 Windows 上運行 Linux 子系統，讓電腦同時獲得兩大作業系統的優勢。在 WSL 中運行 AI Agent 可獲得三大好處：<strong>Agent 運行更穩效率更高</strong>（Linux 命令出錯率低、省 Token）、<strong>與生產環境更一致</strong>（程式最終部署到 Linux 伺服器，環境差異小）、<strong>環境隔離更安全</strong>（WSL 提供 Linux 虛擬機與 Windows 宿主機之間的隔離，搞壞了刪掉重建即可）。</p><span class="tag" data-field="lesson_tag">WSL 優勢</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">WSL 安裝與基礎使用</h2><span class="ts-badge" data-field="lesson_timestamp">01:33</span></div><div class="body" data-field="lesson_body"><p>安裝前需確認 CPU 虛擬化已啟用：在任務管理器的「效能 &gt; CPU」中查看「虛擬化」狀態。若未啟用，需進入 BIOS 開啟 Intel VMX 或 AMD SVM Mode。</p><p>在 Windows Terminal 中輸入 `wsl --install`（國內網路建議加 `--web-download` 提高下載速度），預設安裝 Ubuntu。安裝過程中需設定 Linux 使用者名稱和密碼（輸入密碼時螢幕不會顯示內容）。安裝完成後命令列顏色改變，即進入 Linux 子系統，輸入 `exit` 可退出。</p><p>可安裝其他發行版：`wsl --list --online` 列出所有可安裝版本，`wsl --install &lt;發行版名&gt;` 指定安裝，`--location` 可指定安裝目錄。同一發行版可建立多個隔離實例（`wsl --install Ubuntu --name Ubuntu2`）。`wsl --list` 列出所有已安裝的 Linux 虛擬機。</p><span class="tag" data-field="lesson_tag">安裝與管理</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">在 WSL 中運行 AI Agent（Py）</h2><span class="ts-badge" data-field="lesson_timestamp">06:19</span></div><div class="body" data-field="lesson_body"><p>運行 Agent 前需確認開發三件套：Git（Ubuntu 自帶）、Python 3（自帶，需將 `python` 命令連結到 `python3`）、Node.js（透過 NVM 安裝版本 24）。</p><p>以 <strong>Py</strong>（極簡 Coding Agent）為例：使用 curl 安裝後，執行 `py --login` 配置 API Key（支援 DeepSeek、Minimax、Kimi 等），選擇模型後即可開始開發。</p><p>實戰示範：用 Next.js 框架編寫坦克大戰遊戲，開發完成後可直接用 Windows 上的瀏覽器（Edge）訪問 WSL 中的服務。這是因為 <strong>WSL 會自動將 Linux 中的端口轉發到 Windows 的 localhost</strong>——WSL 檢測到 Linux 中有程式監聽端口，就會自動轉發到 Windows 宿主機的 localhost 相同端口。</p><span class="tag" data-field="lesson_tag">Py Agent</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">VSCode 整合與 Git 操作</h2><span class="ts-badge" data-field="lesson_timestamp">08:48</span></div><div class="body" data-field="lesson_body"><p>在 WSL 的工作目錄中輸入 `code .`，即可直接使用 Windows 上的 VSCode 開啟該目錄，進行程式碼修改與除錯，體驗與 Windows 原生開發一致。</p><p>VSCode 中可直接進行 Git 操作：初始化倉庫、提交程式碼、發佈到 GitHub。也可讓 AI Agent 代勞 Git 操作——讓 Agent 讀取 Windows 宿主機的 Git 設定後同步到 WSL 中，再由 Agent 完成修改、提交與推送。</p><p>可透過 Windows 檔案總管查看 Linux 檔案：在左下角 Linux 圖示中選擇對應發行版，或在 WSL 中輸入 `explorer.exe .` 直接開啟當前目錄。Linux 上的 Windows 磁碟以掛載卷形式出現在 `/mnt/c`、`/mnt/d`。<strong>注意：專案資料夾盡量放在 Linux 原生目錄，不要放在 Windows 目錄，因為跨作業系統讀取檔案會產生額外 I/O 開銷。</strong></p><span class="tag" data-field="lesson_tag">開發環境</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">三大 AI Agent 工具安裝：Hermes、Claude Code、Codex</h2><span class="ts-badge" data-field="lesson_timestamp">13:57</span></div><div class="body" data-field="lesson_body"><p><strong>Hermes Agent</strong>：選擇 Linux 安裝方式，複製安裝命令到 WSL 執行。設定時選擇「完全設定」，模型廠商選 DeepSeek，輸入 API Key，模型選 V4 Flash，通訊渠道選第三項（Slack），後續一路預設或 Skip 即可。重啟 WSL 後輸入 `hermes` 啟動。</p><p><strong>Claude Code</strong>：複製安裝命令到 WSL 執行，使用官方訂閱，在瀏覽器中打開授權網址複製授權碼，貼回 WSL 完成配置。若想接入國內模型，網上也有方法。</p><p><strong>Codex CLI</strong>：從 GitHub 首頁複製 Linux 安裝命令到 WSL，安裝完成後重啟 WSL，輸入 `codex` 啟動，用 ChatGPT 登入。也可使用 Windows 上的 Codex APP（現已改名 ChatGPT 桌面應用），在設定中將 Agent 環境和終端都切換為 WSL。不過 Codex APP 只能使用 Windows 資料夾掛載進 WSL，I/O 效率較低，<strong>講者更推薦直接在 WSL 中使用 Codex CLI</strong>。</p><span class="tag" data-field="lesson_tag">Agent 工具</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">Docker 與 Redis 實戰</h2><span class="ts-badge" data-field="lesson_timestamp">17:10</span></div><div class="body" data-field="lesson_body"><p>WSL2 最新發行版已預設啟用 systemd，在 WSL 上運行 Docker 的體驗與真正 Linux 電腦一致。從 Docker 官方部署指南複製第 1 和第 4 個命令到 WSL 執行即可完成安裝。</p><p>實戰示範：一行命令 `sudo docker run -d -p 6379:6379 redis` 即可啟動 Redis 容器。在 Windows 上的 Redis 客戶端使用 localhost:6379 即可連接（WSL 的端口自動轉發）。關閉 WSL 視窗後 Docker 容器會停止，重新啟動 WSL 後用 `sudo docker start &lt;容器ID&gt;` 即可恢復。</p><span class="tag" data-field="lesson_tag">Docker</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">07</span><h2 data-field="lesson_title">NVIDIA 顯卡直通與 vLLM 推理框架</h2><span class="ts-badge" data-field="lesson_timestamp">20:34</span></div><div class="body" data-field="lesson_body"><p>WSL2 基於 Hyper-V 虛擬化平台，<strong>自帶顯卡直通功能</strong>，不需任何配置即可在 WSL 中直接調用 Windows 宿主機的 NVIDIA 顯卡。輸入 `nvidia-smi` 即可查看 GPU 驅動版本、CUDA 版本與顯卡型號（示範機為 RTX 5070）。<strong>千萬不要在 WSL 的 Linux 系統中安裝任何驅動</strong>，它直接使用 Windows 的驅動。</p><p>vLLM 是目前最熱門的 AI 推理框架，官方文件僅支援 Linux。在 WSL 中安裝 UV 後，依官方文件執行命令即可部署模型。示範使用千問 3.5（Qwen 3.5），透過 Postman 訪問推理端點，半秒即可推理大量 token。</p><span class="tag" data-field="lesson_tag">GPU 加速</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">08</span><h2 data-field="lesson_title">圖形界面：WSLG 與完整桌面</h2><span class="ts-badge" data-field="lesson_timestamp">22:26</span></div><div class="body" data-field="lesson_body"><p><strong>WSLG</strong>（WSL Graphics）可將 Linux 圖形應用直接顯示到 Windows 桌面。示範安裝 GIMP（開源 Photoshop 替代品），在 WSL 中執行後，視窗直接出現在 Windows 桌面上。</p><p><strong>完整桌面環境</strong>：在 Kali Linux 上安裝 Kali-Win-KEX，輸入 `kex` 即可啟動完整桌面。在 Ubuntu 上則需依序執行多個命令安裝桌面環境，最後用 Windows 的「遠端桌面連線」輸入 Ubuntu 的 IP 位址和端口 3389 即可連入完整 Ubuntu 桌面。</p><span class="tag" data-field="lesson_tag">GUI</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">09</span><h2 data-field="lesson_title">WSL 網路模式與配置檔詳解</h2><span class="ts-badge" data-field="lesson_timestamp">24:16</span></div><div class="body" data-field="lesson_body"><p>WSL 預設採用 <strong>NAT 網路模式</strong>，Linux 子系統位於宿主機內部的虛擬網路中，擁有獨立虛擬 IP。透過 localhost 端口自動轉發，宿主機可用 localhost 訪問 WSL 中的服務。但<strong>區域網路內的其他設備無法訪問 WSL 中的服務</strong>。</p><p><strong>鏡像網路模式</strong>：在 `C:\Users\&lt;使用者名稱&gt;\.wslconfig` 中新增 `[wsl2]\nnetworkingMode=mirrored`，將 Windows 網卡直接鏡像一份給 WSL 使用，讓兩者處於相同網路環境、使用相同區域網路 IP。還需以管理員身份執行 PowerShell 命令修改防火牆設定。切換後區域網路設備（如手機）即可訪問 WSL 中的服務。</p><p><strong>兩個配置檔的區別</strong>：`.wslconfig`（Windows 檔案，全域通用，位於 C 槽使用者目錄）可修改記憶體、核心啟動方式、網路模式等；`wsl.conf`（Linux 檔案，位於 `/etc/wsl.conf`，只對單個虛擬機生效）可修改掛載卷、systemd、預設使用者等。示範關閉自動掛載以提升安全性——AI 操作時無法看到 Windows 上的檔案。</p><span class="tag" data-field="lesson_tag">網路設定</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">10</span><h2 data-field="lesson_title">進階功能：備份克隆與命令列互通</h2><span class="ts-badge" data-field="lesson_timestamp">29:16</span></div><div class="body" data-field="lesson_body"><p><strong>備份與克隆</strong>：`wsl --export &lt;虛擬機名稱&gt; &lt;壓縮包.tar&gt;` 可將整個 Linux 虛擬機備份成 tar 壓縮包。`wsl --import &lt;新名稱&gt; &lt;安裝路徑&gt; &lt;壓縮包&gt;` 可還原或克隆多份相同環境。這也支援將虛擬機遷移到其他 Windows 電腦。</p><p><strong>跨命令列互通</strong>：在 PowerShell 中可混寫 Windows 和 Linux 命令。例如 `Get-ChildItem | wsl grep vdu`——前半段是 Windows 的 `Get-ChildItem`，透過管道傳給 Linux 的 `grep` 進行篩選，兩種系統的命令可以無縫協作。</p><span class="tag" data-field="lesson_tag">進階技巧</span></div></article></section>
+  
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="00:00"><span class="ts">00:00</span><span class="text" data-field="key_point_text">WSL 能解決 Windows 上 AI Agent 運行不穩、PowerShell 不友善的問題</span></li><li data-field="key_point" data-timestamp="01:33"><span class="ts">01:33</span><span class="text" data-field="key_point_text">安裝 WSL 前需確認 CPU 虛擬化已啟用，一行指令即可安裝 Ubuntu</span></li><li data-field="key_point" data-timestamp="03:30"><span class="ts">03:30</span><span class="text" data-field="key_point_text">可安裝多種 Linux 發行版（Ubuntu、Kali），支援多實例隔離</span></li><li data-field="key_point" data-timestamp="06:19"><span class="ts">06:19</span><span class="text" data-field="key_point_text">在 WSL 中安裝 Py Agent，配置 API Key 後即可開發</span></li><li data-field="key_point" data-timestamp="08:48"><span class="ts">08:48</span><span class="text" data-field="key_point_text">用 Next.js 開發坦克大戰遊戲，VSCode 可直接編輯 WSL 中的程式碼</span></li><li data-field="key_point" data-timestamp="13:57"><span class="ts">13:57</span><span class="text" data-field="key_point_text">安裝 Hermes Agent、Claude Code、Codex CLI 三大 AI Agent 工具</span></li><li data-field="key_point" data-timestamp="17:10"><span class="ts">17:10</span><span class="text" data-field="key_point_text">Docker 安裝與 Redis 容器部署，WSL 關閉後容器自動停止</span></li><li data-field="key_point" data-timestamp="20:34"><span class="ts">20:34</span><span class="text" data-field="key_point_text">WSL2 自帶 NVIDIA 顯卡直通，可運行 vLLM 推理框架部署千問 3.5</span></li><li data-field="key_point" data-timestamp="22:26"><span class="ts">22:26</span><span class="text" data-field="key_point_text">WSLG 可顯示 Linux 圖形軟體，也可啟動完整桌面環境</span></li><li data-field="key_point" data-timestamp="24:16"><span class="ts">24:16</span><span class="text" data-field="key_point_text">NAT 與鏡像網路模式切換、.wslconfig 與 wsl.conf 配置、備份克隆與命令列互通</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="WSL">WSL</span><span class="tag-chip" data-tag="Windows Subsystem for Linux">Windows Subsystem for Linux</span><span class="tag-chip" data-tag="AI Agent">AI Agent</span><span class="tag-chip" data-tag="Linux">Linux</span><span class="tag-chip" data-tag="Docker">Docker</span><span class="tag-chip" data-tag="vLLM">vLLM</span><span class="tag-chip" data-tag="GPU直通">GPU直通</span><span class="tag-chip" data-tag="Hermes Agent">Hermes Agent</span><span class="tag-chip" data-tag="Claude Code">Claude Code</span><span class="tag-chip" data-tag="Codex">Codex</span><span class="tag-chip" data-tag="教學">教學</span></div>
+  </section>
+
+  
+  <section class="glossary" data-field="asr_glossary"><h2>🎙️ ASR 漂字對照表</h2><div class="card"><table class="glossary"><tr data-field="asr_glossary_row"><td data-field="heard">AAAgent / AA</td><td>→</td><td data-field="corrected">AI Agent / AI</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Py</td><td>→</td><td data-field="corrected">Pi (Agent 名稱)</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Hermis</td><td>→</td><td data-field="corrected">Hermes</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Cloud Code</td><td>→</td><td data-field="corrected">Claude Code</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Codex</td><td>→</td><td data-field="corrected">Codex CLI</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">V4Flash</td><td>→</td><td data-field="corrected">V3 Flash (DeepSeek 模型)</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">千問3.5</td><td>→</td><td data-field="corrected">千問 3.5 (Qwen 3.5)</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">K2.7 Code</td><td>→</td><td data-field="corrected">K2.7 Code (Kimi 模型)</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Carly Linux</td><td>→</td><td data-field="corrected">Kali Linux</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">企額</td><td>→</td><td data-field="corrected">Linux 圖示（企鵝）</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">枯大</td><td>→</td><td data-field="corrected">CUDA</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">速度</td><td>→</td><td data-field="corrected">sudo</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">密令</td><td>→</td><td data-field="corrected">命令</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">紫系統</td><td>→</td><td data-field="corrected">子系統</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">輸入機</td><td>→</td><td data-field="corrected">宿主機</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">速入機</td><td>→</td><td data-field="corrected">宿主機</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">無版圖</td><td>→</td><td data-field="corrected">Ubuntu</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">哈巴蝦</td><td>→</td><td data-field="corrected">爬爬蝦（頻道名）</td></tr></table></div></section>
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="whisper"><div class="raw-label">Whisper 原始輸出<button class="copy-btn" id="raw_whisper_4350361984_srt" onclick="copyRaw(this,'raw_whisper_4350361984_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_whisper_4350361984_text" onclick="copyRawText(this,'raw_whisper_4350361984_text')">📋 複製純文字</button></div><pre>1
+00:00:00,000 --&gt; 00:00:03,320
+AAAgent在Windows上的表现不如MacOS
+
+2
+00:00:03,320 --&gt; 00:00:07,640
+主要原因就是Windows的命令行工具PowerShell对于AA不够友好
+
+3
+00:00:07,640 --&gt; 00:00:11,500
+但是别忘了Windows上还藏着另外一个神器WSL
+
+4
+00:00:11,500 --&gt; 00:00:16,160
+只需要一行命令就能在你的Windows电脑上运行一个Linux的子系统
+
+5
+00:00:16,160 --&gt; 00:00:19,400
+让你的电脑同时获得两大操作系统的优势
+
+6
+00:00:19,400 --&gt; 00:00:23,380
+在WSL里面运行AAAgent可以获得三大好处
+
+7
+00:00:23,380 --&gt; 00:00:25,840
+一、Agent运行更稳、效率更高
+
+8
+00:00:25,840 --&gt; 00:00:28,180
+相信很多人都遇到过这种情况
+
+9
+00:00:28,180 --&gt; 00:00:30,820
+AA写PowerShell命令频繁的报错
+
+10
+00:00:30,820 --&gt; 00:00:33,180
+不仅执行慢还特别浪费Token
+
+11
+00:00:33,180 --&gt; 00:00:36,240
+因为AA大模型训练语料里面的命令行操作
+
+12
+00:00:36,240 --&gt; 00:00:39,240
+大部分都是Linux和MacOS风格的
+
+13
+00:00:39,240 --&gt; 00:00:42,620
+AA在Linux环境里面出错概率明显更低
+
+14
+00:00:42,620 --&gt; 00:00:43,680
+效果也更好
+
+15
+00:00:43,680 --&gt; 00:00:45,580
+二、跟生产环境更一致
+
+16
+00:00:45,580 --&gt; 00:00:47,380
+我们用AA写出来的代码
+
+17
+00:00:47,380 --&gt; 00:00:50,320
+最终大概率会部署到Linux服务器上面
+
+18
+00:00:50,320 --&gt; 00:00:54,260
+如果代码一开始就是在WSL里面编写和测试的
+
+19
+00:00:54,260 --&gt; 00:00:56,460
+后续部署到生产环境里的时候
+
+20
+00:00:56,460 --&gt; 00:00:58,000
+环境差异会更小
+
+21
+00:00:58,000 --&gt; 00:00:59,800
+整个流程也会更加丝滑
+
+22
+00:00:59,800 --&gt; 00:01:01,640
+三、环境隔离更安全
+
+23
+00:01:01,640 --&gt; 00:01:05,840
+WSL提供了Linux虚拟机与Windows宿主机之间的隔离
+
+24
+00:01:05,840 --&gt; 00:01:08,760
+即使Agent在WSL里面误操作
+
+25
+00:01:08,760 --&gt; 00:01:09,940
+把环境搞坏了
+
+26
+00:01:09,940 --&gt; 00:01:12,320
+通常也不会影响Windows主系统
+
+27
+00:01:12,320 --&gt; 00:01:15,660
+最坏的情况也只需要删除掉这个WSL实力
+
+28
+00:01:15,660 --&gt; 00:01:18,400
+再重新创建一个新的子系统就好了
+
+29
+00:01:18,400 --&gt; 00:01:22,180
+本期视频带来一个WSL的超详细保姆级攻略
+
+30
+00:01:22,180 --&gt; 00:01:27,580
+我们重点来看如何借助WSL在Windows上又快又好的运行A-Agent
+
+31
+00:01:27,580 --&gt; 00:01:29,440
+教程还包括显卡直通
+
+32
+00:01:29,440 --&gt; 00:01:30,780
+本地部署模型
+
+33
+00:01:30,780 --&gt; 00:01:33,660
+还有Docker等一系列的进阶实战操作
+
+34
+00:01:33,660 --&gt; 00:01:37,920
+使用WSL的前提是开启CPU虚拟化
+
+35
+00:01:37,920 --&gt; 00:01:40,540
+现阶段的大部分电脑都默认开启了
+
+36
+00:01:40,540 --&gt; 00:01:41,860
+我们可以来确认一下
+
+37
+00:01:41,860 --&gt; 00:01:44,220
+在搜索栏搜索任务管理器
+
+38
+00:01:44,220 --&gt; 00:01:45,700
+找到性能CPU
+
+39
+00:01:45,700 --&gt; 00:01:48,060
+如果这里显示虚拟化已启用
+
+40
+00:01:48,060 --&gt; 00:01:48,920
+那就没问题
+
+41
+00:01:48,920 --&gt; 00:01:50,800
+如果显示还未启用
+
+42
+00:01:50,800 --&gt; 00:01:53,020
+我们可以来到电脑的BIOS设置
+
+43
+00:01:53,020 --&gt; 00:01:55,880
+找到英特尔VMX虚拟化平台
+
+44
+00:01:55,880 --&gt; 00:01:58,100
+把这个开关开启起来就可以了
+
+45
+00:01:58,100 --&gt; 00:02:00,140
+如果是AMD CPU的话
+
+46
+00:02:00,140 --&gt; 00:02:03,480
+找到这个SVM Mode的开关开启起来就可以了
+
+47
+00:02:03,480 --&gt; 00:02:05,400
+CPU虚拟化准备好了以后
+
+48
+00:02:05,400 --&gt; 00:02:07,400
+我们来正式安装WSL
+
+49
+00:02:07,400 --&gt; 00:02:09,760
+在Windows的任意位置点击右键
+
+50
+00:02:09,760 --&gt; 00:02:10,960
+在终端打开
+
+51
+00:02:10,960 --&gt; 00:02:11,760
+输入命令
+
+52
+00:02:11,760 --&gt; 00:02:14,360
+WSL空格两个横杠install
+
+53
+00:02:14,360 --&gt; 00:02:17,180
+如果你的电脑处于国内的网络环境
+
+54
+00:02:17,180 --&gt; 00:02:19,740
+后面建议加上两个横杠web download
+
+55
+00:02:19,740 --&gt; 00:02:22,220
+用来提高国内网络的下载速度
+
+56
+00:02:22,220 --&gt; 00:02:23,700
+然后回车开始安装
+
+57
+00:02:23,700 --&gt; 00:02:26,620
+如果这里提示要先重启电脑才能继续
+
+58
+00:02:26,620 --&gt; 00:02:28,480
+我们就先把电脑重启一下
+
+59
+00:02:28,480 --&gt; 00:02:29,660
+重启完电脑以后
+
+60
+00:02:29,660 --&gt; 00:02:31,280
+重新打开Windows终端
+
+61
+00:02:31,280 --&gt; 00:02:33,040
+还是执行刚才的命令
+
+62
+00:02:33,040 --&gt; 00:02:34,680
+这样就开始正式安装了
+
+63
+00:02:34,680 --&gt; 00:02:37,520
+我们看到WSL默认安装的是Ubuntu
+
+64
+00:02:37,520 --&gt; 00:02:40,320
+它也是目前最流行的Linux发行版
+
+65
+00:02:40,320 --&gt; 00:02:41,920
+所谓Linux发行版
+
+66
+00:02:41,920 --&gt; 00:02:46,580
+就是不同团队基于Linux内核打造出来的不同操作系统版本
+
+67
+00:02:46,580 --&gt; 00:02:48,520
+这个概念有点像安卓手机
+
+68
+00:02:48,520 --&gt; 00:02:51,520
+每个安卓厂商底层都是用的安卓系统
+
+69
+00:02:51,520 --&gt; 00:02:55,960
+但是每个厂商都会在安卓系统的基础上进行定制和封装
+
+70
+00:02:55,960 --&gt; 00:02:58,000
+形成各自不同的发行版
+
+71
+00:02:58,000 --&gt; 00:02:59,840
+我们还是回到安装过程
+
+72
+00:02:59,840 --&gt; 00:03:02,960
+接下来我们要填写这个Linux虚拟机的用户名
+
+73
+00:03:02,960 --&gt; 00:03:05,600
+这里我填写TechTrump技术啪啪瞎
+
+74
+00:03:05,600 --&gt; 00:03:06,900
+接下来填写密码
+
+75
+00:03:06,900 --&gt; 00:03:07,860
+这里要注意一点
+
+76
+00:03:07,860 --&gt; 00:03:09,140
+我们输入密码的时候
+
+77
+00:03:09,140 --&gt; 00:03:11,200
+屏幕上不会显示任何内容
+
+78
+00:03:11,200 --&gt; 00:03:13,080
+但实际上已经输入进去了
+
+79
+00:03:13,080 --&gt; 00:03:13,880
+输入完成
+
+80
+00:03:13,880 --&gt; 00:03:14,720
+点击回车
+
+81
+00:03:14,720 --&gt; 00:03:16,020
+然后再输入一遍
+
+82
+00:03:16,020 --&gt; 00:03:16,500
+回车
+
+83
+00:03:16,500 --&gt; 00:03:17,720
+这样就完成了安装
+
+84
+00:03:17,720 --&gt; 00:03:19,860
+我们看到这里命令行的颜色变了
+
+85
+00:03:19,860 --&gt; 00:03:22,420
+这样就进入到了Linux紫系统里面
+
+86
+00:03:22,420 --&gt; 00:03:26,220
+我们可以输入EXIT退出当前的Linux系统
+
+87
+00:03:26,220 --&gt; 00:03:29,900
+接下来我们再看一系列更多的WSL的基础使用
+
+88
+00:03:29,900 --&gt; 00:03:32,080
+除了安装默认的Ubuntu
+
+89
+00:03:32,080 --&gt; 00:03:34,020
+我们也可以安装其他的发行版
+
+90
+00:03:34,020 --&gt; 00:03:35,560
+输入密令WSL
+
+91
+00:03:35,560 --&gt; 00:03:37,940
+然后横-L就是list列出
+
+92
+00:03:37,940 --&gt; 00:03:40,580
+横-O就是online在线回车
+
+93
+00:03:40,580 --&gt; 00:03:43,820
+表示列出所有在线可安装的Linux发行版
+
+94
+00:03:43,820 --&gt; 00:03:45,880
+比如我们可以装一个Carly Linux
+
+95
+00:03:45,880 --&gt; 00:03:48,720
+输入密令WSL-install
+
+96
+00:03:48,720 --&gt; 00:03:50,500
+后面接上发行版的名字
+
+97
+00:03:50,500 --&gt; 00:03:51,840
+也就是Carly Linux
+
+98
+00:03:51,840 --&gt; 00:03:54,040
+如果我们不想安装到C盘的话
+
+99
+00:03:54,040 --&gt; 00:03:55,940
+还可以手动指定一个安装目录
+
+100
+00:03:55,940 --&gt; 00:03:58,840
+后面接上-location来指定安装目录
+
+101
+00:03:58,840 --&gt; 00:04:01,260
+比如这里我指定了一个D盘的文件夹
+
+102
+00:04:01,260 --&gt; 00:04:01,720
+开始
+
+103
+00:04:01,720 --&gt; 00:04:04,040
+这里还是填写一个用户名跟密码
+
+104
+00:04:04,040 --&gt; 00:04:06,740
+这样我们就安装好了Carly Linux的发行版
+
+105
+00:04:06,740 --&gt; 00:04:08,860
+这个Linux虚拟机相关的文件
+
+106
+00:04:08,860 --&gt; 00:04:11,600
+都存放到了我刚才指定的这个目录下面
+
+107
+00:04:11,600 --&gt; 00:04:13,040
+总共是908兆
+
+108
+00:04:13,040 --&gt; 00:04:15,800
+我们可以输入命令WSL-L
+
+109
+00:04:15,800 --&gt; 00:04:17,280
+也就是list列出
+
+110
+00:04:17,280 --&gt; 00:04:20,520
+列出这台电脑上安装过的所有Linux虚拟机
+
+111
+00:04:20,520 --&gt; 00:04:23,560
+我们看到这里有Ubuntu还有Carly Linux等等
+
+112
+00:04:23,560 --&gt; 00:04:26,560
+针对同一个发行版我们也可以安装多个实例
+
+113
+00:04:26,560 --&gt; 00:04:28,620
+比如现在已经有了一个Ubuntu了
+
+114
+00:04:28,620 --&gt; 00:04:31,040
+我们可以再创建一个新的Ubuntu实例
+
+115
+00:04:31,040 --&gt; 00:04:33,840
+每个实例都有自己的文件系统和配置
+
+116
+00:04:33,840 --&gt; 00:04:35,860
+它们是隔离的互相不影响
+
+117
+00:04:35,860 --&gt; 00:04:38,620
+我们输入命令WSL-install
+
+118
+00:04:38,620 --&gt; 00:04:39,180
+Ubuntu
+
+119
+00:04:39,180 --&gt; 00:04:41,760
+然后我们要给第二个Ubuntu换一个名字
+
+120
+00:04:41,760 --&gt; 00:04:42,400
+-name
+
+121
+00:04:42,400 --&gt; 00:04:45,300
+这里我给第二个Ubuntu起名叫Ubuntu2
+
+122
+00:04:45,300 --&gt; 00:04:47,540
+当然后面也可以指定它的安装路径
+
+123
+00:04:47,540 --&gt; 00:04:48,340
+这样开始
+
+124
+00:04:48,340 --&gt; 00:04:49,820
+好这样就安装完成
+
+125
+00:04:49,820 --&gt; 00:04:51,660
+我还是先输入Exit
+
+126
+00:04:51,660 --&gt; 00:04:53,820
+从Ubuntu2里面退出出来
+
+127
+00:04:53,820 --&gt; 00:04:56,500
+再输入WSL-L查看一下
+
+128
+00:04:56,500 --&gt; 00:04:58,500
+这样我们就有了两个Ubuntu
+
+129
+00:04:58,500 --&gt; 00:05:00,020
+还有一个Carly Linux
+
+130
+00:05:00,020 --&gt; 00:05:03,500
+接下来我们就可以启动使用我们的Linux子系统了
+
+131
+00:05:03,500 --&gt; 00:05:06,300
+在启动之前建议先执行一个操作
+
+132
+00:05:06,300 --&gt; 00:05:08,540
+就是WSL-update
+
+133
+00:05:08,540 --&gt; 00:05:11,300
+把WSL本体的功能升级到最新
+
+134
+00:05:11,300 --&gt; 00:05:12,820
+这样后续操作的时候
+
+135
+00:05:12,820 --&gt; 00:05:14,820
+可以跟我保持功能上的一致
+
+136
+00:05:14,820 --&gt; 00:05:16,460
+启动有以下几种方式
+
+137
+00:05:16,460 --&gt; 00:05:18,300
+我们可以输入命令WSL
+
+138
+00:05:18,300 --&gt; 00:05:20,580
+来启动默认的Linux虚拟机
+
+139
+00:05:20,580 --&gt; 00:05:22,100
+这里命令行的颜色变了
+
+140
+00:05:22,100 --&gt; 00:05:23,180
+就启动成功了
+
+141
+00:05:23,180 --&gt; 00:05:25,500
+我们可以输入命令Exit来退出
+
+142
+00:05:25,500 --&gt; 00:05:27,940
+输入命令WSL-D空格
+
+143
+00:05:27,940 --&gt; 00:05:29,860
+来指定启动某一个虚拟机
+
+144
+00:05:29,860 --&gt; 00:05:31,860
+比如这里我启动Carly Linux的
+
+145
+00:05:31,860 --&gt; 00:05:33,540
+填上Carly Linux回车
+
+146
+00:05:33,540 --&gt; 00:05:34,660
+这样启动成功
+
+147
+00:05:34,660 --&gt; 00:05:37,580
+如果想把某一个虚拟机设置成默认实例
+
+148
+00:05:37,580 --&gt; 00:05:40,140
+我们可以输入命令WSL两个横杠
+
+149
+00:05:40,140 --&gt; 00:05:41,140
+Set Default
+
+150
+00:05:41,140 --&gt; 00:05:42,700
+比如后面接Carly Linux
+
+151
+00:05:42,700 --&gt; 00:05:45,340
+然后再输入WSL-L看一下
+
+152
+00:05:45,340 --&gt; 00:05:47,460
+这样Carly Linux就是默认实例
+
+153
+00:05:47,460 --&gt; 00:05:49,180
+后面我们输入WSL
+
+154
+00:05:49,180 --&gt; 00:05:50,740
+不使用任何参数的时候
+
+155
+00:05:50,740 --&gt; 00:05:53,820
+默认启用的就是Carly Linux这个默认实例
+
+156
+00:05:53,820 --&gt; 00:05:56,340
+除了我们使用命令来启动WSL
+
+157
+00:05:56,340 --&gt; 00:05:58,380
+还有另外一种更简洁的方式
+
+158
+00:05:58,380 --&gt; 00:06:00,900
+就是在PowerShell这里有一个下拉窗口
+
+159
+00:06:00,900 --&gt; 00:06:03,780
+我们可以在这里面找到我们所有的Linux实例
+
+160
+00:06:03,780 --&gt; 00:06:05,140
+比如要启动Ubuntu 2
+
+161
+00:06:05,140 --&gt; 00:06:07,900
+这样在新窗口里面就启动了Ubuntu 2
+
+162
+00:06:07,900 --&gt; 00:06:11,260
+如果我们想把Linux虚拟机关机也非常简单
+
+163
+00:06:11,260 --&gt; 00:06:12,820
+我们只需要把窗口插掉
+
+164
+00:06:12,820 --&gt; 00:06:16,260
+当WSL的命令行窗口被关闭或者退出以后
+
+165
+00:06:16,260 --&gt; 00:06:18,900
+这个对应的Linux虚拟机也会自动关机
+
+166
+00:06:19,700 --&gt; 00:06:21,180
+接下来进入重头戏
+
+167
+00:06:21,180 --&gt; 00:06:23,820
+在WSL里面运行AAAgent
+
+168
+00:06:23,820 --&gt; 00:06:25,820
+在我们运行Agent之前
+
+169
+00:06:25,820 --&gt; 00:06:28,900
+操作系统上一般需要先安装开发三件套
+
+170
+00:06:28,900 --&gt; 00:06:31,460
+分别是Git、Node.js还有Python
+
+171
+00:06:31,460 --&gt; 00:06:34,300
+这里我还是以最常用的发行版Ubuntu为例
+
+172
+00:06:34,300 --&gt; 00:06:35,940
+打开我的Ubuntu虚拟机
+
+173
+00:06:35,940 --&gt; 00:06:37,900
+进来以后我们先检查一下Git
+
+174
+00:06:37,900 --&gt; 00:06:39,220
+这里输入Git-V
+
+175
+00:06:39,220 --&gt; 00:06:41,260
+看到Ubuntu系统自带了Git
+
+176
+00:06:41,260 --&gt; 00:06:43,100
+那这样就不用额外安装了
+
+177
+00:06:43,100 --&gt; 00:06:44,620
+然后我们再来看一下Python
+
+178
+00:06:44,620 --&gt; 00:06:46,340
+可以Python3-version
+
+179
+00:06:46,340 --&gt; 00:06:47,780
+同样也自带了Python
+
+180
+00:06:47,780 --&gt; 00:06:49,900
+但是如果我们敲命令Python的话
+
+181
+00:06:49,900 --&gt; 00:06:51,780
+这里会提示还未安装
+
+182
+00:06:51,780 --&gt; 00:06:53,300
+我们可以做一点配置
+
+183
+00:06:53,300 --&gt; 00:06:55,780
+把Python命令链接到Python3上面
+
+184
+00:06:55,780 --&gt; 00:06:58,740
+这里我们先输入sudo apt update
+
+185
+00:06:58,740 --&gt; 00:07:00,340
+更新一下apt锁引
+
+186
+00:07:00,340 --&gt; 00:07:02,860
+更新完了以后输入clear清理一下屏幕
+
+187
+00:07:02,860 --&gt; 00:07:05,540
+接下来我们输入sudo apt install
+
+188
+00:07:05,540 --&gt; 00:07:07,140
+Python is Python3
+
+189
+00:07:07,140 --&gt; 00:07:08,260
+好这样就可以了
+
+190
+00:07:08,260 --&gt; 00:07:10,220
+接下来我们再使用Python命令
+
+191
+00:07:10,220 --&gt; 00:07:12,780
+就可以正常的链接到Python3版本上面
+
+192
+00:07:12,780 --&gt; 00:07:14,740
+接下来我们来验证Node.js
+
+193
+00:07:14,740 --&gt; 00:07:15,780
+输入Node-V
+
+194
+00:07:15,780 --&gt; 00:07:17,820
+这里看到Node.js还没有安装
+
+195
+00:07:17,820 --&gt; 00:07:19,740
+我们先来到Node.js的官网
+
+196
+00:07:19,740 --&gt; 00:07:21,540
+这里操作系统选成Linux
+
+197
+00:07:21,540 --&gt; 00:07:24,060
+然后安装方式选择NVM
+
+198
+00:07:24,060 --&gt; 00:07:26,340
+也就是Node.js版本管理器
+
+199
+00:07:26,340 --&gt; 00:07:28,100
+这里先把第一个命令复制一下
+
+200
+00:07:28,100 --&gt; 00:07:29,740
+来到Ubuntu执行一下
+
+201
+00:07:29,740 --&gt; 00:07:31,500
+输入clear清理一下屏幕
+
+202
+00:07:31,500 --&gt; 00:07:32,620
+接下来第二个命令
+
+203
+00:07:32,620 --&gt; 00:07:34,740
+第三个命令
+
+204
+00:07:34,740 --&gt; 00:07:36,660
+安装Node.js版本24
+
+205
+00:07:36,660 --&gt; 00:07:38,180
+接下来输入Node.js杠位
+
+206
+00:07:38,180 --&gt; 00:07:39,180
+NPM杠位
+
+207
+00:07:39,180 --&gt; 00:07:40,960
+这里都成功打印出版本号
+
+208
+00:07:40,960 --&gt; 00:07:42,780
+我们的Node.js也准备好了
+
+209
+00:07:42,780 --&gt; 00:07:44,340
+接下来我们来安装Py
+
+210
+00:07:44,340 --&gt; 00:07:46,380
+这是一个极简的Coding Agent
+
+211
+00:07:46,380 --&gt; 00:07:48,300
+没有那些复杂的提示词
+
+212
+00:07:48,300 --&gt; 00:07:50,700
+最大程度上减少了对于AI的干扰
+
+213
+00:07:50,700 --&gt; 00:07:52,180
+而且非常的省Token
+
+214
+00:07:52,180 --&gt; 00:07:54,140
+我们在WSL里面使用
+
+215
+00:07:54,140 --&gt; 00:07:56,500
+选择这个CURL的安装方式
+
+216
+00:07:56,500 --&gt; 00:07:57,660
+把命令复制一下
+
+217
+00:07:57,660 --&gt; 00:07:59,700
+然后来到WSL安装一下
+
+218
+00:07:59,700 --&gt; 00:08:00,780
+这里我们输入Y
+
+219
+00:08:00,780 --&gt; 00:08:02,100
+好 这就安装成功了
+
+220
+00:08:02,100 --&gt; 00:08:04,580
+接下来我们通过CD波浪线这个命令
+
+221
+00:08:04,580 --&gt; 00:08:06,460
+进入我这个用户的主目录
+
+222
+00:08:06,460 --&gt; 00:08:07,900
+然后MKDIR
+
+223
+00:08:07,900 --&gt; 00:08:09,100
+创建一个文件夹
+
+224
+00:08:09,100 --&gt; 00:08:11,020
+比如这里我叫PyTest
+
+225
+00:08:11,020 --&gt; 00:08:12,660
+然后再进入这个文件夹
+
+226
+00:08:12,660 --&gt; 00:08:14,580
+然后输入Py来启动起来
+
+227
+00:08:14,580 --&gt; 00:08:17,140
+进来以后它提示我们要先配置模型
+
+228
+00:08:17,140 --&gt; 00:08:18,900
+这里我们输入-login
+
+229
+00:08:18,900 --&gt; 00:08:20,260
+可以来配置模型
+
+230
+00:08:20,260 --&gt; 00:08:22,700
+可以选择模型订阅或者API Key
+
+231
+00:08:22,700 --&gt; 00:08:24,020
+这里我选择API Key
+
+232
+00:08:24,020 --&gt; 00:08:26,140
+Py支持很多厂商的模型
+
+233
+00:08:26,140 --&gt; 00:08:27,780
+这里我推荐使用Deepseek
+
+234
+00:08:27,780 --&gt; 00:08:29,260
+minimax或者Kimi
+
+235
+00:08:29,260 --&gt; 00:08:30,620
+比如这里我选择Kimi
+
+236
+00:08:30,620 --&gt; 00:08:32,420
+接下来来到Kimi Code官网
+
+237
+00:08:32,420 --&gt; 00:08:34,100
+控制台新建API Key
+
+238
+00:08:34,100 --&gt; 00:08:35,300
+创建一个API Key
+
+239
+00:08:35,300 --&gt; 00:08:36,020
+复制一下
+
+240
+00:08:36,020 --&gt; 00:08:38,020
+Ctrl加V粘贴过来回车
+
+241
+00:08:38,020 --&gt; 00:08:39,420
+好 这样就配置成功了
+
+242
+00:08:39,420 --&gt; 00:08:41,020
+然后我们可以输入modo
+
+243
+00:08:41,020 --&gt; 00:08:42,340
+来切换模型
+
+244
+00:08:42,340 --&gt; 00:08:43,980
+比如我选K2.7 Code
+
+245
+00:08:43,980 --&gt; 00:08:44,740
+打个招呼
+
+246
+00:08:44,740 --&gt; 00:08:45,900
+这里给到了回复
+
+247
+00:08:45,900 --&gt; 00:08:48,100
+我们的PyAgent就配置成功了
+
+248
+00:08:48,820 --&gt; 00:08:51,100
+接下来我们来编个程序测试一下
+
+249
+00:08:51,100 --&gt; 00:08:52,780
+使用Next.js框架
+
+250
+00:08:52,780 --&gt; 00:08:54,620
+编写一个坦克大战游戏
+
+251
+00:08:54,620 --&gt; 00:08:55,540
+开发完成了
+
+252
+00:08:55,540 --&gt; 00:08:57,860
+它提示我用浏览器访问这个地址
+
+253
+00:08:57,860 --&gt; 00:08:59,260
+就可以直接开始游戏
+
+254
+00:08:59,260 --&gt; 00:09:01,660
+这里我可以直接用Windows上的浏览器
+
+255
+00:09:01,660 --&gt; 00:09:03,100
+比如我的Edge浏览器
+
+256
+00:09:03,100 --&gt; 00:09:04,060
+打开这个地址
+
+257
+00:09:04,060 --&gt; 00:09:05,340
+就能玩到这个游戏
+
+258
+00:09:05,340 --&gt; 00:09:07,340
+这里有个知识点要补充一下
+
+259
+00:09:07,340 --&gt; 00:09:09,580
+在WSL里面运行的服务
+
+260
+00:09:09,580 --&gt; 00:09:12,300
+使用的是Linux虚拟机的IP地址
+
+261
+00:09:12,300 --&gt; 00:09:14,460
+而我Windows电脑的Localhost
+
+262
+00:09:14,460 --&gt; 00:09:17,180
+则指向的是我这台宿主机的IP地址
+
+263
+00:09:17,180 --&gt; 00:09:18,980
+这俩其实并不是一回事
+
+264
+00:09:18,980 --&gt; 00:09:21,820
+理论上在宿主机里面敲Localhost
+
+265
+00:09:21,820 --&gt; 00:09:24,620
+不应该能访问到WSL里面的服务
+
+266
+00:09:24,620 --&gt; 00:09:27,620
+所以这其实是WSL的一个特色功能
+
+267
+00:09:27,620 --&gt; 00:09:29,740
+Localhost的端口自动转发
+
+268
+00:09:29,740 --&gt; 00:09:33,580
+当WSL检测到Linux里面有程序监听端口
+
+269
+00:09:33,580 --&gt; 00:09:37,180
+它就会自动转发到Windows宿主机这边的Localhost
+
+270
+00:09:37,180 --&gt; 00:09:38,220
+相同的端口
+
+271
+00:09:38,220 --&gt; 00:09:39,740
+所以在这个例子里面
+
+272
+00:09:39,740 --&gt; 00:09:43,020
+我使用Localhost访问宿主机的3000端口
+
+273
+00:09:43,020 --&gt; 00:09:46,860
+这个请求会自动转发到Linux虚拟机的3000端口上面
+
+274
+00:09:46,860 --&gt; 00:09:50,300
+接下来我们看怎么在IDE里面修改跟调试
+
+275
+00:09:50,300 --&gt; 00:09:51,660
+AEA给我们写的代码
+
+276
+00:09:51,660 --&gt; 00:09:55,500
+进行这一步的前提是要确保你的Windows电脑上安装了这个软件
+
+277
+00:09:55,500 --&gt; 00:09:56,860
+这个软件VSCode
+
+278
+00:09:56,860 --&gt; 00:09:58,140
+这里我再开一个窗口
+
+279
+00:09:58,140 --&gt; 00:09:59,660
+还是先来到工作目录
+
+280
+00:09:59,660 --&gt; 00:10:00,860
+然后输入这个命令
+
+281
+00:10:00,860 --&gt; 00:10:03,340
+Code也就是VSCode的简写
+
+282
+00:10:03,340 --&gt; 00:10:06,300
+然后空格点表示打开当前目录
+
+283
+00:10:06,300 --&gt; 00:10:09,260
+这样就直接使用Windows电脑上的VSCode
+
+284
+00:10:09,260 --&gt; 00:10:10,780
+打开了这个工作目录
+
+285
+00:10:10,780 --&gt; 00:10:12,700
+我们可以直接在这里面查看
+
+286
+00:10:12,700 --&gt; 00:10:13,900
+并且修改原代码
+
+287
+00:10:13,900 --&gt; 00:10:16,380
+比如我在代码里面改一下标题
+
+288
+00:10:16,380 --&gt; 00:10:18,780
+在浏览器里面就会同步改动过来
+
+289
+00:10:18,780 --&gt; 00:10:20,940
+跟我们使用Windows电脑进行编码
+
+290
+00:10:20,940 --&gt; 00:10:22,300
+还有调试是一样的
+
+291
+00:10:22,300 --&gt; 00:10:23,180
+非常的方便
+
+292
+00:10:23,180 --&gt; 00:10:26,460
+同样的我们可以在VSCode里面进行Git操作
+
+293
+00:10:26,460 --&gt; 00:10:28,940
+我们在VSCode里面找到Source Control
+
+294
+00:10:28,940 --&gt; 00:10:30,620
+然后Manage Trust
+
+295
+00:10:30,620 --&gt; 00:10:31,500
+点击信任
+
+296
+00:10:31,500 --&gt; 00:10:34,140
+接下来点击Initialize Repository
+
+297
+00:10:34,140 --&gt; 00:10:36,700
+也就是把目录初始化成一个Git项目
+
+298
+00:10:36,700 --&gt; 00:10:38,780
+然后填写一个CommitMessage
+
+299
+00:10:38,780 --&gt; 00:10:40,380
+这样就完成了代码提交
+
+300
+00:10:40,380 --&gt; 00:10:41,580
+再点击Publish
+
+301
+00:10:41,580 --&gt; 00:10:43,420
+填写一个仓库名字回车
+
+302
+00:10:43,420 --&gt; 00:10:46,540
+右下角提示我们代码上传到了GitHub上面
+
+303
+00:10:46,540 --&gt; 00:10:49,500
+Publish之前的这期视频里面有关于Git
+
+304
+00:10:49,500 --&gt; 00:10:51,500
+和GitHub操作的详细教程
+
+305
+00:10:51,500 --&gt; 00:10:53,580
+不熟悉的观众朋友们可以来看一下
+
+306
+00:10:53,580 --&gt; 00:10:55,540
+除了我们在VSCode里面
+
+307
+00:10:55,540 --&gt; 00:10:57,300
+手动完成一些Git操作
+
+308
+00:10:57,300 --&gt; 00:11:00,900
+有时候我们也想让AE代替我们完成一些Git操作
+
+309
+00:11:00,900 --&gt; 00:11:02,300
+这时候我们可以让AE
+
+310
+00:11:02,300 --&gt; 00:11:04,780
+先把用户名跟邮箱初始化一下
+
+311
+00:11:04,780 --&gt; 00:11:05,820
+这里我跟他说
+
+312
+00:11:05,820 --&gt; 00:11:07,820
+你现在在WSL里面
+
+313
+00:11:07,820 --&gt; 00:11:10,980
+你读一下我Windows宿主机上面的Git设置
+
+314
+00:11:10,980 --&gt; 00:11:13,300
+然后在WSL里面也配置一下
+
+315
+00:11:13,300 --&gt; 00:11:16,260
+我们看到AE读到了Windows宿主机的配置
+
+316
+00:11:16,260 --&gt; 00:11:19,140
+然后把配置同步到了WSL里面
+
+317
+00:11:19,140 --&gt; 00:11:21,540
+我让AE把坦克大战的标题改一下
+
+318
+00:11:21,540 --&gt; 00:11:22,660
+然后Commit一下
+
+319
+00:11:22,660 --&gt; 00:11:24,180
+AE帮我们完成了修改
+
+320
+00:11:24,180 --&gt; 00:11:25,380
+并且做了提交
+
+321
+00:11:25,380 --&gt; 00:11:26,660
+在VSCode这边
+
+322
+00:11:26,660 --&gt; 00:11:29,220
+也可以看到AE使用Git做的提交
+
+323
+00:11:29,220 --&gt; 00:11:31,620
+然后我让AE推送到GitHub上面
+
+324
+00:11:31,620 --&gt; 00:11:34,460
+这个提交也可以正常的推送到GitHub上面
+
+325
+00:11:34,460 --&gt; 00:11:36,980
+我们使用WSL所有的编码
+
+326
+00:11:36,980 --&gt; 00:11:38,700
+调试还有Git操作
+
+327
+00:11:38,700 --&gt; 00:11:41,420
+跟在Windows上的体验几乎是一致的
+
+328
+00:11:41,420 --&gt; 00:11:42,820
+没有什么学习门槛
+
+329
+00:11:42,820 --&gt; 00:11:46,180
+除了我们使用VSCode来查看刚才的代码目录
+
+330
+00:11:46,180 --&gt; 00:11:48,420
+我们再看怎么在资源管理器里面
+
+331
+00:11:48,420 --&gt; 00:11:50,020
+看到那些Linux文件
+
+332
+00:11:50,020 --&gt; 00:11:51,860
+这里来到我的资源管理器
+
+333
+00:11:51,860 --&gt; 00:11:53,700
+在左下角有一个企额
+
+334
+00:11:53,700 --&gt; 00:11:55,220
+也就是Linux的图标
+
+335
+00:11:55,220 --&gt; 00:11:56,740
+然后这里有一个Ubuntu
+
+336
+00:11:56,740 --&gt; 00:11:59,060
+打开以后就展示了这个Linux
+
+337
+00:11:59,060 --&gt; 00:12:00,420
+子系统的文件目录
+
+338
+00:12:00,420 --&gt; 00:12:02,420
+比如刚才我们的代码是放在了Home
+
+339
+00:12:02,420 --&gt; 00:12:04,100
+然后我的用户名
+
+340
+00:12:04,100 --&gt; 00:12:05,220
+这个PiTest
+
+341
+00:12:05,220 --&gt; 00:12:06,660
+坦克大战这个目录下面
+
+342
+00:12:06,660 --&gt; 00:12:08,820
+Linux虚拟机上面的所有文件
+
+343
+00:12:08,820 --&gt; 00:12:11,220
+我们都可以使用Windows的资源管理器
+
+344
+00:12:11,220 --&gt; 00:12:12,020
+进行查看
+
+345
+00:12:12,020 --&gt; 00:12:14,660
+还可以直接用Windows上面的软件打开
+
+346
+00:12:14,660 --&gt; 00:12:16,420
+对文件进行编辑等等
+
+347
+00:12:16,420 --&gt; 00:12:18,260
+我们再来介绍一种更快捷
+
+348
+00:12:18,260 --&gt; 00:12:21,060
+使用资源管理器查看Linux目录的方法
+
+349
+00:12:21,060 --&gt; 00:12:22,820
+我们可以先来到一个目录
+
+350
+00:12:22,820 --&gt; 00:12:24,100
+然后输入这个命令
+
+351
+00:12:24,100 --&gt; 00:12:26,020
+Explorer.exe
+
+352
+00:12:26,020 --&gt; 00:12:29,220
+也就是Windows资源管理器的可执行程序
+
+353
+00:12:29,220 --&gt; 00:12:31,940
+后面接点表示打开当前目录
+
+354
+00:12:31,940 --&gt; 00:12:34,180
+这样就使用Windows的资源管理器
+
+355
+00:12:34,180 --&gt; 00:12:36,660
+打开了Ubuntu系统的这个对应目录
+
+356
+00:12:36,660 --&gt; 00:12:39,700
+我们可以在Windows上查看Linux的文件
+
+357
+00:12:39,700 --&gt; 00:12:41,300
+反过来在Linux上
+
+358
+00:12:41,300 --&gt; 00:12:43,460
+也可以直接查看Windows上的文件
+
+359
+00:12:43,460 --&gt; 00:12:44,820
+我们可以输入这个命令
+
+360
+00:12:44,820 --&gt; 00:12:46,100
+DF-H
+
+361
+00:12:46,100 --&gt; 00:12:48,380
+查看一下Linux上所有的磁盘
+
+362
+00:12:48,380 --&gt; 00:12:50,580
+我们注意到这个C盘还有D盘
+
+363
+00:12:50,580 --&gt; 00:12:52,180
+然后它的挂载地址是
+
+364
+00:12:52,180 --&gt; 00:12:54,100
+MNT-C MNT-D
+
+365
+00:12:54,100 --&gt; 00:12:55,780
+Windows上的磁盘
+
+366
+00:12:55,780 --&gt; 00:12:57,460
+直接以挂载卷的形式
+
+367
+00:12:57,460 --&gt; 00:12:59,540
+出现到了Linux的目录里面
+
+368
+00:12:59,540 --&gt; 00:13:00,660
+我们可以来看一下
+
+369
+00:13:00,660 --&gt; 00:13:03,460
+这样CD-MNT-C
+
+370
+00:13:03,460 --&gt; 00:13:05,300
+这样就进入了C盘跟目录
+
+371
+00:13:05,300 --&gt; 00:13:06,740
+我们可以输入LS
+
+372
+00:13:06,740 --&gt; 00:13:08,260
+比如我们可以再来到桌面
+
+373
+00:13:08,260 --&gt; 00:13:09,700
+就是CD users
+
+374
+00:13:09,700 --&gt; 00:13:11,060
+然后我的用户名
+
+375
+00:13:11,060 --&gt; 00:13:12,820
+在CD desktop
+
+376
+00:13:12,820 --&gt; 00:13:14,100
+这样就是我的桌面
+
+377
+00:13:14,100 --&gt; 00:13:15,060
+输入LS
+
+378
+00:13:15,060 --&gt; 00:13:16,900
+列出桌面上所有的内容
+
+379
+00:13:16,900 --&gt; 00:13:17,700
+这里补充一点
+
+380
+00:13:17,700 --&gt; 00:13:20,180
+我们在WSR里面开发项目的时候
+
+381
+00:13:20,180 --&gt; 00:13:23,300
+项目文件夹尽量放在Linux的原生目录里面
+
+382
+00:13:23,300 --&gt; 00:13:25,140
+不要放在Windows的目录里面
+
+383
+00:13:25,140 --&gt; 00:13:27,140
+因为跨操作系统读取文件
+
+384
+00:13:27,140 --&gt; 00:13:29,140
+会产生额外的IO开销
+
+385
+00:13:29,140 --&gt; 00:13:31,540
+有时候我们需要给AI发送图片
+
+386
+00:13:31,540 --&gt; 00:13:34,180
+这个在WSR里面也可以轻松办到
+
+387
+00:13:34,180 --&gt; 00:13:36,660
+比如我可以在浏览器里面结一个图
+
+388
+00:13:36,660 --&gt; 00:13:38,580
+然后把图片保存一下
+
+389
+00:13:38,580 --&gt; 00:13:39,940
+这里我保存到桌面上
+
+390
+00:13:39,940 --&gt; 00:13:43,380
+接下来我直接把图片拖拽进WSR的窗口里面
+
+391
+00:13:43,380 --&gt; 00:13:44,980
+我们看到这个图片的地址
+
+392
+00:13:44,980 --&gt; 00:13:47,460
+是以一个挂载卷的目录显示过来的
+
+393
+00:13:47,460 --&gt; 00:13:49,220
+也就是对应C盘用户
+
+394
+00:13:49,220 --&gt; 00:13:50,580
+我的用户名桌面
+
+395
+00:13:50,580 --&gt; 00:13:52,980
+我问AI你看看这个图里面有什么
+
+396
+00:13:52,980 --&gt; 00:13:54,260
+在WSR里面
+
+397
+00:13:54,260 --&gt; 00:13:56,500
+AI也可以正确的看到这个图片
+
+398
+00:13:57,220 --&gt; 00:13:59,540
+接下来我们看怎么在WSR里面
+
+399
+00:13:59,540 --&gt; 00:14:01,860
+运行Hermis Agent跟Cloud Code
+
+400
+00:14:01,860 --&gt; 00:14:05,220
+Hermis Agent是目前非常流行的Agent工具
+
+401
+00:14:05,220 --&gt; 00:14:06,340
+很长一段时间
+
+402
+00:14:06,340 --&gt; 00:14:08,020
+它都是没有Windows版本的
+
+403
+00:14:08,020 --&gt; 00:14:10,180
+现在虽然出了原生的Windows版本
+
+404
+00:14:10,180 --&gt; 00:14:12,500
+但是在Windows上的表现一直不太好
+
+405
+00:14:12,500 --&gt; 00:14:14,580
+这里我们就用WSR来安装
+
+406
+00:14:14,580 --&gt; 00:14:16,340
+安装方式选择Linux
+
+407
+00:14:16,340 --&gt; 00:14:18,580
+然后把Hermis的命令复制一下
+
+408
+00:14:18,580 --&gt; 00:14:21,460
+还是来到WSR我这个Ubuntu终端
+
+409
+00:14:21,460 --&gt; 00:14:22,580
+把命令复制一下
+
+410
+00:14:22,580 --&gt; 00:14:22,980
+开始
+
+411
+00:14:22,980 --&gt; 00:14:24,020
+这一步选择Y
+
+412
+00:14:24,020 --&gt; 00:14:26,740
+接下来它让我输入这台Linux虚拟机的密码
+
+413
+00:14:26,740 --&gt; 00:14:29,380
+到这一步我们选择第二个完全设置
+
+414
+00:14:29,380 --&gt; 00:14:31,700
+在这一步可以选择模型厂商
+
+415
+00:14:31,700 --&gt; 00:14:33,140
+这里我选择Deepseek
+
+416
+00:14:33,140 --&gt; 00:14:35,700
+接下来它让我输入Deepseek的API Key
+
+417
+00:14:35,700 --&gt; 00:14:38,580
+接下来我们来到Deepseek的API开放平台
+
+418
+00:14:38,580 --&gt; 00:14:40,260
+在API Key这里创建
+
+419
+00:14:40,260 --&gt; 00:14:42,020
+把这个API Key复制一下
+
+420
+00:14:42,020 --&gt; 00:14:43,540
+粘贴过来回车
+
+421
+00:14:43,540 --&gt; 00:14:45,300
+被子URL直接敲回车
+
+422
+00:14:45,300 --&gt; 00:14:46,180
+选一个模型
+
+423
+00:14:46,180 --&gt; 00:14:47,540
+我选V4Flash
+
+424
+00:14:47,540 --&gt; 00:14:48,900
+选择KeepCurrent
+
+425
+00:14:48,900 --&gt; 00:14:51,140
+接下来选择一个计时通信渠道
+
+426
+00:14:51,140 --&gt; 00:14:52,900
+这里最简单的就是第三个
+
+427
+00:14:52,900 --&gt; 00:14:53,940
+我们敲空格
+
+428
+00:14:53,940 --&gt; 00:14:55,180
+勾选上第三个
+
+429
+00:14:55,180 --&gt; 00:14:55,940
+然后回车
+
+430
+00:14:55,940 --&gt; 00:14:58,100
+根据提示操作完成配对
+
+431
+00:14:58,100 --&gt; 00:14:59,740
+后面一路使用默认值
+
+432
+00:14:59,740 --&gt; 00:15:00,820
+敲回车就行了
+
+433
+00:15:00,820 --&gt; 00:15:02,820
+如果遇到不知道怎么配置的地方
+
+434
+00:15:02,820 --&gt; 00:15:04,100
+我们都选择Skip
+
+435
+00:15:04,100 --&gt; 00:15:05,100
+跳过就可以了
+
+436
+00:15:05,100 --&gt; 00:15:07,020
+好这样就全部配置完成了
+
+437
+00:15:07,020 --&gt; 00:15:08,660
+接下来我们关闭掉窗口
+
+438
+00:15:08,660 --&gt; 00:15:10,420
+重启一下WSL
+
+439
+00:15:10,420 --&gt; 00:15:12,740
+然后输入命令Hermes启动一下
+
+440
+00:15:12,740 --&gt; 00:15:13,460
+打个招呼
+
+441
+00:15:13,460 --&gt; 00:15:14,580
+这里给到了回复
+
+442
+00:15:14,580 --&gt; 00:15:15,940
+我们就配置完成了
+
+443
+00:15:15,940 --&gt; 00:15:17,780
+接下来我们来看Cloud Code
+
+444
+00:15:17,780 --&gt; 00:15:20,100
+这里复制一下Cloud Code的安装命令
+
+445
+00:15:20,100 --&gt; 00:15:22,500
+然后粘贴进WSL回车
+
+446
+00:15:22,500 --&gt; 00:15:24,820
+然后我们输入命令Cloud启动起来
+
+447
+00:15:24,820 --&gt; 00:15:26,740
+这里我使用Cloud的官方订阅
+
+448
+00:15:26,740 --&gt; 00:15:28,500
+如果想接入国内模型的话
+
+449
+00:15:28,500 --&gt; 00:15:29,860
+网上也有很多方法了
+
+450
+00:15:29,860 --&gt; 00:15:31,060
+这里我就不赘述了
+
+451
+00:15:31,060 --&gt; 00:15:33,140
+把这个地址在浏览器里面打开
+
+452
+00:15:33,140 --&gt; 00:15:34,660
+把这个数权码复制一下
+
+453
+00:15:34,660 --&gt; 00:15:36,740
+粘贴进WSL再回车
+
+454
+00:15:36,740 --&gt; 00:15:38,180
+好这样就配置完成了
+
+455
+00:15:38,180 --&gt; 00:15:38,820
+打个招呼
+
+456
+00:15:38,820 --&gt; 00:15:40,740
+给到了回复我们的Cloud Code
+
+457
+00:15:40,740 --&gt; 00:15:41,780
+也配置成功了
+
+458
+00:15:41,780 --&gt; 00:15:43,540
+接下来我们来看Codex
+
+459
+00:15:43,540 --&gt; 00:15:44,940
+这里最推荐的方式
+
+460
+00:15:44,940 --&gt; 00:15:48,100
+就是在WSL里面运行Codex CLI
+
+461
+00:15:48,100 --&gt; 00:15:50,340
+也就是这个命令行版本的Codex
+
+462
+00:15:50,340 --&gt; 00:15:52,780
+它的功能跟CodexAPP是一样的
+
+463
+00:15:52,780 --&gt; 00:15:54,740
+这里我们来到它的Github首页
+
+464
+00:15:54,740 --&gt; 00:15:57,380
+然后把这里Linux的命令复制一下
+
+465
+00:15:57,380 --&gt; 00:15:59,140
+粘贴到WSL里面
+
+466
+00:15:59,140 --&gt; 00:16:00,260
+这里输入Y
+
+467
+00:16:00,260 --&gt; 00:16:01,300
+安装完成以后
+
+468
+00:16:01,300 --&gt; 00:16:03,060
+我们重启一下WSL
+
+469
+00:16:03,060 --&gt; 00:16:04,980
+然后输入Codex启动起来
+
+470
+00:16:04,980 --&gt; 00:16:06,780
+这里我用ChatGPT登录
+
+471
+00:16:06,780 --&gt; 00:16:08,100
+登录完成回车
+
+472
+00:16:08,100 --&gt; 00:16:08,620
+开始
+
+473
+00:16:08,620 --&gt; 00:16:09,780
+这里打个招呼
+
+474
+00:16:09,780 --&gt; 00:16:10,820
+给到了回复
+
+475
+00:16:10,820 --&gt; 00:16:12,300
+我们的配置就成功了
+
+476
+00:16:12,300 --&gt; 00:16:15,140
+如果不习惯使用命令行来操作Codex
+
+477
+00:16:15,140 --&gt; 00:16:16,340
+我们也可以直接使用
+
+478
+00:16:16,340 --&gt; 00:16:18,500
+Windows电脑上的CodexAPP
+
+479
+00:16:18,500 --&gt; 00:16:21,740
+这是我安装在Windows电脑上的CodexAPP
+
+480
+00:16:21,740 --&gt; 00:16:23,100
+我们来做一点配置
+
+481
+00:16:23,100 --&gt; 00:16:24,860
+把它链接进WSL
+
+482
+00:16:24,860 --&gt; 00:16:26,540
+在左下角找到设置
+
+483
+00:16:26,540 --&gt; 00:16:29,020
+在常规里面找到智能体环境
+
+484
+00:16:29,020 --&gt; 00:16:31,340
+把这个环境切换成WSL
+
+485
+00:16:31,340 --&gt; 00:16:33,820
+下面的终端也切换成WSL
+
+486
+00:16:33,820 --&gt; 00:16:35,540
+这里它提示我们重启
+
+487
+00:16:35,540 --&gt; 00:16:37,300
+让我们重启一下Codex
+
+488
+00:16:37,300 --&gt; 00:16:37,780
+哦对了
+
+489
+00:16:37,780 --&gt; 00:16:40,820
+现在Codex改名叫ChatGPT桌面应用了
+
+490
+00:16:40,820 --&gt; 00:16:41,660
+重启完成以后
+
+491
+00:16:41,660 --&gt; 00:16:43,740
+我们可以选择一个Windows的文件夹
+
+492
+00:16:43,740 --&gt; 00:16:45,020
+作为项目文件夹
+
+493
+00:16:45,020 --&gt; 00:16:46,940
+我们在Codex里面可以看到
+
+494
+00:16:46,940 --&gt; 00:16:49,580
+这个文件夹是以一个挂载卷的形式
+
+495
+00:16:49,580 --&gt; 00:16:51,340
+链接到了WSL里面
+
+496
+00:16:51,340 --&gt; 00:16:54,260
+现在Codex的Shell环境就是WSL
+
+497
+00:16:54,260 --&gt; 00:16:56,580
+它使用的命令也都是Linux命令
+
+498
+00:16:56,580 --&gt; 00:16:58,900
+目前这种方式我们只能使用
+
+499
+00:16:58,900 --&gt; 00:17:00,660
+Windows文件夹作为项目文件夹
+
+500
+00:17:00,660 --&gt; 00:17:02,500
+并且挂载进WSL
+
+501
+00:17:02,500 --&gt; 00:17:04,500
+在视频的前面我也提到过了
+
+502
+00:17:04,500 --&gt; 00:17:06,420
+这种方式Io效率比较低
+
+503
+00:17:06,420 --&gt; 00:17:08,900
+所以我更推荐直接在WSL里面
+
+504
+00:17:08,900 --&gt; 00:17:10,900
+使用Codex CLI
+
+505
+00:17:10,900 --&gt; 00:17:13,300
+WSL上面另外一个宝藏神器
+
+506
+00:17:13,300 --&gt; 00:17:14,100
+就是Docker
+
+507
+00:17:14,100 --&gt; 00:17:16,660
+Docker是基于Linux容器化技术
+
+508
+00:17:16,660 --&gt; 00:17:19,700
+让程序在不同的环境中都能一致运行
+
+509
+00:17:19,700 --&gt; 00:17:22,020
+大幅简化了开发跟运维流程
+
+510
+00:17:22,020 --&gt; 00:17:25,460
+哈巴虾之前有一期40分钟的Docker基础教程
+
+511
+00:17:25,460 --&gt; 00:17:27,940
+本期视频我们就不赘述基础概念了
+
+512
+00:17:27,940 --&gt; 00:17:29,060
+直接进入实战
+
+513
+00:17:29,060 --&gt; 00:17:31,460
+现在WSL上面最新的发行版
+
+514
+00:17:31,460 --&gt; 00:17:33,620
+已经默认启用了System D
+
+515
+00:17:33,620 --&gt; 00:17:36,580
+所以现在在WSL上面运行Docker的体验
+
+516
+00:17:36,580 --&gt; 00:17:39,780
+跟一台真正的Linux电脑的体验是一致的
+
+517
+00:17:39,780 --&gt; 00:17:43,540
+所以现在在WSL里面使用Docker也非常的方便了
+
+518
+00:17:43,540 --&gt; 00:17:45,860
+我们来到Docker官方的部署指南
+
+519
+00:17:45,860 --&gt; 00:17:47,220
+这里有一个安装步骤
+
+520
+00:17:47,220 --&gt; 00:17:50,420
+我们只需要把第一个跟第四个执行一下就可以了
+
+521
+00:17:50,420 --&gt; 00:17:52,100
+这里把第一个命令复制一下
+
+522
+00:17:52,100 --&gt; 00:17:54,820
+然后来到WSL粘贴过来运行
+
+523
+00:17:54,820 --&gt; 00:17:56,660
+接下来复制第四个命令
+
+524
+00:17:56,660 --&gt; 00:17:58,420
+在WSL里面运行
+
+525
+00:17:58,420 --&gt; 00:18:00,500
+这里输入Linux虚拟机的密码
+
+526
+00:18:00,500 --&gt; 00:18:01,780
+到这一步我们不用管
+
+527
+00:18:01,780 --&gt; 00:18:02,820
+直接等待20秒
+
+528
+00:18:02,820 --&gt; 00:18:04,660
+好这样Docker就安装完成了
+
+529
+00:18:04,660 --&gt; 00:18:06,500
+我们开发后台服务的时候
+
+530
+00:18:06,500 --&gt; 00:18:08,980
+经常使用Redis作为高速缓存
+
+531
+00:18:08,980 --&gt; 00:18:10,660
+在本地开发软件的时候
+
+532
+00:18:10,660 --&gt; 00:18:13,100
+我们往往需要部署一个Redis实例
+
+533
+00:18:13,100 --&gt; 00:18:16,300
+在Windows系统上部署Redis是相当复杂的
+
+534
+00:18:16,300 --&gt; 00:18:18,540
+但是现在有了Docker就非常简单了
+
+535
+00:18:18,540 --&gt; 00:18:19,820
+我们直接输入命令
+
+536
+00:18:19,820 --&gt; 00:18:20,860
+sudo docker
+
+537
+00:18:20,860 --&gt; 00:18:23,340
+注意在WSL里面敲Docker命令
+
+538
+00:18:23,340 --&gt; 00:18:25,100
+一定要在前面先加sudo
+
+539
+00:18:25,100 --&gt; 00:18:27,180
+run-d-p
+
+540
+00:18:27,180 --&gt; 00:18:28,860
+我们把端口映射出来
+
+541
+00:18:28,860 --&gt; 00:18:31,020
+Redis默认端口6379
+
+542
+00:18:31,020 --&gt; 00:18:33,340
+最后镜像的名字Redis回车
+
+543
+00:18:33,340 --&gt; 00:18:37,020
+好这样我们的Redis在WSL里面就运行成功了
+
+544
+00:18:37,020 --&gt; 00:18:38,380
+接下来我们来试一试
+
+545
+00:18:38,380 --&gt; 00:18:41,660
+这是我Windows电脑上的一个开源的Redis客户端
+
+546
+00:18:41,660 --&gt; 00:18:42,860
+我们来连接一下
+
+547
+00:18:42,860 --&gt; 00:18:44,220
+点击New Connection
+
+548
+00:18:44,220 --&gt; 00:18:46,540
+这里host填Localhost
+
+549
+00:18:46,540 --&gt; 00:18:47,900
+端口6379
+
+550
+00:18:47,900 --&gt; 00:18:50,060
+之前的视频里面我们介绍了
+
+551
+00:18:50,060 --&gt; 00:18:53,180
+WSL在Localhost上面的端口转发
+
+552
+00:18:53,180 --&gt; 00:18:55,340
+当然Docker上面映射出来的端口
+
+553
+00:18:55,340 --&gt; 00:18:57,420
+使用宿主机也可以直接访问到
+
+554
+00:18:57,420 --&gt; 00:18:58,540
+这里直接点击OK
+
+555
+00:18:58,540 --&gt; 00:18:59,660
+这样就连接进来了
+
+556
+00:18:59,660 --&gt; 00:19:00,780
+我们添加一个key
+
+557
+00:19:00,780 --&gt; 00:19:02,060
+可以给这个key复值
+
+558
+00:19:02,060 --&gt; 00:19:03,980
+Redis正常工作没问题
+
+559
+00:19:03,980 --&gt; 00:19:06,780
+使用Docker一句话就能启动Redis实例
+
+560
+00:19:06,780 --&gt; 00:19:08,780
+本地开发使用非常的方便
+
+561
+00:19:08,780 --&gt; 00:19:11,260
+我们只需要把WSL的窗口关闭掉
+
+562
+00:19:11,260 --&gt; 00:19:12,780
+Docker就停止运行了
+
+563
+00:19:12,780 --&gt; 00:19:14,700
+我们使用宿主机也连接不到了
+
+564
+00:19:14,700 --&gt; 00:19:16,700
+我们再把Linux虚拟机启动起来
+
+565
+00:19:16,700 --&gt; 00:19:17,420
+输入命令
+
+566
+00:19:17,420 --&gt; 00:19:18,700
+速度Docker
+
+567
+00:19:18,700 --&gt; 00:19:19,820
+PS-A
+
+568
+00:19:19,820 --&gt; 00:19:21,260
+查看一下所有的容器
+
+569
+00:19:21,260 --&gt; 00:19:23,020
+我们看到因为刚才的关机
+
+570
+00:19:23,020 --&gt; 00:19:25,500
+我们的Redis容器已经停止运行了
+
+571
+00:19:25,500 --&gt; 00:19:27,180
+接下来我们再把它启动起来
+
+572
+00:19:27,180 --&gt; 00:19:28,300
+速度Docker
+
+573
+00:19:28,300 --&gt; 00:19:28,860
+Start
+
+574
+00:19:28,860 --&gt; 00:19:30,380
+后面接容器的ID
+
+575
+00:19:30,380 --&gt; 00:19:31,980
+让我们容器又启动起来了
+
+576
+00:19:31,980 --&gt; 00:19:33,580
+再回来重新连接一下
+
+577
+00:19:33,580 --&gt; 00:19:34,620
+就又连接上了
+
+578
+00:19:34,620 --&gt; 00:19:36,220
+这里再补充一个知识点
+
+579
+00:19:36,220 --&gt; 00:19:38,060
+本期视频介绍的所有功能
+
+580
+00:19:38,060 --&gt; 00:19:40,300
+都是基于最新版WSL2
+
+581
+00:19:40,300 --&gt; 00:19:42,300
+其实WSL还有一个老版本
+
+582
+00:19:42,300 --&gt; 00:19:43,180
+WSL1
+
+583
+00:19:43,180 --&gt; 00:19:45,660
+这两个版本在底层原理的实现上
+
+584
+00:19:45,660 --&gt; 00:19:46,860
+有本质上的不同
+
+585
+00:19:46,860 --&gt; 00:19:48,300
+我们来简单了解一下
+
+586
+00:19:48,300 --&gt; 00:19:50,860
+WSL1的本质是一个翻译层
+
+587
+00:19:50,860 --&gt; 00:19:52,460
+它将Linux系统指令
+
+588
+00:19:52,460 --&gt; 00:19:54,020
+翻译成Windows NT内核
+
+589
+00:19:54,020 --&gt; 00:19:55,500
+可以理解的系统指令
+
+590
+00:19:55,500 --&gt; 00:19:58,500
+WSL1不运行真正的Linux内核
+
+591
+00:19:58,500 --&gt; 00:19:59,980
+而是通过Windows内核
+
+592
+00:19:59,980 --&gt; 00:20:01,500
+来模拟Linux系统
+
+593
+00:20:01,500 --&gt; 00:20:02,940
+因此在某些情况下
+
+594
+00:20:02,940 --&gt; 00:20:04,540
+会出现兼容性的问题
+
+595
+00:20:04,540 --&gt; 00:20:06,140
+比如无法运行Docker
+
+596
+00:20:06,140 --&gt; 00:20:07,780
+而且维护这样的翻译层
+
+597
+00:20:07,780 --&gt; 00:20:09,100
+其实工作量巨大
+
+598
+00:20:09,100 --&gt; 00:20:11,500
+于是微软开发出了WSL2
+
+599
+00:20:11,500 --&gt; 00:20:14,620
+WSL2基于Hyper-V的虚拟化平台
+
+600
+00:20:14,620 --&gt; 00:20:16,620
+它具有真正的Linux内核
+
+601
+00:20:16,620 --&gt; 00:20:18,580
+可以与Windows在用户空间上
+
+602
+00:20:18,580 --&gt; 00:20:19,580
+进行网络通信
+
+603
+00:20:19,580 --&gt; 00:20:20,700
+文件共享等等
+
+604
+00:20:20,700 --&gt; 00:20:23,660
+更棒的是WSL2可以运行Docker
+
+605
+00:20:23,660 --&gt; 00:20:25,100
+并且得益于Hyper-V的
+
+606
+00:20:25,100 --&gt; 00:20:26,940
+强大硬件虚拟化技术
+
+607
+00:20:26,940 --&gt; 00:20:29,260
+WSL2自带显卡直通
+
+608
+00:20:29,260 --&gt; 00:20:31,460
+这种架构提高了系统的兼容性
+
+609
+00:20:31,460 --&gt; 00:20:33,740
+而且大大降低了开发维护成本
+
+610
+00:20:34,460 --&gt; 00:20:36,180
+显卡直通的意思是
+
+611
+00:20:36,180 --&gt; 00:20:37,500
+在WSL里面
+
+612
+00:20:37,500 --&gt; 00:20:38,980
+可以直接调用Windows
+
+613
+00:20:38,980 --&gt; 00:20:40,460
+速入机上面的显卡
+
+614
+00:20:40,460 --&gt; 00:20:42,180
+而不需要做任何的配置
+
+615
+00:20:42,180 --&gt; 00:20:43,580
+现阶段大多数的
+
+616
+00:20:43,580 --&gt; 00:20:45,940
+AA推理框架和深度学习框架
+
+617
+00:20:45,940 --&gt; 00:20:48,420
+都是优先支持Linux操作系统
+
+618
+00:20:48,420 --&gt; 00:20:49,260
+官方文档
+
+619
+00:20:49,260 --&gt; 00:20:50,100
+安装教程
+
+620
+00:20:50,100 --&gt; 00:20:52,020
+也基本都是以Linux为主
+
+621
+00:20:52,020 --&gt; 00:20:53,060
+使用WSL
+
+622
+00:20:53,060 --&gt; 00:20:55,380
+可以把你手头的高性能游戏电脑
+
+623
+00:20:55,380 --&gt; 00:20:57,460
+直接变成AA开发平台
+
+624
+00:20:57,460 --&gt; 00:20:58,500
+我们还是来到
+
+625
+00:20:58,500 --&gt; 00:21:00,300
+无版图的Linux子系统
+
+626
+00:21:00,300 --&gt; 00:21:03,020
+然后输入命令NVIDIA-SMI
+
+627
+00:21:03,020 --&gt; 00:21:05,500
+这个命令用来查看电脑的GPU情况
+
+628
+00:21:05,500 --&gt; 00:21:08,460
+我们看到这里直接显示了显卡驱动的版本
+
+629
+00:21:08,460 --&gt; 00:21:09,420
+枯大的版本
+
+630
+00:21:09,420 --&gt; 00:21:11,340
+还有我这台电脑的显卡型号
+
+631
+00:21:11,340 --&gt; 00:21:12,700
+RTX5070
+
+632
+00:21:12,700 --&gt; 00:21:13,900
+显存情况等等
+
+633
+00:21:13,900 --&gt; 00:21:15,100
+这里有一点要注意
+
+634
+00:21:15,100 --&gt; 00:21:17,100
+千万不要往这个Linux系统里面
+
+635
+00:21:17,100 --&gt; 00:21:18,060
+装任何的驱动
+
+636
+00:21:18,060 --&gt; 00:21:19,460
+它可以直接使用Windows
+
+637
+00:21:19,460 --&gt; 00:21:21,060
+速入机上面的显卡驱动
+
+638
+00:21:21,060 --&gt; 00:21:22,060
+来使用显卡
+
+639
+00:21:22,060 --&gt; 00:21:23,460
+不需要做任何的配置
+
+640
+00:21:23,460 --&gt; 00:21:24,580
+我们来看一个例子
+
+641
+00:21:24,580 --&gt; 00:21:29,020
+VLLM是目前最炙手可热的AA推理框架
+
+642
+00:21:29,020 --&gt; 00:21:30,740
+我们看到操作系统支持
+
+643
+00:21:30,740 --&gt; 00:21:31,940
+只有Linux版本
+
+644
+00:21:31,940 --&gt; 00:21:33,140
+所有的官方文档
+
+645
+00:21:33,140 --&gt; 00:21:35,460
+全部是基于Linux系统来写的
+
+646
+00:21:35,460 --&gt; 00:21:36,740
+我们使用WSL
+
+647
+00:21:36,740 --&gt; 00:21:38,860
+就是这个推理框架的一等公民
+
+648
+00:21:38,860 --&gt; 00:21:39,780
+照着这些文档
+
+649
+00:21:39,780 --&gt; 00:21:41,100
+可以实现一切功能
+
+650
+00:21:41,100 --&gt; 00:21:42,340
+我们按照这个文档
+
+651
+00:21:42,340 --&gt; 00:21:43,900
+把推理框架运行一下
+
+652
+00:21:43,900 --&gt; 00:21:45,260
+这里看到它需要UV
+
+653
+00:21:45,260 --&gt; 00:21:46,540
+先创建虚拟环境
+
+654
+00:21:46,540 --&gt; 00:21:47,940
+我们来到UV的官网
+
+655
+00:21:47,940 --&gt; 00:21:49,460
+找到Linux安装命令
+
+656
+00:21:49,460 --&gt; 00:21:50,260
+复制一下
+
+657
+00:21:50,260 --&gt; 00:21:51,620
+来到WSL里面
+
+658
+00:21:51,620 --&gt; 00:21:53,220
+我们先把UV安装一下
+
+659
+00:21:53,220 --&gt; 00:21:54,260
+就安装完成了
+
+660
+00:21:54,260 --&gt; 00:21:55,820
+接下来我们执行第一个命令
+
+661
+00:21:55,820 --&gt; 00:21:56,540
+第二个命令
+
+662
+00:21:56,540 --&gt; 00:21:57,460
+第三个命令
+
+663
+00:21:57,460 --&gt; 00:21:58,260
+好搞定了
+
+664
+00:21:58,260 --&gt; 00:22:00,220
+接下来我们启动起来试一下
+
+665
+00:22:00,220 --&gt; 00:22:02,020
+这里我复制官方文档的命令
+
+666
+00:22:02,020 --&gt; 00:22:03,180
+我改一下模型
+
+667
+00:22:03,180 --&gt; 00:22:04,980
+改成最新的千问3.5
+
+668
+00:22:04,980 --&gt; 00:22:05,740
+我试了一下
+
+669
+00:22:05,740 --&gt; 00:22:07,220
+这么启动会直接报错
+
+670
+00:22:07,220 --&gt; 00:22:09,540
+我让GPT帮我修改了一下启动命令
+
+671
+00:22:09,540 --&gt; 00:22:10,860
+改了一下采样器
+
+672
+00:22:10,860 --&gt; 00:22:13,260
+然后在后面约束了一下显存的占用量
+
+673
+00:22:13,260 --&gt; 00:22:13,940
+启动完成
+
+674
+00:22:13,940 --&gt; 00:22:14,940
+我们来测试一下
+
+675
+00:22:14,940 --&gt; 00:22:18,100
+这里我用的是Postman填上推理的端点
+
+676
+00:22:18,100 --&gt; 00:22:19,700
+然后把提示词填上
+
+677
+00:22:19,700 --&gt; 00:22:22,540
+VLLM是一个高性能的推理框架
+
+678
+00:22:22,540 --&gt; 00:22:24,180
+我们看到推理速度非常的快
+
+679
+00:22:24,180 --&gt; 00:22:26,020
+半秒钟就能推理这么多词
+
+680
+00:22:26,820 --&gt; 00:22:30,940
+之前我们主要介绍的是用命令行跟WSL进行交互
+
+681
+00:22:30,940 --&gt; 00:22:33,700
+WSL同样支持图形化界面
+
+682
+00:22:33,700 --&gt; 00:22:35,740
+本章节我们主要分成两个部分
+
+683
+00:22:35,740 --&gt; 00:22:37,740
+一个是WSLG工具
+
+684
+00:22:37,740 --&gt; 00:22:40,820
+再一个就是用Windows宿主机的远程桌面控制
+
+685
+00:22:40,820 --&gt; 00:22:42,300
+接入WSL桌面
+
+686
+00:22:42,300 --&gt; 00:22:46,540
+WSLG是WSL里面的图形界面支持组件
+
+687
+00:22:46,540 --&gt; 00:22:50,500
+它可以把Linux图形应用直接显示到Windows桌面上面
+
+688
+00:22:50,500 --&gt; 00:22:53,300
+WSLG不是一个完整的桌面系统
+
+689
+00:22:53,300 --&gt; 00:22:56,620
+通常我们只用来把单个的应用显示到Windows里面
+
+690
+00:22:56,620 --&gt; 00:22:58,260
+比如我们来看这个软件
+
+691
+00:22:58,260 --&gt; 00:22:59,220
+GIMP
+
+692
+00:22:59,220 --&gt; 00:23:03,060
+它是一个类似Photoshop的开源免费的图像编辑软件
+
+693
+00:23:03,060 --&gt; 00:23:06,860
+我们先用apt install在WSL里面安装一下
+
+694
+00:23:06,860 --&gt; 00:23:09,100
+然后我们运行一下GIMP
+
+695
+00:23:09,100 --&gt; 00:23:12,820
+在Windows的界面里面就打开了这个图形编辑软件
+
+696
+00:23:12,820 --&gt; 00:23:17,180
+也就是我们可以借助WSLG把Linux系统的图形软件
+
+697
+00:23:17,180 --&gt; 00:23:19,980
+直接显示到Windows桌面里面正常使用
+
+698
+00:23:19,980 --&gt; 00:23:23,460
+刚才我们看的是怎么显示单个应用的图形界面
+
+699
+00:23:23,460 --&gt; 00:23:27,100
+接下来我们看怎么在WSL里面启动一个完整的桌面
+
+700
+00:23:27,100 --&gt; 00:23:28,020
+这里有点变化
+
+701
+00:23:28,020 --&gt; 00:23:29,500
+我不选择Ubuntu了
+
+702
+00:23:29,500 --&gt; 00:23:31,060
+我选择Carly Linux
+
+703
+00:23:31,060 --&gt; 00:23:33,340
+我们先更新一下apt索引
+
+704
+00:23:33,340 --&gt; 00:23:35,980
+然后我们来安装CarlyWin KEX
+
+705
+00:23:35,980 --&gt; 00:23:36,940
+安装完成以后
+
+706
+00:23:36,940 --&gt; 00:23:39,300
+我们输入KEX来启动桌面
+
+707
+00:23:39,300 --&gt; 00:23:41,460
+这样我们就以远程连接的方式
+
+708
+00:23:41,460 --&gt; 00:23:43,380
+打开了Carly Linux桌面
+
+709
+00:23:43,380 --&gt; 00:23:46,580
+这是一个完整可用的Linux操作系统的桌面
+
+710
+00:23:46,580 --&gt; 00:23:48,500
+我们可以在里面操作浏览器
+
+711
+00:23:48,500 --&gt; 00:23:50,260
+操作各种图形软件等等
+
+712
+00:23:50,260 --&gt; 00:23:52,620
+接下来我们看在Ubuntu系统上
+
+713
+00:23:52,620 --&gt; 00:23:54,100
+启动一个完整的桌面
+
+714
+00:23:54,100 --&gt; 00:23:55,860
+在Ubuntu上启动桌面
+
+715
+00:23:55,860 --&gt; 00:23:57,700
+需要依次执行以下命令
+
+716
+00:23:57,700 --&gt; 00:23:59,260
+执行过程我就跳过了
+
+717
+00:23:59,260 --&gt; 00:24:02,780
+最后一个命令是显示这台Linux虚拟机的IP地址
+
+718
+00:24:02,780 --&gt; 00:24:04,700
+我们把IP地址复制一下
+
+719
+00:24:04,700 --&gt; 00:24:05,860
+然后来到Windows
+
+720
+00:24:05,860 --&gt; 00:24:07,540
+搜索远程桌面连接
+
+721
+00:24:07,540 --&gt; 00:24:09,140
+把IP地址复制过来
+
+722
+00:24:09,140 --&gt; 00:24:11,580
+然后冒号端口是3389
+
+723
+00:24:11,580 --&gt; 00:24:12,380
+点击连接
+
+724
+00:24:12,380 --&gt; 00:24:15,460
+这样我们就连接进了这台Ubuntu虚拟机的桌面
+
+725
+00:24:16,220 --&gt; 00:24:17,500
+刚才的视频里面
+
+726
+00:24:17,500 --&gt; 00:24:21,220
+我们介绍了WSL Localhost的端口自动转发
+
+727
+00:24:21,220 --&gt; 00:24:24,940
+当WSL检测到Linux里面有程序监听端口
+
+728
+00:24:24,940 --&gt; 00:24:26,660
+就会自动转发到Windows
+
+729
+00:24:26,660 --&gt; 00:24:29,420
+输入机这边的Localhost相同的端口
+
+730
+00:24:29,420 --&gt; 00:24:31,220
+所以我们在输入机里面
+
+731
+00:24:31,220 --&gt; 00:24:34,940
+可以使用Localhost访问到WSL里面启动的应用
+
+732
+00:24:34,940 --&gt; 00:24:36,620
+在这个图里面可以看出
+
+733
+00:24:36,620 --&gt; 00:24:39,500
+WSL默认采用的是Net网络模式
+
+734
+00:24:39,500 --&gt; 00:24:44,060
+Linux子系统位于WSL宿主机内部的虚拟网络里面
+
+735
+00:24:44,060 --&gt; 00:24:46,220
+它拥有独立的虚拟IP地址
+
+736
+00:24:46,220 --&gt; 00:24:48,620
+通过Localhost的端口自动转发
+
+737
+00:24:48,620 --&gt; 00:24:50,860
+在宿主机里面使用Localhost
+
+738
+00:24:50,860 --&gt; 00:24:53,300
+可以访问到WSL里面启动的应用
+
+739
+00:24:53,300 --&gt; 00:24:56,820
+如果想在虚拟机里面访问到宿主机里的应用
+
+740
+00:24:56,820 --&gt; 00:24:58,060
+我们可以这么操作
+
+741
+00:24:58,060 --&gt; 00:25:01,780
+在我的Windows宿主机上面启动了一个Python服务
+
+742
+00:25:01,780 --&gt; 00:25:03,300
+这里使用8000端口
+
+743
+00:25:03,300 --&gt; 00:25:05,540
+这样我在宿主机的浏览器里面
+
+744
+00:25:05,540 --&gt; 00:25:07,060
+使用Localhost的8000
+
+745
+00:25:07,060 --&gt; 00:25:08,660
+是可以访问到这个服务的
+
+746
+00:25:08,660 --&gt; 00:25:11,460
+接下来我们看怎么在WSL里面访问
+
+747
+00:25:11,460 --&gt; 00:25:13,500
+这里先来到Windows的PowerShell
+
+748
+00:25:13,500 --&gt; 00:25:14,380
+输入这个命令
+
+749
+00:25:14,380 --&gt; 00:25:15,100
+IP
+
+750
+00:25:15,100 --&gt; 00:25:15,780
+Config
+
+751
+00:25:15,780 --&gt; 00:25:17,260
+找到自己的网卡
+
+752
+00:25:17,260 --&gt; 00:25:18,580
+这里有一个IP地址
+
+753
+00:25:18,580 --&gt; 00:25:20,140
+这个就是我这台宿主机
+
+754
+00:25:20,140 --&gt; 00:25:21,940
+在局域网里面的IP地址
+
+755
+00:25:21,940 --&gt; 00:25:23,940
+然后我们来到WSL里面
+
+756
+00:25:23,940 --&gt; 00:25:25,300
+使用这个IP地址
+
+757
+00:25:25,300 --&gt; 00:25:27,700
+就可以访问到宿主机上面的服务
+
+758
+00:25:27,700 --&gt; 00:25:30,260
+现在我们的宿主机可以访问到虚拟机
+
+759
+00:25:30,260 --&gt; 00:25:32,340
+虚拟机也能访问到宿主机
+
+760
+00:25:32,340 --&gt; 00:25:33,900
+但是还有一个特殊情况
+
+761
+00:25:33,900 --&gt; 00:25:35,980
+也就是局域网里面的其他设备
+
+762
+00:25:35,980 --&gt; 00:25:38,620
+是没法访问到WSL里面的服务的
+
+763
+00:25:38,620 --&gt; 00:25:40,860
+比如我想用手机调试一下
+
+764
+00:25:40,860 --&gt; 00:25:43,300
+WSL上面开发的一个网页服务
+
+765
+00:25:43,300 --&gt; 00:25:45,100
+现在是没有办法访问到的
+
+766
+00:25:45,100 --&gt; 00:25:47,580
+我们可以修改WSL的网络设置
+
+767
+00:25:47,580 --&gt; 00:25:48,860
+来达成这个需求
+
+768
+00:25:48,860 --&gt; 00:25:50,860
+我们来到Windows上的C盘
+
+769
+00:25:50,860 --&gt; 00:25:52,260
+用户你的用户名
+
+770
+00:25:52,260 --&gt; 00:25:54,900
+然后在这个目录下面新建一个文件
+
+771
+00:25:54,900 --&gt; 00:25:57,540
+文件的名字叫做.WSL config
+
+772
+00:25:57,540 --&gt; 00:25:59,940
+这是WSL全局的配置文件
+
+773
+00:25:59,940 --&gt; 00:26:01,780
+然后我们用记事本打开它
+
+774
+00:26:01,780 --&gt; 00:26:03,460
+在这里面新加这么两行
+
+775
+00:26:03,460 --&gt; 00:26:06,180
+它的意思是把WSL的网络模式
+
+776
+00:26:06,180 --&gt; 00:26:08,740
+从Net网络切换成镜像网络
+
+777
+00:26:08,740 --&gt; 00:26:10,980
+然后我们把配置文件保存一下
+
+778
+00:26:10,980 --&gt; 00:26:13,060
+把所有的WSL窗口关闭
+
+779
+00:26:13,060 --&gt; 00:26:13,900
+等待一分钟
+
+780
+00:26:13,900 --&gt; 00:26:15,700
+让WSL完成重启
+
+781
+00:26:15,700 --&gt; 00:26:17,420
+在镜像网络模式下面
+
+782
+00:26:17,420 --&gt; 00:26:21,700
+Windows宿主机的网卡会直接镜像一份给WSL使用
+
+783
+00:26:21,700 --&gt; 00:26:25,780
+这样可以让Windows和WSL处于相同的网络环境中
+
+784
+00:26:25,780 --&gt; 00:26:28,100
+并且使用相同的局域网IP
+
+785
+00:26:28,100 --&gt; 00:26:30,100
+这样局域网里面的其他设备
+
+786
+00:26:30,100 --&gt; 00:26:32,980
+也可以轻松访问到WSL上面的服务了
+
+787
+00:26:32,980 --&gt; 00:26:34,740
+镜像模式还有个好处
+
+788
+00:26:34,740 --&gt; 00:26:37,220
+就是让网络结构变得更加的简单
+
+789
+00:26:37,220 --&gt; 00:26:39,300
+如果你使用WSL的过程中
+
+790
+00:26:39,300 --&gt; 00:26:41,220
+遇到一些奇怪的网络问题
+
+791
+00:26:41,220 --&gt; 00:26:43,380
+可以试试切换成镜像模式
+
+792
+00:26:43,380 --&gt; 00:26:44,580
+看看能不能解决
+
+793
+00:26:44,580 --&gt; 00:26:45,700
+好我们来试一下
+
+794
+00:26:45,700 --&gt; 00:26:49,060
+这里我先把视频开头那个坦克大战的应用启动起来
+
+795
+00:26:49,060 --&gt; 00:26:51,140
+启动完成以后再修改一个设置
+
+796
+00:26:51,140 --&gt; 00:26:55,140
+在搜索栏搜索PowerShell右键以管理员身份运行
+
+797
+00:26:55,140 --&gt; 00:26:57,940
+然后把这串命令粘贴上回车
+
+798
+00:26:57,940 --&gt; 00:27:01,620
+这串命令的意思是修改WSL的防火墙设置
+
+799
+00:27:01,620 --&gt; 00:27:04,740
+让它可以被局域网里面的其他设备访问到
+
+800
+00:27:04,740 --&gt; 00:27:07,220
+然后我们就可以在手机上来测试一下
+
+801
+00:27:07,220 --&gt; 00:27:10,340
+打开手机浏览器输入宿主机的IP地址
+
+802
+00:27:10,340 --&gt; 00:27:14,820
+在镜像模式下面也等同于WSL这个虚拟机的IP地址
+
+803
+00:27:14,820 --&gt; 00:27:16,420
+后面接上端口3000
+
+804
+00:27:16,420 --&gt; 00:27:18,020
+我们看到成功访问进来了
+
+805
+00:27:18,020 --&gt; 00:27:20,020
+这样我们就通过使用镜像网络
+
+806
+00:27:20,020 --&gt; 00:27:24,420
+让局域网里面的其他设备也能访问到WSL里面启动的服务
+
+807
+00:27:25,220 --&gt; 00:27:28,500
+刚才我们介绍了WSL上面的配置文件
+
+808
+00:27:28,500 --&gt; 00:27:29,940
+.wslconfig
+
+809
+00:27:29,940 --&gt; 00:27:33,780
+它还有另外一个配置文件是wsl.conf
+
+810
+00:27:33,780 --&gt; 00:27:36,180
+这两个配置文件有本质上的不同
+
+811
+00:27:36,180 --&gt; 00:27:38,980
+我们先来看前面这个.wslconfig
+
+812
+00:27:38,980 --&gt; 00:27:40,500
+这是一个windows文件
+
+813
+00:27:40,500 --&gt; 00:27:43,060
+它是一个全局的通用配置文件
+
+814
+00:27:43,060 --&gt; 00:27:46,100
+也就是对所有的WSL虚拟机都生效
+
+815
+00:27:46,100 --&gt; 00:27:49,220
+它的地址是在c盘用户你的用户名
+
+816
+00:27:49,220 --&gt; 00:27:50,900
+然后.wslconfig
+
+817
+00:27:50,900 --&gt; 00:27:52,900
+主要用途可以用来修改内存
+
+818
+00:27:52,900 --&gt; 00:27:54,180
+内核启动方式
+
+819
+00:27:54,180 --&gt; 00:27:56,580
+还有刚才我们介绍的网络模式等等
+
+820
+00:27:56,580 --&gt; 00:28:00,100
+另外一个配置文件是wsl.conf
+
+821
+00:28:00,100 --&gt; 00:28:01,620
+这是一个linux文件
+
+822
+00:28:01,620 --&gt; 00:28:03,700
+它存放在linux系统里面
+
+823
+00:28:03,700 --&gt; 00:28:05,700
+它只对单个虚拟机生效
+
+824
+00:28:05,700 --&gt; 00:28:08,180
+这个配置文件可以用来修改挂载券
+
+825
+00:28:08,180 --&gt; 00:28:09,620
+systemd的使用
+
+826
+00:28:09,620 --&gt; 00:28:11,260
+还有默认用户设置等等
+
+827
+00:28:11,260 --&gt; 00:28:12,980
+我们来看一个例子怎么使用
+
+828
+00:28:12,980 --&gt; 00:28:14,980
+wsl.conf
+
+829
+00:28:14,980 --&gt; 00:28:17,380
+这里还是来到我的Ubuntu虚拟机
+
+830
+00:28:17,380 --&gt; 00:28:18,660
+然后进入这个目录
+
+831
+00:28:18,660 --&gt; 00:28:19,700
+etc
+
+832
+00:28:19,700 --&gt; 00:28:21,540
+我们可以使用速度vi
+
+833
+00:28:21,540 --&gt; 00:28:24,500
+wsl.conf
+
+834
+00:28:24,500 --&gt; 00:28:27,860
+我们看到比如这里的systemd是默认启用的
+
+835
+00:28:27,860 --&gt; 00:28:30,580
+我们在官方文档里面可以来修改一个东西
+
+836
+00:28:30,580 --&gt; 00:28:32,500
+比如这里的自动挂载设置
+
+837
+00:28:32,500 --&gt; 00:28:33,780
+先把这个标签加上
+
+838
+00:28:33,780 --&gt; 00:28:35,780
+然后enable等于false
+
+839
+00:28:35,780 --&gt; 00:28:38,500
+这个配置的意思是关闭自动挂载
+
+840
+00:28:38,500 --&gt; 00:28:40,100
+也就是在虚拟机里面
+
+841
+00:28:40,100 --&gt; 00:28:42,260
+不再自动挂载c盘跟d盘了
+
+842
+00:28:42,260 --&gt; 00:28:43,300
+AI操作的时候
+
+843
+00:28:43,300 --&gt; 00:28:45,540
+它也无法看到windows上面的文件
+
+844
+00:28:45,540 --&gt; 00:28:47,540
+这样可以进一步的提高安全性
+
+845
+00:28:47,540 --&gt; 00:28:48,660
+然后敲 esc
+
+846
+00:28:48,660 --&gt; 00:28:50,580
+可以冒号wqtan号回车
+
+847
+00:28:50,580 --&gt; 00:28:52,580
+把配置文件保存一下
+
+848
+00:28:52,580 --&gt; 00:28:54,260
+然后我们把虚拟机关闭
+
+849
+00:28:54,260 --&gt; 00:28:56,900
+这里官方文档要求我们至少等待8秒
+
+850
+00:28:56,900 --&gt; 00:28:58,660
+等待虚拟机完全重启
+
+851
+00:28:58,660 --&gt; 00:28:59,540
+重启完成以后
+
+852
+00:28:59,540 --&gt; 00:29:02,020
+我们输入df-h命令查看一下
+
+853
+00:29:02,020 --&gt; 00:29:03,700
+我们看到在挂载卷里面
+
+854
+00:29:03,700 --&gt; 00:29:05,220
+就没有windows的目录了
+
+855
+00:29:05,220 --&gt; 00:29:06,740
+这样配置也就生效了
+
+856
+00:29:06,740 --&gt; 00:29:08,100
+在官方文档里面
+
+857
+00:29:08,100 --&gt; 00:29:10,660
+还有关于这两个配置文件更多的功能
+
+858
+00:29:10,660 --&gt; 00:29:12,580
+不过这些功能也不太常用
+
+859
+00:29:12,580 --&gt; 00:29:14,820
+大家有需求可以来参考这个文档
+
+860
+00:29:14,820 --&gt; 00:29:16,420
+这里我就不过多介绍了
+
+861
+00:29:16,420 --&gt; 00:29:19,220
+我们再来介绍一个WSL的高级功能
+
+862
+00:29:19,220 --&gt; 00:29:20,900
+也就是备份跟克隆
+
+863
+00:29:20,900 --&gt; 00:29:23,740
+比如我在WSL上面进行了很多工作
+
+864
+00:29:23,740 --&gt; 00:29:25,940
+我现在想把整个linux虚拟机
+
+865
+00:29:25,940 --&gt; 00:29:27,260
+做一个完整的备份
+
+866
+00:29:27,260 --&gt; 00:29:28,540
+就可以使用这个命令
+
+867
+00:29:28,540 --&gt; 00:29:30,740
+WSL两个横杠export
+
+868
+00:29:30,740 --&gt; 00:29:32,060
+也就是导出的意思
+
+869
+00:29:32,060 --&gt; 00:29:33,740
+后面接上虚拟机的名字
+
+870
+00:29:33,740 --&gt; 00:29:35,620
+比如我想导出我的Ubuntu
+
+871
+00:29:35,620 --&gt; 00:29:37,700
+最后我再填一个压缩包的名字
+
+872
+00:29:37,700 --&gt; 00:29:39,380
+比如叫做Ubuntu.ta
+
+873
+00:29:39,380 --&gt; 00:29:39,900
+回车
+
+874
+00:29:39,900 --&gt; 00:29:40,980
+导出完成以后
+
+875
+00:29:40,980 --&gt; 00:29:42,060
+这个当前目录
+
+876
+00:29:42,060 --&gt; 00:29:43,460
+也就是我的桌面上
+
+877
+00:29:43,460 --&gt; 00:29:45,780
+就多了一个Ubuntu.ta的压缩包
+
+878
+00:29:45,780 --&gt; 00:29:48,180
+这样我们就把虚拟机进行了一个备份
+
+879
+00:29:48,180 --&gt; 00:29:49,540
+有了这个备份包以后
+
+880
+00:29:49,540 --&gt; 00:29:51,700
+我们就可以随时把它还原回来
+
+881
+00:29:51,700 --&gt; 00:29:52,940
+比如我先使用命令
+
+882
+00:29:52,940 --&gt; 00:29:55,020
+把Ubuntu的这个虚拟机删除掉
+
+883
+00:29:55,020 --&gt; 00:29:57,860
+看到我电脑上就没有Ubuntu这台虚拟机了
+
+884
+00:29:57,860 --&gt; 00:29:59,620
+接下来我们借助这个备份包
+
+885
+00:29:59,620 --&gt; 00:30:01,300
+把虚拟机还原回来
+
+886
+00:30:01,300 --&gt; 00:30:03,260
+这里收入命令WSL
+
+887
+00:30:03,260 --&gt; 00:30:04,740
+两个横杠import
+
+888
+00:30:04,740 --&gt; 00:30:05,700
+后面起个名字
+
+889
+00:30:05,700 --&gt; 00:30:06,820
+我还叫Ubuntu
+
+890
+00:30:06,820 --&gt; 00:30:08,700
+接下来要指定一个安装路径
+
+891
+00:30:08,700 --&gt; 00:30:10,140
+我选了一个D盘的目录
+
+892
+00:30:10,140 --&gt; 00:30:11,940
+最后就是填上压缩包的
+
+893
+00:30:11,940 --&gt; 00:30:12,460
+地址
+
+894
+00:30:12,460 --&gt; 00:30:13,980
+我把压缩包拖转进来
+
+895
+00:30:13,980 --&gt; 00:30:14,460
+回车
+
+896
+00:30:14,460 --&gt; 00:30:16,900
+我们再输入命令WSL-L
+
+897
+00:30:16,900 --&gt; 00:30:18,460
+我们看到我们的Ubuntu
+
+898
+00:30:18,460 --&gt; 00:30:20,020
+就被重新导入回来了
+
+899
+00:30:20,020 --&gt; 00:30:22,100
+我们可以使用导入导出的方法
+
+900
+00:30:22,100 --&gt; 00:30:23,660
+把我电脑上的虚拟机
+
+901
+00:30:23,660 --&gt; 00:30:26,140
+迁移到其他的windows电脑上面使用
+
+902
+00:30:26,140 --&gt; 00:30:28,340
+导入导出还有一个重要功能
+
+903
+00:30:28,340 --&gt; 00:30:30,820
+就是可以把一个虚拟机克隆好几份
+
+904
+00:30:30,820 --&gt; 00:30:32,500
+我们还可以再导入一边
+
+905
+00:30:32,500 --&gt; 00:30:34,660
+但是这里可以重新给它起个名字
+
+906
+00:30:34,660 --&gt; 00:30:35,940
+比如叫Ubuntu2
+
+907
+00:30:35,940 --&gt; 00:30:37,060
+后面的路径
+
+908
+00:30:37,060 --&gt; 00:30:38,300
+也选Ubuntu2
+
+909
+00:30:38,300 --&gt; 00:30:38,700
+回车
+
+910
+00:30:38,700 --&gt; 00:30:40,900
+然后我们还可以再来一个Ubuntu3
+
+911
+00:30:40,900 --&gt; 00:30:42,460
+这样我们使用导入命令
+
+912
+00:30:42,460 --&gt; 00:30:44,180
+把同一个虚拟机克隆了
+
+913
+00:30:44,180 --&gt; 00:30:45,540
+123这么三份
+
+914
+00:30:45,540 --&gt; 00:30:47,180
+我们再来看一个进阶功能
+
+915
+00:30:47,180 --&gt; 00:30:48,460
+就是命令行互通
+
+916
+00:30:48,460 --&gt; 00:30:49,300
+在windows里
+
+917
+00:30:49,300 --&gt; 00:30:51,340
+我们甚至可以调用Linux命令
+
+918
+00:30:51,340 --&gt; 00:30:53,740
+这里我打开一个powershell的窗口
+
+919
+00:30:53,740 --&gt; 00:30:55,420
+我们执行一条windows命令
+
+920
+00:30:55,420 --&gt; 00:30:56,860
+getchilditem
+
+921
+00:30:56,860 --&gt; 00:30:59,540
+这里显示的是当前文件夹的所有内容
+
+922
+00:30:59,540 --&gt; 00:31:01,340
+然后我想对这个命令的输出
+
+923
+00:31:01,340 --&gt; 00:31:02,380
+进行一下过滤
+
+924
+00:31:02,380 --&gt; 00:31:05,060
+但是我不知道windows版本的过滤怎么写
+
+925
+00:31:05,060 --&gt; 00:31:07,660
+我知道Linux版本的过滤是grip
+
+926
+00:31:07,660 --&gt; 00:31:09,820
+我们可以直接两个命令混写
+
+927
+00:31:09,820 --&gt; 00:31:11,940
+这样还是getchilditem
+
+928
+00:31:11,940 --&gt; 00:31:13,300
+后面管道符
+
+929
+00:31:13,940 --&gt; 00:31:15,100
+管道符结束以后
+
+930
+00:31:15,100 --&gt; 00:31:17,180
+我准备使用Linux的grip命令
+
+931
+00:31:17,180 --&gt; 00:31:18,420
+对结果进行筛选
+
+932
+00:31:18,420 --&gt; 00:31:19,940
+这里wsl
+
+933
+00:31:20,580 --&gt; 00:31:21,660
+然后grip
+
+934
+00:31:22,420 --&gt; 00:31:23,820
+后面接一个vdu
+
+935
+00:31:23,820 --&gt; 00:31:25,540
+这条命令如此的神奇
+
+936
+00:31:25,540 --&gt; 00:31:27,100
+前半部分是windows命令
+
+937
+00:31:27,100 --&gt; 00:31:28,980
+后半部分是Linux命令
+
+938
+00:31:28,980 --&gt; 00:31:31,500
+可以看到它一样达成了我想要的效果
+
+</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://www.youtube.com/watch?v=gE2Ju2qoGbU" target="_blank" rel="noopener">https://www.youtube.com/watch?v=gE2Ju2qoGbU</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
