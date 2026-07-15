@@ -30,6 +30,7 @@ VIDEOS_DIR = os.path.join(DOCS_DIR, "videos")
 TEMPLATES_DIR = os.path.join(BASE_DIR, "scripts", "templates")
 INDEX_TEMPLATE = os.path.join(TEMPLATES_DIR, "index.template.html")
 INDEX_OUTPUT = os.path.join(DOCS_DIR, "index.html")
+RATINGS_PATH = os.path.join(DOCS_DIR, "assets", "data", "ratings.json")
 SITE_URL = "https://hermesdocs.pages.dev"
 POLL_INTERVAL = 10  # seconds
 POLL_TIMEOUT = 180  # seconds
@@ -76,9 +77,21 @@ def build_search_index(entries: list[dict]) -> list[dict]:
             "title": e["title"],
             "url": f"videos/{e['filename']}",
             "date": datetime.fromtimestamp(e["mtime"], tz=timezone.utc).strftime("%Y-%m-%d %H:%M"),
+            "rating": e["rating"],
             "content": text[:500],  # 全文索引，存前 500 字
         })
     return index
+
+
+def load_ratings() -> dict:
+    """Load ratings from ratings.json. Returns {filename: rating}."""
+    if not os.path.isfile(RATINGS_PATH):
+        return {}
+    try:
+        with open(RATINGS_PATH, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except (json.JSONDecodeError, OSError):
+        return {}
 
 
 def extract_title(html_path: str) -> str:
@@ -93,16 +106,19 @@ def extract_title(html_path: str) -> str:
 
 def scan_video_docs() -> list[dict]:
     """Scan docs/videos/ for HTML files, return sorted list (newest first)."""
+    ratings = load_ratings()
     files = glob.glob(os.path.join(VIDEOS_DIR, "*.html"))
     entries = []
     for fpath in files:
         title = extract_title(fpath)
         mtime = os.path.getmtime(fpath)
+        filename = os.path.basename(fpath)
         entries.append({
             "path": fpath,
-            "filename": os.path.basename(fpath),
+            "filename": filename,
             "title": title,
             "mtime": mtime,
+            "rating": ratings.get(filename, 0),
         })
     entries.sort(key=lambda e: e["mtime"], reverse=True)
     return entries
@@ -120,15 +136,23 @@ def render_index(entries: list[dict]) -> str:
         items = []
         for e in entries:
             dt = datetime.fromtimestamp(e["mtime"], tz=timezone.utc).strftime("%Y-%m-%d %H:%M")
+            rating = e["rating"]
+            stars = "★" * rating + "☆" * (5 - rating) if rating > 0 else ""
+            star_span = f' <span class="star-rating">{stars}</span>' if stars else ""
             items.append(
-                f'<li><a href="videos/{e["filename"]}">{e["title"]}</a>'
-                f'<div class="doc-meta">{dt}</div></li>'
+                f'<li data-filename="{e["filename"]}" data-rating="{rating}" data-date="{dt}">'
+                f'<a href="videos/{e["filename"]}">{e["title"]}</a>'
+                f'<div class="doc-meta">{dt}{star_span}</div></li>'
             )
         list_html = "\n".join(items)
+
+    # Embed entries as JSON for client-side filter/sort
+    entries_json = json.dumps(entries, ensure_ascii=False, default=str)
 
     now_str = datetime.now(tz=timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     template = template.replace("<!--__DOC_LIST__-->", list_html)
     template = template.replace("<!--__LAST_UPDATED__-->", now_str)
+    template = template.replace("<!--__ENTRIES_JSON__-->", entries_json)
 
     return template
 
@@ -241,6 +265,20 @@ def main():
     else:
         shutil.copy2(src_path, dest_path)
         log(f"📄 Copied '{filename}' → {dest_path}")
+
+    # ── 1.5 Inject star rating into article HTML ──
+    ratings = load_ratings()
+    article_rating = ratings.get(filename, 0)
+    stars_html = ""
+    if article_rating > 0:
+        stars_html = "★" * article_rating + "☆" * (5 - article_rating)
+    with open(dest_path, "r", encoding="utf-8") as f:
+        article_content = f.read()
+    article_content = article_content.replace("<!--__STARS__-->", stars_html)
+    with open(dest_path, "w", encoding="utf-8") as f:
+        f.write(article_content)
+    if stars_html:
+        log(f"⭐ Injected rating {article_rating}/5 stars into article")
 
     # ── 2. Re-render index ──
     entries = scan_video_docs()

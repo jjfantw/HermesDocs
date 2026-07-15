@@ -30,6 +30,24 @@
     .search-result-snippet { font-size: 0.88rem; color: #495057; margin-top: 4px; line-height: 1.5; }
     .search-no-result { color: #868e96; font-size: 0.9rem; padding: 8px 0; }
     .search-error { color: #e74c3c; font-size: 0.9rem; padding: 8px 0; }
+
+    /* ── 星等評分 ── */
+    .star-rating { color: #f1c40f; letter-spacing: 1px; }
+    .star-rating .star-empty { color: #dee2e6; }
+    .star-rating .star-filled { color: #f1c40f; }
+
+    /* ── 篩選與排序工具列 ── */
+    .toolbar { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 16px; }
+    .toolbar label { font-size: 0.9rem; color: #495057; font-weight: 500; }
+    .toolbar select { padding: 8px 12px; border: 2px solid #dee2e6; border-radius: 6px; font-size: 0.9rem; background: #fff; cursor: pointer; }
+    .toolbar select:focus { outline: none; border-color: #667eea; }
+    .star-filter-btn { display: inline-flex; align-items: center; gap: 2px; padding: 6px 12px; border: 2px solid #dee2e6; border-radius: 6px; background: #fff; cursor: pointer; font-size: 0.85rem; transition: all 0.15s; }
+    .star-filter-btn:hover { border-color: #667eea; }
+    .star-filter-btn.active { border-color: #667eea; background: #eef0ff; }
+    .star-filter-btn .count { color: #adb5bd; font-size: 0.75rem; margin-left: 2px; }
+    .star-filter-group { display: flex; gap: 4px; flex-wrap: wrap; }
+
+    /* ── 文件列表 ── */
     #doc-list ul { list-style: none; }
     #doc-list li { padding: 12px 0; border-bottom: 1px solid #f1f3f5; }
     #doc-list li:last-child { border-bottom: none; }
@@ -43,6 +61,7 @@
       header { padding: 40px 0; }
       header h1 { font-size: 1.8rem; }
       section { padding: 16px; }
+      .toolbar { flex-direction: column; align-items: stretch; }
     }
   </style>
 </head>
@@ -68,6 +87,23 @@
 
     <section id="doc-list">
       <h2>文件列表</h2>
+
+      <!-- 篩選與排序工具列 -->
+      <div class="toolbar">
+        <label>星等篩選：</label>
+        <div class="star-filter-group" id="star-filter-group">
+          <button class="star-filter-btn active" data-rating="all">全部</button>
+        </div>
+
+        <label>排序：</label>
+        <select id="sort-select">
+          <option value="date-desc">上傳日期 ▼</option>
+          <option value="date-asc">上傳日期 ▲</option>
+          <option value="rating-desc">星等 ▼</option>
+          <option value="rating-asc">星等 ▲</option>
+        </select>
+      </div>
+
       <ul id="doc-list-placeholder">
         <!--__DOC_LIST__-->
       </ul>
@@ -87,6 +123,13 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
+
+  <!-- 嵌入文件資料（含星等）供客戶端篩選排序 -->
+  <script>
+    var ENTRIES = <!--__ENTRIES_JSON__--> || [];
+  </script>
+
   <script src="assets/js/search.js"></script>
+  <script src="assets/js/ratings.js"></script>
 </body>
 </html>

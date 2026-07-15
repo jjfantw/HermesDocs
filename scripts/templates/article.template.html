@@ -16,6 +16,7 @@
     article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
     article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
     article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .meta .star-rating { color: #f1c40f; letter-spacing: 1px; font-size: 1.1rem; }
     article .content { font-size: 1rem; }
     article .content p { margin-bottom: 16px; }
     article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
@@ -42,6 +43,7 @@
       <h1><!--__TITLE__--></h1>
       <div class="meta">
         <span class="date">發布時間：<!--__DATE__--></span>
+        <span class="star-rating"><!--__STARS__--></span>
       </div>
       <div class="content">
         <!--__CONTENT__-->

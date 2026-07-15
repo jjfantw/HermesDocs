@@ -1,170 +1,198 @@
 [
   {
+    "title": "測試影片精華整理",
+    "url": "videos/test-video.html",
+    "date": "2026-07-15 01:05",
+    "rating": 4,
+    "content": "測試影片精華整理 返回首頁 測試影片精華整理 發布時間：2026-07-07 這是一篇測試用的文章，用於驗證 HermesDocs 自動化發布腳本 deploy.py 的完整流程。 測試項目包括： ✅ 檔案複製至 docs/videos/ ✅ 首頁自動重新渲染 ✅ Git Commit & Push ✅ Cloudflare Pages 部署驗證 &copy; 2026 Hermes Docs. Powered by AI."
+  },
+  {
     "title": "Windows跑AI Agent，WSL才是终极答案 — WSL保姆级全攻略 - Hermes Docs",
     "url": "videos/技术爬爬虾_WSL跑AI_Agent保姆级攻略.html",
     "date": "2026-07-15 00:14",
+    "rating": 0,
     "content": "Windows跑AI Agent，WSL才是终极答案 — WSL保姆级全攻略 - Hermes Docs 返回首頁 Windows跑AI Agent，WSL才是终极答案 — WSL保姆级全攻略 發布時間：2026-07-15 08:14 🌙 YouTube 影片重點整理 Windows跑AI Agent，WSL才是终极答案，别羡慕Mac了 — WSL保姆级全攻略，海量实战教程，一期视频精通 📺 技术爬爬虾 TechShrimp ⏱ 31:31 🗓 2026-07-13 🌐 zh-Hans 🔗 https://www.youtube.com/watch?v=gE2Ju2qoGbU 這是一支完整的 WSL（Windows Subsystem for Linux）實戰教學影片，從安裝到進階應用全面覆蓋。講者首先點出 Windows 上跑 AI Agent 的主要痛點——PowerShell 對 AI 不夠友好，而 WSL 只需一行命令就能在 Windows 上運行 Linux 子系統，讓 Agent 運行更穩、效率更高、與生產環境更一致、環境隔離更安全。影片依序示範：CPU 虛擬化檢查與 W"
   },
   {
     "title": "公司最值錢的經驗，怎麼變成可執行 AI Skill？我的 Skill OPS 標準方法分享 ｜Codex 的公司級用法 - Hermes Docs",
     "url": "videos/靈姐說AI_SkillOPS標準方法分享.html",
     "date": "2026-07-14 05:51",
+    "rating": 0,
     "content": "公司最值錢的經驗，怎麼變成可執行 AI Skill？我的 Skill OPS 標準方法分享 ｜Codex 的公司級用法 - Hermes Docs 返回首頁 公司最值錢的經驗，怎麼變成可執行 AI Skill？我的 Skill OPS 標準方法分享 ｜Codex 的公司級用法 發布時間：2026-07-14 13:51 🌙 YouTube 影片重點整理 公司最值錢的經驗，怎麼變成可執行 AI Skill？我的 Skill OPS 標準方法分享 ｜Codex 的公司級用法 📺 靈姐說AI | Ling Talk AI ⏱ 14:34 🗓 2026-06-11 🌐 zh-Hans 🔗 https://youtu.be/oNJ62aSOSEI 本片分享如何將公司內部的崗位經驗萃取成可複製、可遷移、可升級的 AI Skill，並透過 Skill OPS 流程形成組織能力資產。靈姐指出傳統 SOP 與知識庫難以真正沉澱崗位判斷，因為真正的經驗往往存在於人的判斷中而非文件裡。她定義了「可執行的崗位 Skill」與普通文檔的區別，並說明 Skill、Skill Set、崗位 Agent 與組織能力資"
   },
   {
     "title": "比修仙還爽！斯坦福教授每天5分鐘「元意識」修煉！ - Hermes Docs",
     "url": "videos/wow_元意識修煉_報告.html",
     "date": "2026-07-14 02:21",
+    "rating": 0,
     "content": "比修仙還爽！斯坦福教授每天5分鐘「元意識」修煉！ - Hermes Docs 返回首頁 比修仙還爽！斯坦福教授每天5分鐘「元意識」修煉！ 發布時間：2026-07-14 10:21 🌙 YouTube 影片重點整理 比修仙還爽！斯坦福教授每天5分鐘「元意識」修煉！ 📺 wow ⏱ 31:04 🗓 2026-04-24 🌐 zh-Hans 🔗 https://www.youtube.com/watch?v=g8OAu725G0k 本視頻深度解讀斯坦福神經科學家 Andrew Huberman 與冥想科學先驅 Richard Davidson 博士的重磅訪談，揭示每天5分鐘「元意識」修煉如何從物理層面重塑大腦結構。視頻從現代人每天解鎖手機152次的注意力碎片化問題出發，系統講解了狀態與特質的區別、大腦乳酸的概念、四種腦波（Delta/Theta/Alpha/Beta/Gamma）的作用機制，以及2004年PNAS上關於喜馬拉雅修行者伽馬波的研究。通過電擊實驗和熱痛覺實驗，揭示了人類寧願承受肉體痛苦也不願直面內心混亂的心理機制。視頻提供了兩種低門檻的練習方法（焦點注意冥想和開放監測冥想），並"
   },
   {
     "title": "32B 逼近 Claude Opus｜斯坦福 AutoMem：不堆參數 - Hermes Docs",
     "url": "videos/AutoMem_斯坦福記憶管理.html",
     "date": "2026-07-14 01:18",
+    "rating": 0,
     "content": "32B 逼近 Claude Opus｜斯坦福 AutoMem：不堆參數 - Hermes Docs 返回首頁 32B 逼近 Claude Opus｜斯坦福 AutoMem：不堆參數 發布時間：2026-07-14 09:18 🌙 YouTube 影片重點整理 32B 逼近 Claude Opus｜斯坦福 AutoMem：不堆參數 📺 wow ⏱ 21:04 🗓 2025-07-14 🌐 zh-Hans 🔗 https://youtu.be/kZP9c_dvbzY 本期視頻硬核拆解斯坦福大學的最新研究《AutoMem: Learning to Memorize as a Cognitive Skill》。傳統思路把大模型的記憶當成被動的硬盤（RAG、向量數據庫、無限上下文窗口），但 AutoMem 徹底顛覆了這個範式——它把記憶管理變成一種可以被訓練、可優化的主動技能。通過雙環自動優化架構（結構優化環 + 能力訓練環），一個 32B 的開源小模型 Qwen 2.5 32B Instruct 在長週期遊戲任務中性能翻了 2-4 倍，不僅碾壓自家 72B 大模型，甚至逼近 Claude Op"
   },
   {
     "title": "LLM Council Plus：Karpathy 原始專案的完整升級版 - Hermes Docs",
     "url": "videos/GenAISpotlight_LLM_Council_Plus.html",
     "date": "2026-07-12 23:18",
+    "rating": 0,
     "content": "LLM Council Plus：Karpathy 原始專案的完整升級版 - Hermes Docs 返回首頁 LLM Council Plus：Karpathy 原始專案的完整升級版 發布時間：2026-07-12 🌙 YouTube 影片重點整理 I Forked Karpathy&#x27;s LLM Council project... The Result is INSANE! 🚀 📺 Gen AI Spotlight ⏱ 12:16 🗓 2026-07-12 🌐 en 🔗 https://www.youtube.com/watch?v=HOdyIyccOCE Jacob 展示了 LLM Council Plus，一個基於 Andrej Karpathy 的 LLM Council 原始專案所擴充的 fork。他發現原始工具雖然概念出色，但缺乏友善的使用者體驗——需要手動設定環境變數與 config 檔，且僅支援 OpenRouter 單一 API 提供者。Jacob 花費數個週末進行改良，加入了完整的設定頁面、Ollama 本機模型支援、多種 API 提供者（OpenAI、"
   },
   {
     "title": "這兩個提示詞讓 AI 輸出品質翻倍，防止奉承討好 - Hermes Docs",
     "url": "videos/楊竹筠_兩個提示詞讓AI輸出品質翻倍.html",
     "date": "2026-07-12 02:46",
+    "rating": 0,
     "content": "這兩個提示詞讓 AI 輸出品質翻倍，防止奉承討好 - Hermes Docs 返回首頁 這兩個提示詞讓 AI 輸出品質翻倍，防止奉承討好 發布時間：2026-07-09 07:41 🌙 YouTube 影片重點整理 這兩個提示詞讓 AI 輸出品質翻倍，防止奉承討好 📺 楊竹筠 ⏱ 2:33 🗓 2026-07 🌐 zh-Hans 🔗 https://www.youtube.com/watch?v=lpkvX7yId5M 楊竹筠介紹兩個進階提示詞技巧，能顯著提升 AI 輸出品質並防止 AI 的奉承討好傾向。第一個技巧是「反向提問」——要求 AI 在輸出前先列出模糊和缺失的點，向使用者提問釐清，避免 AI 自行腦補不完整的資料。第二個技巧是「防討好」——借鑒 AI 專家 Karpathy 的思路，讓五個 AI 顧問（反駁者、本質追問者、擴張者、外行人、無情執行者）互相辯論後再給出最終結論，避免 AI 只說使用者想聽的話。 01 問題根源：AI 會自行腦補不完備的資料 0:23 多數人使用 AI 的方式是把需求和手頭資料一起丟給 AI，但輸出效果非常不穩定。有時讓人驚喜，更多時候讓人崩潰，需"
   },
   {
     "title": "Google Agentic Engineering 課程精華 Day 1：從 Vibe Coding 到 Agentic Engineering - Hermes Docs",
     "url": "videos/google-agentic-engineering-day1.html",
     "date": "2026-07-11 00:58",
+    "rating": 0,
     "content": "Google Agentic Engineering 課程精華 Day 1：從 Vibe Coding 到 Agentic Engineering - Hermes Docs 返回首頁 Google Agentic Engineering 課程精華 Day 1：從 Vibe Coding 到 Agentic Engineering 發布時間：2026-07-11 08:58 🌙 YouTube 影片重點整理 Google Agentic Engineering 課程精華 Day 1：從 Vibe Coding 到 Agentic Engineering 📺 Gary Chen ⏱ 15:57 🗓 2026-07-10 🌐 zh-Hans 🔗 https://youtu.be/GzHfE50N8x4 Gary Chen 用 15 分鐘帶你快速看完 Google 最新上線的五天 AI 開發課程 Day 1 核心內容。影片從 Vibe Coding 與 Agentic Engineering 的光譜出發，說明兩者不是二選一的開關，而是同一條光譜上的不同位置，判斷標準在於 AI 輸出的結構化程"
   },
   {
     "title": "Harness 才是主戰場 — 翁荔論 Harness Engineering、Scaling Law 與 AI 自我改進 - Hermes Docs",
     "url": "videos/harness-engineering-weng-li.html",
     "date": "2026-07-08 23:18",
+    "rating": 0,
     "content": "Harness 才是主戰場 — 翁荔論 Harness Engineering、Scaling Law 與 AI 自我改進 - Hermes Docs 返回首頁 Harness 才是主戰場 — 翁荔論 Harness Engineering、Scaling Law 與 AI 自我改進 發布時間：2026-07-09 🌙 YouTube 影片重點整理 Harness 纔是主戰場 — 翁荔論 Harness Engineering、Scaling Law 與 AI 自我改進 📺 Nana Chen Studio ⏱ 15:49 🗓 2026-07 🌐 zh-Hans 🔗 https://youtu.be/S99JvyQAj9M 本集從翁荔（Lilian Weng）2026 年 7 月連發的兩篇技術長文出發，分析 AI 進步為何正從單純堆疊模型規模，轉向模型外部的工具、記憶、評估、工作流與權限設計。影片先回顧 Scaling Law 的侷限——參數計算方式、loss 擬合細節、高品質資料稀缺等工程細節會影響數十億美金的訓練決策。接著深入 Harness Engineering 的概念：Har"
   },
   {
     "title": "真正毀掉你的，不是壓力…（最新研究發現） | 維思維 - Hermes Docs",
     "url": "videos/維思維_壓力不是敵人_心理學.html",
     "date": "2026-07-08 05:05",
+    "rating": 0,
     "content": "真正毀掉你的，不是壓力…（最新研究發現） | 維思維 - Hermes Docs 返回首頁 真正毀掉你的，不是壓力…（最新研究發現） | 維思維 發布時間：2026-07-08 07:54 🌙 YouTube 影片重點整理 真正毀掉你的，不是壓力…（最新研究發現） 📺 維思維WeisWay ⏱ 14:48 🗓 2025-01-01 🌐 zh-Hans 🔗 https://youtu.be/LRAB9QXuW88 本片探討壓力對健康的影響，關鍵不在壓力本身，而在你如何看待壓力。引用 Kelly McGonigal 的研究——追蹤三萬名美國成年人長達八年，發現相信壓力有害的人死亡風險提高 43%，而同樣承受高壓但不認為壓力有害的人，死亡率並未上升。影片從 Hans Selye 的壓力三階段理論（警覺期、抵抗期、浩劫期）出發，區分良性壓力（eustress）與惡性壓力（distress），並介紹 Richard Lazarus 的認知評價理論——壓力是好是壞取決於你如何解讀。哈佛心理學家的特里爾社會壓力測試實驗顯示，理解壓力反應是在幫助自己的人，生理反應也隨之改變（血管放鬆而非收縮）。史丹佛"
   },
   {
     "title": "為什麼你總做不到？自律的人是這樣騙過大腦的（心理學） | 維思維 - Hermes Docs",
     "url": "videos/維思維_騙過大腦自律_心理學.html",
     "date": "2026-07-07 23:54",
+    "rating": 0,
     "content": "為什麼你總做不到？自律的人是這樣騙過大腦的（心理學） | 維思維 - Hermes Docs 返回首頁 為什麼你總做不到？自律的人是這樣騙過大腦的（心理學） | 維思維 發布時間：2026-07-08 07:54 🌙 YouTube 影片重點整理 為什麼你總做不到？自律的人是這樣騙過大腦的（心理學） 📺 維思維WeisWay ⏱ 13:39 🗓 2025-01-01 🌐 zh-Hans 🔗 https://youtu.be/MB8pSmhsWiM 本片探討為什麼人總是拖延、無法去做重要的事，以及如何用心理學方法「欺騙」大腦來完成困難任務。核心理論是期望價值理論（Expectancy-Value Theory）：動力 = 期望 × 價值，只要其中一個是零，動力就是零。加上雙曲貼現（Hyperbolic Discounting）——人類天生對未來的獎勵不敏感，獎勵離現在越遠，在大腦中的分量越輕。影片提出三個具體步驟：第一步「利用開始騙過大腦」——把開始的門檻降到低到無法拒絕的程度（如穿上跑鞋而非開始跑步），利用目標梯度效應讓大腦自動完成剩下的事；第二步「讓大腦給困難分期付款」——專注在眼前"
   },
   {
     "title": "AI時代必備的七項核心能力 — 楊竹筠 - Hermes Docs",
     "url": "videos/楊竹筠_AI時代七項核心能力.html",
     "date": "2026-07-07 23:22",
+    "rating": 0,
     "content": "AI時代必備的七項核心能力 — 楊竹筠 - Hermes Docs 返回首頁 AI時代必備的七項核心能力 — 楊竹筠 發布時間：2026-07-08 07:22 YouTube 影片重點整理 如果擁有這7個能力，你在AI時代想不成功都難 #ai #agency #赫拉利 📺 楊竹筠 ⏱ 2:52 🗓 2026-07-08 🌐 zh-Hans 🔗 https://www.youtube.com/watch?v=hiCm0y9eTeQ 楊竹筠分享一支海外爆紅的硬核播客內容，指出在 AI 時代只要掌握七門核心能力，無論是世俗的搞錢還是精神的富足都能成功。影片從赫拉利（人類簡史作者）「沒人知道孩子未來學什麼纔不會被淘汰」的觀點切入，反駁並提出七項關鍵技能：邏輯推理、統計與算法思維、修辭說服力、快速研究能力、實用心理學、投資管理能力，以及最重要的 agency（主動性）。其中 agency 被認為是 AI 時代不可或缺的王牌能力，並透過「三類問題」框架（簡單問題、不可能問題、困難問題）來說明如何培養孩子面對未知的信念。 01 邏輯：AI 時代的殺毒軟體 0:30 從已知事實推導出真相的能力，在 "
   },
   {
     "title": "How to Build A Self-Improving System with Claude Code - Hermes Docs",
     "url": "videos/claude-code-self-improving-system.html",
     "date": "2026-07-07 14:57",
+    "rating": 0,
     "content": "How to Build A Self-Improving System with Claude Code - Hermes Docs 返回首頁 How to Build A Self-Improving System with Claude Code 發布時間：2026-07-07 YouTube 影片重點整理 How to Build A Self-Improving System with Claude Code 📺 Austin Marchese ⏱ 16:46 🗓 2026-06-28 🌐 en 🔗 https://www.youtube.com/watch?v=2fc0NX9vIJ8 Austin Marchese 分享了一套名為 B.U.I.L.D. 的五步驟框架，教你如何用 Claude Code 打造一個能自我改進的 AI 系統。他融合了 Andrej Karpathy 的 LLM 知識庫概念、Anthropic 團隊的經驗，以及自己實際教學數百人的心得。從建立專案基礎、大量匯入歷史資料、設定自動化資料管線、建立改進迴圈，到最後的心態調整，逐步說明如何讓系統隨著使用而"
   },
   {
     "title": "Stop Watching Tutorials - Build These 4 Claude Projects to 10x Output - Hermes Docs",
     "url": "videos/AustinMarchese_ClaudeCode4專案.html",
     "date": "2026-07-07 14:51",
+    "rating": 0,
     "content": "Stop Watching Tutorials - Build These 4 Claude Projects to 10x Output - Hermes Docs 返回首頁 Stop Watching Tutorials - Build These 4 Claude Projects to 10x Output 發布時間：2026-07-07 22:51 YouTube 影片重點整理 Stop Watching Tutorials - Build These 4 Claude Projects to 10x Output 📺 Austin Marchese ⏱ 13:44 🗓 2026-06 🌐 en 🔗 https://www.youtube.com/watch?v=IiZ5HRaeX4s Austin Marchese 分享 4 個用 Claude Code 打造的實戰專案，取代盲目看教學影片的習慣。專案一：建立自己的 AI 顧問團（Board of Advisors），透過克隆專家知識來輔助決策。專案二：打造個人化的指令中心（Niche Command Center），解決你"
   },
   {
     "title": "拖延不是因為意志力不夠！想處理拖延困擾，你應該要專注在這些地方⋯⋯ft. 電腦玩物站長 Esor《強者我朋友》EP 222｜志祺七七 - Hermes Docs",
     "url": "videos/志祺七七_拖延不是意志力_Esor訪談.html",
     "date": "2026-07-07 14:34",
+    "rating": 0,
     "content": "拖延不是因為意志力不夠！想處理拖延困擾，你應該要專注在這些地方⋯⋯ft. 電腦玩物站長 Esor《強者我朋友》EP 222｜志祺七七 - Hermes Docs 返回首頁 拖延不是因為意志力不夠！想處理拖延困擾，你應該要專注在這些地方⋯⋯ft. 電腦玩物站長 Esor《強者我朋友》EP 222｜志祺七七 發布時間：2026-07-07 YouTube 影片重點整理 拖延不是因為意志力不夠！想處理拖延困擾，你應該要專注在這些地方⋯⋯ft. 電腦玩物站長 Esor《強者我朋友》EP 222｜志祺七七 📺 志祺七七 ⏱ 24:50 🗓 2026-07-07 🌐 zh-Hant 🔗 https://www.youtube.com/watch?v=gvF4ZjQSHNU 本集《強者我朋友》邀請電腦玩物站長 Esor，探討拖延的本質與應對方法。Esor 提出拖延不等於懶惰，而是一種「訊號」——提醒我們任務的目標價值還不夠清晰、或行動步驟還不夠具體。他分享從自責情緒中抽離、用筆記拆解阻力、以及重新設計行動的實戰方法，並介紹與趙映誠合開的《工作流改造術》線上課程，結合 AI 助理幫助使用者辨識拖延訊號"
   },
   {
     "title": "Mac 新機設定指南 — 3 支影片綜合整理",
     "url": "videos/C1_Mac新機設定指南.html",
     "date": "2026-07-07 11:08",
+    "rating": 0,
     "content": "Mac 新機設定指南 — 3 支影片綜合整理 Mac 新手設定 · 綜合參考指南 Mac 新機設定指南 — 3 支影片綜合整理 📚 3 支影片 ⏱ 總長約 44 分鐘 📅 整理日期 2026-07-07 本指南整合 3 支 YouTube 新 Mac 設定影片（Raycal Tech 42 個設定、彼得森 7 件事、大耳朵 TV 必做設置），提煉出共同主題對照表與 42 項設定速查清單，並附完整逐字稿供查證。 ⚠ 來源說明：彼得森、大耳朵 TV 為 YouTube 官方字幕；Raycal Tech 該支影片字幕關閉，逐字稿由 Whisper 從音訊轉出（簡體中文口語，可能含 ASR 漂字）。 ⚡ 42 項設定速查清單（按類別分組） 以下清單來自 Raycal Tech 影片，並補充彼得森與大耳朵 TV 的對應建議。✅ = 3 支影片都提到。 觸控板 三指拖移 ✅ 輔助功能 → 觸控板 → 啟用三指拖移。避免每次拖檔都要用力按。 Raycal 0:21 / 彼得森 1:06 / 大耳朵 9:00 觸控板 點按代替用力按 觸控板設定 → 點按代替用力按。輕點即可點選，不需重壓。 彼得森 1"
   },
   {
     "title": "Mac 上被浪費的鍵 — Option 鍵的三層作用 | JimChannel",
     "url": "videos/JimChannel_Option鍵三層作用_逐字稿整理.html",
     "date": "2026-07-07 11:06",
+    "rating": 0,
     "content": "Mac 上被浪費的鍵 — Option 鍵的三層作用 | JimChannel 🎬 YouTube · JimChannel Mac 上被浪費的鍵 — Option 鍵的三層作用 ⏱ 2 分鐘看懂 Option 鍵為什麼是 Mac 的「側門」 頻道 JimChannel 片長 2 分 3 秒 YouTube ID 6H9w1UCvI1Q 字幕軌 無 資料來源說明: 影片本身 未提供字幕軌 ,官方 description 只有 4 個 hashtag。本整理 完全來自語音旁白逐字稿 (用 `whisper base` 模型跑 STT,73 段覆蓋 0:00–2:03,中文)。Whisper 對個別字詞識別可能略有誤差(例:「脫動」=「拖動」、「驚喜」=「精細」),但整體意思正確。 逐字稿檔:`/tmp/yt_v2b/whisper/v2b.srt`(73 段, 4.6KB) 音訊來源:yt-dlp 下載 720p mp4 + 內建 opus 音軌 未使用 vision OCR(早前 17 幀 OCR 結果被證實是幻覺,已全數廢棄) 💡 核心概念 Option 鍵 = Mac 的「側門」 "
   },
   {
     "title": "吳恩達 8 門 AI 課程清單 — 2026 普通人學 AI",
     "url": "videos/wuenda_8_courses.html",
     "date": "2026-07-07 10:30",
+    "rating": 0,
     "content": "吳恩達 8 門 AI 課程清單 — 2026 普通人學 AI 吳恩達 8 門 AI 課程清單 2026 普通人學 AI｜補齊知識地圖的系統化學習路線 來源影片: 2026普通人学AI：推荐吴恩达这8门课，帮你补齐知识地图 ｜ 講師: 靈姐說AI ｜ 平台: 吳恩達 deeplearning.AI 📌 課程總覽 本清單整理自靈姐說 AI 頻道推薦的 8 門吳恩達 deeplearning.AI 課程,依「提示詞 → 做作品 → 結構化輸出 → 工作流 → MCP → 多模態 / Agent 評估」串成一條系統化學習路線,對應 6 大 AI 核心能力層次。 適用對象 :AI 零基礎入門者、想補齊知識地圖的進階學習者、自動化 / 開發者 靈姐最推薦 3 門 :AI Prompting for Everyone、Agent Skills with Anthropic、Evaluating AI Agents 2026 學 AI 的核心轉變 :從「學提示詞」進化到「把 AI 變成自己的工作系統」 # 層次 / 能力 課程名稱 目標 課程介紹 適合對象 推薦度 1 第 1 層 學會和 AI 協作 "
   },
   {
     "title": "Claude 六段位 AI 高手攻略｜影片分析",
     "url": "videos/Claude六段位AI高手攻略-影片分析.html",
     "date": "2026-07-07 10:30",
+    "rating": 0,
     "content": "Claude 六段位 AI 高手攻略｜影片分析 影片分析報告 Claude 不只是聊天工具：六段位教你變成真正的 AI 高手 從聊天問答到系統整合｜讓 AI 真正為你工作 📺 楊竹筠 ⏱ 3 分 29 秒 👁 觀看次數 449 🔗 youtu.be/sneSp7BJ8fw 一句話總結 作者把 Claude 使用者分成 L1 ~ L6 六個段位 ，每升一級就是把某一層「工作」交給 AI——從任務、流程、能力、SOP、資料，一路交到營運；過了 L6 之後，真正的高手不是技術更強，而是 持續迭代 。 段位總覽 第一段位 L1 – L2 基本互動 第二段位 L3 – L4 能力與流程 第三段位 L5 – L6 資料與營運 第四段位 L6+ 持續迭代 六大段位詳解 L1 把任務交給 AI 把任務交給 AI 段位定義 還是把 Claude 當 ChatBot 用，問問題、寫文案、做翻譯 痛點 對話框過完即丟，沒有記憶、不能做事、無法自動化 L1 還停留在打字機時代，AI 對你來說只是個搜尋引擎 L2 把流程交給 AI 把流程交給 AI 段位定義 用 Claude Code 串 IDE 工具，AI "
   },
   {
     "title": "瘋背提示詞、優化KPI反而更完蛋？AI時代如何終結盲目努力？ — 思想實驗室 EP102 章節整理",
     "url": "videos/思想實驗室EP102_瘋背提示詞_章節整理.html",
     "date": "2026-07-07 10:30",
+    "rating": 0,
     "content": "瘋背提示詞、優化KPI反而更完蛋？AI時代如何終結盲目努力？ — 思想實驗室 EP102 章節整理 🎙 思想實驗室 Video Podcast · EP102 瘋背提示詞、優化KPI反而更完蛋？ AI時代如何終結盲目努力？ ft. 世界觀學院創辦人 李佳達 頻道 知識長國威・思想實驗室 Podcast 主持 泛科知識 鄭國威 知識長 來賓 李佳達(世界觀學院創辦人) 片長 49 分 20 秒 YouTube ID 085FIscjotk 資料來源說明: 影片本身 未提供字幕/逐字稿 (官方 description 註明「(CC字幕由 AI生成,如有錯字還請見諒)」,但 transcript API 取不到任何語言的字幕軌)。本章節整理 完全依據官方 YouTube shortDescription 的 16 個 timestamp 章節與主題描述 ,未對內容做額外推論或補充。 📌 本集四大核心主題 一、為什麼盲目學工具是白忙? 大家都以為懂 AI 就是多學工具。但工作保不住往往不是工具不夠強, 而是我們大腦做判斷的方式還沒準備好 。 ✅ 職位被「結構化」才是被取代的真相。 二、密涅瓦大"
   },
   {
     "title": "DeepSeek + Qwen3.6 + Hermes：當下智能體最佳答案 | 抡锤者",
     "url": "videos/抡锤者_DeepSeek-Qwen3.6-Hermes智能體最佳答案.html",
     "date": "2026-07-07 10:30",
+    "rating": 0,
     "content": "DeepSeek + Qwen3.6 + Hermes：當下智能體最佳答案 | 抡锤者 影片分析報告 · 抡锤者 DeepSeek + Qwen3.6 + Hermes：當下智能體最佳答案 雲端 DeepSeek API 為主 + 本地 Qwen3.6 27B 為輔 + Hermes Agent 為大腦——99% 通用任務 + 抗審查場景全覆蓋,別被新名詞唬住 📺 抡锤者 📅 2026-06-25 ⏱ 9:47 🎬 一般影片 🔗 youtu.be/1Bjv9NQ1cao 一句話總結 三層堆疊 章節整理 能力拆分 ASR 漂字對照 核心論點 未提及項 一句話總結 雲端主力 本地輔助 通用大腦 DeepSeek 官網 API（V3 Flash）+ 本地 Qwen3.6 27B + Hermes Agent ,就能覆蓋 99% 通用智能體任務與抗審查場景。 根本不需要 花大錢上 RTX Pro 6000 / 雙卡本地部署,也不需要追「Loop Engine 2」等新概念—— 先跑起來、落地賺錢才是王道 。 三層堆疊:雲 + 本地 + 大腦 ☁️ 雲端主力 DeepSeek V3 Flash "
   },
   {
     "title": "這個「神經符號」框架,直接抹平開源小模型與大模型的代差",
     "url": "videos/wow_AGEL-Comp神經符號框架_影片整理.html",
     "date": "2026-07-07 10:30",
+    "rating": 0,
     "content": "這個「神經符號」框架,直接抹平開源小模型與大模型的代差 YouTube 影片重點整理 這個「神經符號」框架,直接抹平開源小模型與大模型的代差 📺 wow (WOWINSIGHT) ⏱ 13:50 🗓 2026-07-03 🌐 zh-Hans 🔗 https://www.youtube.com/watch?v=KcnPsig_z_4 本片介紹論文《AGEL-Comp》:在 2D 動作 RPG 環境 ReTroQuest 上,基線 ReAct function agent 面對未見過任務組合的首次嘗試成功率僅 3.3%,在最高難度下甚至爲 0。AGEL-Comp 提出「神經符號混合框架」,在 LLM 外面套一張可生長的「因果程序圖(CPG)」,讓神經定理證明器(NTP)做邏輯驗證,ILP 引擎在預測誤差觸發下用「最小對比搜索」歸納新規則寫回地圖。論文關鍵數據:完整系統把首次嘗試成功率從 3.3% 拉到 60%(提升 18 倍),樣本效率提升 6.8 倍,在最高難度下所有模型最終成功率都到 100% — 包含開源小模型與 GPT-4o 等閉源大模型,模型本身的推理代差被框架抹平。消融實驗顯示"
   },
   {
     "title": "環境設計大於自律——35 年才明白的生產力秘密",
     "url": "videos/環境設計大於自律-楊竹筠.html",
     "date": "2026-07-07 10:30",
+    "rating": 0,
     "content": "環境設計大於自律——35 年才明白的生產力秘密 VIDEO NOTES · 影片重點整理 環境設計大於自律 我用 35 年才明白的生產力秘密 講者：楊竹筠 · 片長：3 分 05 秒 · YouTube Shorts 35 歲才明白的五個人生真相——給那些「知道該做什麼、卻做不到」的人。 本片無字幕（YouTube 與上傳者皆未提供），以下內容由 KL 觀看後整理確認。 01 環境設計 > 自律 把誘惑放在夠不到的地方，把目標寫在每天看得到的地方，讓對的選擇比錯的選擇更容易——遠比靠意志力堅持更有效。 02 不要等完美狀態才開始 很多人遲遲不動手，等條件成熟、等準備充分、等心情到位。可生活從來不會等你。 一開始像打開 很久沒開過的水龍頭 ——水是渾的，但你得先擰開，它才能慢慢變清。 與其等一個完美的開始，不如先動起來。對 拖延症 特別有幫助。 03 溝通不是分輸贏，是看出對方的委曲 贏了一場辯論，往往輸掉一段關係。 真正有效的溝通，是先看見對方的 委曲 ——他為什麼這樣說？背後的情緒與需求是什麼？ 推薦閱讀： 非暴力溝通 （馬歇爾・盧森堡） 04 用好一本書，遠好過讀一百本書 知識的價"
   },
   {
     "title": "Action-Reference Framework — Tiago Forte",
     "url": "videos/TiagoForte_行動參考框架_影片整理.html",
     "date": "2026-07-07 10:30",
+    "rating": 0,
     "content": "Action-Reference Framework — Tiago Forte 影片分析報告 · Action-Reference Framework 找不到筆記?把資訊放進對的格子 Tiago Forte 提出的 Action-Reference Framework — 一個 yes/no 決策樹,把每則資訊分流到對的 App。 📺 Tiago Forte / Forte Labs ⏱ 6:26 🔗 youtu.be/S_M4ocbt3RE 一句話總結 「第二大腦(Second Brain)」不是某個 App,而是一套把資訊分流到 行動 / 參考 兩半球的系統; 資訊進來時只問兩個 yes/no 問題,就能放到對的格子 。 核心:決策樹 📥 資訊進來 Q1: 短期內需要做嗎?(Action vs Reference) ▶ 行動側(短期要做) Q2: 有指定時間嗎? 📅 行事曆(Calendar) Google Calendar 會議、Zoom、活動 — 時間不能改 ✅ 待辦清單(Task Manager) Things 3 / Apple Reminders 寫文章、報稅 — 沒時"
   },
   {
     "title": "想變成理想中的自己？先學會「假裝」！其實大腦最吃這一套：先演，後真！",
     "url": "videos/毅先生Yeethinks_先裝模作樣再像模像樣_心理學.html",
     "date": "2026-07-07 10:30",
+    "rating": 0,
     "content": "想變成理想中的自己？先學會「假裝」！其實大腦最吃這一套：先演，後真！ YouTube 影片重點整理 想變成理想中的自己？先學會「假裝」！其實大腦最吃這一套：先演，後真！ 📺 毅先生Yeethinks ⏱ 15:21 🗓 2026-07-03 🌐 zh-Hans 🔗 https://youtu.be/i8gT6GRNyHk 這部影片探討一個反直覺的心理機制：為什麼「先裝模作樣，再像模像樣，最後有模有樣」是一條真實可行的改變路徑。講者從三個心理學理論切入——Daryl Bem 的自我感知理論（1972）指出大腦會透過你的行為倒推你的身份，行為是因、身份是果；冒名頂替綜合症（Pauline Clance, 1978）則解釋了為什麼越進步反而越覺得自己在裝——因為能力跑在了自我認知前面；Fritz Strack 的具身認知實驗（1988）證明身體姿態能反過來影響情緒狀態。最後將改變過程拆解為三個階段：裝模作樣期（前 20 天，讓行為先於感受發生）、像模像樣期（接住正反饋，用「謝謝」刷新自我認知）、有模有樣期（忘了自己在裝，改變就完成了）。 01 大腦分不清真的和演的 2:28 當你做了自信的人"
   },
   {
     "title": "If Mindmaps Don&#x27;t Work For You, Watch This Video",
     "url": "videos/JustinSung_心智圖心靈鏡子_學習技巧.html",
     "date": "2026-07-07 10:30",
+    "rating": 0,
     "content": "If Mindmaps Don&#x27;t Work For You, Watch This Video YouTube 影片重點整理 If Mindmaps Don&#x27;t Work For You, Watch This Video 📺 Justin Sung ⏱ 24:18 🗓 2025-01-01 🌐 en 🔗 https://youtu.be/R_tuS9sWJEk Justin Sung 指出心智圖對多數人無效的根本原因：心智圖會強制打破「流暢感訊號」（fluency signals）。正常學習時，大腦會收到理解感、進度感、熟悉感等訊號，告訴我們「正在學習」。但心智圖要求將線性資訊轉換為非線性格式，需要做更多決策（概念順序、空間排列、關係連結），導致大腦收到的是困惑、緩慢、混亂的訊號，感覺像在浪費時間。然而，正是這種不流暢的過程驅動了深層的基模形成（schema formation）——真正的學習發生在混亂中。Sung 將兩類人：第一類因感覺困難而放棄，需要堅持下去；第二類為了維持流暢感而迴避真正的深度思考，需要刻意追問「還有哪些關係我沒探索？」。他將心智圖比喻為「"
   },
   {
     "title": "AI 技術發展短評：2026 下半年關鍵趨勢",
     "url": "videos/ai-trends-2026h2.html",
     "date": "2026-07-07 07:11",
+    "rating": 0,
     "content": "AI 技術發展短評：2026 下半年關鍵趨勢 返回首頁 AI 技術發展短評：2026 下半年關鍵趨勢 發布時間：2026-07-07 2026 年上半，AI 領域經歷了多項重大變革。從開源模型的全面普及，到 Agent 框架的成熟化，技術發展的速度遠超預期。以下整理下半年值得關注的幾個關鍵趨勢。 1. 開源模型全面追上閉源 DeepSeek V4、Qwen 3 等開源模型在推理、程式碼生成與多模態能力上已逼近甚至超越 GPT-5 與 Claude 4 的表現。開源生態的「民主化效應」使得中小型團隊也能部署頂級 AI 能力，不再依賴單一 API 供應商。 2. Agent 框架進入生產級成熟度 以 Hermes Agent、LangGraph、CrewAI 為代表的 Agent 框架，已從原型階段進入真正的生產環境。關鍵突破包括： 工具鏈標準化 ：MCP（Model Context Protocol）成為業界事實標準，Agent 可無縫調用本地與遠端工具 持久化記憶 ：跨 session 的向量記憶與結構化記憶讓 Agent 不再是「每次從零開始」 多 Agent 協作 ：Orchest"
   },
   {
     "title": "雙軌發布測試：網路 + 雲端硬碟",
     "url": "videos/test-dual-upload.html",
     "date": "2026-07-07 06:53",
+    "rating": 0,
     "content": "雙軌發布測試：網路 + 雲端硬碟 返回首頁 雙軌發布測試：網路 + 雲端硬碟 發布時間：2026-07-07 此測試檔案用於驗證 HermesDocs deploy.py v2 的雙軌發布功能。 測試項目： ✅ 檔案複製至 docs/videos/ ✅ 首頁自動重新渲染 ✅ Google Drive 備份（Drive for Desktop 同步資料夾） ✅ Git Commit & Push ✅ Cloudflare Pages 部署驗證 &copy; 2026 Hermes Docs. Powered by AI."
-  },
-  {
-    "title": "測試影片精華整理",
-    "url": "videos/test-video.html",
-    "date": "2026-07-07 06:43",
-    "content": "測試影片精華整理 返回首頁 測試影片精華整理 發布時間：2026-07-07 這是一篇測試用的文章，用於驗證 HermesDocs 自動化發布腳本 deploy.py 的完整流程。 測試項目包括： ✅ 檔案複製至 docs/videos/ ✅ 首頁自動重新渲染 ✅ Git Commit & Push ✅ Cloudflare Pages 部署驗證 &copy; 2026 Hermes Docs. Powered by AI."
   }
 ]
