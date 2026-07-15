@@ -93,8 +93,10 @@
         String(dt.getMinutes()).padStart(2, '0');
       var rating = e.rating || 0;
       var stars = '';
-      for (var k = 0; k < rating; k++) stars += '★';
-      for (var k = rating; k < 5; k++) stars += '☆';
+      if (rating > 0) {
+        for (var k = 0; k < rating; k++) stars += '★';
+        for (var k = rating; k < 5; k++) stars += '☆';
+      }
       var starHtml = stars ? ' <span class="star-rating">' + stars + '</span>' : '';
       html += '<li>' +
         '<a href="videos/' + e.filename + '">' + escapeHtml(e.title) + '</a>' +
