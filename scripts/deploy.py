@@ -274,7 +274,15 @@ def main():
         stars_html = "★" * article_rating + "☆" * (5 - article_rating)
     with open(dest_path, "r", encoding="utf-8") as f:
         article_content = f.read()
-    article_content = article_content.replace("<!--__STARS__-->", stars_html)
+    if "<!--__STARS__-->" in article_content:
+        # New template — replace placeholder
+        article_content = article_content.replace("<!--__STARS__-->", stars_html)
+    elif stars_html:
+        # Old template — inject into meta div after date
+        article_content = article_content.replace(
+            '</span>\n      </div>',
+            f'</span><span class="star-rating"> {stars_html}</span>\n      </div>'
+        )
     with open(dest_path, "w", encoding="utf-8") as f:
         f.write(article_content)
     if stars_html:
