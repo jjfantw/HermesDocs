@@ -2,9 +2,9 @@
   {
     "title": "測試影片精華整理",
     "url": "videos/test-video.html",
-    "date": "2026-07-15 01:06",
+    "date": "2026-07-15 01:07",
     "rating": 4,
-    "content": "測試影片精華整理 返回首頁 測試影片精華整理 發布時間：2026-07-07 ★★★★☆ ★★★★☆ 這是一篇測試用的文章，用於驗證 HermesDocs 自動化發布腳本 deploy.py 的完整流程。 測試項目包括： ✅ 檔案複製至 docs/videos/ ✅ 首頁自動重新渲染 ✅ Git Commit & Push ✅ Cloudflare Pages 部署驗證 &copy; 2026 Hermes Docs. Powered by AI."
+    "content": "測試影片精華整理 返回首頁 測試影片精華整理 發布時間：2026-07-07 ★★★★☆ ★★★★☆ ★★★★☆ 這是一篇測試用的文章，用於驗證 HermesDocs 自動化發布腳本 deploy.py 的完整流程。 測試項目包括： ✅ 檔案複製至 docs/videos/ ✅ 首頁自動重新渲染 ✅ Git Commit & Push ✅ Cloudflare Pages 部署驗證 &copy; 2026 Hermes Docs. Powered by AI."
   },
   {
     "title": "Windows跑AI Agent，WSL才是终极答案 — WSL保姆级全攻略 - Hermes Docs",
