@@ -1,5 +1,12 @@
 [
   {
+    "title": "給非技術人員的 Github 教學，Vibe Coding 必學的基礎技能 - Hermes Docs",
+    "url": "videos/GaryChen_GitHub教學_VibeCoding.html",
+    "date": "2026-07-15 14:49",
+    "rating": 0,
+    "content": "給非技術人員的 Github 教學，Vibe Coding 必學的基礎技能 - Hermes Docs 返回首頁 給非技術人員的 Github 教學，Vibe Coding 必學的基礎技能 發布時間：2026-07-15 🌙 YouTube 影片重點整理 給非技術人員的 Github 教學，Vibe Coding 必學的基礎技能 📺 Gary Chen ⏱ 19:16 🗓 2026-07-15 🌐 zh-Hant 🔗 https://youtu.be/atqcAb7MFAM Gary Chen 以記帳軟體開發為案例，用最白話的方式為非技術背景的 Vibe Coder 講解 Git 與 GitHub 的核心概念。從 GitHub 作為「程式碼專用 Google Drive」的定位出發，逐步拆解 Git 的版本管理機制：commit（存檔）、push（上傳雲端）、clone/pull（協作同步）、branch（分支隔離風險）、worktree（平行開發多工）、PR 與 merge（合併審核流程），以及 conflict 衝突處理和 restore/revert 救援方法。強調 Vibe C"
+  },
+  {
     "title": "AI進階用法指南：豆包辦公任務模式與五句話提示詞法 - Hermes Docs",
     "url": "videos/林亦LYi_豆包辦公任務模式_教學.html",
     "date": "2026-07-15 12:47",
