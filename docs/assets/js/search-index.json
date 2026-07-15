@@ -1,17 +1,17 @@
 [
   {
+    "title": "Windows跑AI Agent，WSL才是终极答案 — WSL保姆级全攻略 - Hermes Docs",
+    "url": "videos/技术爬爬虾_WSL跑AI_Agent保姆级攻略.html",
+    "date": "2026-07-15 01:20",
+    "rating": 0,
+    "content": "Windows跑AI Agent，WSL才是终极答案 — WSL保姆级全攻略 - Hermes Docs 返回首頁 Windows跑AI Agent，WSL才是终极答案 — WSL保姆级全攻略 發布時間：2026-07-15 09:20 🌙 YouTube 影片重點整理 Windows跑AI Agent，WSL才是终极答案，别羡慕Mac了 — WSL保姆级全攻略，海量实战教程，一期视频精通 📺 技术爬爬虾 TechShrimp ⏱ 31:31 🗓 2026-07-13 🌐 zh-Hans 🔗 https://www.youtube.com/watch?v=gE2Ju2qoGbU 這是一支完整的 WSL（Windows Subsystem for Linux）實戰教學影片，從安裝到進階應用全面覆蓋。講者首先點出 Windows 上跑 AI Agent 的主要痛點——PowerShell 對 AI 不夠友好，而 WSL 只需一行命令就能在 Windows 上運行 Linux 子系統，讓 Agent 運行更穩、效率更高、與生產環境更一致、環境隔離更安全。影片依序示範：CPU 虛擬化檢查與 W"
+  },
+  {
     "title": "測試影片精華整理",
     "url": "videos/test-video.html",
     "date": "2026-07-15 01:09",
     "rating": 4,
     "content": "測試影片精華整理 返回首頁 測試影片精華整理 發布時間：2026-07-07 ★★★★☆ ★★★★☆ ★★★★☆ ★★★★☆ 這是一篇測試用的文章，用於驗證 HermesDocs 自動化發布腳本 deploy.py 的完整流程。 測試項目包括： ✅ 檔案複製至 docs/videos/ ✅ 首頁自動重新渲染 ✅ Git Commit & Push ✅ Cloudflare Pages 部署驗證 &copy; 2026 Hermes Docs. Powered by AI."
-  },
-  {
-    "title": "Windows跑AI Agent，WSL才是终极答案 — WSL保姆级全攻略 - Hermes Docs",
-    "url": "videos/技术爬爬虾_WSL跑AI_Agent保姆级攻略.html",
-    "date": "2026-07-15 00:14",
-    "rating": 0,
-    "content": "Windows跑AI Agent，WSL才是终极答案 — WSL保姆级全攻略 - Hermes Docs 返回首頁 Windows跑AI Agent，WSL才是终极答案 — WSL保姆级全攻略 發布時間：2026-07-15 08:14 🌙 YouTube 影片重點整理 Windows跑AI Agent，WSL才是终极答案，别羡慕Mac了 — WSL保姆级全攻略，海量实战教程，一期视频精通 📺 技术爬爬虾 TechShrimp ⏱ 31:31 🗓 2026-07-13 🌐 zh-Hans 🔗 https://www.youtube.com/watch?v=gE2Ju2qoGbU 這是一支完整的 WSL（Windows Subsystem for Linux）實戰教學影片，從安裝到進階應用全面覆蓋。講者首先點出 Windows 上跑 AI Agent 的主要痛點——PowerShell 對 AI 不夠友好，而 WSL 只需一行命令就能在 Windows 上運行 Linux 子系統，讓 Agent 運行更穩、效率更高、與生產環境更一致、環境隔離更安全。影片依序示範：CPU 虛擬化檢查與 W"
   },
   {
     "title": "公司最值錢的經驗，怎麼變成可執行 AI Skill？我的 Skill OPS 標準方法分享 ｜Codex 的公司級用法 - Hermes Docs",
