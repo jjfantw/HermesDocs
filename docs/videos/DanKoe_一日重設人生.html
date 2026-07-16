@@ -1,167 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="en" data-schema-version="1.0">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>How to fix your entire life in 1 day - Hermes Docs</title>
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
-    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
-    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
-    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
-    .back-bar a:hover { text-decoration: underline; }
-    .back-bar a::before { content: "← "; }
-    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
-    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
-    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
-    article .meta .star-rating { color: #f1c40f; letter-spacing: 1px; font-size: 1.1rem; }
-    article .content { font-size: 1rem; }
-    article .content p { margin-bottom: 16px; }
-    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
-    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
-    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
-    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
-    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
-    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
-
-    /* ── 星等編輯按鈕（文章頁） ── */
-    .rating-edit-btn-inline {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      background: none;
-      border: 1px solid #dee2e6;
-      border-radius: 4px;
-      padding: 2px 8px;
-      cursor: pointer;
-      font-size: 0.85rem;
-      color: #868e96;
-      transition: all 0.15s;
-      vertical-align: middle;
-      margin-left: 8px;
-    }
-    .rating-edit-btn-inline:hover {
-      border-color: #667eea;
-      color: #667eea;
-      background: #eef0ff;
-    }
-
-    /* ── 星等編輯彈窗 ── */
-    .rating-editor-overlay {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-    }
-    .rating-editor-box {
-      background: #fff;
-      border-radius: 12px;
-      padding: 32px;
-      min-width: 300px;
-      text-align: center;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-      position: relative;
-    }
-    .rating-editor-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #333;
-      margin-bottom: 20px;
-    }
-    .rating-editor-stars {
-      display: flex;
-      gap: 8px;
-      justify-content: center;
-      margin-bottom: 16px;
-    }
-    .rating-editor-star {
-      background: none;
-      border: 2px solid transparent;
-      font-size: 2rem;
-      cursor: pointer;
-      color: #f1c40f;
-      padding: 4px 8px;
-      border-radius: 8px;
-      transition: all 0.15s;
-    }
-    .rating-editor-star:hover {
-      border-color: #667eea;
-      background: #eef0ff;
-      transform: scale(1.15);
-    }
-    .rating-editor-clear {
-      background: none;
-      border: 1px solid #dee2e6;
-      border-radius: 6px;
-      padding: 6px 16px;
-      font-size: 0.85rem;
-      color: #868e96;
-      cursor: pointer;
-    }
-    .rating-editor-clear:hover {
-      border-color: #e74c3c;
-      color: #e74c3c;
-    }
-    .rating-editor-close {
-      position: absolute;
-      top: 8px; right: 12px;
-      background: none;
-      border: none;
-      font-size: 1.2rem;
-      cursor: pointer;
-      color: #adb5bd;
-    }
-    .rating-editor-close:hover { color: #333; }
-
-    /* ── Toast 通知 ── */
-    .rating-toast {
-      position: fixed;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #333;
-      color: #fff;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      z-index: 10000;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      animation: toast-in 0.3s ease;
-    }
-    @keyframes toast-in {
-      from { opacity: 0; transform: translateX(-50%) translateY(20px); }
-      to { opacity: 1; transform: translateX(-50%) translateY(0); }
-    }
-
-    @media (max-width: 600px) {
-      article { padding: 20px; }
-      article h1 { font-size: 1.4rem; }
-    }
-  </style>
-</head>
-<body>
-  <div class="back-bar">
-    <div class="container">
-      <a href="../index.html">返回首頁</a>
-    </div>
-  </div>
-
-  <div class="container">
-    <article>
-      <h1>How to fix your entire life in 1 day</h1>
-      <div class="meta">
-        <span class="date">發布時間：2026-07-16 22:51</span>
-        <span class="star-rating"></span>
-        <button class="rating-edit-btn-inline" id="article-rating-edit" title="設定星等">✎ 評分</button>
-      </div>
-      <div class="content">
-        <style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to fix your entire life in 1 day</title>
+<style>
 :root {
   --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
   --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
@@ -227,8 +70,9 @@ footer a { color: var(--accent); }
 #theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
 #theme-toggle:hover { background:var(--card); }
 header.hero { position:relative; }
-
 </style>
+</head>
+<body data-video-id="K8K09g9XR4s" data-video-type="speech" data-extraction-method="mixed">
 <div class="wrap" data-field="report">
   <header class="hero">
     <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
@@ -237,14 +81,14 @@ header.hero { position:relative; }
     <div class="meta"><span data-field="channel">📺 Dan Koe</span><span data-field="duration">⏱ 40:12</span><span data-field="published_date">🗓 2025-12-28</span><span data-field="original_language">🌐 en</span><a data-field="source_url" href="https://www.youtube.com/watch?v=K8K09g9XR4s" target="_blank" rel="noopener">🔗 https://www.youtube.com/watch?v=K8K09g9XR4s</a></div>
   </header>
 
+  <section class="intro" data-field="summary"><p>Dan Koe 從新年目標失敗切入，主張多數人卡住不是因為不夠努力，而是只想改表面行為，沒有先改身份。他用「你要先活成那個會自然產生結果的人」來說明，改變不能只靠短期自律，而要先調整生活方式與自我敘事。影片把 intelligence 與 cybernetics 綁在一起，視為一個持續接收回饋、修正路徑並迭代前進的系統。中段用發展階段／意識層級說明，很多阻礙其實是視角與框架不夠大，不是目標本身不可能。後半段給出一套一日重設流程：先寫反目標與願景，再用一天中的提醒打斷自動駕駛，最後把方向濃縮成 1 年、1 個月與每日任務。收尾則把人生比作遊戲，透過 anti-vision、vision、mission、quests 與 rules 讓注意力維持在真正推進的事上。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">開場：新年目標為何總是失敗</h2><span class="ts-badge" data-field="lesson_timestamp">0:00</span></div><div class="body" data-field="lesson_body"><p>這段先把問題講死：多數人不是不想變好，而是用錯方式在變好。作者認為，新年目標常失敗，是因為人們把改變當成一個外顯任務，像是立 flag、列清單、靠短期熱情撐住，但沒有真的碰到內在身份。</p><p>他接著把「反覆失敗」看成正常現象，因為如果一個人每年都只是複製同樣的設定方式，那結果不可能不同。這也替後面整支影片的主軸鋪路：先改身份，再談行為。</p><span class="tag" data-field="lesson_tag">開場</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">I：你還不是那個會自然成功的人</h2><span class="ts-badge" data-field="lesson_timestamp">3:20</span></div><div class="body" data-field="lesson_body"><p>第一個大論點是：結果不是靠硬撐出來的，而是靠身份與行為自然對齊。作者用 bodybuilder、CEO、founder 當例子，想表達真正做得到的人，不會把該做的事感受成折磨；對他們來說，那是理所當然的生活方式。</p><p>所以問題不在於你今天能不能逼自己一週、兩週，而在於你是否已經把自己更新成那種人。若身份沒有變，行為只會回彈。</p><span class="tag" data-field="lesson_tag">身份改變</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">II：你其實未必真的想要那個結果</h2><span class="ts-badge" data-field="lesson_timestamp">8:28</span></div><div class="body" data-field="lesson_body"><p>第二段開始檢查動機。他說很多人之所以卡住，不是因為能力不足，而是因為他們口頭上想要 A，實際生活卻還在擁抱 B。你想減脂，卻天天盼著回到舊生活；你想創業，卻不願接受新節奏。</p><p>這裡的重點不是自責，而是辨識：如果一個人還在懷念舊模式，代表他其實還沒真正把新結果放到最高優先。</p><span class="tag" data-field="lesson_tag">動機檢查</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">III：你怕的不是失敗，而是成功後的代價</h2><span class="ts-badge" data-field="lesson_timestamp">11:20</span></div><div class="body" data-field="lesson_body"><p>這一段把阻力往更深層推：人之所以抗拒改變，常常不是怕做不到，而是怕成功後要換身份、換圈子、換生活。成功不只帶來結果，也會逼你放下熟悉的自我敘事。</p><p>作者用「身份保護」來解釋很多看似理性的拖延：你其實是在守住舊角色，而不是在為未來創造空間。</p><span class="tag" data-field="lesson_tag">安全感</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">IV：卡住，很多時候只是視角太小</h2><span class="ts-badge" data-field="lesson_timestamp">17:25</span></div><div class="body" data-field="lesson_body"><p>這一節借用了發展階段／意識層級的語言，說明每個人都會活在某種理解世界的框架裡。小孩、社會化的成年人、能自我反思的人，看事情的方式不同，能承受的複雜度也不同。</p><p>影片不是在推某一套理論當絕對真理，而是在提醒：當你覺得「我就是做不到」時，可能只是你還沒長出能看見更大結構的眼睛。</p><span class="tag" data-field="lesson_tag">意識層級</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">V：智能是能持續修正的系統</h2><span class="ts-badge" data-field="lesson_timestamp">22:22</span></div><div class="body" data-field="lesson_body"><p>作者把 intelligence 重新定義成一種回饋系統：有目標、採取行動、感知現況、比對差距、再做下一步修正。這就是 cybernetics 的核心。</p><p>他想講的是，真正高明的人不是從不犯錯，而是很快知道自己偏了，並且願意反覆校正。低智能則是卡住、放棄、或只會在原地抱怨。</p><span class="tag" data-field="lesson_tag">cybernetics</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">07</span><h2 data-field="lesson_title">VI：一日重設流程，先寫反目標再寫願景</h2><span class="ts-badge" data-field="lesson_timestamp">27:03</span></div><div class="body" data-field="lesson_body"><p>這段是整支影片最像實作手冊的部分。作者提出一個完整的一日重設 protocol：早上先寫 anti-vision，誠實面對自己最不想變成什麼；接著寫 vision，描述 3 年後你真的想過的生活；再把這些文字變成一天中的提醒，讓你不會整天自動駕駛。</p><p>他要的是把情緒轉成結構，讓「想改變」不只是口號，而是可以在一天裡被重複觀照的提醒系統。</p><span class="tag" data-field="lesson_tag">一日重設</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">08</span><h2 data-field="lesson_title">VII：把人生當成遊戲來設計</h2><span class="ts-badge" data-field="lesson_timestamp">37:12</span></div><div class="body" data-field="lesson_body"><p>收尾把前面所有概念收斂成一個遊戲架構：anti-vision 是你輸掉後會落入的狀態，vision 是你想贏到的畫面，1 年與 1 個月是任務與 boss fight，而每天要做的事情是 quests。</p><p>這種比喻的好處是，它不再把人生想成抽象自我提升，而是設計成一套能持續推進的系統。你不是在「靠意志力生活」，而是在遵守你自己設好的規則。</p><span class="tag" data-field="lesson_tag">系統設計</span></div></article></section>
   
   
-  
-  <section class="summary"><h2>摘要</h2><div class="card"><p data-field="summary">Dan Koe 以新年目標失敗為切入，指出多數人卡住不是因為不夠努力，而是只想改表面行為，沒有先改身份。他主張，若要得到某種結果，必須先活成那種會自然產生該結果的生活方式，否則很快會回到舊習慣。影片把「智能」定義成能透過目標、回饋與修正持續迭代的系統，並用 cybernetics 說明人如何像自我校正的機器一樣前進。中段用發展階段／意識層級解釋，很多阻礙其實是視角與框架太窄，不是目標本身不可能。接著他給出一套一日重設人生的書寫與提醒流程：先寫反目標，再寫願景，再在一天中用幾個時間點反覆觀照自己的選擇。收尾則把人生比作遊戲，建議用 1 年、1 個月、每日任務與限制條件組成一個可持續的系統，讓自己在清楚的規則中前進。</p></div></section>
 
   <section class="key-points" data-field="key_points">
-    <h2>重點列表</h2>
-    <div class="card"><ol><li data-field="key_point" data-timestamp="0:00"><span class="ts">0:00</span><span class="text" data-field="key_point_text">新年目標失敗不是意志力不夠，而是多數人只想改變表面行為，沒碰到真正的身份與內在動機。</span></li><li data-field="key_point" data-timestamp="3:20"><span class="ts">3:20</span><span class="text" data-field="key_point_text">要改變結果，先成為那個會自然做出目標行為的人；單靠短期自律撐不久。</span></li><li data-field="key_point" data-timestamp="8:28"><span class="ts">8:28</span><span class="text" data-field="key_point_text">你可能根本不是真的想要那個目標，只是想逃離現在的生活或外界期待；不接受新生活方式就會回到原點。</span></li><li data-field="key_point" data-timestamp="11:20"><span class="ts">11:20</span><span class="text" data-field="key_point_text">很多人不是怕失敗，而是怕成功後要放棄舊身份、人際角色與舒適圈。</span></li><li data-field="key_point" data-timestamp="17:25"><span class="ts">17:25</span><span class="text" data-field="key_point_text">用發展階段看自己與他人：卡住常是視角、框架與意識層級還停在較低階段。</span></li><li data-field="key_point" data-timestamp="22:22"><span class="ts">22:22</span><span class="text" data-field="key_point_text">智慧不是知道很多，而是能透過目標、感知、比較、修正形成迭代回路，持續拿到想要的結果。</span></li><li data-field="key_point" data-timestamp="27:03"><span class="ts">27:03</span><span class="text" data-field="key_point_text">一日重設流程：先做反目標與願景書寫，再用整天的提醒打斷自動駕駛，最後整理成 1 年、1 個月與每日行動。</span></li><li data-field="key_point" data-timestamp="37:12"><span class="ts">37:12</span><span class="text" data-field="key_point_text">把人生當成遊戲來設計，用 anti-vision、vision、里程碑、每日任務與限制條件，把注意力鎖定在真正推進的事情上。</span></li></ol></div>
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="0:00"><span class="ts">0:00</span><span class="text" data-field="key_point_text">影片開場就指出：新年目標常常會失敗，原因不是單純不夠努力，而是大多數人只是照著社會期待做表面改變。</span></li><li data-field="key_point" data-timestamp="3:20"><span class="ts">3:20</span><span class="text" data-field="key_point_text">第一個核心：你之所以還沒到想去的地方，是因為你還不是那種會自然做出該行為的人。</span></li><li data-field="key_point" data-timestamp="8:28"><span class="ts">8:28</span><span class="text" data-field="key_point_text">第二個核心：很多人其實不是真的想去那裡；他們只是想擺脫現在的生活，卻沒有準備好承擔新生活方式。</span></li><li data-field="key_point" data-timestamp="11:20"><span class="ts">11:20</span><span class="text" data-field="key_point_text">第三個核心：人會害怕改變，是因為改變會逼你放棄舊身份、人際角色與安全感。</span></li><li data-field="key_point" data-timestamp="17:25"><span class="ts">17:25</span><span class="text" data-field="key_point_text">作者借用發展階段／意識層級來說明，很多「卡住」其實是思考框架太窄，而不是目標不合理。</span></li><li data-field="key_point" data-timestamp="22:22"><span class="ts">22:22</span><span class="text" data-field="key_point_text">他把 intelligence 重新定義為：能否透過目標、感知、比較與修正形成回饋迴路，持續拿到想要的結果。</span></li><li data-field="key_point" data-timestamp="27:03"><span class="ts">27:03</span><span class="text" data-field="key_point_text">影片提出一日重設 protocol：上午做反目標與願景書寫，中午到傍晚用提醒打斷慣性，晚上再整理成可執行的目標層級。</span></li><li data-field="key_point" data-timestamp="37:12"><span class="ts">37:12</span><span class="text" data-field="key_point_text">最後把人生當成一款遊戲：anti-vision 是失敗代價，vision 是勝利畫面，1 年／1 月／每日任務與限制條件則是讓遊戲能玩下去的規則。</span></li></ol></div>
   </section>
 
   <section class="tags" data-field="tags">
@@ -254,182 +98,1222 @@ header.hero { position:relative; }
 
   
   
-  
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="description"><div class="raw-label">YouTube 說明欄<button class="copy-btn" id="raw_description_4338229824_srt" onclick="copyRaw(this,'raw_description_4338229824_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_description_4338229824_text" onclick="copyRawText(this,'raw_description_4338229824_text')">📋 複製純文字</button></div><pre>Yes, one day.
+
+Research, write, and schedule content with your AI strategist (gives you daily ideas to run with): https://eden.so
+
+Read my letters on similar topics here: https://letters.thedankoe.com
+
+Learn a high-value skill: https://2hourwriter.com
+
+One-Person Business Launchpad: https://letters.thedankoe.com/p/full-course-the-one-person-business
+
+The Human 3.0 Article: https://letters.thedankoe.com/p/human-30-a-map-to-reach-the-top-1
+
+––– My Books –––
+
+The Art of Focus: https://theartoffocusbook.com
+
+Purpose &amp; Profit: https://thedankoe.com/purpose
+
+––– Socials –––
+
+Twitter: https://twitter.com/thedankoe
+Instagram: https://instagram.com/thedankoe
+YouTube: https://youtube.com/c/DanKoeTalks
+LinkedIn: https://linkedin.com/in/thedankoe
+
+Listen To The Koe Cast - the audio version of this video: https://open.spotify.com/show/3lZRG3LCFZxKkQVSsCwoyN?si=012980a5fd694608
+
+––– Chapters –––
+
+0:00 You are going to give up, and that&#x27;s okay
+3:20 I – You aren’t where you want to be because you aren’t the person who would be there
+8:28 II – You aren’t where you want to be because you don’t want to be there
+11:20 III – You aren’t where you want to be because you’re afraid to be there
+17:25 IV – The life you want lies within a specific level of mind
+22:22 V – Intelligence is the ability to get what you want out of life
+27:03 VI – How to launch into a completely new life (in 1 day)
+37:12 VII – Turn Your Life Into A Video Game
+
+#newyears #selfimprovement #psychology</pre></div><div class="raw-block" data-field="raw_source_item" data-raw-type="transcript"><div class="raw-label">逐字稿（timestamped）<button class="copy-btn" id="raw_transcript_4338229696_srt" onclick="copyRaw(this,'raw_transcript_4338229696_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_transcript_4338229696_text" onclick="copyRawText(this,'raw_transcript_4338229696_text')">📋 複製純文字</button></div><pre>0:00 You&#x27;re probably going to quit your New
+0:02 Year&#x27;s resolution, and that&#x27;s okay. Most
+0:04 people do. Studies actually show that
+0:07 it&#x27;s around 80% to 90% of people quit
+0:09 their New Year&#x27;s resolution. And that&#x27;s
+0:11 because most people don&#x27;t actually want
+0:13 to change on a deep internal level. And
+0:16 with New Year&#x27;s resolutions going into
+0:18 2026, people just go about changing
+0:21 their life in the completely wrong way.
+0:23 And to me, that&#x27;s sad because if you&#x27;re
+0:25 changing your life, that has to be one
+0:27 of the most important things in your
+0:29 life, right? That has to be the only
+0:31 thing on your mind, you think. But for
+0:33 most people, it&#x27;s just another thing to
+0:36 try to do and fail and go back to the
+0:38 life they were living. So when people
+0:40 try to change their life, what they do
+0:43 is they create a New Year&#x27;s resolution
+0:46 because everyone else does, and humans
+0:48 want to impress others more than they
+0:50 want to impress themselves. We create
+0:52 superficial meaning out of status games,
+0:54 but they don&#x27;t meet the requirements for
+0:57 true change, which goes a lot deeper
+0:59 than convincing yourself you&#x27;re going to
+1:01 be more disciplined or productive this
+1:03 year. Now, I&#x27;m not here to talk down on
+1:05 you. I&#x27;ve quit 10 times as many goals
+1:07 than I&#x27;ve set. Many of you have probably
+1:09 noticed that. I mean, my face is online.
+1:12 The book that I said I was writing, I&#x27;m
+1:13 not writing it anymore. And I think that
+1:15 should be the case for most people. I
+1:17 think you should quit more goals than
+1:19 you set because how else are you going
+1:20 to narrow in on the correct goals? But
+1:23 the fact that people try to change their
+1:25 life and utterly fail almost every time
+1:28 still holds true, and that&#x27;s
+1:30 So much so that the gym becomes
+1:33 extremely crowded during January, and
+1:35 then by February, it&#x27;s all cleared out.
+1:37 It&#x27;s a meme. Now, as much as I think
+1:39 that New Year&#x27;s resolutions are stupid,
+1:41 I feel like many of you also think that
+1:42 they&#x27;re stupid. I always think that it&#x27;s
+1:44 wise to reflect on your life and change
+1:46 direction and do something that you&#x27;ve
+1:48 always wanted to do. And what better
+1:49 time to do it than now? The other thing
+1:52 here is that human nature is kind of a
+1:54 [ __ ] and the worst feeling is when you
+1:56 make a promise to yourself and then you
+1:58 end up breaking it, especially if it&#x27;s
+2:00 over and over again because you start to
+2:01 feel helpless. And if you don&#x27;t know
+2:03 what you&#x27;re doing, you may continue that
+2:06 cycle for years on end, always wanting
+2:08 to change but never being able to. So,
+2:10 whether you want to start the business,
+2:12 transform your body, or take the risk
+2:14 toward a meaningful life without
+2:16 quitting after 2 weeks, I want to share
+2:18 seven of probably the most impactful
+2:21 ideas that I&#x27;ve ever shared that you
+2:23 probably haven&#x27;t heard before on
+2:24 behavior change, psychology, and
+2:26 productivity so you can do just that in
+2:29 2026. Now, this is going to be
+2:31 comprehensive. This is not going to be
+2:33 one of those videos that you just watch
+2:35 and forget about. I hope you treat it
+2:37 like that. This is something you will
+2:38 want to save to your watch later, to
+2:40 bookmark on your phone, to take notes
+2:43 on, and you will have to set aside time
+2:45 to think about it. We&#x27;re going to go
+2:46 over six ideas, and then in the seventh
+2:48 {quote} idea, it&#x27;s actually a protocol.
+2:51 And what we&#x27;re going to do is we&#x27;re
+2:52 going to dig very deep into your psyche.
+2:55 And if you take this seriously, you&#x27;re
+2:56 going to get quite emotional, and it
+2:58 will take about a full day to complete.
+3:01 If you do this, your life will change in
+3:03 1 day. Now, all I ask is that you
+3:05 dedicate your full attention to this. I
+3:07 know that you&#x27;re used to just scrolling
+3:09 on social media and watching and
+3:10 binge-watching YouTube videos, but it&#x27;s
+3:12 rare that you come across one video that
+3:14 just has the potential to change
+3:16 everything, and I hope that this video
+3:18 acts as that for you. Let&#x27;s begin. The
+3:21 first idea is that you aren&#x27;t where you
+3:23 want to be because you aren&#x27;t the person
+3:25 who would be there. Now, when it comes
+3:27 to New Year&#x27;s resolutions, people tend
+3:29 to focus on one out of the two things
+3:32 that are required for change and
+3:34 success. So, the first is changing your
+3:36 actions to make progress toward the
+3:38 goal. This is the least important thing
+3:40 and what most people do. It is
+3:42 second-order. And the second thing is
+3:44 changing who you are so that your
+3:46 behavior naturally follows. This is the
+3:48 most important thing. This is
+3:50 first-order. Most people set
+3:52 surface-level goals, hype themselves up
+3:54 to remain disciplined for the first few
+3:55 weeks, then go back to their old ways
+3:57 without much struggle because they were
+3:59 trying to build a great on a rotting
+4:01 foundation. So, if this doesn&#x27;t make
+4:03 sense, let&#x27;s run through a quick
+4:04 example. I want you to think about
+4:06 somebody successful. It could be a
+4:08 founder, a CEO, a bodybuilder with a
+4:11 incredible physique on Instagram, or
+4:13 just a charismatic dude who can walk
+4:15 into a group and start chatting everyone
+4:18 up like it&#x27;s just second nature to them.
+4:19 Now, I want you to really think about
+4:21 this cuz this this has to click for you
+4:23 in order for you to understand that
+4:25 behavior change is changing who you are.
+4:27 Do you think the bodybuilder has to
+4:30 grind to eat healthy? Do they have to
+4:33 grind like everyone tells you you need
+4:35 to do, &quot;Oh, you need to grind, you need
+4:36 to struggle, you need to suffer&quot; in
+4:38 order to eat healthy? Does the CEO or
+4:41 the founder have to discipline
+4:43 themselves to show up and lead the team?
+4:46 This is actually something my co-founder
+4:47 Matt and I were talking about earlier
+4:49 about how in our past 9-to-5 jobs, we
+4:52 were just the worst employees ever. And
+4:54 so when we&#x27;re going about hiring, that&#x27;s
+4:56 constantly on our mind. What if we hire
+4:57 someone who just isn&#x27;t as passionate
+5:00 about what we do as we are? Because to
+5:02 us, we just wake up and do the thing. To
+5:04 the employee who may not be a fit,
+5:06 they&#x27;re going to completely sabotage our
+5:08 business. They&#x27;re not going to care,
+5:10 they&#x27;re going to get their work done
+5:11 late, they&#x27;re not going to listen, and
+5:12 no matter how much I motivate them as a
+5:15 founder or I train them to do the thing
+5:19 or incentivize them, that type of person
+5:21 just isn&#x27;t a fit and they&#x27;re not going
+5:23 to do what they need to do. It&#x27;s because
+5:25 their identity doesn&#x27;t match the
+5:27 behavior required for our business. Now,
+5:31 to you on the surface, it may seem like
+5:33 the bodybuilder has to grind to eat
+5:35 healthy or they&#x27;re so disciplined or the
+5:37 runner has to discipline themselves to
+5:40 go run a marathon or the CEO has to
+5:43 discipline themselves to show up and
+5:44 work. But the truth is, they can&#x27;t see
+5:47 themselves living any other way. The
+5:50 bodybuilder has to grind to eat
+5:53 unhealthy. The CEO has to grind and
+5:56 force themselves to sleep in past their
+5:58 alarm clock or to take it easy at night
+6:01 and watch Netflix. And when they do
+6:02 sleep past their alarm clock or they do
+6:04 feel like they&#x27;re unproductive, they
+6:06 hate every second of it. Just like you
+6:09 hate every second of working toward your
+6:11 goal because you don&#x27;t have the right
+6:13 identity to match the behavior required
+6:16 to achieve that goal. And to some
+6:18 people, my own lifestyle seems pretty
+6:21 extreme or pretty disciplined. Like when
+6:23 I got on a podcast this past year, and
+6:26 they&#x27;re like, &quot;You seem like the most
+6:27 disciplined person ever.&quot; And I&#x27;m just
+6:29 like,
+6:30 I mean, not really. It&#x27;s not
+6:32 I don&#x27;t know. To me, it&#x27;s just natural,
+6:34 and I don&#x27;t say that to contrast it or
+6:36 compare it to anybody else&#x27;s lifestyle.
+6:38 I&#x27;m not saying my lifestyle&#x27;s better.
+6:40 I&#x27;m just saying I simply enjoy living
+6:42 this way. Like when my mom tells me that
+6:45 I need to take a break or go out or let
+6:47 loose a bit, I have to like hold my
+6:49 tongue because I don&#x27;t want to be rude
+6:51 or dismissive. Because through my mind,
+6:53 I&#x27;m just I&#x27;m just thinking, &quot;If I
+6:55 weren&#x27;t having fun, why would I be doing
+6:58 what I&#x27;m doing?&quot; And that&#x27;s the major
+7:00 mismatch. Is people can&#x27;t answer that.
+7:02 They&#x27;re not doing the thing that&#x27;s fun.
+7:04 They&#x27;re doing what society told them
+7:06 they should do. Now, do not take this
+7:08 next sentence lightly because this ties
+7:10 it all together. If you want a specific
+7:12 outcome in life, you must have the
+7:14 lifestyle that creates that outcome long
+7:18 before you reach it. So, if someone says
+7:19 they want to lose 30 lb of fat, I often
+7:23 don&#x27;t believe them. Not because I don&#x27;t
+7:25 think they&#x27;re a person that&#x27;s incapable
+7:26 of it, but because there&#x27;s just too many
+7:28 times when that same person says that
+7:31 they can&#x27;t wait to get back to the life
+7:34 they used to live. &quot;Oh, I can&#x27;t wait
+7:36 until I can eat this again. I can&#x27;t wait
+7:38 until I don&#x27;t have to do cardio again.&quot;
+7:40 And that&#x27;s the thing. I hate to break it
+7:42 to you, but if you don&#x27;t adopt the
+7:45 lifestyle that led to you losing weight
+7:48 for life and find a reason with a higher
+7:51 gravitational pull than the one tying
+7:53 you to your previous ways, then you will
+7:55 go back straight to where you started,
+7:58 and you can unhappily say that you
+8:00 wasted the only resource that you have,
+8:02 which is time. When you truly change
+8:05 yourself, all of your habits that don&#x27;t
+8:07 move the needle toward your goal become
+8:09 disgusting because you have a deep and
+8:11 profound awareness of what kind of life
+8:12 those actions compound into. You are
+8:15 okay with your current standards because
+8:17 you are not fully aware of what they are
+8:19 or what they lead to. And we&#x27;re going to
+8:21 discuss how to uncover that, but you
+8:23 need this awareness first. You need to
+8:26 understand your mind. So, that leads to
+8:28 point number two, which is you aren&#x27;t
+8:30 where you want to be because you don&#x27;t
+8:32 actually want to be there. To start this
+8:34 off with a quote from Alfred Adler,
+8:37 &quot;Trust only movement. Life happens at
+8:39 the level of events, not of words. Trust
+8:42 movement.&quot; So, if you want to change who
+8:44 you are, you must understand how the
+8:46 mind works. That way, you can start to
+8:48 reprogram it. The first step to
+8:50 understanding the mind is to understand
+8:52 that all behavior is goal-oriented. When
+8:54 you think about it, this is kind of
+8:56 obvious, but when we dig into it, most
+8:58 people don&#x27;t want to hear it. You take a
+9:00 step forward with your foot because you
+9:02 want to reach a certain location. That&#x27;s
+9:03 a goal. You scratch your nose because
+9:05 you want to get rid of the itch. That&#x27;s
+9:07 a goal. Those are very surface-level,
+9:09 kind of meaningless goals. And those
+9:10 ones are obvious as well, but there are
+9:12 greater unconscious goals that are
+9:15 creating the subgoals that you&#x27;re
+9:16 working to at all times. You may not
+9:19 even realize that sitting down on the
+9:20 couch to relax or scroll doomscrolling
+9:23 on your phone came from a bigger goal
+9:26 that was injected into your mind either
+9:29 at birth during conditioning or by
+9:31 society by doing something they want you
+9:33 to do, or just by your own goal of
+9:35 protection or safety or pleasure or
+9:37 feeling good that you&#x27;re just not aware
+9:39 of, and you don&#x27;t think anything of it
+9:42 because it&#x27;s just natural. It&#x27;s an
+9:43 unconscious process. You do it like you
+9:46 breathe. You don&#x27;t even notice it. And
+9:47 on an even more unconscious and complex
+9:49 level, we often pursue goals without
+9:52 knowing it that harm us, but we tend to
+9:54 justify our actions in a way that is
+9:57 socially acceptable or makes us not feel
+10:00 like a loser. As an example, if you
+10:02 can&#x27;t stop procrastinating on your work,
+10:04 you may justify it with the fact that
+10:05 you lack discipline, but in reality,
+10:07 you&#x27;re attempting to achieve a goal like
+10:10 you always are. In this case, that goal
+10:12 could be to protect yourself from the
+10:14 judgment that comes from finishing and
+10:16 sharing your work. So, it&#x27;s not that you
+10:18 lack discipline, it&#x27;s that you&#x27;re afraid
+10:21 of achieving one goal, so you justify it
+10:24 by making not achieving that goal your
+10:26 goal. Another prime example is that if
+10:28 you say you want to quit a dead-end job,
+10:31 but you stay in it, you may start to
+10:33 think that you just don&#x27;t have enough
+10:35 courage or you&#x27;re not a risk-taker. But
+10:37 the truth is is that you&#x27;re pursuing the
+10:39 goal of safety and predictability and an
+10:42 excuse not to look like a failure in
+10:44 front of everyone you told that you want
+10:46 to quit your job. So, the lesson here
+10:48 with point number two is that real
+10:50 change requires changing your goals. But
+10:52 I don&#x27;t mean setting some surface-level
+10:55 goal because the act of doing that
+10:56 serves an unconscious goal that is
+10:58 actually harming you. That&#x27;s been ran
+11:00 through enough in the productivity
+11:01 space. I mean changing your point of
+11:03 view because that&#x27;s what a goal is. A
+11:06 goal is a projection into the future
+11:08 that acts as a lens of perception, which
+11:10 allows you to notice information, ideas,
+11:13 and resources that aid in you achieving
+11:15 that goal. If that didn&#x27;t make any
+11:17 sense, it&#x27;s important, but if that
+11:18 didn&#x27;t make any sense,
+11:20 that&#x27;s what point number three is for,
+11:21 which is you aren&#x27;t where you want to be
+11:23 because you&#x27;re afraid to be there. So,
+11:26 let&#x27;s start with another quote from
+11:27 Maxwell Maltz. The important thing for
+11:29 you to remember is that it does not
+11:31 matter in the least how you got the idea
+11:33 or where it came from. You may never
+11:35 have been formally hypnotized, but if
+11:37 you have accepted an idea from yourself,
+11:39 your teachers, your parents, friends,
+11:40 advertisements, from any other source,
+11:42 and further, if you are firmly convinced
+11:44 that idea is true, it has the same power
+11:47 over you as the hypnotist words have
+11:49 over a hypnotized subject. So, that&#x27;s
+11:51 compelling. And what I&#x27;m about to share
+11:53 with you is even more compelling because
+11:55 I&#x27;ve condensed just how you become who
+11:58 you are into this series of steps. Now,
+12:01 these are not like what happened every
+12:03 time, but this is just how identity is
+12:05 shaped and formed, which shapes your
+12:08 actions. So, if you understand this, cuz
+12:10 we&#x27;re reverse-engineering it right now,
+12:12 then we can start to put the pieces
+12:13 together to, okay, how do we change our
+12:16 identity so that our behavior naturally
+12:18 follows going into 2026 or any other
+12:21 year. So, this is the anatomy of
+12:24 identity. First, you want to achieve a
+12:26 goal. Then you perceive reality through
+12:28 the lens of that goal, meaning you only
+12:30 notice important information and ideas
+12:33 that allow you to achieve that goal.
+12:34 This is the learning process. This is
+12:36 how you learn things. Then fourth, you
+12:38 act toward that goal and receive
+12:40 feedback that you&#x27;re progressing toward
+12:42 it. Fifth, you repeat that behavior
+12:45 until it becomes automatic and
+12:46 unconscious. This is conditioning.
+12:48 Sixth, that behavior becomes a part of
+12:50 who you think you are. I am the type of
+12:53 person who {dot} {dot} {dot}. Seventh,
+12:55 you defend your identity to maintain
+12:57 psychological consistency. We&#x27;ll talk
+12:59 about that more. And eighth, your
+13:01 identity shapes new goals, restarting
+13:03 the cycle. And if that identity is
+13:05 disadvantageous toward a good life, this
+13:07 gets very bad very quick. Now, the
+13:10 unfortunate reality is that you have to
+13:11 break this cycle between step six and
+13:14 step seven because you&#x27;ve already gone
+13:16 through this many times in your life,
+13:18 and it started when you were first born,
+13:20 when you didn&#x27;t even have any control
+13:22 over your mind. Because when you&#x27;re a
+13:23 kid, you have the goal of survival.
+13:26 That&#x27;s literally your goal is I&#x27;m this
+13:29 babbling blob of flesh coming out into
+13:31 the world. I don&#x27;t know how to speak. I
+13:33 don&#x27;t know anything. I don&#x27;t know how to
+13:34 survive. And it&#x27;s just like, oh my gosh,
+13:36 the only instinct is like, I need to
+13:39 live. That&#x27;s not even a conscious
+13:40 instinct. That&#x27;s just the instinct that
+13:42 you&#x27;re born with. And because of this,
+13:44 you are dependent on your parents to
+13:46 teach you how to survive. Because when
+13:48 we think about it, maybe you don&#x27;t even
+13:50 have that instinct of survival, but
+13:52 other people around you do. Like that&#x27;s
+13:53 just the natural order of things is you
+13:55 have to survive. And so, the thing there
+13:57 is that you had to conform. You had to
+14:00 conform to what your parents believe,
+14:02 what your parents taught you. And your
+14:03 parents, unless they broke the pattern
+14:05 themselves, they probably have the same
+14:08 conditioning or beliefs or ideas or
+14:09 values as their culture or their parents
+14:13 or their parents&#x27; parents or the
+14:15 industrial age or all of these goals
+14:17 that may not serve you and what you
+14:20 actually want. And since the way most
+14:22 people teach is through reward and
+14:24 punishment, if you don&#x27;t conform to
+14:27 their values and goals, if you don&#x27;t
+14:29 become their child mentally, then they
+14:31 may kick you out. They may punish you.
+14:34 Well, they will punish you. They&#x27;re
+14:35 going to say, &quot;No, that&#x27;s not the way
+14:36 you do things. You do things this way.&quot;
+14:38 And you don&#x27;t know any better as a kid,
+14:40 so you listen. And the thing here is
+14:42 that you don&#x27;t ever actually think for
+14:45 yourself. You don&#x27;t have a single
+14:47 original thought unless you can see
+14:49 through this. If you have never
+14:50 questioned this, then you are not an
+14:52 independent thinker. And nobody, I would
+14:54 argue, is a completely independent
+14:56 thinker. There&#x27;s degrees. There&#x27;s a
+14:57 spectrum. Now, to take this a layer
+15:00 deeper, because we&#x27;re going very deep
+15:02 here, hopefully, once you fulfill your
+15:04 physical survival needs, which is pretty
+15:06 easy to do, at least in today&#x27;s world,
+15:08 it happens pretty quick, then you start
+15:10 to survive on the conceptual or
+15:12 ideological level. You may not try to
+15:14 protect or reproduce your body anymore,
+15:17 but your mind is different. You still
+15:19 have that instinct. It just transcends
+15:21 to a new level. You don&#x27;t try to
+15:23 reproduce your genes, although you do,
+15:25 you try to reproduce memes or
+15:27 information or beliefs or ideas or
+15:29 values. You can see this everywhere on
+15:31 the internet. We&#x27;re in this mental or
+15:33 spiritual war of ideas. Because when
+15:35 your body feels threatened, you go into
+15:38 fight or flight. When your identity or
+15:40 your mental body, so to say, feels
+15:43 threatened, you do the same thing. If
+15:45 you are heavily identified with
+15:46 something like a political ideology by
+15:48 the process we just talked about,
+15:50 because you probably adopted your
+15:52 political ideology from your parents or
+15:54 another group that you found online, and
+15:56 even if you rejected your parents&#x27;
+15:58 beliefs, you fell into another set of
+16:00 beliefs when you were young that shaped
+16:02 your ideas. And if that crystallizes,
+16:03 that does very bad things. You can no
+16:06 longer think clearly or nuanced or see
+16:08 the big picture. And when someone
+16:10 challenges those beliefs, you will feel
+16:13 threatened. You will feel that stress
+16:15 response. You feel emotionally like you
+16:18 were slapped in the face. And since most
+16:20 people don&#x27;t analyze their emotions for
+16:21 truth, you tend to get stuck in echo
+16:24 chambers and just double down on your
+16:26 beliefs. The same thing happens if
+16:27 you&#x27;re raised in a religious household.
+16:29 If those ideas actually stick with you,
+16:32 then you&#x27;re going to fight and lash out,
+16:34 maybe not extremely or physically, but
+16:37 in defense at people who are challenging
+16:40 you. I grew up LDS. I grew up Mormon. I
+16:43 saw this firsthand every single day, and
+16:45 it just didn&#x27;t make sense to me. When
+16:47 you ask a question to a leader of the
+16:49 church, they just like go through this
+16:51 regurgitated script of things that
+16:54 didn&#x27;t make sense to me. Now, that&#x27;s
+16:55 nothing against that religion or any
+16:57 religion. I actually now enjoy viewing
+17:01 different perspectives online. I listen
+17:03 to a lot of Christian content. I listen
+17:04 to a lot of atheist content. I&#x27;m not
+17:06 identified with either side because that
+17:08 prevents me from seeing truth. And
+17:09 lastly, this same thing happens not for
+17:12 politics or religion, but for
+17:14 everything. For your job. Do you
+17:16 identify as a lawyer? Do you identify as
+17:18 a gamer? Do you identify as someone who
+17:21 would not take the actions to the life
+17:24 that you want to live. Now, point number
+17:26 four. The life you want lies within a
+17:28 specific level of mind. Because the mind
+17:30 evolves through predictable stages over
+17:32 time. We&#x27;ve talked about this many
+17:33 times. People love this subject. It&#x27;s a
+17:35 freaking mind-blowing subject. But when
+17:37 you&#x27;re born, you&#x27;re like this little
+17:39 survival sponge that just soaks up as
+17:41 many beliefs as it can to survive so
+17:43 that you can feel safe and secure. And
+17:45 if you don&#x27;t be careful, you can easily,
+17:47 very easily, get trapped in one of these
+17:49 stages. And this has been documented
+17:52 thoroughly through models like Maslow&#x27;s
+17:54 hierarchy of needs or Susanne
+17:55 Cook-Greuter&#x27;s nine stages of ego
+17:57 development or uh Christopher Cowan and
+17:59 Don Beck&#x27;s spiral dynamics. These have
+18:02 each built on top of each other and
+18:03 evolved and become more comprehensive
+18:05 and apply to multiple domains. And while
+18:07 it&#x27;s not completely like
+18:09 pinpoint accurate all of the time, it&#x27;s
+18:12 a big picture. It&#x27;s like orienting
+18:14 generalizations. So, we can at least see
+18:16 the patterns and identify them. And
+18:18 since I&#x27;ve talked about this so much,
+18:19 I&#x27;ve talked about it in my Human 3.0
+18:22 newsletter, which is more like a like a
+18:24 cornerstone article that I think
+18:26 everyone should read. I&#x27;ll link to that
+18:28 in the description. It&#x27;s pretty long,
+18:29 but it&#x27;s thorough. If you If you want to
+18:31 understand
+18:32 how to achieve anything in your life, I
+18:34 think I dissected it quite well there.
+18:36 But let&#x27;s go over the 80/20 of this just
+18:38 so you get a refresher or you understand
+18:40 what we&#x27;re talking about so we can move
+18:42 on. If you&#x27;ve already heard this, just
+18:43 understand that repetition is important
+18:46 for important things. So, stage one of
+18:48 development is the impulsive stage where
+18:50 there&#x27;s no separation between impulse
+18:52 and action. It&#x27;s black and white
+18:53 thinking. As an example, a toddler hits
+18:55 when angry because the feeling and the
+18:57 behavior are the same thing. Stage two
+18:59 is self-protective where the world is
+19:01 dangerous and you learn to look out for
+19:03 yourself. Like how a kid learns to hide
+19:05 report cards, lie about chores, and
+19:07 figure out what adults want to hear.
+19:09 Stage three is conformist where you are
+19:11 your group and its rules feel like
+19:13 reality itself, which is like someone
+19:15 who genuinely cannot fathom why anyone
+19:17 would vote differently than their family
+19:19 or group or would have a different
+19:21 religion. Stage four is self-aware where
+19:23 you notice you have an inner life that
+19:25 doesn&#x27;t match the exterior. So, it&#x27;s
+19:27 like sitting in church and realizing
+19:28 you&#x27;re not sure you believe what
+19:30 everyone around you seems to believe,
+19:31 but not knowing what to do with that
+19:33 feeling yet. That is me in my past.
+19:36 Stage five is conscientious where you
+19:38 build your own system of principles and
+19:40 hold yourself accountable to them. So,
+19:42 like leaving your family&#x27;s religion
+19:43 after careful study and adopting a
+19:45 personal philosophy you can defend or
+19:47 building a career plan with clear
+19:48 milestones because you believe the right
+19:50 efforts yield the right results. Stage
+19:52 six is the individualist stage where you
+19:54 see that your principles were shaped by
+19:56 context and start holding them more
+19:58 loosely. As an example, realizing your
+20:00 political views have more to do with
+20:02 where you grew up than objective truth
+20:04 or noticing that your ambitious career
+20:05 goals were really about earning your
+20:07 father&#x27;s approval. Stage seven is the
+20:09 strategist stage where you work with
+20:11 systems while aware of your own
+20:12 involvement in them. So, it&#x27;s like
+20:14 leading an organization while actively
+20:16 questioning your own blind spots or
+20:17 engaging in politics knowing your
+20:19 perspective is partial and shaped by
+20:21 bias you can&#x27;t fully see. Stage eight is
+20:23 construct-aware where you see all
+20:25 frameworks, including your identity, as
+20:27 useful fictions. So, it&#x27;s like holding
+20:29 your spiritual beliefs metaphorically
+20:31 rather than literally. It&#x27;s knowing that
+20:33 the map is not the territory or watching
+20:35 yourself play the role of founder or
+20:37 thought leader with a kind of gentle
+20:39 amusement. I&#x27;ve done this a few times. I
+20:41 don&#x27;t know if I&#x27;m fully construct-aware
+20:43 because with these, they&#x27;re like tools,
+20:45 right? They&#x27;re like lenses. If you&#x27;re
+20:46 stressed, you&#x27;re going to regress into a
+20:48 more conformist stage or more survival
+20:51 stage, so to say, because you&#x27;re going
+20:52 to feel more threatened. But, I think
+20:54 that people mostly operate within, like,
+20:57 uh uh
+20:58 80% of their life within a specific
+21:01 level. And that level slowly increases
+21:03 over time with certain aspects or
+21:05 domains of their life branching into
+21:07 other levels. And stage nine is the
+21:10 unitive stage where separation between
+21:12 self and life dissolves. As an example,
+21:14 work, rest, and play feel like the same
+21:16 thing. There&#x27;s no one left who needs to
+21:18 become something. Just presence
+21:20 responding to what arises. Now, the
+21:22 spiritual people out there will hear
+21:24 this and praise the ninth unitive stage,
+21:28 but we have to understand that all of
+21:30 these are like tools in the toolbox.
+21:31 They&#x27;re lenses of perception. They&#x27;re
+21:33 not necessarily better than one another,
+21:35 but they&#x27;re larger, higher, more
+21:37 inclusive than one another. They&#x27;re more
+21:39 complex. Sometimes the highest stage,
+21:42 being at a unitive stage, doesn&#x27;t allow
+21:44 you to solve a certain problem or make
+21:46 progress in a certain area of your life.
+21:48 But, the thing about the higher stages
+21:49 is that you have all of the lower stages
+21:51 as a tool in your toolbelt so that you
+21:54 can tap into them or pull them out when
+21:56 you need them from a higher perspective.
+21:58 Now, for most people watching this, I
+22:00 would assume you&#x27;re between levels four
+22:02 and eight, mostly. So, those who are
+22:04 closer to eight and watching this are
+22:06 doing so as like a refresher or just to
+22:08 pass the time. But, those who are closer
+22:09 to four, you may not know what you want
+22:12 out of life. You feel like you&#x27;re meant
+22:14 for more, but you can&#x27;t make sense of
+22:15 everything yet. But, that&#x27;s a good thing
+22:17 because there is a pattern. There is a
+22:19 way to move through these stages and get
+22:22 closer to the life that you want. So,
+22:24 that leads to point number five, which
+22:26 is that intelligence is the ability to
+22:28 get what you want out of life. And we&#x27;ll
+22:30 start with this great quote, &quot;The only
+22:32 real test of intelligence is if you get
+22:34 what you want out of life.&quot; That&#x27;s the
+22:36 classic viral quote from Naval. Now,
+22:39 there is a formula to success. One
+22:42 ingredient is agency, which we just
+22:44 talked about in the last video. One
+22:46 ingredient is opportunity, which many
+22:48 people like to mistake as privilege
+22:50 because they lack the other ingredients.
+22:52 And the last ingredient is intelligence.
+22:54 So, if you have high agency below
+22:56 opportunity, it doesn&#x27;t matter how
+22:58 likely you are to act toward a goal
+23:00 because it isn&#x27;t a goal that will bear
+23:02 much fruit. If you have opportunity and
+23:04 agency but low intelligence, then you
+23:06 will never be fully able to benefit from
+23:09 that opportunity. Now, we&#x27;ve talked
+23:10 about agency, but in terms of
+23:12 opportunity, I can&#x27;t really control your
+23:13 physical location. I can tell you to
+23:15 move, but that&#x27;s a big ask. That&#x27;s up to
+23:17 you. But, if you don&#x27;t see the
+23:20 opportunity in the digital world or on
+23:22 the internet that&#x27;s right in front of
+23:24 you, I don&#x27;t know what to tell you. If
+23:26 you want to realize what that is, go
+23:28 watch any of my other videos. So, with
+23:30 that said, in this video, I want you to
+23:31 focus on what intelligence is in the
+23:34 context of those two other gradients and
+23:37 of the context of this video.
+23:38 Cybernetics comes from the Greek word
+23:41 &quot;kybernetikos&quot;, which means to steer or
+23:43 good at steering. It&#x27;s also known as the
+23:46 art of getting what you want. That&#x27;s
+23:48 when we apply it as like a a frame for
+23:50 viewing the world as a human. For a
+23:52 machine, it&#x27;s just an intelligent system
+23:55 that course corrects toward a goal. It&#x27;s
+23:56 like AI. It actually is the original
+23:59 word for AI, but somebody, I forget who,
+24:02 didn&#x27;t like the word cybernetics, so
+24:04 they changed it to artificial
+24:05 intelligence. So, if Naval&#x27;s definition
+24:07 of intelligence is to get what you want
+24:10 out of life, then cybernetics or
+24:11 understanding it helps you do it that
+24:13 much faster. So, what cybernetics
+24:15 illustrates is the properties of an
+24:18 intelligent system, which is to have a
+24:20 goal, act toward the goal, sense where
+24:22 you are, compare it to the goal, and act
+24:24 again based on feedback. It&#x27;s trial and
+24:27 error. It&#x27;s experimentation. It&#x27;s a
+24:29 scientific process. But, there&#x27;s a key
+24:31 point here that most people miss. You
+24:34 can judge intelligence based on the
+24:36 system&#x27;s ability to iterate and persist
+24:38 with trial and error. A ship blown off
+24:40 course that corrects towards its
+24:41 destination. A thermostat sensing a
+24:43 change in heat and turning on. The
+24:45 pancreas in your body excreting insulin
+24:48 after blood glucose spikes. So, what
+24:50 does this have to do with getting what
+24:51 you want out of life?
+24:52 Everything. Acting, sensing, comparing,
+24:55 and understanding the system from a meta
+24:56 perspective is fundamental to high
+24:58 intelligence. High intelligence is the
+25:01 ability to iterate, persist, and
+25:02 understand the big picture. The mark of
+25:04 low intelligence is the inability to
+25:07 learn from your mistakes. Low
+25:09 intelligence people get stuck on
+25:10 problems rather than solving them. They
+25:12 hit a roadblock and quit. Like a writer
+25:14 who fails to build a readership and
+25:16 quits because they lack the ability to
+25:18 try new things, experiment, and figure
+25:20 out a process that works for them. To
+25:22 think that there isn&#x27;t an effective
+25:23 process you can create is verifiably
+25:26 false, no matter your limiting beliefs,
+25:28 hence being low intelligence. We&#x27;re
+25:29 actually going to talk about why artists
+25:32 hate AI so much in a future video. I&#x27;ve
+25:34 been planning that one and doing a lot
+25:36 of research on that one. And don&#x27;t get
+25:38 your panties all in a bunch just yet if
+25:40 you&#x27;re an artist, but
+25:41 usually
+25:43 from what I&#x27;ve seen, it&#x27;s just pointing
+25:45 to this definition of low intelligence.
+25:46 Now, high intelligence is realizing that
+25:49 any problem can be solved on a large
+25:51 enough time scale. The reality is that
+25:53 you can achieve any goal you set your
+25:55 mind to. This isn&#x27;t something that can
+25:57 be disproven within reason. Intelligence
+26:00 is realizing that there is a series of
+26:02 choices you can make which lead to
+26:04 achieving the goal you want. You
+26:06 understand that ideas are hierarchical
+26:09 and that you can&#x27;t go from papyrus to
+26:11 Google Docs in one leap. Even if the
+26:13 goal is impossible right now, you simply
+26:16 don&#x27;t have the resources, which may be
+26:18 invented over the next few years, to
+26:20 achieve that thing. So, what I&#x27;m saying
+26:22 is most of your excuses for not
+26:23 achieving a goal is a sign of low
+26:26 intelligence. I&#x27;m sorry. Because you
+26:27 have more than enough resources. You can
+26:29 buy freaking ChatGPT for $20. Even
+26:31 though I don&#x27;t like ChatGPT, you can buy
+26:33 Claude for $20. Now, when I talk about
+26:36 goals, this is what I&#x27;m talking about.
+26:38 I&#x27;m speaking from the lens of teleology
+26:41 or the Greek cosmos with a K, which is
+26:43 that everything serves a purpose, that
+26:46 everything is a part of a greater whole.
+26:48 Goals determine how you see the world.
+26:50 Goals determine what you consider
+26:51 success or failure. You can try to enjoy
+26:54 the journey or enjoy the process, but if
+26:56 you pursue the wrong goal, you will not
+26:58 enjoy it. Your mind is the operating
+27:00 system for reality. That system is
+27:02 composed of goals. For most people,
+27:04 those goals are assigned to them,
+27:06 programmed like lines of code in your
+27:08 psyche. Go to school, get a job, get
+27:10 offended, play victim, retire at 65. A
+27:12 known path that doesn&#x27;t work. So, to
+27:14 become intelligent, you must reject the
+27:17 known path, dive into the unknown, set
+27:19 new, higher goals to expand your mind,
+27:21 embrace the chaos, and allow for more
+27:23 growth. Study the generalized principles
+27:25 of nature and become a deep generalist.
+27:28 That leads us into point number six
+27:31 perfectly, which is how to launch into a
+27:33 completely new life in one day. Now, I
+27:35 wrote this tweet a few years ago and it
+27:37 just went it popped off. I wasn&#x27;t
+27:39 expecting so many people to actually
+27:41 resonate with this. And it was the best
+27:43 periods of my life always came after a
+27:45 period of getting absolutely fed up with
+27:48 the lack of progress I was making. So,
+27:50 how do you dig into your mind? How do
+27:52 you become aware of your conditioning?
+27:54 How do you reach profound insights and
+27:55 truths that change the trajectory of
+27:57 your life? The answer is through the
+27:59 simple, but often painful, act of
+28:02 questioning, which is something that so
+28:04 few people do. And you can tell by how
+28:05 they speak or give their thoughts on a
+28:07 specific topic. It&#x27;s like you&#x27;re talking
+28:09 to a TV or the news or the most popular
+28:11 social media posts. Questioning is
+28:13 thinking and very few people do it. So,
+28:16 I want to give you a comprehensive
+28:18 protocol that you can use to reset your
+28:21 life every year or whenever you feel
+28:23 like you need to. And this protocol
+28:25 consists of questions which will tie
+28:27 together into the form of a a list of
+28:30 things that you can just focus on. Now,
+28:32 this will require a full day to
+28:34 complete. It&#x27;s a full day. I need you to
+28:36 take your time and actually do this. I&#x27;m
+28:38 asking you one day to change your entire
+28:40 life. You will need a pen, a paper, and
+28:43 an open mind. Now, when I observe the
+28:44 patterns in people who successfully flip
+28:47 their identity, it happens rather quick
+28:50 after this build-up of tension or
+28:51 disease. Now, specifically, I&#x27;ve noticed
+28:53 three phases that most people go
+28:55 through. So, you need to go through
+28:57 these phases as well. Phase one is
+28:59 dissonance where they feel like they
+29:00 don&#x27;t belong in their current life and
+29:02 become sufficiently fed up with their
+29:04 lack of progress. Phase two is
+29:05 uncertainty. So, they don&#x27;t know what
+29:07 comes next, so they either experiment or
+29:09 get lost and feel worse. And phase three
+29:11 is discovery where they discover what
+29:13 they want to pursue and make six years
+29:15 of progress in six months. Now, I say
+29:17 that before going into the questions
+29:19 because you need to understand like how
+29:21 it feels, how to know. You need the
+29:23 feedback as to whether or not what
+29:25 you&#x27;re doing is correct because most of
+29:27 the time that feedback, those three
+29:28 phases, aren&#x27;t comfortable. You&#x27;re not
+29:30 immediately just going to be like, &quot;Oh,
+29:31 yes. Um I feel so hyped and so motivated
+29:34 right now.&quot; You&#x27;re going to feel the
+29:35 opposite, and that&#x27;s the good sign.
+29:38 That&#x27;s also a sign not to try to mask
+29:40 that up by scrolling on your phone or
+29:42 getting that next quick hit of dopamine.
+29:43 So, part one of this protocol happens in
+29:46 the morning. You&#x27;re going to do this
+29:47 first thing. And this is for
+29:48 psychological excavation, where we&#x27;re
+29:50 going to uncover what our vision for the
+29:52 future is and our anti-vision for the
+29:54 future is to create a frame that we can
+29:56 operate within. Because that&#x27;s the
+29:58 thing. First, in order to change, we
+30:00 need to create a new frame or lens of
+30:02 perception or who our identity is going
+30:05 to be that we can like put on as this
+30:08 shell. We can shed our old shell like a
+30:10 crab or a lobster, get into a new one,
+30:13 and then grow into it until that too
+30:15 tight and then you reach that point of
+30:16 distance like this doesn&#x27;t feel right.
+30:19 I&#x27;m not supposed to be at this point in
+30:20 life. I need to get out of my shell and
+30:23 find a new one or create a new one. So,
+30:25 that&#x27;s what we&#x27;re doing. Now, I&#x27;m going
+30:26 to go through these questions. I suggest
+30:28 that you write them down, screenshot
+30:30 them, do whatever you can so that you
+30:32 have them ready tomorrow morning when
+30:34 you actually do this or just come back
+30:35 to this video and skip to this point and
+30:37 create a calendar event or a reminder so
+30:39 that you actually do this. And I&#x27;m just
+30:41 going to run through these questions, so
+30:42 pay attention. What is the dull and
+30:44 persistent dissatisfaction you&#x27;ve
+30:46 learned to live with? Not the deep
+30:48 suffering, but what you&#x27;ve learned to
+30:49 tolerate. What do you complain about
+30:51 repeatedly, but never actually change?
+30:54 Write down three complaints you voiced
+30:56 most often this past year. For each
+30:58 complaint, what would someone who
+30:59 watched your behavior, not your words,
+31:02 conclude that you actually want? What
+31:04 truth about your current life would be
+31:06 unbearable to admit to someone you
+31:07 deeply respect? So, those questions are
+31:09 meant to make you aware of the pain in
+31:12 your current life. So, now we need to
+31:14 turn those into what I call an
+31:15 anti-vision, which is a brutal awareness
+31:18 of the life that you do not want to
+31:19 live. That way you can use that negative
+31:22 energy when you need it to aim in a
+31:25 positive direction. So, these are the
+31:27 questions to come up with your
+31:28 anti-vision. If absolutely nothing
+31:30 changes for the next 5 years, describe
+31:32 an average Tuesday. Where do you wake
+31:34 up? What does your body feel like?
+31:36 What&#x27;s the first thing you think about?
+31:37 Who&#x27;s around you? What do you do between
+31:39 9:00 a.m. and 6:00 p.m.? How do you feel
+31:41 at 10:00 p.m.? Now, do the same thing,
+31:43 but for 10 years. What have you missed?
+31:46 What opportunities closed? Who gave up
+31:48 on you? What do people say about you
+31:50 when you&#x27;re not in the room? You&#x27;re at
+31:51 the end of your life. You lived the safe
+31:53 version. You never broke the pattern.
+31:55 What was the cost? What did you never
+31:57 let yourself feel, try, or become? Who
+32:00 in your life is already living the
+32:01 future you just described? Someone 5,
+32:03 10, 20 years ahead of you on the same
+32:05 trajectory. What do you feel when you
+32:08 think about becoming them? What identity
+32:10 would you have to give up to actually
+32:11 change? What would it cost you socially
+32:14 to no longer be that person? What is the
+32:16 most embarrassing reason you haven&#x27;t
+32:18 changed? The one that makes you sound
+32:20 weak, scared, or lazy rather than
+32:22 reasonable. If your current behavior is
+32:23 a form of self-protection, what exactly
+32:26 are you protecting and what is the
+32:27 protection costing you? Now, if you
+32:29 answered those truthfully and if you&#x27;re
+32:31 in the right chapter of your life,
+32:33 because if you&#x27;re just at the beginning
+32:35 of your own book, but this helps you
+32:38 reach the climax, you still have some of
+32:40 a journey to go on. This may not
+32:42 completely apply to you just yet. But if
+32:44 it does, then you will feel this deep
+32:46 sense of disgust or disease or just you
+32:49 don&#x27;t feel right. You have to do
+32:51 something. So, now we need to orient
+32:53 that energy in a positive direction. We
+32:55 need to create a minimum viable vision,
+32:58 because a vision is like a product. Your
+33:00 product doesn&#x27;t start out the best. It
+33:02 starts out unclear and with time and
+33:05 practice and experience, it gets better
+33:07 and more polished and more people like
+33:09 the product. So, there&#x27;s three questions
+33:11 for your vision. Forget practicality for
+33:13 a minute. If you could snap your fingers
+33:15 and be living a completely different
+33:17 life in 3 years, not what&#x27;s realistic,
+33:19 but what you actually want. What does an
+33:21 average Tuesday look like? And use the
+33:23 same level of detail as question five
+33:26 from before. What would you have to
+33:27 believe about yourself for that life to
+33:29 feel natural rather than forced? So,
+33:31 write the identity statement, I&#x27;m the
+33:33 type of person who {dot} {dot} {dot}.
+33:35 What is the one thing you would do this
+33:37 week if you&#x27;re already that person? So,
+33:39 you&#x27;re going to answer all of those
+33:41 questions first thing tomorrow. That
+33:43 leads into part two, which you&#x27;re going
+33:45 to do throughout the day and this is
+33:47 going to interrupt autopilot. It&#x27;s going
+33:49 to interrupt how you&#x27;re currently
+33:51 unconsciously living. Because those
+33:52 journaling exercises are cute, but we
+33:55 want real change. And frankly, that&#x27;s
+33:56 not going to happen unless you break the
+33:58 current unconscious patterns that are
+34:00 keeping you the same. So, throughout the
+34:02 day, I want you to contemplate on
+34:04 everything that you wrote in part one.
+34:06 You should just think about it, right?
+34:07 Question Let questions trigger questions
+34:10 and thoughts trigger thoughts. It&#x27;s like
+34:11 a meditation on a mantra. You&#x27;re You&#x27;re
+34:14 thinking about your vision and
+34:16 anti-vision and you&#x27;re just letting
+34:17 ideas spring to mind. You&#x27;re not getting
+34:20 distracted by today&#x27;s tasks or scrolling
+34:22 on your phone or whatever it may be. And
+34:24 beyond that, I don&#x27;t want you to forget
+34:26 to contemplate. So, what you&#x27;re going to
+34:28 do right now is you&#x27;re going to go on
+34:30 your phone or on your computer and
+34:31 you&#x27;re and you&#x27;re going to create
+34:33 reminders or calendar events with these
+34:36 specific questions listed inside the
+34:38 reminder or calendar event. At 11:00
+34:40 a.m., what am I avoiding right now by
+34:43 doing what I&#x27;m doing? At 1:30 p.m., if
+34:46 someone filmed the last 2 hours, what
+34:48 would they conclude I want from my life?
+34:50 At 3:00 or 3:15 p.m., am I moving toward
+34:53 the life I hate or the life I want? At
+34:56 5:00 p.m., what&#x27;s the most important
+34:58 thing I&#x27;m pretending isn&#x27;t important? At
+35:00 7:30 p.m., what did I do today out of
+35:02 identity protection rather than genuine
+35:05 desire? A hint here, it&#x27;s most of the
+35:07 things that you do. At 9:00 p.m., when
+35:09 did I feel most alive today and when did
+35:12 I feel most dead? Now, part three,
+35:14 you&#x27;re going to do in the evening. This
+35:16 is for synthesizing all of the insights
+35:18 that you got throughout the day. And
+35:20 this is how you enter a season of
+35:21 progress tomorrow or the next day. So,
+35:24 if you follow that process, then I would
+35:26 be pretty surprised if you don&#x27;t have at
+35:27 least one profound life-changing insight
+35:30 that you came to. So, now we need to
+35:32 make those known, integrate them into
+35:35 who we are, and act on them to begin
+35:37 solidifying a new level of mind or new
+35:40 stage of development. So, here&#x27;s the
+35:42 questions that you journal on in the
+35:44 evening. After today, what feels most
+35:46 true about why you&#x27;ve been stuck? What
+35:48 is the actual enemy? Name it clearly.
+35:51 It&#x27;s not circumstances, it&#x27;s not other
+35:52 people, it&#x27;s the internal pattern or
+35:54 belief that has been running the show.
+35:56 Write a single sentence that captures
+35:58 what you refuse to let your life become.
+36:00 This is your anti-vision compressed. It
+36:02 should make you feel something when you
+36:04 read it. Write a single sentence that
+36:06 captures what you&#x27;re building toward
+36:07 knowing it will evolve. This is your
+36:09 vision MVP. Now, lastly, we need to
+36:12 create goals. We need to make this more
+36:13 practical. We have all the big picture
+36:16 motivational intrinsic motivation stuff,
+36:18 but how do we actually act? And again,
+36:20 these aren&#x27;t goals that you set for the
+36:22 sake of achievement. These are lenses,
+36:24 macro and micro lenses that you can put
+36:26 on at a certain time to experience the
+36:29 mind of that point of view and to notice
+36:32 the right information and to do the
+36:33 right actions. When you&#x27;re really
+36:34 narrowed in on the daily task, then you
+36:37 don&#x27;t really think about anything else.
+36:38 You just do the task. But when you&#x27;re
+36:39 really zoomed out to the level of your
+36:41 vision, then you think about so much.
+36:43 You have this unbounded uh creativity.
+36:46 So, three questions here. Your 1-year
+36:48 goal or lens. What would have to be true
+36:50 in 1 year for you to know you&#x27;ve broken
+36:52 the old pattern? One concrete thing.
+36:55 Your 1-month goal or lens. What would
+36:57 have to be true in 1 month for the
+36:59 1-year lens to remain possible? Now,
+37:01 your daily goal or lens. What are two to
+37:04 three actions you can time block
+37:05 tomorrow that the person you&#x27;re becoming
+37:07 would simply do? Now, that was a lot. I
+37:10 hope that was helpful, but we have one
+37:11 last piece to lock it all in. Stick with
+37:14 me here. So, point number seven is turn
+37:16 your life into a video game. We&#x27;ll start
+37:18 this with a quote from Mihaly
+37:20 Csikszentmihalyi. The optimal state of
+37:22 inner experience is one in which there
+37:24 is order in consciousness. This happens
+37:26 when psychic energy or attention is
+37:28 invested in realistic goals and when
+37:30 skills match the opportunities for
+37:32 action. The pursuit of a goal brings
+37:34 order and awareness because a person
+37:36 must concentrate attention on the task
+37:38 at hand and momentarily forget
+37:40 everything else. So, you now have all of
+37:42 the components that lead to a good life.
+37:44 But now it may be helpful to organize
+37:46 all of those components into a coherent
+37:48 plan. So, now you&#x27;re going to pull out a
+37:50 new piece of paper and you&#x27;re going to
+37:51 write down these six things.
+37:53 Anti-vision. What is the bane of my
+37:55 existence or the life I never want to
+37:56 experience again? Vision. What is the
+37:59 ideal life that I think I want and can
+38:01 improve as I work toward it. 1-year
+38:03 goal. What will my life look like in 1
+38:05 year&#x27;s time and is that closer to the
+38:07 life I want? 1-month project. What do I
+38:10 need to learn? What skills do I need to
+38:11 acquire? What can I build that will move
+38:14 me closer to the 1-year goal? Daily
+38:16 levers. What are the priority needle
+38:18 moving tasks that bring my project
+38:20 closer to completion? Constraints. What
+38:22 am I not willing to sacrifice to achieve
+38:24 my vision from the ground up? Now, why
+38:26 is this so powerful? Why is are are
+38:28 those six things so powerful? Because it
+38:30 most people it just sounds like more
+38:32 self-help productivity mumbo jumbo.
+38:34 Because those components literally
+38:35 create your own world. And if you are
+38:37 meant to pursue that hierarchy of goals
+38:40 at this stage in your life, you will
+38:41 have no other option but to become
+38:43 obsessed. You will feel the pull to
+38:46 something greater. You will not see
+38:47 anything else as an option. In essence,
+38:49 you turn your life into a video game.
+38:51 Because games are the poster child for
+38:53 obsession, enjoyment, and flow states.
+38:55 They have all the components that lead
+38:57 to focus and clarity. So, if we reverse
+38:59 engineer what those components are, we
+39:01 can live in a state of deeper enjoyment,
+39:03 less distractions, and more success.
+39:05 Your vision is how you win, at least
+39:08 until the game evolves. Your anti-vision
+39:10 is what&#x27;s at stake, what happens if you
+39:12 lose or give up. Your 1-year goal is the
+39:14 mission. This is your sole priority in
+39:16 life. Your 1-month project is the boss
+39:19 fight, how you gain XP and acquire loot.
+39:21 Your daily levers are the quests, the
+39:23 daily process that unlocks new
+39:25 opportunities. Your constraints are the
+39:27 rules, the limitations that encourage
+39:29 creativity. So, you can think of all of
+39:31 these as just this concentric set of
+39:33 circles, like a force field that guards
+39:35 your mind from distractions and shiny
+39:37 objects. The more you play the game,
+39:39 right? Because this isn&#x27;t going to be
+39:41 super potent the first time around. The
+39:43 more you invest energy into this into
+39:45 building or adopting this frame, the
+39:47 stronger the force field becomes and
+39:49 soon enough it becomes who you are and
+39:51 you wouldn&#x27;t have it any other way.
+39:53 Thank you for watching. If you enjoyed
+39:54 this video, please subscribe to my
+39:56 newsletter where I send out long letters
+39:59 on behavior change, psychology,
+40:00 self-improvement, business every week.
+40:02 Link to that is in the description.
+40:04 Subscribe for the next video. Thank you
+40:07 for watching. I really hope it was
+40:08 impactful.
+40:09 to a good 2026. Bye.</pre></div></details>
 
   <footer>
     <p>來源：<a href="https://www.youtube.com/watch?v=K8K09g9XR4s" target="_blank" rel="noopener">https://www.youtube.com/watch?v=K8K09g9XR4s</a></p>
     <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
   </footer>
 </div>
+<script type="application/ld+json">{"title": "How to fix your entire life in 1 day", "source_url": "https://www.youtube.com/watch?v=K8K09g9XR4s", "published_date": "2025-12-28", "summary": "Dan Koe 從新年目標失敗切入，主張多數人卡住不是因為不夠努力，而是只想改表面行為，沒有先改身份。他用「你要先活成那個會自然產生結果的人」來說明，改變不能只靠短期自律，而要先調整生活方式與自我敘事。影片把 intelligence 與 cybernetics 綁在一起，視為一個持續接收回饋、修正路徑並迭代前進的系統。中段用發展階段／意識層級說明，很多阻礙其實是視角與框架不夠大，不是目標本身不可能。後半段給出一套一日重設流程：先寫反目標與願景，再用一天中的提醒打斷自動駕駛，最後把方向濃縮成 1 年、1 個月與每日任務。收尾則把人生比作遊戲，透過 anti-vision、vision、mission、quests 與 rules 讓注意力維持在真正推進的事上。", "key_points": [{"timestamp": "0:00", "text": "影片開場就指出：新年目標常常會失敗，原因不是單純不夠努力，而是大多數人只是照著社會期待做表面改變。"}, {"timestamp": "3:20", "text": "第一個核心：你之所以還沒到想去的地方，是因為你還不是那種會自然做出該行為的人。"}, {"timestamp": "8:28", "text": "第二個核心：很多人其實不是真的想去那裡；他們只是想擺脫現在的生活，卻沒有準備好承擔新生活方式。"}, {"timestamp": "11:20", "text": "第三個核心：人會害怕改變，是因為改變會逼你放棄舊身份、人際角色與安全感。"}, {"timestamp": "17:25", "text": "作者借用發展階段／意識層級來說明，很多「卡住」其實是思考框架太窄，而不是目標不合理。"}, {"timestamp": "22:22", "text": "他把 intelligence 重新定義為：能否透過目標、感知、比較與修正形成回饋迴路，持續拿到想要的結果。"}, {"timestamp": "27:03", "text": "影片提出一日重設 protocol：上午做反目標與願景書寫，中午到傍晚用提醒打斷慣性，晚上再整理成可執行的目標層級。"}, {"timestamp": "37:12", "text": "最後把人生當成一款遊戲：anti-vision 是失敗代價，vision 是勝利畫面，1 年／1 月／每日任務與限制條件則是讓遊戲能玩下去的規則。"}], "tags": ["自我成長", "行為改變", "身份認同", "目標設定", "心理學", "生產力", "cybernetics", "New Year resolutions"], "original_language": "en", "video_id": "K8K09g9XR4s", "channel": "Dan Koe", "duration": "40:12", "video_type": "speech", "extraction_method": "mixed", "uncertain_items": [], "lessons": [{"title": "開場：新年目標為何總是失敗", "timestamp": "0:00", "tag": "開場", "paragraphs": ["這段先把問題講死：多數人不是不想變好，而是用錯方式在變好。作者認為，新年目標常失敗，是因為人們把改變當成一個外顯任務，像是立 flag、列清單、靠短期熱情撐住，但沒有真的碰到內在身份。", "他接著把「反覆失敗」看成正常現象，因為如果一個人每年都只是複製同樣的設定方式，那結果不可能不同。這也替後面整支影片的主軸鋪路：先改身份，再談行為。"]}, {"title": "I：你還不是那個會自然成功的人", "timestamp": "3:20", "tag": "身份改變", "paragraphs": ["第一個大論點是：結果不是靠硬撐出來的，而是靠身份與行為自然對齊。作者用 bodybuilder、CEO、founder 當例子，想表達真正做得到的人，不會把該做的事感受成折磨；對他們來說，那是理所當然的生活方式。", "所以問題不在於你今天能不能逼自己一週、兩週，而在於你是否已經把自己更新成那種人。若身份沒有變，行為只會回彈。"]}, {"title": "II：你其實未必真的想要那個結果", "timestamp": "8:28", "tag": "動機檢查", "paragraphs": ["第二段開始檢查動機。他說很多人之所以卡住，不是因為能力不足，而是因為他們口頭上想要 A，實際生活卻還在擁抱 B。你想減脂，卻天天盼著回到舊生活；你想創業，卻不願接受新節奏。", "這裡的重點不是自責，而是辨識：如果一個人還在懷念舊模式，代表他其實還沒真正把新結果放到最高優先。"]}, {"title": "III：你怕的不是失敗，而是成功後的代價", "timestamp": "11:20", "tag": "安全感", "paragraphs": ["這一段把阻力往更深層推：人之所以抗拒改變，常常不是怕做不到，而是怕成功後要換身份、換圈子、換生活。成功不只帶來結果，也會逼你放下熟悉的自我敘事。", "作者用「身份保護」來解釋很多看似理性的拖延：你其實是在守住舊角色，而不是在為未來創造空間。"]}, {"title": "IV：卡住，很多時候只是視角太小", "timestamp": "17:25", "tag": "意識層級", "paragraphs": ["這一節借用了發展階段／意識層級的語言，說明每個人都會活在某種理解世界的框架裡。小孩、社會化的成年人、能自我反思的人，看事情的方式不同，能承受的複雜度也不同。", "影片不是在推某一套理論當絕對真理，而是在提醒：當你覺得「我就是做不到」時，可能只是你還沒長出能看見更大結構的眼睛。"]}, {"title": "V：智能是能持續修正的系統", "timestamp": "22:22", "tag": "cybernetics", "paragraphs": ["作者把 intelligence 重新定義成一種回饋系統：有目標、採取行動、感知現況、比對差距、再做下一步修正。這就是 cybernetics 的核心。", "他想講的是，真正高明的人不是從不犯錯，而是很快知道自己偏了，並且願意反覆校正。低智能則是卡住、放棄、或只會在原地抱怨。"]}, {"title": "VI：一日重設流程，先寫反目標再寫願景", "timestamp": "27:03", "tag": "一日重設", "paragraphs": ["這段是整支影片最像實作手冊的部分。作者提出一個完整的一日重設 protocol：早上先寫 anti-vision，誠實面對自己最不想變成什麼；接著寫 vision，描述 3 年後你真的想過的生活；再把這些文字變成一天中的提醒，讓你不會整天自動駕駛。", "他要的是把情緒轉成結構，讓「想改變」不只是口號，而是可以在一天裡被重複觀照的提醒系統。"]}, {"title": "VII：把人生當成遊戲來設計", "timestamp": "37:12", "tag": "系統設計", "paragraphs": ["收尾把前面所有概念收斂成一個遊戲架構：anti-vision 是你輸掉後會落入的狀態，vision 是你想贏到的畫面，1 年與 1 個月是任務與 boss fight，而每天要做的事情是 quests。", "這種比喻的好處是，它不再把人生想成抽象自我提升，而是設計成一套能持續推進的系統。你不是在「靠意志力生活」，而是在遵守你自己設好的規則。"]}], "raw_source": [{"type": "description", "label": "YouTube 說明欄", "content": "Yes, one day.\n\nResearch, write, and schedule content with your AI strategist (gives you daily ideas to run with): https://eden.so\n\nRead my letters on similar topics here: https://letters.thedankoe.com\n\nLearn a high-value skill: https://2hourwriter.com\n\nOne-Person Business Launchpad: https://letters.thedankoe.com/p/full-course-the-one-person-business\n\nThe Human 3.0 Article: https://letters.thedankoe.com/p/human-30-a-map-to-reach-the-top-1\n\n––– My Books –––\n\nThe Art of Focus: https://theartoffocusbook.com\n\nPurpose & Profit: https://thedankoe.com/purpose\n\n––– Socials –––\n\nTwitter: https://twitter.com/thedankoe\nInstagram: https://instagram.com/thedankoe\nYouTube: https://youtube.com/c/DanKoeTalks\nLinkedIn: https://linkedin.com/in/thedankoe\n\nListen To The Koe Cast - the audio version of this video: https://open.spotify.com/show/3lZRG3LCFZxKkQVSsCwoyN?si=012980a5fd694608\n\n––– Chapters –––\n\n0:00 You are going to give up, and that's okay\n3:20 I – You aren’t where you want to be because you aren’t the person who would be there\n8:28 II – You aren’t where you want to be because you don’t want to be there\n11:20 III – You aren’t where you want to be because you’re afraid to be there\n17:25 IV – The life you want lies within a specific level of mind\n22:22 V – Intelligence is the ability to get what you want out of life\n27:03 VI – How to launch into a completely new life (in 1 day)\n37:12 VII – Turn Your Life Into A Video Game\n\n#newyears #selfimprovement #psychology"}, {"type": "transcript", "label": "逐字稿（timestamped）", "content": "0:00 You're probably going to quit your New\n0:02 Year's resolution, and that's okay. Most\n0:04 people do. Studies actually show that\n0:07 it's around 80% to 90% of people quit\n0:09 their New Year's resolution. And that's\n0:11 because most people don't actually want\n0:13 to change on a deep internal level. And\n0:16 with New Year's resolutions going into\n0:18 2026, people just go about changing\n0:21 their life in the completely wrong way.\n0:23 And to me, that's sad because if you're\n0:25 changing your life, that has to be one\n0:27 of the most important things in your\n0:29 life, right? That has to be the only\n0:31 thing on your mind, you think. But for\n0:33 most people, it's just another thing to\n0:36 try to do and fail and go back to the\n0:38 life they were living. So when people\n0:40 try to change their life, what they do\n0:43 is they create a New Year's resolution\n0:46 because everyone else does, and humans\n0:48 want to impress others more than they\n0:50 want to impress themselves. We create\n0:52 superficial meaning out of status games,\n0:54 but they don't meet the requirements for\n0:57 true change, which goes a lot deeper\n0:59 than convincing yourself you're going to\n1:01 be more disciplined or productive this\n1:03 year. Now, I'm not here to talk down on\n1:05 you. I've quit 10 times as many goals\n1:07 than I've set. Many of you have probably\n1:09 noticed that. I mean, my face is online.\n1:12 The book that I said I was writing, I'm\n1:13 not writing it anymore. And I think that\n1:15 should be the case for most people. I\n1:17 think you should quit more goals than\n1:19 you set because how else are you going\n1:20 to narrow in on the correct goals? But\n1:23 the fact that people try to change their\n1:25 life and utterly fail almost every time\n1:28 still holds true, and that's\n1:30 So much so that the gym becomes\n1:33 extremely crowded during January, and\n1:35 then by February, it's all cleared out.\n1:37 It's a meme. Now, as much as I think\n1:39 that New Year's resolutions are stupid,\n1:41 I feel like many of you also think that\n1:42 they're stupid. I always think that it's\n1:44 wise to reflect on your life and change\n1:46 direction and do something that you've\n1:48 always wanted to do. And what better\n1:49 time to do it than now? The other thing\n1:52 here is that human nature is kind of a\n1:54 [ __ ] and the worst feeling is when you\n1:56 make a promise to yourself and then you\n1:58 end up breaking it, especially if it's\n2:00 over and over again because you start to\n2:01 feel helpless. And if you don't know\n2:03 what you're doing, you may continue that\n2:06 cycle for years on end, always wanting\n2:08 to change but never being able to. So,\n2:10 whether you want to start the business,\n2:12 transform your body, or take the risk\n2:14 toward a meaningful life without\n2:16 quitting after 2 weeks, I want to share\n2:18 seven of probably the most impactful\n2:21 ideas that I've ever shared that you\n2:23 probably haven't heard before on\n2:24 behavior change, psychology, and\n2:26 productivity so you can do just that in\n2:29 2026. Now, this is going to be\n2:31 comprehensive. This is not going to be\n2:33 one of those videos that you just watch\n2:35 and forget about. I hope you treat it\n2:37 like that. This is something you will\n2:38 want to save to your watch later, to\n2:40 bookmark on your phone, to take notes\n2:43 on, and you will have to set aside time\n2:45 to think about it. We're going to go\n2:46 over six ideas, and then in the seventh\n2:48 {quote} idea, it's actually a protocol.\n2:51 And what we're going to do is we're\n2:52 going to dig very deep into your psyche.\n2:55 And if you take this seriously, you're\n2:56 going to get quite emotional, and it\n2:58 will take about a full day to complete.\n3:01 If you do this, your life will change in\n3:03 1 day. Now, all I ask is that you\n3:05 dedicate your full attention to this. I\n3:07 know that you're used to just scrolling\n3:09 on social media and watching and\n3:10 binge-watching YouTube videos, but it's\n3:12 rare that you come across one video that\n3:14 just has the potential to change\n3:16 everything, and I hope that this video\n3:18 acts as that for you. Let's begin. The\n3:21 first idea is that you aren't where you\n3:23 want to be because you aren't the person\n3:25 who would be there. Now, when it comes\n3:27 to New Year's resolutions, people tend\n3:29 to focus on one out of the two things\n3:32 that are required for change and\n3:34 success. So, the first is changing your\n3:36 actions to make progress toward the\n3:38 goal. This is the least important thing\n3:40 and what most people do. It is\n3:42 second-order. And the second thing is\n3:44 changing who you are so that your\n3:46 behavior naturally follows. This is the\n3:48 most important thing. This is\n3:50 first-order. Most people set\n3:52 surface-level goals, hype themselves up\n3:54 to remain disciplined for the first few\n3:55 weeks, then go back to their old ways\n3:57 without much struggle because they were\n3:59 trying to build a great on a rotting\n4:01 foundation. So, if this doesn't make\n4:03 sense, let's run through a quick\n4:04 example. I want you to think about\n4:06 somebody successful. It could be a\n4:08 founder, a CEO, a bodybuilder with a\n4:11 incredible physique on Instagram, or\n4:13 just a charismatic dude who can walk\n4:15 into a group and start chatting everyone\n4:18 up like it's just second nature to them.\n4:19 Now, I want you to really think about\n4:21 this cuz this this has to click for you\n4:23 in order for you to understand that\n4:25 behavior change is changing who you are.\n4:27 Do you think the bodybuilder has to\n4:30 grind to eat healthy? Do they have to\n4:33 grind like everyone tells you you need\n4:35 to do, \"Oh, you need to grind, you need\n4:36 to struggle, you need to suffer\" in\n4:38 order to eat healthy? Does the CEO or\n4:41 the founder have to discipline\n4:43 themselves to show up and lead the team?\n4:46 This is actually something my co-founder\n4:47 Matt and I were talking about earlier\n4:49 about how in our past 9-to-5 jobs, we\n4:52 were just the worst employees ever. And\n4:54 so when we're going about hiring, that's\n4:56 constantly on our mind. What if we hire\n4:57 someone who just isn't as passionate\n5:00 about what we do as we are? Because to\n5:02 us, we just wake up and do the thing. To\n5:04 the employee who may not be a fit,\n5:06 they're going to completely sabotage our\n5:08 business. They're not going to care,\n5:10 they're going to get their work done\n5:11 late, they're not going to listen, and\n5:12 no matter how much I motivate them as a\n5:15 founder or I train them to do the thing\n5:19 or incentivize them, that type of person\n5:21 just isn't a fit and they're not going\n5:23 to do what they need to do. It's because\n5:25 their identity doesn't match the\n5:27 behavior required for our business. Now,\n5:31 to you on the surface, it may seem like\n5:33 the bodybuilder has to grind to eat\n5:35 healthy or they're so disciplined or the\n5:37 runner has to discipline themselves to\n5:40 go run a marathon or the CEO has to\n5:43 discipline themselves to show up and\n5:44 work. But the truth is, they can't see\n5:47 themselves living any other way. The\n5:50 bodybuilder has to grind to eat\n5:53 unhealthy. The CEO has to grind and\n5:56 force themselves to sleep in past their\n5:58 alarm clock or to take it easy at night\n6:01 and watch Netflix. And when they do\n6:02 sleep past their alarm clock or they do\n6:04 feel like they're unproductive, they\n6:06 hate every second of it. Just like you\n6:09 hate every second of working toward your\n6:11 goal because you don't have the right\n6:13 identity to match the behavior required\n6:16 to achieve that goal. And to some\n6:18 people, my own lifestyle seems pretty\n6:21 extreme or pretty disciplined. Like when\n6:23 I got on a podcast this past year, and\n6:26 they're like, \"You seem like the most\n6:27 disciplined person ever.\" And I'm just\n6:29 like,\n6:30 I mean, not really. It's not\n6:32 I don't know. To me, it's just natural,\n6:34 and I don't say that to contrast it or\n6:36 compare it to anybody else's lifestyle.\n6:38 I'm not saying my lifestyle's better.\n6:40 I'm just saying I simply enjoy living\n6:42 this way. Like when my mom tells me that\n6:45 I need to take a break or go out or let\n6:47 loose a bit, I have to like hold my\n6:49 tongue because I don't want to be rude\n6:51 or dismissive. Because through my mind,\n6:53 I'm just I'm just thinking, \"If I\n6:55 weren't having fun, why would I be doing\n6:58 what I'm doing?\" And that's the major\n7:00 mismatch. Is people can't answer that.\n7:02 They're not doing the thing that's fun.\n7:04 They're doing what society told them\n7:06 they should do. Now, do not take this\n7:08 next sentence lightly because this ties\n7:10 it all together. If you want a specific\n7:12 outcome in life, you must have the\n7:14 lifestyle that creates that outcome long\n7:18 before you reach it. So, if someone says\n7:19 they want to lose 30 lb of fat, I often\n7:23 don't believe them. Not because I don't\n7:25 think they're a person that's incapable\n7:26 of it, but because there's just too many\n7:28 times when that same person says that\n7:31 they can't wait to get back to the life\n7:34 they used to live. \"Oh, I can't wait\n7:36 until I can eat this again. I can't wait\n7:38 until I don't have to do cardio again.\"\n7:40 And that's the thing. I hate to break it\n7:42 to you, but if you don't adopt the\n7:45 lifestyle that led to you losing weight\n7:48 for life and find a reason with a higher\n7:51 gravitational pull than the one tying\n7:53 you to your previous ways, then you will\n7:55 go back straight to where you started,\n7:58 and you can unhappily say that you\n8:00 wasted the only resource that you have,\n8:02 which is time. When you truly change\n8:05 yourself, all of your habits that don't\n8:07 move the needle toward your goal become\n8:09 disgusting because you have a deep and\n8:11 profound awareness of what kind of life\n8:12 those actions compound into. You are\n8:15 okay with your current standards because\n8:17 you are not fully aware of what they are\n8:19 or what they lead to. And we're going to\n8:21 discuss how to uncover that, but you\n8:23 need this awareness first. You need to\n8:26 understand your mind. So, that leads to\n8:28 point number two, which is you aren't\n8:30 where you want to be because you don't\n8:32 actually want to be there. To start this\n8:34 off with a quote from Alfred Adler,\n8:37 \"Trust only movement. Life happens at\n8:39 the level of events, not of words. Trust\n8:42 movement.\" So, if you want to change who\n8:44 you are, you must understand how the\n8:46 mind works. That way, you can start to\n8:48 reprogram it. The first step to\n8:50 understanding the mind is to understand\n8:52 that all behavior is goal-oriented. When\n8:54 you think about it, this is kind of\n8:56 obvious, but when we dig into it, most\n8:58 people don't want to hear it. You take a\n9:00 step forward with your foot because you\n9:02 want to reach a certain location. That's\n9:03 a goal. You scratch your nose because\n9:05 you want to get rid of the itch. That's\n9:07 a goal. Those are very surface-level,\n9:09 kind of meaningless goals. And those\n9:10 ones are obvious as well, but there are\n9:12 greater unconscious goals that are\n9:15 creating the subgoals that you're\n9:16 working to at all times. You may not\n9:19 even realize that sitting down on the\n9:20 couch to relax or scroll doomscrolling\n9:23 on your phone came from a bigger goal\n9:26 that was injected into your mind either\n9:29 at birth during conditioning or by\n9:31 society by doing something they want you\n9:33 to do, or just by your own goal of\n9:35 protection or safety or pleasure or\n9:37 feeling good that you're just not aware\n9:39 of, and you don't think anything of it\n9:42 because it's just natural. It's an\n9:43 unconscious process. You do it like you\n9:46 breathe. You don't even notice it. And\n9:47 on an even more unconscious and complex\n9:49 level, we often pursue goals without\n9:52 knowing it that harm us, but we tend to\n9:54 justify our actions in a way that is\n9:57 socially acceptable or makes us not feel\n10:00 like a loser. As an example, if you\n10:02 can't stop procrastinating on your work,\n10:04 you may justify it with the fact that\n10:05 you lack discipline, but in reality,\n10:07 you're attempting to achieve a goal like\n10:10 you always are. In this case, that goal\n10:12 could be to protect yourself from the\n10:14 judgment that comes from finishing and\n10:16 sharing your work. So, it's not that you\n10:18 lack discipline, it's that you're afraid\n10:21 of achieving one goal, so you justify it\n10:24 by making not achieving that goal your\n10:26 goal. Another prime example is that if\n10:28 you say you want to quit a dead-end job,\n10:31 but you stay in it, you may start to\n10:33 think that you just don't have enough\n10:35 courage or you're not a risk-taker. But\n10:37 the truth is is that you're pursuing the\n10:39 goal of safety and predictability and an\n10:42 excuse not to look like a failure in\n10:44 front of everyone you told that you want\n10:46 to quit your job. So, the lesson here\n10:48 with point number two is that real\n10:50 change requires changing your goals. But\n10:52 I don't mean setting some surface-level\n10:55 goal because the act of doing that\n10:56 serves an unconscious goal that is\n10:58 actually harming you. That's been ran\n11:00 through enough in the productivity\n11:01 space. I mean changing your point of\n11:03 view because that's what a goal is. A\n11:06 goal is a projection into the future\n11:08 that acts as a lens of perception, which\n11:10 allows you to notice information, ideas,\n11:13 and resources that aid in you achieving\n11:15 that goal. If that didn't make any\n11:17 sense, it's important, but if that\n11:18 didn't make any sense,\n11:20 that's what point number three is for,\n11:21 which is you aren't where you want to be\n11:23 because you're afraid to be there. So,\n11:26 let's start with another quote from\n11:27 Maxwell Maltz. The important thing for\n11:29 you to remember is that it does not\n11:31 matter in the least how you got the idea\n11:33 or where it came from. You may never\n11:35 have been formally hypnotized, but if\n11:37 you have accepted an idea from yourself,\n11:39 your teachers, your parents, friends,\n11:40 advertisements, from any other source,\n11:42 and further, if you are firmly convinced\n11:44 that idea is true, it has the same power\n11:47 over you as the hypnotist words have\n11:49 over a hypnotized subject. So, that's\n11:51 compelling. And what I'm about to share\n11:53 with you is even more compelling because\n11:55 I've condensed just how you become who\n11:58 you are into this series of steps. Now,\n12:01 these are not like what happened every\n12:03 time, but this is just how identity is\n12:05 shaped and formed, which shapes your\n12:08 actions. So, if you understand this, cuz\n12:10 we're reverse-engineering it right now,\n12:12 then we can start to put the pieces\n12:13 together to, okay, how do we change our\n12:16 identity so that our behavior naturally\n12:18 follows going into 2026 or any other\n12:21 year. So, this is the anatomy of\n12:24 identity. First, you want to achieve a\n12:26 goal. Then you perceive reality through\n12:28 the lens of that goal, meaning you only\n12:30 notice important information and ideas\n12:33 that allow you to achieve that goal.\n12:34 This is the learning process. This is\n12:36 how you learn things. Then fourth, you\n12:38 act toward that goal and receive\n12:40 feedback that you're progressing toward\n12:42 it. Fifth, you repeat that behavior\n12:45 until it becomes automatic and\n12:46 unconscious. This is conditioning.\n12:48 Sixth, that behavior becomes a part of\n12:50 who you think you are. I am the type of\n12:53 person who {dot} {dot} {dot}. Seventh,\n12:55 you defend your identity to maintain\n12:57 psychological consistency. We'll talk\n12:59 about that more. And eighth, your\n13:01 identity shapes new goals, restarting\n13:03 the cycle. And if that identity is\n13:05 disadvantageous toward a good life, this\n13:07 gets very bad very quick. Now, the\n13:10 unfortunate reality is that you have to\n13:11 break this cycle between step six and\n13:14 step seven because you've already gone\n13:16 through this many times in your life,\n13:18 and it started when you were first born,\n13:20 when you didn't even have any control\n13:22 over your mind. Because when you're a\n13:23 kid, you have the goal of survival.\n13:26 That's literally your goal is I'm this\n13:29 babbling blob of flesh coming out into\n13:31 the world. I don't know how to speak. I\n13:33 don't know anything. I don't know how to\n13:34 survive. And it's just like, oh my gosh,\n13:36 the only instinct is like, I need to\n13:39 live. That's not even a conscious\n13:40 instinct. That's just the instinct that\n13:42 you're born with. And because of this,\n13:44 you are dependent on your parents to\n13:46 teach you how to survive. Because when\n13:48 we think about it, maybe you don't even\n13:50 have that instinct of survival, but\n13:52 other people around you do. Like that's\n13:53 just the natural order of things is you\n13:55 have to survive. And so, the thing there\n13:57 is that you had to conform. You had to\n14:00 conform to what your parents believe,\n14:02 what your parents taught you. And your\n14:03 parents, unless they broke the pattern\n14:05 themselves, they probably have the same\n14:08 conditioning or beliefs or ideas or\n14:09 values as their culture or their parents\n14:13 or their parents' parents or the\n14:15 industrial age or all of these goals\n14:17 that may not serve you and what you\n14:20 actually want. And since the way most\n14:22 people teach is through reward and\n14:24 punishment, if you don't conform to\n14:27 their values and goals, if you don't\n14:29 become their child mentally, then they\n14:31 may kick you out. They may punish you.\n14:34 Well, they will punish you. They're\n14:35 going to say, \"No, that's not the way\n14:36 you do things. You do things this way.\"\n14:38 And you don't know any better as a kid,\n14:40 so you listen. And the thing here is\n14:42 that you don't ever actually think for\n14:45 yourself. You don't have a single\n14:47 original thought unless you can see\n14:49 through this. If you have never\n14:50 questioned this, then you are not an\n14:52 independent thinker. And nobody, I would\n14:54 argue, is a completely independent\n14:56 thinker. There's degrees. There's a\n14:57 spectrum. Now, to take this a layer\n15:00 deeper, because we're going very deep\n15:02 here, hopefully, once you fulfill your\n15:04 physical survival needs, which is pretty\n15:06 easy to do, at least in today's world,\n15:08 it happens pretty quick, then you start\n15:10 to survive on the conceptual or\n15:12 ideological level. You may not try to\n15:14 protect or reproduce your body anymore,\n15:17 but your mind is different. You still\n15:19 have that instinct. It just transcends\n15:21 to a new level. You don't try to\n15:23 reproduce your genes, although you do,\n15:25 you try to reproduce memes or\n15:27 information or beliefs or ideas or\n15:29 values. You can see this everywhere on\n15:31 the internet. We're in this mental or\n15:33 spiritual war of ideas. Because when\n15:35 your body feels threatened, you go into\n15:38 fight or flight. When your identity or\n15:40 your mental body, so to say, feels\n15:43 threatened, you do the same thing. If\n15:45 you are heavily identified with\n15:46 something like a political ideology by\n15:48 the process we just talked about,\n15:50 because you probably adopted your\n15:52 political ideology from your parents or\n15:54 another group that you found online, and\n15:56 even if you rejected your parents'\n15:58 beliefs, you fell into another set of\n16:00 beliefs when you were young that shaped\n16:02 your ideas. And if that crystallizes,\n16:03 that does very bad things. You can no\n16:06 longer think clearly or nuanced or see\n16:08 the big picture. And when someone\n16:10 challenges those beliefs, you will feel\n16:13 threatened. You will feel that stress\n16:15 response. You feel emotionally like you\n16:18 were slapped in the face. And since most\n16:20 people don't analyze their emotions for\n16:21 truth, you tend to get stuck in echo\n16:24 chambers and just double down on your\n16:26 beliefs. The same thing happens if\n16:27 you're raised in a religious household.\n16:29 If those ideas actually stick with you,\n16:32 then you're going to fight and lash out,\n16:34 maybe not extremely or physically, but\n16:37 in defense at people who are challenging\n16:40 you. I grew up LDS. I grew up Mormon. I\n16:43 saw this firsthand every single day, and\n16:45 it just didn't make sense to me. When\n16:47 you ask a question to a leader of the\n16:49 church, they just like go through this\n16:51 regurgitated script of things that\n16:54 didn't make sense to me. Now, that's\n16:55 nothing against that religion or any\n16:57 religion. I actually now enjoy viewing\n17:01 different perspectives online. I listen\n17:03 to a lot of Christian content. I listen\n17:04 to a lot of atheist content. I'm not\n17:06 identified with either side because that\n17:08 prevents me from seeing truth. And\n17:09 lastly, this same thing happens not for\n17:12 politics or religion, but for\n17:14 everything. For your job. Do you\n17:16 identify as a lawyer? Do you identify as\n17:18 a gamer? Do you identify as someone who\n17:21 would not take the actions to the life\n17:24 that you want to live. Now, point number\n17:26 four. The life you want lies within a\n17:28 specific level of mind. Because the mind\n17:30 evolves through predictable stages over\n17:32 time. We've talked about this many\n17:33 times. People love this subject. It's a\n17:35 freaking mind-blowing subject. But when\n17:37 you're born, you're like this little\n17:39 survival sponge that just soaks up as\n17:41 many beliefs as it can to survive so\n17:43 that you can feel safe and secure. And\n17:45 if you don't be careful, you can easily,\n17:47 very easily, get trapped in one of these\n17:49 stages. And this has been documented\n17:52 thoroughly through models like Maslow's\n17:54 hierarchy of needs or Susanne\n17:55 Cook-Greuter's nine stages of ego\n17:57 development or uh Christopher Cowan and\n17:59 Don Beck's spiral dynamics. These have\n18:02 each built on top of each other and\n18:03 evolved and become more comprehensive\n18:05 and apply to multiple domains. And while\n18:07 it's not completely like\n18:09 pinpoint accurate all of the time, it's\n18:12 a big picture. It's like orienting\n18:14 generalizations. So, we can at least see\n18:16 the patterns and identify them. And\n18:18 since I've talked about this so much,\n18:19 I've talked about it in my Human 3.0\n18:22 newsletter, which is more like a like a\n18:24 cornerstone article that I think\n18:26 everyone should read. I'll link to that\n18:28 in the description. It's pretty long,\n18:29 but it's thorough. If you If you want to\n18:31 understand\n18:32 how to achieve anything in your life, I\n18:34 think I dissected it quite well there.\n18:36 But let's go over the 80/20 of this just\n18:38 so you get a refresher or you understand\n18:40 what we're talking about so we can move\n18:42 on. If you've already heard this, just\n18:43 understand that repetition is important\n18:46 for important things. So, stage one of\n18:48 development is the impulsive stage where\n18:50 there's no separation between impulse\n18:52 and action. It's black and white\n18:53 thinking. As an example, a toddler hits\n18:55 when angry because the feeling and the\n18:57 behavior are the same thing. Stage two\n18:59 is self-protective where the world is\n19:01 dangerous and you learn to look out for\n19:03 yourself. Like how a kid learns to hide\n19:05 report cards, lie about chores, and\n19:07 figure out what adults want to hear.\n19:09 Stage three is conformist where you are\n19:11 your group and its rules feel like\n19:13 reality itself, which is like someone\n19:15 who genuinely cannot fathom why anyone\n19:17 would vote differently than their family\n19:19 or group or would have a different\n19:21 religion. Stage four is self-aware where\n19:23 you notice you have an inner life that\n19:25 doesn't match the exterior. So, it's\n19:27 like sitting in church and realizing\n19:28 you're not sure you believe what\n19:30 everyone around you seems to believe,\n19:31 but not knowing what to do with that\n19:33 feeling yet. That is me in my past.\n19:36 Stage five is conscientious where you\n19:38 build your own system of principles and\n19:40 hold yourself accountable to them. So,\n19:42 like leaving your family's religion\n19:43 after careful study and adopting a\n19:45 personal philosophy you can defend or\n19:47 building a career plan with clear\n19:48 milestones because you believe the right\n19:50 efforts yield the right results. Stage\n19:52 six is the individualist stage where you\n19:54 see that your principles were shaped by\n19:56 context and start holding them more\n19:58 loosely. As an example, realizing your\n20:00 political views have more to do with\n20:02 where you grew up than objective truth\n20:04 or noticing that your ambitious career\n20:05 goals were really about earning your\n20:07 father's approval. Stage seven is the\n20:09 strategist stage where you work with\n20:11 systems while aware of your own\n20:12 involvement in them. So, it's like\n20:14 leading an organization while actively\n20:16 questioning your own blind spots or\n20:17 engaging in politics knowing your\n20:19 perspective is partial and shaped by\n20:21 bias you can't fully see. Stage eight is\n20:23 construct-aware where you see all\n20:25 frameworks, including your identity, as\n20:27 useful fictions. So, it's like holding\n20:29 your spiritual beliefs metaphorically\n20:31 rather than literally. It's knowing that\n20:33 the map is not the territory or watching\n20:35 yourself play the role of founder or\n20:37 thought leader with a kind of gentle\n20:39 amusement. I've done this a few times. I\n20:41 don't know if I'm fully construct-aware\n20:43 because with these, they're like tools,\n20:45 right? They're like lenses. If you're\n20:46 stressed, you're going to regress into a\n20:48 more conformist stage or more survival\n20:51 stage, so to say, because you're going\n20:52 to feel more threatened. But, I think\n20:54 that people mostly operate within, like,\n20:57 uh uh\n20:58 80% of their life within a specific\n21:01 level. And that level slowly increases\n21:03 over time with certain aspects or\n21:05 domains of their life branching into\n21:07 other levels. And stage nine is the\n21:10 unitive stage where separation between\n21:12 self and life dissolves. As an example,\n21:14 work, rest, and play feel like the same\n21:16 thing. There's no one left who needs to\n21:18 become something. Just presence\n21:20 responding to what arises. Now, the\n21:22 spiritual people out there will hear\n21:24 this and praise the ninth unitive stage,\n21:28 but we have to understand that all of\n21:30 these are like tools in the toolbox.\n21:31 They're lenses of perception. They're\n21:33 not necessarily better than one another,\n21:35 but they're larger, higher, more\n21:37 inclusive than one another. They're more\n21:39 complex. Sometimes the highest stage,\n21:42 being at a unitive stage, doesn't allow\n21:44 you to solve a certain problem or make\n21:46 progress in a certain area of your life.\n21:48 But, the thing about the higher stages\n21:49 is that you have all of the lower stages\n21:51 as a tool in your toolbelt so that you\n21:54 can tap into them or pull them out when\n21:56 you need them from a higher perspective.\n21:58 Now, for most people watching this, I\n22:00 would assume you're between levels four\n22:02 and eight, mostly. So, those who are\n22:04 closer to eight and watching this are\n22:06 doing so as like a refresher or just to\n22:08 pass the time. But, those who are closer\n22:09 to four, you may not know what you want\n22:12 out of life. You feel like you're meant\n22:14 for more, but you can't make sense of\n22:15 everything yet. But, that's a good thing\n22:17 because there is a pattern. There is a\n22:19 way to move through these stages and get\n22:22 closer to the life that you want. So,\n22:24 that leads to point number five, which\n22:26 is that intelligence is the ability to\n22:28 get what you want out of life. And we'll\n22:30 start with this great quote, \"The only\n22:32 real test of intelligence is if you get\n22:34 what you want out of life.\" That's the\n22:36 classic viral quote from Naval. Now,\n22:39 there is a formula to success. One\n22:42 ingredient is agency, which we just\n22:44 talked about in the last video. One\n22:46 ingredient is opportunity, which many\n22:48 people like to mistake as privilege\n22:50 because they lack the other ingredients.\n22:52 And the last ingredient is intelligence.\n22:54 So, if you have high agency below\n22:56 opportunity, it doesn't matter how\n22:58 likely you are to act toward a goal\n23:00 because it isn't a goal that will bear\n23:02 much fruit. If you have opportunity and\n23:04 agency but low intelligence, then you\n23:06 will never be fully able to benefit from\n23:09 that opportunity. Now, we've talked\n23:10 about agency, but in terms of\n23:12 opportunity, I can't really control your\n23:13 physical location. I can tell you to\n23:15 move, but that's a big ask. That's up to\n23:17 you. But, if you don't see the\n23:20 opportunity in the digital world or on\n23:22 the internet that's right in front of\n23:24 you, I don't know what to tell you. If\n23:26 you want to realize what that is, go\n23:28 watch any of my other videos. So, with\n23:30 that said, in this video, I want you to\n23:31 focus on what intelligence is in the\n23:34 context of those two other gradients and\n23:37 of the context of this video.\n23:38 Cybernetics comes from the Greek word\n23:41 \"kybernetikos\", which means to steer or\n23:43 good at steering. It's also known as the\n23:46 art of getting what you want. That's\n23:48 when we apply it as like a a frame for\n23:50 viewing the world as a human. For a\n23:52 machine, it's just an intelligent system\n23:55 that course corrects toward a goal. It's\n23:56 like AI. It actually is the original\n23:59 word for AI, but somebody, I forget who,\n24:02 didn't like the word cybernetics, so\n24:04 they changed it to artificial\n24:05 intelligence. So, if Naval's definition\n24:07 of intelligence is to get what you want\n24:10 out of life, then cybernetics or\n24:11 understanding it helps you do it that\n24:13 much faster. So, what cybernetics\n24:15 illustrates is the properties of an\n24:18 intelligent system, which is to have a\n24:20 goal, act toward the goal, sense where\n24:22 you are, compare it to the goal, and act\n24:24 again based on feedback. It's trial and\n24:27 error. It's experimentation. It's a\n24:29 scientific process. But, there's a key\n24:31 point here that most people miss. You\n24:34 can judge intelligence based on the\n24:36 system's ability to iterate and persist\n24:38 with trial and error. A ship blown off\n24:40 course that corrects towards its\n24:41 destination. A thermostat sensing a\n24:43 change in heat and turning on. The\n24:45 pancreas in your body excreting insulin\n24:48 after blood glucose spikes. So, what\n24:50 does this have to do with getting what\n24:51 you want out of life?\n24:52 Everything. Acting, sensing, comparing,\n24:55 and understanding the system from a meta\n24:56 perspective is fundamental to high\n24:58 intelligence. High intelligence is the\n25:01 ability to iterate, persist, and\n25:02 understand the big picture. The mark of\n25:04 low intelligence is the inability to\n25:07 learn from your mistakes. Low\n25:09 intelligence people get stuck on\n25:10 problems rather than solving them. They\n25:12 hit a roadblock and quit. Like a writer\n25:14 who fails to build a readership and\n25:16 quits because they lack the ability to\n25:18 try new things, experiment, and figure\n25:20 out a process that works for them. To\n25:22 think that there isn't an effective\n25:23 process you can create is verifiably\n25:26 false, no matter your limiting beliefs,\n25:28 hence being low intelligence. We're\n25:29 actually going to talk about why artists\n25:32 hate AI so much in a future video. I've\n25:34 been planning that one and doing a lot\n25:36 of research on that one. And don't get\n25:38 your panties all in a bunch just yet if\n25:40 you're an artist, but\n25:41 usually\n25:43 from what I've seen, it's just pointing\n25:45 to this definition of low intelligence.\n25:46 Now, high intelligence is realizing that\n25:49 any problem can be solved on a large\n25:51 enough time scale. The reality is that\n25:53 you can achieve any goal you set your\n25:55 mind to. This isn't something that can\n25:57 be disproven within reason. Intelligence\n26:00 is realizing that there is a series of\n26:02 choices you can make which lead to\n26:04 achieving the goal you want. You\n26:06 understand that ideas are hierarchical\n26:09 and that you can't go from papyrus to\n26:11 Google Docs in one leap. Even if the\n26:13 goal is impossible right now, you simply\n26:16 don't have the resources, which may be\n26:18 invented over the next few years, to\n26:20 achieve that thing. So, what I'm saying\n26:22 is most of your excuses for not\n26:23 achieving a goal is a sign of low\n26:26 intelligence. I'm sorry. Because you\n26:27 have more than enough resources. You can\n26:29 buy freaking ChatGPT for $20. Even\n26:31 though I don't like ChatGPT, you can buy\n26:33 Claude for $20. Now, when I talk about\n26:36 goals, this is what I'm talking about.\n26:38 I'm speaking from the lens of teleology\n26:41 or the Greek cosmos with a K, which is\n26:43 that everything serves a purpose, that\n26:46 everything is a part of a greater whole.\n26:48 Goals determine how you see the world.\n26:50 Goals determine what you consider\n26:51 success or failure. You can try to enjoy\n26:54 the journey or enjoy the process, but if\n26:56 you pursue the wrong goal, you will not\n26:58 enjoy it. Your mind is the operating\n27:00 system for reality. That system is\n27:02 composed of goals. For most people,\n27:04 those goals are assigned to them,\n27:06 programmed like lines of code in your\n27:08 psyche. Go to school, get a job, get\n27:10 offended, play victim, retire at 65. A\n27:12 known path that doesn't work. So, to\n27:14 become intelligent, you must reject the\n27:17 known path, dive into the unknown, set\n27:19 new, higher goals to expand your mind,\n27:21 embrace the chaos, and allow for more\n27:23 growth. Study the generalized principles\n27:25 of nature and become a deep generalist.\n27:28 That leads us into point number six\n27:31 perfectly, which is how to launch into a\n27:33 completely new life in one day. Now, I\n27:35 wrote this tweet a few years ago and it\n27:37 just went it popped off. I wasn't\n27:39 expecting so many people to actually\n27:41 resonate with this. And it was the best\n27:43 periods of my life always came after a\n27:45 period of getting absolutely fed up with\n27:48 the lack of progress I was making. So,\n27:50 how do you dig into your mind? How do\n27:52 you become aware of your conditioning?\n27:54 How do you reach profound insights and\n27:55 truths that change the trajectory of\n27:57 your life? The answer is through the\n27:59 simple, but often painful, act of\n28:02 questioning, which is something that so\n28:04 few people do. And you can tell by how\n28:05 they speak or give their thoughts on a\n28:07 specific topic. It's like you're talking\n28:09 to a TV or the news or the most popular\n28:11 social media posts. Questioning is\n28:13 thinking and very few people do it. So,\n28:16 I want to give you a comprehensive\n28:18 protocol that you can use to reset your\n28:21 life every year or whenever you feel\n28:23 like you need to. And this protocol\n28:25 consists of questions which will tie\n28:27 together into the form of a a list of\n28:30 things that you can just focus on. Now,\n28:32 this will require a full day to\n28:34 complete. It's a full day. I need you to\n28:36 take your time and actually do this. I'm\n28:38 asking you one day to change your entire\n28:40 life. You will need a pen, a paper, and\n28:43 an open mind. Now, when I observe the\n28:44 patterns in people who successfully flip\n28:47 their identity, it happens rather quick\n28:50 after this build-up of tension or\n28:51 disease. Now, specifically, I've noticed\n28:53 three phases that most people go\n28:55 through. So, you need to go through\n28:57 these phases as well. Phase one is\n28:59 dissonance where they feel like they\n29:00 don't belong in their current life and\n29:02 become sufficiently fed up with their\n29:04 lack of progress. Phase two is\n29:05 uncertainty. So, they don't know what\n29:07 comes next, so they either experiment or\n29:09 get lost and feel worse. And phase three\n29:11 is discovery where they discover what\n29:13 they want to pursue and make six years\n29:15 of progress in six months. Now, I say\n29:17 that before going into the questions\n29:19 because you need to understand like how\n29:21 it feels, how to know. You need the\n29:23 feedback as to whether or not what\n29:25 you're doing is correct because most of\n29:27 the time that feedback, those three\n29:28 phases, aren't comfortable. You're not\n29:30 immediately just going to be like, \"Oh,\n29:31 yes. Um I feel so hyped and so motivated\n29:34 right now.\" You're going to feel the\n29:35 opposite, and that's the good sign.\n29:38 That's also a sign not to try to mask\n29:40 that up by scrolling on your phone or\n29:42 getting that next quick hit of dopamine.\n29:43 So, part one of this protocol happens in\n29:46 the morning. You're going to do this\n29:47 first thing. And this is for\n29:48 psychological excavation, where we're\n29:50 going to uncover what our vision for the\n29:52 future is and our anti-vision for the\n29:54 future is to create a frame that we can\n29:56 operate within. Because that's the\n29:58 thing. First, in order to change, we\n30:00 need to create a new frame or lens of\n30:02 perception or who our identity is going\n30:05 to be that we can like put on as this\n30:08 shell. We can shed our old shell like a\n30:10 crab or a lobster, get into a new one,\n30:13 and then grow into it until that too\n30:15 tight and then you reach that point of\n30:16 distance like this doesn't feel right.\n30:19 I'm not supposed to be at this point in\n30:20 life. I need to get out of my shell and\n30:23 find a new one or create a new one. So,\n30:25 that's what we're doing. Now, I'm going\n30:26 to go through these questions. I suggest\n30:28 that you write them down, screenshot\n30:30 them, do whatever you can so that you\n30:32 have them ready tomorrow morning when\n30:34 you actually do this or just come back\n30:35 to this video and skip to this point and\n30:37 create a calendar event or a reminder so\n30:39 that you actually do this. And I'm just\n30:41 going to run through these questions, so\n30:42 pay attention. What is the dull and\n30:44 persistent dissatisfaction you've\n30:46 learned to live with? Not the deep\n30:48 suffering, but what you've learned to\n30:49 tolerate. What do you complain about\n30:51 repeatedly, but never actually change?\n30:54 Write down three complaints you voiced\n30:56 most often this past year. For each\n30:58 complaint, what would someone who\n30:59 watched your behavior, not your words,\n31:02 conclude that you actually want? What\n31:04 truth about your current life would be\n31:06 unbearable to admit to someone you\n31:07 deeply respect? So, those questions are\n31:09 meant to make you aware of the pain in\n31:12 your current life. So, now we need to\n31:14 turn those into what I call an\n31:15 anti-vision, which is a brutal awareness\n31:18 of the life that you do not want to\n31:19 live. That way you can use that negative\n31:22 energy when you need it to aim in a\n31:25 positive direction. So, these are the\n31:27 questions to come up with your\n31:28 anti-vision. If absolutely nothing\n31:30 changes for the next 5 years, describe\n31:32 an average Tuesday. Where do you wake\n31:34 up? What does your body feel like?\n31:36 What's the first thing you think about?\n31:37 Who's around you? What do you do between\n31:39 9:00 a.m. and 6:00 p.m.? How do you feel\n31:41 at 10:00 p.m.? Now, do the same thing,\n31:43 but for 10 years. What have you missed?\n31:46 What opportunities closed? Who gave up\n31:48 on you? What do people say about you\n31:50 when you're not in the room? You're at\n31:51 the end of your life. You lived the safe\n31:53 version. You never broke the pattern.\n31:55 What was the cost? What did you never\n31:57 let yourself feel, try, or become? Who\n32:00 in your life is already living the\n32:01 future you just described? Someone 5,\n32:03 10, 20 years ahead of you on the same\n32:05 trajectory. What do you feel when you\n32:08 think about becoming them? What identity\n32:10 would you have to give up to actually\n32:11 change? What would it cost you socially\n32:14 to no longer be that person? What is the\n32:16 most embarrassing reason you haven't\n32:18 changed? The one that makes you sound\n32:20 weak, scared, or lazy rather than\n32:22 reasonable. If your current behavior is\n32:23 a form of self-protection, what exactly\n32:26 are you protecting and what is the\n32:27 protection costing you? Now, if you\n32:29 answered those truthfully and if you're\n32:31 in the right chapter of your life,\n32:33 because if you're just at the beginning\n32:35 of your own book, but this helps you\n32:38 reach the climax, you still have some of\n32:40 a journey to go on. This may not\n32:42 completely apply to you just yet. But if\n32:44 it does, then you will feel this deep\n32:46 sense of disgust or disease or just you\n32:49 don't feel right. You have to do\n32:51 something. So, now we need to orient\n32:53 that energy in a positive direction. We\n32:55 need to create a minimum viable vision,\n32:58 because a vision is like a product. Your\n33:00 product doesn't start out the best. It\n33:02 starts out unclear and with time and\n33:05 practice and experience, it gets better\n33:07 and more polished and more people like\n33:09 the product. So, there's three questions\n33:11 for your vision. Forget practicality for\n33:13 a minute. If you could snap your fingers\n33:15 and be living a completely different\n33:17 life in 3 years, not what's realistic,\n33:19 but what you actually want. What does an\n33:21 average Tuesday look like? And use the\n33:23 same level of detail as question five\n33:26 from before. What would you have to\n33:27 believe about yourself for that life to\n33:29 feel natural rather than forced? So,\n33:31 write the identity statement, I'm the\n33:33 type of person who {dot} {dot} {dot}.\n33:35 What is the one thing you would do this\n33:37 week if you're already that person? So,\n33:39 you're going to answer all of those\n33:41 questions first thing tomorrow. That\n33:43 leads into part two, which you're going\n33:45 to do throughout the day and this is\n33:47 going to interrupt autopilot. It's going\n33:49 to interrupt how you're currently\n33:51 unconsciously living. Because those\n33:52 journaling exercises are cute, but we\n33:55 want real change. And frankly, that's\n33:56 not going to happen unless you break the\n33:58 current unconscious patterns that are\n34:00 keeping you the same. So, throughout the\n34:02 day, I want you to contemplate on\n34:04 everything that you wrote in part one.\n34:06 You should just think about it, right?\n34:07 Question Let questions trigger questions\n34:10 and thoughts trigger thoughts. It's like\n34:11 a meditation on a mantra. You're You're\n34:14 thinking about your vision and\n34:16 anti-vision and you're just letting\n34:17 ideas spring to mind. You're not getting\n34:20 distracted by today's tasks or scrolling\n34:22 on your phone or whatever it may be. And\n34:24 beyond that, I don't want you to forget\n34:26 to contemplate. So, what you're going to\n34:28 do right now is you're going to go on\n34:30 your phone or on your computer and\n34:31 you're and you're going to create\n34:33 reminders or calendar events with these\n34:36 specific questions listed inside the\n34:38 reminder or calendar event. At 11:00\n34:40 a.m., what am I avoiding right now by\n34:43 doing what I'm doing? At 1:30 p.m., if\n34:46 someone filmed the last 2 hours, what\n34:48 would they conclude I want from my life?\n34:50 At 3:00 or 3:15 p.m., am I moving toward\n34:53 the life I hate or the life I want? At\n34:56 5:00 p.m., what's the most important\n34:58 thing I'm pretending isn't important? At\n35:00 7:30 p.m., what did I do today out of\n35:02 identity protection rather than genuine\n35:05 desire? A hint here, it's most of the\n35:07 things that you do. At 9:00 p.m., when\n35:09 did I feel most alive today and when did\n35:12 I feel most dead? Now, part three,\n35:14 you're going to do in the evening. This\n35:16 is for synthesizing all of the insights\n35:18 that you got throughout the day. And\n35:20 this is how you enter a season of\n35:21 progress tomorrow or the next day. So,\n35:24 if you follow that process, then I would\n35:26 be pretty surprised if you don't have at\n35:27 least one profound life-changing insight\n35:30 that you came to. So, now we need to\n35:32 make those known, integrate them into\n35:35 who we are, and act on them to begin\n35:37 solidifying a new level of mind or new\n35:40 stage of development. So, here's the\n35:42 questions that you journal on in the\n35:44 evening. After today, what feels most\n35:46 true about why you've been stuck? What\n35:48 is the actual enemy? Name it clearly.\n35:51 It's not circumstances, it's not other\n35:52 people, it's the internal pattern or\n35:54 belief that has been running the show.\n35:56 Write a single sentence that captures\n35:58 what you refuse to let your life become.\n36:00 This is your anti-vision compressed. It\n36:02 should make you feel something when you\n36:04 read it. Write a single sentence that\n36:06 captures what you're building toward\n36:07 knowing it will evolve. This is your\n36:09 vision MVP. Now, lastly, we need to\n36:12 create goals. We need to make this more\n36:13 practical. We have all the big picture\n36:16 motivational intrinsic motivation stuff,\n36:18 but how do we actually act? And again,\n36:20 these aren't goals that you set for the\n36:22 sake of achievement. These are lenses,\n36:24 macro and micro lenses that you can put\n36:26 on at a certain time to experience the\n36:29 mind of that point of view and to notice\n36:32 the right information and to do the\n36:33 right actions. When you're really\n36:34 narrowed in on the daily task, then you\n36:37 don't really think about anything else.\n36:38 You just do the task. But when you're\n36:39 really zoomed out to the level of your\n36:41 vision, then you think about so much.\n36:43 You have this unbounded uh creativity.\n36:46 So, three questions here. Your 1-year\n36:48 goal or lens. What would have to be true\n36:50 in 1 year for you to know you've broken\n36:52 the old pattern? One concrete thing.\n36:55 Your 1-month goal or lens. What would\n36:57 have to be true in 1 month for the\n36:59 1-year lens to remain possible? Now,\n37:01 your daily goal or lens. What are two to\n37:04 three actions you can time block\n37:05 tomorrow that the person you're becoming\n37:07 would simply do? Now, that was a lot. I\n37:10 hope that was helpful, but we have one\n37:11 last piece to lock it all in. Stick with\n37:14 me here. So, point number seven is turn\n37:16 your life into a video game. We'll start\n37:18 this with a quote from Mihaly\n37:20 Csikszentmihalyi. The optimal state of\n37:22 inner experience is one in which there\n37:24 is order in consciousness. This happens\n37:26 when psychic energy or attention is\n37:28 invested in realistic goals and when\n37:30 skills match the opportunities for\n37:32 action. The pursuit of a goal brings\n37:34 order and awareness because a person\n37:36 must concentrate attention on the task\n37:38 at hand and momentarily forget\n37:40 everything else. So, you now have all of\n37:42 the components that lead to a good life.\n37:44 But now it may be helpful to organize\n37:46 all of those components into a coherent\n37:48 plan. So, now you're going to pull out a\n37:50 new piece of paper and you're going to\n37:51 write down these six things.\n37:53 Anti-vision. What is the bane of my\n37:55 existence or the life I never want to\n37:56 experience again? Vision. What is the\n37:59 ideal life that I think I want and can\n38:01 improve as I work toward it. 1-year\n38:03 goal. What will my life look like in 1\n38:05 year's time and is that closer to the\n38:07 life I want? 1-month project. What do I\n38:10 need to learn? What skills do I need to\n38:11 acquire? What can I build that will move\n38:14 me closer to the 1-year goal? Daily\n38:16 levers. What are the priority needle\n38:18 moving tasks that bring my project\n38:20 closer to completion? Constraints. What\n38:22 am I not willing to sacrifice to achieve\n38:24 my vision from the ground up? Now, why\n38:26 is this so powerful? Why is are are\n38:28 those six things so powerful? Because it\n38:30 most people it just sounds like more\n38:32 self-help productivity mumbo jumbo.\n38:34 Because those components literally\n38:35 create your own world. And if you are\n38:37 meant to pursue that hierarchy of goals\n38:40 at this stage in your life, you will\n38:41 have no other option but to become\n38:43 obsessed. You will feel the pull to\n38:46 something greater. You will not see\n38:47 anything else as an option. In essence,\n38:49 you turn your life into a video game.\n38:51 Because games are the poster child for\n38:53 obsession, enjoyment, and flow states.\n38:55 They have all the components that lead\n38:57 to focus and clarity. So, if we reverse\n38:59 engineer what those components are, we\n39:01 can live in a state of deeper enjoyment,\n39:03 less distractions, and more success.\n39:05 Your vision is how you win, at least\n39:08 until the game evolves. Your anti-vision\n39:10 is what's at stake, what happens if you\n39:12 lose or give up. Your 1-year goal is the\n39:14 mission. This is your sole priority in\n39:16 life. Your 1-month project is the boss\n39:19 fight, how you gain XP and acquire loot.\n39:21 Your daily levers are the quests, the\n39:23 daily process that unlocks new\n39:25 opportunities. Your constraints are the\n39:27 rules, the limitations that encourage\n39:29 creativity. So, you can think of all of\n39:31 these as just this concentric set of\n39:33 circles, like a force field that guards\n39:35 your mind from distractions and shiny\n39:37 objects. The more you play the game,\n39:39 right? Because this isn't going to be\n39:41 super potent the first time around. The\n39:43 more you invest energy into this into\n39:45 building or adopting this frame, the\n39:47 stronger the force field becomes and\n39:49 soon enough it becomes who you are and\n39:51 you wouldn't have it any other way.\n39:53 Thank you for watching. If you enjoyed\n39:54 this video, please subscribe to my\n39:56 newsletter where I send out long letters\n39:59 on behavior change, psychology,\n40:00 self-improvement, business every week.\n40:02 Link to that is in the description.\n40:04 Subscribe for the next video. Thank you\n40:07 for watching. I really hope it was\n40:08 impactful.\n40:09 to a good 2026. Bye."}]}</script>
 <script>
 (function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
 
 function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
 function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
 </script>
-      </div>
-    </article>
-  </div>
-
-  <footer>
-    <div class="container">
-      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
-    </div>
-  </footer>
-
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
-
-  <!-- 文章頁星等編輯腳本 -->
-  <script>
-    (function () {
-      'use strict';
-
-      var editBtn = document.getElementById('article-rating-edit');
-      if (!editBtn) return;
-
-      // 從 URL 取得檔名
-      var pathParts = window.location.pathname.split('/');
-      var filename = pathParts[pathParts.length - 1];
-
-      // 從 meta 區塊讀取目前星等
-      var starSpan = document.querySelector('.star-rating');
-      var currentRating = 0;
-      if (starSpan && starSpan.textContent.trim()) {
-        var starText = starSpan.textContent.trim();
-        currentRating = (starText.match(/★/g) || []).length;
-      }
-
-      // ── 星等編輯彈窗 ──
-      function showRatingEditor() {
-        var old = document.getElementById('rating-editor-overlay');
-        if (old) old.remove();
-
-        var overlay = document.createElement('div');
-        overlay.id = 'rating-editor-overlay';
-        overlay.className = 'rating-editor-overlay';
-
-        var box = document.createElement('div');
-        box.className = 'rating-editor-box';
-
-        var title = document.createElement('div');
-        title.className = 'rating-editor-title';
-        title.textContent = '設定星等';
-
-        var starsRow = document.createElement('div');
-        starsRow.className = 'rating-editor-stars';
-
-        for (var s = 1; s <= 5; s++) {
-          (function (star) {
-            var btn = document.createElement('button');
-            btn.className = 'rating-editor-star';
-            btn.textContent = star <= currentRating ? '★' : '☆';
-            btn.dataset.value = star;
-            btn.addEventListener('click', function () {
-              // 高亮
-              var allBtns = starsRow.querySelectorAll('.rating-editor-star');
-              for (var k = 0; k < allBtns.length; k++) {
-                allBtns[k].textContent = k < star ? '★' : '☆';
-              }
-              // 儲存
-              saveRating(star, function (ok) {
-                if (ok) {
-                  showToast('✅ 星等已更新，網站重新部署中 (~30-60 秒)');
-                } else {
-                  showToast('❌ 更新失敗，請稍後再試');
-                }
-              });
-              overlay.remove();
-            });
-            starsRow.appendChild(btn);
-          })(s);
-        }
-
-        // 清除星等按鈕
-        var clearBtn = document.createElement('button');
-        clearBtn.className = 'rating-editor-clear';
-        clearBtn.textContent = '清除星等';
-        clearBtn.addEventListener('click', function () {
-          saveRating(0, function (ok) {
-            if (ok) {
-              showToast('✅ 星等已清除');
-            } else {
-              showToast('❌ 清除失敗，請稍後再試');
-            }
-          });
-          overlay.remove();
-        });
-
-        // 關閉按鈕
-        var closeBtn = document.createElement('button');
-        closeBtn.className = 'rating-editor-close';
-        closeBtn.textContent = '✕';
-        closeBtn.addEventListener('click', function () { overlay.remove(); });
-
-        box.appendChild(closeBtn);
-        box.appendChild(title);
-        box.appendChild(starsRow);
-        box.appendChild(clearBtn);
-        overlay.appendChild(box);
-
-        overlay.addEventListener('click', function (e) {
-          if (e.target === overlay) overlay.remove();
-        });
-
-        document.body.appendChild(overlay);
-      }
-
-      // ── 送出星等更新 ──
-      function saveRating(rating, callback) {
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/api/rating', true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.onload = function () {
-          if (xhr.status === 200) {
-            currentRating = rating;
-            // 更新頁面上的星等顯示
-            if (starSpan) {
-              var stars = '';
-              for (var k = 0; k < rating; k++) stars += '★';
-              for (var k = rating; k < 5; k++) stars += '☆';
-              starSpan.textContent = stars;
-            }
-            if (callback) callback(true);
-          } else {
-            console.error('Failed to save rating:', xhr.status);
-            if (callback) callback(false);
-          }
-        };
-        xhr.onerror = function () {
-          console.error('Network error saving rating');
-          if (callback) callback(false);
-        };
-        xhr.send(JSON.stringify({ filename: filename, rating: rating }));
-      }
-
-      // ── Toast 通知 ──
-      function showToast(msg) {
-        var old = document.getElementById('rating-toast');
-        if (old) old.remove();
-
-        var toast = document.createElement('div');
-        toast.id = 'rating-toast';
-        toast.className = 'rating-toast';
-        toast.textContent = msg;
-        document.body.appendChild(toast);
-
-        setTimeout(function () {
-          if (toast.parentNode) toast.parentNode.removeChild(toast);
-        }, 5000);
-      }
-
-      // 綁定編輯按鈕
-      editBtn.addEventListener('click', function (e) {
-        e.preventDefault();
-        showRatingEditor();
-      });
-    })();
-  </script>
 </body>
 </html>
