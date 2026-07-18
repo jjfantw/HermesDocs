@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>老闆主管必學的領導技巧！做對這 3 件事，不必施壓，就能讓下屬自動自發！｜《不施壓的領導力》 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .meta .star-rating { color: #f1c40f; letter-spacing: 1px; font-size: 1.1rem; }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    /* ── 星等編輯按鈕（文章頁） ── */
+    .rating-edit-btn-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: none;
+      border: 1px solid #dee2e6;
+      border-radius: 4px;
+      padding: 2px 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      color: #868e96;
+      transition: all 0.15s;
+      vertical-align: middle;
+      margin-left: 8px;
+    }
+    .rating-edit-btn-inline:hover {
+      border-color: #667eea;
+      color: #667eea;
+      background: #eef0ff;
+    }
+
+    /* ── 星等編輯彈窗 ── */
+    .rating-editor-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .rating-editor-box {
+      background: #fff;
+      border-radius: 12px;
+      padding: 32px;
+      min-width: 300px;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      position: relative;
+    }
+    .rating-editor-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .rating-editor-stars {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .rating-editor-star {
+      background: none;
+      border: 2px solid transparent;
+      font-size: 2rem;
+      cursor: pointer;
+      color: #f1c40f;
+      padding: 4px 8px;
+      border-radius: 8px;
+      transition: all 0.15s;
+    }
+    .rating-editor-star:hover {
+      border-color: #667eea;
+      background: #eef0ff;
+      transform: scale(1.15);
+    }
+    .rating-editor-clear {
+      background: none;
+      border: 1px solid #dee2e6;
+      border-radius: 6px;
+      padding: 6px 16px;
+      font-size: 0.85rem;
+      color: #868e96;
+      cursor: pointer;
+    }
+    .rating-editor-clear:hover {
+      border-color: #e74c3c;
+      color: #e74c3c;
+    }
+    .rating-editor-close {
+      position: absolute;
+      top: 8px; right: 12px;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: #adb5bd;
+    }
+    .rating-editor-close:hover { color: #333; }
+
+    /* ── Toast 通知 ── */
+    .rating-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      z-index: 10000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      animation: toast-in 0.3s ease;
+    }
+    @keyframes toast-in {
+      from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>老闆主管必學的領導技巧！做對這 3 件事，不必施壓，就能讓下屬自動自發！｜《不施壓的領導力》</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-07-19 06:33</span>
+        <span class="star-rating"></span>
+        <button class="rating-edit-btn-inline" id="article-rating-edit" title="設定星等">✎ 評分</button>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">老闆主管必學的領導技巧！做對這 3 件事，不必施壓，就能讓下屬自動自發！｜《不施壓的領導力》</h1>
+    <div class="meta"><span data-field="channel">📺 下一本讀什麼?</span><span data-field="duration">⏱ 16:57</span><span data-field="published_date">🗓 2026-07-18</span><span data-field="original_language">🌐 zh-Hant</span><a data-field="source_url" href="https://www.youtube.com/watch?v=EgHWnLhDQCs" target="_blank" rel="noopener">🔗 https://www.youtube.com/watch?v=EgHWnLhDQCs</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>影片以主管總是插手、把責任推給下屬的情境切入，帶出《不施壓的領導力》想回答的問題：為什麼有些領導者能激發團隊，有些卻只會讓人想逃。作者把領導者分成惹怒型與啟發型兩種；前者常見微觀管理、獨佔功勞、缺乏遠見，也容易被憤怒與焦慮牽著走。相對地，啟發型領導者具備遠見、典範與導師三個特質，能提供有意義的願景、以身作則並鼓勵他人。影片接著介紹三個內在練習：反思核心價值、做權力回想、向下學習，幫助領導者調整心智狀態。之後又提出三個日常實踐：分享功勞、提供選項而不是命令、管理情緒，讓團隊更願意投入而不是抗拒。最後，影片把這套原則延伸到伴侶、父母、朋友與創作者，強調領導力不是職位賦予的權力，而是一種持續做出的選擇。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">先分清惹怒型與啟發型，才知道要往哪裡改</h2><span class="ts-badge" data-field="lesson_timestamp">1:05</span></div><div class="body" data-field="lesson_body"><p>影片把問題講得很直接：<strong>有些主管不是不努力，而是努力的方式讓人只想逃。</strong> 惹怒型領導者常見的行為包括微觀管理、把功勞攬在自己身上、推卸責任，以及只盯眼前問題。</p><p>相對地，啟發型領導者不是靠壓人，而是靠<strong>遠見、典範、導師</strong>三個特質去帶動團隊。這三個特質不是抽象口號，而是能被日常行為看見的領導風格。</p></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">先改心智狀態，領導行為才會真的變</h2><span class="ts-badge" data-field="lesson_timestamp">3:44</span></div><div class="body" data-field="lesson_body"><p>作者先給的是內在練習，不是外在話術。反思核心價值，是要先知道自己真正看重什麼；權力回想，是把自己帶回「我能影響結果」的狀態；向下學習，則是把第一線同仁視為珍貴的知識來源。</p><p>這一段最重要的訊息是：<strong>啟發型領導不是靠硬撐出來的姿態，而是透過持續練習，讓你的判斷與回應方式變得更穩、更開放。</strong></p></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">日常三招：分享功勞、提供選項、管理情緒</h2><span class="ts-badge" data-field="lesson_timestamp">9:01</span></div><div class="body" data-field="lesson_body"><p>影片後半段把方法落回工作現場。當團隊做出成果時，啟發型領導者會<strong>公開分享功勞</strong>；面對緊迫任務時，會<strong>提供選項</strong>而不是單向命令；當怒氣或焦慮升起時，則要用呼吸與情緒標記讓自己先冷靜下來。</p><p>這些做法看起來簡單，但共同效果很強：它們都在把關係從「控制與被控制」拉回「理解與合作」。</p></div></article></section>
+  
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="0:00"><span class="ts">0:00</span><span class="text" data-field="key_point_text">從「主管總想插手、責任卻往下推」的職場痛點切入，說明本集要談的是如何不施壓也能帶人。</span></li><li data-field="key_point" data-timestamp="1:05"><span class="ts">1:05</span><span class="text" data-field="key_point_text">作者把領導者分成惹怒型與啟發型；前者常見微觀管理、獨佔功勞、缺乏遠見與情緒失控。</span></li><li data-field="key_point" data-timestamp="3:44"><span class="ts">3:44</span><span class="text" data-field="key_point_text">啟發型領導者的三個內在練習是反思核心價值、權力回想與向下學習，目的在於調整心智狀態。</span></li><li data-field="key_point" data-timestamp="9:01"><span class="ts">9:01</span><span class="text" data-field="key_point_text">三個日常實踐是分享功勞、提供選項而不是命令，以及管理情緒，讓人從抗拒轉向投入。</span></li><li data-field="key_point" data-timestamp="13:53"><span class="ts">13:53</span><span class="text" data-field="key_point_text">影片把領導力延伸到伴侶、父母、朋友與創作者，最後強調領導力是一種選擇，而非職位賦予。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="領導力">領導力</span><span class="tag-chip" data-tag="管理">管理</span><span class="tag-chip" data-tag="職場">職場</span><span class="tag-chip" data-tag="書評">書評</span><span class="tag-chip" data-tag="自我成長">自我成長</span><span class="tag-chip" data-tag="溝通">溝通</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>影片最後的下一集預告《慢速工作力》只作為節目尾聲提及，未展開整理。</li></ul></div></section>
+  
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="description"><div class="raw-label">YouTube description<button class="copy-btn" id="raw_description_4382946432_srt" onclick="copyRaw(this,'raw_description_4382946432_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_description_4382946432_text" onclick="copyRawText(this,'raw_description_4382946432_text')">📋 複製純文字</button></div><pre>💌 訂閱免費電子報 https://readingoutpost.com 
+加入100,000位訂閱者，每週收到讀書心得和好書金句
+
+00:00 本集概述
+01:00 兩種截然不同的領導風格
+03:23 成為啟發型領導者的科學方法
+08:49 啟發型領導者的日常實踐
+13:49 本集結論
+16:35 瓦基推薦下一本讀什麼
+
+
+【本集節目由 瓦基 贊助播出】
+
+《AI 瓦基第二大腦》
+
+大部分人用 AI，像每天叫外送：每次都要重講一遍需求，送來的還不一定合胃口。
+
+我做《AI 瓦基第二大腦》這堂課，是帶你替自己請一位「私人廚師」：
+
+把日常流程做成現成的「AI 專案包」，照著做就有穩定好結果。
+
+早鳥學員說整個過程很「燒腦」，我聽了反而欣慰。
+
+因為專案包把流程、提問這些粗活扛起來，把最關鍵的思考和把關留給你。
+
+這種燒腦的感覺，我稱之為「好摩擦」：AI 能替你省力，卻沒辦法替你練思考。
+
+把省下來的力氣，留給這個沒有人能替你練的地方。
+
+想知道這堂課在教什麼？先看這支影片，我現場示範了三個專案包：
+https://www.youtube.com/live/n4Sx0Z78tVo?si=5Db4tQ4H62rdDuhn
+.
+
+《AI 瓦基第二大腦》
+從思考框架、實戰工具到實際案例，給你一套可以照著做的 AI 協作系統：
+
+▪️一站式學好 AI｜思維底層到實戰產出，一次完整學
+
+▪️10 項獨家 AI 專案包｜涵蓋寫作、決策、研究等場景
+
+▪️PACE 行動思考地圖｜四大象限對應所有 AI 應用場景
+
+▪️資料庫持續更新｜隨著 AI 迭代，持續跟你一起成長
+
+✨學一次，建一套跟著你持續複利成長的 AI 高產出系統✨
+
+📣結帳輸入折扣碼：WKWF350，再折 $350
+
+📣課程介紹：https://hi.sat.cool/u6R1Q
+
+
+📝部落格文字版：
+《不施壓的領導力》讀後心得：一本希望所有主管都讀的書
+https://readingoutpost.com/inspire/
+
+📚關於書評部落格「閱讀前哨站」
+訂閱免費電子報（閱讀筆記、好書金句） https://readingoutpost.com
+傳送門連結（與我聯絡、業配折扣專區） https://readingoutpost.com/bio
+
+🎧收聽 Podcast 說書節目「下一本讀什麼」
+Apple Podcasts https://apple.co/34gUy39​
+Spotify https://spoti.fi/3i71G70​
+
+📚我讀過的其他好書，以及閱讀習慣的培養
+養成這3個習慣，一年讀50本書改變人生軌跡 https://readingoutpost.com/how-to-read-50-books-a-year/
+2025 年瓦基最喜歡的 10 本精選書單 https://readingoutpost.com/2025-favorite-books/
+2024 年瓦基最喜歡的 10 本精選書單 https://readingoutpost.com/2024-favorite-books/
+2023 年瓦基最喜歡的 10 本精選書單 https://readingoutpost.com/2023-favorite-books/
+2022 年瓦基最喜歡的 10 本精選書單 https://readingoutpost.com/2022-favorite-books/
+2021 年瓦基最喜歡的 10 本精選書單 https://readingoutpost.com/2021-favorite-books/
+
+
+#讀書心得 #好書介紹 #說書推薦 #書摘濃縮 #閱讀筆記</pre></div><div class="raw-block" data-field="raw_source_item" data-raw-type="transcript"><div class="raw-label">YouTube transcript<button class="copy-btn" id="raw_transcript_4383072320_srt" onclick="copyRaw(this,'raw_transcript_4383072320_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_transcript_4383072320_text" onclick="copyRawText(this,'raw_transcript_4383072320_text')">📋 複製純文字</button></div><pre>0:00 你有沒有遇過這樣的主管
+0:01 無論大小事他都想插手
+0:04 開會時總是劈頭就罵人
+0:07 然後功勞好像都是他的
+0:09 責任都是你的
+0:10 或者你有沒有發現自己
+0:12 可能在某些時刻
+0:14 也不知不覺變成這樣的人了呢
+0:17 在台灣的職場文化當中
+0:19 這種現象似乎特別常見
+0:21 這種主管可能業務和專業能力很強
+0:24 他也很努力
+0:25 但就是讓下屬覺得壓力山大
+0:28 想要快點逃離他們
+0:30 這讓我想到一個問題
+0:32 為什麼有些領導者
+0:33 他能夠激發團隊的最佳表現
+0:36 而有些領導者卻只會讓人想要辭職
+0:40 今天要跟大家分享的這本書
+0:41 它的書名叫做 《不施壓的領導力》
+0:45 它會帶我們探討這個主題
+0:47 讓我們學會一個方法
+0:48 就是你可以領導又不必施壓
+0:51 也可以讓下屬自動自發的一套好方法
+1:05 這本書的作者
+1:06 他是來自哥倫比亞商學院的教授
+1:09 叫做亞當．賈林斯基
+1:11 他在書裡把領導者區分成兩種類型
+1:15 分別是惹怒型的領導者
+1:18 還有啟發型的領導者
+1:20 他認為這種領導類型並不是天生的
+1:25 它反而是我們當下做出來的行為
+1:28 才會去決定
+1:29 我們是惹怒型
+1:30 或是啟發型的領導者
+1:33 這兩種領導類型有什麼差異
+1:36 我們先講惹怒型的領導者
+1:38 他們有幾個很明顯的特徵
+1:40 惹怒型領導者會喜歡去微觀管理
+1:43 他們總是要插手每一個細節
+1:46 他們可能會獨佔功勞
+1:48 但是會推卸責任
+1:50 也比較缺乏遠見
+1:52 只會專注在眼前的問題
+1:54 最重要的是他們往往會被情緒所控制
+1:58 特別是憤怒  焦慮和不安全感
+2:01 書裡引用大量科學研究指出
+2:04 人們都很討厭老闆時時刻刻監控著自己
+2:08 而且
+2:08 如果一個主管
+2:09 他不管大小事情都要插手的時候
+2:12 他其實是在傳遞一個
+2:13 叫做我不信任你的訊息
+2:16 這會讓人覺得好像被羞辱了
+2:18 也不被尊重
+2:19 但是相反的  啟發型的領導者
+2:22 就有三個特別的特質
+2:24 分別是遠見  典範還有導師
+2:29 書裡面就很明確指出
+2:31 啟發型領導者他們有遠見
+2:33 因為他們看得見大局
+2:35 他們會提供樂觀而且有意義的未來願景
+2:38 啟發型領導者是期望行為的典範
+2:42 他們是冷靜勇敢的守護者
+2:45 他們真誠熱情  而且能力出眾
+2:48 但是他們懂得保持謙卑
+2:50 那麼啟發型領導者也是偉大的導師
+2:53 他們會賦予別人權力而且鼓勵他們
+2:57 對他人懷抱同理心
+2:59 但是也會挑戰其他人
+3:00 要求他們展現出最好的自我
+3:03 那有趣的是事情是
+3:05 作者他透過很多跨文化的研究發現
+3:08 無論在世界上面哪一個國家
+3:10 哪一種工作文化裡面
+3:12 這種領導力都具有普遍性
+3:15 也就是說
+3:15 無論在世界哪一個文化背景之下
+3:18 好的領導力都有這三個共同特質
+3:22 那麼我先談談看
+3:23 啟發領導力的科學方法
+3:26 談一下怎麼樣來成為啟發型領導者
+3:30 那你要怎麼樣去做轉換
+3:32 書本裡面就提供很多實用的方法
+3:35 幫助我們可以去具備遠見
+3:37 化身典範  成為導師
+3:39 而且這些方法
+3:40 都有作者團隊的研究支持
+3:44 第一個練習是反思核心價值
+3:48 來幫助我們具備遠見
+3:50 為了找出核心價值
+3:52 我們可以問自己這些問題
+3:54 你可以問自己
+3:55 有什麼事情讓我感到真正的充實
+3:59 不是別人期待的成就
+4:01 而是你內心認為有意義的事
+4:03 還有你可以問自己
+4:05 我最不能忍受什麼事情
+4:08 當你找出自己的底線的時候
+4:10 就可以反映你的核心價值觀
+4:13 再來你可以問自己
+4:14 如果明天就要離開世界
+4:17 我會後悔沒有做哪些事
+4:20 這個會讓你記得  你最重視什麼事情
+4:23 作者的研究團隊發現
+4:25 當他們請一群失業的人
+4:27 去花 15 分鐘在腦袋裡面
+4:29 反思自己的核心價值
+4:31 問這些問題的時候
+4:33 這些人在接下來的兩個月內
+4:35 他們找到工作的機會整整提高了 3 倍
+4:39 所以換作是我們自己
+4:41 假設你的核心價值叫做
+4:43 幫助別人成長
+4:45 那當這個團隊如果陷入低潮的時候
+4:47 與其你只是去催大家加班  趕進度
+4:50 你可能會選擇花一些時間
+4:52 去了解每個人的困難
+4:54 提供個別指導  幫助對方真的成長
+4:57 即使短時間之內效率可能低一些
+4:59 但是這個做法才更符合你的價值觀
+5:02 也才能夠激發團隊的潛力
+5:04 當我們更清楚自己的價值觀
+5:06 還有具備遠見的時候
+5:08 我的們行為和決策
+5:09 都會變得更加的堅定還有方向性
+5:12 再來第二個練習是做權力的回想
+5:16 幫助我們化身成為典範
+5:18 書裡面的典範這兩個字
+5:20 它指的是要成為別人學習的榜樣
+5:23 會成為那種心智狀態
+5:25 就是你可以冷靜勇敢
+5:27 你可以真誠熱情
+5:29 能力出眾但是保持謙卑
+5:31 典範不只是做得好而已
+5:33 更是我們要以身作則
+5:35 讓團隊成員看到那個
+5:37 理想領導者應該有什麼樣子
+5:39 那個就是一個典範
+5:41 作者跟他的研究夥伴
+5:42 就設計了一個很簡單的方法
+5:43 叫做
+5:44 你可以做
+5:45 你可以做權力回想
+5:46 請回想一個特定的事件
+5:48 在那個事件裡面
+5:49 你對著另外一個人或一群人擁有權力
+5:53 所謂的權力
+5:54 指的是在這個情況裡面
+5:56 你控制了那個人或那些人
+5:58 可以獲得他們想要事物的能力
+6:01 或者你處於一個可以評估他們的職位
+6:06 所以書本裡面就指出了
+6:07 當你做權力回想的練習的時候
+6:09 可以使自己變得更冷靜
+6:11 賦予我們勇氣
+6:13 我們可以感覺到更真誠
+6:14 更像是真實的自我
+6:17 這個也會激發我們的創造力
+6:19 甚至為我們的聲音增添一點點的威嚴感
+6:23 透過一小段時間的權力回想
+6:25 就可以讓我們進入這個
+6:26 典範的心智狀態
+6:29 比如說你可以回想這樣子
+6:30 你在去年的時候
+6:32 你成功的說服了老闆採用你的提案
+6:35 並且獲得了預算
+6:36 帶領團隊執行專案的那一刻
+6:39 你感受到的自己當時的影響力
+6:42 團隊成員都很認真的聆聽你的想法
+6:45 你有能力去決定工作的分配跟方向
+6:48 這種權力回想
+6:50 就是讓你覺得
+6:51 我有能力影響結果
+6:53 可以讓你獲得一個心理面的掌控感
+6:56 再來第三個練習是向下學習
+6:59 讓我們自己可以成為導師
+7:01 這個概念特別有趣
+7:03 你可能會想說
+7:04 成為導師不就是要教導學生
+7:06 指導下屬嗎
+7:07 為什麼我還要向下學習
+7:10 其實這正是啟發型領導者
+7:13 他最有智慧的地方
+7:15 作者和哈佛大學的研究人員
+7:17 共同提出了這個觀念
+7:19 向下學習就是說
+7:21 你要把那一些等級階層比你還低的人
+7:25 或者說地位比你還低的人
+7:27 當作是很珍貴的知識來源並向他們學習
+7:32 舉一個簡單的例子
+7:33 當一家公司想要改善客服流程的時候
+7:36 比較傳統的主管
+7:37 可能就直接找其他部門的主管
+7:39 一起來開會討論
+7:41 但懂得向下學習的主管
+7:43 他會直接詢問第一線的客服人員
+7:46 問他說你們每天接觸的客戶
+7:48 最常遇到的是什麼問題
+7:50 有沒有什麼改善的建議
+7:52 直接從第一線人員去問
+7:54 從這些基層員工的洞察
+7:56 往往會比高階主管的推測
+7:58 還更加準確實用
+8:00 這個道理就很簡單
+8:02 在組織裡面
+8:03 真正的創新跟實用的洞見
+8:05 往往是來自於
+8:06 第一線的工作者
+8:07 因為他們最了解實際狀況
+8:09 他們最清楚問題出在哪裡
+8:11 當我們願意放下身段
+8:13 真心的向等級較低的人去學習的時候
+8:16 你不只能夠獲得寶貴的新視角
+8:18 更能夠展現謙遜跟開放的領導風格
+8:22 這樣的主管誰會不想跟隨呢
+8:24 對不對
+8:25 那以上三個練習
+8:26 反思核心價值  權力回想  還有向下學習
+8:31 本質上都是幫我們去調整
+8:33 內在的心智狀態
+8:34 讓我們從內心開始轉變成為
+8:36 啟發型領導者
+8:38 但是光有正確的心態還不夠
+8:41 我們還需要在日常工作當中
+8:43 展現出一些具體的啟發型的行為
+8:47 這就是下個部分要分享的
+8:49 啟發型領導者有哪些日常實踐
+8:53 所以呢
+8:53 我要分享這些方法
+8:54 其實你在很多的工作場景當中
+8:57 都可以用到
+8:58 來幫自己變成一個啟發型的領導者
+9:01 第一個練習叫做分享功勞
+9:05 這可以讓我們贏得人心
+9:07 具體來說要怎麼做呢
+9:08 當客戶可能讚美你的團隊成果的時候
+9:12 如果是惹怒型的領導者
+9:13 他可能就會說
+9:14 沒錯  這都是我的規劃跟指導
+9:17 他們都聽我的
+9:18 但是啟發型領導者則會告訴客戶說
+9:22 這都要感謝小王的創意發想
+9:24 還有小李的細心執行
+9:26 還有小陳的這個客戶溝通
+9:29 那我只是協助整合大家的才能而已
+9:32 這概念完全推翻了
+9:34 功勞要緊緊握在手中
+9:36 的傳統思維
+9:38 作者的研究發現
+9:40 慷慨分享功勞
+9:41 會成為效益最大化的生活方式
+9:44 因為分享功勞可以提升他人
+9:47 可以滿足人類對於地位的基礎需求
+9:50 讓別人也可以感覺到自豪
+9:53 而且此外分享功勞也可以提升自己
+9:56 讓我們的地位更上一層樓
+9:59 所以
+10:00 團隊成員會更願意
+10:01 為啟發型領導者來做事情
+10:04 因為他們知道
+10:05 自己的貢獻會被看見
+10:07 會被說出來
+10:09 再來第二個練習叫做提供選項
+10:11 而不是下達命令
+10:13 在實際的運用上
+10:15 當一個專案的期限可能非常緊迫的時候
+10:18 憤怒型的主管
+10:19 或者是惹怒型主管
+10:20 他就會下達命令說
+10:21 哎呀
+10:22 這個任務就是要這樣做
+10:23 明天下班前一定要給我完成
+10:26 可是啟發型的領導者
+10:27 他可能會提供一些選項
+10:29 他說
+10:29 我們現在有三個方案可以達成目標
+10:32 第一個  我們來延長工時
+10:34 第二個  我們可以來簡化流程
+10:37 第三個  我來找找看能不能增加人手
+10:41 你覺得哪一個方式比較可行
+10:43 這個時候
+10:44 光是你把這個三個選項
+10:45 提出來給大家去選的時候
+10:48 就很有威力
+10:49 作者他們的研究發現一件事情
+10:52 提供選項可以創造強烈的效果
+10:55 獲得選擇的時候會讓人們覺得說
+10:57 這是很真誠而且誠懇的嘗試
+11:00 會希望真正的去理解你
+11:02 並且滿足你的利益
+11:04 藉由提出選項給大家的時候
+11:06 大家會覺得自己被看見  被理解
+11:08 我還可以做出選擇
+11:10 原本可能是要有衝突的這個場景
+11:12 突然之間就變成合作的情境
+11:15 所以
+11:16 給予選項就是跟人家一起合作
+11:18 但是你給予命令常常會引起抗拒
+11:22 提供選項的做法
+11:23 不只是讓下屬感覺到被尊重
+11:26 更重要的是
+11:27 讓有選擇權的人
+11:28 他們更投入去執行這些選項
+11:31 再來第三個練習叫做管理情緒
+11:35 這個是非常關鍵
+11:36 但是也很重要
+11:37 還是要再提一次的
+11:38 作者他就有提出一個問題的根源
+11:40 就是
+11:41 像是地位比較低  不安全感
+11:44 還有憤怒跟焦慮
+11:46 都很容易讓我們變成惹怒型領導者
+11:49 朝向惹怒的那一端
+11:51 它會讓我們缺乏遠見
+11:53 而且會讓我們在在狹隘跟憤怒視野當中
+11:56 很難自拔
+11:58 但是好消息是
+11:59 作者他就提供了很多科學的研究
+12:01 有發現一件事情
+12:02 光是冥想這兩個字
+12:04 就可以很有效果了
+12:06 冥想可以讓我們更慷慨
+12:07 幫助我們做出更好的決策
+12:09 在面對負面回應的時候
+12:11 可以減少反應的激烈程度
+12:13 甚至降低我們報復別人的可能性
+12:16 具體來說怎麼做
+12:18 書裡是有提到一些冥想方法
+12:20 可是我跟你分享一下
+12:21 我自己覺得最有效的方式
+12:23 我很喜歡的方法叫做
+12:24 444 呼吸法
+12:26 或有些人說是箱型呼吸法
+12:29 就是紙箱箱子的箱
+12:31 444 呼吸法就是說
+12:32 你吸氣 4 秒鐘
+12:34 再憋氣 4 秒鐘
+12:36 再吐氣 4 秒鐘
+12:39 接著重新來過就是 444 的循環
+12:42 只要重複 3 到 5 次
+12:44 就能啟動身體的這個
+12:45 放鬆反應
+12:46 透過呼吸讓大腦冷靜下來
+12:50 另一個方法叫做
+12:50 情緒標記
+12:52 當你的負面情緒湧現出來的時候
+12:54 在你的心中默念
+12:56 我現在感覺到憤怒
+12:57 或是我現在感覺到焦慮
+13:00 這種覺察的練習
+13:01 可以讓我們從情緒中抽離出來
+13:04 不要被情緒綁架
+13:06 所以作者強調
+13:07 就是這種對於情緒的覺察跟管理的能力
+13:11 就可以把
+13:12 啟發型與惹怒型領導者區分開來
+13:17 所以這三個練習就是
+13:19 分享功勞
+13:20 提供選項還有管理情緒
+13:24 聽起來是蠻簡單的對不對
+13:26 但是它真的是有很深的智慧
+13:28 因為
+13:29 它會讓我們
+13:29 從如何控制他人轉向啟發他人
+13:34 從跟別人索取變成給予他人
+13:38 更讓人驚喜的是
+13:40 這套啟發型領導的原則
+13:42 它不只是在職場當中可以發揮作用
+13:44 它還可以
+13:45 應用到我們生活當中每一個角落
+13:53 所以最後來跟大家做一個簡單總結
+13:55 就是
+13:55 讀完這本書之後
+13:56 我覺得最大的感觸就是
+13:58 這個啟發型的領導力
+14:00 它不只是適用於職場
+14:02 還可以應用到我們生活當中
+14:04 包含人際關係
+14:06 你要怎麼樣成為更好的伴侶
+14:08 你要怎麼樣成為更可靠的朋友
+14:11 所以你想想看
+14:12 身為伴侶的時候
+14:13 我們會不會微觀管理對方的生活
+14:16 身為父母的時候
+14:18 我們是不是給孩子足夠的選擇權
+14:21 身為朋友的時候
+14:22 我們是不是能夠慷慨的去分享功勞
+14:25 並且真心的為朋友的成就感到高興
+14:29 甚至我會想到自己
+14:31 身為內容一位創作者
+14:33 我也可以應用這些原則
+14:35 我是不是有一個很清晰的願景
+14:37 想要傳達給大家
+14:39 我是不是可以以身作則
+14:40 成為觀眾的典範
+14:43 我是不是真心的想要啟發
+14:45 還有幫助我的讀者一起來成長
+14:48 所以這本書讀完之後
+14:49 讓我很深刻的體會到說
+14:51 領導力它不是一個什麼職位
+14:54 賦予我們的權力
+14:56 而是一種選擇
+14:57 我認為要成為一位啟發型領導者
+15:00 要一直在心裡面記得這幾件事情
+15:03 就是
+15:04 選擇啟發他人而不是惹怒他人
+15:08 還要選擇創造價值
+15:09 而不只是追求個人的利益
+15:12 還要選擇成為他人成長路上的導師
+15:15 而不是障礙
+15:17 所以在這個充滿挑戰跟變化的時代
+15:19 我們真的是比以往任何時刻
+15:22 都還更需要啟發型的領導者
+15:24 無論你現在處於什麼位置
+15:26 無論你是否有正式的領導職位
+15:29 你都可以選擇成為一個啟發他人的人
+15:33 正如同這本書的作者他所說的
+15:36 我們的言詞  行為還有與別人的互動
+15:40 如果你沒有在別人心中
+15:42 創造出希望跟可能性的話
+15:44 那你很可能就是在創造憤怒跟怨恨
+15:48 我們的每一個選擇跟行為
+15:50 都會把結果導向光譜的某一端
+15:54 所以最後我想留給大家一個思考的時間
+15:57 在你的生活裡面
+15:58 有哪一個領域你可以從惹怒型
+16:01 轉變成為啟發型的人
+16:04 你準備從哪裡開始做這個轉變
+16:08 你要記得一件事情
+16:10 所有的改變都是從我們有意識開始的
+16:13 而你意識到自己需要改變的時候
+16:16 本身就已經是邁向啟發型領導者的第一步
+16:20 讓我們一起啟發更多人吧
+16:23 OK  節目到這邊進到了尾聲
+16:25 如果你喜歡今天的內容
+16:27 歡迎訂閱下一本讀什麼
+16:28 也可以訂閱我的免費電子報
+16:30 每週收到最新讀書心得與好書金句
+16:33 我們下次見囉  掰掰
+16:35 你會不會覺得工作很緊湊  很匆忙
+16:38 這樣的忙碌文化
+16:39 真的會讓我們更成功快樂嗎
+16:42 有一本書它提出了截然不同的觀點
+16:45 歡迎前往 《慢速工作力》 這本的說書
+16:48 我會分享書中的三個工作原則
+16:52 讓你學會如何做得慢一點
+16:55 卻能夠做得更好一點</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://www.youtube.com/watch?v=EgHWnLhDQCs" target="_blank" rel="noopener">https://www.youtube.com/watch?v=EgHWnLhDQCs</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+  <!-- 文章頁星等編輯腳本 -->
+  <script>
+    (function () {
+      'use strict';
+
+      var editBtn = document.getElementById('article-rating-edit');
+      if (!editBtn) return;
+
+      // 從 URL 取得檔名
+      var pathParts = window.location.pathname.split('/');
+      var filename = pathParts[pathParts.length - 1];
+
+      // 從 meta 區塊讀取目前星等
+      var starSpan = document.querySelector('.star-rating');
+      var currentRating = 0;
+      if (starSpan && starSpan.textContent.trim()) {
+        var starText = starSpan.textContent.trim();
+        currentRating = (starText.match(/★/g) || []).length;
+      }
+
+      // ── 星等編輯彈窗 ──
+      function showRatingEditor() {
+        var old = document.getElementById('rating-editor-overlay');
+        if (old) old.remove();
+
+        var overlay = document.createElement('div');
+        overlay.id = 'rating-editor-overlay';
+        overlay.className = 'rating-editor-overlay';
+
+        var box = document.createElement('div');
+        box.className = 'rating-editor-box';
+
+        var title = document.createElement('div');
+        title.className = 'rating-editor-title';
+        title.textContent = '設定星等';
+
+        var starsRow = document.createElement('div');
+        starsRow.className = 'rating-editor-stars';
+
+        for (var s = 1; s <= 5; s++) {
+          (function (star) {
+            var btn = document.createElement('button');
+            btn.className = 'rating-editor-star';
+            btn.textContent = star <= currentRating ? '★' : '☆';
+            btn.dataset.value = star;
+            btn.addEventListener('click', function () {
+              // 高亮
+              var allBtns = starsRow.querySelectorAll('.rating-editor-star');
+              for (var k = 0; k < allBtns.length; k++) {
+                allBtns[k].textContent = k < star ? '★' : '☆';
+              }
+              // 儲存
+              saveRating(star, function (ok) {
+                if (ok) {
+                  showToast('✅ 星等已更新，網站重新部署中 (~30-60 秒)');
+                } else {
+                  showToast('❌ 更新失敗，請稍後再試');
+                }
+              });
+              overlay.remove();
+            });
+            starsRow.appendChild(btn);
+          })(s);
+        }
+
+        // 清除星等按鈕
+        var clearBtn = document.createElement('button');
+        clearBtn.className = 'rating-editor-clear';
+        clearBtn.textContent = '清除星等';
+        clearBtn.addEventListener('click', function () {
+          saveRating(0, function (ok) {
+            if (ok) {
+              showToast('✅ 星等已清除');
+            } else {
+              showToast('❌ 清除失敗，請稍後再試');
+            }
+          });
+          overlay.remove();
+        });
+
+        // 關閉按鈕
+        var closeBtn = document.createElement('button');
+        closeBtn.className = 'rating-editor-close';
+        closeBtn.textContent = '✕';
+        closeBtn.addEventListener('click', function () { overlay.remove(); });
+
+        box.appendChild(closeBtn);
+        box.appendChild(title);
+        box.appendChild(starsRow);
+        box.appendChild(clearBtn);
+        overlay.appendChild(box);
+
+        overlay.addEventListener('click', function (e) {
+          if (e.target === overlay) overlay.remove();
+        });
+
+        document.body.appendChild(overlay);
+      }
+
+      // ── 送出星等更新 ──
+      function saveRating(rating, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/api/rating', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            currentRating = rating;
+            // 更新頁面上的星等顯示
+            if (starSpan) {
+              var stars = '';
+              for (var k = 0; k < rating; k++) stars += '★';
+              for (var k = rating; k < 5; k++) stars += '☆';
+              starSpan.textContent = stars;
+            }
+            if (callback) callback(true);
+          } else {
+            console.error('Failed to save rating:', xhr.status);
+            if (callback) callback(false);
+          }
+        };
+        xhr.onerror = function () {
+          console.error('Network error saving rating');
+          if (callback) callback(false);
+        };
+        xhr.send(JSON.stringify({ filename: filename, rating: rating }));
+      }
+
+      // ── Toast 通知 ──
+      function showToast(msg) {
+        var old = document.getElementById('rating-toast');
+        if (old) old.remove();
+
+        var toast = document.createElement('div');
+        toast.id = 'rating-toast';
+        toast.className = 'rating-toast';
+        toast.textContent = msg;
+        document.body.appendChild(toast);
+
+        setTimeout(function () {
+          if (toast.parentNode) toast.parentNode.removeChild(toast);
+        }, 5000);
+      }
+
+      // 綁定編輯按鈕
+      editBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        showRatingEditor();
+      });
+    })();
+  </script>
+</body>
+</html>
