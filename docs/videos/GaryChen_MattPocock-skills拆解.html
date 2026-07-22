@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>17 萬星的 Matt Pocock skills，到底強在哪？skills 全拆解 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .meta .star-rating { color: #f1c40f; letter-spacing: 1px; font-size: 1.1rem; }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    /* ── 星等編輯按鈕（文章頁） ── */
+    .rating-edit-btn-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: none;
+      border: 1px solid #dee2e6;
+      border-radius: 4px;
+      padding: 2px 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      color: #868e96;
+      transition: all 0.15s;
+      vertical-align: middle;
+      margin-left: 8px;
+    }
+    .rating-edit-btn-inline:hover {
+      border-color: #667eea;
+      color: #667eea;
+      background: #eef0ff;
+    }
+
+    /* ── 星等編輯彈窗 ── */
+    .rating-editor-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .rating-editor-box {
+      background: #fff;
+      border-radius: 12px;
+      padding: 32px;
+      min-width: 300px;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      position: relative;
+    }
+    .rating-editor-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .rating-editor-stars {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .rating-editor-star {
+      background: none;
+      border: 2px solid transparent;
+      font-size: 2rem;
+      cursor: pointer;
+      color: #f1c40f;
+      padding: 4px 8px;
+      border-radius: 8px;
+      transition: all 0.15s;
+    }
+    .rating-editor-star:hover {
+      border-color: #667eea;
+      background: #eef0ff;
+      transform: scale(1.15);
+    }
+    .rating-editor-clear {
+      background: none;
+      border: 1px solid #dee2e6;
+      border-radius: 6px;
+      padding: 6px 16px;
+      font-size: 0.85rem;
+      color: #868e96;
+      cursor: pointer;
+    }
+    .rating-editor-clear:hover {
+      border-color: #e74c3c;
+      color: #e74c3c;
+    }
+    .rating-editor-close {
+      position: absolute;
+      top: 8px; right: 12px;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: #adb5bd;
+    }
+    .rating-editor-close:hover { color: #333; }
+
+    /* ── Toast 通知 ── */
+    .rating-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      z-index: 10000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      animation: toast-in 0.3s ease;
+    }
+    @keyframes toast-in {
+      from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>17 萬星的 Matt Pocock skills，到底強在哪？skills 全拆解</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-07-22</span>
+        <span class="star-rating"></span>
+        <button class="rating-edit-btn-inline" id="article-rating-edit" title="設定星等">✎ 評分</button>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">17 萬星的 Matt Pocock skills，到底強在哪？skills 全拆解</h1>
+    <div class="meta"><span data-field="channel">📺 Gary Chen</span><span data-field="duration">⏱ 20:01</span><span data-field="published_date">🗓 2026-07-22</span><span data-field="original_language">🌐 zh-Hant</span><a data-field="source_url" href="https://www.youtube.com/watch?v=aR97E7aKEgg" target="_blank" rel="noopener">🔗 https://www.youtube.com/watch?v=aR97E7aKEgg</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>這支影片先點出 Matt Pocock 的 skills 專案為何引人注目：它累積超過 16 萬顆星與 700 萬次下載，但最熱門的 skill 內容卻只有五行字。作者接著用這個反差切入，說明這套系統的重點不在表面上的工具堆疊，而在背後的工作流設計。影片會從 grill-me 這類讓 AI 反過來拷問使用者的設計講起，延伸到如何把工作拆成規格書與任務，以及如何用 TDD 和 Code Review 降低 AI 亂做或作弊的風險。中段會比較深模組與淺模組的架構思維，強調好的 skill 不只是功能可用，而是能把複雜流程包裝成清楚、可維護的系統。最後，影片把這套做法拿去和 Superpowers 對照，幫觀眾判斷自己更適合哪一種 AI 工作流。整體來說，這是一支用具體案例拆解 AI 開發技能設計思路的影片，而不是單純介紹某個工具清單。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">爆紅的五行字 skill：內容少，但背後的設計很多</h2><span class="ts-badge" data-field="lesson_timestamp">0:00</span></div><div class="body" data-field="lesson_body"><p>這段先用一個很強的反差開場：Matt Pocock 的 skills 專案有超過 <strong>16 萬顆星</strong> 與 <strong>700 萬次下載</strong>，但最紅的 skill 打開來卻只有五行字。影片要看的不是字數，而是這五行字背後代表的工作流設計。</p><p>作者用這個例子提醒觀眾：真正有價值的不是把功能塞滿，而是把系統做成能讓人持續使用、持續維護的樣子。</p><span class="tag" data-field="lesson_tag">skills 專案</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">grill-me：讓 AI 先反過來拷問你</h2><span class="ts-badge" data-field="lesson_timestamp">1:24</span></div><div class="body" data-field="lesson_body"><p>grill-me 的設計重點，是讓 AI 先問問題、先釐清需求，而不是使用者一開口就期待答案。這種做法把互動順序倒過來，逼系統先完成理解，再進入產出。</p><p>影片藉此展示 skills 不只是命令集合，也可以是一種更聰明的協作流程。</p><span class="tag" data-field="lesson_tag">AI 互動</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">規格書與拆任務：把大問題變成可控流程</h2><span class="ts-badge" data-field="lesson_timestamp">3:56</span></div><div class="body" data-field="lesson_body"><p>這一段談規格書與拆任務，核心概念是把大目標拆成 AI 可以逐步處理的小步驟。規格越清楚，AI 越不容易在中途偏題，也越容易檢查每一步有沒有做對。</p><p>影片把這種拆法當成實作 skills 的基礎，因為可維護的系統往往來自可驗證的小任務，而不是一次性的大輸出。</p><span class="tag" data-field="lesson_tag">任務拆解</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">TDD 與 Code Review：替 AI 工作流加上防線</h2><span class="ts-badge" data-field="lesson_timestamp">6:22</span></div><div class="body" data-field="lesson_body"><p>影片把 TDD 與 Code Review 放進 AI 開發流程，目的不是為了形式感，而是降低 AI 亂做、亂補或作弊的風險。先有測試，再有實作，可以讓 AI 的輸出有明確驗證目標。</p><p>搭配 Code Review，整體流程就不只是“讓 AI 幫忙寫”，而是把 AI 的產出納入既有的工程檢查機制。</p><span class="tag" data-field="lesson_tag">品質控管</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">深模組 vs 淺模組：好的 skill 要能長期維護</h2><span class="ts-badge" data-field="lesson_timestamp">11:15</span></div><div class="body" data-field="lesson_body"><p>中段用深模組與淺模組來談架構思維，重點在於好的模組不是只有表面上的切分，而是要能把複雜度收在內部。對使用者來說，外部介面越清楚，整體越容易用。</p><p>影片把這件事延伸到 skills 設計：真正好的 skill，應該讓人不用理解內部細節也能穩定完成任務。</p><span class="tag" data-field="lesson_tag">架構思維</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">和 Superpowers 比一比：選適合自己的工作流</h2><span class="ts-badge" data-field="lesson_timestamp">16:39</span></div><div class="body" data-field="lesson_body"><p>最後影片把 Matt Pocock 的 skills 做法和 Superpowers 拿來比較，讓觀眾看到不同 AI 工作流的取向差異。重點不是誰絕對比較強，而是你需要的是偏任務規格化、還是偏快速協作的風格。</p><p>這個結尾把整支影片收束回實務選擇：工具設計最終還是要回到自己的工作方式與維護成本。</p><span class="tag" data-field="lesson_tag">工具選型</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">好的 skill 不是把事情做更多，而是把事情做得更可控、更可維護。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="0:00"><span class="ts">0:00</span><span class="text" data-field="key_point_text">影片從 Matt Pocock 的 skills 專案切入：它已經拿下超過 16 萬顆星與 700 萬次下載，但最紅的 skill 內容只有五行字，形成強烈反差。</span></li><li data-field="key_point" data-timestamp="1:24"><span class="ts">1:24</span><span class="text" data-field="key_point_text">重點之一是 grill-me：讓 AI 先反過來拷問使用者，而不是一開始就直接給答案。</span></li><li data-field="key_point" data-timestamp="3:56"><span class="ts">3:56</span><span class="text" data-field="key_point_text">影片接著談規格書與拆任務，強調把工作拆成可執行的小步驟，讓 AI 的輸出更可控。</span></li><li data-field="key_point" data-timestamp="6:22"><span class="ts">6:22</span><span class="text" data-field="key_point_text">中段把 TDD 與 Code Review 放進 AI 工作流，目標是降低 AI 作弊、亂補內容或走偏的風險。</span></li><li data-field="key_point" data-timestamp="11:15"><span class="ts">11:15</span><span class="text" data-field="key_point_text">影片比較深模組與淺模組的設計思維，指出好的系統不是把功能攤平，而是能保留清楚邊界與可維護性。</span></li><li data-field="key_point" data-timestamp="16:39"><span class="ts">16:39</span><span class="text" data-field="key_point_text">結尾把這套 skills 工作流與 Superpowers 做對照，幫觀眾判斷哪一種風格更適合自己的 AI 開發習慣。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="AI">AI</span><span class="tag-chip" data-tag="AICoding">AICoding</span><span class="tag-chip" data-tag="MattPocock">MattPocock</span><span class="tag-chip" data-tag="Claude Code">Claude Code</span><span class="tag-chip" data-tag="TDD">TDD</span><span class="tag-chip" data-tag="TypeScript">TypeScript</span><span class="tag-chip" data-tag="skills">skills</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>未取得可用逐字稿；本報告依影片 shortDescription 與章節資訊整理。</li></ul></div></section>
+  
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="description"><div class="raw-label">shortDescription<button class="copy-btn" id="raw_description_4313735680_srt" onclick="copyRaw(this,'raw_description_4313735680_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_description_4313735680_text" onclick="copyRawText(this,'raw_description_4313735680_text')">📋 複製純文字</button></div><pre>加入我的 Patreon，查看完整文章：https://www.patreon.com/posts/164506062
+--
+TypeScript 大神 Matt Pocock 把自己的 AI 開發工作流開源，整個專案拿下超過 16 萬顆星、700 萬次下載，但最紅的 skill 打開來只有五行字。這支影片帶你看懂這套系統怎麼運作：從 grill-me 讓 AI 反過來拷問你、規格書與拆任務、TDD 防 AI 作弊，到深模組的架構思維。最後拿它跟 Superpowers 比一比，幫你判斷自己適合哪一種。
+
+📌 時間戳
+0:00 爆紅的五行字 skill
+1:24 grill-me 讓 AI 拷問你
+3:56 規格書與拆任務
+6:22 TDD 與 Code Review
+11:15 深模組 vs 淺模組
+16:39 跟 Superpowers 比一比
+
+📢 追蹤我的頻道
+👍 覺得有幫助請按讚、訂閱、開小鈴鐺！
+
+#AI #AICoding #MattPocock #軟體開發</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://www.youtube.com/watch?v=aR97E7aKEgg" target="_blank" rel="noopener">https://www.youtube.com/watch?v=aR97E7aKEgg</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+  <!-- 文章頁星等編輯腳本 -->
+  <script>
+    (function () {
+      'use strict';
+
+      var editBtn = document.getElementById('article-rating-edit');
+      if (!editBtn) return;
+
+      // 從 URL 取得檔名
+      var pathParts = window.location.pathname.split('/');
+      var filename = pathParts[pathParts.length - 1];
+
+      // 從 meta 區塊讀取目前星等
+      var starSpan = document.querySelector('.star-rating');
+      var currentRating = 0;
+      if (starSpan && starSpan.textContent.trim()) {
+        var starText = starSpan.textContent.trim();
+        currentRating = (starText.match(/★/g) || []).length;
+      }
+
+      // ── 星等編輯彈窗 ──
+      function showRatingEditor() {
+        var old = document.getElementById('rating-editor-overlay');
+        if (old) old.remove();
+
+        var overlay = document.createElement('div');
+        overlay.id = 'rating-editor-overlay';
+        overlay.className = 'rating-editor-overlay';
+
+        var box = document.createElement('div');
+        box.className = 'rating-editor-box';
+
+        var title = document.createElement('div');
+        title.className = 'rating-editor-title';
+        title.textContent = '設定星等';
+
+        var starsRow = document.createElement('div');
+        starsRow.className = 'rating-editor-stars';
+
+        for (var s = 1; s <= 5; s++) {
+          (function (star) {
+            var btn = document.createElement('button');
+            btn.className = 'rating-editor-star';
+            btn.textContent = star <= currentRating ? '★' : '☆';
+            btn.dataset.value = star;
+            btn.addEventListener('click', function () {
+              // 高亮
+              var allBtns = starsRow.querySelectorAll('.rating-editor-star');
+              for (var k = 0; k < allBtns.length; k++) {
+                allBtns[k].textContent = k < star ? '★' : '☆';
+              }
+              // 儲存
+              saveRating(star, function (ok) {
+                if (ok) {
+                  showToast('✅ 星等已更新，網站重新部署中 (~30-60 秒)');
+                } else {
+                  showToast('❌ 更新失敗，請稍後再試');
+                }
+              });
+              overlay.remove();
+            });
+            starsRow.appendChild(btn);
+          })(s);
+        }
+
+        // 清除星等按鈕
+        var clearBtn = document.createElement('button');
+        clearBtn.className = 'rating-editor-clear';
+        clearBtn.textContent = '清除星等';
+        clearBtn.addEventListener('click', function () {
+          saveRating(0, function (ok) {
+            if (ok) {
+              showToast('✅ 星等已清除');
+            } else {
+              showToast('❌ 清除失敗，請稍後再試');
+            }
+          });
+          overlay.remove();
+        });
+
+        // 關閉按鈕
+        var closeBtn = document.createElement('button');
+        closeBtn.className = 'rating-editor-close';
+        closeBtn.textContent = '✕';
+        closeBtn.addEventListener('click', function () { overlay.remove(); });
+
+        box.appendChild(closeBtn);
+        box.appendChild(title);
+        box.appendChild(starsRow);
+        box.appendChild(clearBtn);
+        overlay.appendChild(box);
+
+        overlay.addEventListener('click', function (e) {
+          if (e.target === overlay) overlay.remove();
+        });
+
+        document.body.appendChild(overlay);
+      }
+
+      // ── 送出星等更新 ──
+      function saveRating(rating, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/api/rating', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            currentRating = rating;
+            // 更新頁面上的星等顯示
+            if (starSpan) {
+              var stars = '';
+              for (var k = 0; k < rating; k++) stars += '★';
+              for (var k = rating; k < 5; k++) stars += '☆';
+              starSpan.textContent = stars;
+            }
+            if (callback) callback(true);
+          } else {
+            console.error('Failed to save rating:', xhr.status);
+            if (callback) callback(false);
+          }
+        };
+        xhr.onerror = function () {
+          console.error('Network error saving rating');
+          if (callback) callback(false);
+        };
+        xhr.send(JSON.stringify({ filename: filename, rating: rating }));
+      }
+
+      // ── Toast 通知 ──
+      function showToast(msg) {
+        var old = document.getElementById('rating-toast');
+        if (old) old.remove();
+
+        var toast = document.createElement('div');
+        toast.id = 'rating-toast';
+        toast.className = 'rating-toast';
+        toast.textContent = msg;
+        document.body.appendChild(toast);
+
+        setTimeout(function () {
+          if (toast.parentNode) toast.parentNode.removeChild(toast);
+        }, 5000);
+      }
+
+      // 綁定編輯按鈕
+      editBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        showRatingEditor();
+      });
+    })();
+  </script>
+</body>
+</html>
