@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude 的未知量方法論 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .meta .star-rating { color: #f1c40f; letter-spacing: 1px; font-size: 1.1rem; }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    /* ── 星等編輯按鈕（文章頁） ── */
+    .rating-edit-btn-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: none;
+      border: 1px solid #dee2e6;
+      border-radius: 4px;
+      padding: 2px 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      color: #868e96;
+      transition: all 0.15s;
+      vertical-align: middle;
+      margin-left: 8px;
+    }
+    .rating-edit-btn-inline:hover {
+      border-color: #667eea;
+      color: #667eea;
+      background: #eef0ff;
+    }
+
+    /* ── 星等編輯彈窗 ── */
+    .rating-editor-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .rating-editor-box {
+      background: #fff;
+      border-radius: 12px;
+      padding: 32px;
+      min-width: 300px;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      position: relative;
+    }
+    .rating-editor-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .rating-editor-stars {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .rating-editor-star {
+      background: none;
+      border: 2px solid transparent;
+      font-size: 2rem;
+      cursor: pointer;
+      color: #f1c40f;
+      padding: 4px 8px;
+      border-radius: 8px;
+      transition: all 0.15s;
+    }
+    .rating-editor-star:hover {
+      border-color: #667eea;
+      background: #eef0ff;
+      transform: scale(1.15);
+    }
+    .rating-editor-clear {
+      background: none;
+      border: 1px solid #dee2e6;
+      border-radius: 6px;
+      padding: 6px 16px;
+      font-size: 0.85rem;
+      color: #868e96;
+      cursor: pointer;
+    }
+    .rating-editor-clear:hover {
+      border-color: #e74c3c;
+      color: #e74c3c;
+    }
+    .rating-editor-close {
+      position: absolute;
+      top: 8px; right: 12px;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: #adb5bd;
+    }
+    .rating-editor-close:hover { color: #333; }
+
+    /* ── Toast 通知 ── */
+    .rating-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      z-index: 10000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      animation: toast-in 0.3s ease;
+    }
+    @keyframes toast-in {
+      from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>Claude 的未知量方法論</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-07-23 07:48</span>
+        <span class="star-rating"></span>
+        <button class="rating-edit-btn-inline" id="article-rating-edit" title="設定星等">✎ 評分</button>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">如何用AI找到未知的未知 | Thariq | Claude | Fable | 提示词 | 未知量 | 地图與領土 | 工作方法論 | 效率工具 | AI教程</h1>
+    <div class="meta"><span data-field="channel">📺 Best Partners TV</span><span data-field="duration">⏱ 15:12</span><span data-field="published_date">🗓 2026-07-22</span><span data-field="original_language">🌐 zh-Hans</span><a data-field="source_url" href="https://youtu.be/M-LF4bYjiBY?si=rypooWfPW0hTdLg-" target="_blank" rel="noopener">🔗 https://youtu.be/M-LF4bYjiBY?si=rypooWfPW0hTdLg-</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>這支影片整理了一篇關於 Claude Code 與「未知量」的文章，核心在於先找出未知，再開始動手。講者先用「地圖與領土」比喻提示詞與真實任務環境，指出兩者之間的落差就是 AI 容易靠猜的地方。接著把未知量分成四類：已知的已知、已知的未知、未知的已知、未知的未知，並強調後兩類最容易讓任務跑偏。影片把整體工作流程拆成實施前、實施中、實施後三個階段，其中最重要的是實施前的盲點探測與範圍校準。在實施前，可以透過盲點探測、讓 Claude 反向提問、提供參考物、做不同方向的原型，先把模糊區域縮小。在實施中，則用偏差紀錄（deviation log）記下邊界案例，先採保守決策再繼續推進，維持一致性。收尾時再把產出、原型與決策整理成提案與說明，甚至用測驗確認自己真的理解了這次改動。最後的 Fable 剪片案例把這套方法落地：先確認 Whisper、ffmpeg、Remotion 等工具能否解決問題，再針對調色與動態 UI 的不確定性逐步校準。整體結論是，AI 的表現不只取決於提示詞，而更取決於使用者對問題的理解有多清楚。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">先把「地圖」和「領土」分開看</h2><span class="ts-badge" data-field="lesson_timestamp">0:55</span></div><div class="body" data-field="lesson_body"><p>影片一開始就把問題定義得很清楚：你給 Claude 的提示詞、背景、指令，只是你手上的<strong>地圖</strong>；真正的任務環境、程式碼庫、限制條件與現實世界，才是<strong>領土</strong>。</p><p>兩者之間的落差，就是會讓 AI 只能靠猜的未知量。模型越強，這個落差就越昂貴，因為不是模型不夠聰明，而是你還沒把任務的邊界說清楚。</p><span class="tag" data-field="lesson_tag">未知量</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">先分辨四種未知量，才知道該補什麼</h2><span class="ts-badge" data-field="lesson_timestamp">1:52</span></div><div class="body" data-field="lesson_body"><p>講者把未知量分成四類：已知的已知、已知的未知、未知的已知、未知的未知。前兩類比較容易處理，因為你知道自己缺什麼；後兩類才是真正讓任務失控的來源。</p><p>尤其是未知的未知，因為你根本不知道它存在，所以不會主動補。影片很強調，優秀的 Claude 使用者不一定比較會寫提示詞，而是比較會在開始前把這些盲點找出來。</p><span class="tag" data-field="lesson_tag">未知量分類</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">實施前最值錢：盲點探測、反向提問、參考物、原型</h2><span class="ts-badge" data-field="lesson_timestamp">3:45</span></div><div class="body" data-field="lesson_body"><p>實施前是這套方法最重要的地方。影片建議先做 blindspot pass，直接請 Claude 幫你找出「不知道自己不知道」的地方，並且一次問一個會影響方向的關鍵問題。</p><p>如果你知道方向模糊、但語言說不清楚，就讓 Claude 給你幾個截然不同的方案；如果你有參考範例，就把它丟給 Claude，像是源碼、文檔、截圖，讓它從參考物出發重建。</p><p>當你還不確定可不可行時，就先做一個小原型。影片非常明確：前期多花幾分鐘驗證，往往能省掉後面幾小時甚至幾天的返工。</p><span class="tag" data-field="lesson_tag">實施前</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">實施中靠紀錄維持一致，收尾靠提案與測驗</h2><span class="ts-badge" data-field="lesson_timestamp">8:36</span></div><div class="body" data-field="lesson_body"><p>進入實作後，核心不再是消滅未知，而是遇到未知時不要亂。影片提出 deviation log 的做法：遇到邊界情況時先採保守決策、把原因記下來，再繼續推進。</p><p>這樣做的好處，是讓 Claude 在同一個任務中保持前後一致，也讓下一次遇到類似問題時，可以拿這份紀錄當作新的地圖。</p><p>任務完成後，還要把產出、原型與決策整理成提案，甚至做一個小測驗確認自己真的理解了這次改動。這不是形式，而是逼自己把事情想清楚。</p><span class="tag" data-field="lesson_tag">流程治理</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">Fable 剪片案例：用同一套思路處理新領域</h2><span class="ts-badge" data-field="lesson_timestamp">10:41</span></div><div class="body" data-field="lesson_body"><p>最後的 Fable 剪片案例把整套流程落地。講者一開始不確定語音轉錄是否夠準，也不確定像動態 UI、調色這些視覺與感受性的需求能不能被 Claude 幫上忙。</p><p>他沒有直接硬做，而是先確認 Whisper、ffmpeg、Remotion 等工具能做什麼，先做原型，再回頭補齊自己不懂的部分。</p><p>這個案例的重點不是剪片本身，而是遇到全新領域時的心法：先補盲點，再行動。</p><span class="tag" data-field="lesson_tag">案例</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">AI 是放大器，它會放大你已有的認知，也會放大你認知裡的盲區。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="0:55"><span class="ts">0:55</span><span class="text" data-field="key_point_text">提出「地圖與領土」的比喻：提示詞、背景與指令只是地圖，真實任務環境才是領土，兩者的差距就是未知量。</span></li><li data-field="key_point" data-timestamp="1:52"><span class="ts">1:52</span><span class="text" data-field="key_point_text">把未知量分成四類：已知的已知、已知的未知、未知的已知、未知的未知，並指出後兩類最容易讓 AI 跑偏。</span></li><li data-field="key_point" data-timestamp="3:08"><span class="ts">3:08</span><span class="text" data-field="key_point_text">將工作流程拆成實施前、實施中、實施後三段，強調多數人最容易忽略的是實施前。</span></li><li data-field="key_point" data-timestamp="3:45"><span class="ts">3:45</span><span class="text" data-field="key_point_text">用 blindspot pass 做盲點探測，請 Claude 先找出使用者「不知道自己不知道」的部分。</span></li><li data-field="key_point" data-timestamp="4:33"><span class="ts">4:33</span><span class="text" data-field="key_point_text">當需求很抽象時，讓 Claude 給出幾個截然不同的方向或原型，透過反應來校準真正想要的風格。</span></li><li data-field="key_point" data-timestamp="6:28"><span class="ts">6:28</span><span class="text" data-field="key_point_text">把提問角色交給 Claude 來採訪使用者，優先問那些答案會改變整體方向的問題。</span></li><li data-field="key_point" data-timestamp="7:29"><span class="ts">7:29</span><span class="text" data-field="key_point_text">在真正動手前先讓 Claude 擬一份實施計畫，把需要人拍板的決策和純執行項目分開。</span></li><li data-field="key_point" data-timestamp="8:36"><span class="ts">8:36</span><span class="text" data-field="key_point_text">以 deviation log 記錄邊界案例，遇到偏差先採保守處理，再留下決策痕跡繼續往前。</span></li><li data-field="key_point" data-timestamp="9:28"><span class="ts">9:28</span><span class="text" data-field="key_point_text">任務完成後要把產出、原型與實施紀錄整理成提案，必要時再做測驗確認自己真的理解。</span></li><li data-field="key_point" data-timestamp="10:41"><span class="ts">10:41</span><span class="text" data-field="key_point_text">Fable 剪片案例展示整套方法：先確認 Whisper 與 ffmpeg 的能力，再用原型與盲點探測處理剪輯、動態 UI 與調色問題。</span></li><li data-field="key_point" data-timestamp="13:06"><span class="ts">13:06</span><span class="text" data-field="key_point_text">總結為：前期便宜的錯誤，遠勝後期昂貴的返工；未知量會隨著每次任務被逐步縮小。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="Claude Code">Claude Code</span><span class="tag-chip" data-tag="未知量">未知量</span><span class="tag-chip" data-tag="AI工作方法">AI工作方法</span><span class="tag-chip" data-tag="盲點探測">盲點探測</span><span class="tag-chip" data-tag="原型設計">原型設計</span><span class="tag-chip" data-tag="deviation log">deviation log</span><span class="tag-chip" data-tag="Whisper">Whisper</span><span class="tag-chip" data-tag="ffmpeg">ffmpeg</span><span class="tag-chip" data-tag="Fable">Fable</span></div>
+  </section>
+
+  
+  
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="description"><div class="raw-label">description<button class="copy-btn" id="raw_description_4302513344_srt" onclick="copyRaw(this,'raw_description_4302513344_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_description_4302513344_text" onclick="copyRawText(this,'raw_description_4302513344_text')">📋 複製純文字</button></div><pre>Anthropic技术团队成员塔里克·希哈帕尔提出的&quot;地图与领土&quot;框架正在改变AI使用方式。你给AI的提示词是地图，真实任务环境是领土，两者差距就是未知量，AI遇到未知量只能靠猜测。模型越强，未知量的代价越昂贵。他系统拆解了四类未知量（已知的已知、已知的未知、未知的已知、未知的未知），详解实施前、中、后三阶段的具体应对方法，包括盲点探测、快速原型、AI反向提问、参考物、实施计划、偏差记录、理解测验等可落地技巧，并以用AI从零完成视频剪辑的完整案例展示方法论实战，帮你把&quot;AI总跑偏&quot;的模糊感受转化为可系统解决的问题。
+
+https://claude.com/blog/a-field-guide-to-claude-fable-finding-your-unknowns</pre></div><div class="raw-block" data-field="raw_source_item" data-raw-type="transcript"><div class="raw-label">transcript<button class="copy-btn" id="raw_transcript_4302513216_srt" onclick="copyRaw(this,'raw_transcript_4302513216_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_transcript_4302513216_text" onclick="copyRawText(this,'raw_transcript_4302513216_text')">📋 複製純文字</button></div><pre>0:00 大家好，这里是最佳拍档，我是大飞
+0:03 不知道你有没有过这样的体验
+0:05 用AI做东西
+0:06 明明提示词写得很详细了
+0:08 结果出来还是不对
+0:09 感觉AI总是在跑偏
+0:11 你可能会觉得是模型不够聪明
+0:13 或者自己提示词写得不够好
+0:16 但今天要聊的这篇文章
+0:17 可能会彻底改变你对这件事的看法
+0:20 文章作者是塔里克·希哈帕尔（Thariq Shihipar）
+0:22 Anthropic的技术团队成员
+0:24 也是YC W20的创业者
+0:26 他可以说是目前对Claude Code研究最深的人之一
+0:29 前段时间
+0:30 他做了一件让很多人惊讶的事
+0:32 一个完全没有视频剪辑经验的人
+0:35 仅凭Claude Code
+0:36 独立完成了Fable整个发布视频的剪辑工作
+0:39 让他做成这件事的
+0:40 不是什么复杂的提示词技巧
+0:42 而是他在整个过程中一直在做的一件事
+0:46 在每个不确定的节点
+0:47 先找出自己的未知量，再动手
+0:50 他把这套工作方式整理成文章
+0:52 发出24小时就获得了190万浏览
+0:55 核心框架说起来很简单
+0:57 你给Claude的提示词、背景、指令
+1:00 是地图，而任务实际发生的地方
+1:02 比如代码库、真实的约束、现实的环境
+1:05 它们都是领土
+1:07 地图和领土之间的差距，就是未知量
+1:10 Claude遇到未知量只能靠猜
+1:12 而猜的质量会决定产出的质量
+1:15 这其实不是什么新问题
+1:17 但有一件事正在发生变化
+1:19 以前用旧一代的模型，结果出来不对
+1:21 你会觉得是模型不够好
+1:23 但是现在模型已经强大到足够执行大多数的任务了
+1:27 结果出来不对
+1:28 大概率是因为你的地图和领土差得太远
+1:31 模型越强，你的未知量就越贵
+1:33 这也是塔里克写这篇文章的起点
+1:36 Fable是第一个让他真正感到
+1:38 产出质量的瓶颈是我自己的模型
+1:41 这句话我第一次看到的时候挺有触动的
+1:43 我们总在等更强的模型
+1:45 但是当模型真的足够强了
+1:47 你会发现限制你的
+1:49 其实是你自己对问题的认知边界
+1:52 那具体什么是未知量呢？
+1:54 在开始一个任务时
+1:55 塔里克把所有可能的未知量分成四类
+1:58 你写进提示词的内容
+2:00 你明确告诉Claude你要什么
+2:02 这部分它能忠实执行
+2:04 这叫已知的已知
+2:05 然后是你知道自己还没搞清楚的问题
+2:08 比如这个功能的边界我还没想好、我不确定哪个方案更合适
+2:12 你知道问题存在
+2:13 还有机会在开始前解决
+2:15 这叫已知的未知
+2:17 真正麻烦的是后两类
+2:19 首先是你其实知道
+2:21 但太理所当然、不会写出来的东西
+2:24 你有偏好和直觉
+2:25 只有看到结果才知道对不对
+2:27 就好像Claude做出来你看一眼就觉得哪里不对
+2:30 但说不清哪里不对
+2:32 这就是未知的已知
+2:34 而最危险的是最后一类
+2:35 你完全没想到的东西
+2:37 你不知道那个坑存在
+2:39 所以不会想到要提前处理，等你发现
+2:42 通常已经在错误的方向走了很远
+2:44 这是未知的未知
+2:46 未知的已知
+2:47 会让你不断说再调整一下
+2:49 或者感觉还不对
+2:50 因为你自己也不知道那个对的标准是什么
+2:53 未知的未知更直接
+2:55 那个坑从一开始就不在你的地图里
+2:58 优秀的Claude使用者
+2:59 不一定是提示词写得更好
+3:01 更多时候
+3:02 是他们开始之前的未知量更少
+3:04 不过，这是一个可以训练的技能
+3:06 并不是什么天赋
+3:08 塔里克把整个工作流程分成三个阶段
+3:11 实施前、实施中、实施后
+3:13 最重要的是实施前
+3:14 也是多数人完全跳过的阶段
+3:17 很多人拿到一个任务
+3:18 上来就开始写提示词让AI干活
+3:21 干到一半发现不对
+3:22 再返工，浪费了大量时间
+3:24 其实前面多花一点时间把未知量清掉
+3:27 后面会省很多事
+3:29 这里说的五种方法
+3:30 底层逻辑是通用的
+3:32 写代码、写文章、做产品决策
+3:34 甚至做视频，用的是同一套思路
+3:37 首先，你不知道要问什么
+3:39 因为你不知道那个问题存在
+3:41 这是最典型的未知的未知场景
+3:43 这时候怎么办呢？
+3:45 直接让Claude帮你找盲点
+3:47 塔里克建议直接用blindspot pass
+3:50 也就是盲点探测
+3:51 和unknown unknowns
+3:53 也就是未知的未知这两个词
+3:55 同时告诉Claude你的背景
+3:57 比如你是谁、你对这个领域了解多少
+4:00 这一步很关键，Claude知道你的起点
+4:03 才能找到对你有价值的盲点
+4:05 不是告诉你一堆你早就知道的东西
+4:08 比如你要在代码库里接入一个新的认证方式
+4:11 但是你对这部分代码完全不熟
+4:13 你就可以直接说，能做一次盲点探测
+4:16 帮我找出我不知道自己不知道的东西
+4:18 让我能更准确地给你指令吗？
+4:20 再比如塔里克自己遇到的情况
+4:23 他不懂什么是调色
+4:24 但是他要给视频调色
+4:25 他就先让Claude教他理解调色里他不知道自己不知道的东西
+4:30 先搞清楚问题是什么，再动手解决
+4:33 当你知道自己要什么结果
+4:35 但无法精确描述的时候
+4:36 比如视觉风格、文章的语感
+4:39 或者一个方案对的感觉
+4:41 这就是未知的已知在起作用
+4:43 这时候与其让Claude猜你的意思
+4:46 不如让Claude给出几个截然不同的方向
+4:48 你来反应哪个对、哪个不对
+4:51 你的反应就是信息
+4:53 你可能觉得这会浪费时间
+4:54 但其实一个小需求在草图里改是几秒的事
+4:58 等到深度实施后再改
+4:59 可能要推翻重来
+5:01 塔里克几乎每次复杂任务都从探索或头脑风暴开始
+5:06 帮他在真正动手前把项目范围定清楚
+5:09 比如你要给一份数据做一个看板
+5:11 但是你没有视觉品位
+5:13 也不知道什么效果是可能的
+5:15 就让AI帮你做一个HTML页面
+5:17 给出4个风格截然不同的设计方向
+5:20 你来反馈哪个对
+5:21 再比如你有个还没想透的问题
+5:24 用户走完新手引导就流失了
+5:26 你可以让AI搜索代码库
+5:28 头脑风暴10个可以介入的地方
+5:30 从改动最小到最激进的排出来
+5:33 你来告诉它哪些方向说到点上了
+5:36 这时候你不需要精确描述你想要什么
+5:38 你只需要对AI给出的东西做出反应就行
+5:41 这比你自己憋在那里想破头要高效得多
+5:45 还有一种情况，你知道有模糊地带
+5:47 但是不知道从哪里问起
+5:49 这时候把提问的角色交给Claude
+5:51 告诉它问题的背景，让它来采访你
+5:54 不过你要给它一个排序标准
+5:56 优先问那些你的答案会改变整体方向的问题
+6:00 否则Claude可能把时间花在无关紧要的细节上
+6:03 比如你可以直接说
+6:04 一次问我一个问题
+6:06 关于任何模糊的地方
+6:07 优先问那些我的回答会改变整体方向的问题
+6:11 这个做法和普通问答的区别是什么呢？
+6:13 你不是在问Claude
+6:15 而是Claude在问你，将找问题的活
+6:17 交给了对任务有全局视角的那一方
+6:20 很多时候你自己想不清楚问题在哪
+6:22 但是AI一问
+6:24 你马上就知道自己要什么了
+6:25 这是一种很奇妙的体验
+6:28 有时候你不是不知道要什么
+6:29 而是没有语言描述它
+6:31 或者描述起来太费劲
+6:33 这时候最有效的是直接给Claude一个参考物
+6:36 对开发者来说
+6:37 最好的参考物是源代码
+6:39 比如指向一个实现了你想要行为的库
+6:42 让Claude读懂后在你的项目里重新实现
+6:46 图表、文档、截图都可以给
+6:48 但是源代码的信息最丰富
+6:50 这个方法对设计或内容方向的用户同样适用
+6:54 你看到一篇文章的风格你很想学
+6:56 或者一个网站的某个交互做得恰到好处
+6:59 直接把它指给Claude
+7:01 比你用语言描述快得多
+7:03 Claude拿到的信息也更准确
+7:05 塔里克还提到一个点
+7:07 Claude Design可以直接读网页底层代码
+7:10 不只是截图
+7:11 这样它拿到的是结构和实现层面的信息
+7:14 比截图丰富得多
+7:16 比如你看到vendor/rate-limiter里这个Rust crate实现了你要的退避逻辑
+7:21 你就直接让它完整读懂
+7:22 然后在你们的TypeScript API客户端里
+7:25 按照同样的语义实现一遍
+7:26 这比你自己描述半天要准确太多
+7:29 等你觉得准备好了之后
+7:31 先让Claude拟一份实施计划
+7:33 重点不在于计划的全貌
+7:35 而在于把需要你拍板的决策
+7:37 和Claude可以自己处理的执行
+7:39 分开排列出来
+7:40 前者放最前面，后者完全交出去
+7:43 对开发者来说是数据结构和接口
+7:46 对做内容的人可能是文章结构和论证顺序
+7:49 这样Claude在动手之前
+7:51 先把它自己也不确定的东西显式化
+7:53 让你在低成本阶段确认最后剩下的未知量
+7:57 你可以告诉它
+7:58 写一份HTML格式的实施计划
+8:00 把我最可能需要拍板的决策放最前面
+8:03 比如数据结构怎么设计、接口怎么定
+8:06 以及所有用户会直接看到的部分
+8:08 然后把纯执行层面的改动放最后
+8:11 那部分我信任你
+8:12 可以自己决定
+8:14 这时候你就不需要再审整个计划的每一个细节了
+8:17 你只需要重点关注那些你可能会改的决策点就行了
+8:21 好了，实施前的工作做充分了
+8:23 是不是执行的时候就不会有问题了呢？
+8:26 也不是
+8:27 实施前做得再充分
+8:28 执行中还是会冒出没预见到的情况
+8:31 这个阶段的核心不是消除未知量
+8:34 而是在遇到未知量时不乱
+8:36 塔里克的做法是让Claude维护一个临时的偏差记录文件
+8:39 英文叫deviation log
+8:41 遇到边缘情况时
+8:43 不要停下来等你确认
+8:44 先选保守的处理方式
+8:46 记录这个决策，继续推进
+8:48 这份记录可以帮Claude在当前任务里保持一致
+8:51 也能成为下次任务更好的地图的原材料
+8:55 对非开发者来说
+8:56 等价的做法是让Claude记录任务中的关键决策
+8:59 而不只是给你最终产出
+9:01 你可以直接告诉它
+9:02 维护一个implementation-notes.md文件
+9:06 遇到边缘情况导致必须偏离计划时
+9:08 优先选择保守的处理方式
+9:11 在偏差下面记录这个决策
+9:12 然后继续推进
+9:14 这个做法看起来简单
+9:15 但是其实解决了一个很大的问题
+9:17 很多时候AI做着做着就前后不一致了
+9:20 或者遇到点小问题就卡住等你指示
+9:23 有了这个偏差记录
+9:24 它就能自己往前走
+9:25 同时保证所有决策都有迹可循
+9:28 任务完成后，还有两个步骤
+9:30 第一个是提案与说明
+9:32 把产出、原型和实施记录
+9:34 打包成一份别人看得懂的文件
+9:36 这不只是让别人理解你做了什么
+9:39 也是在强迫你自己搞清楚你让Claude做了什么
+9:42 审阅者开始时往往和你有同样的未知量
+9:45 因此提前在文件里回答掉
+9:47 能显著加快审阅和获批的速度
+9:50 第二个步骤初看有点奇怪，测验
+9:53 在重要产出落地前
+9:54 让Claude先考考你
+9:56 通过了再确认
+9:57 逻辑其实很简单
+9:59 Claude会先给你一份报告
+10:00 把做了什么、背后的思路写清楚
+10:03 然后出题考你
+10:04 你答对了，才说明你真的理解了
+10:06 而不只是扫了一遍
+10:08 测验是消化机制，不是信任问题
+10:10 你可以告诉它
+10:11 我想确认自己真正理解了这次的所有改动
+10:14 给我一份报告
+10:15 把做了什么、背后的思路和逻辑写清楚
+10:18 在最后放一个我必须通过的测验
+10:21 说实话
+10:21 第一次看到这个方法的时候我愣了一下
+10:24 让AI考我？
+10:26 但仔细想想，确实是这样
+10:27 很多时候我们让AI写了一堆代码或者改了一堆东西
+10:30 扫一眼觉得没问题就合并了
+10:33 但是真要问你改了什么、为什么这么改
+10:35 你可能根本答不上来
+10:37 这时候出问题你都不知道从哪查
+10:40 讲完了方法
+10:41 我们来看一个完整的例子
+10:42 就是塔里克自己剪Fable发布视频这件事
+10:46 视频剪辑对他来说是全新的领域
+10:48 他对这件事能不能做成没有把握
+10:50 他从已知的开始
+10:52 他知道Claude可以用代码编辑视频、做语音转录
+10:55 但不确定转录的精度够不够用
+10:58 能不能准确剪掉像嗯啊这样的口气词和过长的停顿
+11:02 这是已知的未知，他没有直接开始干
+11:05 而是先做盲点探测
+11:07 让Claude解释Whisper这个开源语音识别模型的工作原理
+11:10 以及ffmpeg这个音视频处理工具能做到什么程度
+11:14 先搞清楚自己的未知的未知
+11:17 然后他还想要一个动态UI
+11:19 能跟着他说话的节奏动起来
+11:21 他不确定这在技术上能不能实现
+11:23 所以没有直接开始做
+11:25 而是先让Claude用Remotion这个React视频框架做了一段原型视频
+11:30 配上转录文本，看看效果
+11:32 这是头脑风暴与原型
+11:33 用原型回答一个他无法凭想象判断的问题
+11:37 你看，这就是聪明人的做法
+11:39 遇到不确定能不能做到的事
+11:41 不要上来就投入大量时间做完整版本
+11:44 先花几分钟做个原型验证一下可行性
+11:47 最后是调色
+11:48 视频出来后他觉得颜色发闷
+11:51 知道这是调色的问题
+11:52 但他不知道什么是调色
+11:54 也不知道好的调色长什么样
+11:56 他的第一反应是让Claude做几个版本来挑
+11:59 但做完他发现自己还是不知道哪个对
+12:01 因为他根本没有判断标准
+12:03 他意识到这是未知的未知
+12:05 于是又回到了盲点探测
+12:08 先让Claude教他理解调色
+12:10 建立起基本的判断标准，再回来动手
+12:13 这个过程展示了一件很重要的事
+12:15 未知量不是在开始前一次性清完的
+12:18 它在整个任务里持续出现
+12:20 他每次遇到卡点，做的都是同一件事
+12:23 先找出自己的未知量，再动手
+12:25 不是说你前面做了盲点探测
+12:27 后面就不会遇到问题了
+12:29 而是你要有这个意识
+12:30 每次卡住的时候，先停下来想一想
+12:33 我现在是哪类未知量没处理好？
+12:35 说到这，我们回头看
+12:37 这个框架真正有价值的地方是什么？
+12:40 它把Claude总是跑偏这个模糊的感受
+12:42 变成了一个可以系统处理的问题
+12:45 以前你觉得AI跑偏
+12:46 你可能会重新写提示词
+12:48 或者换个模型，或者干脆自己干
+12:50 但现在你有了清晰的诊断起点
+12:52 到底是哪类未知量没处理好？
+12:55 是你没写进提示词
+12:56 是你知道问题但没解决
+12:58 是你有隐性偏好但没说出来
+13:01 还是你完全不知道那个坑存在呢？
+13:03 不同的诊断，对应着不同的处理方法
+13:06 四类未知量里
+13:07 未知的未知是最值得认真对待的
+13:10 你不会主动去补你不知道需要补的背景
+13:12 只有这一类
+13:13 需要主动设计一个机制去发现它
+13:16 而不是靠任务流程自然暴露出来
+13:18 这也是为什么盲点探测这个步骤这么重要
+13:21 它是专门用来对付未知的未知的
+13:24 我知道有人会说，这套方法有成本啊
+13:27 盲点探测、原型、让AI采访你
+13:29 这些都要花时间
+13:31 但是塔里克的核心主张其实很简单
+13:34 前期便宜的错误
+13:35 好过后期昂贵的返工
+13:37 你在前面花10分钟做个原型验证
+13:40 也许能避免后面花10个小时推翻重来
+13:43 这笔账其实很好算
+13:45 还有一点我觉得很重要
+13:46 就是你的未知量不是固定的
+13:48 持续在一个领域用Claude工作
+13:50 你会逐渐把未知的未知变成已知的未知
+13:54 再变成已知的已知
+13:55 每次任务的偏差记录
+13:57 都在让你的地图更接近领土
+13:59 这个技能是越用越好的
+14:01 不是说你学了这套方法就一劳永逸了
+14:04 而是每做一个任务
+14:06 你对这个领域的理解就深了一层
+14:08 你的地图就更准确一点
+14:10 下次做类似任务的时候未知量就更少了
+14:13 其实我自己用AI做内容这么久
+14:15 最大的感受也是这样
+14:17 一开始总觉得提示词是万能的
+14:19 后来发现真正重要的是你自己对问题的理解有多深
+14:23 你自己对问题理解得越清楚
+14:25 你给AI的地图就越准确
+14:27 出来的结果自然就越好
+14:29 反过来
+14:30 如果你自己都没想清楚要什么
+14:32 再厉害的提示词工程师也帮不了你
+14:34 AI是放大器，它会放大你已有的认知
+14:37 也会放大你认知里的盲区
+14:40 那今天聊的这套方法
+14:41 其实本质上就是一套帮你系统性发现自己认知盲区的方法
+14:45 它不只是用Claude的技巧
+14:47 更是一种工作方式
+14:49 一种思考问题的方式
+14:50 不管你用不用AI
+14:52 做任何复杂事情的时候
+14:53 先停下来想一想
+14:55 我的地图和领土之间有什么差距？
+14:58 我有哪些未知量？
+14:59 这可能比你急着动手要有用得多
+15:02 最后我也想问问大家
+15:03 你最近一次对用AI做的东西结果不满意
+15:06 现在回头看
+15:07 是哪一类未知量没处理好呢？
+15:09 欢迎在评论区分享你的经历
+15:10 感谢收看，我们下期再见
+
+大家好，这里是最佳拍档，我是大飞 不知道你有没有过这样的体验 用AI做东西 明明提示词写得很详细了 结果出来还是不对 感觉AI总是在跑偏 你可能会觉得是模型不够聪明 或者自己提示词写得不够好 但今天要聊的这篇文章 可能会彻底改变你对这件事的看法 文章作者是塔里克·希哈帕尔（Thariq Shihipar） Anthropic的技术团队成员 也是YC W20的创业者 他可以说是目前对Claude Code研究最深的人之一 前段时间 他做了一件让很多人惊讶的事 一个完全没有视频剪辑经验的人 仅凭Claude Code 独立完成了Fable整个发布视频的剪辑工作 让他做成这件事的 不是什么复杂的提示词技巧 而是他在整个过程中一直在做的一件事 在每个不确定的节点 先找出自己的未知量，再动手 他把这套工作方式整理成文章 发出24小时就获得了190万浏览 核心框架说起来很简单 你给Claude的提示词、背景、指令 是地图，而任务实际发生的地方 比如代码库、真实的约束、现实的环境 它们都是领土 地图和领土之间的差距，就是未知量 Claude遇到未知量只能靠猜 而猜的质量会决定产出的质量 这其实不是什么新问题 但有一件事正在发生变化 以前用旧一代的模型，结果出来不对 你会觉得是模型不够好 但是现在模型已经强大到足够执行大多数的任务了 结果出来不对 大概率是因为你的地图和领土差得太远 模型越强，你的未知量就越贵 这也是塔里克写这篇文章的起点 Fable是第一个让他真正感到 产出质量的瓶颈是我自己的模型 这句话我第一次看到的时候挺有触动的 我们总在等更强的模型 但是当模型真的足够强了 你会发现限制你的 其实是你自己对问题的认知边界 那具体什么是未知量呢？ 在开始一个任务时 塔里克把所有可能的未知量分成四类 你写进提示词的内容 你明确告诉Claude你要什么 这部分它能忠实执行 这叫已知的已知 然后是你知道自己还没搞清楚的问题 比如这个功能的边界我还没想好、我不确定哪个方案更合适 你知道问题存在 还有机会在开始前解决 这叫已知的未知 真正麻烦的是后两类 首先是你其实知道 但太理所当然、不会写出来的东西 你有偏好和直觉 只有看到结果才知道对不对 就好像Claude做出来你看一眼就觉得哪里不对 但说不清哪里不对 这就是未知的已知 而最危险的是最后一类 你完全没想到的东西 你不知道那个坑存在 所以不会想到要提前处理，等你发现 通常已经在错误的方向走了很远 这是未知的未知 未知的已知 会让你不断说再调整一下 或者感觉还不对 因为你自己也不知道那个对的标准是什么 未知的未知更直接 那个坑从一开始就不在你的地图里 优秀的Claude使用者 不一定是提示词写得更好 更多时候 是他们开始之前的未知量更少 不过，这是一个可以训练的技能 并不是什么天赋 塔里克把整个工作流程分成三个阶段 实施前、实施中、实施后 最重要的是实施前 也是多数人完全跳过的阶段 很多人拿到一个任务 上来就开始写提示词让AI干活 干到一半发现不对 再返工，浪费了大量时间 其实前面多花一点时间把未知量清掉 后面会省很多事 这里说的五种方法 底层逻辑是通用的 写代码、写文章、做产品决策 甚至做视频，用的是同一套思路 首先，你不知道要问什么 因为你不知道那个问题存在 这是最典型的未知的未知场景 这时候怎么办呢？ 直接让Claude帮你找盲点 塔里克建议直接用blindspot pass 也就是盲点探测 和unknown unknowns 也就是未知的未知这两个词 同时告诉Claude你的背景 比如你是谁、你对这个领域了解多少 这一步很关键，Claude知道你的起点 才能找到对你有价值的盲点 不是告诉你一堆你早就知道的东西 比如你要在代码库里接入一个新的认证方式 但是你对这部分代码完全不熟 你就可以直接说，能做一次盲点探测 帮我找出我不知道自己不知道的东西 让我能更准确地给你指令吗？ 再比如塔里克自己遇到的情况 他不懂什么是调色 但是他要给视频调色 他就先让Claude教他理解调色里他不知道自己不知道的东西 先搞清楚问题是什么，再动手解决 当你知道自己要什么结果 但无法精确描述的时候 比如视觉风格、文章的语感 或者一个方案对的感觉 这就是未知的已知在起作用 这时候与其让Claude猜你的意思 不如让Claude给出几个截然不同的方向 你来反应哪个对、哪个不对 你的反应就是信息 你可能觉得这会浪费时间 但其实一个小需求在草图里改是几秒的事 等到深度实施后再改 可能要推翻重来 塔里克几乎每次复杂任务都从探索或头脑风暴开始 帮他在真正动手前把项目范围定清楚 比如你要给一份数据做一个看板 但是你没有视觉品位 也不知道什么效果是可能的 就让AI帮你做一个HTML页面 给出4个风格截然不同的设计方向 你来反馈哪个对 再比如你有个还没想透的问题 用户走完新手引导就流失了 你可以让AI搜索代码库 头脑风暴10个可以介入的地方 从改动最小到最激进的排出来 你来告诉它哪些方向说到点上了 这时候你不需要精确描述你想要什么 你只需要对AI给出的东西做出反应就行 这比你自己憋在那里想破头要高效得多 还有一种情况，你知道有模糊地带 但是不知道从哪里问起 这时候把提问的角色交给Claude 告诉它问题的背景，让它来采访你 不过你要给它一个排序标准 优先问那些你的答案会改变整体方向的问题 否则Claude可能把时间花在无关紧要的细节上 比如你可以直接说 一次问我一个问题 关于任何模糊的地方 优先问那些我的回答会改变整体方向的问题 这个做法和普通问答的区别是什么呢？ 你不是在问Claude 而是Claude在问你，将找问题的活 交给了对任务有全局视角的那一方 很多时候你自己想不清楚问题在哪 但是AI一问 你马上就知道自己要什么了 这是一种很奇妙的体验 有时候你不是不知道要什么 而是没有语言描述它 或者描述起来太费劲 这时候最有效的是直接给Claude一个参考物 对开发者来说 最好的参考物是源代码 比如指向一个实现了你想要行为的库 让Claude读懂后在你的项目里重新实现 图表、文档、截图都可以给 但是源代码的信息最丰富 这个方法对设计或内容方向的用户同样适用 你看到一篇文章的风格你很想学 或者一个网站的某个交互做得恰到好处 直接把它指给Claude 比你用语言描述快得多 Claude拿到的信息也更准确 塔里克还提到一个点 Claude Design可以直接读网页底层代码 不只是截图 这样它拿到的是结构和实现层面的信息 比截图丰富得多 比如你看到vendor/rate-limiter里这个Rust crate实现了你要的退避逻辑 你就直接让它完整读懂 然后在你们的TypeScript API客户端里 按照同样的语义实现一遍 这比你自己描述半天要准确太多 等你觉得准备好了之后 先让Claude拟一份实施计划 重点不在于计划的全貌 而在于把需要你拍板的决策 和Claude可以自己处理的执行 分开排列出来 前者放最前面，后者完全交出去 对开发者来说是数据结构和接口 对做内容的人可能是文章结构和论证顺序 这样Claude在动手之前 先把它自己也不确定的东西显式化 让你在低成本阶段确认最后剩下的未知量 你可以告诉它 写一份HTML格式的实施计划 把我最可能需要拍板的决策放最前面 比如数据结构怎么设计、接口怎么定 以及所有用户会直接看到的部分 然后把纯执行层面的改动放最后 那部分我信任你 可以自己决定 这时候你就不需要再审整个计划的每一个细节了 你只需要重点关注那些你可能会改的决策点就行了 好了，实施前的工作做充分了 是不是执行的时候就不会有问题了呢？ 也不是 实施前做得再充分 执行中还是会冒出没预见到的情况 这个阶段的核心不是消除未知量 而是在遇到未知量时不乱 塔里克的做法是让Claude维护一个临时的偏差记录文件 英文叫deviation log 遇到边缘情况时 不要停下来等你确认 先选保守的处理方式 记录这个决策，继续推进 这份记录可以帮Claude在当前任务里保持一致 也能成为下次任务更好的地图的原材料 对非开发者来说 等价的做法是让Claude记录任务中的关键决策 而不只是给你最终产出 你可以直接告诉它 维护一个implementation-notes.md文件 遇到边缘情况导致必须偏离计划时 优先选择保守的处理方式 在偏差下面记录这个决策 然后继续推进 这个做法看起来简单 但是其实解决了一个很大的问题 很多时候AI做着做着就前后不一致了 或者遇到点小问题就卡住等你指示 有了这个偏差记录 它就能自己往前走 同时保证所有决策都有迹可循 任务完成后，还有两个步骤 第一个是提案与说明 把产出、原型和实施记录 打包成一份别人看得懂的文件 这不只是让别人理解你做了什么 也是在强迫你自己搞清楚你让Claude做了什么 审阅者开始时往往和你有同样的未知量 因此提前在文件里回答掉 能显著加快审阅和获批的速度 第二个步骤初看有点奇怪，测验 在重要产出落地前 让Claude先考考你 通过了再确认 逻辑其实很简单 Claude会先给你一份报告 把做了什么、背后的思路写清楚 然后出题考你 你答对了，才说明你真的理解了 而不只是扫了一遍 测验是消化机制，不是信任问题 你可以告诉它 我想确认自己真正理解了这次的所有改动 给我一份报告 把做了什么、背后的思路和逻辑写清楚 在最后放一个我必须通过的测验 说实话 第一次看到这个方法的时候我愣了一下 让AI考我？ 但仔细想想，确实是这样 很多时候我们让AI写了一堆代码或者改了一堆东西 扫一眼觉得没问题就合并了 但是真要问你改了什么、为什么这么改 你可能根本答不上来 这时候出问题你都不知道从哪查 讲完了方法 我们来看一个完整的例子 就是塔里克自己剪Fable发布视频这件事 视频剪辑对他来说是全新的领域 他对这件事能不能做成没有把握 他从已知的开始 他知道Claude可以用代码编辑视频、做语音转录 但不确定转录的精度够不够用 能不能准确剪掉像嗯啊这样的口气词和过长的停顿 这是已知的未知，他没有直接开始干 而是先做盲点探测 让Claude解释Whisper这个开源语音识别模型的工作原理 以及ffmpeg这个音视频处理工具能做到什么程度 先搞清楚自己的未知的未知 然后他还想要一个动态UI 能跟着他说话的节奏动起来 他不确定这在技术上能不能实现 所以没有直接开始做 而是先让Claude用Remotion这个React视频框架做了一段原型视频 配上转录文本，看看效果 这是头脑风暴与原型 用原型回答一个他无法凭想象判断的问题 你看，这就是聪明人的做法 遇到不确定能不能做到的事 不要上来就投入大量时间做完整版本 先花几分钟做个原型验证一下可行性 最后是调色 视频出来后他觉得颜色发闷 知道这是调色的问题 但他不知道什么是调色 也不知道好的调色长什么样 他的第一反应是让Claude做几个版本来挑 但做完他发现自己还是不知道哪个对 因为他根本没有判断标准 他意识到这是未知的未知 于是又回到了盲点探测 先让Claude教他理解调色 建立起基本的判断标准，再回来动手 这个过程展示了一件很重要的事 未知量不是在开始前一次性清完的 它在整个任务里持续出现 他每次遇到卡点，做的都是同一件事 先找出自己的未知量，再动手 不是说你前面做了盲点探测 后面就不会遇到问题了 而是你要有这个意识 每次卡住的时候，先停下来想一想 我现在是哪类未知量没处理好？ 说到这，我们回头看 这个框架真正有价值的地方是什么？ 它把Claude总是跑偏这个模糊的感受 变成了一个可以系统处理的问题 以前你觉得AI跑偏 你可能会重新写提示词 或者换个模型，或者干脆自己干 但现在你有了清晰的诊断起点 到底是哪类未知量没处理好？ 是你没写进提示词 是你知道问题但没解决 是你有隐性偏好但没说出来 还是你完全不知道那个坑存在呢？ 不同的诊断，对应着不同的处理方法 四类未知量里 未知的未知是最值得认真对待的 你不会主动去补你不知道需要补的背景 只有这一类 需要主动设计一个机制去发现它 而不是靠任务流程自然暴露出来 这也是为什么盲点探测这个步骤这么重要 它是专门用来对付未知的未知的 我知道有人会说，这套方法有成本啊 盲点探测、原型、让AI采访你 这些都要花时间 但是塔里克的核心主张其实很简单 前期便宜的错误 好过后期昂贵的返工 你在前面花10分钟做个原型验证 也许能避免后面花10个小时推翻重来 这笔账其实很好算 还有一点我觉得很重要 就是你的未知量不是固定的 持续在一个领域用Claude工作 你会逐渐把未知的未知变成已知的未知 再变成已知的已知 每次任务的偏差记录 都在让你的地图更接近领土 这个技能是越用越好的 不是说你学了这套方法就一劳永逸了 而是每做一个任务 你对这个领域的理解就深了一层 你的地图就更准确一点 下次做类似任务的时候未知量就更少了 其实我自己用AI做内容这么久 最大的感受也是这样 一开始总觉得提示词是万能的 后来发现真正重要的是你自己对问题的理解有多深 你自己对问题理解得越清楚 你给AI的地图就越准确 出来的结果自然就越好 反过来 如果你自己都没想清楚要什么 再厉害的提示词工程师也帮不了你 AI是放大器，它会放大你已有的认知 也会放大你认知里的盲区 那今天聊的这套方法 其实本质上就是一套帮你系统性发现自己认知盲区的方法 它不只是用Claude的技巧 更是一种工作方式 一种思考问题的方式 不管你用不用AI 做任何复杂事情的时候 先停下来想一想 我的地图和领土之间有什么差距？ 我有哪些未知量？ 这可能比你急着动手要有用得多 最后我也想问问大家 你最近一次对用AI做的东西结果不满意 现在回头看 是哪一类未知量没处理好呢？ 欢迎在评论区分享你的经历 感谢收看，我们下期再见</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://youtu.be/M-LF4bYjiBY?si=rypooWfPW0hTdLg-" target="_blank" rel="noopener">https://youtu.be/M-LF4bYjiBY?si=rypooWfPW0hTdLg-</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+  <!-- 文章頁星等編輯腳本 -->
+  <script>
+    (function () {
+      'use strict';
+
+      var editBtn = document.getElementById('article-rating-edit');
+      if (!editBtn) return;
+
+      // 從 URL 取得檔名
+      var pathParts = window.location.pathname.split('/');
+      var filename = pathParts[pathParts.length - 1];
+
+      // 從 meta 區塊讀取目前星等
+      var starSpan = document.querySelector('.star-rating');
+      var currentRating = 0;
+      if (starSpan && starSpan.textContent.trim()) {
+        var starText = starSpan.textContent.trim();
+        currentRating = (starText.match(/★/g) || []).length;
+      }
+
+      // ── 星等編輯彈窗 ──
+      function showRatingEditor() {
+        var old = document.getElementById('rating-editor-overlay');
+        if (old) old.remove();
+
+        var overlay = document.createElement('div');
+        overlay.id = 'rating-editor-overlay';
+        overlay.className = 'rating-editor-overlay';
+
+        var box = document.createElement('div');
+        box.className = 'rating-editor-box';
+
+        var title = document.createElement('div');
+        title.className = 'rating-editor-title';
+        title.textContent = '設定星等';
+
+        var starsRow = document.createElement('div');
+        starsRow.className = 'rating-editor-stars';
+
+        for (var s = 1; s <= 5; s++) {
+          (function (star) {
+            var btn = document.createElement('button');
+            btn.className = 'rating-editor-star';
+            btn.textContent = star <= currentRating ? '★' : '☆';
+            btn.dataset.value = star;
+            btn.addEventListener('click', function () {
+              // 高亮
+              var allBtns = starsRow.querySelectorAll('.rating-editor-star');
+              for (var k = 0; k < allBtns.length; k++) {
+                allBtns[k].textContent = k < star ? '★' : '☆';
+              }
+              // 儲存
+              saveRating(star, function (ok) {
+                if (ok) {
+                  showToast('✅ 星等已更新，網站重新部署中 (~30-60 秒)');
+                } else {
+                  showToast('❌ 更新失敗，請稍後再試');
+                }
+              });
+              overlay.remove();
+            });
+            starsRow.appendChild(btn);
+          })(s);
+        }
+
+        // 清除星等按鈕
+        var clearBtn = document.createElement('button');
+        clearBtn.className = 'rating-editor-clear';
+        clearBtn.textContent = '清除星等';
+        clearBtn.addEventListener('click', function () {
+          saveRating(0, function (ok) {
+            if (ok) {
+              showToast('✅ 星等已清除');
+            } else {
+              showToast('❌ 清除失敗，請稍後再試');
+            }
+          });
+          overlay.remove();
+        });
+
+        // 關閉按鈕
+        var closeBtn = document.createElement('button');
+        closeBtn.className = 'rating-editor-close';
+        closeBtn.textContent = '✕';
+        closeBtn.addEventListener('click', function () { overlay.remove(); });
+
+        box.appendChild(closeBtn);
+        box.appendChild(title);
+        box.appendChild(starsRow);
+        box.appendChild(clearBtn);
+        overlay.appendChild(box);
+
+        overlay.addEventListener('click', function (e) {
+          if (e.target === overlay) overlay.remove();
+        });
+
+        document.body.appendChild(overlay);
+      }
+
+      // ── 送出星等更新 ──
+      function saveRating(rating, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/api/rating', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            currentRating = rating;
+            // 更新頁面上的星等顯示
+            if (starSpan) {
+              var stars = '';
+              for (var k = 0; k < rating; k++) stars += '★';
+              for (var k = rating; k < 5; k++) stars += '☆';
+              starSpan.textContent = stars;
+            }
+            if (callback) callback(true);
+          } else {
+            console.error('Failed to save rating:', xhr.status);
+            if (callback) callback(false);
+          }
+        };
+        xhr.onerror = function () {
+          console.error('Network error saving rating');
+          if (callback) callback(false);
+        };
+        xhr.send(JSON.stringify({ filename: filename, rating: rating }));
+      }
+
+      // ── Toast 通知 ──
+      function showToast(msg) {
+        var old = document.getElementById('rating-toast');
+        if (old) old.remove();
+
+        var toast = document.createElement('div');
+        toast.id = 'rating-toast';
+        toast.className = 'rating-toast';
+        toast.textContent = msg;
+        document.body.appendChild(toast);
+
+        setTimeout(function () {
+          if (toast.parentNode) toast.parentNode.removeChild(toast);
+        }, 5000);
+      }
+
+      // 綁定編輯按鈕
+      editBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        showRatingEditor();
+      });
+    })();
+  </script>
+</body>
+</html>
