@@ -1,0 +1,4003 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>20分鐘讀懂AI史上最重要的一篇論文《Attention Is All You Need》 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .meta .star-rating { color: #f1c40f; letter-spacing: 1px; font-size: 1.1rem; }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    /* ── 星等編輯按鈕（文章頁） ── */
+    .rating-edit-btn-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: none;
+      border: 1px solid #dee2e6;
+      border-radius: 4px;
+      padding: 2px 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      color: #868e96;
+      transition: all 0.15s;
+      vertical-align: middle;
+      margin-left: 8px;
+    }
+    .rating-edit-btn-inline:hover {
+      border-color: #667eea;
+      color: #667eea;
+      background: #eef0ff;
+    }
+
+    /* ── 星等編輯彈窗 ── */
+    .rating-editor-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .rating-editor-box {
+      background: #fff;
+      border-radius: 12px;
+      padding: 32px;
+      min-width: 300px;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      position: relative;
+    }
+    .rating-editor-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .rating-editor-stars {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .rating-editor-star {
+      background: none;
+      border: 2px solid transparent;
+      font-size: 2rem;
+      cursor: pointer;
+      color: #f1c40f;
+      padding: 4px 8px;
+      border-radius: 8px;
+      transition: all 0.15s;
+    }
+    .rating-editor-star:hover {
+      border-color: #667eea;
+      background: #eef0ff;
+      transform: scale(1.15);
+    }
+    .rating-editor-clear {
+      background: none;
+      border: 1px solid #dee2e6;
+      border-radius: 6px;
+      padding: 6px 16px;
+      font-size: 0.85rem;
+      color: #868e96;
+      cursor: pointer;
+    }
+    .rating-editor-clear:hover {
+      border-color: #e74c3c;
+      color: #e74c3c;
+    }
+    .rating-editor-close {
+      position: absolute;
+      top: 8px; right: 12px;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: #adb5bd;
+    }
+    .rating-editor-close:hover { color: #333; }
+
+    /* ── Toast 通知 ── */
+    .rating-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      z-index: 10000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      animation: toast-in 0.3s ease;
+    }
+    @keyframes toast-in {
+      from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>20分鐘讀懂AI史上最重要的一篇論文《Attention Is All You Need》</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-07-29 17:34</span>
+        <span class="star-rating"></span>
+        <button class="rating-edit-btn-inline" id="article-rating-edit" title="設定星等">✎ 評分</button>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">20分鐘讀懂AI史上最重要的一篇論文《Attention Is All You Need》</h1>
+    <div class="meta"><span data-field="channel">📺 李自然說</span><span data-field="duration">⏱ 27:32</span><span data-field="published_date">🗓 2025-10-21</span><span data-field="original_language">🌐 zh-Hans</span><a data-field="source_url" href="https://www.youtube.com/watch?v=_VaEjGnHgOI" target="_blank" rel="noopener">🔗 https://www.youtube.com/watch?v=_VaEjGnHgOI</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>本影片以淺顯易懂的動畫與比喻，逐層拆解 2017 年經典論文《Attention Is All You Need》中提出的 Transformer 架構。從 RNN 的瓶頸出發，介紹注意力機制的誕生、Google 食堂裡的靈感瞬間、八位作者的傳奇故事，再到 Transformer 架構圖的完整走讀：輸入嵌入、位置編碼、多頭自注意力（Q/K/V）、殘差連接與層歸一化、前饋網路、Decoder 的 Masked Attention 與自迴歸生成，最後以著名的注意力公式收尾。影片也回顧了論文投稿 NeurIPS 的幕後故事，以及八位作者離開 Google 後各自創業、OpenAI 憑 GPT 系列崛起成為最大贏家的產業脈絡。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">Transformer 誕生前的世界：RNN 的兩大困境</h2><span class="ts-badge" data-field="lesson_timestamp">1:04</span></div><div class="body" data-field="lesson_body"><p>在 2010 年代中期，<strong>循環神經網路（RNN）及其變種 LSTM</strong> 幾乎完全統治了自然語言處理領域。</p><p>RNN 有兩個非常棘手的問題：第一，<strong>每一步計算都需要等待上一步完成</strong>，這種順序依賴導致模型無法並行計算，難以充分利用現代 GPU 的強大算力。第二，<strong>RNN 的「記性」不好</strong>——當句子稍長時，模型很難有效記住較早出現的資訊（長距離依賴問題）。</p><p>舉例來說，「我今天買了一本書，上午去了趟圖書館，然後下午又去了咖啡廳，晚上才開始讀<strong>它</strong>」——這裡的「它」指代的是「書」，但中間隔了許多其他資訊，傳統 RNN 很難精確捕捉這種長距離的指代關係。</p><p>同期還有<strong>卷積神經網路（CNN）</strong>，擅長處理圖像（空間局部特徵），雖然能並行計算，但視野較窄，同樣難以記住全局資訊。</p><span class="tag" data-field="lesson_tag">RNN 瓶頸</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">注意力機制的誕生與「Why Not Just Use Attention?」</h2><span class="ts-badge" data-field="lesson_timestamp">2:32</span></div><div class="body" data-field="lesson_body"><p>2014 年，<strong>Bahdanau 等人提出了注意力機制（Attention）</strong>，核心思想是：當模型處理資訊時，學著為不同的資訊分配注意力權重——知道哪些資訊重要、需要多關注，哪些可以忽略。</p><p>但當時的注意力只是 RNN 或 CNN 的輔助工具，<strong>沒有人認為注意力可以脫離 RNN/CNN 獨立存在</strong>。原因有三：思維慣性（處理序列就用 RNN、圖像就用 CNN，幾乎是當時 AI 界的常識）、人類認知本能（習慣逐字逐句閱讀，覺得資訊應該一步一步傳遞）、以及「同時關注所有內容」聽起來計算量巨大、不切實際。</p><p>轉折發生在 2016 年，<strong>Google 工程師 Jakob Uszkoreit 在公司食堂吃飯時</strong>，向同事抱怨搜尋模型裡的 RNN 反應太慢。同事回了一句只有五個單詞的話：<strong>「Why not just use attention?」</strong>（為什麼不只用注意力呢？）。</p><p>兩人立刻動手嘗試這個瘋狂的想法。項目剛啟動，Uszkoreit 就給新模型取名 <strong>Transformer</strong>（變形金剛）——因為他從小就是變形金剛的鐵粉。他們甚至在專案文檔裡畫了一幅變形金剛的卡通圖，並用一句底氣十足的話作為開篇：<strong>「We are awesome.」</strong></p><span class="tag" data-field="lesson_tag">Transformer 起源</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">八位作者與傳奇級程式員 Noam Shazeer 的加入</h2><span class="ts-badge" data-field="lesson_timestamp">4:56</span></div><div class="body" data-field="lesson_body"><p>團隊迅速擴充到七人，最後加入的是 Google 的傳奇級程式員 <strong>Noam Shazeer</strong>。他 2001 年就進入 Google，那天路過時偶然聽到團隊在討論注意力機制，立刻停下腳步——他本就對當時風頭正盛的 LSTM 心存不滿，一直想徹底換掉它們。</p><p>Shazeer 的深厚理論功底和多年程式經驗在 Transformer 設計中得到淋漓盡致的體現，團隊成員經常用「魔法」、「煉金」甚至「妖術」來形容他的貢獻。他為 Transformer 引入了至關重要的<strong>多頭注意力、位置編碼</strong>等關鍵設計。</p><p>在論文脫稿前，Shazeer 發現自己的名字排在作者第一位，趕緊反對。最後大家一致決定<strong>每個人名字後面都加星號，註明「作者貢獻相等，排名隨機」</strong>。八位作者背景各異，其中六人出生在美國以外的國家。</p><span class="tag" data-field="lesson_tag">Transformer 作者</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">輸入嵌入（Input Embedding）：把單詞變成數學向量</h2><span class="ts-badge" data-field="lesson_timestamp">7:27</span></div><div class="body" data-field="lesson_body"><p>自然語言（中文、英文）無法直接被電腦計算，因此需要將單詞<strong>轉化成數字向量</strong>。在真實的 Transformer 模型中，每個詞會被映射到一個 <strong>512 維的空間</strong>——每個詞有 512 個不同維度的特徵，這些特徵是模型通過學習大量語料後自動掌握的。</p><p>在這個向量空間中，<strong>含義相似的單詞會挨得很近，含義相差很大的單詞則離得比較遠</strong>。更神奇的是，向量之間可以進行數學運算：<strong>「墨索里尼 − 義大利 + 德國 ≈ 希特勒」</strong>、<strong>「北京 − 中國 + 法國 ≈ 巴黎」</strong>、<strong>「教師 − 學校 + 醫院 ≈ 醫生」</strong>。</p><p>兩個向量的<strong>夾角越小，內積（點積）越大</strong>，代表語義越相似；夾角越大（超過 90° 甚至接近 180°），內積越小甚至為負，代表含義不同甚至相反。</p><span class="tag" data-field="lesson_tag">詞向量</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">位置編碼（Positional Encoding）：讓模型知道單詞順序</h2><span class="ts-badge" data-field="lesson_timestamp">10:14</span></div><div class="body" data-field="lesson_body"><p>Transformer 沒有 RNN 那樣的循環結構，本身並不清楚單詞在句子中的先後順序。因此需要給每個單詞<strong>添加一個獨特的編號</strong>，讓模型知道位置資訊。</p><p>論文作者使用<strong>正弦和餘弦的函數組合</strong>來生成每個單詞的位置資訊編碼（架構圖上畫了一個類似陰陽的小圖標來表示這一點）。</p><span class="tag" data-field="lesson_tag">位置編碼</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">多頭自注意力（Multi-Head Attention）：Q、K、V 詳解</h2><span class="ts-badge" data-field="lesson_timestamp">11:07</span></div><div class="body" data-field="lesson_body"><p>這是 Transformer 最核心也最複雜的部分。架構圖上的三個箭頭分別代表 <strong>Query（Q）、Key（K）、Value（V）</strong>。</p><p>可以把輸入句子裡的每個單詞都想像成一個小人，每個人都要回答兩個問題：<strong>「我的身份是什麼？」（Key）</strong>和<strong>「我想知道什麼？」（Query）</strong>。</p><p>以「我今天買了一本書…晚上才開始讀<strong>它</strong>」為例：「它」的 Q 是「我想知道自己代表的是什麼東西」；它去匹配「我」的 K（人稱代詞，不是東西）→ 不匹配；匹配「書」的 K（名詞，能被買、被讀的物品）→ <strong>高度匹配</strong>，因此「書」值得投入注意力關注。</p><p>然後「它」再去查看「書」的 <strong>V（Value，具體含義／客觀資訊）</strong>——V 不是單詞最初的向量，而是模型再次計算出的新向量。模型通過大量語料學習後發現，「書」在絕大多數情況下表示「層次的著作」而非「上書」，因此 V 向量主要表示這個含義。</p><p><strong>Q 與 K 匹配決定「該關注誰」，V 提供「關注到什麼內容」</strong>。每個單詞通過自己的 Q 與句子中所有其他單詞的 K 做點積運算，根據匹配程度分配注意力權重，再依權重從各單詞的 V 中提取資訊，產生向量偏移——正是這些偏移讓 AI 形成了對語言的深層理解。</p><p><strong>「多頭」（Multi-Head）</strong>的意思是同時並行做多次自注意力計算，每次稱為一個「頭」，每個頭使用一組獨立的參數矩陣，從不同視角觀察輸入句子。例如：有的頭關注語法結構（名詞／動詞），有的頭關注代詞指代，有的頭關注情緒色彩。</p><p>論文中使用 <strong>8 個頭</strong>，每個頭處理 <strong>64 維</strong>的資訊（而非完整 512 維），最後把 8 個 64 維結果拼接起來：8 × 64 = 512，回到原始維度。模型不會被告知每個頭該關注什麼——它們完全通過數學方法自動發現和學習最適合的八種關注方式。</p><span class="tag" data-field="lesson_tag">注意力機制核心</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">07</span><h2 data-field="lesson_title">Add &amp; Norm：殘差連接與層歸一化</h2><span class="ts-badge" data-field="lesson_timestamp">15:00</span></div><div class="body" data-field="lesson_body"><p>多頭注意力可以理解為模型為每個單詞計算出的一個<strong>偏移量</strong>（結合上下文後需要的調整）。</p><p><strong>殘差連接（Add）</strong>的作用是把這個偏移量<strong>加回原始輸入向量</strong>，將原始資訊和模型計算出的新資訊組合到一起，得到實際的新向量。</p><p><strong>層歸一化（Norm）</strong>則對這些向量進行標準化處理，讓每個向量的數字分布重新調整到<strong>均值為 0、方差為 1</strong> 的標準分布，使數據分布更穩定，訓練時更容易收斂、效果更好。</p><span class="tag" data-field="lesson_tag">殘差連接</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">08</span><h2 data-field="lesson_title">前饋網路（Feed-Forward）：每個單詞的獨立思考時間</h2><span class="ts-badge" data-field="lesson_timestamp">15:47</span></div><div class="body" data-field="lesson_body"><p>如果說注意力機制是「團隊開會」——每個人與其他成員溝通交流、獲得大量想法和資訊——那麼<strong>位置前饋網路就是「會後回到自己的環境，獨自思考和消化」</strong>。</p><p>具體做法：把每個單詞的 512 維向量<strong>先升到 2048 維</strong>，通過 <strong>ReLU 激活函數</strong>（保留正數、負數歸零，實現非線性變換），再<strong>降回 512 維</strong>。這個過程會去掉冗餘資訊，只保留最有用、最關鍵的內容，進一步增強模型的非線性表達能力。</p><p>這種「先升維再降維」的策略並非 Transformer 首創——Autoencoder、ResNet、CNN 的 Bottleneck 層都採用過類似做法。</p><p>整個 Encoder 模組（Multi-Head Attention → Add &amp; Norm → Feed-Forward → Add &amp; Norm）在原始論文中<strong>重複堆疊 6 次</strong>（N=6），第一個模組的輸出作為第二個模組的輸入，逐層深入挖掘語義細節。現代主流模型已達到數十層甚至上百層，但並非層數越多越好——這些數值（512 維、8 頭、6 層）都是根據理論分析、硬體限制和大量實驗綜合確定的最優超參數。</p><span class="tag" data-field="lesson_tag">前饋網路</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">09</span><h2 data-field="lesson_title">Decoder：Masked Attention 與逐字生成</h2><span class="ts-badge" data-field="lesson_timestamp">18:08</span></div><div class="body" data-field="lesson_body"><p>右側的 Decoder 負責<strong>逐字逐句生成輸出</strong>。以翻譯「我愛你」→「I love you」為例：</p><p>首先「我愛你」三個字輸入左側 Encoder，經過 6 層處理後，模型對這三個字的含義和上下文關係有了深入理解，這個理解作為右側的 <strong>K 和 V</strong> 傳入 Decoder。</p><p>右側從一個特殊的 <strong>start 符號</strong>作為初始 Q 開始，模型根據左側傳來的資訊，發現「我」是主語、最適合作為第一個翻譯詞 → 輸出 <strong>I</strong>。然後「I」回到底部作為新的 Q（「I 表達的情感或動作是什麼？」），再次查看左側的 K/V → 輸出 <strong>love</strong>。接著以「I love」生成 Q（「愛的究竟是誰？」）→ 輸出 <strong>you</strong>。最後輸出 <strong>end 符號</strong>表示生成結束。</p><p><strong>Masked Multi-Head Attention</strong> 的「Mask」機制：訓練時，標準答案不能讓模型事先看到（否則就作弊了），必須<strong>蓋住未來資訊</strong>，讓模型只能看到已生成的內容。模型預測出下一個詞後，再給它看答案，這樣才能有效訓練。每一步輸入 Q 相比標準答案都<strong>向右移動一位</strong>（Shifted Right）。推理時雖然沒有標準答案，但模型同樣無法提前知道未來資訊，原理與訓練階段完全一致。</p><span class="tag" data-field="lesson_tag">Decoder</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">10</span><h2 data-field="lesson_title">Linear + Softmax 與注意力公式</h2><span class="ts-badge" data-field="lesson_timestamp">21:37</span></div><div class="body" data-field="lesson_body"><p>Decoder 輸出後進入 <strong>Linear 線性層</strong>：將生成的抽象向量映射到實際詞彙表，轉化成具體單詞。然後經過 <strong>Softmax 歸一化函數</strong>：把任意實數值轉化成 0 到 1 之間的機率，且所有機率之和等於 1。例如翻譯「I」時，love 的機率可能是 0.8、like 是 0.2，模型選擇機率最高的單詞輸出。</p><p>論文中著名的自注意力公式：<strong>Attention(Q,K,V) = softmax(QKᵀ/√dₖ)V</strong>。Q 與 K 的轉置相乘得到一個方陣，表示序列中每個位置與其他所有位置的相關性；除以 <strong>√dₖ（縮放因子）</strong> 使計算結果更穩定；通過 Softmax 轉化成機率形式的注意力權重；最後與 V 相乘，實現對每個位置資訊的加權求和，得到融合上下文資訊的新表示。</p><span class="tag" data-field="lesson_tag">注意力公式</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">11</span><h2 data-field="lesson_title">論文投稿與發表：從海報展示到引爆全場</h2><span class="ts-badge" data-field="lesson_timestamp">23:54</span></div><div class="body" data-field="lesson_body"><p>論文被提交到 <strong>NeurIPS</strong>（AI 領域最頂級、最具影響力的學術會議之一，錄用率通常僅約 20%）。三位審稿專家中，一位評價非常高、一位比較積極、但<strong>第三位給出了中等的評價</strong>（認為「也就是還行」）。因此論文雖被接受，卻<strong>沒有獲得口頭報告資格</strong>，只被安排到晚間的海報展示環節。</p><p>但論文早在 6 月就已上傳到 <strong>arXiv</strong>，到大會 12 月舉辦時，已是 AI 圈熱烈討論的話題。海報展區當天引發巨大轟動——八位作者全部出動與觀眾交流，整個展區擠滿了水泄不通的與會者，<strong>甚至到了閉館時間，安保人員不得不主動進場要求人們離開</strong>。</p><p>論文標題的靈感來自披頭四樂隊的經典歌曲《All You Need Is Love》——作者之一 Llion Jones 想到「你需要的只是愛」，於是取了一個簡潔而精妙的標題：<strong>「Attention Is All You Need」（你需要的只是注意力）</strong>。</p><span class="tag" data-field="lesson_tag">NeurIPS</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">12</span><h2 data-field="lesson_title">後續影響：八位作者全部離開 Google，OpenAI 成為最大贏家</h2><span class="ts-badge" data-field="lesson_timestamp">25:27</span></div><div class="body" data-field="lesson_body"><p>雖然 Transformer 驚豔了整個學術界，但並未立刻改變一切。Shazeer 曾向 Google 高層建議用 Transformer 徹底重構搜尋引擎——在當時，連論文其他作者都認為這個想法太荒謬、不切實際。然而以今天的眼光來看，這個想法幾乎已成為 AI 行業的共識。</p><p>在 Google 無所作為的同時，一家創業公司裡，<strong>Ilya Sutskever 敏銳地意識到 Transformer 的巨大潛力</strong>，很快開始用 Transformer 訓練新的生成式模型——這個模型開創了 AI 新時代，就是今天著名的 <strong>GPT 系列</strong>（GPT 中的「T」正代表 Transformer）。</p><p>令人唏噓的是：<strong>Google 創造了 Transformer 架構，但最大贏家卻是 OpenAI</strong>。Google 為作者們營造了鼓勵創新的環境，甚至可以說沒有 Google 開放包容的企業文化就不會有 Transformer 的誕生——但最終，<strong>八位作者 Google 一個都沒有留住</strong>。論文發布後短短幾年內，八人全部離開，其中七位選擇創業，創造了令人驚嘆的財富神話。</p><p>如今 Transformer 已無所不在：從機器翻譯到智能對話、從推薦系統到自動駕駛，ChatGPT、Claude、Gemini、DeepSeek——一個個耀眼名字的背後，處處都是 Attention 的影子，個個都流淌著 Transformer 的血脈。</p><span class="tag" data-field="lesson_tag">產業影響</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">「Attention Is All You Need」——這份自信並非狂妄。八位作者以熱血和才能，改變了整個人類人工智慧行業的走向。而下一次 AI 革命性的突破，又會是誰呢？也許就是螢幕面前的你。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="0:00"><span class="ts">0:00</span><span class="text" data-field="key_point_text">開場：Attention Is All You Need 是 AI 領域最著名的一句話，來自 2017 年的經典論文，是當今 AI 軍備競賽的發令槍</span></li><li data-field="key_point" data-timestamp="1:04"><span class="ts">1:04</span><span class="text" data-field="key_point_text">Transformer 之前的世界：RNN/LSTM 統治 NLP，但有兩大困境——無法並行計算、長距離依賴問題</span></li><li data-field="key_point" data-timestamp="2:32"><span class="ts">2:32</span><span class="text" data-field="key_point_text">2014 年 Bahdanau 提出注意力機制，但當時只是 RNN/CNN 的輔助工具，沒人認為它可以獨立存在</span></li><li data-field="key_point" data-timestamp="3:37"><span class="ts">3:37</span><span class="text" data-field="key_point_text">2016 年 Google 食堂：Jakob Uszkoreit 與同事討論，誕生了「Why not just use attention?」的靈感</span></li><li data-field="key_point" data-timestamp="4:56"><span class="ts">4:56</span><span class="text" data-field="key_point_text">八位作者集結：Noam Shazeer 加入，引入多頭注意力與位置編碼等關鍵設計；作者排名隨機、貢獻相等</span></li><li data-field="key_point" data-timestamp="7:27"><span class="ts">7:27</span><span class="text" data-field="key_point_text">輸入嵌入：單詞轉化為 512 維向量，語義相似的詞在空間中相鄰，向量可做語義運算（國王−男+女≈女王）</span></li><li data-field="key_point" data-timestamp="10:14"><span class="ts">10:14</span><span class="text" data-field="key_point_text">位置編碼：用正弦／餘弦函數為每個單詞添加位置資訊，彌補 Transformer 無循環結構的缺陷</span></li><li data-field="key_point" data-timestamp="11:07"><span class="ts">11:07</span><span class="text" data-field="key_point_text">多頭自注意力核心：Q（我想知道什麼）、K（我的身份是什麼）、V（我的具體含義），8 頭 × 64 維並行計算</span></li><li data-field="key_point" data-timestamp="15:00"><span class="ts">15:00</span><span class="text" data-field="key_point_text">Add &amp; Norm：殘差連接將偏移量加回原始輸入，層歸一化使數據分布穩定（均值 0、方差 1）</span></li><li data-field="key_point" data-timestamp="15:47"><span class="ts">15:47</span><span class="text" data-field="key_point_text">前饋網路：512→2048→512，ReLU 激活，每個單詞獨立消化注意力階段獲得的資訊；Encoder 堆疊 6 層</span></li><li data-field="key_point" data-timestamp="18:08"><span class="ts">18:08</span><span class="text" data-field="key_point_text">Decoder 與 Masked Attention：以「我愛你→I love you」為例展示逐字生成過程；Mask 機制蓋住未來資訊</span></li><li data-field="key_point" data-timestamp="21:37"><span class="ts">21:37</span><span class="text" data-field="key_point_text">Linear + Softmax：向量映射到詞彙表，轉化為機率分布，選最高機率單詞輸出</span></li><li data-field="key_point" data-timestamp="22:40"><span class="ts">22:40</span><span class="text" data-field="key_point_text">注意力公式：Attention(Q,K,V) = softmax(QKᵀ/√dₖ)V，QKᵀ 計算相關性，除以 √dₖ 穩定數值</span></li><li data-field="key_point" data-timestamp="23:54"><span class="ts">23:54</span><span class="text" data-field="key_point_text">投稿 NeurIPS：僅獲海報展示資格，但早在 arXiv 公開後已成熱門話題，海報展區當天擠爆、安保人員清場</span></li><li data-field="key_point" data-timestamp="25:27"><span class="ts">25:27</span><span class="text" data-field="key_point_text">後續：八位作者全部離開 Google、七位創業；OpenAI 的 Ilya Sutskever 率先用 Transformer 訓練 GPT，成為最大贏家</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="Transformer">Transformer</span><span class="tag-chip" data-tag="Attention Is All You Need">Attention Is All You Need</span><span class="tag-chip" data-tag="注意力機制">注意力機制</span><span class="tag-chip" data-tag="深度學習">深度學習</span><span class="tag-chip" data-tag="自然語言處理">自然語言處理</span><span class="tag-chip" data-tag="GPT">GPT</span><span class="tag-chip" data-tag="OpenAI">OpenAI</span><span class="tag-chip" data-tag="Google">Google</span><span class="tag-chip" data-tag="NeurIPS">NeurIPS</span><span class="tag-chip" data-tag="多頭注意力">多頭注意力</span><span class="tag-chip" data-tag="自注意力">自注意力</span><span class="tag-chip" data-tag="論文解讀">論文解讀</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>Whisper 對中文專有名詞（人名、公司名、技術術語）有大量漂字，已透過 asr_glossary 還原，但部分細節（如 Jakob Uszkoreit 父親 Hans Uszkoreit 的具體對話內容）可能仍有誤差</li><li>影片後段（chunk_004 末至 chunk_005 初）Whisper 輸出有數句亂碼（&#x27;arises / 不要再來 / theres / corrections推說 / 接下來是個月吃 myth的&#x27;），已跳過不納入主文</li></ul></div></section>
+  <section class="glossary" data-field="asr_glossary"><h2>🎙️ ASR 漂字對照表</h2><div class="card"><table class="glossary"><tr data-field="asr_glossary_row"><td data-field="heard">勾勾 / 故故</td><td>→</td><td data-field="corrected">Google</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">真工智能</td><td>→</td><td data-field="corrected">人工智能</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">主力機制</td><td>→</td><td data-field="corrected">注意力機制</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">傳達former / 創造former / Tranetformer / 轉的former / 穿的方法</td><td>→</td><td data-field="corrected">Transformer</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">巴赫打腦</td><td>→</td><td data-field="corrected">Bahdanau</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">波羅 / 烏茲 / 烏茲克雷特</td><td>→</td><td data-field="corrected">Jakob Uszkoreit</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">沙子爾</td><td>→</td><td data-field="corrected">Noam Shazeer</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">別生金剛</td><td>→</td><td data-field="corrected">變形金剛</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">瓊斯</td><td>→</td><td data-field="corrected">Llion Jones</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Nurips</td><td>→</td><td data-field="corrected">NeurIPS</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Elia蘇茨凱夫</td><td>→</td><td data-field="corrected">Ilya Sutskever</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">GP系列</td><td>→</td><td data-field="corrected">GPT系列</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Gamina</td><td>→</td><td data-field="corrected">Gemini</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Archive</td><td>→</td><td data-field="corrected">arXiv</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">皮特舌樂隊</td><td>→</td><td data-field="corrected">披頭四樂隊</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Curid</td><td>→</td><td data-field="corrected">Query</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Multi-Hide Tension</td><td>→</td><td data-field="corrected">Multi-Head Attention</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Addenorm</td><td>→</td><td data-field="corrected">Add &amp; Norm</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">層規議化</td><td>→</td><td data-field="corrected">層歸一化</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">位置前回網路</td><td>→</td><td data-field="corrected">Position-wise Feed-Forward Network</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Protitional encoding</td><td>→</td><td data-field="corrected">Positional Encoding</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">RELO</td><td>→</td><td data-field="corrected">ReLU</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">shavec right</td><td>→</td><td data-field="corrected">Shifted Right</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">循環實際網路</td><td>→</td><td data-field="corrected">循環神經網路 (RNN)</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">卷積實力網路</td><td>→</td><td data-field="corrected">卷積神經網路 (CNN)</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Why not just sell for attention</td><td>→</td><td data-field="corrected">Why not just use attention?</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">We are awesome</td><td>→</td><td data-field="corrected">We are awesome.（原文正確）</td></tr></table></div></section>
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="whisper"><div class="raw-label">Whisper 原始輸出<button class="copy-btn" id="raw_whisper_4313646912_srt" onclick="copyRaw(this,'raw_whisper_4313646912_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_whisper_4313646912_text" onclick="copyRawText(this,'raw_whisper_4313646912_text')">📋 複製純文字</button></div><pre>1
+00:00:00,000 --&gt; 00:00:02,720
+如果要评选出人工智能领域最出名的一句话
+
+2
+00:00:02,720 --&gt; 00:00:03,880
+十有八九会是
+
+3
+00:00:03,880 --&gt; 00:00:05,100
+Attention is all you need
+
+4
+00:00:05,100 --&gt; 00:00:07,980
+这句话来自2017年的一篇论文
+
+5
+00:00:07,980 --&gt; 00:00:09,340
+这篇论文发表之后
+
+6
+00:00:09,340 --&gt; 00:00:12,020
+各家业公司纷纷投入大量的资源和技术
+
+7
+00:00:12,020 --&gt; 00:00:15,280
+它就是当今人工智能领域军备竞赛的发令者
+
+8
+00:00:15,280 --&gt; 00:00:18,260
+这篇论文不仅彻底改变了技术领域
+
+9
+00:00:18,260 --&gt; 00:00:21,000
+还缔造了一系列令人震惊的财富传奇
+
+10
+00:00:21,000 --&gt; 00:00:22,120
+论文发表之后
+
+11
+00:00:22,120 --&gt; 00:00:24,380
+有一家出亚公司敏锐地抓住了机会
+
+12
+00:00:24,380 --&gt; 00:00:26,700
+借助论文中的理论迅速崛起
+
+13
+00:00:26,700 --&gt; 00:00:29,720
+如今这家公司的估值已经超过了3000亿美金
+
+14
+00:00:29,720 --&gt; 00:00:32,120
+是这个世界上最炙手可热的公司之一
+
+15
+00:00:32,120 --&gt; 00:00:33,600
+这家公司就是OpenAI
+
+16
+00:00:33,600 --&gt; 00:00:35,860
+而这篇论文的八个作者
+
+17
+00:00:35,860 --&gt; 00:00:37,520
+他们当时都在勾勾工作
+
+18
+00:00:37,520 --&gt; 00:00:39,380
+后来纷纷从勾勾离职
+
+19
+00:00:39,380 --&gt; 00:00:41,260
+其中的七位选择了创业
+
+20
+00:00:41,260 --&gt; 00:00:42,480
+而他们创立的公司
+
+21
+00:00:42,480 --&gt; 00:00:45,320
+估值普遍达到了数亿到数十亿美金
+
+22
+00:00:45,320 --&gt; 00:00:47,180
+毫不夸张地说
+
+23
+00:00:47,180 --&gt; 00:00:48,560
+只要读懂了这篇论文
+
+24
+00:00:48,560 --&gt; 00:00:50,880
+你就掌握了真工智能的核心思想
+
+25
+00:00:50,880 --&gt; 00:00:55,220
+在今天的视频中
+
+26
+00:00:55,220 --&gt; 00:00:57,540
+我将带你读懂这个论文中最精华的部分
+
+27
+00:00:57,540 --&gt; 00:00:58,940
+那个架构图The Transformer
+
+28
+00:00:58,940 --&gt; 00:01:00,940
+以及著名的注意力计算公式
+
+29
+00:01:00,940 --&gt; 00:01:01,860
+整个过程
+
+30
+00:01:01,860 --&gt; 00:01:04,140
+我只会用到我在幼儿月儿学一步的数学知识
+
+31
+00:01:04,140 --&gt; 00:01:05,640
+在静止开计之前
+
+32
+00:01:05,640 --&gt; 00:01:07,220
+我们有必要先了解一下
+
+33
+00:01:07,220 --&gt; 00:01:09,900
+在Transformer出现之前的世界是什么样子的
+
+34
+00:01:09,900 --&gt; 00:01:12,760
+在2010年代中期
+
+35
+00:01:12,760 --&gt; 00:01:13,920
+循环实际网络RNN
+
+36
+00:01:13,920 --&gt; 00:01:15,780
+以及它的变种LSTM
+
+37
+00:01:15,780 --&gt; 00:01:18,280
+几乎完全统治了自然语言处理预运
+
+38
+00:01:18,280 --&gt; 00:01:21,300
+然而RNN有两个非常棘手的问题
+
+39
+00:01:21,300 --&gt; 00:01:23,820
+第一个问题就是RNN的核心思想
+
+40
+00:01:23,820 --&gt; 00:01:26,340
+是通过记忆前一步的信息来预测下一步
+
+41
+00:01:26,340 --&gt; 00:01:27,400
+这就意味着
+
+42
+00:01:27,400 --&gt; 00:01:29,720
+每一步的计算都需要等待上一步完成
+
+43
+00:01:29,720 --&gt; 00:01:31,980
+这种顺序依赖的机制
+
+44
+00:01:31,980 --&gt; 00:01:33,900
+就导致模型无法并行计算
+
+45
+00:01:33,900 --&gt; 00:01:35,100
+很难充分利用
+
+46
+00:01:35,100 --&gt; 00:01:37,100
+现代计算机强大的并行处理能力
+
+47
+00:01:37,100 --&gt; 00:01:39,340
+第二个问题就是RNN的记性不太好
+
+48
+00:01:39,340 --&gt; 00:01:41,620
+当句子或文本的长度稍长一些的时候
+
+49
+00:01:41,620 --&gt; 00:01:43,380
+模型就很难有效的记住
+
+50
+00:01:43,380 --&gt; 00:01:44,500
+比较早出现的信息
+
+51
+00:01:44,500 --&gt; 00:01:46,040
+比如我今天买了一本书
+
+52
+00:01:46,040 --&gt; 00:01:47,100
+上午去了趟图书馆
+
+53
+00:01:47,100 --&gt; 00:01:48,440
+然后下午又去了咖啡厅
+
+54
+00:01:48,440 --&gt; 00:01:49,820
+晚上才开始读它
+
+55
+00:01:49,820 --&gt; 00:01:53,220
+这里的它指代的正是前面提到的书这个字
+
+56
+00:01:53,220 --&gt; 00:01:56,020
+但由于中间隔了许多其他的信息
+
+57
+00:01:56,020 --&gt; 00:01:58,480
+传统的RNN我们很难精确的记住
+
+58
+00:01:58,480 --&gt; 00:02:00,040
+这种长距离的依赖关系
+
+59
+00:02:00,040 --&gt; 00:02:02,840
+尽管后来出现了LSTM等改进技术
+
+60
+00:02:02,840 --&gt; 00:02:04,800
+但是依旧没有彻底的解决
+
+61
+00:02:04,800 --&gt; 00:02:06,900
+长距离的依赖和并行计算这两个问题
+
+62
+00:02:06,900 --&gt; 00:02:11,220
+同时期还有卷积实力网络
+
+63
+00:02:11,220 --&gt; 00:02:12,020
+也就是CNN
+
+64
+00:02:12,020 --&gt; 00:02:14,260
+RNN比较擅长处理序列数据
+
+65
+00:02:14,260 --&gt; 00:02:16,100
+就像一个逐字逐句读书的人
+
+66
+00:02:16,100 --&gt; 00:02:18,440
+所以经常被用来处理语言和音频
+
+67
+00:02:18,440 --&gt; 00:02:21,920
+而CNN则擅长处理具有空间局部特征的数据
+
+68
+00:02:21,920 --&gt; 00:02:24,560
+就像一个拿着放大镜仔细观察图片的人
+
+69
+00:02:24,560 --&gt; 00:02:26,400
+所以经常被用来处理图像
+
+70
+00:02:26,400 --&gt; 00:02:28,400
+CNN虽然能并行计算
+
+71
+00:02:28,400 --&gt; 00:02:29,860
+但因为它的视野比较窄
+
+72
+00:02:29,860 --&gt; 00:02:31,520
+也很难记住全局的信息
+
+73
+00:02:31,520 --&gt; 00:02:32,720
+为了克服这些问题
+
+74
+00:02:32,720 --&gt; 00:02:34,420
+2014年巴赫打脑到来
+
+75
+00:02:34,420 --&gt; 00:02:35,660
+提出了注意力机制
+
+76
+00:02:35,660 --&gt; 00:02:36,420
+也就是Attention
+
+77
+00:02:36,420 --&gt; 00:02:38,720
+历史的撤轮终于开始了转动
+
+78
+00:02:38,720 --&gt; 00:02:41,640
+注意力机制的核心思想是
+
+79
+00:02:41,640 --&gt; 00:02:42,940
+当模型处理信息时
+
+80
+00:02:42,940 --&gt; 00:02:45,560
+它会学着为不同的信息分配注意力权重
+
+81
+00:02:45,560 --&gt; 00:02:47,200
+知道哪一信息是重要的
+
+82
+00:02:47,200 --&gt; 00:02:47,840
+需要多关注
+
+83
+00:02:47,840 --&gt; 00:02:49,380
+而哪些信息是不重要
+
+84
+00:02:49,380 --&gt; 00:02:50,280
+可以忽略的
+
+85
+00:02:50,280 --&gt; 00:02:51,280
+让模型也学会
+
+86
+00:02:51,280 --&gt; 00:02:51,880
+划重点
+
+87
+00:02:51,880 --&gt; 00:02:53,940
+随后的几年
+
+88
+00:02:53,940 --&gt; 00:02:55,580
+注意力机制迅速的流行起来
+
+89
+00:02:55,580 --&gt; 00:02:56,600
+但那时候的注意力
+
+90
+00:02:56,600 --&gt; 00:02:58,820
+只是RNN或者CNN的辅助工具
+
+91
+00:02:58,820 --&gt; 00:02:59,960
+没有人认为
+
+92
+00:02:59,960 --&gt; 00:03:03,120
+注意力可以脱离RNN或者CNN而独立的存在
+
+93
+00:03:03,120 --&gt; 00:03:04,720
+那为什么大家会这么想呢
+
+94
+00:03:04,720 --&gt; 00:03:06,560
+首先是思维惯性
+
+95
+00:03:06,560 --&gt; 00:03:08,600
+处理序列任务就用RNN
+
+96
+00:03:08,600 --&gt; 00:03:09,940
+处理图像任务就用CNN
+
+97
+00:03:09,940 --&gt; 00:03:12,400
+这几乎是当时人工智能界的常识
+
+98
+00:03:12,400 --&gt; 00:03:14,300
+其次还有人类的认知本能
+
+99
+00:03:14,300 --&gt; 00:03:16,440
+人们习惯逐字逐句的阅读
+
+100
+00:03:16,440 --&gt; 00:03:18,640
+总觉得信息应该一步一步的传递下去
+
+101
+00:03:18,640 --&gt; 00:03:19,780
+而注意力机制呢
+
+102
+00:03:19,780 --&gt; 00:03:21,280
+需要同时处理外面中的
+
+103
+00:03:21,280 --&gt; 00:03:22,380
+所有词乎之间的关系
+
+104
+00:03:22,380 --&gt; 00:03:24,560
+这种同时关注所有内容的思路
+
+105
+00:03:24,560 --&gt; 00:03:25,800
+实在是太反直觉了
+
+106
+00:03:25,800 --&gt; 00:03:26,740
+更重要的是呢
+
+107
+00:03:26,740 --&gt; 00:03:28,700
+它听起来计算量就非常的巨大
+
+108
+00:03:28,700 --&gt; 00:03:30,600
+让很多人觉得根本都不写实际
+
+109
+00:03:30,600 --&gt; 00:03:32,940
+这就有点像量子力学刚出来的时候
+
+110
+00:03:32,940 --&gt; 00:03:34,200
+也是非常的反直觉
+
+111
+00:03:34,200 --&gt; 00:03:36,200
+甚至连爱因斯坦都不愿意相信
+
+112
+00:03:36,200 --&gt; 00:03:37,780
+讲到这里
+
+113
+00:03:37,780 --&gt; 00:03:39,160
+我要给大家一个建议
+
+114
+00:03:39,160 --&gt; 00:03:40,000
+就是多干饭
+
+115
+00:03:40,000 --&gt; 00:03:41,060
+因为干饭的时候
+
+116
+00:03:41,060 --&gt; 00:03:42,260
+往往会有好事发生
+
+117
+00:03:42,260 --&gt; 00:03:44,640
+2016年
+
+118
+00:03:44,640 --&gt; 00:03:45,420
+故故的工程师
+
+119
+00:03:45,420 --&gt; 00:03:47,620
+波罗斯库星在公司食堂干饭的时候
+
+120
+00:03:47,620 --&gt; 00:03:49,260
+向同事乌兹克雷特抱怨
+
+121
+00:03:49,260 --&gt; 00:03:50,800
+说搜索模型里面
+
+122
+00:03:50,800 --&gt; 00:03:51,680
+安然反应判斑
+
+123
+00:03:51,680 --&gt; 00:03:52,740
+达不到一切的效果
+
+124
+00:03:52,740 --&gt; 00:03:54,580
+我们去教他波罗和乌兹吧
+
+125
+00:03:54,580 --&gt; 00:03:55,680
+听完波罗的吐槽
+
+126
+00:03:55,680 --&gt; 00:03:57,260
+乌兹随后付了一批
+
+127
+00:03:57,260 --&gt; 00:03:58,540
+再入AI实测的话
+
+128
+00:03:58,540 --&gt; 00:03:59,380
+这句话呢
+
+129
+00:03:59,380 --&gt; 00:04:00,500
+只有五个单词
+
+130
+00:04:00,500 --&gt; 00:04:02,560
+全部来自初中作为表
+
+131
+00:04:02,560 --&gt; 00:04:04,380
+所以如果我在现场的话
+
+132
+00:04:04,380 --&gt; 00:04:05,760
+可能我上我也行
+
+133
+00:04:05,760 --&gt; 00:04:06,800
+这句话就是
+
+134
+00:04:06,800 --&gt; 00:04:08,620
+Why not just sell for attention
+
+135
+00:04:08,620 --&gt; 00:04:10,680
+于是这两个人立刻做事
+
+136
+00:04:10,680 --&gt; 00:04:11,940
+尝试这个疯狂的想法
+
+137
+00:04:11,940 --&gt; 00:04:13,140
+项目刚一启动
+
+138
+00:04:13,140 --&gt; 00:04:15,700
+乌兹就给这个新模型取了一个响亮的名字
+
+139
+00:04:15,700 --&gt; 00:04:16,600
+Transformer
+
+140
+00:04:16,600 --&gt; 00:04:19,660
+Transformer就是《别生金刚》的意思
+
+141
+00:04:19,660 --&gt; 00:04:21,600
+因为他从小就是《别生金刚》的铁粉
+
+142
+00:04:21,600 --&gt; 00:04:23,120
+他们甚至还在项目文档里
+
+143
+00:04:23,120 --&gt; 00:04:24,740
+画了一幅《别生金刚》的卡通图
+
+144
+00:04:24,740 --&gt; 00:04:26,220
+并用一句底气实俗的话
+
+145
+00:04:26,220 --&gt; 00:04:27,340
+作为文档的开篇
+
+146
+00:04:27,340 --&gt; 00:04:28,220
+We are awesome
+
+147
+00:04:28,220 --&gt; 00:04:30,940
+其实乌兹早在2014年
+
+148
+00:04:30,940 --&gt; 00:04:32,380
+就开始关注注意力机制了
+
+149
+00:04:32,380 --&gt; 00:04:33,140
+他的父亲汉斯
+
+150
+00:04:33,140 --&gt; 00:04:35,060
+是欧洲著名的人工智能语言学家
+
+151
+00:04:35,060 --&gt; 00:04:36,100
+负责而人
+
+152
+00:04:36,100 --&gt; 00:04:37,840
+曾经因为对注意力机制的看法不同
+
+153
+00:04:37,840 --&gt; 00:04:39,140
+在参照上激烈的宗论
+
+154
+00:04:39,140 --&gt; 00:04:42,820
+不过后来汉斯自己在和学生一起创业开发大幕营之后
+
+155
+00:04:42,820 --&gt; 00:04:44,480
+用了正式Transformer的架构
+
+156
+00:04:44,480 --&gt; 00:04:45,660
+所以我们从结果来看的
+
+157
+00:04:45,660 --&gt; 00:04:46,600
+还是儿子营了
+
+158
+00:04:46,600 --&gt; 00:04:48,100
+顺带一提
+
+159
+00:04:48,100 --&gt; 00:04:50,220
+汉斯这位学生合伙人是我的好朋友
+
+160
+00:04:50,220 --&gt; 00:04:52,020
+之前还来我们频道和我一起录视频
+
+161
+00:04:52,020 --&gt; 00:04:52,920
+这样算起来
+
+162
+00:04:52,920 --&gt; 00:04:55,380
+现在看视频的各位和Transformer的发明之间
+
+163
+00:04:55,380 --&gt; 00:04:56,520
+只有三度人脉
+
+164
+00:04:56,520 --&gt; 00:04:59,860
+乌兹的团队迅速空中到了七个人
+
+165
+00:04:59,860 --&gt; 00:05:29,840
+劝我说
+
+166
+00:05:00,000 --&gt; 00:05:02,560
+最后加入的是Google的传奇级充许员沙子尔
+
+167
+00:05:03,080 --&gt; 00:05:04,860
+他在2001年就进入了Google
+
+168
+00:05:05,380 --&gt; 00:05:06,660
+那天沙子尔路过的时候
+
+169
+00:05:06,920 --&gt; 00:05:09,220
+偶然听到乌兹他们在讨论主力机制
+
+170
+00:05:09,480 --&gt; 00:05:11,260
+立刻停下脚步偷听了一阵
+
+171
+00:05:11,520 --&gt; 00:05:14,840
+他本来就对当时风头正盛的LSTM幸存固埋
+
+172
+00:05:15,100 --&gt; 00:05:16,380
+一直想彻底把他们换掉
+
+173
+00:05:16,640 --&gt; 00:05:19,720
+就这样这位身怀局级的扫地僧正式加入了战局
+
+174
+00:05:20,480 --&gt; 00:05:22,520
+沙子尔的身后理论功底和多年的变成经验
+
+175
+00:05:22,780 --&gt; 00:05:25,600
+在Transformer模型的设计中得到了淋漓尽致的体现
+
+176
+00:05:26,120 --&gt; 00:05:27,640
+团队成员经常用魔法
+
+177
+00:05:27,640 --&gt; 00:05:30,200
+炼金甚至妖术这种词来形容它的贡献
+
+178
+00:05:30,720 --&gt; 00:05:33,520
+沙子尔为Transformer引入了至关重要的多头注意力
+
+179
+00:05:33,780 --&gt; 00:05:35,840
+位置编码等等很关键的设计
+
+180
+00:05:36,080 --&gt; 00:05:38,140
+这些概念我们都会在后面详细的讲解
+
+181
+00:05:39,680 --&gt; 00:05:40,440
+在论名脱口之前
+
+182
+00:05:40,700 --&gt; 00:05:43,760
+沙子尔意味着发现自己的名字在作者里面排名第一位
+
+183
+00:05:44,020 --&gt; 00:05:45,040
+赶紧提出反对意见
+
+184
+00:05:45,300 --&gt; 00:05:48,640
+最后大家一致决定在每个人的名字后面都加上新号
+
+185
+00:05:48,880 --&gt; 00:05:51,440
+并注明作者贡献相等排名随机
+
+186
+00:05:52,480 --&gt; 00:05:54,000
+这8位作者背景各异
+
+187
+00:05:54,260 --&gt; 00:05:55,800
+其中6个人出生在美国以外的国家
+
+188
+00:05:55,800 --&gt; 00:05:58,360
+回想起来那真的是一个黄金时代
+
+189
+00:06:00,400 --&gt; 00:06:02,960
+讲到这里这份论文的作者名单我们终于讲完了
+
+190
+00:06:03,220 --&gt; 00:06:04,760
+接下来呢得加困的进度了
+
+191
+00:06:05,020 --&gt; 00:06:05,780
+有了前面的铺垫
+
+192
+00:06:06,300 --&gt; 00:06:08,860
+现在理解论文前两页的内容已经非常强松了
+
+193
+00:06:09,120 --&gt; 00:06:11,680
+论文的前两页分别是摘要引颜和背景
+
+194
+00:06:11,920 --&gt; 00:06:15,760
+强调了转的former完全抛弃了rn的循环结构和3n的卷积结构
+
+195
+00:06:16,020 --&gt; 00:06:16,800
+仅依靠注意力机制
+
+196
+00:06:17,040 --&gt; 00:06:18,320
+因此能够高度的并行
+
+197
+00:06:18,580 --&gt; 00:06:19,600
+极大提高了训练的效率
+
+198
+00:06:19,860 --&gt; 00:06:24,480
+它仅需要8块GPU训练12小时就在翻译任务上超过了以往最优秀的模型
+
+199
+00:06:25,800 --&gt; 00:06:27,840
+终于要进入这篇中文最核心的部分
+
+200
+00:06:28,100 --&gt; 00:06:29,640
+就是传达former的模型架构图
+
+201
+00:06:30,160 --&gt; 00:06:32,460
+这张图里藏着传达former所有的秘密
+
+202
+00:06:32,960 --&gt; 00:06:34,760
+让我们一步一步的详细解析
+
+203
+00:06:35,020 --&gt; 00:06:36,040
+这部分内容会很干
+
+204
+00:06:36,300 --&gt; 00:06:37,060
+容我喝一口水
+
+205
+00:06:39,360 --&gt; 00:06:40,900
+我们掰开啄碎一步步的看
+
+206
+00:06:41,420 --&gt; 00:06:43,200
+先看左边的inputs也就是输入
+
+207
+00:06:44,240 --&gt; 00:06:45,520
+当我们日常使用AI的时候
+
+208
+00:06:45,760 --&gt; 00:06:47,300
+我们问AI的问题就是输入
+
+209
+00:06:47,560 --&gt; 00:06:48,580
+而在训练AI的时候
+
+210
+00:06:48,840 --&gt; 00:06:50,380
+我们提供给模型的语料数据
+
+211
+00:06:50,640 --&gt; 00:06:51,400
+同样也是输入
+
+212
+00:06:52,160 --&gt; 00:06:53,200
+模型收到这些输入之后
+
+213
+00:06:53,440 --&gt; 00:06:54,980
+首先要进行input embedding
+
+214
+00:06:54,980 --&gt; 00:06:56,520
+也就是输入嵌入
+
+215
+00:06:56,780 --&gt; 00:06:58,820
+我们平时使用的自然语言
+
+216
+00:06:59,080 --&gt; 00:07:00,100
+像中文或者英文
+
+217
+00:07:00,360 --&gt; 00:07:01,900
+计算机是无法直接进行计算的
+
+218
+00:07:02,140 --&gt; 00:07:02,660
+因此
+
+219
+00:07:02,920 --&gt; 00:07:04,200
+我们需要将语言中的单词
+
+220
+00:07:04,460 --&gt; 00:07:05,480
+转化成数字向量
+
+221
+00:07:05,740 --&gt; 00:07:07,520
+计算机才能理解和处理这些信息
+
+222
+00:07:08,040 --&gt; 00:07:09,580
+我们举个具体的例子
+
+223
+00:07:09,820 --&gt; 00:07:10,600
+现在有些单词
+
+224
+00:07:10,860 --&gt; 00:07:12,640
+我们把它排列在一个平面最波系里面
+
+225
+00:07:12,900 --&gt; 00:07:14,440
+这个最波系有两个属性
+
+226
+00:07:14,700 --&gt; 00:07:15,980
+横轴表示科技程度
+
+227
+00:07:16,220 --&gt; 00:07:17,500
+纵轴表示生产力
+
+228
+00:07:18,280 --&gt; 00:07:19,820
+在真实的创作former模型中
+
+229
+00:07:20,060 --&gt; 00:07:21,860
+单词的含义远比二维运也更加复杂
+
+230
+00:07:21,860 --&gt; 00:07:24,940
+它们通常会被映射到一个512维的空间里面
+
+231
+00:07:25,440 --&gt; 00:07:26,220
+你可以简单地理解为
+
+232
+00:07:26,460 --&gt; 00:07:28,780
+每个词都有512个不同维度的特征
+
+233
+00:07:29,280 --&gt; 00:07:32,100
+这些特征是模型通过学习大量语料后
+
+234
+00:07:32,360 --&gt; 00:07:32,860
+自动掌握的
+
+235
+00:07:34,140 --&gt; 00:07:35,940
+但512维空间对于人来说
+
+236
+00:07:36,200 --&gt; 00:07:36,960
+是在太过抽象的
+
+237
+00:07:37,220 --&gt; 00:07:38,500
+我们的视频没法直接展示
+
+238
+00:07:38,760 --&gt; 00:07:40,800
+所以这里才用二维空间来代替
+
+239
+00:07:41,320 --&gt; 00:07:42,340
+在这个二维空间中
+
+240
+00:07:42,600 --&gt; 00:07:44,380
+含义相似的单词会挨得很近
+
+241
+00:07:44,640 --&gt; 00:07:46,180
+但含义相差很大的单词
+
+242
+00:07:46,440 --&gt; 00:07:47,200
+则会离得比较远
+
+243
+00:07:47,960 --&gt; 00:07:50,280
+虽然自然语言本身无法参与数学运算
+
+244
+00:07:50,520 --&gt; 00:07:51,800
+但被映射成限量之后
+
+245
+00:07:52,060 --&gt; 00:07:54,120
+我们就能很方便的进行限量运算了
+
+246
+00:07:54,360 --&gt; 00:07:54,880
+比如
+
+247
+00:07:55,140 --&gt; 00:07:57,180
+莫索里尼这个词在这个位置
+
+248
+00:07:57,440 --&gt; 00:07:58,460
+而意大利在这个位置
+
+249
+00:07:58,720 --&gt; 00:07:59,740
+德国在这个位置
+
+250
+00:08:00,260 --&gt; 00:08:01,020
+我们如果计算
+
+251
+00:08:01,280 --&gt; 00:08:03,080
+莫索里尼减意大利加德国
+
+252
+00:08:03,320 --&gt; 00:08:04,860
+就会得到一个新的位置
+
+253
+00:08:05,120 --&gt; 00:08:06,400
+离这个位置最近的词
+
+254
+00:08:06,920 --&gt; 00:08:07,680
+最可能的就是
+
+255
+00:08:07,940 --&gt; 00:08:08,440
+希特勒
+
+256
+00:08:09,480 --&gt; 00:08:09,980
+同样的
+
+257
+00:08:10,240 --&gt; 00:08:11,780
+北京减中国加法国
+
+258
+00:08:12,280 --&gt; 00:08:14,600
+得到的新位置附近最可能出现的单词是
+
+259
+00:08:14,840 --&gt; 00:08:15,100
+巴黎
+
+260
+00:08:15,100 --&gt; 00:08:17,660
+而教师减学校加医院
+
+261
+00:08:17,920 --&gt; 00:08:18,680
+则是医生
+
+262
+00:08:19,200 --&gt; 00:08:19,700
+甚至
+
+263
+00:08:19,960 --&gt; 00:08:20,740
+如果很好奇
+
+264
+00:08:20,980 --&gt; 00:08:22,520
+谁更像女版的蔡徐昏
+
+265
+00:08:22,780 --&gt; 00:08:24,320
+你也可以用向量来计算一下
+
+266
+00:08:24,580 --&gt; 00:08:25,860
+蔡徐昏减男加女
+
+267
+00:08:26,100 --&gt; 00:08:26,360
+然后呢
+
+268
+00:08:26,620 --&gt; 00:08:28,920
+看看这个位置附近出现的人是谁
+
+269
+00:08:29,440 --&gt; 00:08:31,740
+我们再仔细观察一下刚才的例子
+
+270
+00:08:32,000 --&gt; 00:08:32,260
+比如
+
+271
+00:08:32,500 --&gt; 00:08:33,780
+意大利到莫索里尼
+
+272
+00:08:34,040 --&gt; 00:08:35,060
+和德国到希特勒
+
+273
+00:08:35,320 --&gt; 00:08:37,620
+这两个向量的方向几乎完全一样
+
+274
+00:08:37,880 --&gt; 00:08:39,680
+也就是说他们的家教非常小
+
+275
+00:08:39,940 --&gt; 00:08:40,440
+这因为
+
+276
+00:08:40,700 --&gt; 00:08:42,740
+他们表达的与与关系非常的接近
+
+277
+00:08:42,740 --&gt; 00:08:46,060
+都是在表达国家与领导人之间对应的关系
+
+278
+00:08:46,580 --&gt; 00:08:47,860
+两个向量的家教越小
+
+279
+00:08:48,120 --&gt; 00:08:49,900
+他们的内积也就是点击就越大
+
+280
+00:08:50,420 --&gt; 00:08:51,960
+代表这两个单词的语意越相似
+
+281
+00:08:52,220 --&gt; 00:08:52,980
+而家教越大
+
+282
+00:08:53,240 --&gt; 00:08:55,280
+比如超过90度甚至接近180度
+
+283
+00:08:55,540 --&gt; 00:08:57,580
+他们的内积就越小甚至为负
+
+284
+00:08:57,840 --&gt; 00:08:59,640
+代表含义不同甚至相反
+
+285
+00:09:00,400 --&gt; 00:09:02,960
+我们再想象一下一个512位的空间
+
+286
+00:09:03,220 --&gt; 00:09:05,020
+每种语言都有大概300个单词
+
+287
+00:09:05,260 --&gt; 00:09:06,040
+在这个空间里面
+
+288
+00:09:06,040 --&gt; 00:09:07,320
+我们从最后系的原点
+
+289
+00:09:07,580 --&gt; 00:09:08,600
+向每个单词所在的点
+
+290
+00:09:08,860 --&gt; 00:09:09,620
+画一条箭头
+
+291
+00:09:09,880 --&gt; 00:09:11,160
+这些箭头就是词向量
+
+292
+00:09:11,420 --&gt; 00:09:13,720
+也就是模型所理解的单词的含义
+
+293
+00:09:14,480 --&gt; 00:09:15,520
+我们继续往上看
+
+294
+00:09:15,760 --&gt; 00:09:17,820
+第二步我们就来到了Protitional encoding
+
+295
+00:09:18,080 --&gt; 00:09:19,100
+也就是位置编码
+
+296
+00:09:19,600 --&gt; 00:09:21,660
+Transformer没有RN那样的循环结构
+
+297
+00:09:21,920 --&gt; 00:09:24,720
+它本身并不清楚单词在句子中的具体先后顺序
+
+298
+00:09:24,980 --&gt; 00:09:25,500
+因此
+
+299
+00:09:25,760 --&gt; 00:09:26,780
+我们需要给每个单词
+
+300
+00:09:27,040 --&gt; 00:09:28,060
+添加一个独特的编号
+
+301
+00:09:28,320 --&gt; 00:09:30,100
+让模型知道单词之间的位置信息
+
+302
+00:09:30,620 --&gt; 00:09:32,920
+论文的作者们在这画了一个类似阴阳的小图标
+
+303
+00:09:32,920 --&gt; 00:09:36,240
+其实也想表示Transformer使用正弦和余线的函数组合
+
+304
+00:09:36,500 --&gt; 00:09:38,300
+来生成每个单词的位置信息编码
+
+305
+00:09:39,060 --&gt; 00:09:41,620
+再往上我们就进入了Transformer最核心
+
+306
+00:09:41,880 --&gt; 00:09:42,900
+也是最复杂的部分
+
+307
+00:09:43,160 --&gt; 00:09:43,920
+Multi-Head Attention
+
+308
+00:09:44,180 --&gt; 00:09:45,980
+也就是多头自注意力机制
+
+309
+00:09:46,240 --&gt; 00:09:48,020
+这一部分是Transformer的核心理念
+
+310
+00:09:48,280 --&gt; 00:09:48,800
+也最复杂
+
+311
+00:09:49,040 --&gt; 00:09:50,320
+我们拆开揉碎了来讲
+
+312
+00:09:51,600 --&gt; 00:09:53,660
+首先我们注意到图上这里有三个箭头
+
+313
+00:09:53,920 --&gt; 00:09:55,200
+为什么是三个箭头呢
+
+314
+00:09:55,440 --&gt; 00:09:56,220
+原作中没有写
+
+315
+00:09:56,720 --&gt; 00:09:59,280
+这三个箭头其实分别代表了三个非常重要的概念
+
+316
+00:09:59,540 --&gt; 00:09:59,800
+就是
+
+317
+00:10:00,000 --&gt; 00:10:02,580
+Curid Key和Value简称QKV
+
+318
+00:10:02,580 --&gt; 00:10:06,360
+我们可以把输入句子里的每个单词都写上成一个小人
+
+319
+00:10:06,360 --&gt; 00:10:09,340
+现在这些小人需要互相了解一下对方
+
+320
+00:10:09,340 --&gt; 00:10:11,180
+每个人都要回答两个问题
+
+321
+00:10:11,180 --&gt; 00:10:12,680
+我的身份是什么
+
+322
+00:10:12,680 --&gt; 00:10:14,520
+这个问题的答案就是它的Key
+
+323
+00:10:14,520 --&gt; 00:10:16,140
+我想知道什么
+
+324
+00:10:16,140 --&gt; 00:10:17,720
+这个问题的答案就是它的Q
+
+325
+00:10:17,720 --&gt; 00:10:19,040
+我们看一个例子
+
+326
+00:10:19,040 --&gt; 00:10:20,140
+我今天买了一本书
+
+327
+00:10:20,140 --&gt; 00:10:21,140
+上了学校当图书馆
+
+328
+00:10:21,140 --&gt; 00:10:22,320
+然后下午又去开不听
+
+329
+00:10:22,320 --&gt; 00:10:23,400
+晚上再开始读它
+
+330
+00:10:23,400 --&gt; 00:10:24,700
+这个句子知道我
+
+331
+00:10:24,700 --&gt; 00:10:25,820
+它的身份是什么
+
+332
+00:10:25,820 --&gt; 00:10:27,940
+它的身份是一个人生代词
+
+333
+00:10:27,940 --&gt; 00:10:30,820
+句子的主体也就是这个单词的Key
+
+334
+00:10:30,820 --&gt; 00:10:33,660
+而我这个词最关心的是什么呢
+
+335
+00:10:33,660 --&gt; 00:10:35,080
+他想知道我做了什么
+
+336
+00:10:35,080 --&gt; 00:10:36,140
+我去了哪里
+
+337
+00:10:36,140 --&gt; 00:10:36,980
+这就是它的Q
+
+338
+00:10:36,980 --&gt; 00:10:40,920
+句子里面每个小人都要这样计算出它的Q和K
+
+339
+00:10:40,920 --&gt; 00:10:41,900
+比如说和它
+
+340
+00:10:41,900 --&gt; 00:10:43,560
+它们的Q和K分别是这样
+
+341
+00:10:43,560 --&gt; 00:10:45,640
+这里可能就会有人问了
+
+342
+00:10:45,640 --&gt; 00:10:47,320
+Q和K到底是怎么计算出来的
+
+343
+00:10:47,320 --&gt; 00:10:49,000
+每个单词的Q和K
+
+344
+00:10:49,000 --&gt; 00:10:50,620
+都是由它们自己的N白点向量
+
+345
+00:10:50,620 --&gt; 00:10:54,080
+与模型在训练时候学习它的参数矩阵相乘而计算出来
+
+346
+00:10:54,080 --&gt; 00:10:55,480
+因为穿的方式模型
+
+347
+00:10:55,480 --&gt; 00:10:57,500
+在训练的时候已经学习过大量的文本
+
+348
+00:10:57,500 --&gt; 00:11:00,520
+所以它能够很好地捕捉每个单词的预约信息
+
+349
+00:11:00,520 --&gt; 00:11:02,580
+接下来每个单词的Q
+
+350
+00:11:02,580 --&gt; 00:11:04,660
+都要与句子中所有其他单词的K
+
+351
+00:11:04,660 --&gt; 00:11:05,660
+做一个点击预算
+
+352
+00:11:05,660 --&gt; 00:11:06,420
+其他来说
+
+353
+00:11:06,420 --&gt; 00:11:08,200
+就是拿每个单词自己的Q
+
+354
+00:11:08,200 --&gt; 00:11:10,380
+去和其他单词的K进行匹配
+
+355
+00:11:10,380 --&gt; 00:11:11,480
+看看谁更合适
+
+356
+00:11:11,480 --&gt; 00:11:15,580
+比如说它的Q是想知道自己代表的是什么东西
+
+357
+00:11:15,580 --&gt; 00:11:18,540
+那我们拿它的Q去碰一碰我这个字的K
+
+358
+00:11:18,540 --&gt; 00:11:19,380
+就会发现
+
+359
+00:11:19,380 --&gt; 00:11:21,020
+我是一个人生代词
+
+360
+00:11:21,020 --&gt; 00:11:22,120
+我不是东西
+
+361
+00:11:22,120 --&gt; 00:11:23,060
+我不是它要找的
+
+362
+00:11:23,060 --&gt; 00:11:23,720
+所以匹配不上
+
+363
+00:11:23,720 --&gt; 00:11:25,660
+所以对于它这个字来说
+
+364
+00:11:25,660 --&gt; 00:11:27,680
+就没有必要关注我这个字
+
+365
+00:11:27,680 --&gt; 00:11:28,680
+但是呢
+
+366
+00:11:28,680 --&gt; 00:11:30,680
+当它的Q碰到书的K的时候
+
+367
+00:11:30,680 --&gt; 00:11:31,680
+情况就不一样了
+
+368
+00:11:31,680 --&gt; 00:11:33,280
+书的K告诉我们
+
+369
+00:11:33,280 --&gt; 00:11:34,420
+我是一个名词
+
+370
+00:11:34,420 --&gt; 00:11:36,540
+是一种能够被买被读的物品
+
+371
+00:11:36,540 --&gt; 00:11:39,460
+那正好和它这个字的Q高度的匹配
+
+372
+00:11:39,680 --&gt; 00:11:40,360
+因此呢
+
+373
+00:11:40,360 --&gt; 00:11:42,020
+书这个词对于它来说
+
+374
+00:11:42,020 --&gt; 00:11:44,520
+就格外的值得投入注意力去关注
+
+375
+00:11:44,520 --&gt; 00:11:45,860
+然后呢
+
+376
+00:11:45,860 --&gt; 00:11:47,360
+它再去查看这个单词的V
+
+377
+00:11:47,360 --&gt; 00:11:49,960
+V可以列证是这个单词的具体含义
+
+378
+00:11:49,960 --&gt; 00:11:51,000
+或者说客观的信息
+
+379
+00:11:51,000 --&gt; 00:11:52,140
+不过需要注意的是
+
+380
+00:11:52,140 --&gt; 00:11:54,320
+这里的V并不是单词最初的项链
+
+381
+00:11:54,320 --&gt; 00:11:56,780
+而是经过模型再次计算出来的一个新的项链
+
+382
+00:11:56,780 --&gt; 00:11:57,380
+比如说
+
+383
+00:11:57,380 --&gt; 00:11:58,420
+书这个单词呢
+
+384
+00:11:58,420 --&gt; 00:11:59,580
+可能有很多不同的含义
+
+385
+00:11:59,580 --&gt; 00:12:01,060
+因为模型在训练的时候
+
+386
+00:12:01,060 --&gt; 00:12:02,100
+学过大量的语料
+
+387
+00:12:02,100 --&gt; 00:12:02,800
+它就会发现
+
+388
+00:12:02,800 --&gt; 00:12:04,480
+在巨大多数情况下呢
+
+389
+00:12:04,480 --&gt; 00:12:06,140
+书表示的是乘次的注组
+
+390
+00:12:06,140 --&gt; 00:12:06,960
+而不是上书
+
+391
+00:12:06,960 --&gt; 00:12:08,020
+因此呢
+
+392
+00:12:08,020 --&gt; 00:12:11,140
+书的V项链会主要的表示乘次的注组这个含义
+
+393
+00:12:11,140 --&gt; 00:12:14,020
+而以较低的概率表示其他的含义
+
+394
+00:12:14,020 --&gt; 00:12:14,680
+于是呢
+
+395
+00:12:14,680 --&gt; 00:12:16,180
+具体发生的过程就是
+
+396
+00:12:16,180 --&gt; 00:12:17,140
+它这个单词
+
+397
+00:12:17,140 --&gt; 00:12:18,160
+通过自己的Q
+
+398
+00:12:18,160 --&gt; 00:12:19,880
+和句子中的每个K做匪备之后
+
+399
+00:12:19,880 --&gt; 00:12:22,420
+发现自己和书这个词高度相关
+
+400
+00:12:22,420 --&gt; 00:12:23,060
+于是呢
+
+401
+00:12:23,060 --&gt; 00:12:25,040
+就进一步查看了书的V
+
+402
+00:12:25,040 --&gt; 00:12:26,420
+接下来
+
+403
+00:12:26,420 --&gt; 00:12:28,740
+它的项链就会朝着层次的注作这个含义
+
+404
+00:12:28,740 --&gt; 00:12:30,000
+产生一定的偏移
+
+405
+00:12:30,000 --&gt; 00:12:31,400
+经过这种偏移之后呢
+
+406
+00:12:31,400 --&gt; 00:12:32,180
+它这个单词
+
+407
+00:12:32,180 --&gt; 00:12:35,180
+这个项链中也就带上了层次的注作这一个信息
+
+408
+00:12:35,180 --&gt; 00:12:35,960
+最终呢
+
+409
+00:12:35,960 --&gt; 00:12:37,060
+模型就理解了
+
+410
+00:12:37,060 --&gt; 00:12:39,780
+它在这句话中具体的指代是什么
+
+411
+00:12:39,780 --&gt; 00:12:41,000
+在这里呢
+
+412
+00:12:41,000 --&gt; 00:12:41,920
+就要特别强调一下
+
+413
+00:12:41,920 --&gt; 00:12:42,800
+上面举的例子
+
+414
+00:12:42,800 --&gt; 00:12:44,400
+都是为了让大家更直观理解
+
+415
+00:12:44,400 --&gt; 00:12:45,620
+注意力机制的工作原理
+
+416
+00:12:45,620 --&gt; 00:12:47,840
+在实际的Tranetformer模型中啊
+
+417
+00:12:47,840 --&gt; 00:12:49,800
+QKV都不是具体的自然语言
+
+418
+00:12:49,800 --&gt; 00:12:52,620
+而是512维空间中的数学向量
+
+419
+00:12:52,620 --&gt; 00:12:53,500
+这个过程呢
+
+420
+00:12:53,500 --&gt; 00:12:55,800
+也都是通过向量的数学计算来完成的
+
+421
+00:12:55,800 --&gt; 00:12:57,140
+因此呢
+
+422
+00:12:57,140 --&gt; 00:12:59,000
+这三个箭头的意思就是QKV
+
+423
+00:12:59,000 --&gt; 00:13:01,180
+在Tranetformer的自注意力机制中呢
+
+424
+00:13:01,180 --&gt; 00:13:02,380
+句子里面的每一个单词
+
+425
+00:13:02,380 --&gt; 00:13:03,660
+都会对其他的单词
+
+426
+00:13:03,660 --&gt; 00:13:04,920
+分配不同的注意力权重
+
+427
+00:13:04,920 --&gt; 00:13:05,580
+然后呢
+
+428
+00:13:05,580 --&gt; 00:13:07,100
+根据注意力权重的大小
+
+429
+00:13:07,100 --&gt; 00:13:08,960
+产生不同程度的向量偏移
+
+430
+00:13:08,960 --&gt; 00:13:10,720
+而正是这些偏移
+
+431
+00:13:10,720 --&gt; 00:13:12,780
+让AI形成了对于的深层理解
+
+432
+00:13:12,780 --&gt; 00:13:15,500
+这就是Tranetformer中最核心的Attention
+
+433
+00:13:15,500 --&gt; 00:13:16,860
+也就是注意力机制
+
+434
+00:13:16,860 --&gt; 00:13:18,520
+那我们再看
+
+435
+00:13:18,520 --&gt; 00:13:20,540
+这里为什么叫做Multihead的Attention
+
+436
+00:13:20,540 --&gt; 00:13:21,840
+就是多头注意力呢
+
+437
+00:13:21,840 --&gt; 00:13:23,920
+这个多头又是什么意思呢
+
+438
+00:13:23,920 --&gt; 00:13:25,920
+所谓多头注意力
+
+439
+00:13:25,920 --&gt; 00:13:28,460
+就是同时并行的做多次自注意力的计算
+
+440
+00:13:28,460 --&gt; 00:13:30,540
+每一次自注意计算
+
+441
+00:13:30,540 --&gt; 00:13:31,480
+都被称为一个头
+
+442
+00:13:31,480 --&gt; 00:13:34,060
+每个头都使用一组独立的参数矩阵
+
+443
+00:13:34,060 --&gt; 00:13:35,560
+我们简单来说呢
+
+444
+00:13:35,560 --&gt; 00:13:37,000
+就是使用多个不同的视角
+
+445
+00:13:37,000 --&gt; 00:13:38,300
+来观察输入的句子
+
+446
+00:13:38,300 --&gt; 00:13:39,980
+比如说有一个头
+
+447
+00:13:39,980 --&gt; 00:13:41,860
+可能更关注句子的语法结构
+
+448
+00:13:41,860 --&gt; 00:13:43,000
+这个头的注意力计算
+
+449
+00:13:43,000 --&gt; 00:13:44,040
+就会更多的判断
+
+450
+00:13:44,040 --&gt; 00:13:45,800
+每一个词究竟是一个名词
+
+451
+00:13:45,800 --&gt; 00:13:46,640
+还是一个动词
+
+452
+00:13:46,640 --&gt; 00:13:48,540
+词和词在语法上是什么关系
+
+453
+00:13:48,540 --&gt; 00:13:49,380
+那有的头呢
+
+454
+00:13:49,380 --&gt; 00:13:50,720
+可能特别关注代词
+
+455
+00:13:50,720 --&gt; 00:13:52,300
+想能清楚每一个代词
+
+456
+00:13:52,300 --&gt; 00:13:53,460
+究竟实在的是谁
+
+457
+00:13:53,460 --&gt; 00:13:54,400
+那有的头呢
+
+458
+00:13:54,400 --&gt; 00:13:56,280
+可能更关注单词的情绪色彩
+
+459
+00:13:56,280 --&gt; 00:13:57,720
+他想分辨出哪些词
+
+460
+00:13:57,720 --&gt; 00:13:59,180
+带着积极乐观的情绪
+
+461
+00:13:59,180 --&gt; 00:13:59,860
+哪些词呢
+
+462
+00:13:59,860 --&gt; 00:14:01,860
+它的含义是负面或者消极的
+
+463
+00:14:01,860 --&gt; 00:14:03,200
+在论文中呢
+
+464
+00:14:03,200 --&gt; 00:14:04,520
+这个多头一共有八个
+
+465
+00:14:04,520 --&gt; 00:14:06,340
+我们刚才说的语法结构
+
+466
+00:14:06,340 --&gt; 00:14:08,080
+代词情绪色彩这些例子呢
+
+467
+00:14:08,080 --&gt; 00:14:09,780
+都是为了方便大家直观的理解
+
+468
+00:14:09,780 --&gt; 00:14:10,520
+事实上呢
+
+469
+00:14:10,520 --&gt; 00:14:12,120
+模型并不会告诉每个头
+
+470
+00:14:12,120 --&gt; 00:14:13,360
+具体你应该关注什么
+
+471
+00:14:13,360 --&gt; 00:14:14,080
+它们呢
+
+472
+00:14:14,080 --&gt; 00:14:15,280
+完全是通过数学方法
+
+473
+00:14:15,280 --&gt; 00:14:16,400
+自动发现和学习的
+
+474
+00:14:16,400 --&gt; 00:14:18,640
+模型会自动的从大量数学中间
+
+475
+00:14:18,640 --&gt; 00:14:21,140
+发现最适合的八种关注方式
+
+476
+00:14:21,140 --&gt; 00:14:22,420
+另外呢
+
+477
+00:14:22,420 --&gt; 00:14:23,520
+每个单词最初
+
+478
+00:14:23,520 --&gt; 00:14:25,340
+都是用512微的向量表示的
+
+479
+00:14:25,340 --&gt; 00:14:26,220
+但因为每个头
+
+480
+00:14:26,220 --&gt; 00:14:27,760
+只需要关注一个特定的方便
+
+481
+00:14:27,760 --&gt; 00:14:29,380
+因此每个头并不需要处理
+
+482
+00:14:29,380 --&gt; 00:14:30,880
+完整的512微的信息
+
+483
+00:14:30,880 --&gt; 00:14:32,040
+在实际实现中
+
+484
+00:14:32,040 --&gt; 00:14:34,400
+每个头只需要处理64微的信息
+
+485
+00:14:34,400 --&gt; 00:14:35,820
+也就是说呢
+
+486
+00:14:35,820 --&gt; 00:14:37,040
+对于每个输入句子
+
+487
+00:14:37,040 --&gt; 00:14:38,560
+这八个头会各自独立的
+
+488
+00:14:38,560 --&gt; 00:14:39,360
+进行注意力计算
+
+489
+00:14:39,360 --&gt; 00:14:41,480
+每个头产生一个664微的结果
+
+490
+00:14:41,480 --&gt; 00:14:42,080
+最后呢
+
+491
+00:14:42,080 --&gt; 00:14:43,760
+再把这八个664微的结果
+
+492
+00:14:43,760 --&gt; 00:14:44,500
+拼结到一起
+
+493
+00:14:44,500 --&gt; 00:14:46,000
+8乘664等于512
+
+494
+00:14:46,000 --&gt; 00:14:49,220
+再次回到原始512微的向量大小
+
+495
+00:14:49,220 --&gt; 00:14:51,300
+通过这种多头机制
+
+496
+00:14:51,300 --&gt; 00:14:52,240
+创造former就能够
+
+497
+00:14:52,240 --&gt; 00:14:53,380
+同时从不同角度
+
+498
+00:14:53,380 --&gt; 00:14:54,680
+理解和处理语言信息
+
+499
+00:14:54,680 --&gt; 00:14:56,020
+这也大幅度的提升了
+
+500
+00:14:56,020 --&gt; 00:14:57,260
+模型的表达能力和效果
+
+501
+00:14:57,260 --&gt; 00:14:58,540
+到这里呢
+
+502
+00:14:58,540 --&gt; 00:14:59,940
+最难的多头注意力
+
+503
+00:14:59,940 --&gt; 00:15:00,780
+arises
+
+504
+00:15:00,780 --&gt; 00:15:01,580
+不要再来
+
+505
+00:15:00,000 --&gt; 00:15:01,160
+终于讲清楚了
+
+506
+00:15:01,580 --&gt; 00:15:02,380
+看
+
+507
+00:15:01,740 --&gt; 00:15:03,060
+完成多头注意力之后
+
+508
+00:15:02,380 --&gt; 00:15:03,100
+theres
+
+509
+00:15:03,100 --&gt; 00:15:27,980
+有
+
+510
+00:15:03,060 --&gt; 00:15:04,540
+还需要进行Addenorm
+
+511
+00:15:04,540 --&gt; 00:15:06,700
+就是残差连接和层规议化
+
+512
+00:15:07,140 --&gt; 00:15:08,900
+前面的多头注意力可以列成
+
+513
+00:15:08,900 --&gt; 00:15:10,200
+模型为了每一个单词
+
+514
+00:15:10,200 --&gt; 00:15:11,300
+计算出的一个偏移量
+
+515
+00:15:11,440 --&gt; 00:15:14,140
+这个偏移量表示单词在结合上下分之后
+
+516
+00:15:14,140 --&gt; 00:15:15,240
+需要进行的调整
+
+517
+00:15:16,040 --&gt; 00:15:17,860
+残差连接的作用就是把这个偏移量
+
+518
+00:15:17,860 --&gt; 00:15:19,600
+加回原式信息的输入向量
+
+519
+00:15:19,600 --&gt; 00:15:21,100
+得到一个实际的新向量
+
+520
+00:15:22,060 --&gt; 00:15:22,740
+换句话说
+
+521
+00:15:22,740 --&gt; 00:15:23,960
+残差连接通过相加
+
+522
+00:15:23,960 --&gt; 00:15:26,460
+把原始信息和模型计算出来的新信息
+
+523
+00:15:26,460 --&gt; 00:15:27,440
+组合到一起
+
+524
+00:15:27,500 --&gt; 00:15:28,640
+接下来层规议化
+
+525
+00:15:28,640 --&gt; 00:15:30,440
+就会对这些向量进行标准化的处理
+
+526
+00:15:30,680 --&gt; 00:15:32,380
+具体就是让每个向量的数字分布
+
+527
+00:15:32,380 --&gt; 00:15:33,680
+重新调整到均值为0
+
+528
+00:15:33,680 --&gt; 00:15:35,040
+方差不1的标准分布
+
+529
+00:15:35,540 --&gt; 00:15:36,280
+这里简单来说
+
+530
+00:15:36,280 --&gt; 00:15:37,940
+就是给数据重新调整一下
+
+531
+00:15:37,940 --&gt; 00:15:39,280
+它的笔的尺和中心位置
+
+532
+00:15:39,500 --&gt; 00:15:41,040
+让数据分布更加稳定
+
+533
+00:15:41,240 --&gt; 00:15:43,200
+训练模型的时候就更加容易收敛
+
+534
+00:15:43,200 --&gt; 00:15:43,880
+效果也更好
+
+535
+00:15:44,740 --&gt; 00:15:47,040
+然后数据出来到了Position-wise-Feed-Forward
+
+536
+00:15:47,200 --&gt; 00:15:48,480
+就是位置前回网络
+
+537
+00:15:48,800 --&gt; 00:15:49,900
+我们还是把每个单词
+
+538
+00:15:49,900 --&gt; 00:15:50,880
+都看成一个小人好了
+
+539
+00:15:51,200 --&gt; 00:15:52,200
+刚才的注意力机制
+
+540
+00:15:52,200 --&gt; 00:15:53,480
+就好比是团队开会
+
+541
+00:15:53,640 --&gt; 00:15:55,100
+每个人都会在会上
+
+542
+00:15:55,100 --&gt; 00:15:56,500
+与其他成员进行沟通交流
+
+543
+00:15:56,660 --&gt; 00:15:59,060
+获得了很多来自成员的想法和信息
+
+544
+00:15:59,500 --&gt; 00:16:00,340
+但在开会之后
+
+545
+00:16:00,540 --&gt; 00:16:02,300
+每个人都需要回到自己的环境里面
+
+546
+00:16:02,300 --&gt; 00:16:03,740
+独自的思考和消化一下
+
+547
+00:16:03,740 --&gt; 00:16:04,700
+刚才获得的信息
+
+548
+00:16:05,660 --&gt; 00:16:07,500
+位置前回网络做的就是这个事情
+
+549
+00:16:07,500 --&gt; 00:16:09,300
+在这里每个单词都会单独的
+
+550
+00:16:09,300 --&gt; 00:16:11,140
+重新组织一下自己身上的向量信息
+
+551
+00:16:11,340 --&gt; 00:16:12,660
+具体的做法就是
+
+552
+00:16:12,740 --&gt; 00:16:15,140
+把原来每个单词512位的向量
+
+553
+00:16:15,140 --&gt; 00:16:16,740
+升级到2048位
+
+554
+00:16:17,060 --&gt; 00:16:18,800
+然后通过RELO激活参数
+
+555
+00:16:18,800 --&gt; 00:16:19,740
+保留正数部分
+
+556
+00:16:19,740 --&gt; 00:16:20,860
+把所有的附属维线
+
+557
+00:16:20,940 --&gt; 00:16:22,140
+实现辅限型的变换
+
+558
+00:16:22,340 --&gt; 00:16:23,700
+最后再从2048位
+
+559
+00:16:23,700 --&gt; 00:16:24,900
+降回512位
+
+560
+00:16:25,100 --&gt; 00:16:27,100
+这个过程会去掉一些冗余信息
+
+561
+00:16:27,100 --&gt; 00:16:29,100
+只保留最有用最关键的信息
+
+562
+00:16:29,300 --&gt; 00:16:30,340
+这进一步的增强了
+
+563
+00:16:30,340 --&gt; 00:16:31,940
+模型的非线性表达能力
+
+564
+00:16:32,340 --&gt; 00:16:34,060
+这里我们就不再进一步展开了
+
+565
+00:16:34,060 --&gt; 00:16:36,180
+因为这种通过先升为再降为
+
+566
+00:16:36,180 --&gt; 00:16:37,580
+提高模型表达能力的方式
+
+567
+00:16:37,580 --&gt; 00:16:39,220
+其实并不是传达方面的首创
+
+568
+00:16:39,700 --&gt; 00:16:40,860
+像Autoencoder
+
+569
+00:16:40,860 --&gt; 00:16:41,540
+ResNet
+
+570
+00:16:41,540 --&gt; 00:16:43,900
+以及卷积神经网络里面的Bothonic层等
+
+571
+00:16:44,020 --&gt; 00:16:45,460
+都是采用过类似的策略
+
+572
+00:16:45,740 --&gt; 00:16:48,060
+然后我们把信息再经过一遍
+
+573
+00:16:48,060 --&gt; 00:16:48,660
+And the norm
+
+574
+00:16:48,820 --&gt; 00:16:50,740
+再次完成对信息的整理
+
+575
+00:16:51,140 --&gt; 00:16:53,420
+到这里我们就把15部分的过程讲完了
+
+576
+00:16:54,100 --&gt; 00:16:54,900
+大家可能注意到
+
+577
+00:16:54,900 --&gt; 00:16:56,900
+在这个架构图左侧标了一个N层
+
+578
+00:16:56,900 --&gt; 00:16:58,500
+意思就是这个图中这个模块
+
+579
+00:16:58,500 --&gt; 00:16:59,980
+是重复堆叠多次的
+
+580
+00:17:00,300 --&gt; 00:17:01,660
+在原始的创造方法认为中
+
+581
+00:17:01,660 --&gt; 00:17:03,260
+这个结构堆叠了6次
+
+582
+00:17:03,620 --&gt; 00:17:05,460
+可以把它列成是6个这样的模块
+
+583
+00:17:05,460 --&gt; 00:17:06,460
+串联的力气
+
+584
+00:17:06,740 --&gt; 00:17:07,740
+第一个模块的输出
+
+585
+00:17:07,740 --&gt; 00:17:09,060
+会作为第二个模块的输入
+
+586
+00:17:09,300 --&gt; 00:17:09,860
+以此类推
+
+587
+00:17:09,860 --&gt; 00:17:12,180
+这样连续完成6次这样的处理过程
+
+588
+00:17:12,740 --&gt; 00:17:14,060
+为什么要堆叠多个层呢
+
+589
+00:17:14,220 --&gt; 00:17:16,420
+因为如果仅进行一次额三层信息的处理
+
+590
+00:17:16,660 --&gt; 00:17:18,100
+往往不足以充分捕捉
+
+591
+00:17:18,100 --&gt; 00:17:20,180
+与原中最复杂最细致的关系
+
+592
+00:17:20,180 --&gt; 00:17:21,940
+串的方法通过多个对织层
+
+593
+00:17:21,940 --&gt; 00:17:23,780
+反复的对信息进行加工和提炼
+
+594
+00:17:23,780 --&gt; 00:17:25,380
+就能够逐层深入
+
+595
+00:17:25,380 --&gt; 00:17:26,980
+挖掘具体中的各个细节
+
+596
+00:17:26,980 --&gt; 00:17:29,940
+从而更精准更全面的表达复杂的信息
+
+597
+00:17:29,940 --&gt; 00:17:31,220
+有人可能会问
+
+598
+00:17:31,220 --&gt; 00:17:32,740
+这里为什么是6层
+
+599
+00:17:32,740 --&gt; 00:17:33,940
+而不是12层
+
+600
+00:17:33,940 --&gt; 00:17:35,140
+或者说更多呢
+
+601
+00:17:35,140 --&gt; 00:17:37,060
+这个层数是越多越好吗
+
+602
+00:17:37,060 --&gt; 00:17:37,780
+事实上
+
+603
+00:17:37,780 --&gt; 00:17:39,620
+在现在的一些主流模型中
+
+604
+00:17:39,620 --&gt; 00:17:40,780
+串的方法的层数
+
+605
+00:17:40,780 --&gt; 00:17:42,100
+确实达到了几个层
+
+606
+00:17:42,100 --&gt; 00:17:42,980
+甚至上百层
+
+607
+00:17:42,980 --&gt; 00:17:45,380
+但并不是说层数就越多越好
+
+608
+00:17:45,380 --&gt; 00:17:47,460
+包括我们前面讲到的很多数字
+
+609
+00:17:47,460 --&gt; 00:17:49,540
+比如说为什么一个向量是512位
+
+610
+00:17:49,540 --&gt; 00:17:51,300
+而不是1024或者2048位呢
+
+611
+00:17:51,300 --&gt; 00:17:52,420
+为什么多头注意力
+
+612
+00:17:52,420 --&gt; 00:17:53,860
+用8个头每个头都是4位
+
+613
+00:17:53,860 --&gt; 00:17:55,620
+而不是16个头每头32位呢
+
+614
+00:17:55,620 --&gt; 00:17:56,660
+这些具体的数值
+
+615
+00:17:56,660 --&gt; 00:17:57,700
+都是模型的设计者
+
+616
+00:17:57,700 --&gt; 00:17:58,460
+在训练过程中
+
+617
+00:17:58,460 --&gt; 00:17:59,860
+人为设定的超参数
+
+618
+00:17:59,860 --&gt; 00:18:01,780
+这些数值是根据理论分析
+
+619
+00:18:01,780 --&gt; 00:18:02,500
+应该限制
+
+620
+00:18:02,500 --&gt; 00:18:03,860
+以及大量的实验结果
+
+621
+00:18:03,860 --&gt; 00:18:05,700
+综合确定的一个最优配置
+
+622
+00:18:05,700 --&gt; 00:18:06,420
+讲到这里
+
+623
+00:18:06,420 --&gt; 00:18:08,340
+我们就终于把左边的输部分讲完了
+
+624
+00:18:08,340 --&gt; 00:18:08,980
+接下来
+
+625
+00:18:08,980 --&gt; 00:18:11,220
+我们就转向右边输出的部分
+
+626
+00:18:11,220 --&gt; 00:18:14,100
+我们看看输出部分是具体如何工作的
+
+627
+00:18:14,100 --&gt; 00:18:16,020
+右边的outputs就是输出端
+
+628
+00:18:16,020 --&gt; 00:18:17,620
+整个传输出的作用
+
+629
+00:18:17,620 --&gt; 00:18:18,420
+可以简单的解成
+
+630
+00:18:18,420 --&gt; 00:18:20,260
+就是让模型逐字逐句生成那种
+
+631
+00:18:20,260 --&gt; 00:18:22,020
+就是让模型一个个头字的
+
+632
+00:18:22,020 --&gt; 00:18:23,780
+我们有了前面讲解的基础
+
+633
+00:18:23,780 --&gt; 00:18:26,660
+就可以直接来看传输出的完整的工作方式了
+
+634
+00:18:26,660 --&gt; 00:18:29,380
+假设我们现在的任务是翻译
+
+635
+00:18:29,380 --&gt; 00:18:31,460
+把我爱你这三个字翻译成英文
+
+636
+00:18:31,460 --&gt; 00:18:34,420
+首先我们把我爱你这三个字输入到左边
+
+637
+00:18:34,420 --&gt; 00:18:36,100
+这三个字会经过多头注意力
+
+638
+00:18:36,100 --&gt; 00:18:37,380
+和位置潜费网络计算
+
+639
+00:18:37,380 --&gt; 00:18:38,660
+并重复推特六次
+
+640
+00:18:38,660 --&gt; 00:18:40,580
+这时模型就会对这三个字的含义
+
+641
+00:18:40,580 --&gt; 00:18:41,420
+和上下边关系
+
+642
+00:18:41,420 --&gt; 00:18:42,860
+有着深入而全面的理解
+
+643
+00:18:42,860 --&gt; 00:18:45,420
+而这个理解会最终输出到右侧
+
+644
+00:18:45,420 --&gt; 00:18:46,780
+作为右侧的k和v
+
+645
+00:18:46,780 --&gt; 00:18:49,460
+而右侧本身的输入内容会作为q
+
+646
+00:18:49,460 --&gt; 00:18:51,100
+最开始的时候
+
+647
+00:18:51,100 --&gt; 00:18:52,540
+模型还没有任何的输入内容
+
+648
+00:18:52,540 --&gt; 00:18:54,640
+这时候有一个默认的出之限的start
+
+649
+00:18:54,640 --&gt; 00:18:55,220
+作为q
+
+650
+00:18:55,220 --&gt; 00:18:56,420
+意思就是告诉模型
+
+651
+00:18:56,420 --&gt; 00:18:58,360
+你可以开始生成第一个单词了
+
+652
+00:18:58,360 --&gt; 00:19:00,620
+因为现在模型的任务是翻译
+
+653
+00:19:00,620 --&gt; 00:19:02,460
+它就会寻找句子中最适合
+
+654
+00:19:02,460 --&gt; 00:19:03,720
+作为其实词的内容
+
+655
+00:19:03,720 --&gt; 00:19:06,340
+模型就根据左侧窗外来的信息
+
+656
+00:19:06,340 --&gt; 00:19:08,200
+发现我是句子的主语
+
+657
+00:19:08,200 --&gt; 00:19:09,840
+最适合作为第一个翻译的词
+
+658
+00:19:09,840 --&gt; 00:19:11,160
+于是它输出了i
+
+659
+00:19:11,160 --&gt; 00:19:12,880
+输出了第一个词i之后
+
+660
+00:19:12,880 --&gt; 00:19:14,320
+这个词就会回到底部
+
+661
+00:19:14,320 --&gt; 00:19:15,200
+作为新的q
+
+662
+00:19:15,200 --&gt; 00:19:16,480
+这个q可能是
+
+663
+00:19:16,480 --&gt; 00:19:18,840
+i表达的情感或动作是什么呢
+
+664
+00:19:18,840 --&gt; 00:19:20,720
+他再次查看左侧窗外来的k
+
+665
+00:19:20,720 --&gt; 00:19:21,660
+表达了i这个词
+
+666
+00:19:21,660 --&gt; 00:19:22,960
+因为i对应的v是
+
+667
+00:19:22,960 --&gt; 00:19:25,060
+对人或是有深厚的感情
+
+668
+00:19:25,060 --&gt; 00:19:27,320
+于是就生成了第二个词love
+
+669
+00:19:27,320 --&gt; 00:19:30,020
+接下来就会以ilove来生成q
+
+670
+00:19:30,020 --&gt; 00:19:31,280
+这时候的q就是
+
+671
+00:19:31,280 --&gt; 00:19:32,840
+无爱的究竟是谁呢
+
+672
+00:19:32,840 --&gt; 00:19:34,860
+再次查看左侧的k
+
+673
+00:19:34,860 --&gt; 00:19:36,360
+发现目标就是你
+
+674
+00:19:36,360 --&gt; 00:19:38,220
+因此输出了第三个词you
+
+675
+00:19:38,220 --&gt; 00:19:39,860
+至此呢
+
+676
+00:19:39,860 --&gt; 00:19:41,280
+模型就输出了完整的句子
+
+677
+00:19:41,280 --&gt; 00:19:41,900
+i love you
+
+678
+00:19:41,900 --&gt; 00:19:43,980
+再次回到底端检查的时候
+
+679
+00:19:43,980 --&gt; 00:19:45,480
+发现已经完成了翻译
+
+680
+00:19:45,480 --&gt; 00:19:45,980
+于是呢
+
+681
+00:19:45,980 --&gt; 00:19:47,720
+模型就会输出一个特殊的中指符号end
+
+682
+00:19:47,720 --&gt; 00:19:48,980
+来表示生成结束
+
+683
+00:19:48,980 --&gt; 00:19:50,060
+这是Transformer
+
+684
+00:19:50,060 --&gt; 00:19:51,600
+整个的工作过程
+
+685
+00:19:51,600 --&gt; 00:19:53,640
+知道了整体的词中之后
+
+686
+00:19:53,640 --&gt; 00:19:55,500
+我们再详细看每一部的细节
+
+687
+00:19:55,500 --&gt; 00:19:57,780
+右侧的embedding和position calling
+
+688
+00:19:57,780 --&gt; 00:19:59,160
+和左边是完全一样的
+
+689
+00:19:59,160 --&gt; 00:20:00,040
+在右侧有一部分
+
+690
+00:20:00,000 --&gt; 00:20:02,000
+一个特别的Masked Multi-Hide Tension
+
+691
+00:20:02,000 --&gt; 00:20:04,000
+这个Masked到底是什么意思呢
+
+692
+00:20:04,000 --&gt; 00:20:05,500
+我们在训练模型的时候
+
+693
+00:20:05,500 --&gt; 00:20:08,000
+每一个问题其实都是有一个标准答案的
+
+694
+00:20:08,000 --&gt; 00:20:10,000
+比如说我们在训练模型翻译的时候
+
+695
+00:20:10,000 --&gt; 00:20:12,000
+输入我爱你标准答案就是 I love you
+
+696
+00:20:12,000 --&gt; 00:20:15,000
+模型在训练的时候任务就是预测下一个词
+
+697
+00:20:15,000 --&gt; 00:20:17,000
+让它尽可能的和标准答案一样
+
+698
+00:20:17,000 --&gt; 00:20:19,500
+但是标准答案肯定不能让模型事先看到
+
+699
+00:20:19,500 --&gt; 00:20:21,000
+否则模型就作弊了嘛
+
+700
+00:20:21,000 --&gt; 00:20:22,000
+训练就没有意义了
+
+701
+00:20:22,000 --&gt; 00:20:25,000
+所以我们就需要有一种机制先把答案先盖住
+
+702
+00:20:25,000 --&gt; 00:20:27,000
+让模型只能看到以前生成的内容
+
+703
+00:20:27,000 --&gt; 00:20:28,000
+看不到未来的词
+
+704
+00:20:28,000 --&gt; 00:20:30,000
+等模型预测出下一个词之后
+
+705
+00:20:30,000 --&gt; 00:20:31,000
+再把这个词的答案给模型看
+
+706
+00:20:31,000 --&gt; 00:20:34,000
+这样模型就能知道自己预测的是不是准确
+
+707
+00:20:34,000 --&gt; 00:20:35,000
+这样的训练才有效果
+
+708
+00:20:35,000 --&gt; 00:20:38,000
+这种盖住未来信息的机制
+
+709
+00:20:38,000 --&gt; 00:20:40,000
+就是Masked这个词的含义
+
+710
+00:20:40,000 --&gt; 00:20:42,000
+我们再回顾一下刚才的例子
+
+711
+00:20:42,000 --&gt; 00:20:44,000
+开始时Q的输入是start
+
+712
+00:20:44,000 --&gt; 00:20:46,000
+模型预测的第一个词是I
+
+713
+00:20:46,000 --&gt; 00:20:48,000
+然后用I作为输入模型预测love
+
+714
+00:20:48,000 --&gt; 00:20:50,000
+再用I love模型输入的you
+
+715
+00:20:50,000 --&gt; 00:20:52,000
+逐字逐步的进行下去
+
+716
+00:20:52,000 --&gt; 00:20:53,000
+我们注意到这里
+
+717
+00:20:53,000 --&gt; 00:20:55,000
+模型每一步输入Q
+
+718
+00:20:55,000 --&gt; 00:20:57,000
+相比标准答案都往右移动了一位
+
+719
+00:20:57,000 --&gt; 00:21:00,000
+这也就是图中下方标注shavec right
+
+720
+00:21:00,000 --&gt; 00:21:02,000
+也就是向右移动的原因
+
+721
+00:21:02,000 --&gt; 00:21:05,000
+需要注意的是上面说的这些步骤都是在训练阶段进行的
+
+722
+00:21:05,000 --&gt; 00:21:08,000
+当模型在真正的推理也就是实际翻译的时候
+
+723
+00:21:08,000 --&gt; 00:21:10,000
+并不存在标准的答案
+
+724
+00:21:10,000 --&gt; 00:21:12,000
+这时模型的Q仍然从start开始
+
+725
+00:21:12,000 --&gt; 00:21:14,000
+但这时候因为根本就没有拨准答案
+
+726
+00:21:14,000 --&gt; 00:21:17,000
+模型同样无法提前知道未来的信息
+
+727
+00:21:17,000 --&gt; 00:21:21,000
+因此推理时候的原理和训练阶段就是完全一样的
+
+728
+00:21:21,000 --&gt; 00:21:24,000
+可以打一个比方训练就像平时做了一些题
+
+729
+00:21:24,000 --&gt; 00:21:25,000
+做完一道题看一眼答案
+
+730
+00:21:25,000 --&gt; 00:21:27,000
+检查一下对错总结一下经验
+
+731
+00:21:27,000 --&gt; 00:21:29,000
+而推理则像是考试
+
+732
+00:21:29,000 --&gt; 00:21:31,000
+做完题之后看不到答案
+
+733
+00:21:31,000 --&gt; 00:21:34,000
+只能依靠之前训练时的学习的能力去完成
+
+734
+00:21:34,000 --&gt; 00:21:37,000
+后面这一步的处理和左边基本是一样的
+
+735
+00:21:37,000 --&gt; 00:21:38,000
+也就是堆叠六个完全线的层
+
+736
+00:21:38,000 --&gt; 00:21:41,000
+处理完成之后就会进入linear线性层
+
+737
+00:21:41,000 --&gt; 00:21:45,000
+线性的作用是将生成的限量映射到实际的词汇表当中
+
+738
+00:21:45,000 --&gt; 00:21:49,000
+举个例子我们前面讲过北京减中国加法国这样的相量运算
+
+739
+00:21:49,000 --&gt; 00:21:51,000
+作用运了之后我们得到了一个新的相量
+
+740
+00:21:51,000 --&gt; 00:21:53,000
+但这个相量仅仅是一组数值
+
+741
+00:21:53,000 --&gt; 00:21:55,000
+并不是我们熟悉的自然语言的词汇
+
+742
+00:21:55,000 --&gt; 00:22:00,000
+另一半层的任务就是把这个抽象的相量转化成对应的具体单词
+
+743
+00:22:00,000 --&gt; 00:22:03,000
+映射到我们真实使用的词汇表上面
+
+744
+00:22:03,000 --&gt; 00:22:07,000
+然后就要经过Softmax就是规一化函数
+
+745
+00:22:07,000 --&gt; 00:22:11,000
+Softmax的作用就是把任意的实数值转化成从0到1之间的概率
+
+746
+00:22:11,000 --&gt; 00:22:13,000
+并写上所有的概率之和等于1
+
+747
+00:22:13,000 --&gt; 00:22:15,000
+比如在翻译I这个字的时候
+
+748
+00:22:15,000 --&gt; 00:22:17,000
+可能会计算出love的概率是0的8
+
+749
+00:22:17,000 --&gt; 00:22:19,000
+而like的概率是0的2
+
+750
+00:22:19,000 --&gt; 00:22:21,000
+然后模型会根据计算出的概率大小
+
+751
+00:22:21,000 --&gt; 00:22:24,000
+选择概率最高的单词引用输出
+
+752
+00:22:24,000 --&gt; 00:22:27,000
+讲到这里我相信大家已经能够很好的理解
+
+753
+00:22:27,000 --&gt; 00:22:29,000
+Transformer这张经典的架构图了
+
+754
+00:22:29,000 --&gt; 00:22:31,000
+相比之前RN等模型结构
+
+755
+00:22:31,000 --&gt; 00:22:33,000
+Transformer没有复杂的门控制
+
+756
+00:22:33,000 --&gt; 00:22:34,000
+没有循环依赖
+
+757
+00:22:34,000 --&gt; 00:22:36,000
+只有清爽的矩阵运算
+
+758
+00:22:36,000 --&gt; 00:22:38,000
+是如此的简洁和优雅
+
+759
+00:22:38,000 --&gt; 00:22:40,000
+在论文的下一页
+
+760
+00:22:40,000 --&gt; 00:22:42,000
+我们可以看到著名的自注意力机制公式
+
+761
+00:22:42,000 --&gt; 00:22:44,000
+有了前面的知识
+
+762
+00:22:44,000 --&gt; 00:22:46,000
+这个公式我们也可以很清楚的理解了
+
+763
+00:22:46,000 --&gt; 00:22:48,000
+Attention表示注意力机制的输出结果
+
+764
+00:22:48,000 --&gt; 00:22:51,000
+QKV的含义我们前面都已经讲过了
+
+765
+00:22:51,000 --&gt; 00:22:53,000
+根号下的DK是一个缩放因子
+
+766
+00:22:53,000 --&gt; 00:22:55,000
+使计算的结果更加稳定
+
+767
+00:22:55,000 --&gt; 00:22:57,000
+Q与K的转置相乘得到一个方阵
+
+768
+00:22:57,000 --&gt; 00:23:00,000
+表示序列中每个Q和其他所有位置K的相关性
+
+769
+00:23:00,000 --&gt; 00:23:02,000
+然后再通过Softmax函数
+
+770
+00:23:02,000 --&gt; 00:23:05,000
+把这些相关性数值转化成概率的形式
+
+771
+00:23:05,000 --&gt; 00:23:07,000
+将这些注意力权重与矩阵V相乘
+
+772
+00:23:07,000 --&gt; 00:23:09,000
+实现对每个位置的信息进行架限迅和
+
+773
+00:23:09,000 --&gt; 00:23:12,000
+最终得到了融合上下文信息的新表示
+
+774
+00:23:12,000 --&gt; 00:23:15,000
+现在是不是觉得这个公式还是挺容易看懂的
+
+775
+00:23:15,000 --&gt; 00:23:16,000
+论文的后面几页
+
+776
+00:23:16,000 --&gt; 00:23:18,000
+作者介绍了更多模型的实现细节
+
+777
+00:23:18,000 --&gt; 00:23:20,000
+以及训练时的一些设置
+
+778
+00:23:20,000 --&gt; 00:23:22,000
+此外呢作者也明确的提到
+
+779
+00:23:22,000 --&gt; 00:23:25,000
+他们已经意识到了传的方面有着更广泛的用途前行
+
+780
+00:23:25,000 --&gt; 00:23:27,000
+而不简仅居上的翻译任务
+
+781
+00:23:27,000 --&gt; 00:23:29,000
+在这个论文完成之后
+
+782
+00:23:29,000 --&gt; 00:23:31,000
+这些作者们意识到他们需要一个文章标题
+
+783
+00:23:31,000 --&gt; 00:23:33,000
+在他们之前注意力机制Attention
+
+784
+00:23:33,000 --&gt; 00:23:36,000
+只是作为RNN的服务工具出现的
+
+785
+00:23:36,000 --&gt; 00:23:37,000
+而他们提出的思想是
+
+786
+00:23:37,000 --&gt; 00:23:39,000
+只需要注意力机制就足够了
+
+787
+00:23:39,000 --&gt; 00:23:42,000
+这时候呢作者之一的琼斯想到了皮特舌乐队
+
+788
+00:23:42,000 --&gt; 00:23:44,000
+有一首经典的歌曲叫做
+
+789
+00:23:44,000 --&gt; 00:23:46,000
+All you need is love 你需要的只是爱
+
+790
+00:23:46,000 --&gt; 00:23:48,000
+灵感这么一来呢
+
+791
+00:23:48,000 --&gt; 00:23:51,000
+他们就给论文取了一个非常简级而精明的标题
+
+792
+00:23:51,000 --&gt; 00:23:52,000
+Attention and all you need
+
+793
+00:23:52,000 --&gt; 00:23:54,000
+你需要的只是注意力
+
+794
+00:23:54,000 --&gt; 00:24:00,000
+接下来我们再讲一下这份论文的发表和之后的故事
+
+795
+00:24:00,000 --&gt; 00:24:03,000
+这份论文被提交到了Nurips大会
+
+796
+00:24:03,000 --&gt; 00:24:07,000
+Nurips是人工智能领域最顶级最具影响力的学术会议之一
+
+797
+00:24:07,000 --&gt; 00:24:10,000
+它的论文录用率极低通常大约只有20%
+
+798
+00:24:10,000 --&gt; 00:24:12,000
+在所有被结束的论文里面
+
+799
+00:24:12,000 --&gt; 00:24:16,000
+少数最优秀最重要的论文能够获得口头报告的资格
+
+800
+00:24:16,000 --&gt; 00:24:20,000
+也就是说作者就可以在会议的主台上面面向全体观众进行演讲
+
+801
+00:24:20,000 --&gt; 00:24:22,000
+而大多数的论文呢
+
+802
+00:24:22,000 --&gt; 00:24:25,000
+都只能以海报展示的形式来出现
+
+803
+00:24:25,000 --&gt; 00:24:27,000
+在海报展示环节呢
+
+804
+00:24:27,000 --&gt; 00:24:31,000
+作者就需要把这个论文的核心内容做成一张大海报在在墙上
+
+805
+00:24:31,000 --&gt; 00:24:32,000
+站在旁边
+
+806
+00:24:32,000 --&gt; 00:24:35,000
+与观众直接进行面对面交流回答各种问题
+
+807
+00:24:35,000 --&gt; 00:24:37,000
+当这个论文被提交给Nurips之后
+
+808
+00:24:37,000 --&gt; 00:24:39,000
+有三个评论专家
+
+809
+00:24:39,000 --&gt; 00:24:40,000
+其中一个评价非常高
+
+810
+00:24:40,000 --&gt; 00:24:42,000
+一个评价是比较积极的
+
+811
+00:24:42,000 --&gt; 00:24:45,000
+但是呢还有一个专家给出了中总的评价
+
+812
+00:24:45,000 --&gt; 00:24:47,000
+认为这个论文也就是还行
+
+813
+00:24:47,000 --&gt; 00:24:49,000
+这个结果呢可以说是相当一般的
+
+814
+00:24:49,000 --&gt; 00:24:51,000
+所以说呢虽然这个论文被接受了
+
+815
+00:24:51,000 --&gt; 00:24:53,000
+并没有获得口头报告的资格
+
+816
+00:24:53,000 --&gt; 00:24:56,000
+只是被安排到了晚间的海报展示环节
+
+817
+00:24:56,000 --&gt; 00:24:57,000
+但这部论文啊
+
+818
+00:24:57,000 --&gt; 00:25:00,000
+其实早在大会举行前的6月份就公开
+
+819
+00:25:00,000 --&gt; 00:25:09,000
+和大会 corrections推说的话
+
+820
+00:25:00,000 --&gt; 00:25:01,300
+相传到了Archive上面
+
+821
+00:25:01,300 --&gt; 00:25:04,100
+大家其实很快就认识到了Tranformer的重要性
+
+822
+00:25:04,100 --&gt; 00:25:05,500
+这个会议是12月办的嘛
+
+823
+00:25:05,500 --&gt; 00:25:07,100
+在这个会议举办的时候
+
+824
+00:25:07,100 --&gt; 00:25:10,600
+这份论文已经是当时AHR热烈讨论的话题了
+
+825
+00:25:09,000 --&gt; 00:25:14,000
+接下来是个月吃 myth的
+
+826
+00:25:10,600 --&gt; 00:25:12,100
+最终在大户现场
+
+827
+00:25:12,100 --&gt; 00:25:13,200
+Attention is all you need
+
+828
+00:25:13,200 --&gt; 00:25:15,800
+这份论文的海报展区引发了巨大的轰动
+
+829
+00:25:15,800 --&gt; 00:25:17,300
+Tranformer的8位作者
+
+830
+00:25:17,300 --&gt; 00:25:19,600
+全部出动与现场的观众进行交流
+
+831
+00:25:19,600 --&gt; 00:25:22,100
+整个展区挤满了求助入口的与会者
+
+832
+00:25:22,100 --&gt; 00:25:23,500
+甚至到了闭馆的时间
+
+833
+00:25:23,500 --&gt; 00:25:25,800
+安保人员不得不主动进场
+
+834
+00:25:25,800 --&gt; 00:25:27,100
+要求人们离开
+
+835
+00:25:27,700 --&gt; 00:25:29,100
+虽然Tranformer这个论文
+
+836
+00:25:29,100 --&gt; 00:25:30,500
+惊艳了整个学术界
+
+837
+00:25:30,500 --&gt; 00:25:32,900
+但是他并没有立刻改变一切
+
+838
+00:25:34,300 --&gt; 00:25:36,500
+沙子尔曾经向Google高层提出建议
+
+839
+00:25:36,500 --&gt; 00:25:38,400
+认为公司应该用Tranformer模型
+
+840
+00:25:38,400 --&gt; 00:25:40,400
+彻底重构Google的搜索引擎
+
+841
+00:25:40,600 --&gt; 00:25:42,000
+在当时这个提议
+
+842
+00:25:42,000 --&gt; 00:25:43,600
+甚至连论文的其他几个作者
+
+843
+00:25:43,600 --&gt; 00:25:45,600
+都认为太过于荒谬不切实际
+
+844
+00:25:45,800 --&gt; 00:25:47,700
+然而我们以今天的眼光来看
+
+845
+00:25:47,700 --&gt; 00:25:50,700
+这个想法几乎已经成为了AI行业的共识
+
+846
+00:25:51,000 --&gt; 00:25:53,000
+在Google无所作用的同时
+
+847
+00:25:53,000 --&gt; 00:25:54,400
+在一家创业公司里面
+
+848
+00:25:54,400 --&gt; 00:25:57,600
+有一个人敏锥地意识到了Tranformer的巨大潜力
+
+849
+00:25:57,600 --&gt; 00:25:59,500
+他很快就开始使用Tranformer
+
+850
+00:25:59,500 --&gt; 00:26:00,900
+训练新的生存性模型
+
+851
+00:26:01,100 --&gt; 00:26:04,300
+而这个模型开创了一个属于人工智能的新时代
+
+852
+00:26:05,000 --&gt; 00:26:06,700
+这个人就是Elia苏茨凯夫
+
+853
+00:26:06,800 --&gt; 00:26:08,800
+这家公司就是我们熟悉的OpenAI
+
+854
+00:26:09,000 --&gt; 00:26:11,800
+而他们训练的模型就是今天著名的GP系列
+
+855
+00:26:11,900 --&gt; 00:26:15,300
+而GPT中这个字母T正式代表了Tranformer
+
+856
+00:26:15,600 --&gt; 00:26:16,600
+令人唏嘘的是
+
+857
+00:26:16,800 --&gt; 00:26:18,400
+Google创造了Tranformer的架构
+
+858
+00:26:18,500 --&gt; 00:26:20,200
+但最大赢家却是OpenAI
+
+859
+00:26:20,400 --&gt; 00:26:22,100
+而且是Google为作者们
+
+860
+00:26:22,100 --&gt; 00:26:23,700
+营造了一个鼓励创新的环境
+
+861
+00:26:23,700 --&gt; 00:26:26,600
+甚至可以说如果没有Google开放包装的企业文化
+
+862
+00:26:26,600 --&gt; 00:26:28,500
+就根本不会有Tranformer的诞生
+
+863
+00:26:28,500 --&gt; 00:26:30,400
+但是最终这8位作者
+
+864
+00:26:30,500 --&gt; 00:26:32,600
+竟然Google一个都没有留住
+
+865
+00:26:32,800 --&gt; 00:26:33,800
+巨石一团火
+
+866
+00:26:33,800 --&gt; 00:26:34,800
+虽然是满天星
+
+867
+00:26:35,000 --&gt; 00:26:37,300
+在Tranformer论文发布后的短短几年内
+
+868
+00:26:37,400 --&gt; 00:26:39,600
+这8位作者全部离开了Google
+
+869
+00:26:39,600 --&gt; 00:26:41,200
+其中7位选择了创业
+
+870
+00:26:41,400 --&gt; 00:26:43,400
+创造了令人惊叹的财富神话
+
+871
+00:26:43,800 --&gt; 00:26:45,800
+正如他们在设计文章开头中说的
+
+872
+00:26:46,000 --&gt; 00:26:46,800
+We are awesome
+
+873
+00:26:46,900 --&gt; 00:26:48,500
+这份自信并非狂妄
+
+874
+00:26:48,500 --&gt; 00:26:49,900
+他们以热血和才能
+
+875
+00:26:49,900 --&gt; 00:26:52,400
+改变了整个人工智能行业的走向
+
+876
+00:26:52,400 --&gt; 00:26:57,600
+如今Tranformer已经无数不在
+
+877
+00:26:57,800 --&gt; 00:26:59,400
+从机器翻译到智能对话
+
+878
+00:26:59,600 --&gt; 00:27:01,100
+从推荐系统到自动驾驶
+
+879
+00:27:01,300 --&gt; 00:27:02,600
+到处都有Tranformer的影子
+
+880
+00:27:03,300 --&gt; 00:27:04,300
+ChatGPT Cloud
+
+881
+00:27:04,300 --&gt; 00:27:05,300
+Gamina DeepSeek
+
+882
+00:27:05,500 --&gt; 00:27:07,000
+一个个耀眼名字的背后
+
+883
+00:27:07,000 --&gt; 00:27:08,600
+处处都是Attention的影子
+
+884
+00:27:08,600 --&gt; 00:27:10,500
+个个都流淌着Transformer的血脉
+
+885
+00:27:10,900 --&gt; 00:27:12,000
+而屏幕面前的你
+
+886
+00:27:12,000 --&gt; 00:27:13,200
+在看过这个视频之后
+
+887
+00:27:13,200 --&gt; 00:27:15,000
+也成了一个了解Tranformer
+
+888
+00:27:15,000 --&gt; 00:27:16,800
+被Tranformer的理念所影响的人
+
+889
+00:27:17,100 --&gt; 00:27:18,300
+那么下一次
+
+890
+00:27:18,500 --&gt; 00:27:19,700
+AI革命性的突破
+
+891
+00:27:19,700 --&gt; 00:27:20,600
+又或者谁呢
+
+892
+00:27:20,600 --&gt; 00:27:22,800
+也许就是屏幕面前的你
+
+</pre></div><div class="raw-block" data-field="raw_source_item" data-raw-type="whisper"><div class="raw-label">Whisper STT 逐字稿（large-v3-turbo, MPS, FP32, greedy decode）<button class="copy-btn" id="raw_whisper_4313647232_srt" onclick="copyRaw(this,'raw_whisper_4313647232_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_whisper_4313647232_text" onclick="copyRawText(this,'raw_whisper_4313647232_text')">📋 複製純文字</button></div><pre>（完整 Whisper STT 逐字稿，共 892 段，詳見合併 SRT 檔 /tmp/whisper_VaEjGnHgOI/merged.srt）</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://www.youtube.com/watch?v=_VaEjGnHgOI" target="_blank" rel="noopener">https://www.youtube.com/watch?v=_VaEjGnHgOI</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+  <!-- 文章頁星等編輯腳本 -->
+  <script>
+    (function () {
+      'use strict';
+
+      var editBtn = document.getElementById('article-rating-edit');
+      if (!editBtn) return;
+
+      // 從 URL 取得檔名
+      var pathParts = window.location.pathname.split('/');
+      var filename = pathParts[pathParts.length - 1];
+
+      // 從 meta 區塊讀取目前星等
+      var starSpan = document.querySelector('.star-rating');
+      var currentRating = 0;
+      if (starSpan && starSpan.textContent.trim()) {
+        var starText = starSpan.textContent.trim();
+        currentRating = (starText.match(/★/g) || []).length;
+      }
+
+      // ── 星等編輯彈窗 ──
+      function showRatingEditor() {
+        var old = document.getElementById('rating-editor-overlay');
+        if (old) old.remove();
+
+        var overlay = document.createElement('div');
+        overlay.id = 'rating-editor-overlay';
+        overlay.className = 'rating-editor-overlay';
+
+        var box = document.createElement('div');
+        box.className = 'rating-editor-box';
+
+        var title = document.createElement('div');
+        title.className = 'rating-editor-title';
+        title.textContent = '設定星等';
+
+        var starsRow = document.createElement('div');
+        starsRow.className = 'rating-editor-stars';
+
+        for (var s = 1; s <= 5; s++) {
+          (function (star) {
+            var btn = document.createElement('button');
+            btn.className = 'rating-editor-star';
+            btn.textContent = star <= currentRating ? '★' : '☆';
+            btn.dataset.value = star;
+            btn.addEventListener('click', function () {
+              // 高亮
+              var allBtns = starsRow.querySelectorAll('.rating-editor-star');
+              for (var k = 0; k < allBtns.length; k++) {
+                allBtns[k].textContent = k < star ? '★' : '☆';
+              }
+              // 儲存
+              saveRating(star, function (ok) {
+                if (ok) {
+                  showToast('✅ 星等已更新，網站重新部署中 (~30-60 秒)');
+                } else {
+                  showToast('❌ 更新失敗，請稍後再試');
+                }
+              });
+              overlay.remove();
+            });
+            starsRow.appendChild(btn);
+          })(s);
+        }
+
+        // 清除星等按鈕
+        var clearBtn = document.createElement('button');
+        clearBtn.className = 'rating-editor-clear';
+        clearBtn.textContent = '清除星等';
+        clearBtn.addEventListener('click', function () {
+          saveRating(0, function (ok) {
+            if (ok) {
+              showToast('✅ 星等已清除');
+            } else {
+              showToast('❌ 清除失敗，請稍後再試');
+            }
+          });
+          overlay.remove();
+        });
+
+        // 關閉按鈕
+        var closeBtn = document.createElement('button');
+        closeBtn.className = 'rating-editor-close';
+        closeBtn.textContent = '✕';
+        closeBtn.addEventListener('click', function () { overlay.remove(); });
+
+        box.appendChild(closeBtn);
+        box.appendChild(title);
+        box.appendChild(starsRow);
+        box.appendChild(clearBtn);
+        overlay.appendChild(box);
+
+        overlay.addEventListener('click', function (e) {
+          if (e.target === overlay) overlay.remove();
+        });
+
+        document.body.appendChild(overlay);
+      }
+
+      // ── 送出星等更新 ──
+      function saveRating(rating, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/api/rating', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            currentRating = rating;
+            // 更新頁面上的星等顯示
+            if (starSpan) {
+              var stars = '';
+              for (var k = 0; k < rating; k++) stars += '★';
+              for (var k = rating; k < 5; k++) stars += '☆';
+              starSpan.textContent = stars;
+            }
+            if (callback) callback(true);
+          } else {
+            console.error('Failed to save rating:', xhr.status);
+            if (callback) callback(false);
+          }
+        };
+        xhr.onerror = function () {
+          console.error('Network error saving rating');
+          if (callback) callback(false);
+        };
+        xhr.send(JSON.stringify({ filename: filename, rating: rating }));
+      }
+
+      // ── Toast 通知 ──
+      function showToast(msg) {
+        var old = document.getElementById('rating-toast');
+        if (old) old.remove();
+
+        var toast = document.createElement('div');
+        toast.id = 'rating-toast';
+        toast.className = 'rating-toast';
+        toast.textContent = msg;
+        document.body.appendChild(toast);
+
+        setTimeout(function () {
+          if (toast.parentNode) toast.parentNode.removeChild(toast);
+        }, 5000);
+      }
+
+      // 綁定編輯按鈕
+      editBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        showRatingEditor();
+      });
+    })();
+  </script>
+</body>
+</html>

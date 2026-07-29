@@ -1,5 +1,12 @@
 [
   {
+    "title": "20分鐘讀懂AI史上最重要的一篇論文《Attention Is All You Need》 - Hermes Docs",
+    "url": "videos/李自然說_Transformer注意力機制論文解讀.html",
+    "date": "2026-07-29 09:34",
+    "rating": 0,
+    "content": "20分鐘讀懂AI史上最重要的一篇論文《Attention Is All You Need》 - Hermes Docs 返回首頁 20分鐘讀懂AI史上最重要的一篇論文《Attention Is All You Need》 發布時間：2026-07-29 17:34 ✎ 評分 🌙 YouTube 影片重點整理 20分鐘讀懂AI史上最重要的一篇論文《Attention Is All You Need》 📺 李自然說 ⏱ 27:32 🗓 2025-10-21 🌐 zh-Hans 🔗 https://www.youtube.com/watch?v=_VaEjGnHgOI 本影片以淺顯易懂的動畫與比喻，逐層拆解 2017 年經典論文《Attention Is All You Need》中提出的 Transformer 架構。從 RNN 的瓶頸出發，介紹注意力機制的誕生、Google 食堂裡的靈感瞬間、八位作者的傳奇故事，再到 Transformer 架構圖的完整走讀：輸入嵌入、位置編碼、多頭自注意力（Q/K/V）、殘差連接與層歸一化、前饋網路、Decoder 的 Masked Attention"
+  },
+  {
     "title": "NotebookLM 轉正了｜ NotebookLM 改名 Gemini Notebook！Google 最強 AI 筆記本到底怎麼用？| 完整上手：一鍵調研、生成音頻視頻 | 接入本地 Agent",
     "url": "videos/report_uhFc4J2pfps.html",
     "date": "2026-07-29 03:22",
