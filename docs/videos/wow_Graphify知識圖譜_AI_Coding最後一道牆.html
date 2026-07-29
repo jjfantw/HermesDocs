@@ -1,0 +1,2151 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Coding 的最後一道牆：我用10萬 Star 開源知識圖譜挑戰真實軟體系統 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .meta .star-rating { color: #f1c40f; letter-spacing: 1px; font-size: 1.1rem; }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    /* ── 星等編輯按鈕（文章頁） ── */
+    .rating-edit-btn-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: none;
+      border: 1px solid #dee2e6;
+      border-radius: 4px;
+      padding: 2px 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      color: #868e96;
+      transition: all 0.15s;
+      vertical-align: middle;
+      margin-left: 8px;
+    }
+    .rating-edit-btn-inline:hover {
+      border-color: #667eea;
+      color: #667eea;
+      background: #eef0ff;
+    }
+
+    /* ── 星等編輯彈窗 ── */
+    .rating-editor-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .rating-editor-box {
+      background: #fff;
+      border-radius: 12px;
+      padding: 32px;
+      min-width: 300px;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      position: relative;
+    }
+    .rating-editor-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .rating-editor-stars {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .rating-editor-star {
+      background: none;
+      border: 2px solid transparent;
+      font-size: 2rem;
+      cursor: pointer;
+      color: #f1c40f;
+      padding: 4px 8px;
+      border-radius: 8px;
+      transition: all 0.15s;
+    }
+    .rating-editor-star:hover {
+      border-color: #667eea;
+      background: #eef0ff;
+      transform: scale(1.15);
+    }
+    .rating-editor-clear {
+      background: none;
+      border: 1px solid #dee2e6;
+      border-radius: 6px;
+      padding: 6px 16px;
+      font-size: 0.85rem;
+      color: #868e96;
+      cursor: pointer;
+    }
+    .rating-editor-clear:hover {
+      border-color: #e74c3c;
+      color: #e74c3c;
+    }
+    .rating-editor-close {
+      position: absolute;
+      top: 8px; right: 12px;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: #adb5bd;
+    }
+    .rating-editor-close:hover { color: #333; }
+
+    /* ── Toast 通知 ── */
+    .rating-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      z-index: 10000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      animation: toast-in 0.3s ease;
+    }
+    @keyframes toast-in {
+      from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>AI Coding 的最後一道牆：我用10萬 Star 開源知識圖譜挑戰真實軟體系統</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-07-29 08:28</span>
+        <span class="star-rating"></span>
+        <button class="rating-edit-btn-inline" id="article-rating-edit" title="設定星等">✎ 評分</button>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">AI Coding 的最後一道牆：我用10萬 Star 開源知識圖譜挑戰真實軟體系統</h1>
+    <div class="meta"><span data-field="channel">📺 wow</span><span data-field="duration">⏱ 18:52</span><span data-field="published_date">🗓 2026-07-28</span><span data-field="original_language">🌐 zh-Hans</span><a data-field="source_url" href="https://youtu.be/luN-yydHpYY" target="_blank" rel="noopener">🔗 https://youtu.be/luN-yydHpYY</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>作者將近 10 萬 Star 的開源專案 Graphify 接入 Hermes Agent，讓它透過 Codex 對真實生產環境 OmniHunter（一套量化情報系統，35 個核心檔案、近 18,000 行 Python）進行壓力測試。Graphify 使用 Tree-sitter AST 解析引擎，能在兩秒內零 LLM Token 將程式碼庫轉換為結構化知識圖譜（280 個節點、283 條邊、35 個社群）。實驗設計了 9 道架構問題，對照「純 grep 搜尋」與「知識圖譜輔助」兩組 AI：前 8 題答案幾乎一致，圖譜組節省 24% Token 但未帶來質的認知飛躍；第 9 題變更影響分析則暴露了 AST-only 模式的根本限制——無法建立跨語言（Shell→Python）的隱性依賴關係。影片核心洞察：圖譜的真正價值在於幫助人類「看」清系統全貌、建立認知高地，而非直接取代 AI 的「找」；AI Coding Agent 的最終瓶頸不是缺知識，而是缺乏一個能模擬程式碼動態形變與風險傳導的「軟體世界模型」。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">AI 寫程式真正的瓶頸不是邏輯，而是「找不到檔案」</h2><span class="ts-badge" data-field="lesson_timestamp">1:06</span></div><div class="body" data-field="lesson_body"><p>當你面對包含幾十個微服務、幾百個檔案的祖傳程式碼庫時，AI 的上下文窗口就像一個<strong>拿著手電筒在黑夜裡摸索的盲人</strong>——它只能看到光斑照亮的那幾百行程式碼。一旦涉及跨檔案的呼叫和隱蔽的依賴關係，AI 就會開始胡說八道。</p><p>Graphify 的核心願景正是為此而生：<strong>把程式碼庫變成結構化的知識圖譜</strong>，讓 AI 去查詢它，而不是盲目地搜尋它。如果能把每一個函數、每一個類、每一個介面的呼叫關係全部結構化餵給 AI，理論上 AI Agent 就能獲得「上帝視角」的完整工程理解力。</p></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">Graphify 的技術核心：零 LLM Token 的 100% 確定性提取</h2><span class="ts-badge" data-field="lesson_timestamp">3:20</span></div><div class="body" data-field="lesson_body"><p>Graphify 使用 <strong>Tree-sitter 極速解析引擎</strong>，像一台工業級 X 光掃描儀，將 Python 程式碼直接剝離成純粹的抽象語法樹（AST）。它精準地扒出程式碼裡的類、函數、變數，甚至是 docstring 註解。</p><p>在 OmniHunter（35 個核心檔案、近 18,000 行 Python）上執行：<strong>不到兩秒鐘，零個 Input Token，零個 Output Token</strong>。產出三個檔案：巨大的 HTML 視覺化網頁、Markdown 架構報告、龐大的 JSON 拓撲圖。圖譜資料：280 個節點、283 條邊、35 個網路社群、100% 提取率。</p><p><strong>100% 提取的含金量</strong>：在這張圖譜裡，每一條連線、每一個關係，都是在原始程式碼裡白紙黑字寫死的物理事實——沒有任何一條邊是大模型依靠機率猜出來的。在這個所有工具都在拼命把程式碼塞給 LLM 去總結、去泛化的時代，Graphify 保持了一種極其罕見的古典極簡與克制：<strong>它拒絕幻想，只提供 100% 確定性的結構</strong>。</p></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">壓力測試：9 道架構問題的對照實驗</h2><span class="ts-badge" data-field="lesson_timestamp">6:45</span></div><div class="body" data-field="lesson_body"><p>作者刻意使用能力普通的 <strong>MiniMax M2.7</strong> 模型（而非 GPT-5.6 或 Claude Opus 5 等強模型），以確保測試能真正反映圖譜的價值。設計了 9 道真實且硬核的架構問題，例如：系統的真正執行入口在哪裡？狀態持久化操作由哪幾個檔案負責？外部 API 失效時錯誤鏈如何傳導？</p><p><strong>嚴格對照組設計</strong>：第一組 AI 沒有任何圖譜，只能使用傳統的 grep 全域搜尋、cat 查看檔案、正則 Find；第二組 AI 可隨意呼叫圖譜工具，查詢節點間最短路徑、解釋模組的全部鄰接節點。</p></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">前 8 題結果：圖譜省了 Token，但沒帶來質的飛躍</h2><span class="ts-badge" data-field="lesson_timestamp">7:46</span></div><div class="body" data-field="lesson_body"><p><strong>答案品質幾乎一致</strong>：4 題兩組一字不差，3 題大致一致，1 題描述層次不同但都對。基線組（純 grep）耗時 142 秒、消耗 48,494 Token；強化組（圖譜輔助）耗時 148 秒、消耗 36,787 Token——<strong>節省了 24% 的 Token</strong>。</p><p>但在某些具體問題上，基線組的純文字搜尋反而略占上風：找狀態持久化檔案時，純搜尋找出 6 個關聯檔案，而過度依賴局部圖譜的強化組只找出 4 個。</p><p><strong>核心反思</strong>：現代 AI 的「找」能力早已不是瓶頸——連 MiniMax M2.7 都能一秒翻完十萬頁書並且過目不忘。找檔案、找程式碼行號、找顯性函數呼叫，對目前的頂級大模型來說早就不再是核心瓶頸。<strong>圖譜在這類任務上，只能讓它變得更優雅、更省 Token，但並不能讓它產生質的認知飛躍</strong>。在「找」的維度上，其實 AI 早就贏了。</p></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">第 9 題：變更影響分析——AST-only 的根本限制</h2><span class="ts-badge" data-field="lesson_timestamp">10:47</span></div><div class="body" data-field="lesson_body"><p>第 9 題是 ChatGPT 在 review 實驗方案時堅持加入的，直擊軟體工程靈魂：<strong>假設要重構 Fusion V6.py（核心反身性計算引擎模組），改動它會牽連炸掉全系統裡的哪些外部檔案和資料流？</strong></p><p>強化組 AI 連續觸發三次重量級圖譜查詢，最終用 Graphify JSON 整理出一份完整的分層影響分析報告：直接呼叫鏈、輸入依賴、輸出依賴、高風險文件約束、核心函數耦合。圖譜確實找到了<strong>文件內部的函數呼叫</strong>和<strong>跨檔案影響清單</strong>。</p><p>但關鍵限制出現了：<strong>Graphify 的 Graph Path 返回 No Path Found</strong>——因為 OmniHunter 的 Shell 腳本呼叫了 Python 模組，而 AST 解析不會建立 Shell 到 Python 的呼叫邊。這就是 AST-only 模式付出的隱性代價。</p></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">「自知」與「他知」：軟體工程的哲學差異</h2><span class="ts-badge" data-field="lesson_timestamp">12:40</span></div><div class="body" data-field="lesson_body"><p><strong>自知</strong>：當我看自己的程式碼時，我知道我引用了誰——這是顯性的。AST 能瞬間拔出程式碼的結構，在檔案內部它是全知全能的神。</p><p><strong>他知</strong>：當我重構一段程式碼時，我真正害怕的不是我知道我依賴了誰，而是<strong>到底有哪些我不知道的陌生角落，在被動地依賴著我</strong>——這是隱性的。要建立精準的他知關係，往往需要極度消耗資源的語言伺服器（LSP），甚至需要編譯器級別的語義分析，或讓大模型介入做昂貴的推理。</p><p>Graphify 為了保持不到兩秒鐘、零 Token、純本地的極致優雅，選擇了 AST-only 的輕量結構提取路徑。<strong>這不是失誤，這是極其高級的工程取捨</strong>——但正是這個取捨讓我們看清：單純的靜態程式碼骨架，根本無法回答「牽一髮而動全身」的工程因果論。</p></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">07</span><h2 data-field="lesson_title">圖譜的真正價值：「看」而非「找」</h2><span class="ts-badge" data-field="lesson_timestamp">14:22</span></div><div class="body" data-field="lesson_body"><p>當作者在瀏覽器中打開 Graphify 產出的 HTML 視覺化圖譜時，OmniHunter 這個始終由冷冰冰檔案名組成的系統，<strong>第一次以一種有機生命體的物理形態展現在面前</strong>。Louvain 社群發現演算法自動把 280 個節點聚類成 35 個彩色群落，並神奇地打上標籤——這裡是統一大加工法的聚落，那裡是反身性計算引擎的聚落，邊緣處還有特權注入通道的護城河。</p><p><strong>「找」vs「看」的本質區別</strong>：AI 用 grep 搜尋程式碼時是帶有目的性的——它知道要修一個 bug、要找一行具體的程式碼，就像在黑暗房間裡打手電筒，光斑很亮但永遠看不見整個房間。而人類「看」圖譜時沒有必要去聚光——當接手一個龐大的祖傳程式碼庫時，你不知道該問什麼問題，<strong>你需要先站在高處，被那 35 個色彩斑斕的聚落、密密麻麻的樞紐節點，狠狠地在視網膜上震一下</strong>，先在大腦裡建立起這座程式碼城市的輪廓，然後才能向 AI 問出那個正確的問題。</p><p><strong>這才是圖譜在當下最無法被替代的價值</strong>：幫助人類建立系統認知，而不是直接替代 Agent 的搜尋過程。它是給陷入程式碼泥潭、試圖理解這個軟體系統到底在幹嘛的人類，提供一個能夠站上去的認知高地。</p></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">08</span><h2 data-field="lesson_title">AI Coding Agent 的最後一道牆：軟體世界模型</h2><span class="ts-badge" data-field="lesson_timestamp">16:46</span></div><div class="body" data-field="lesson_body"><p>當 Codex 在推理日誌中寫下「AST-only mode, no cross-file edges」時，它其實在向我們暗示：<strong>當今所有 AI Coding Agent 的最終瓶頸，不是缺知識，而是缺乏一個面向軟體系統的「世界模型」</strong>。</p><p>在物理世界裡，如果把桌上的水杯推下邊緣，不需要等它掉下去，大腦就能推演出水杯碎裂的聲音。在軟體世界裡，改動 Fusion V6.py 裡的一個數學權重，會不會導致三天後生成的研究報告中某一篇學術論文的優先級被錯誤地降級？<strong>這種跨越了檔案、跨越了時間、甚至跨越了使用者行為的動態連鎖反應，永遠不可能寫在靜態的語法樹和局部連接圖裡。</strong></p><p>真正的系統是活的——它的依賴關係存在於執行期的資料流裡、存在於使用者的點擊裡、存在於極其脆弱的外部 API 狀態裡。當前的外掛圖譜，無論多麼精妙，都只是給程式碼的骨架拍了一張極高解析度的靜態 X 光片。<strong>真正能讓 AI 從高級程式碼助手進化為獨立軟體架構師的，不是一張更龐大更緻密的靜態節點圖，而是我們能否為 AI 構建一個能夠模擬程式碼在不同環境下如何動態形變、如何傳導風險的軟體世界模型。</strong></p><p>當我們開始意識到「看」與「找」的區別，開始區分靜態拓撲與動態因果的鴻溝時，其實我們已經站在了下一次認知升級的起點。</p></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">圖譜的真正價值，不是幫 AI 找檔案，而是幫人類看清系統的全貌——先看見整座城市，才能問出正確的問題。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="0:00"><span class="ts">0:00</span><span class="text" data-field="key_point_text">Graphify 簡介：近 10 萬 Star 的開源專案，將程式碼庫轉為結構化知識圖譜，讓 AI 查詢而非盲目搜尋</span></li><li data-field="key_point" data-timestamp="1:06"><span class="ts">1:06</span><span class="text" data-field="key_point_text">AI 寫程式最大痛點不是邏輯不好，而是找不到檔案——面對數十個微服務、數百個檔案時，AI 的上下文窗口如同黑夜中的手電筒</span></li><li data-field="key_point" data-timestamp="1:56"><span class="ts">1:56</span><span class="text" data-field="key_point_text">實驗設計：將 Graphify 接入 Hermes Agent 底層的 Codex（使用 MiniMax M2.7 模型），對真實生產系統 OmniHunter 進行測試</span></li><li data-field="key_point" data-timestamp="3:20"><span class="ts">3:20</span><span class="text" data-field="key_point_text">Graphify 核心技術：Tree-sitter AST 解析引擎，兩秒內零 LLM Token 完成 100% 確定性提取，產出 HTML 視覺化、Markdown 架構報告、JSON 拓撲圖</span></li><li data-field="key_point" data-timestamp="5:24"><span class="ts">5:24</span><span class="text" data-field="key_point_text">OmniHunter 系統介紹：每日自動運轉的多 Agent 情報系統，吞吐 13 種異構資料源，內含 4 個 AI 智能體非同步協作</span></li><li data-field="key_point" data-timestamp="6:45"><span class="ts">6:45</span><span class="text" data-field="key_point_text">9 道架構問題測試：包括系統入口、狀態持久化、API 故障傳導鏈等，設嚴格對照組（純 grep vs 圖譜輔助）</span></li><li data-field="key_point" data-timestamp="7:46"><span class="ts">7:46</span><span class="text" data-field="key_point_text">前 8 題結果：兩組答案幾乎一致，圖譜組節省 24% Token（36,787 vs 48,494），但答案品質無顯著差異</span></li><li data-field="key_point" data-timestamp="9:36"><span class="ts">9:36</span><span class="text" data-field="key_point_text">反思一：現代 AI 的「找」能力早已不是瓶頸——連 MiniMax M2.7 都能輕鬆做到全文搜尋，圖譜在找檔案維度上只是更優雅、更省 Token</span></li><li data-field="key_point" data-timestamp="10:47"><span class="ts">10:47</span><span class="text" data-field="key_point_text">第 9 題變更影響分析：重構 Fusion V6.py 會牽連哪些外部檔案？圖譜組觸發三次重量級查詢，找到直接呼叫鏈＋資料依賴＋文件約束三層</span></li><li data-field="key_point" data-timestamp="11:46"><span class="ts">11:46</span><span class="text" data-field="key_point_text">AST-only 的根本限制：無法建立 Shell→Python 的跨語言隱性依賴，Graphify 的 Graph Path 返回 No Path Found</span></li><li data-field="key_point" data-timestamp="12:40"><span class="ts">12:40</span><span class="text" data-field="key_point_text">「自知」與「他知」的哲學差異：AST 能瞬間解析檔案內部結構（自知），但無法知道哪些外部檔案偷偷 import 了它（他知）</span></li><li data-field="key_point" data-timestamp="14:22"><span class="ts">14:22</span><span class="text" data-field="key_point_text">圖譜的真正價值：不是幫 AI 找檔案，而是幫人類「看」清系統全貌——35 個色彩聚落、樞紐節點，建立程式碼城市的認知輪廓</span></li><li data-field="key_point" data-timestamp="15:29"><span class="ts">15:29</span><span class="text" data-field="key_point_text">核心洞察：「找」vs「看」——AI 的全文搜尋是強大的手電筒，但圖譜讓人在高處看見整個房間，才能問出正確的問題</span></li><li data-field="key_point" data-timestamp="16:46"><span class="ts">16:46</span><span class="text" data-field="key_point_text">終極瓶頸：AI Coding Agent 缺乏「軟體世界模型」——靜態語法樹無法捕捉執行期資料流、使用者行為、外部 API 狀態的動態連鎖反應</span></li><li data-field="key_point" data-timestamp="18:14"><span class="ts">18:14</span><span class="text" data-field="key_point_text">結語：區分靜態拓撲與動態因果的鴻溝，是下一次認知升級的起點</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="AI Coding Agent">AI Coding Agent</span><span class="tag-chip" data-tag="知識圖譜">知識圖譜</span><span class="tag-chip" data-tag="Graphify">Graphify</span><span class="tag-chip" data-tag="Codex">Codex</span><span class="tag-chip" data-tag="Hermes Agent">Hermes Agent</span><span class="tag-chip" data-tag="AST">AST</span><span class="tag-chip" data-tag="Tree-sitter">Tree-sitter</span><span class="tag-chip" data-tag="軟體架構">軟體架構</span><span class="tag-chip" data-tag="變更影響分析">變更影響分析</span><span class="tag-chip" data-tag="世界模型">世界模型</span></div>
+  </section>
+
+  
+  <section class="glossary" data-field="asr_glossary"><h2>🎙️ ASR 漂字對照表</h2><div class="card"><table class="glossary"><tr data-field="asr_glossary_row"><td data-field="heard">克星</td><td>→</td><td data-field="corrected">顆星</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">OpenClaw</td><td>→</td><td data-field="corrected">OpenClaw / Hermes Agent</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">TreeCeter</td><td>→</td><td data-field="corrected">Tree-sitter</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Pathon</td><td>→</td><td data-field="corrected">Python</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Jason</td><td>→</td><td data-field="corrected">JSON</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Dignote</td><td>→</td><td data-field="corrected">docstring / decorator</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Layoutube</td><td>→</td><td data-field="corrected">Louvain</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">India</td><td>→</td><td data-field="corrected">Louvain（社群發現演算法）</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">搜MD</td><td>→</td><td data-field="corrected">system.md（核心憲法）</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">反升性</td><td>→</td><td data-field="corrected">反身性（reflexivity）</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Door Agent</td><td>→</td><td data-field="corrected">多 Agent</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Hanker News</td><td>→</td><td data-field="corrected">Hacker News</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">异购</td><td>→</td><td data-field="corrected">異構</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Graph</td><td>→</td><td data-field="corrected">grep（全文搜尋）</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">CAD</td><td>→</td><td data-field="corrected">cat</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">正责</td><td>→</td><td data-field="corrected">正則（regex）</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Millimax</td><td>→</td><td data-field="corrected">MiniMax</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">CPT5.6</td><td>→</td><td data-field="corrected">GPT-5.6 / Claude</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">ChatGBT</td><td>→</td><td data-field="corrected">ChatGPT</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Graphic</td><td>→</td><td data-field="corrected">Graphify</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">NopathFund</td><td>→</td><td data-field="corrected">No path found</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">HunterPiPiSH</td><td>→</td><td data-field="corrected">OmniHunter .sh（Shell 腳本）</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Fusion V6 Pi</td><td>→</td><td data-field="corrected">Fusion V6.py</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Omini Hunter</td><td>→</td><td data-field="corrected">OmniHunter</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">OpenCloud</td><td>→</td><td data-field="corrected">OpenClaw / Hermes</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Hermis</td><td>→</td><td data-field="corrected">Hermes</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Graphified</td><td>→</td><td data-field="corrected">Graphify</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">淫带</td><td>→</td><td data-field="corrected">銀彈（silver bullet）</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">千亿发</td><td>→</td><td data-field="corrected">牽一髮</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">打资源</td><td>→</td><td data-field="corrected">程式碼助手</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">股价</td><td>→</td><td data-field="corrected">骨架</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">高底</td><td>→</td><td data-field="corrected">高地</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">编试</td><td>→</td><td data-field="corrected">邊</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">致命</td><td>→</td><td data-field="corrected">緻密</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Graphified Scale</td><td>→</td><td data-field="corrected">Graphify Skill</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Scott01</td><td>→</td><td data-field="corrected">scott01（特權注入通道 token）</td></tr></table></div></section>
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="whisper"><div class="raw-label">Whisper 原始輸出<button class="copy-btn" id="raw_whisper_4373362944_srt" onclick="copyRaw(this,'raw_whisper_4373362944_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_whisper_4373362944_text" onclick="copyRawText(this,'raw_whisper_4373362944_text')">📋 複製純文字</button></div><pre>1
+00:00:00,320 --&gt; 00:00:03,020
+今天我点开了我的OpenClaw智能体77
+
+2
+00:00:03,020 --&gt; 00:00:06,640
+她推荐给我的一个Github上的开源项目
+
+3
+00:00:06,640 --&gt; 00:00:09,920
+实际上她很早就在推荐这个项目了
+
+4
+00:00:09,920 --&gt; 00:00:11,780
+因为别的事情太多了
+
+5
+00:00:11,780 --&gt; 00:00:13,480
+所以我没有专门来聊她
+
+6
+00:00:13,480 --&gt; 00:00:17,500
+她现在的实时热度是9.68万克星
+
+7
+00:00:17,500 --&gt; 00:00:21,660
+可能我从拍摄编辑到发布这个视频的时候
+
+8
+00:00:21,660 --&gt; 00:00:24,020
+她可能已经突破10万克星了
+
+9
+00:00:24,020 --&gt; 00:00:26,680
+但在这个大模型满天飞
+
+10
+00:00:26,680 --&gt; 00:00:30,840
+各种AI工具像韭菜一样割了一茬又一茬的时代
+
+11
+00:00:30,840 --&gt; 00:00:33,600
+一个针对代码库的底层工具
+
+12
+00:00:33,600 --&gt; 00:00:35,560
+能逼近10万斤的量级
+
+13
+00:00:35,560 --&gt; 00:00:38,200
+这就说明她精准的切中了
+
+14
+00:00:38,200 --&gt; 00:00:41,560
+全球开发者的某一种集体需求
+
+15
+00:00:41,560 --&gt; 00:00:43,260
+这个项目叫Graphify
+
+16
+00:00:43,260 --&gt; 00:00:46,200
+她的核心愿景听上去就像是
+
+17
+00:00:46,200 --&gt; 00:00:49,680
+为了AI编程时代而量身定制的救世主
+
+18
+00:00:49,680 --&gt; 00:00:52,420
+她说我们要把你的代码库
+
+19
+00:00:52,420 --&gt; 00:00:54,860
+变成一个结构化的知识图谱
+
+20
+00:00:54,860 --&gt; 00:00:56,700
+让AI去查询它
+
+21
+00:00:56,700 --&gt; 00:00:58,780
+而不是去盲目的搜索它
+
+22
+00:00:58,780 --&gt; 00:01:02,820
+如果你最近一年经常用AI辅助写代码
+
+23
+00:01:02,820 --&gt; 00:01:06,160
+那你绝对能对这句话产生强烈的共鸣
+
+24
+00:01:06,160 --&gt; 00:01:09,780
+我们现在用AI写代码最大的痛点是什么呢
+
+25
+00:01:09,780 --&gt; 00:01:12,080
+是AI的逻辑不够好吗
+
+26
+00:01:12,080 --&gt; 00:01:12,940
+不是
+
+27
+00:01:12,940 --&gt; 00:01:15,200
+而是它根本找不到文件
+
+28
+00:01:15,200 --&gt; 00:01:18,320
+当你面对一个包含几十个微服务
+
+29
+00:01:18,320 --&gt; 00:01:21,300
+几百个文件的祖传代码库的时候
+
+30
+00:01:21,300 --&gt; 00:01:25,000
+AI的上下文窗口就像是一个拿着手电筒
+
+31
+00:01:25,000 --&gt; 00:01:26,820
+在黑夜里摸索的盲人
+
+32
+00:01:26,820 --&gt; 00:01:31,000
+他只能看到光斑照亮的那几百行代码
+
+33
+00:01:31,000 --&gt; 00:01:35,320
+一旦涉及到跨文件的调用和隐蔽的依赖关系时
+
+34
+00:01:35,320 --&gt; 00:01:37,160
+他就会开始胡说八道
+
+35
+00:01:37,160 --&gt; 00:01:40,940
+所以如果能有一张上帝视角的地图
+
+36
+00:01:40,940 --&gt; 00:01:45,360
+把每一个函数每一个类每一个接口是怎么调用的
+
+37
+00:01:45,360 --&gt; 00:01:47,440
+全部结构化都喂给AI
+
+38
+00:01:47,440 --&gt; 00:01:51,540
+是不是就意味着AI agent从此打通了任督二脉
+
+39
+00:01:51,540 --&gt; 00:01:54,240
+获得了完整的工程理解力呢
+
+40
+00:01:54,240 --&gt; 00:01:56,880
+为了验证这个极度性感的假设
+
+41
+00:01:56,880 --&gt; 00:01:59,680
+我安排Hermis agent做了一次实验
+
+42
+00:01:59,680 --&gt; 00:02:05,440
+我让Hermis把Graphify直接接到了我的底层Codex agent里面
+
+43
+00:02:05,440 --&gt; 00:02:07,800
+当然我自己可以手动测试
+
+44
+00:02:07,800 --&gt; 00:02:12,040
+不过我对我自己调教的Hermis智能体有足够的信心
+
+45
+00:02:12,040 --&gt; 00:02:15,000
+所以我交代他把我的真实生产环境
+
+46
+00:02:15,000 --&gt; 00:02:18,680
+也就是一套名为OmniHunter的量化情报系统
+
+47
+00:02:18,680 --&gt; 00:02:20,800
+直接扔到了他的手术台上
+
+48
+00:02:20,800 --&gt; 00:02:23,440
+在这个视频里我会告诉你
+
+49
+00:02:23,440 --&gt; 00:02:27,280
+当我用9个极其刁钻的真实架构问题
+
+50
+00:02:27,280 --&gt; 00:02:30,800
+去拷问这个被知识图仆武装起来的AI时
+
+51
+00:02:30,800 --&gt; 00:02:32,400
+到底发生了什么
+
+52
+00:02:32,820 --&gt; 00:02:35,220
+这个结论可能会打破你的认知
+
+53
+00:02:35,220 --&gt; 00:02:40,540
+它不仅揭示了当前代码图谱的惊人潜能与现实边界
+
+54
+00:02:40,540 --&gt; 00:02:45,920
+更想我们展示了在通往完全自主的AI软件工程师的道路上
+
+55
+00:02:45,920 --&gt; 00:02:49,780
+横杠在我们面前的最后一道高墙究竟是什么
+
+56
+00:02:49,780 --&gt; 00:02:51,160
+在讲实验之前
+
+57
+00:02:51,160 --&gt; 00:02:52,980
+我必须先花一点时间
+
+58
+00:02:52,980 --&gt; 00:02:56,380
+向Graphify这个项目的创造者们说一声谢谢
+
+59
+00:02:56,380 --&gt; 00:02:59,580
+因为当我第一次在本地运行它的时候
+
+60
+00:02:59,580 --&gt; 00:03:02,360
+它给到我的震撼是无与伦比的
+
+61
+00:03:02,360 --&gt; 00:03:05,680
+在接下来的时间里我在Omini Hunter
+
+62
+00:03:05,680 --&gt; 00:03:07,680
+它是我的OpenCloud智能体
+
+63
+00:03:07,680 --&gt; 00:03:11,000
+在今年3月份参与开发的项目
+
+64
+00:03:11,000 --&gt; 00:03:13,000
+在这个包含35个核心文件
+
+65
+00:03:13,000 --&gt; 00:03:17,500
+接近18000行Pathon逻辑的真实项目根目录下
+
+66
+00:03:17,500 --&gt; 00:03:20,060
+敲下了构建图谱的命令
+
+67
+00:03:20,060 --&gt; 00:03:25,000
+你猜构建这样一帐包含几十个文件的全局知识图谱
+
+68
+00:03:25,000 --&gt; 00:03:26,000
+需要多久呢
+
+69
+00:03:26,000 --&gt; 00:03:29,320
+需要消耗多少大模型的Token呢
+
+70
+00:03:29,320 --&gt; 00:03:31,320
+答案是不到两秒钟
+
+71
+00:03:31,320 --&gt; 00:03:32,720
+零个Input Token
+
+72
+00:03:32,720 --&gt; 00:03:34,120
+零个Output Token
+
+73
+00:03:34,120 --&gt; 00:03:35,880
+当命令跑完
+
+74
+00:03:35,880 --&gt; 00:03:37,940
+我的本地多出了三个文件
+
+75
+00:03:37,940 --&gt; 00:03:41,840
+它们是一个巨大的HTML可视化网页
+
+76
+00:03:41,840 --&gt; 00:03:43,840
+一个Markdown的架构报告
+
+77
+00:03:43,840 --&gt; 00:03:46,600
+以及一个庞大的Jason拓普图
+
+78
+00:03:46,600 --&gt; 00:03:48,300
+打开那份报告
+
+79
+00:03:48,300 --&gt; 00:03:49,660
+上面冷冰冰的
+
+80
+00:03:49,660 --&gt; 00:03:52,620
+但又非常具有力量的写着一组数据
+
+81
+00:03:52,620 --&gt; 00:03:54,260
+280个节点
+
+82
+00:03:54,260 --&gt; 00:03:55,640
+283条边
+
+83
+00:03:55,640 --&gt; 00:03:57,200
+35个网络社区
+
+84
+00:03:57,200 --&gt; 00:03:58,760
+100%提取
+
+85
+00:03:58,760 --&gt; 00:04:02,440
+那在这280个节点里面
+
+86
+00:04:02,440 --&gt; 00:04:04,380
+Graphify没有去调用
+
+87
+00:04:04,380 --&gt; 00:04:06,480
+哪怕一次大原模型的API
+
+88
+00:04:06,480 --&gt; 00:04:08,340
+那它是怎么做到的呢
+
+89
+00:04:08,340 --&gt; 00:04:10,980
+它使用了一个名为TreeCeter的
+
+90
+00:04:10,980 --&gt; 00:04:12,480
+急速解析引擎
+
+91
+00:04:12,480 --&gt; 00:04:16,000
+它就像是一台工业级的X光扫描仪
+
+92
+00:04:16,000 --&gt; 00:04:17,440
+把我的Pathon代码
+
+93
+00:04:17,440 --&gt; 00:04:20,680
+直接剥离成了纯粹的抽象语法术
+
+94
+00:04:20,680 --&gt; 00:04:23,180
+它精准地扒出了代码里的
+
+95
+00:04:23,180 --&gt; 00:04:25,000
+类 函数 面量
+
+96
+00:04:25,000 --&gt; 00:04:26,940
+甚至是Dignote的注释
+
+97
+00:04:26,940 --&gt; 00:04:29,980
+这就是那句100%提取的含金量
+
+98
+00:04:29,980 --&gt; 00:04:32,660
+它意味着在这张图谱里
+
+99
+00:04:32,660 --&gt; 00:04:34,880
+每一条连线 每一个关系
+
+100
+00:04:34,880 --&gt; 00:04:36,640
+都是在原代码里
+
+101
+00:04:36,640 --&gt; 00:04:38,760
+白纸黑字写死的物理试试
+
+102
+00:04:38,760 --&gt; 00:04:40,380
+没有任何一条边
+
+103
+00:04:40,380 --&gt; 00:04:43,100
+是大模型依靠概率猜出来的
+
+104
+00:04:43,100 --&gt; 00:04:44,860
+在这个大模型时代
+
+105
+00:04:44,860 --&gt; 00:04:47,140
+所有的工具都在拼命地
+
+106
+00:04:47,140 --&gt; 00:04:48,960
+把代码塞给LM
+
+107
+00:04:48,960 --&gt; 00:04:51,160
+让它去总结去泛化
+
+108
+00:04:51,160 --&gt; 00:04:54,960
+而Graphify却保持了一种极其罕见的
+
+109
+00:04:54,960 --&gt; 00:04:57,280
+甚至有些古典的极简与刻制
+
+110
+00:04:57,280 --&gt; 00:04:58,960
+它拒绝幻想
+
+111
+00:04:58,960 --&gt; 00:05:00,020
+它只提过
+
+112
+00:05:00,000 --&gt; 00:05:01,800
+用100%确定性的结构
+
+113
+00:05:02,560 --&gt; 00:05:04,600
+这种纯文本的零成本
+
+114
+00:05:04,860 --&gt; 00:05:07,420
+毫秒级零幻觉的提取能力
+
+115
+00:05:07,680 --&gt; 00:05:10,500
+是他能拿到10万颗星的绝对底气
+
+116
+00:05:11,000 --&gt; 00:05:12,040
+在这个瞬间
+
+117
+00:05:12,280 --&gt; 00:05:13,320
+看着屏幕上那张
+
+118
+00:05:13,560 --&gt; 00:05:15,360
+结构严密的Jason图谱
+
+119
+00:05:15,620 --&gt; 00:05:17,400
+我甚至觉得我的AI Agent
+
+120
+00:05:17,660 --&gt; 00:05:19,460
+马上就能天下无敌了
+
+121
+00:05:19,960 --&gt; 00:05:21,240
+但工具再好
+
+122
+00:05:21,500 --&gt; 00:05:23,800
+究竟是要在真实战场上检验的
+
+123
+00:05:24,320 --&gt; 00:05:25,600
+让我用一分钟介绍一下
+
+124
+00:05:25,860 --&gt; 00:05:26,620
+它的测试把体
+
+125
+00:05:26,880 --&gt; 00:05:27,640
+OmniHunter
+
+126
+00:05:28,160 --&gt; 00:05:29,180
+这不是一个玩具
+
+127
+00:05:29,180 --&gt; 00:05:31,480
+它是一套每天早上在我的
+
+128
+00:05:31,740 --&gt; 00:05:33,280
+局域网的DEV服务器上
+
+129
+00:05:33,780 --&gt; 00:05:34,820
+全自动运转的
+
+130
+00:05:35,060 --&gt; 00:05:36,600
+Door Agent的情报系统
+
+131
+00:05:37,380 --&gt; 00:05:39,160
+这个系统每天要吞吐来自
+
+132
+00:05:39,420 --&gt; 00:05:39,940
+Github
+
+133
+00:05:40,180 --&gt; 00:05:40,960
+Hanker News
+
+134
+00:05:41,220 --&gt; 00:05:41,980
+Archive论文库
+
+135
+00:05:42,240 --&gt; 00:05:42,740
+甚至是
+
+136
+00:05:43,000 --&gt; 00:05:45,060
+华尔街日报的13种异购数据
+
+137
+00:05:45,820 --&gt; 00:05:46,840
+在它的内部有
+
+138
+00:05:47,100 --&gt; 00:05:49,140
+4个不同分工的AI智能体
+
+139
+00:05:49,400 --&gt; 00:05:49,920
+在进行
+
+140
+00:05:50,180 --&gt; 00:05:50,940
+异步协作
+
+141
+00:05:51,460 --&gt; 00:05:53,500
+他们有自己的搜MD核心宪法
+
+142
+00:05:54,020 --&gt; 00:05:56,580
+有互相校验的红队审查机制
+
+143
+00:05:56,820 --&gt; 00:05:57,600
+有一个负责
+
+144
+00:05:57,600 --&gt; 00:05:59,900
+核心反升性计算的
+
+145
+00:06:00,160 --&gt; 00:06:01,700
+V9.1数学引擎
+
+146
+00:06:02,200 --&gt; 00:06:06,560
+最终将所有情报汇聚到一个包含100多项预测状态的
+
+147
+00:06:06,820 --&gt; 00:06:08,360
+Master Lock Jason账本里
+
+148
+00:06:09,120 --&gt; 00:06:11,160
+面对这样一个充满时序状态
+
+149
+00:06:11,420 --&gt; 00:06:13,220
+文件互相交织的系统
+
+150
+00:06:13,220 --&gt; 00:06:16,800
+即便是写了十几年代码的资深人类架构时
+
+151
+00:06:17,060 --&gt; 00:06:20,140
+如果不用ID顺藤摸瓜的看上两天
+
+152
+00:06:20,380 --&gt; 00:06:22,440
+也会觉得像是在看天书
+
+153
+00:06:22,940 --&gt; 00:06:26,280
+于是我把Graphified的能力包装成了一个名叫
+
+154
+00:06:26,540 --&gt; 00:06:27,560
+Graphified Scale
+
+155
+00:06:28,060 --&gt; 00:06:32,680
+挂载到了底层为minimax M2.7模型的Codex框架上
+
+156
+00:06:32,940 --&gt; 00:06:33,960
+我补充一下
+
+157
+00:06:34,220 --&gt; 00:06:37,540
+用能力普通的minimax M2.7是我刻意安排的
+
+158
+00:06:37,800 --&gt; 00:06:38,820
+如果用墙模型
+
+159
+00:06:39,080 --&gt; 00:06:41,640
+例如CPT5.6或者Opus 5
+
+160
+00:06:41,900 --&gt; 00:06:45,220
+那我这个小型的代码库可能就不需要Graphified了
+
+161
+00:06:45,480 --&gt; 00:06:49,580
+我设计了9个真实并且硬核的架构问题
+
+162
+00:06:49,840 --&gt; 00:06:52,640
+比如这个系统的真正执行入口在哪里
+
+163
+00:06:52,900 --&gt; 00:06:56,480
+状态持久化操作到底有哪几个文件负责
+
+164
+00:06:56,480 --&gt; 00:06:59,800
+如果外部的Graph搜索API失效了
+
+165
+00:07:00,060 --&gt; 00:07:02,880
+整个代码库的错误链条会怎么传导
+
+166
+00:07:03,400 --&gt; 00:07:06,200
+然后我设置了极其严格的对照组
+
+167
+00:07:06,460 --&gt; 00:07:09,020
+第一组我把AI关在小黑屋里
+
+168
+00:07:09,280 --&gt; 00:07:10,560
+它没有任何图谱
+
+169
+00:07:10,820 --&gt; 00:07:12,360
+只能像我们人类程序员一样
+
+170
+00:07:12,600 --&gt; 00:07:14,920
+使用传统的Graph全局搜索
+
+171
+00:07:15,160 --&gt; 00:07:16,700
+CAD查看文件
+
+172
+00:07:16,960 --&gt; 00:07:20,040
+或者基于正责的Find来寻找答
+
+173
+00:07:20,540 --&gt; 00:07:23,620
+第二组我允许AI随意调用图谱工具
+
+174
+00:07:23,620 --&gt; 00:07:27,720
+它可以让图谱找出两个节点之间的最短路径
+
+175
+00:07:27,980 --&gt; 00:07:31,820
+或者解释某个模块的全部临界节点
+
+176
+00:07:32,580 --&gt; 00:07:34,880
+好了我端起咖啡按下回车
+
+177
+00:07:35,140 --&gt; 00:07:36,940
+让这两个平行宇宙里的AI
+
+178
+00:07:37,180 --&gt; 00:07:40,000
+开始对着同一个代码库进行解析
+
+179
+00:07:40,780 --&gt; 00:07:43,580
+当最终的结果呈现在我的屏幕上时
+
+180
+00:07:43,840 --&gt; 00:07:45,380
+我盯着日志看了很久
+
+181
+00:07:46,140 --&gt; 00:07:47,940
+先看前8道基础问题
+
+182
+00:07:48,460 --&gt; 00:07:49,980
+看完这张表你会发现
+
+183
+00:07:50,240 --&gt; 00:07:52,040
+两组答案的实质性内容
+
+184
+00:07:52,300 --&gt; 00:07:53,320
+几乎完全一致
+
+185
+00:07:54,140 --&gt; 00:07:56,440
+有四道题两组答一字不差
+
+186
+00:07:56,700 --&gt; 00:07:59,260
+有三道题两组答大致一致
+
+187
+00:07:59,760 --&gt; 00:08:02,060
+但Base Line这一边反而列得更全
+
+188
+00:08:02,580 --&gt; 00:08:05,660
+只有一道题两组答描述的层不同
+
+189
+00:08:06,160 --&gt; 00:08:06,940
+其实两组都对
+
+190
+00:08:07,180 --&gt; 00:08:08,980
+但对的是不同的代码层
+
+191
+00:08:09,740 --&gt; 00:08:11,800
+这是8道题的整体画面
+
+192
+00:08:12,300 --&gt; 00:08:14,360
+在进入物理指标对比之前
+
+193
+00:08:14,860 --&gt; 00:08:16,400
+请先把这一张表的画面
+
+194
+00:08:16,660 --&gt; 00:08:17,420
+记在脑子里
+
+195
+00:08:17,940 --&gt; 00:08:19,220
+没有图谱的基线组
+
+196
+00:08:19,480 --&gt; 00:08:21,020
+耗时142秒
+
+197
+00:08:21,020 --&gt; 00:08:23,840
+消耗了48494个Token
+
+198
+00:08:23,840 --&gt; 00:08:27,420
+带了图谱的强化组耗时148秒
+
+199
+00:08:27,680 --&gt; 00:08:30,240
+消耗了36787个Token
+
+200
+00:08:31,000 --&gt; 00:08:32,540
+从物理指标上看
+
+201
+00:08:32,800 --&gt; 00:08:34,080
+图谱确实帮AI
+
+202
+00:08:34,340 --&gt; 00:08:36,640
+节省了整整24%的Token
+
+203
+00:08:36,900 --&gt; 00:08:38,180
+因为在强化组里
+
+204
+00:08:38,180 --&gt; 00:08:40,220
+AI不需要像无头仓一样
+
+205
+00:08:40,220 --&gt; 00:08:42,020
+把整个文件打印出来看
+
+206
+00:08:42,520 --&gt; 00:08:44,580
+它直接通过查询图谱节点
+
+207
+00:08:45,080 --&gt; 00:08:46,620
+砍掉了大量失措的对话
+
+208
+00:08:46,880 --&gt; 00:08:48,160
+和无效的Cat操作
+
+209
+00:08:48,660 --&gt; 00:08:49,180
+但是
+
+210
+00:08:49,440 --&gt; 00:08:50,980
+如果你回头再看一遍
+
+211
+00:08:51,480 --&gt; 00:08:53,280
+上面那8道题的对比表
+
+212
+00:08:53,780 --&gt; 00:08:54,820
+并且把它们交出的
+
+213
+00:08:55,060 --&gt; 00:08:56,600
+实质性架构答案
+
+214
+00:08:56,860 --&gt; 00:08:57,880
+拿出来对比一下
+
+215
+00:08:58,400 --&gt; 00:09:00,180
+你会感觉一种奇妙的失落感
+
+216
+00:09:00,440 --&gt; 00:09:00,960
+就是
+
+217
+00:09:01,220 --&gt; 00:09:02,740
+两组几乎打拼
+
+218
+00:09:03,500 --&gt; 00:09:05,820
+无论是找核心文件的调用链
+
+219
+00:09:06,060 --&gt; 00:09:07,340
+追溯系统入口
+
+220
+00:09:07,600 --&gt; 00:09:10,420
+还是排查API的故障传导路线
+
+221
+00:09:10,680 --&gt; 00:09:11,960
+拥有图谱的AI和
+
+222
+00:09:12,220 --&gt; 00:09:14,260
+只拿了Grab搜索工具的AI
+
+223
+00:09:14,520 --&gt; 00:09:15,800
+给出的答案质量
+
+224
+00:09:16,060 --&gt; 00:09:17,340
+找出的文件行号
+
+225
+00:09:17,580 --&gt; 00:09:19,640
+竟然几乎是一模一样的
+
+226
+00:09:19,900 --&gt; 00:09:21,680
+甚至在某些具体问题上
+
+227
+00:09:21,940 --&gt; 00:09:25,260
+基线组的纯文本搜索还略占上风
+
+228
+00:09:25,780 --&gt; 00:09:26,300
+比如在找
+
+229
+00:09:26,540 --&gt; 00:09:28,080
+状态持久化文件时
+
+230
+00:09:28,600 --&gt; 00:09:31,160
+纯搜索找出了6个关联文件
+
+231
+00:09:31,160 --&gt; 00:09:34,240
+而过度依赖局部图谱的强化组
+
+232
+00:09:34,480 --&gt; 00:09:35,520
+只找出了4个
+
+233
+00:09:36,020 --&gt; 00:09:37,040
+为什么会这样呢
+
+234
+00:09:37,560 --&gt; 00:09:39,360
+因为我们在无意中低估了
+
+235
+00:09:39,600 --&gt; 00:09:40,880
+现代AI的基础能力
+
+236
+00:09:41,400 --&gt; 00:09:42,420
+这前8个问题
+
+237
+00:09:42,680 --&gt; 00:09:44,480
+本质上都是在做一件事
+
+238
+00:09:44,720 --&gt; 00:09:46,780
+就是在代码库里找特征
+
+239
+00:09:47,540 --&gt; 00:09:50,100
+这就像你要在一座巨大的图书馆里
+
+240
+00:09:50,360 --&gt; 00:09:51,640
+找一句莎士比亚的名言
+
+241
+00:09:52,400 --&gt; 00:09:53,940
+图谱组相当于拿到了一本
+
+242
+00:09:54,200 --&gt; 00:09:56,240
+极其精密的数字索引卡片
+
+243
+00:09:56,760 --&gt; 00:09:57,780
+而基线组呢
+
+244
+00:09:58,040 --&gt; 00:09:59,580
+基线组虽然没有卡片
+
+245
+00:10:00,000 --&gt; 00:10:03,140
+但它拥有一秒钟翻完十万页书
+
+246
+00:10:03,140 --&gt; 00:10:05,100
+并且过目不忘的超能力
+
+247
+00:10:05,100 --&gt; 00:10:08,480
+连Millimax M2.7都能轻易做到
+
+248
+00:10:08,480 --&gt; 00:10:10,720
+对于目前的顶级大模型来说
+
+249
+00:10:10,720 --&gt; 00:10:12,820
+找文件 找大码行号
+
+250
+00:10:12,820 --&gt; 00:10:14,840
+找显性的函数调用
+
+251
+00:10:14,840 --&gt; 00:10:17,000
+早就不再是它的核心瓶颈了
+
+252
+00:10:17,000 --&gt; 00:10:18,940
+图谱在这类任务上
+
+253
+00:10:18,940 --&gt; 00:10:21,760
+只能让它变得更优雅 更省Token
+
+254
+00:10:21,760 --&gt; 00:10:25,200
+但并不能让它产生质的认知飞跃
+
+255
+00:10:25,200 --&gt; 00:10:27,240
+这就是这十万星神器
+
+256
+00:10:27,240 --&gt; 00:10:29,180
+给我的第一个深刻反思
+
+257
+00:10:29,180 --&gt; 00:10:31,180
+那就是Graph Knowledge
+
+258
+00:10:31,180 --&gt; 00:10:34,640
+不是Agent的提升自动化效率的淫带
+
+259
+00:10:34,640 --&gt; 00:10:38,180
+在找的维度上 其实AI早就赢了
+
+260
+00:10:38,180 --&gt; 00:10:40,700
+如果实验到这里就结束了
+
+261
+00:10:40,700 --&gt; 00:10:43,380
+那这就只是一个略显平庸的测试
+
+262
+00:10:43,380 --&gt; 00:10:47,500
+但是在这份文件里 隐藏着第九题
+
+263
+00:10:47,500 --&gt; 00:10:50,400
+这第九题是ChatGBT帮我
+
+264
+00:10:50,400 --&gt; 00:10:53,440
+review实验方案时 坚持让我加进去的
+
+265
+00:10:53,440 --&gt; 00:10:56,540
+它问了一个直击软件工程灵魂的问题
+
+266
+00:10:56,540 --&gt; 00:11:00,300
+就是假设我要重构Fusion V6 Pi
+
+267
+00:11:00,300 --&gt; 00:11:03,780
+这个最核心的反升性计算引擎模块
+
+268
+00:11:03,780 --&gt; 00:11:07,160
+请你告诉我 改动它会牵连炸掉
+
+269
+00:11:07,160 --&gt; 00:11:10,880
+全系统里的哪些外部文件和数据流呢
+
+270
+00:11:10,880 --&gt; 00:11:13,520
+这叫变更影响分析
+
+271
+00:11:13,520 --&gt; 00:11:16,880
+这不是简单搜索 而是在回答一个工程问题
+
+272
+00:11:16,880 --&gt; 00:11:20,960
+就是修改一个模块会影响哪些其他部分
+
+273
+00:11:20,960 --&gt; 00:11:22,960
+在跑这道题的时候
+
+274
+00:11:22,960 --&gt; 00:11:26,500
+强化组的AI显然意识到这是一个重量级任务
+
+275
+00:11:26,500 --&gt; 00:11:31,360
+我看着它在后台连续触发了三次重量级的图谱查询
+
+276
+00:11:31,360 --&gt; 00:11:34,700
+它试图用图谱找出Fusion V6 Pi
+
+277
+00:11:34,700 --&gt; 00:11:37,760
+到其他核心业务脚本之间的路径
+
+278
+00:11:37,760 --&gt; 00:11:41,740
+这一次图谱能给出一些跨文件的编
+
+279
+00:11:41,740 --&gt; 00:11:46,220
+但它直接的Graphic Path仍然返回NopathFund
+
+280
+00:11:46,220 --&gt; 00:11:49,140
+因为HunterPiPiSH是Shell
+
+281
+00:11:49,140 --&gt; 00:11:51,220
+Fusion V6 Pi是Python
+
+282
+00:11:51,220 --&gt; 00:11:56,260
+AST解析不会建立Shell到Python的调用编
+
+283
+00:11:56,260 --&gt; 00:11:59,180
+最终拥有知识图谱的AI
+
+284
+00:11:59,180 --&gt; 00:12:03,920
+用Graphic JSON整理出了一份完整的分层影响分析报告
+
+285
+00:12:03,920 --&gt; 00:12:05,420
+直接调用链接
+
+286
+00:12:05,420 --&gt; 00:12:06,660
+输入依赖
+
+287
+00:12:06,660 --&gt; 00:12:07,900
+输出依赖
+
+288
+00:12:07,900 --&gt; 00:12:09,660
+高风险文档约束
+
+289
+00:12:09,660 --&gt; 00:12:11,300
+核心函数偶合
+
+290
+00:12:11,300 --&gt; 00:12:13,020
+翻译过来就是
+
+291
+00:12:13,020 --&gt; 00:12:16,880
+图谱这次不仅找到了文件内部的函数调用
+
+292
+00:12:16,880 --&gt; 00:12:20,360
+还给了我们一份真实的跨文件影响清单
+
+293
+00:12:20,360 --&gt; 00:12:22,580
+它不是什么都找不到
+
+294
+00:12:22,580 --&gt; 00:12:25,880
+它找到了直接调用链加上数据依赖
+
+295
+00:12:25,880 --&gt; 00:12:28,320
+加上文档约束这三层
+
+296
+00:12:28,320 --&gt; 00:12:33,960
+但它确实没有找到Shell到Python这种影视的层级关系
+
+297
+00:12:33,960 --&gt; 00:12:38,400
+所以图谱组仍然比纯Graph的基线组慢了三倍
+
+298
+00:12:38,400 --&gt; 00:12:40,800
+为什么会发生这种事呢
+
+299
+00:12:40,800 --&gt; 00:12:46,640
+为什么一个这么强大的代码图谱连基本的跨文件import都连不起来呢
+
+300
+00:12:46,640 --&gt; 00:12:52,080
+这正是Graphify选择AST-only所付出的影性代价
+
+301
+00:12:52,080 --&gt; 00:12:54,380
+在这张图谱的认知世界里
+
+302
+00:12:54,380 --&gt; 00:12:57,080
+它非常清楚Fusion V6 Pi内部
+
+303
+00:12:57,080 --&gt; 00:13:00,600
+媚函数是怎么调用Compute Matrix的
+
+304
+00:13:00,600 --&gt; 00:13:03,500
+在文件内部它是全知全能的神
+
+305
+00:13:03,500 --&gt; 00:13:07,800
+但是它不知道有哪几个外部文件在顶部
+
+306
+00:13:07,800 --&gt; 00:13:10,100
+偷偷import了Fusion V6
+
+307
+00:13:10,100 --&gt; 00:13:11,940
+在软件工程学里
+
+308
+00:13:11,940 --&gt; 00:13:15,140
+这牵扯到一个非常具有哲学意味的差别
+
+309
+00:13:15,140 --&gt; 00:13:17,260
+就是自知与他知
+
+310
+00:13:17,260 --&gt; 00:13:19,480
+当我看自己的代码时
+
+311
+00:13:19,480 --&gt; 00:13:20,880
+我知道我引用了谁
+
+312
+00:13:20,880 --&gt; 00:13:22,440
+这是显性的自知
+
+313
+00:13:22,440 --&gt; 00:13:25,280
+但是当我重构一段代码时
+
+314
+00:13:25,280 --&gt; 00:13:28,140
+我真正害怕的不是我知道我依赖了谁
+
+315
+00:13:28,140 --&gt; 00:13:31,320
+而是到底有哪些我不知道的陌生角落
+
+316
+00:13:31,320 --&gt; 00:13:33,380
+在被动的依赖着我
+
+317
+00:13:33,380 --&gt; 00:13:35,040
+这是隐性的他知
+
+318
+00:13:35,040 --&gt; 00:13:38,660
+AST-数能瞬间拔出代码的结构
+
+319
+00:13:38,660 --&gt; 00:13:41,700
+但是要建立精准的他知关系
+
+320
+00:13:41,700 --&gt; 00:13:44,940
+往往需要极度消耗资源的语言服务器
+
+321
+00:13:44,940 --&gt; 00:13:48,120
+甚至需要编译器级别的语义分析
+
+322
+00:13:48,120 --&gt; 00:13:51,560
+或者让大模型介入去做昂贵的推理
+
+323
+00:13:51,560 --&gt; 00:13:54,740
+Graphify为了保持不到两秒钟
+
+324
+00:13:54,740 --&gt; 00:13:57,560
+零Token纯本地的极致优雅
+
+325
+00:13:57,560 --&gt; 00:14:01,020
+AST-only模式选择了一个非常轻量的
+
+326
+00:14:01,020 --&gt; 00:14:02,320
+结构提取路径
+
+327
+00:14:02,320 --&gt; 00:14:06,700
+因此它天然更擅长描述代码内部结构
+
+328
+00:14:06,700 --&gt; 00:14:09,380
+而不是完整的软件运行依赖
+
+329
+00:14:09,380 --&gt; 00:14:10,680
+这不是失误
+
+330
+00:14:10,680 --&gt; 00:14:12,760
+这是极其高级的工程取舍
+
+331
+00:14:12,760 --&gt; 00:14:15,860
+但正是这个取舍让我们看清了
+
+332
+00:14:15,860 --&gt; 00:14:17,920
+单纯的静态代码股价
+
+333
+00:14:17,920 --&gt; 00:14:22,340
+根本无法回答千亿发而动全身的工程因果论
+
+334
+00:14:22,340 --&gt; 00:14:26,060
+那既然图谱在这场给AI找文件的比赛里
+
+335
+00:14:26,060 --&gt; 00:14:27,760
+没有能实现降维打击
+
+336
+00:14:27,760 --&gt; 00:14:31,060
+那它接近10万颗星的光环是虚假的吗
+
+337
+00:14:31,060 --&gt; 00:14:32,460
+绝对不是
+
+338
+00:14:32,460 --&gt; 00:14:36,020
+当我关掉命令行在游览器里双接打开
+
+339
+00:14:36,020 --&gt; 00:14:37,840
+那个不需要任何服务器
+
+340
+00:14:37,840 --&gt; 00:14:41,900
+直接在本地渲染出来的Graph HTML时
+
+341
+00:14:41,900 --&gt; 00:14:44,000
+我被深深的震撼了
+
+342
+00:14:44,000 --&gt; 00:14:46,420
+Omini Hunter这个在我的脑海里
+
+343
+00:14:46,420 --&gt; 00:14:49,820
+始终由一堆冷冰冰的文件名组成的系统
+
+344
+00:14:49,820 --&gt; 00:14:53,160
+第一次一种有机生命体的物理形态
+
+345
+00:14:53,160 --&gt; 00:14:54,460
+展现在了我的面前
+
+346
+00:14:55,140 --&gt; 00:14:57,640
+在这张宏大的可视化图谱里
+
+347
+00:14:57,640 --&gt; 00:15:00,460
+Graphify利用内置的Layoutube
+
+348
+00:15:00,000 --&gt; 00:15:01,720
+India社区发现算法
+
+349
+00:15:01,720 --&gt; 00:15:04,440
+自动把280个散落的节点
+
+350
+00:15:04,440 --&gt; 00:15:07,020
+聚类成了35个彩色的群落
+
+351
+00:15:07,020 --&gt; 00:15:10,640
+而且它神奇的给这些群落打上了标签
+
+352
+00:15:10,640 --&gt; 00:15:13,780
+这里是Omni Hunter大一统加工法的聚落
+
+353
+00:15:13,780 --&gt; 00:15:16,600
+那里是反身性计算引擎的聚落
+
+354
+00:15:16,600 --&gt; 00:15:21,360
+边缘处还有Scott01特权注入通道的护城河
+
+355
+00:15:21,360 --&gt; 00:15:24,300
+在这一刻我突然明白了我的AI
+
+356
+00:15:24,300 --&gt; 00:15:25,900
+用Graph搜索代码
+
+357
+00:15:25,900 --&gt; 00:15:29,760
+和我作为人类看这张知识图谱的本质区别
+
+358
+00:15:29,760 --&gt; 00:15:31,780
+我再说一遍你体会一下
+
+359
+00:15:31,780 --&gt; 00:15:33,660
+Graph让AI找
+
+360
+00:15:33,660 --&gt; 00:15:35,980
+而这张图是让我看
+
+361
+00:15:35,980 --&gt; 00:15:39,000
+找的时候AI是带有目的性的
+
+362
+00:15:39,000 --&gt; 00:15:40,600
+它知道它要修一个bug
+
+363
+00:15:40,600 --&gt; 00:15:42,440
+它要找一行具体的代码
+
+364
+00:15:42,440 --&gt; 00:15:45,480
+就像我们在黑暗的房间里打着手电筒
+
+365
+00:15:45,480 --&gt; 00:15:47,460
+手电筒的光斑很亮
+
+366
+00:15:47,460 --&gt; 00:15:49,700
+但我永远看不见整个房间
+
+367
+00:15:49,700 --&gt; 00:15:51,680
+AI的全文搜索能力
+
+368
+00:15:51,680 --&gt; 00:15:54,140
+就是一把极其强大的手电筒
+
+369
+00:15:54,140 --&gt; 00:15:57,380
+那看的时候我是没有必要去聚光的
+
+370
+00:15:57,380 --&gt; 00:16:00,280
+当我接手一个庞大的祖传代码库时
+
+371
+00:16:00,280 --&gt; 00:16:02,080
+我不知道该问什么问题
+
+372
+00:16:02,080 --&gt; 00:16:04,200
+我需要先站在高处
+
+373
+00:16:04,200 --&gt; 00:16:06,400
+被那35个色彩斑斓的聚落
+
+374
+00:16:06,400 --&gt; 00:16:08,980
+被那些密密麻麻的枢纽节点
+
+375
+00:16:08,980 --&gt; 00:16:11,240
+狠狠的在视网膜上震一下
+
+376
+00:16:11,240 --&gt; 00:16:16,000
+我需要先在大脑里建立起这座代码城市的轮廓
+
+377
+00:16:16,000 --&gt; 00:16:19,440
+然后我才能详AI问出那个正确的问题
+
+378
+00:16:19,440 --&gt; 00:16:24,060
+这才是图谱在当下最无法被替代的价值
+
+379
+00:16:24,060 --&gt; 00:16:25,920
+在今天这个实验里
+
+380
+00:16:25,920 --&gt; 00:16:28,680
+图谱展现出的价值更多体现在
+
+381
+00:16:28,680 --&gt; 00:16:30,800
+帮助人类建立系统认知
+
+382
+00:16:30,800 --&gt; 00:16:33,820
+而不是直接替代agent的搜索过程
+
+383
+00:16:33,820 --&gt; 00:16:36,480
+它是给陷入代码泥潭的
+
+384
+00:16:36,480 --&gt; 00:16:40,020
+试图理解这个软件系统到底在干嘛的人类
+
+385
+00:16:40,020 --&gt; 00:16:42,980
+提供一个能够站上去的认知高底
+
+386
+00:16:42,980 --&gt; 00:16:46,180
+最后我想跳出这个具体的开源项目
+
+387
+00:16:46,180 --&gt; 00:16:49,100
+聊聊我脑海中那个一直回荡的终极问题
+
+388
+00:16:49,100 --&gt; 00:16:50,880
+在这个7月的早晨
+
+389
+00:16:50,880 --&gt; 00:16:54,260
+当Codex在他的推理日志里写下那句
+
+390
+00:16:54,260 --&gt; 00:16:58,360
+AST-only mode no crossfind engines
+
+391
+00:16:58,360 --&gt; 00:17:01,960
+也就是只基于AST分析模式
+
+392
+00:17:01,960 --&gt; 00:17:04,300
+不包括跨文件关系编试
+
+393
+00:17:04,300 --&gt; 00:17:06,660
+它其实在向我们暗示
+
+394
+00:17:06,660 --&gt; 00:17:09,980
+当今所有AI coding agent的最终瓶颈
+
+395
+00:17:09,980 --&gt; 00:17:12,520
+我们现在的AI缺知识吗
+
+396
+00:17:12,520 --&gt; 00:17:13,420
+不缺
+
+397
+00:17:13,420 --&gt; 00:17:15,980
+他们看代码比我们快一万倍
+
+398
+00:17:15,980 --&gt; 00:17:18,920
+但AI coding agent可能缺少的
+
+399
+00:17:18,920 --&gt; 00:17:22,480
+是一个面向软件系统的世界模型
+
+400
+00:17:22,480 --&gt; 00:17:24,080
+什么是世界模型呢
+
+401
+00:17:24,080 --&gt; 00:17:28,180
+在物理世界里如果我把桌上的水杯推下边缘
+
+402
+00:17:28,180 --&gt; 00:17:29,980
+不需要等它掉下去
+
+403
+00:17:29,980 --&gt; 00:17:33,080
+我的大脑就能推演出水杯碎裂的声音
+
+404
+00:17:33,080 --&gt; 00:17:37,860
+而在软件世界里改动Fusion V6 Pi里的一个数学权重
+
+405
+00:17:37,860 --&gt; 00:17:41,260
+会不会导致三天后生成的研究报告里
+
+406
+00:17:41,260 --&gt; 00:17:44,580
+某一篇学术论文的优先级被错误的降级呢
+
+407
+00:17:44,580 --&gt; 00:17:46,580
+这种跨越了文件
+
+408
+00:17:46,580 --&gt; 00:17:47,420
+跨越了时间
+
+409
+00:17:47,420 --&gt; 00:17:50,740
+甚至跨越了用户行为的动态连锁反应
+
+410
+00:17:50,740 --&gt; 00:17:54,880
+永远不可能写在静态的语法术和局部连接图里
+
+411
+00:17:54,880 --&gt; 00:17:56,960
+真正的系统是活的
+
+412
+00:17:56,960 --&gt; 00:18:00,520
+它的依赖关系存在于运行时的数据流里
+
+413
+00:18:00,520 --&gt; 00:18:02,640
+存在于用户的点击里
+
+414
+00:18:02,640 --&gt; 00:18:05,920
+存在于极其脆弱的外部API状态里
+
+415
+00:18:05,920 --&gt; 00:18:07,520
+当前的外挂图普
+
+416
+00:18:07,520 --&gt; 00:18:08,860
+无论多么精妙
+
+417
+00:18:08,860 --&gt; 00:18:14,000
+都只是给代码的股价拍了一张极高分辨率的静态X光片
+
+418
+00:18:14,000 --&gt; 00:18:19,560
+而真正能让AI从高级打资源进化为独立软件架构式的
+
+419
+00:18:19,560 --&gt; 00:18:22,860
+不是一张更庞大更致命的静态节点图
+
+420
+00:18:22,860 --&gt; 00:18:26,860
+而是我们能否为AI构建一个能够模拟代码
+
+421
+00:18:26,860 --&gt; 00:18:29,440
+在不同环境下如何动态形变
+
+422
+00:18:29,440 --&gt; 00:18:32,260
+如何传导风险的软件世界模型
+
+423
+00:18:32,260 --&gt; 00:18:36,080
+这可能是目前最前沿模型内化的能力
+
+424
+00:18:36,080 --&gt; 00:18:38,320
+但当我们开始意识到
+
+425
+00:18:38,320 --&gt; 00:18:40,080
+看与找的区别
+
+426
+00:18:40,080 --&gt; 00:18:44,440
+开始区分静态拓扑与动态因果的鸿沟的时候
+
+427
+00:18:44,440 --&gt; 00:18:48,320
+其实我们已经站在了下一次认知升级的起点
+
+428
+00:18:48,320 --&gt; 00:18:50,300
+好的 今天视频就先聊到这里
+
+429
+00:18:50,300 --&gt; 00:18:51,660
+感谢观看 我们下次再见
+
+</pre></div><div class="raw-block" data-field="raw_source_item" data-raw-type="whisper"><div class="raw-label">Whisper STT 逐字稿<button class="copy-btn" id="raw_whisper_4373363264_srt" onclick="copyRaw(this,'raw_whisper_4373363264_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_whisper_4373363264_text" onclick="copyRawText(this,'raw_whisper_4373363264_text')">📋 複製純文字</button></div><pre>（完整 Whisper STT 逐字稿，共 429 段，已存於 /tmp/whisper_luN/luN-yydHpYY.srt）</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://youtu.be/luN-yydHpYY" target="_blank" rel="noopener">https://youtu.be/luN-yydHpYY</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+  <!-- 文章頁星等編輯腳本 -->
+  <script>
+    (function () {
+      'use strict';
+
+      var editBtn = document.getElementById('article-rating-edit');
+      if (!editBtn) return;
+
+      // 從 URL 取得檔名
+      var pathParts = window.location.pathname.split('/');
+      var filename = pathParts[pathParts.length - 1];
+
+      // 從 meta 區塊讀取目前星等
+      var starSpan = document.querySelector('.star-rating');
+      var currentRating = 0;
+      if (starSpan && starSpan.textContent.trim()) {
+        var starText = starSpan.textContent.trim();
+        currentRating = (starText.match(/★/g) || []).length;
+      }
+
+      // ── 星等編輯彈窗 ──
+      function showRatingEditor() {
+        var old = document.getElementById('rating-editor-overlay');
+        if (old) old.remove();
+
+        var overlay = document.createElement('div');
+        overlay.id = 'rating-editor-overlay';
+        overlay.className = 'rating-editor-overlay';
+
+        var box = document.createElement('div');
+        box.className = 'rating-editor-box';
+
+        var title = document.createElement('div');
+        title.className = 'rating-editor-title';
+        title.textContent = '設定星等';
+
+        var starsRow = document.createElement('div');
+        starsRow.className = 'rating-editor-stars';
+
+        for (var s = 1; s <= 5; s++) {
+          (function (star) {
+            var btn = document.createElement('button');
+            btn.className = 'rating-editor-star';
+            btn.textContent = star <= currentRating ? '★' : '☆';
+            btn.dataset.value = star;
+            btn.addEventListener('click', function () {
+              // 高亮
+              var allBtns = starsRow.querySelectorAll('.rating-editor-star');
+              for (var k = 0; k < allBtns.length; k++) {
+                allBtns[k].textContent = k < star ? '★' : '☆';
+              }
+              // 儲存
+              saveRating(star, function (ok) {
+                if (ok) {
+                  showToast('✅ 星等已更新，網站重新部署中 (~30-60 秒)');
+                } else {
+                  showToast('❌ 更新失敗，請稍後再試');
+                }
+              });
+              overlay.remove();
+            });
+            starsRow.appendChild(btn);
+          })(s);
+        }
+
+        // 清除星等按鈕
+        var clearBtn = document.createElement('button');
+        clearBtn.className = 'rating-editor-clear';
+        clearBtn.textContent = '清除星等';
+        clearBtn.addEventListener('click', function () {
+          saveRating(0, function (ok) {
+            if (ok) {
+              showToast('✅ 星等已清除');
+            } else {
+              showToast('❌ 清除失敗，請稍後再試');
+            }
+          });
+          overlay.remove();
+        });
+
+        // 關閉按鈕
+        var closeBtn = document.createElement('button');
+        closeBtn.className = 'rating-editor-close';
+        closeBtn.textContent = '✕';
+        closeBtn.addEventListener('click', function () { overlay.remove(); });
+
+        box.appendChild(closeBtn);
+        box.appendChild(title);
+        box.appendChild(starsRow);
+        box.appendChild(clearBtn);
+        overlay.appendChild(box);
+
+        overlay.addEventListener('click', function (e) {
+          if (e.target === overlay) overlay.remove();
+        });
+
+        document.body.appendChild(overlay);
+      }
+
+      // ── 送出星等更新 ──
+      function saveRating(rating, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/api/rating', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            currentRating = rating;
+            // 更新頁面上的星等顯示
+            if (starSpan) {
+              var stars = '';
+              for (var k = 0; k < rating; k++) stars += '★';
+              for (var k = rating; k < 5; k++) stars += '☆';
+              starSpan.textContent = stars;
+            }
+            if (callback) callback(true);
+          } else {
+            console.error('Failed to save rating:', xhr.status);
+            if (callback) callback(false);
+          }
+        };
+        xhr.onerror = function () {
+          console.error('Network error saving rating');
+          if (callback) callback(false);
+        };
+        xhr.send(JSON.stringify({ filename: filename, rating: rating }));
+      }
+
+      // ── Toast 通知 ──
+      function showToast(msg) {
+        var old = document.getElementById('rating-toast');
+        if (old) old.remove();
+
+        var toast = document.createElement('div');
+        toast.id = 'rating-toast';
+        toast.className = 'rating-toast';
+        toast.textContent = msg;
+        document.body.appendChild(toast);
+
+        setTimeout(function () {
+          if (toast.parentNode) toast.parentNode.removeChild(toast);
+        }, 5000);
+      }
+
+      // 綁定編輯按鈕
+      editBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        showRatingEditor();
+      });
+    })();
+  </script>
+</body>
+</html>

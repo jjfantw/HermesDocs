@@ -1,5 +1,12 @@
 [
   {
+    "title": "AI Coding 的最後一道牆：我用10萬 Star 開源知識圖譜挑戰真實軟體系統 - Hermes Docs",
+    "url": "videos/wow_Graphify知識圖譜_AI_Coding最後一道牆.html",
+    "date": "2026-07-29 00:28",
+    "rating": 0,
+    "content": "AI Coding 的最後一道牆：我用10萬 Star 開源知識圖譜挑戰真實軟體系統 - Hermes Docs 返回首頁 AI Coding 的最後一道牆：我用10萬 Star 開源知識圖譜挑戰真實軟體系統 發布時間：2026-07-29 08:28 ✎ 評分 🌙 YouTube 影片重點整理 AI Coding 的最後一道牆：我用10萬 Star 開源知識圖譜挑戰真實軟體系統 📺 wow ⏱ 18:52 🗓 2026-07-28 🌐 zh-Hans 🔗 https://youtu.be/luN-yydHpYY 作者將近 10 萬 Star 的開源專案 Graphify 接入 Hermes Agent，讓它透過 Codex 對真實生產環境 OmniHunter（一套量化情報系統，35 個核心檔案、近 18,000 行 Python）進行壓力測試。Graphify 使用 Tree-sitter AST 解析引擎，能在兩秒內零 LLM Token 將程式碼庫轉換為結構化知識圖譜（280 個節點、283 條邊、35 個社群）。實驗設計了 9 道架構問題，對照「純 grep 搜尋」與「知識圖"
+  },
+  {
     "title": "40 歲後代謝斷崖式下滑？5 個免費習慣重啟代謝開關，不用節食也能瘦 - Hermes Docs",
     "url": "videos/科學的人生_40歲後代謝重啟5習慣.html",
     "date": "2026-07-28 22:31",
