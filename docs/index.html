@@ -31,22 +31,6 @@
     .search-no-result { color: #868e96; font-size: 0.9rem; padding: 8px 0; }
     .search-error { color: #e74c3c; font-size: 0.9rem; padding: 8px 0; }
 
-    /* ── 星等評分 ── */
-    .star-rating { color: #f1c40f; letter-spacing: 1px; }
-    .star-rating .star-empty { color: #dee2e6; }
-    .star-rating .star-filled { color: #f1c40f; }
-
-    /* ── 篩選與排序工具列 ── */
-    .toolbar { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 16px; }
-    .toolbar label { font-size: 0.9rem; color: #495057; font-weight: 500; }
-    .toolbar select { padding: 8px 12px; border: 2px solid #dee2e6; border-radius: 6px; font-size: 0.9rem; background: #fff; cursor: pointer; }
-    .toolbar select:focus { outline: none; border-color: #667eea; }
-    .star-filter-btn { display: inline-flex; align-items: center; gap: 2px; padding: 6px 12px; border: 2px solid #dee2e6; border-radius: 6px; background: #fff; cursor: pointer; font-size: 0.85rem; transition: all 0.15s; }
-    .star-filter-btn:hover { border-color: #667eea; }
-    .star-filter-btn.active { border-color: #667eea; background: #eef0ff; }
-    .star-filter-btn .count { color: #adb5bd; font-size: 0.75rem; margin-left: 2px; }
-    .star-filter-group { display: flex; gap: 4px; flex-wrap: wrap; }
-
     /* ── 文件列表 ── */
     #doc-list ul { list-style: none; }
     #doc-list li { padding: 12px 0; border-bottom: 1px solid #f1f3f5; }
@@ -57,125 +41,10 @@
     #doc-list li.placeholder { color: #adb5bd; font-style: italic; }
     .last-updated { text-align: right; color: #868e96; font-size: 0.9rem; margin-top: 20px; }
     footer { background: #343a40; color: #868e96; text-align: center; padding: 20px 0; font-size: 0.9rem; }
-    /* ── 星等編輯彈窗 ── */
-    .rating-editor-overlay {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-    }
-    .rating-editor-box {
-      background: #fff;
-      border-radius: 12px;
-      padding: 32px;
-      min-width: 300px;
-      text-align: center;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-      position: relative;
-    }
-    .rating-editor-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #333;
-      margin-bottom: 20px;
-    }
-    .rating-editor-stars {
-      display: flex;
-      gap: 8px;
-      justify-content: center;
-      margin-bottom: 16px;
-    }
-    .rating-editor-star {
-      background: none;
-      border: 2px solid transparent;
-      font-size: 2rem;
-      cursor: pointer;
-      color: #f1c40f;
-      padding: 4px 8px;
-      border-radius: 8px;
-      transition: all 0.15s;
-    }
-    .rating-editor-star:hover {
-      border-color: #667eea;
-      background: #eef0ff;
-      transform: scale(1.15);
-    }
-    .rating-editor-clear {
-      background: none;
-      border: 1px solid #dee2e6;
-      border-radius: 6px;
-      padding: 6px 16px;
-      font-size: 0.85rem;
-      color: #868e96;
-      cursor: pointer;
-    }
-    .rating-editor-clear:hover {
-      border-color: #e74c3c;
-      color: #e74c3c;
-    }
-    .rating-editor-close {
-      position: absolute;
-      top: 8px; right: 12px;
-      background: none;
-      border: none;
-      font-size: 1.2rem;
-      cursor: pointer;
-      color: #adb5bd;
-    }
-    .rating-editor-close:hover { color: #333; }
-
-    /* ── 編輯按鈕（列表頁） ── */
-    .rating-edit-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: none;
-      border: 1px solid #dee2e6;
-      border-radius: 4px;
-      width: 24px;
-      height: 24px;
-      cursor: pointer;
-      font-size: 0.8rem;
-      color: #adb5bd;
-      transition: all 0.15s;
-      vertical-align: middle;
-      margin-left: 6px;
-      line-height: 1;
-    }
-    .rating-edit-btn:hover {
-      border-color: #667eea;
-      color: #667eea;
-      background: #eef0ff;
-    }
-
-    /* ── Toast 通知 ── */
-    .rating-toast {
-      position: fixed;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #333;
-      color: #fff;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      z-index: 10000;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      animation: toast-in 0.3s ease;
-    }
-    @keyframes toast-in {
-      from { opacity: 0; transform: translateX(-50%) translateY(20px); }
-      to { opacity: 1; transform: translateX(-50%) translateY(0); }
-    }
-
     @media (max-width: 600px) {
       header { padding: 40px 0; }
       header h1 { font-size: 1.8rem; }
       section { padding: 16px; }
-      .toolbar { flex-direction: column; align-items: stretch; }
     }
   </style>
 </head>
@@ -202,81 +71,65 @@
     <section id="doc-list">
       <h2>文件列表</h2>
 
-      <!-- 篩選與排序工具列 -->
-      <div class="toolbar">
-        <label>星等篩選：</label>
-        <div class="star-filter-group" id="star-filter-group">
-          <button class="star-filter-btn active" data-rating="all">全部</button>
-        </div>
-
-        <label>排序：</label>
-        <select id="sort-select">
-          <option value="date-desc">上傳日期 ▼</option>
-          <option value="date-asc">上傳日期 ▲</option>
-          <option value="rating-desc">星等 ▼</option>
-          <option value="rating-asc">星等 ▲</option>
-        </select>
-      </div>
-
       <ul id="doc-list-placeholder">
-        <li data-filename="蘇大講AI_CleanCode鼻祖不看AI程式碼.html" data-rating="0" data-date="2026-07-30 16:10"><a href="videos/蘇大講AI_CleanCode鼻祖不看AI程式碼.html">Clean Code 鼻祖：我絕不看 AI 寫的一行程式碼，直接上線！ - Hermes Docs</a><div class="doc-meta">2026-07-30 16:10</div></li>
-<li data-filename="GaryChen_CLAUDE.md入門到精通.html" data-rating="0" data-date="2026-07-30 12:22"><a href="videos/GaryChen_CLAUDE.md入門到精通.html">15 分鐘學完 CLAUDE.md：從入門到精通 - Hermes Docs</a><div class="doc-meta">2026-07-30 12:22</div></li>
-<li data-filename="Debug土撥鼠_I_Have_ADHD_Skill.html" data-rating="0" data-date="2026-07-30 12:14"><a href="videos/Debug土撥鼠_I_Have_ADHD_Skill.html">讓 AI 不再廢話的神奇 Skills: I-have-adhd - Hermes Docs</a><div class="doc-meta">2026-07-30 12:14</div></li>
-<li data-filename="YC總裁_公司大腦.html" data-rating="0" data-date="2026-07-30 06:08"><a href="videos/YC總裁_公司大腦.html">每家公司都該有一顆自己的大腦：YC 總裁講座 - Hermes Docs</a><div class="doc-meta">2026-07-30 06:08</div></li>
-<li data-filename="AI超級週期_Stanford公開課.html" data-rating="0" data-date="2026-07-30 06:08"><a href="videos/AI超級週期_Stanford公開課.html">一部影片看懂 AI 超級週期｜下個經濟循環｜Stanford 公開課 - Hermes Docs</a><div class="doc-meta">2026-07-30 06:08</div></li>
-<li data-filename="Superpowers_vs_Matt_Skills_對比.html" data-rating="0" data-date="2026-07-30 06:08"><a href="videos/Superpowers_vs_Matt_Skills_對比.html">模型越強，Superpowers 和 MattPocock-Skills 應該刪除誰？ - Hermes Docs</a><div class="doc-meta">2026-07-30 06:08</div></li>
-<li data-filename="Jim_AI_Notebook_AI超級週期_Stanford公開課.html" data-rating="0" data-date="2026-07-29 10:51"><a href="videos/Jim_AI_Notebook_AI超級週期_Stanford公開課.html">一部影片看懂 AI 超級週期 ｜下個經濟循環｜Stanford 公開課 - Hermes Docs</a><div class="doc-meta">2026-07-29 10:51</div></li>
-<li data-filename="李自然說_Transformer注意力機制論文解讀.html" data-rating="0" data-date="2026-07-29 09:34"><a href="videos/李自然說_Transformer注意力機制論文解讀.html">20分鐘讀懂AI史上最重要的一篇論文《Attention Is All You Need》 - Hermes Docs</a><div class="doc-meta">2026-07-29 09:34</div></li>
-<li data-filename="report_uhFc4J2pfps.html" data-rating="0" data-date="2026-07-29 03:22"><a href="videos/report_uhFc4J2pfps.html">NotebookLM 轉正了｜ NotebookLM 改名 Gemini Notebook！Google 最強 AI 筆記本到底怎麼用？| 完整上手：一鍵調研、生成音頻視頻 | 接入本地 Agent</a><div class="doc-meta">2026-07-29 03:22</div></li>
-<li data-filename="暢的科技工坊_Gemini_Notebook完整上手_教學.html" data-rating="0" data-date="2026-07-29 00:34"><a href="videos/暢的科技工坊_Gemini_Notebook完整上手_教學.html">NotebookLM 轉正了｜ NotebookLM 改名 Gemini Notebook！Google 最強 AI 筆記本到底怎麼用？| 完整上手：一鍵調研、生成音頻視頻 | 接入本地 Agent - Hermes Docs</a><div class="doc-meta">2026-07-29 00:34</div></li>
-<li data-filename="wow_Graphify知識圖譜_AI_Coding最後一道牆.html" data-rating="0" data-date="2026-07-29 00:28"><a href="videos/wow_Graphify知識圖譜_AI_Coding最後一道牆.html">AI Coding 的最後一道牆：我用10萬 Star 開源知識圖譜挑戰真實軟體系統 - Hermes Docs</a><div class="doc-meta">2026-07-29 00:28</div></li>
-<li data-filename="科學的人生_40歲後代謝重啟5習慣.html" data-rating="0" data-date="2026-07-28 22:31"><a href="videos/科學的人生_40歲後代謝重啟5習慣.html">40 歲後代謝斷崖式下滑？5 個免費習慣重啟代謝開關，不用節食也能瘦 - Hermes Docs</a><div class="doc-meta">2026-07-28 22:31</div></li>
-<li data-filename="靈姐說AI_Codex-Obsidian知識系統_tutorial.html" data-rating="0" data-date="2026-07-27 14:15"><a href="videos/靈姐說AI_Codex-Obsidian知識系統_tutorial.html">200期視頻，如何變成AI知識系統？Codex + Obsidian實戰</a><div class="doc-meta">2026-07-27 14:15</div></li>
-<li data-filename="GaryChen_Google-AI-D2D3_精華整理.html" data-rating="0" data-date="2026-07-26 21:06"><a href="videos/GaryChen_Google-AI-D2D3_精華整理.html">20 分鐘看完 Google AI 課程 Day 2+3 精華。MCP, A2A, Skills 解析 - Hermes Docs</a><div class="doc-meta">2026-07-26 21:06</div></li>
-<li data-filename="語言學習_沉浸式學習指南.html" data-rating="0" data-date="2026-07-23 22:32"><a href="videos/語言學習_沉浸式學習指南.html">想把語言學好，其實只需要做一件事【完整指南】</a><div class="doc-meta">2026-07-23 22:32</div></li>
-<li data-filename="Claude_未知量方法論.html" data-rating="0" data-date="2026-07-22 23:48"><a href="videos/Claude_未知量方法論.html">Claude 的未知量方法論 - Hermes Docs</a><div class="doc-meta">2026-07-22 23:48</div></li>
-<li data-filename="GaryChen_MattPocock-skills拆解.html" data-rating="0" data-date="2026-07-22 12:46"><a href="videos/GaryChen_MattPocock-skills拆解.html">17 萬星的 Matt Pocock skills，到底強在哪？skills 全拆解 - Hermes Docs</a><div class="doc-meta">2026-07-22 12:46</div></li>
-<li data-filename="不施壓的領導技巧.html" data-rating="0" data-date="2026-07-18 22:33"><a href="videos/不施壓的領導技巧.html">老闆主管必學的領導技巧！做對這 3 件事，不必施壓，就能讓下屬自動自發！｜《不施壓的領導力》 - Hermes Docs</a><div class="doc-meta">2026-07-18 22:33</div></li>
-<li data-filename="臣服實驗_麥克辛格.html" data-rating="0" data-date="2026-07-18 07:45"><a href="videos/臣服實驗_麥克辛格.html">EP06 從森林隱士到身價破億的CEO，他只做了一件事：放棄控制！每天讀一本改變人生的書《臣服實驗》 - Hermes Docs</a><div class="doc-meta">2026-07-18 07:45</div></li>
-<li data-filename="OpenAI官方Prompt指南_少寫MUST.html" data-rating="0" data-date="2026-07-18 04:22"><a href="videos/OpenAI官方Prompt指南_少寫MUST.html">别再堆长指令 | OpenAI官方指南 | SystemPrompt优化 | GPT-5.6 | Token 降本 | 推理档位设置 | 任务边界 | 结果验证 | 提示词技巧 | 提示词工程 - Hermes Docs</a><div class="doc-meta">2026-07-18 04:22</div></li>
-<li data-filename="DanKoe_一日重設人生.html" data-rating="0" data-date="2026-07-16 15:04"><a href="videos/DanKoe_一日重設人生.html">How to fix your entire life in 1 day</a><div class="doc-meta">2026-07-16 15:04</div></li>
-<li data-filename="維思維_改變突破現狀_反思練習.html" data-rating="0" data-date="2026-07-16 13:33"><a href="videos/維思維_改變突破現狀_反思練習.html">給想要改變，但突破不了現狀的你... | 維思維 - Hermes Docs</a><div class="doc-meta">2026-07-16 13:33</div></li>
-<li data-filename="GaryChen_GitHub教學_VibeCoding.html" data-rating="0" data-date="2026-07-15 14:49"><a href="videos/GaryChen_GitHub教學_VibeCoding.html">給非技術人員的 Github 教學，Vibe Coding 必學的基礎技能 - Hermes Docs</a><div class="doc-meta">2026-07-15 14:49</div></li>
-<li data-filename="林亦LYi_豆包辦公任務模式_教學.html" data-rating="0" data-date="2026-07-15 12:47"><a href="videos/林亦LYi_豆包辦公任務模式_教學.html">AI進階用法指南：豆包辦公任務模式與五句話提示詞法 - Hermes Docs</a><div class="doc-meta">2026-07-15 12:47</div></li>
-<li data-filename="Renos_Tech_3_Mac_Features_Most_People_Miss.html" data-rating="0" data-date="2026-07-15 09:22"><a href="videos/Renos_Tech_3_Mac_Features_Most_People_Miss.html">3 Mac Features Most People Miss - Hermes Docs</a><div class="doc-meta">2026-07-15 09:22</div></li>
-<li data-filename="技术爬爬虾_WSL跑AI_Agent保姆级攻略.html" data-rating="0" data-date="2026-07-15 01:20"><a href="videos/技术爬爬虾_WSL跑AI_Agent保姆级攻略.html">Windows跑AI Agent，WSL才是终极答案 — WSL保姆级全攻略 - Hermes Docs</a><div class="doc-meta">2026-07-15 01:20</div></li>
-<li data-filename="test-video.html" data-rating="4" data-date="2026-07-15 01:09"><a href="videos/test-video.html">測試影片精華整理</a><div class="doc-meta">2026-07-15 01:09 <span class="star-rating">★★★★☆</span></div></li>
-<li data-filename="靈姐說AI_SkillOPS標準方法分享.html" data-rating="0" data-date="2026-07-14 05:51"><a href="videos/靈姐說AI_SkillOPS標準方法分享.html">公司最值錢的經驗，怎麼變成可執行 AI Skill？我的 Skill OPS 標準方法分享 ｜Codex 的公司級用法 - Hermes Docs</a><div class="doc-meta">2026-07-14 05:51</div></li>
-<li data-filename="wow_元意識修煉_報告.html" data-rating="0" data-date="2026-07-14 02:21"><a href="videos/wow_元意識修煉_報告.html">比修仙還爽！斯坦福教授每天5分鐘「元意識」修煉！ - Hermes Docs</a><div class="doc-meta">2026-07-14 02:21</div></li>
-<li data-filename="AutoMem_斯坦福記憶管理.html" data-rating="0" data-date="2026-07-14 01:18"><a href="videos/AutoMem_斯坦福記憶管理.html">32B 逼近 Claude Opus｜斯坦福 AutoMem：不堆參數 - Hermes Docs</a><div class="doc-meta">2026-07-14 01:18</div></li>
-<li data-filename="GenAISpotlight_LLM_Council_Plus.html" data-rating="0" data-date="2026-07-12 23:18"><a href="videos/GenAISpotlight_LLM_Council_Plus.html">LLM Council Plus：Karpathy 原始專案的完整升級版 - Hermes Docs</a><div class="doc-meta">2026-07-12 23:18</div></li>
-<li data-filename="楊竹筠_兩個提示詞讓AI輸出品質翻倍.html" data-rating="0" data-date="2026-07-12 02:46"><a href="videos/楊竹筠_兩個提示詞讓AI輸出品質翻倍.html">這兩個提示詞讓 AI 輸出品質翻倍，防止奉承討好 - Hermes Docs</a><div class="doc-meta">2026-07-12 02:46</div></li>
-<li data-filename="google-agentic-engineering-day1.html" data-rating="0" data-date="2026-07-11 00:58"><a href="videos/google-agentic-engineering-day1.html">Google Agentic Engineering 課程精華 Day 1：從 Vibe Coding 到 Agentic Engineering - Hermes Docs</a><div class="doc-meta">2026-07-11 00:58</div></li>
-<li data-filename="harness-engineering-weng-li.html" data-rating="0" data-date="2026-07-08 23:18"><a href="videos/harness-engineering-weng-li.html">Harness 才是主戰場 — 翁荔論 Harness Engineering、Scaling Law 與 AI 自我改進 - Hermes Docs</a><div class="doc-meta">2026-07-08 23:18</div></li>
-<li data-filename="維思維_壓力不是敵人_心理學.html" data-rating="0" data-date="2026-07-08 05:05"><a href="videos/維思維_壓力不是敵人_心理學.html">真正毀掉你的，不是壓力…（最新研究發現） | 維思維 - Hermes Docs</a><div class="doc-meta">2026-07-08 05:05</div></li>
-<li data-filename="維思維_騙過大腦自律_心理學.html" data-rating="0" data-date="2026-07-07 23:54"><a href="videos/維思維_騙過大腦自律_心理學.html">為什麼你總做不到？自律的人是這樣騙過大腦的（心理學） | 維思維 - Hermes Docs</a><div class="doc-meta">2026-07-07 23:54</div></li>
-<li data-filename="楊竹筠_AI時代七項核心能力.html" data-rating="0" data-date="2026-07-07 23:22"><a href="videos/楊竹筠_AI時代七項核心能力.html">AI時代必備的七項核心能力 — 楊竹筠 - Hermes Docs</a><div class="doc-meta">2026-07-07 23:22</div></li>
-<li data-filename="claude-code-self-improving-system.html" data-rating="0" data-date="2026-07-07 14:57"><a href="videos/claude-code-self-improving-system.html">How to Build A Self-Improving System with Claude Code - Hermes Docs</a><div class="doc-meta">2026-07-07 14:57</div></li>
-<li data-filename="AustinMarchese_ClaudeCode4專案.html" data-rating="0" data-date="2026-07-07 14:51"><a href="videos/AustinMarchese_ClaudeCode4專案.html">Stop Watching Tutorials - Build These 4 Claude Projects to 10x Output - Hermes Docs</a><div class="doc-meta">2026-07-07 14:51</div></li>
-<li data-filename="志祺七七_拖延不是意志力_Esor訪談.html" data-rating="0" data-date="2026-07-07 14:34"><a href="videos/志祺七七_拖延不是意志力_Esor訪談.html">拖延不是因為意志力不夠！想處理拖延困擾，你應該要專注在這些地方⋯⋯ft. 電腦玩物站長 Esor《強者我朋友》EP 222｜志祺七七 - Hermes Docs</a><div class="doc-meta">2026-07-07 14:34</div></li>
-<li data-filename="C1_Mac新機設定指南.html" data-rating="0" data-date="2026-07-07 11:08"><a href="videos/C1_Mac新機設定指南.html">Mac 新機設定指南 — 3 支影片綜合整理</a><div class="doc-meta">2026-07-07 11:08</div></li>
-<li data-filename="JimChannel_Option鍵三層作用_逐字稿整理.html" data-rating="0" data-date="2026-07-07 11:06"><a href="videos/JimChannel_Option鍵三層作用_逐字稿整理.html">Mac 上被浪費的鍵 — Option 鍵的三層作用 | JimChannel</a><div class="doc-meta">2026-07-07 11:06</div></li>
-<li data-filename="wuenda_8_courses.html" data-rating="0" data-date="2026-07-07 10:30"><a href="videos/wuenda_8_courses.html">吳恩達 8 門 AI 課程清單 — 2026 普通人學 AI</a><div class="doc-meta">2026-07-07 10:30</div></li>
-<li data-filename="Claude六段位AI高手攻略-影片分析.html" data-rating="0" data-date="2026-07-07 10:30"><a href="videos/Claude六段位AI高手攻略-影片分析.html">Claude 六段位 AI 高手攻略｜影片分析</a><div class="doc-meta">2026-07-07 10:30</div></li>
-<li data-filename="思想實驗室EP102_瘋背提示詞_章節整理.html" data-rating="0" data-date="2026-07-07 10:30"><a href="videos/思想實驗室EP102_瘋背提示詞_章節整理.html">瘋背提示詞、優化KPI反而更完蛋？AI時代如何終結盲目努力？ — 思想實驗室 EP102 章節整理</a><div class="doc-meta">2026-07-07 10:30</div></li>
-<li data-filename="抡锤者_DeepSeek-Qwen3.6-Hermes智能體最佳答案.html" data-rating="0" data-date="2026-07-07 10:30"><a href="videos/抡锤者_DeepSeek-Qwen3.6-Hermes智能體最佳答案.html">DeepSeek + Qwen3.6 + Hermes：當下智能體最佳答案 | 抡锤者</a><div class="doc-meta">2026-07-07 10:30</div></li>
-<li data-filename="wow_AGEL-Comp神經符號框架_影片整理.html" data-rating="0" data-date="2026-07-07 10:30"><a href="videos/wow_AGEL-Comp神經符號框架_影片整理.html">這個「神經符號」框架,直接抹平開源小模型與大模型的代差</a><div class="doc-meta">2026-07-07 10:30</div></li>
-<li data-filename="環境設計大於自律-楊竹筠.html" data-rating="0" data-date="2026-07-07 10:30"><a href="videos/環境設計大於自律-楊竹筠.html">環境設計大於自律——35 年才明白的生產力秘密</a><div class="doc-meta">2026-07-07 10:30</div></li>
-<li data-filename="TiagoForte_行動參考框架_影片整理.html" data-rating="0" data-date="2026-07-07 10:30"><a href="videos/TiagoForte_行動參考框架_影片整理.html">Action-Reference Framework — Tiago Forte</a><div class="doc-meta">2026-07-07 10:30</div></li>
-<li data-filename="毅先生Yeethinks_先裝模作樣再像模像樣_心理學.html" data-rating="0" data-date="2026-07-07 10:30"><a href="videos/毅先生Yeethinks_先裝模作樣再像模像樣_心理學.html">想變成理想中的自己？先學會「假裝」！其實大腦最吃這一套：先演，後真！</a><div class="doc-meta">2026-07-07 10:30</div></li>
-<li data-filename="JustinSung_心智圖心靈鏡子_學習技巧.html" data-rating="0" data-date="2026-07-07 10:30"><a href="videos/JustinSung_心智圖心靈鏡子_學習技巧.html">If Mindmaps Don&#x27;t Work For You, Watch This Video</a><div class="doc-meta">2026-07-07 10:30</div></li>
-<li data-filename="ai-trends-2026h2.html" data-rating="0" data-date="2026-07-07 07:11"><a href="videos/ai-trends-2026h2.html">AI 技術發展短評：2026 下半年關鍵趨勢</a><div class="doc-meta">2026-07-07 07:11</div></li>
-<li data-filename="test-dual-upload.html" data-rating="0" data-date="2026-07-07 06:53"><a href="videos/test-dual-upload.html">雙軌發布測試：網路 + 雲端硬碟</a><div class="doc-meta">2026-07-07 06:53</div></li>
+        <li><a href="videos/蘇大講AI_CleanCode鼻祖不看AI程式碼.html">Clean Code 鼻祖：我絕不看 AI 寫的一行程式碼，直接上線！ - Hermes Docs</a><div class="doc-meta">2026-07-30 16:10</div></li>
+<li><a href="videos/GaryChen_CLAUDE.md入門到精通.html">15 分鐘學完 CLAUDE.md：從入門到精通 - Hermes Docs</a><div class="doc-meta">2026-07-30 12:22</div></li>
+<li><a href="videos/Debug土撥鼠_I_Have_ADHD_Skill.html">讓 AI 不再廢話的神奇 Skills: I-have-adhd - Hermes Docs</a><div class="doc-meta">2026-07-30 12:14</div></li>
+<li><a href="videos/YC總裁_公司大腦.html">每家公司都該有一顆自己的大腦：YC 總裁講座 - Hermes Docs</a><div class="doc-meta">2026-07-30 06:08</div></li>
+<li><a href="videos/AI超級週期_Stanford公開課.html">一部影片看懂 AI 超級週期｜下個經濟循環｜Stanford 公開課 - Hermes Docs</a><div class="doc-meta">2026-07-30 06:08</div></li>
+<li><a href="videos/Superpowers_vs_Matt_Skills_對比.html">模型越強，Superpowers 和 MattPocock-Skills 應該刪除誰？ - Hermes Docs</a><div class="doc-meta">2026-07-30 06:08</div></li>
+<li><a href="videos/Jim_AI_Notebook_AI超級週期_Stanford公開課.html">一部影片看懂 AI 超級週期 ｜下個經濟循環｜Stanford 公開課 - Hermes Docs</a><div class="doc-meta">2026-07-29 10:51</div></li>
+<li><a href="videos/李自然說_Transformer注意力機制論文解讀.html">20分鐘讀懂AI史上最重要的一篇論文《Attention Is All You Need》 - Hermes Docs</a><div class="doc-meta">2026-07-29 09:34</div></li>
+<li><a href="videos/report_uhFc4J2pfps.html">NotebookLM 轉正了｜ NotebookLM 改名 Gemini Notebook！Google 最強 AI 筆記本到底怎麼用？| 完整上手：一鍵調研、生成音頻視頻 | 接入本地 Agent</a><div class="doc-meta">2026-07-29 03:22</div></li>
+<li><a href="videos/暢的科技工坊_Gemini_Notebook完整上手_教學.html">NotebookLM 轉正了｜ NotebookLM 改名 Gemini Notebook！Google 最強 AI 筆記本到底怎麼用？| 完整上手：一鍵調研、生成音頻視頻 | 接入本地 Agent - Hermes Docs</a><div class="doc-meta">2026-07-29 00:34</div></li>
+<li><a href="videos/wow_Graphify知識圖譜_AI_Coding最後一道牆.html">AI Coding 的最後一道牆：我用10萬 Star 開源知識圖譜挑戰真實軟體系統 - Hermes Docs</a><div class="doc-meta">2026-07-29 00:28</div></li>
+<li><a href="videos/科學的人生_40歲後代謝重啟5習慣.html">40 歲後代謝斷崖式下滑？5 個免費習慣重啟代謝開關，不用節食也能瘦 - Hermes Docs</a><div class="doc-meta">2026-07-28 22:31</div></li>
+<li><a href="videos/靈姐說AI_Codex-Obsidian知識系統_tutorial.html">200期視頻，如何變成AI知識系統？Codex + Obsidian實戰</a><div class="doc-meta">2026-07-27 14:15</div></li>
+<li><a href="videos/GaryChen_Google-AI-D2D3_精華整理.html">20 分鐘看完 Google AI 課程 Day 2+3 精華。MCP, A2A, Skills 解析 - Hermes Docs</a><div class="doc-meta">2026-07-26 21:06</div></li>
+<li><a href="videos/語言學習_沉浸式學習指南.html">想把語言學好，其實只需要做一件事【完整指南】</a><div class="doc-meta">2026-07-23 22:32</div></li>
+<li><a href="videos/Claude_未知量方法論.html">Claude 的未知量方法論 - Hermes Docs</a><div class="doc-meta">2026-07-22 23:48</div></li>
+<li><a href="videos/GaryChen_MattPocock-skills拆解.html">17 萬星的 Matt Pocock skills，到底強在哪？skills 全拆解 - Hermes Docs</a><div class="doc-meta">2026-07-22 12:46</div></li>
+<li><a href="videos/不施壓的領導技巧.html">老闆主管必學的領導技巧！做對這 3 件事，不必施壓，就能讓下屬自動自發！｜《不施壓的領導力》 - Hermes Docs</a><div class="doc-meta">2026-07-18 22:33</div></li>
+<li><a href="videos/臣服實驗_麥克辛格.html">EP06 從森林隱士到身價破億的CEO，他只做了一件事：放棄控制！每天讀一本改變人生的書《臣服實驗》 - Hermes Docs</a><div class="doc-meta">2026-07-18 07:45</div></li>
+<li><a href="videos/OpenAI官方Prompt指南_少寫MUST.html">别再堆长指令 | OpenAI官方指南 | SystemPrompt优化 | GPT-5.6 | Token 降本 | 推理档位设置 | 任务边界 | 结果验证 | 提示词技巧 | 提示词工程 - Hermes Docs</a><div class="doc-meta">2026-07-18 04:22</div></li>
+<li><a href="videos/DanKoe_一日重設人生.html">How to fix your entire life in 1 day</a><div class="doc-meta">2026-07-16 15:04</div></li>
+<li><a href="videos/維思維_改變突破現狀_反思練習.html">給想要改變，但突破不了現狀的你... | 維思維 - Hermes Docs</a><div class="doc-meta">2026-07-16 13:33</div></li>
+<li><a href="videos/GaryChen_GitHub教學_VibeCoding.html">給非技術人員的 Github 教學，Vibe Coding 必學的基礎技能 - Hermes Docs</a><div class="doc-meta">2026-07-15 14:49</div></li>
+<li><a href="videos/林亦LYi_豆包辦公任務模式_教學.html">AI進階用法指南：豆包辦公任務模式與五句話提示詞法 - Hermes Docs</a><div class="doc-meta">2026-07-15 12:47</div></li>
+<li><a href="videos/Renos_Tech_3_Mac_Features_Most_People_Miss.html">3 Mac Features Most People Miss - Hermes Docs</a><div class="doc-meta">2026-07-15 09:22</div></li>
+<li><a href="videos/技术爬爬虾_WSL跑AI_Agent保姆级攻略.html">Windows跑AI Agent，WSL才是终极答案 — WSL保姆级全攻略 - Hermes Docs</a><div class="doc-meta">2026-07-15 01:20</div></li>
+<li><a href="videos/test-video.html">測試影片精華整理</a><div class="doc-meta">2026-07-15 01:09</div></li>
+<li><a href="videos/靈姐說AI_SkillOPS標準方法分享.html">公司最值錢的經驗，怎麼變成可執行 AI Skill？我的 Skill OPS 標準方法分享 ｜Codex 的公司級用法 - Hermes Docs</a><div class="doc-meta">2026-07-14 05:51</div></li>
+<li><a href="videos/wow_元意識修煉_報告.html">比修仙還爽！斯坦福教授每天5分鐘「元意識」修煉！ - Hermes Docs</a><div class="doc-meta">2026-07-14 02:21</div></li>
+<li><a href="videos/AutoMem_斯坦福記憶管理.html">32B 逼近 Claude Opus｜斯坦福 AutoMem：不堆參數 - Hermes Docs</a><div class="doc-meta">2026-07-14 01:18</div></li>
+<li><a href="videos/GenAISpotlight_LLM_Council_Plus.html">LLM Council Plus：Karpathy 原始專案的完整升級版 - Hermes Docs</a><div class="doc-meta">2026-07-12 23:18</div></li>
+<li><a href="videos/楊竹筠_兩個提示詞讓AI輸出品質翻倍.html">這兩個提示詞讓 AI 輸出品質翻倍，防止奉承討好 - Hermes Docs</a><div class="doc-meta">2026-07-12 02:46</div></li>
+<li><a href="videos/google-agentic-engineering-day1.html">Google Agentic Engineering 課程精華 Day 1：從 Vibe Coding 到 Agentic Engineering - Hermes Docs</a><div class="doc-meta">2026-07-11 00:58</div></li>
+<li><a href="videos/harness-engineering-weng-li.html">Harness 才是主戰場 — 翁荔論 Harness Engineering、Scaling Law 與 AI 自我改進 - Hermes Docs</a><div class="doc-meta">2026-07-08 23:18</div></li>
+<li><a href="videos/維思維_壓力不是敵人_心理學.html">真正毀掉你的，不是壓力…（最新研究發現） | 維思維 - Hermes Docs</a><div class="doc-meta">2026-07-08 05:05</div></li>
+<li><a href="videos/維思維_騙過大腦自律_心理學.html">為什麼你總做不到？自律的人是這樣騙過大腦的（心理學） | 維思維 - Hermes Docs</a><div class="doc-meta">2026-07-07 23:54</div></li>
+<li><a href="videos/楊竹筠_AI時代七項核心能力.html">AI時代必備的七項核心能力 — 楊竹筠 - Hermes Docs</a><div class="doc-meta">2026-07-07 23:22</div></li>
+<li><a href="videos/claude-code-self-improving-system.html">How to Build A Self-Improving System with Claude Code - Hermes Docs</a><div class="doc-meta">2026-07-07 14:57</div></li>
+<li><a href="videos/AustinMarchese_ClaudeCode4專案.html">Stop Watching Tutorials - Build These 4 Claude Projects to 10x Output - Hermes Docs</a><div class="doc-meta">2026-07-07 14:51</div></li>
+<li><a href="videos/志祺七七_拖延不是意志力_Esor訪談.html">拖延不是因為意志力不夠！想處理拖延困擾，你應該要專注在這些地方⋯⋯ft. 電腦玩物站長 Esor《強者我朋友》EP 222｜志祺七七 - Hermes Docs</a><div class="doc-meta">2026-07-07 14:34</div></li>
+<li><a href="videos/C1_Mac新機設定指南.html">Mac 新機設定指南 — 3 支影片綜合整理</a><div class="doc-meta">2026-07-07 11:08</div></li>
+<li><a href="videos/JimChannel_Option鍵三層作用_逐字稿整理.html">Mac 上被浪費的鍵 — Option 鍵的三層作用 | JimChannel</a><div class="doc-meta">2026-07-07 11:06</div></li>
+<li><a href="videos/wuenda_8_courses.html">吳恩達 8 門 AI 課程清單 — 2026 普通人學 AI</a><div class="doc-meta">2026-07-07 10:30</div></li>
+<li><a href="videos/Claude六段位AI高手攻略-影片分析.html">Claude 六段位 AI 高手攻略｜影片分析</a><div class="doc-meta">2026-07-07 10:30</div></li>
+<li><a href="videos/思想實驗室EP102_瘋背提示詞_章節整理.html">瘋背提示詞、優化KPI反而更完蛋？AI時代如何終結盲目努力？ — 思想實驗室 EP102 章節整理</a><div class="doc-meta">2026-07-07 10:30</div></li>
+<li><a href="videos/抡锤者_DeepSeek-Qwen3.6-Hermes智能體最佳答案.html">DeepSeek + Qwen3.6 + Hermes：當下智能體最佳答案 | 抡锤者</a><div class="doc-meta">2026-07-07 10:30</div></li>
+<li><a href="videos/wow_AGEL-Comp神經符號框架_影片整理.html">這個「神經符號」框架,直接抹平開源小模型與大模型的代差</a><div class="doc-meta">2026-07-07 10:30</div></li>
+<li><a href="videos/環境設計大於自律-楊竹筠.html">環境設計大於自律——35 年才明白的生產力秘密</a><div class="doc-meta">2026-07-07 10:30</div></li>
+<li><a href="videos/TiagoForte_行動參考框架_影片整理.html">Action-Reference Framework — Tiago Forte</a><div class="doc-meta">2026-07-07 10:30</div></li>
+<li><a href="videos/毅先生Yeethinks_先裝模作樣再像模像樣_心理學.html">想變成理想中的自己？先學會「假裝」！其實大腦最吃這一套：先演，後真！</a><div class="doc-meta">2026-07-07 10:30</div></li>
+<li><a href="videos/JustinSung_心智圖心靈鏡子_學習技巧.html">If Mindmaps Don&#x27;t Work For You, Watch This Video</a><div class="doc-meta">2026-07-07 10:30</div></li>
+<li><a href="videos/ai-trends-2026h2.html">AI 技術發展短評：2026 下半年關鍵趨勢</a><div class="doc-meta">2026-07-07 07:11</div></li>
+<li><a href="videos/test-dual-upload.html">雙軌發布測試：網路 + 雲端硬碟</a><div class="doc-meta">2026-07-07 06:53</div></li>
       </ul>
     </section>
 
     <section id="last-updated">
-      <p class="last-updated">最後更新時間：2026-07-30 16:10 UTC</p>
+      <p class="last-updated">最後更新時間：2026-07-30 16:29 UTC</p>
     </section>
   </main>
 
@@ -290,12 +143,6 @@
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 
-  <!-- 嵌入文件資料（含星等）供客戶端篩選排序 — 必須在 ratings.js 之前 -->
-  <script>
-    var ENTRIES = [{"path": "/Users/klc/HermesDocs/docs/videos/蘇大講AI_CleanCode鼻祖不看AI程式碼.html", "filename": "蘇大講AI_CleanCode鼻祖不看AI程式碼.html", "title": "Clean Code 鼻祖：我絕不看 AI 寫的一行程式碼，直接上線！ - Hermes Docs", "mtime": 1785427813.7638955, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/GaryChen_CLAUDE.md入門到精通.html", "filename": "GaryChen_CLAUDE.md入門到精通.html", "title": "15 分鐘學完 CLAUDE.md：從入門到精通 - Hermes Docs", "mtime": 1785414158.0221133, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/Debug土撥鼠_I_Have_ADHD_Skill.html", "filename": "Debug土撥鼠_I_Have_ADHD_Skill.html", "title": "讓 AI 不再廢話的神奇 Skills: I-have-adhd - Hermes Docs", "mtime": 1785413671.6479557, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/YC總裁_公司大腦.html", "filename": "YC總裁_公司大腦.html", "title": "每家公司都該有一顆自己的大腦：YC 總裁講座 - Hermes Docs", "mtime": 1785391721.769657, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/AI超級週期_Stanford公開課.html", "filename": "AI超級週期_Stanford公開課.html", "title": "一部影片看懂 AI 超級週期｜下個經濟循環｜Stanford 公開課 - Hermes Docs", "mtime": 1785391712.6368954, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/Superpowers_vs_Matt_Skills_對比.html", "filename": "Superpowers_vs_Matt_Skills_對比.html", "title": "模型越強，Superpowers 和 MattPocock-Skills 應該刪除誰？ - Hermes Docs", "mtime": 1785391684.368777, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/Jim_AI_Notebook_AI超級週期_Stanford公開課.html", "filename": "Jim_AI_Notebook_AI超級週期_Stanford公開課.html", "title": "一部影片看懂 AI 超級週期 ｜下個經濟循環｜Stanford 公開課 - Hermes Docs", "mtime": 1785322278.1708398, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/李自然說_Transformer注意力機制論文解讀.html", "filename": "李自然說_Transformer注意力機制論文解讀.html", "title": "20分鐘讀懂AI史上最重要的一篇論文《Attention Is All You Need》 - Hermes Docs", "mtime": 1785317682.8422987, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/report_uhFc4J2pfps.html", "filename": "report_uhFc4J2pfps.html", "title": "NotebookLM 轉正了｜ NotebookLM 改名 Gemini Notebook！Google 最強 AI 筆記本到底怎麼用？| 完整上手：一鍵調研、生成音頻視頻 | 接入本地 Agent", "mtime": 1785295379.0511994, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/暢的科技工坊_Gemini_Notebook完整上手_教學.html", "filename": "暢的科技工坊_Gemini_Notebook完整上手_教學.html", "title": "NotebookLM 轉正了｜ NotebookLM 改名 Gemini Notebook！Google 最強 AI 筆記本到底怎麼用？| 完整上手：一鍵調研、生成音頻視頻 | 接入本地 Agent - Hermes Docs", "mtime": 1785285261.8131168, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/wow_Graphify知識圖譜_AI_Coding最後一道牆.html", "filename": "wow_Graphify知識圖譜_AI_Coding最後一道牆.html", "title": "AI Coding 的最後一道牆：我用10萬 Star 開源知識圖譜挑戰真實軟體系統 - Hermes Docs", "mtime": 1785284886.1457062, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/科學的人生_40歲後代謝重啟5習慣.html", "filename": "科學的人生_40歲後代謝重啟5習慣.html", "title": "40 歲後代謝斷崖式下滑？5 個免費習慣重啟代謝開關，不用節食也能瘦 - Hermes Docs", "mtime": 1785277911.738278, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/靈姐說AI_Codex-Obsidian知識系統_tutorial.html", "filename": "靈姐說AI_Codex-Obsidian知識系統_tutorial.html", "title": "200期視頻，如何變成AI知識系統？Codex + Obsidian實戰", "mtime": 1785161746.9043243, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/GaryChen_Google-AI-D2D3_精華整理.html", "filename": "GaryChen_Google-AI-D2D3_精華整理.html", "title": "20 分鐘看完 Google AI 課程 Day 2+3 精華。MCP, A2A, Skills 解析 - Hermes Docs", "mtime": 1785099979.755865, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/語言學習_沉浸式學習指南.html", "filename": "語言學習_沉浸式學習指南.html", "title": "想把語言學好，其實只需要做一件事【完整指南】", "mtime": 1784845964.3913112, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/Claude_未知量方法論.html", "filename": "Claude_未知量方法論.html", "title": "Claude 的未知量方法論 - Hermes Docs", "mtime": 1784764118.5925043, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/GaryChen_MattPocock-skills拆解.html", "filename": "GaryChen_MattPocock-skills拆解.html", "title": "17 萬星的 Matt Pocock skills，到底強在哪？skills 全拆解 - Hermes Docs", "mtime": 1784724395.0337663, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/不施壓的領導技巧.html", "filename": "不施壓的領導技巧.html", "title": "老闆主管必學的領導技巧！做對這 3 件事，不必施壓，就能讓下屬自動自發！｜《不施壓的領導力》 - Hermes Docs", "mtime": 1784414000.1085038, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/臣服實驗_麥克辛格.html", "filename": "臣服實驗_麥克辛格.html", "title": "EP06 從森林隱士到身價破億的CEO，他只做了一件事：放棄控制！每天讀一本改變人生的書《臣服實驗》 - Hermes Docs", "mtime": 1784360701.9108534, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/OpenAI官方Prompt指南_少寫MUST.html", "filename": "OpenAI官方Prompt指南_少寫MUST.html", "title": "别再堆长指令 | OpenAI官方指南 | SystemPrompt优化 | GPT-5.6 | Token 降本 | 推理档位设置 | 任务边界 | 结果验证 | 提示词技巧 | 提示词工程 - Hermes Docs", "mtime": 1784348532.2540977, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/DanKoe_一日重設人生.html", "filename": "DanKoe_一日重設人生.html", "title": "How to fix your entire life in 1 day", "mtime": 1784214279.0088353, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/維思維_改變突破現狀_反思練習.html", "filename": "維思維_改變突破現狀_反思練習.html", "title": "給想要改變，但突破不了現狀的你... | 維思維 - Hermes Docs", "mtime": 1784208817.7513618, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/GaryChen_GitHub教學_VibeCoding.html", "filename": "GaryChen_GitHub教學_VibeCoding.html", "title": "給非技術人員的 Github 教學，Vibe Coding 必學的基礎技能 - Hermes Docs", "mtime": 1784126956.4273472, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/林亦LYi_豆包辦公任務模式_教學.html", "filename": "林亦LYi_豆包辦公任務模式_教學.html", "title": "AI進階用法指南：豆包辦公任務模式與五句話提示詞法 - Hermes Docs", "mtime": 1784119664.3695598, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/Renos_Tech_3_Mac_Features_Most_People_Miss.html", "filename": "Renos_Tech_3_Mac_Features_Most_People_Miss.html", "title": "3 Mac Features Most People Miss - Hermes Docs", "mtime": 1784107324.522396, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/技术爬爬虾_WSL跑AI_Agent保姆级攻略.html", "filename": "技术爬爬虾_WSL跑AI_Agent保姆级攻略.html", "title": "Windows跑AI Agent，WSL才是终极答案 — WSL保姆级全攻略 - Hermes Docs", "mtime": 1784078436.7046666, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/test-video.html", "filename": "test-video.html", "title": "測試影片精華整理", "mtime": 1784077743.0949192, "rating": 4}, {"path": "/Users/klc/HermesDocs/docs/videos/靈姐說AI_SkillOPS標準方法分享.html", "filename": "靈姐說AI_SkillOPS標準方法分享.html", "title": "公司最值錢的經驗，怎麼變成可執行 AI Skill？我的 Skill OPS 標準方法分享 ｜Codex 的公司級用法 - Hermes Docs", "mtime": 1784008305.313761, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/wow_元意識修煉_報告.html", "filename": "wow_元意識修煉_報告.html", "title": "比修仙還爽！斯坦福教授每天5分鐘「元意識」修煉！ - Hermes Docs", "mtime": 1783995697.4517524, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/AutoMem_斯坦福記憶管理.html", "filename": "AutoMem_斯坦福記憶管理.html", "title": "32B 逼近 Claude Opus｜斯坦福 AutoMem：不堆參數 - Hermes Docs", "mtime": 1783991929.9208465, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/GenAISpotlight_LLM_Council_Plus.html", "filename": "GenAISpotlight_LLM_Council_Plus.html", "title": "LLM Council Plus：Karpathy 原始專案的完整升級版 - Hermes Docs", "mtime": 1783898313.6238294, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/楊竹筠_兩個提示詞讓AI輸出品質翻倍.html", "filename": "楊竹筠_兩個提示詞讓AI輸出品質翻倍.html", "title": "這兩個提示詞讓 AI 輸出品質翻倍，防止奉承討好 - Hermes Docs", "mtime": 1783824399.0421045, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/google-agentic-engineering-day1.html", "filename": "google-agentic-engineering-day1.html", "title": "Google Agentic Engineering 課程精華 Day 1：從 Vibe Coding 到 Agentic Engineering - Hermes Docs", "mtime": 1783731514.0804276, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/harness-engineering-weng-li.html", "filename": "harness-engineering-weng-li.html", "title": "Harness 才是主戰場 — 翁荔論 Harness Engineering、Scaling Law 與 AI 自我改進 - Hermes Docs", "mtime": 1783552684.6162512, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/維思維_壓力不是敵人_心理學.html", "filename": "維思維_壓力不是敵人_心理學.html", "title": "真正毀掉你的，不是壓力…（最新研究發現） | 維思維 - Hermes Docs", "mtime": 1783487102.9430647, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/維思維_騙過大腦自律_心理學.html", "filename": "維思維_騙過大腦自律_心理學.html", "title": "為什麼你總做不到？自律的人是這樣騙過大腦的（心理學） | 維思維 - Hermes Docs", "mtime": 1783468488.585853, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/楊竹筠_AI時代七項核心能力.html", "filename": "楊竹筠_AI時代七項核心能力.html", "title": "AI時代必備的七項核心能力 — 楊竹筠 - Hermes Docs", "mtime": 1783466523.330843, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/claude-code-self-improving-system.html", "filename": "claude-code-self-improving-system.html", "title": "How to Build A Self-Improving System with Claude Code - Hermes Docs", "mtime": 1783436248.400657, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/AustinMarchese_ClaudeCode4專案.html", "filename": "AustinMarchese_ClaudeCode4專案.html", "title": "Stop Watching Tutorials - Build These 4 Claude Projects to 10x Output - Hermes Docs", "mtime": 1783435912.0774171, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/志祺七七_拖延不是意志力_Esor訪談.html", "filename": "志祺七七_拖延不是意志力_Esor訪談.html", "title": "拖延不是因為意志力不夠！想處理拖延困擾，你應該要專注在這些地方⋯⋯ft. 電腦玩物站長 Esor《強者我朋友》EP 222｜志祺七七 - Hermes Docs", "mtime": 1783434851.871655, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/C1_Mac新機設定指南.html", "filename": "C1_Mac新機設定指南.html", "title": "Mac 新機設定指南 — 3 支影片綜合整理", "mtime": 1783422490.5568075, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/JimChannel_Option鍵三層作用_逐字稿整理.html", "filename": "JimChannel_Option鍵三層作用_逐字稿整理.html", "title": "Mac 上被浪費的鍵 — Option 鍵的三層作用 | JimChannel", "mtime": 1783422381.7705984, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/wuenda_8_courses.html", "filename": "wuenda_8_courses.html", "title": "吳恩達 8 門 AI 課程清單 — 2026 普通人學 AI", "mtime": 1783420218.6870334, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/Claude六段位AI高手攻略-影片分析.html", "filename": "Claude六段位AI高手攻略-影片分析.html", "title": "Claude 六段位 AI 高手攻略｜影片分析", "mtime": 1783420218.6852765, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/思想實驗室EP102_瘋背提示詞_章節整理.html", "filename": "思想實驗室EP102_瘋背提示詞_章節整理.html", "title": "瘋背提示詞、優化KPI反而更完蛋？AI時代如何終結盲目努力？ — 思想實驗室 EP102 章節整理", "mtime": 1783420218.6834767, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/抡锤者_DeepSeek-Qwen3.6-Hermes智能體最佳答案.html", "filename": "抡锤者_DeepSeek-Qwen3.6-Hermes智能體最佳答案.html", "title": "DeepSeek + Qwen3.6 + Hermes：當下智能體最佳答案 | 抡锤者", "mtime": 1783420218.6816554, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/wow_AGEL-Comp神經符號框架_影片整理.html", "filename": "wow_AGEL-Comp神經符號框架_影片整理.html", "title": "這個「神經符號」框架,直接抹平開源小模型與大模型的代差", "mtime": 1783420218.6798697, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/環境設計大於自律-楊竹筠.html", "filename": "環境設計大於自律-楊竹筠.html", "title": "環境設計大於自律——35 年才明白的生產力秘密", "mtime": 1783420218.6781933, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/TiagoForte_行動參考框架_影片整理.html", "filename": "TiagoForte_行動參考框架_影片整理.html", "title": "Action-Reference Framework — Tiago Forte", "mtime": 1783420218.6762514, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/毅先生Yeethinks_先裝模作樣再像模像樣_心理學.html", "filename": "毅先生Yeethinks_先裝模作樣再像模像樣_心理學.html", "title": "想變成理想中的自己？先學會「假裝」！其實大腦最吃這一套：先演，後真！", "mtime": 1783420218.674314, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/JustinSung_心智圖心靈鏡子_學習技巧.html", "filename": "JustinSung_心智圖心靈鏡子_學習技巧.html", "title": "If Mindmaps Don&#x27;t Work For You, Watch This Video", "mtime": 1783420218.6725297, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/ai-trends-2026h2.html", "filename": "ai-trends-2026h2.html", "title": "AI 技術發展短評：2026 下半年關鍵趨勢", "mtime": 1783408285.6845045, "rating": 0}, {"path": "/Users/klc/HermesDocs/docs/videos/test-dual-upload.html", "filename": "test-dual-upload.html", "title": "雙軌發布測試：網路 + 雲端硬碟", "mtime": 1783407228.9982011, "rating": 0}] || [];
-  </script>
-
   <script src="assets/js/search.js"></script>
-  <script src="assets/js/ratings.js"></script>
 </body>
 </html>

@@ -31,22 +31,6 @@
     .search-no-result { color: #868e96; font-size: 0.9rem; padding: 8px 0; }
     .search-error { color: #e74c3c; font-size: 0.9rem; padding: 8px 0; }
 
-    /* ── 星等評分 ── */
-    .star-rating { color: #f1c40f; letter-spacing: 1px; }
-    .star-rating .star-empty { color: #dee2e6; }
-    .star-rating .star-filled { color: #f1c40f; }
-
-    /* ── 篩選與排序工具列 ── */
-    .toolbar { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 16px; }
-    .toolbar label { font-size: 0.9rem; color: #495057; font-weight: 500; }
-    .toolbar select { padding: 8px 12px; border: 2px solid #dee2e6; border-radius: 6px; font-size: 0.9rem; background: #fff; cursor: pointer; }
-    .toolbar select:focus { outline: none; border-color: #667eea; }
-    .star-filter-btn { display: inline-flex; align-items: center; gap: 2px; padding: 6px 12px; border: 2px solid #dee2e6; border-radius: 6px; background: #fff; cursor: pointer; font-size: 0.85rem; transition: all 0.15s; }
-    .star-filter-btn:hover { border-color: #667eea; }
-    .star-filter-btn.active { border-color: #667eea; background: #eef0ff; }
-    .star-filter-btn .count { color: #adb5bd; font-size: 0.75rem; margin-left: 2px; }
-    .star-filter-group { display: flex; gap: 4px; flex-wrap: wrap; }
-
     /* ── 文件列表 ── */
     #doc-list ul { list-style: none; }
     #doc-list li { padding: 12px 0; border-bottom: 1px solid #f1f3f5; }
@@ -57,125 +41,10 @@
     #doc-list li.placeholder { color: #adb5bd; font-style: italic; }
     .last-updated { text-align: right; color: #868e96; font-size: 0.9rem; margin-top: 20px; }
     footer { background: #343a40; color: #868e96; text-align: center; padding: 20px 0; font-size: 0.9rem; }
-    /* ── 星等編輯彈窗 ── */
-    .rating-editor-overlay {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-    }
-    .rating-editor-box {
-      background: #fff;
-      border-radius: 12px;
-      padding: 32px;
-      min-width: 300px;
-      text-align: center;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-      position: relative;
-    }
-    .rating-editor-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #333;
-      margin-bottom: 20px;
-    }
-    .rating-editor-stars {
-      display: flex;
-      gap: 8px;
-      justify-content: center;
-      margin-bottom: 16px;
-    }
-    .rating-editor-star {
-      background: none;
-      border: 2px solid transparent;
-      font-size: 2rem;
-      cursor: pointer;
-      color: #f1c40f;
-      padding: 4px 8px;
-      border-radius: 8px;
-      transition: all 0.15s;
-    }
-    .rating-editor-star:hover {
-      border-color: #667eea;
-      background: #eef0ff;
-      transform: scale(1.15);
-    }
-    .rating-editor-clear {
-      background: none;
-      border: 1px solid #dee2e6;
-      border-radius: 6px;
-      padding: 6px 16px;
-      font-size: 0.85rem;
-      color: #868e96;
-      cursor: pointer;
-    }
-    .rating-editor-clear:hover {
-      border-color: #e74c3c;
-      color: #e74c3c;
-    }
-    .rating-editor-close {
-      position: absolute;
-      top: 8px; right: 12px;
-      background: none;
-      border: none;
-      font-size: 1.2rem;
-      cursor: pointer;
-      color: #adb5bd;
-    }
-    .rating-editor-close:hover { color: #333; }
-
-    /* ── 編輯按鈕（列表頁） ── */
-    .rating-edit-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: none;
-      border: 1px solid #dee2e6;
-      border-radius: 4px;
-      width: 24px;
-      height: 24px;
-      cursor: pointer;
-      font-size: 0.8rem;
-      color: #adb5bd;
-      transition: all 0.15s;
-      vertical-align: middle;
-      margin-left: 6px;
-      line-height: 1;
-    }
-    .rating-edit-btn:hover {
-      border-color: #667eea;
-      color: #667eea;
-      background: #eef0ff;
-    }
-
-    /* ── Toast 通知 ── */
-    .rating-toast {
-      position: fixed;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #333;
-      color: #fff;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      z-index: 10000;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      animation: toast-in 0.3s ease;
-    }
-    @keyframes toast-in {
-      from { opacity: 0; transform: translateX(-50%) translateY(20px); }
-      to { opacity: 1; transform: translateX(-50%) translateY(0); }
-    }
-
     @media (max-width: 600px) {
       header { padding: 40px 0; }
       header h1 { font-size: 1.8rem; }
       section { padding: 16px; }
-      .toolbar { flex-direction: column; align-items: stretch; }
     }
   </style>
 </head>
@@ -202,22 +71,6 @@
     <section id="doc-list">
       <h2>文件列表</h2>
 
-      <!-- 篩選與排序工具列 -->
-      <div class="toolbar">
-        <label>星等篩選：</label>
-        <div class="star-filter-group" id="star-filter-group">
-          <button class="star-filter-btn active" data-rating="all">全部</button>
-        </div>
-
-        <label>排序：</label>
-        <select id="sort-select">
-          <option value="date-desc">上傳日期 ▼</option>
-          <option value="date-asc">上傳日期 ▲</option>
-          <option value="rating-desc">星等 ▼</option>
-          <option value="rating-asc">星等 ▲</option>
-        </select>
-      </div>
-
       <ul id="doc-list-placeholder">
         <!--__DOC_LIST__-->
       </ul>
@@ -238,12 +91,6 @@
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 
-  <!-- 嵌入文件資料（含星等）供客戶端篩選排序 — 必須在 ratings.js 之前 -->
-  <script>
-    var ENTRIES = <!--__ENTRIES_JSON__--> || [];
-  </script>
-
   <script src="assets/js/search.js"></script>
-  <script src="assets/js/ratings.js"></script>
 </body>
 </html>
