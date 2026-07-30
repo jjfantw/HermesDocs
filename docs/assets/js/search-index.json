@@ -1,5 +1,12 @@
 [
   {
+    "title": "Clean Code 鼻祖：我絕不看 AI 寫的一行程式碼，直接上線！ - Hermes Docs",
+    "url": "videos/蘇大講AI_CleanCode鼻祖不看AI程式碼.html",
+    "date": "2026-07-30 16:10",
+    "rating": 0,
+    "content": "Clean Code 鼻祖：我絕不看 AI 寫的一行程式碼，直接上線！ - Hermes Docs 返回首頁 Clean Code 鼻祖：我絕不看 AI 寫的一行程式碼，直接上線！ 發布時間：2026-07-31 00:10 ✎ 評分 🌙 YouTube 影片重點整理 Clean Code 鼻祖：我絕不看 AI 寫的一行程式碼，直接上線！ 📺 蘇大講AI ⏱ 2:23 🗓 2026-07-31 🌐 zh-Hans 🔗 https://youtube.com/shorts/CY6a7EiFRXQ Clean Code 之父 Bob Martin（鮑勃大叔）公開表態：他現在用 AI 寫程式碼，完全不看 AI 生成的任何一行程式碼。他的核心論點是：人類讀程式碼的速度早已被 AI 甩開，逐行審查是在用人腦短板硬剛 AI 算力長板。真正的解法不是人工審查，而是用自動化關卡取代人眼——自動單元測試、變異測試、程式碼複雜度標準，形成一套「鋼鐵籠子」，AI 寫的程式碼過不了關就進不了人眼。他更進一步將這套方法做成四個 AI 智能體：需求轉規格、基礎程式碼生成、重構優化、架構審查兜底。未來頂級程式設計師"
+  },
+  {
     "title": "15 分鐘學完 CLAUDE.md：從入門到精通 - Hermes Docs",
     "url": "videos/GaryChen_CLAUDE.md入門到精通.html",
     "date": "2026-07-30 12:22",

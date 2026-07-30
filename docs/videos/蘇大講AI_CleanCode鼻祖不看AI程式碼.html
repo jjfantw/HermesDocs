@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clean Code 鼻祖：我絕不看 AI 寫的一行程式碼，直接上線！ - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .meta .star-rating { color: #f1c40f; letter-spacing: 1px; font-size: 1.1rem; }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    /* ── 星等編輯按鈕（文章頁） ── */
+    .rating-edit-btn-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: none;
+      border: 1px solid #dee2e6;
+      border-radius: 4px;
+      padding: 2px 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      color: #868e96;
+      transition: all 0.15s;
+      vertical-align: middle;
+      margin-left: 8px;
+    }
+    .rating-edit-btn-inline:hover {
+      border-color: #667eea;
+      color: #667eea;
+      background: #eef0ff;
+    }
+
+    /* ── 星等編輯彈窗 ── */
+    .rating-editor-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .rating-editor-box {
+      background: #fff;
+      border-radius: 12px;
+      padding: 32px;
+      min-width: 300px;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      position: relative;
+    }
+    .rating-editor-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .rating-editor-stars {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .rating-editor-star {
+      background: none;
+      border: 2px solid transparent;
+      font-size: 2rem;
+      cursor: pointer;
+      color: #f1c40f;
+      padding: 4px 8px;
+      border-radius: 8px;
+      transition: all 0.15s;
+    }
+    .rating-editor-star:hover {
+      border-color: #667eea;
+      background: #eef0ff;
+      transform: scale(1.15);
+    }
+    .rating-editor-clear {
+      background: none;
+      border: 1px solid #dee2e6;
+      border-radius: 6px;
+      padding: 6px 16px;
+      font-size: 0.85rem;
+      color: #868e96;
+      cursor: pointer;
+    }
+    .rating-editor-clear:hover {
+      border-color: #e74c3c;
+      color: #e74c3c;
+    }
+    .rating-editor-close {
+      position: absolute;
+      top: 8px; right: 12px;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: #adb5bd;
+    }
+    .rating-editor-close:hover { color: #333; }
+
+    /* ── Toast 通知 ── */
+    .rating-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      z-index: 10000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      animation: toast-in 0.3s ease;
+    }
+    @keyframes toast-in {
+      from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>Clean Code 鼻祖：我絕不看 AI 寫的一行程式碼，直接上線！</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-07-31 00:10</span>
+        <span class="star-rating"></span>
+        <button class="rating-edit-btn-inline" id="article-rating-edit" title="設定星等">✎ 評分</button>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">Clean Code 鼻祖：我絕不看 AI 寫的一行程式碼，直接上線！</h1>
+    <div class="meta"><span data-field="channel">📺 蘇大講AI</span><span data-field="duration">⏱ 2:23</span><span data-field="published_date">🗓 2026-07-31</span><span data-field="original_language">🌐 zh-Hans</span><a data-field="source_url" href="https://youtube.com/shorts/CY6a7EiFRXQ" target="_blank" rel="noopener">🔗 https://youtube.com/shorts/CY6a7EiFRXQ</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>Clean Code 之父 Bob Martin（鮑勃大叔）公開表態：他現在用 AI 寫程式碼，完全不看 AI 生成的任何一行程式碼。他的核心論點是：人類讀程式碼的速度早已被 AI 甩開，逐行審查是在用人腦短板硬剛 AI 算力長板。真正的解法不是人工審查，而是用自動化關卡取代人眼——自動單元測試、變異測試、程式碼複雜度標準，形成一套「鋼鐵籠子」，AI 寫的程式碼過不了關就進不了人眼。他更進一步將這套方法做成四個 AI 智能體：需求轉規格、基礎程式碼生成、重構優化、架構審查兜底。未來頂級程式設計師的核心壁壘不再是寫程式碼、讀程式碼，而是寫測試、定規則、設約束、搭體系。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">不看 AI 程式碼的底層邏輯</h2><span class="ts-badge" data-field="lesson_timestamp">0:23</span></div><div class="body" data-field="lesson_body"><p>Bob Martin 的核心洞察：<strong>人類讀程式碼的速度早已被 AI 甩出幾萬公里</strong>。你逐行審閱 AI 產出的每一行程式碼，就是在用人類的人腦短板硬剛 AI 的算力長板，純屬本末倒置。</p><p>但這不是放任——<strong>不讀程式碼絕不等於放任不管</strong>。普通人用 AI 是在玩「人機盲盒」，大佬用 AI 是直接給它套上一套密不透風的自動化鋼鐵籠子。</p><span class="tag" data-field="lesson_tag">核心論點</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">自動化鋼鐵關卡：三層防線</h2><span class="ts-badge" data-field="lesson_timestamp">1:17</span></div><div class="body" data-field="lesson_body"><p>Bob Martin 把人工審查全部換成機器的層層把關：</p><p><strong>第一層：自動單元測試</strong>——保證程式碼能跑通。</p><p><strong>第二層：變異測試（Mutation Testing）</strong>——故意埋坑，測試 AI 產出的程式碼是否真的經得起考驗。</p><p><strong>第三層：程式碼複雜度標準</strong>——用極嚴格的硬性資料標準卡死程式碼複雜度、冗餘程度、執行穩定性，從根源上杜絕 bug 和爛程式碼。</p><p>比喻：就像考駕照，考官根本不需要看你踩油門的腳法對不對——<strong>只要你的車一壓線，系統立馬紅燈拉響，直接當場淘汰</strong>。AI 寫的程式碼只要過不了這套鋼鐵關卡，連進入人眼的機會都沒有。</p><span class="tag" data-field="lesson_tag">方法論</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">四個 AI 智能體架構</h2><span class="ts-badge" data-field="lesson_timestamp">1:45</span></div><div class="body" data-field="lesson_body"><p>Bob Martin 進一步將這套方法做成四個 AI 智能體，環環相扣：</p><p><strong>智能體一：需求規格化</strong>——把模糊需求變成死規矩，杜絕邏輯漏洞。</p><p><strong>智能體二：基礎程式碼生成</strong>——專門包幹寫基礎程式碼。</p><p><strong>智能體三：重構優化</strong>——負責重構與優化。</p><p><strong>智能體四：架構審查兜底</strong>——做最終架構審查，確保品質。</p><p>整個過程層層遞進、環環相扣，AI 程式碼在每一層都被把關。</p><span class="tag" data-field="lesson_tag">架構設計</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">未來程式設計師的核心壁壘轉移</h2><span class="ts-badge" data-field="lesson_timestamp">2:12</span></div><div class="body" data-field="lesson_body"><p>影片揭示了一個「細思極恐」的真相：<strong>未來頂級程式設計師的核心壁壘，不再是寫程式碼、讀程式碼，而是寫測試、定規則、設約束、搭體系</strong>。</p><p>更關鍵的是：拒絕去幫一個秒產千萬行的大模型擦屁股。程式設計師的價值從「寫程式碼的人」轉變為「設計品質體系的人」。</p><p>Bob Martin 今年上線的兩門課程——<strong>AI Agents for Clean Code</strong> 與 <strong>Clean AI Agentic Discipline</strong>——正是把這套底層邏輯揉碎了教給大家。</p><span class="tag" data-field="lesson_tag">未來趨勢</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">不看 AI 寫了什麼過程，只卡死終局結果——這就是 Clean Code 之父在 AI 時代的終極心法。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="0:00"><span class="ts">0:00</span><span class="text" data-field="key_point_text">開場：程式圈底層邏輯被 Clean Code 之父 Bob Martin 當場顛覆</span></li><li data-field="key_point" data-timestamp="0:23"><span class="ts">0:23</span><span class="text" data-field="key_point_text">Bob Martin 公開表態：用 AI 寫程式碼，完全不看 AI 生成的任何一行程式碼</span></li><li data-field="key_point" data-timestamp="0:43"><span class="ts">0:43</span><span class="text" data-field="key_point_text">核心理由：人類讀程式碼的速度早已被 AI 甩開，逐行審查是本末倒置</span></li><li data-field="key_point" data-timestamp="1:00"><span class="ts">1:00</span><span class="text" data-field="key_point_text">解法：不看程式碼 ≠ 放任不管，而是用自動化關卡取代人眼審查</span></li><li data-field="key_point" data-timestamp="1:17"><span class="ts">1:17</span><span class="text" data-field="key_point_text">三層自動化關卡：自動單元測試 + 變異測試 + 程式碼複雜度標準</span></li><li data-field="key_point" data-timestamp="1:29"><span class="ts">1:29</span><span class="text" data-field="key_point_text">比喻：像考駕照，考官不看腳法，只看壓線就淘汰</span></li><li data-field="key_point" data-timestamp="1:45"><span class="ts">1:45</span><span class="text" data-field="key_point_text">四個 AI 智能體架構：需求轉規格 → 基礎程式碼生成 → 重構優化 → 架構審查兜底</span></li><li data-field="key_point" data-timestamp="2:01"><span class="ts">2:01</span><span class="text" data-field="key_point_text">Bob Martin 今年上線兩門課程：AI Agents for Clean Code、Clean AI Agentic Discipline</span></li><li data-field="key_point" data-timestamp="2:12"><span class="ts">2:12</span><span class="text" data-field="key_point_text">結論：未來頂級程式設計師的核心壁壘是寫測試、定規則、設約束、搭體系，而非寫/讀程式碼</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="Clean Code">Clean Code</span><span class="tag-chip" data-tag="Bob Martin">Bob Martin</span><span class="tag-chip" data-tag="AI 程式設計">AI 程式設計</span><span class="tag-chip" data-tag="自動化測試">自動化測試</span><span class="tag-chip" data-tag="AI 智能體">AI 智能體</span><span class="tag-chip" data-tag="軟體工程">軟體工程</span><span class="tag-chip" data-tag="程式碼品質">程式碼品質</span></div>
+  </section>
+
+  
+  <section class="glossary" data-field="asr_glossary"><h2>🎙️ ASR 漂字對照表</h2><div class="card"><table class="glossary"><tr data-field="asr_glossary_row"><td data-field="heard">太斗</td><td>→</td><td data-field="corrected">泰斗</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">失税重写</td><td>→</td><td data-field="corrected">實錘重寫</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">组行</td><td>→</td><td data-field="corrected">逐行</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">都敌</td><td>→</td><td data-field="corrected">兜底</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">百烂</td><td>→</td><td data-field="corrected">擺爛</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">放人</td><td>→</td><td data-field="corrected">放任</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">硬号</td><td>→</td><td data-field="corrected">硬剛</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">不看不省</td><td>→</td><td data-field="corrected">不看不管</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">报干</td><td>→</td><td data-field="corrected">包幹</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">斗底</td><td>→</td><td data-field="corrected">兜底</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">爆部大叔</td><td>→</td><td data-field="corrected">鮑勃大叔</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">息思极恐</td><td>→</td><td data-field="corrected">細思極恐</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">苗产</td><td>→</td><td data-field="corrected">秒產</td></tr></table></div></section>
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="whisper"><div class="raw-label">Whisper 原始輸出<button class="copy-btn" id="raw_whisper_4386071616_srt" onclick="copyRaw(this,'raw_whisper_4386071616_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_whisper_4386071616_text" onclick="copyRawText(this,'raw_whisper_4386071616_text')">📋 複製純文字</button></div><pre>1
+00:00:00,060 --&gt; 00:00:01,480
+兄弟们,我是真的懵了
+
+2
+00:00:01,480 --&gt; 00:00:03,300
+整个编程圈的底层逻辑
+
+3
+00:00:03,300 --&gt; 00:00:06,040
+今天被一位行业太斗直接当场失税重写
+
+4
+00:00:06,040 --&gt; 00:00:08,740
+全网程序员吵了大半个月的终极难题
+
+5
+00:00:08,740 --&gt; 00:00:11,660
+AI写的代码到底要不要组行人工看代码
+
+6
+00:00:11,660 --&gt; 00:00:13,260
+所有人还在纠结
+
+7
+00:00:13,260 --&gt; 00:00:15,840
+不看怕出bug,全看又累死的时候
+
+8
+00:00:15,840 --&gt; 00:00:17,700
+软件工程界的神级大佬
+
+9
+00:00:17,700 --&gt; 00:00:19,500
+Cleancode之父鲍勃大叔
+
+10
+00:00:19,500 --&gt; 00:00:22,600
+直接甩出了一句把全网程序员干沉默的狠话
+
+11
+00:00:22,600 --&gt; 00:00:23,700
+他公开表态
+
+12
+00:00:23,700 --&gt; 00:00:25,200
+我现在用AI写代码
+
+13
+00:00:25,200 --&gt; 00:00:27,480
+完全不看他生成的任何一行代码
+
+14
+00:00:27,480 --&gt; 00:00:30,280
+听到这你肯定瞬间大佬当机,不看AI代码
+
+15
+00:00:30,280 --&gt; 00:00:32,360
+那漏洞,bug,逻辑坑,谁来都敌
+
+16
+00:00:32,360 --&gt; 00:00:34,680
+这不是纯纯百烂,放人AI乱来吗
+
+17
+00:00:34,680 --&gt; 00:00:36,040
+但这根本不是放人
+
+18
+00:00:36,040 --&gt; 00:00:38,460
+这是一个60年代就入行写代码的顶级大佬
+
+19
+00:00:38,460 --&gt; 00:00:40,780
+看透AI编程时代后的终极大法
+
+20
+00:00:40,780 --&gt; 00:00:41,540
+之所敢这么搞
+
+21
+00:00:41,540 --&gt; 00:00:43,900
+是因为大佬一眼就看穿了那个扎心现实
+
+22
+00:00:43,900 --&gt; 00:00:45,280
+人类读代码的速度
+
+23
+00:00:45,280 --&gt; 00:00:47,160
+早就被AI甩出几万公里了
+
+24
+00:00:47,160 --&gt; 00:00:49,660
+你逐行审阅AI产出的每一行代码
+
+25
+00:00:49,660 --&gt; 00:00:51,880
+就是在用你人类的人脑短板
+
+26
+00:00:51,880 --&gt; 00:00:53,620
+硬号AI的算力长板
+
+27
+00:00:53,620 --&gt; 00:00:55,120
+纯属本末倒置
+
+28
+00:00:55,120 --&gt; 00:00:56,640
+但听到这你更疑惑了
+
+29
+00:00:56,640 --&gt; 00:00:57,260
+不看不省
+
+30
+00:00:57,260 --&gt; 00:00:58,600
+那代码质量怎么保证
+
+31
+00:00:58,600 --&gt; 00:01:00,200
+靠烧香拜佛撞大运吗
+
+32
+00:01:00,200 --&gt; 00:01:01,860
+答案颠覆所有人的认知
+
+33
+00:01:01,860 --&gt; 00:01:02,640
+不读代码
+
+34
+00:01:02,640 --&gt; 00:01:03,960
+绝不等于放人不管
+
+35
+00:01:03,960 --&gt; 00:01:06,420
+普通人用AI是在玩人机盲盒
+
+36
+00:01:06,420 --&gt; 00:01:08,660
+大佬用AI是直接给他套上一套
+
+37
+00:01:08,660 --&gt; 00:01:10,360
+密不透风的自动化钢铁笼子
+
+38
+00:01:10,360 --&gt; 00:01:11,160
+说白了
+
+39
+00:01:11,160 --&gt; 00:01:12,920
+就是我不看你写了什么过程
+
+40
+00:01:12,920 --&gt; 00:01:14,700
+我只卡死你的终局结果
+
+41
+00:01:14,700 --&gt; 00:01:15,900
+他把人工审查
+
+42
+00:01:15,900 --&gt; 00:01:17,780
+全部换成了机器的层层把关
+
+43
+00:01:17,780 --&gt; 00:01:19,800
+自动单元测试保证代码跑通
+
+44
+00:01:19,800 --&gt; 00:01:21,700
+再加上故意埋坑式的变异测试
+
+45
+00:01:21,700 --&gt; 00:01:23,620
+最后再通过极大硬性数据标准
+
+46
+00:01:23,620 --&gt; 00:01:24,800
+卡死代码复杂度
+
+47
+00:01:24,800 --&gt; 00:01:26,620
+冗余程度运行稳定性
+
+48
+00:01:26,620 --&gt; 00:01:29,000
+从根源上杜绝bug和烂代码
+
+49
+00:01:29,000 --&gt; 00:01:29,980
+这就好比考驾照
+
+50
+00:01:29,980 --&gt; 00:01:32,500
+考官根本不需要定义踩油门的脚法
+
+51
+00:01:32,500 --&gt; 00:01:32,800
+对不对
+
+52
+00:01:32,800 --&gt; 00:01:34,040
+只要你的车一压线
+
+53
+00:01:34,040 --&gt; 00:01:35,500
+系统立马红灯拉响
+
+54
+00:01:35,500 --&gt; 00:01:36,480
+直接当场淘汰
+
+55
+00:01:36,480 --&gt; 00:01:38,960
+AI写的代码只要过不了这套钢铁关卡
+
+56
+00:01:38,960 --&gt; 00:01:40,660
+连进入人眼的机会都没有
+
+57
+00:01:40,660 --&gt; 00:01:41,880
+你以为这就完事了
+
+58
+00:01:41,880 --&gt; 00:01:44,000
+真正让硅谷程序员贵了的
+
+59
+00:01:44,000 --&gt; 00:01:45,020
+是他接下来的操作
+
+60
+00:01:45,020 --&gt; 00:01:46,980
+首先直接把这个方法
+
+61
+00:01:46,980 --&gt; 00:01:48,220
+做成了四个AI智能体
+
+62
+00:01:48,220 --&gt; 00:01:50,020
+第一个负责把模糊需求
+
+63
+00:01:50,020 --&gt; 00:01:50,800
+变成死规矩
+
+64
+00:01:50,800 --&gt; 00:01:51,860
+杜绝逻辑漏洞
+
+65
+00:01:51,860 --&gt; 00:01:54,160
+第二个专门报干写基础代码
+
+66
+00:01:54,160 --&gt; 00:01:55,920
+第三个负责重构优化
+
+67
+00:01:55,920 --&gt; 00:01:58,160
+最后一个做架构审查斗底
+
+68
+00:01:58,160 --&gt; 00:02:00,020
+整个过程层层递进
+
+69
+00:02:00,020 --&gt; 00:02:00,700
+环环相扣
+
+70
+00:02:00,700 --&gt; 00:02:01,920
+更牛的是
+
+71
+00:02:01,920 --&gt; 00:02:03,720
+爆部大叔今年上线的两门课程
+
+72
+00:02:03,720 --&gt; 00:02:05,400
+AI Agents for Clean Code
+
+73
+00:02:05,400 --&gt; 00:02:06,400
+Clean AI
+
+74
+00:02:06,400 --&gt; 00:02:07,580
+Agentic Discipline
+
+75
+00:02:07,580 --&gt; 00:02:09,580
+把底层逻辑揉碎了位给大家
+
+76
+00:02:09,580 --&gt; 00:02:10,380
+看到这里
+
+77
+00:02:10,380 --&gt; 00:02:12,460
+你们已发现一个息思极恐的真相
+
+78
+00:02:12,460 --&gt; 00:02:14,380
+未来顶级程序员的核心壁垒
+
+79
+00:02:14,380 --&gt; 00:02:15,500
+不再是写代码
+
+80
+00:02:15,500 --&gt; 00:02:16,160
+读代码
+
+81
+00:02:16,160 --&gt; 00:02:17,020
+而是写测试
+
+82
+00:02:17,020 --&gt; 00:02:17,660
+定规则
+
+83
+00:02:17,660 --&gt; 00:02:18,320
+设约束
+
+84
+00:02:18,320 --&gt; 00:02:19,000
+搭体系
+
+85
+00:02:19,000 --&gt; 00:02:20,000
+更关键的是
+
+86
+00:02:20,000 --&gt; 00:02:22,520
+拒绝去帮一个苗产千万行的大模型擦屁股
+
+</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://youtube.com/shorts/CY6a7EiFRXQ" target="_blank" rel="noopener">https://youtube.com/shorts/CY6a7EiFRXQ</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+  <!-- 文章頁星等編輯腳本 -->
+  <script>
+    (function () {
+      'use strict';
+
+      var editBtn = document.getElementById('article-rating-edit');
+      if (!editBtn) return;
+
+      // 從 URL 取得檔名
+      var pathParts = window.location.pathname.split('/');
+      var filename = pathParts[pathParts.length - 1];
+
+      // 從 meta 區塊讀取目前星等
+      var starSpan = document.querySelector('.star-rating');
+      var currentRating = 0;
+      if (starSpan && starSpan.textContent.trim()) {
+        var starText = starSpan.textContent.trim();
+        currentRating = (starText.match(/★/g) || []).length;
+      }
+
+      // ── 星等編輯彈窗 ──
+      function showRatingEditor() {
+        var old = document.getElementById('rating-editor-overlay');
+        if (old) old.remove();
+
+        var overlay = document.createElement('div');
+        overlay.id = 'rating-editor-overlay';
+        overlay.className = 'rating-editor-overlay';
+
+        var box = document.createElement('div');
+        box.className = 'rating-editor-box';
+
+        var title = document.createElement('div');
+        title.className = 'rating-editor-title';
+        title.textContent = '設定星等';
+
+        var starsRow = document.createElement('div');
+        starsRow.className = 'rating-editor-stars';
+
+        for (var s = 1; s <= 5; s++) {
+          (function (star) {
+            var btn = document.createElement('button');
+            btn.className = 'rating-editor-star';
+            btn.textContent = star <= currentRating ? '★' : '☆';
+            btn.dataset.value = star;
+            btn.addEventListener('click', function () {
+              // 高亮
+              var allBtns = starsRow.querySelectorAll('.rating-editor-star');
+              for (var k = 0; k < allBtns.length; k++) {
+                allBtns[k].textContent = k < star ? '★' : '☆';
+              }
+              // 儲存
+              saveRating(star, function (ok) {
+                if (ok) {
+                  showToast('✅ 星等已更新，網站重新部署中 (~30-60 秒)');
+                } else {
+                  showToast('❌ 更新失敗，請稍後再試');
+                }
+              });
+              overlay.remove();
+            });
+            starsRow.appendChild(btn);
+          })(s);
+        }
+
+        // 清除星等按鈕
+        var clearBtn = document.createElement('button');
+        clearBtn.className = 'rating-editor-clear';
+        clearBtn.textContent = '清除星等';
+        clearBtn.addEventListener('click', function () {
+          saveRating(0, function (ok) {
+            if (ok) {
+              showToast('✅ 星等已清除');
+            } else {
+              showToast('❌ 清除失敗，請稍後再試');
+            }
+          });
+          overlay.remove();
+        });
+
+        // 關閉按鈕
+        var closeBtn = document.createElement('button');
+        closeBtn.className = 'rating-editor-close';
+        closeBtn.textContent = '✕';
+        closeBtn.addEventListener('click', function () { overlay.remove(); });
+
+        box.appendChild(closeBtn);
+        box.appendChild(title);
+        box.appendChild(starsRow);
+        box.appendChild(clearBtn);
+        overlay.appendChild(box);
+
+        overlay.addEventListener('click', function (e) {
+          if (e.target === overlay) overlay.remove();
+        });
+
+        document.body.appendChild(overlay);
+      }
+
+      // ── 送出星等更新 ──
+      function saveRating(rating, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/api/rating', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            currentRating = rating;
+            // 更新頁面上的星等顯示
+            if (starSpan) {
+              var stars = '';
+              for (var k = 0; k < rating; k++) stars += '★';
+              for (var k = rating; k < 5; k++) stars += '☆';
+              starSpan.textContent = stars;
+            }
+            if (callback) callback(true);
+          } else {
+            console.error('Failed to save rating:', xhr.status);
+            if (callback) callback(false);
+          }
+        };
+        xhr.onerror = function () {
+          console.error('Network error saving rating');
+          if (callback) callback(false);
+        };
+        xhr.send(JSON.stringify({ filename: filename, rating: rating }));
+      }
+
+      // ── Toast 通知 ──
+      function showToast(msg) {
+        var old = document.getElementById('rating-toast');
+        if (old) old.remove();
+
+        var toast = document.createElement('div');
+        toast.id = 'rating-toast';
+        toast.className = 'rating-toast';
+        toast.textContent = msg;
+        document.body.appendChild(toast);
+
+        setTimeout(function () {
+          if (toast.parentNode) toast.parentNode.removeChild(toast);
+        }, 5000);
+      }
+
+      // 綁定編輯按鈕
+      editBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        showRatingEditor();
+      });
+    })();
+  </script>
+</body>
+</html>
