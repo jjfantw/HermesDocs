@@ -1,5 +1,12 @@
 [
   {
+    "title": "15 分鐘學完 CLAUDE.md：從入門到精通 - Hermes Docs",
+    "url": "videos/GaryChen_CLAUDE.md入門到精通.html",
+    "date": "2026-07-30 12:22",
+    "rating": 0,
+    "content": "15 分鐘學完 CLAUDE.md：從入門到精通 - Hermes Docs 返回首頁 15 分鐘學完 CLAUDE.md：從入門到精通 發布時間：2026-07-30 20:22 ✎ 評分 🌙 YouTube 影片重點整理 15 分鐘學完 CLAUDE.md：從入門到精通 📺 Gary Chen ⏱ 16:26 🗓 2026-07-30 🌐 zh-Hant 🔗 https://www.youtube.com/watch?v=wj7mHCviMvs Gary Chen 用 15 分鐘完整講解 CLAUDE.md（在 Codex 中稱為 AGENTS.md）的入門到精通。影片從 CLAUDE.md 的核心作用講起——它會在每次對話開始前被自動注入 AI 的 Context Window，作為不可違背的最高指導原則。接著介紹三種放置層級：User Level（個人全域偏好）、Project Level（專案共同規則）、Nested Level（特定子資料夾規則），並說明 Claude 會依序疊加這些規則。實作部分從 /init 指令建立第一版開始，用三個問題做減法（Explore suba"
+  },
+  {
     "title": "讓 AI 不再廢話的神奇 Skills: I-have-adhd - Hermes Docs",
     "url": "videos/Debug土撥鼠_I_Have_ADHD_Skill.html",
     "date": "2026-07-30 12:14",

@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>15 分鐘學完 CLAUDE.md：從入門到精通 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .meta .star-rating { color: #f1c40f; letter-spacing: 1px; font-size: 1.1rem; }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    /* ── 星等編輯按鈕（文章頁） ── */
+    .rating-edit-btn-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: none;
+      border: 1px solid #dee2e6;
+      border-radius: 4px;
+      padding: 2px 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      color: #868e96;
+      transition: all 0.15s;
+      vertical-align: middle;
+      margin-left: 8px;
+    }
+    .rating-edit-btn-inline:hover {
+      border-color: #667eea;
+      color: #667eea;
+      background: #eef0ff;
+    }
+
+    /* ── 星等編輯彈窗 ── */
+    .rating-editor-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .rating-editor-box {
+      background: #fff;
+      border-radius: 12px;
+      padding: 32px;
+      min-width: 300px;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      position: relative;
+    }
+    .rating-editor-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .rating-editor-stars {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .rating-editor-star {
+      background: none;
+      border: 2px solid transparent;
+      font-size: 2rem;
+      cursor: pointer;
+      color: #f1c40f;
+      padding: 4px 8px;
+      border-radius: 8px;
+      transition: all 0.15s;
+    }
+    .rating-editor-star:hover {
+      border-color: #667eea;
+      background: #eef0ff;
+      transform: scale(1.15);
+    }
+    .rating-editor-clear {
+      background: none;
+      border: 1px solid #dee2e6;
+      border-radius: 6px;
+      padding: 6px 16px;
+      font-size: 0.85rem;
+      color: #868e96;
+      cursor: pointer;
+    }
+    .rating-editor-clear:hover {
+      border-color: #e74c3c;
+      color: #e74c3c;
+    }
+    .rating-editor-close {
+      position: absolute;
+      top: 8px; right: 12px;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: #adb5bd;
+    }
+    .rating-editor-close:hover { color: #333; }
+
+    /* ── Toast 通知 ── */
+    .rating-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      z-index: 10000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      animation: toast-in 0.3s ease;
+    }
+    @keyframes toast-in {
+      from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>15 分鐘學完 CLAUDE.md：從入門到精通</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-07-30 20:22</span>
+        <span class="star-rating"></span>
+        <button class="rating-edit-btn-inline" id="article-rating-edit" title="設定星等">✎ 評分</button>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">15 分鐘學完 CLAUDE.md：從入門到精通</h1>
+    <div class="meta"><span data-field="channel">📺 Gary Chen</span><span data-field="duration">⏱ 16:26</span><span data-field="published_date">🗓 2026-07-30</span><span data-field="original_language">🌐 zh-Hant</span><a data-field="source_url" href="https://www.youtube.com/watch?v=wj7mHCviMvs" target="_blank" rel="noopener">🔗 https://www.youtube.com/watch?v=wj7mHCviMvs</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>Gary Chen 用 15 分鐘完整講解 CLAUDE.md（在 Codex 中稱為 AGENTS.md）的入門到精通。影片從 CLAUDE.md 的核心作用講起——它會在每次對話開始前被自動注入 AI 的 Context Window，作為不可違背的最高指導原則。接著介紹三種放置層級：User Level（個人全域偏好）、Project Level（專案共同規則）、Nested Level（特定子資料夾規則），並說明 Claude 會依序疊加這些規則。實作部分從 /init 指令建立第一版開始，用三個問題做減法（Explore subagent 能否自己發現？是否大部分工作都用得到？幾個月後還成立嗎？），再用五個問題做加法（不能搞錯的規定、固定處理方式、連動關係、完成標準、參考資料位置）。維護方面，介紹 /insights 指令找出反覆發生的問題，以及兩種該修剪的規則：因模型變強而不再需要的、與真實情況不符的。最後分享實際健檢案例，用 Opus 5 對照官方 Prompting Guide 抓出三個自己沒發現的問題。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">CLAUDE.md 是什麼？為什麼它是 AI 協作最重要的檔案</h2><span class="ts-badge" data-field="lesson_timestamp">0:00</span></div><div class="body" data-field="lesson_body"><p>CLAUDE.md 是 Claude Code 專案中的指令檔案，在 Codex 中對應的名稱是 <strong>AGENTS.md</strong>，兩者功能完全相同。</p><p>當你在 Claude Code 或 Codex 開啟對話時，只要專案裡有 CLAUDE.md，系統就會<strong>自動把內容讀取出來，直接注入到 AI 的 Context Window</strong>。在你下達任何指令之前，AI 已經被強迫先讀完這份檔案，並把它當作<strong>不可違背的最高指導原則</strong>。</p><p>設定好 CLAUDE.md 後，你就不用在每次開新對話時重複解釋專案架構或規矩，能省下大量溝通時間。Gary 認為把這個檔案寫好，是使用 AI 時<strong>投資報酬率最高的一件事</strong>。</p></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">三種放置層級：User、Project、Nested</h2><span class="ts-badge" data-field="lesson_timestamp">1:17</span></div><div class="body" data-field="lesson_body"><p>CLAUDE.md 可以放在不同位置，不同位置作用的範圍也不同：</p><p><strong>User Level</strong>（~/.claude/CLAUDE.md）：放在使用者目錄下的 .claude 資料夾，作用到這台電腦上<strong>所有</strong> Claude 對話。適合放個人長期偏好，例如輸出語言、思維習慣（第一性原理思考、金字塔原理結構化輸出）。</p><p><strong>Project Level</strong>（專案根目錄/CLAUDE.md）：放在專案根目錄，只在該專案內對話時生效。通常放專屬於這個專案、AI 開始對話前必須先知道的資訊。團隊協作時會跟著程式碼上傳到 Git，確保每個人被相同指示控制。另有 <strong>CLAUDE.local.md</strong> 放個人工作癖好，不會被傳上雲端。</p><p><strong>Nested Level</strong>（子資料夾/CLAUDE.md）：放在專案子資料夾中，例如 frontend/ 和 backend/ 各放一份，分別規定前端和後端的寫法。Claude 會依序疊加這些規則——先讀 User Level，再疊 Project Level，最後套用 Nested Level。Nested Level 距離正在修改的檔案最近，通常對當前任務產生最直接的影響。</p><p><strong>原則</strong>：規則放得越接近實際工作的檔案，適用範圍就越精準。</p></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">用 /init 建立第一份 CLAUDE.md——然後大刪特刪</h2><span class="ts-badge" data-field="lesson_timestamp">4:06</span></div><div class="body" data-field="lesson_body"><p>最簡單的建立方式：進到專案資料夾，打開 Claude Code，輸入 <strong>/init</strong>。Claude 會掃描整個專案，自動產生一份起始版 CLAUDE.md，內容包含專案介紹、啟動/建置/測試方式、使用的框架、資料夾架構、開發規範等。</p><p>但問題是：<strong>它整理得太完整了</strong>。很多人不知道，Claude 接到任務時會在背景啟動 <strong>Explore Subagent</strong>，自己去掃資料夾、看 package.json。也就是說，/init 幫你寫的很多內容，其實是 Claude 本來不寫也會知道的事實。</p><p>把這些重複資訊放進 CLAUDE.md 有三大問題：(1) <strong>浪費 Token</strong>，每次開工都被迫讀一遍自己就能找到的廢話；(2) 專案架構改了卻忘記更新，會被<strong>過期資訊誤導</strong>；(3) 佔用 <strong>Instruction Budget</strong>——Claude 每看到一條指示都要判斷是否適用、有無衝突，無關資訊越多，真正重要的規則越容易被淹沒。</p><p>所以 /init 只是起點，產出的內容<strong>不能直接照單全收</strong>，需要從第一行開始一條一條檢查。</p></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">減法三問：刪掉 AI 自己就能找到的內容</h2><span class="ts-badge" data-field="lesson_timestamp">6:22</span></div><div class="body" data-field="lesson_body"><p>檢查 CLAUDE.md 時，用三個問題做減法：</p><p><strong>第一問：Explore subagent 能不能自己發現？</strong> 只要是 Explore subagent 很快就能找到的資訊（專案架構、使用的框架、package.json 內容），就可以刪掉。真正該寫進 CLAUDE.md 的，是 AI <strong>怎麼翻程式碼都猜不到的隱性知識</strong>，或是藏在程式碼深處的重要資訊。</p><p><strong>第二問：這條資訊是不是大部分工作都會用到？</strong> 例如「修改前端畫面後要執行視覺測試」只跟前端有關，就放進前端資料夾的 Nested CLAUDE.md，等 AI 真的處理到前端時再讀進來。</p><p><strong>第三問：這件事過幾個月後還會成立嗎？</strong> 像「目前暫時使用舊版 API」這種短期要求，幾個星期後就失效，留在 CLAUDE.md 會讓未來的 AI 照著過期做法工作。</p><p>嚴格把關後，/init 自動生成的內容大概會被刪到很少，這時候才開始做加法。</p></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">加法五問：把 AI 猜不到的隱性知識寫進去</h2><span class="ts-badge" data-field="lesson_timestamp">7:32</span></div><div class="body" data-field="lesson_body"><p>用五個問題萃取腦中的經驗，寫進 CLAUDE.md：</p><p><strong>第一問：有沒有什麼絕對不能搞錯的規定？</strong> 例如網路商店所有對客價格必須含稅——AI 不知道這件事就可能在新頁面顯示未稅價格。這種會直接影響使用者、很難自己猜到的規定，就該寫進去。</p><p><strong>第二問：有沒有什麼事情有一套固定的處理方式？</strong> 例如商品價格要先在試算表修改再同步到網站，直接改網頁數字下次同步就會被蓋掉。要提醒 AI 從哪份試算表開始。</p><p><strong>第三問：改完一個地方後，還有哪些地方要跟著改？</strong> 例如會員價格調整後，首頁、結帳頁面、常見問題和通知信件都要一起更新。這種容易漏掉的連動關係適合放進 CLAUDE.md。</p><p><strong>第四問：做到什麼程度才算真的完成？</strong> 例如改完網站畫面要同時檢查電腦版和手機版、修改購買流程後要實際下一筆測試訂單。這些每次都要完成的檢查可以事先寫清楚。</p><p><strong>第五問：如果 AI 遇到不懂的事，應該去哪裡找答案？</strong> CLAUDE.md 只要告訴 AI 資料放在哪裡（品牌語氣指南、退款規則等），等真的需要時再去讀，不要把所有參考資料都塞進去。</p><p>一份好的 CLAUDE.md 內容通常不會很多，主要留下：不能搞錯的規定、固定處理方式、容易漏掉的連動關係、完成前的檢查、重要資料的位置。</p></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">被刪掉的內容去哪裡？Skill、Hook 與更適合的工具</h2><span class="ts-badge" data-field="lesson_timestamp">9:11</span></div><div class="body" data-field="lesson_body"><p>從 CLAUDE.md 刪掉的內容並非無用，只是需要放到更適合的位置：</p><p><strong>客觀現狀</strong>（專案架構、使用的框架）：留給 Explore 機制自己找。</p><p><strong>只跟特定資料夾有關的規則</strong>：放進對應的 Nested CLAUDE.md。</p><p><strong>很長、只有特定任務才會用到的流程</strong>（例如發布新版本有十幾個檢查項目）：寫進 <strong>Skill</strong>，等 AI 真的要發布時再呼叫。</p><p><strong>絕對不能犯的死罪</strong>（例如 API key 不能被提交到 Git）：單靠 CLAUDE.md 提醒不夠，應該用 <strong>Hook</strong> 在 git commit 前強制檢查，偵測到疑似 API key 就直接擋下。</p></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">07</span><h2 data-field="lesson_title">長期維護：新增與修剪的藝術</h2><span class="ts-badge" data-field="lesson_timestamp">10:18</span></div><div class="body" data-field="lesson_body"><p>CLAUDE.md 的維護只有兩件事：新增與修剪。</p><p><strong>新增</strong>：使用 Claude Code 內建的 <strong>/insights</strong> 指令，它會分析歷史紀錄，產生 HTML 報告，回顧你的使用習慣、找出反覆出現的模式。如果某個要求被重複提醒很多次，它會直接產生一段可以複製到 CLAUDE.md 的規則；如果某個工作流程經常重複，它可能建議做成 Skill 或 Hook。</p><p><strong>修剪</strong>：最大的心魔是「只敢加、不敢刪」。有兩種規則應該勇敢修剪：</p><p><strong>(1) 因模型變強而不再需要的規則</strong>：Anthropic 在優化 Opus 5 的系統提示詞時，一口氣刪掉了超過 80% 的規則，能力完全沒退步。同一條規則在舊模型上可以幫它少犯錯，在新模型上反而變成一種限制。客觀做法是參考各家 AI 最新釋出的 Prompting Guide，比對哪些規則已經不需要。</p><p><strong>(2) 與真實情況不符的規則</strong>：如果程式碼早就改了、工作流程已經不一樣了，CLAUDE.md 裡的舊規則就該直接砍掉，避免誤導 AI。</p><p>Gary 把整套修剪流程包裝成一組「CLAUDE.md 健檢 Prompt」，會先確認使用的模型、對照官方 Prompting Guide、再逐條查證規則是否符合 best practice。</p></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">08</span><h2 data-field="lesson_title">健檢實測：用 Opus 5 抓出三個自己沒發現的問題</h2><span class="ts-badge" data-field="lesson_timestamp">13:19</span></div><div class="body" data-field="lesson_body"><p>Gary 拿幾個月前的專案，用 Opus 5 搭配健檢 Prompt 跑了一次，抓出三個問題：</p><p><strong>(1) 規則與其他文件互相牴觸</strong>：CLAUDE.md 裡的一些規則跟專案裡另外幾份文件矛盾。解法：整段刪掉，只留一行 reference 到真正正確的文件。</p><p><strong>(2) 整段流程不該常駐在 CLAUDE.md</strong>：原本把網頁測試流程（教 AI 開發完功能後怎麼用登入身分測試）寫在 CLAUDE.md 裡。建議整段搬去 Skill。</p><p><strong>(3) CLAUDE.md 和 AGENTS.md 同步問題</strong>：同時使用 Claude Code 和 Codex 的人需要維護兩份檔案。解法：在 CLAUDE.md 第一行 reference AGENTS.md，之後只要維護一個檔案，AI 透過 reference link 讀到 single source of truth。</p></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">你的 codebase 是流動的，AI 的能力也是流動的。正因為這樣，你的 CLAUDE.md 也更應該是流動的。接受你的 CLAUDE.md 永遠在 Becoming 的路上，你會發現跟 AI 合作起來輕鬆很多。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="0:00"><span class="ts">0:00</span><span class="text" data-field="key_point_text">CLAUDE.md 是什麼：每次對話前自動注入 AI Context Window 的專案指令檔，Codex 中對應 AGENTS.md</span></li><li data-field="key_point" data-timestamp="1:17"><span class="ts">1:17</span><span class="text" data-field="key_point_text">三種放置層級：User Level（~/.claude/，全域個人偏好）、Project Level（專案根目錄，團隊共用）、Nested Level（子資料夾，特定範圍規則），Claude 會依序疊加</span></li><li data-field="key_point" data-timestamp="4:06"><span class="ts">4:06</span><span class="text" data-field="key_point_text">用 /init 建立第一份 CLAUDE.md：Claude 掃描專案後自動生成模板，但內容太完整反而不好——很多是 Explore subagent 自己就能找到的資訊</span></li><li data-field="key_point" data-timestamp="6:22"><span class="ts">6:22</span><span class="text" data-field="key_point_text">減法三問：Explore subagent 能否自己發現？是否大部分工作都用得到？幾個月後還成立嗎？</span></li><li data-field="key_point" data-timestamp="7:32"><span class="ts">7:32</span><span class="text" data-field="key_point_text">加法五問：不能搞錯的規定、固定處理方式、容易漏掉的連動關係、完成標準、參考資料位置</span></li><li data-field="key_point" data-timestamp="10:18"><span class="ts">10:18</span><span class="text" data-field="key_point_text">長期維護：用 /insights 找出反覆發生的問題；兩種該修剪的規則——模型變強不再需要的、與真實情況不符的</span></li><li data-field="key_point" data-timestamp="13:19"><span class="ts">13:19</span><span class="text" data-field="key_point_text">健檢實測：用 Opus 5 對照官方 Prompting Guide，抓出規則與其他文件牴觸、整段流程應搬去 Skill、CLAUDE.md 與 AGENTS.md 同步問題</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="CLAUDE.md">CLAUDE.md</span><span class="tag-chip" data-tag="AGENTS.md">AGENTS.md</span><span class="tag-chip" data-tag="Claude Code">Claude Code</span><span class="tag-chip" data-tag="Codex">Codex</span><span class="tag-chip" data-tag="AI 輔助開發">AI 輔助開發</span><span class="tag-chip" data-tag="Prompt Engineering">Prompt Engineering</span><span class="tag-chip" data-tag="Instruction Budget">Instruction Budget</span><span class="tag-chip" data-tag="/init">/init</span><span class="tag-chip" data-tag="/insights">/insights</span></div>
+  </section>
+
+  
+  
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="description"><div class="raw-label">影片描述<button class="copy-btn" id="raw_description_4372796480_srt" onclick="copyRaw(this,'raw_description_4372796480_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_description_4372796480_text" onclick="copyRawText(this,'raw_description_4372796480_text')">📋 複製純文字</button></div><pre>加入我的 Patreon，查看完整文章還有提示詞模板：https://www.patreon.com/GaryChen/posts/claude-md-wan-md-165223570/
+--
+CLAUDE.md 是影響 Claude Code 表現最關鍵的一個檔案，在 Codex 裡它叫做 AGENTS.md。這支影片從它到底在做什麼講起，帶你看規則放在 User、Project、Nested 三個位置分別管到哪裡，再用三個問題把 /init 生出來的內容一條一條刪掉，用五個問題把 AI 怎麼翻程式碼都猜不到的隱性知識補進去。最後談長期維護：怎麼找出反覆發生的問題，也怎麼修剪那些因為模型變強而不再需要的舊規則。
+
+影片後段我實際跑了一次健檢：拿一個幾個月前的專案，用 Opus 5 對照官方 Prompting Guide，再回到專案裡逐條查證。結果是三個我自己完全沒發現的問題——有規則跟專案裡另外幾份文件互相牴觸、有一整段流程根本不該常駐在 CLAUDE.md 裡、還有 CLAUDE.md 和 AGENTS.md 兩份檔案要怎麼同步的解法。報告畫面直接放在影片裡。
+
+📌 時間戳
+0:00 CLAUDE.md 是什麼
+1:17 該放在哪個位置
+4:06 用 /init 建立第一份
+6:22 該寫什麼、該刪什麼
+10:18 長期怎麼維護
+13:19 健檢實測：我的 CLAUDE.md 被抓到什麼
+14:47 總結
+
+📢 追蹤我的頻道
+👍 覺得有幫助請按讚、訂閱、開小鈴鐺！
+
+#ClaudeCode #CLAUDEmd #AGENTSmd #Codex #AI教學</pre></div><div class="raw-block" data-field="raw_source_item" data-raw-type="transcript"><div class="raw-label">逐字稿<button class="copy-btn" id="raw_transcript_4372796800_srt" onclick="copyRaw(this,'raw_transcript_4372796800_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_transcript_4372796800_text" onclick="copyRawText(this,'raw_transcript_4372796800_text')">📋 複製純文字</button></div><pre>0:00 如果你長期使用 Claude Code 或是 Codex
+0:01 那你一定要知道
+0:03 影響它們表現最關鍵的
+0:04 就是 CLAUDE.md 這個檔案
+0:05 而在 Codex 裡面，它叫做 AGENTS.md
+0:08 我真心覺得，把這個檔案寫好
+0:11 絕對是你用 AI 時
+0:12 投資報酬率最高的一件事
+0:14 在今天這支影片中
+0:15 如果你是初學者
+0:17 還不知道什麼是 CLAUDE.md 或 AGENTS.md
+0:19 我會告訴你它們到底是什麼
+0:20 為什麼這麼重要
+0:21 以及如何幫你的專案
+0:23 建立第一份 CLAUDE.md
+0:25 如果你已經是 AI 的進階使用者
+0:27 這支影片依然會對你很有幫助
+0:28 因為我會分享 CLAUDE.md 最新的 Best Practices
+0:30 並教你怎麼持續優化與迭代你的 CLAUDE.md
+0:34 那我們先說
+0:34 到底什麼是 CLAUDE.md？
+0:37 如果你用的是 Codex
+0:38 跟它相對應的檔案叫做 AGENTS.md
+0:40 這兩者的功能一樣
+0:41 所以這支影片我們會主要以 CLAUDE.md 來做說明
+0:44 但背後的核心概念是完全通用的
+0:47 那這份檔案到底是幹嘛的呢？
+0:49 當你在 Claude Code 或是 Codex 開啟一個對話的時候
+0:52 只要你的專案裡面有 CLAUDE.md
+0:53 系統就會自動把裡面的內容讀取出來
+0:56 直接注入到 AI 的 Context Window 之中
+0:58 也就是說
+0:59 在你下達任何指令之前
+1:00 系統已經強迫 AI 先把這份檔案讀完了
+1:03 並且把它當作不可違背的最高指導原則
+1:07 所以，它的重要性就不言而喻了
+1:09 只要設定好
+1:10 你就不用在每次開新對話時
+1:12 重複向 AI 解釋專案的架構或規矩
+1:14 這能幫你省下非常多的溝通時間
+1:17 了解 CLAUDE.md 有多重要之後
+1:19 我們接著來看它到底有哪些種類？
+1:21 其實，CLAUDE.md 可以放在不同的位置
+1:23 而在不同的位置
+1:24 它所會作用到的範圍也不一樣
+1:27 如果你現在看你的電腦
+1:28 你會看到你的使用者目錄之下
+1:31 有一個 .claude 的資料夾
+1:32 這就是 User Level 的設定
+1:34 這裡面放著會作用到任何 session 的 CLAUDE.md
+1:38 你在這台電腦上所有與 Claude 的對話
+1:40 都會吃到這個檔案
+1:42 被這個檔案裡面的指示所控制
+1:44 所以，這非常適合用來放你個人的長期偏好
+1:47 例如我在我自己的 user level 的 CLAUDE.md 裡面就定義了
+1:50 它只能用中文繁體輸出
+1:52 我還定義了它的思維習慣
+1:54 請它用第一性原理思考
+1:55 並用金字塔原理來結構化它的輸出
+1:58 CLAUDE.md 也會出現在你正在開發的專案根目錄之中
+2:02 你可以打開你正在 vibe coding 的那個專案資料夾
+2:04 看一下這個專案有沒有一個叫做 CLAUDE.md 的檔案
+2:07 這就是 Project Level 的設定
+2:10 如果你在 Claude Code 選擇在這個專案資料夾裡進行對話的話
+2:13 那這份 CLAUDE.md 的資訊就會附加進去
+2:15 作用在你的對話裡
+2:17 這份檔案通常會放專屬於這個專案
+2:19 你覺得 Claude 在開始對話之前
+2:20 必須先知道的資訊
+2:22 如果你在跟別人一起開發的話
+2:24 這份檔案通常會跟著程式碼一起上傳到 Git
+2:26 確保團隊裡每個人的 Claude
+2:28 都會被這套相同的指示控制
+2:30 但如果你現在的狀況是
+2:31 你雖然在跟團隊合作
+2:33 但你有一些屬於你自己的工作癖好
+2:35 不想跟團隊分享的話
+2:36 那還有另外一個檔案叫做 CLAUDE.local.md
+2:39 它就不會一起被傳上雲端
+2:41 只會留在你的個人電腦裡面發揮作用
+2:43 除了 User Level 和 Project Level
+2:45 CLAUDE.md 其實還可以繼續往下放
+2:46 也就是放在專案底下的子資料夾裡
+2:49 我們叫它 Nested Level
+2:50 舉個具體的例子
+2:52 假設你的專案同時包含了前端和後端的資料夾
+2:55 你的前端可能是用 React 寫的
+2:57 有專屬的 UI 規範
+2:58 但後端是用 Python
+2:59 有一套完全不同的邏輯
+3:01 這時候，你就可以在 frontend 資料夾裡面單獨放一份 CLAUDE.md
+3:05 專門規定前端的寫法
+3:06 然後在 backend 裡也放一份
+3:08 這樣 Claude 就不會把兩邊的規則搞混了
+3:11 有趣的是
+3:12 當你在專案裡放了不同層級的 CLAUDE.md 時
+3:14 Claude 其實是非常聰明的
+3:16 它並不會只挑一份檔案看
+3:18 而是會依序疊加這些規則
+3:20 也就是說
+3:21 當它在修改前端程式碼時
+3:23 會先讀取 User Level 的個人習慣
+3:25 接著疊加 Project Level 的專案設定
+3:27 最後再套用 Nested Level 的專屬規則
+3:30 其中，Nested Level 距離正在修改的檔案最近
+3:32 裡面的規則也最符合眼前的工作
+3:35 所以通常會對這次任務產生最直接的影響
+3:38 簡單總結
+3:39 User Level 管你在所有專案裡的個人習慣
+3:41 Project Level 管整個專案的共同規則
+3:44 Nested Level 則負責特定資料夾
+3:46 規則放得越接近實際工作的檔案
+3:48 適用範圍就越精準
+3:50 在這裡，我也建議大家可以現在就暫停影片
+3:53 花個一分鐘思考一下
+3:54 在你的工作流程中
+3:56 有哪些是你的個人習慣？
+3:57 有哪些是團隊共通標準？
+3:59 又有什麼是特定資料夾才需要的設定？
+4:02 釐清這些
+4:02 你就能精準地把規則分門別類
+4:04 放在最對的層級裡
+4:06 知道 CLAUDE.md 應該放在哪裡之後
+4:09 下一個問題就是
+4:10 第一份 CLAUDE.md 到底要怎麼建立？
+4:12 最簡單的方法
+4:13 就是先進到你的專案資料夾
+4:15 打開 Claude Code
+4:16 接著輸入 slash init
+4:18 /init 是 Claude Code 官方提供的一個工具指令
+4:21 專門用來幫你快速生成一份 CLAUDE.md 的模板
+4:24 Claude 會先掃過整個專案
+4:26 再幫你產生一份起始版的 CLAUDE.md
+4:29 那這份自動產生的檔案
+4:31 裡面通常會有什麼呢？
+4:32 它可能會先介紹這個專案是做什麼的
+4:35 接著列出怎麼啟動，建置和測試
+4:37 它也會整理專案使用的框架
+4:39 資料夾架構
+4:40 以及它從程式碼裡觀察到的開發規範
+4:43 簡單來說
+4:44 slash init 會把 Claude 從專案裡看到的資訊
+4:47 整理成一份專案說明書
+4:50 看到這裡，你可能會覺得很方便
+4:52 只要打一個指令
+4:53 Claude 就幫你把整個專案整理好了
+4:55 但問題剛好出在
+4:57 它整理得太完整了
+4:59 為什麼太完整反而不好？
+5:00 很多人不知道
+5:01 當你給 Claude 任務時
+5:03 它不會直接盲寫
+5:04 而是會在背景啟動一個 Explore Subagent
+5:07 它會自己去掃資料夾，看 package.json
+5:09 也就是說
+5:11 /init 幫你寫的很多內容
+5:12 其實是 Claude 本來你不寫它也會知道的事實
+5:15 既然它自己找得到
+5:16 就不要寫在 CLAUDE.md 了
+5:17 因為這就回到我們前面提過的
+5:19 CLAUDE.md 裡的內容
+5:20 在每次新對話時都會被強制塞進 Claude 的 Context Window 裡
+5:25 也就是說
+5:26 如果你把這些重複的資訊都放進去
+5:28 Claude 每次開工都得被迫讀一遍它自己就能找到的廢話
+5:31 這不只浪費 Token
+5:32 萬一未來專案架構改了
+5:34 你卻忘了更新這份檔案
+5:35 它還會被過期的資訊給誤導
+5:37 更關鍵的是
+5:39 這些內容一旦被寫進 CLAUDE.md
+5:41 它就會變成 Claude 開始工作前必須處理的指示
+5:44 這就帶出了另外一個問題
+5:45 叫做 Instruction Budget
+5:47 前面提到的 Context Window
+5:48 決定 Claude 一次能看到多少資料
+5:51 而 Instruction Budget 影響的
+5:52 是 Claude 在這些資料裡
+5:54 能同時顧好多少條要求
+5:57 因為 Claude 每看到一條指示
+5:58 都要判斷這條指示現在適不適用
+6:00 跟其他規則有沒有衝突
+6:02 以及這次工作應該優先遵守哪一條
+6:05 所以就算某一段架構說明看起來只是背景資料
+6:07 只要它被放進 CLAUDE.md
+6:08 Claude 每次開始工作時
+6:10 都要分配一部分注意力去處理它
+6:13 當這類內容越塞越多
+6:14 Instruction Budget 就會被大量無關資訊占用
+6:17 最後真正重要的那幾條規則
+6:20 反而更容易被淹沒
+6:22 所以 slash init 可以幫你建立一個起點
+6:24 但它產生出來的內容
+6:25 還不能直接照單全收
+6:27 你會需要從第一行開始
+6:29 一條一條檢查
+6:30 在檢查你的 CLAUDE.md 的時候
+6:32 你只要問自己三個問題
+6:34 第一
+6:34 這件事 Claude Code 本來就會觸發的 Explore subagent
+6:37 能不能自己發現？
+6:38 只要是 Explore subagent 很快就可以自己找得到的資訊
+6:41 就可以不要寫
+6:42 以免佔用它的腦容量
+6:44 真正夠格寫進 CLAUDE.md 的
+6:46 是那些它怎麼翻程式碼都猜不到的隱性知識
+6:49 或者是藏在程式碼裡面藏得很深的重要資訊
+6:52 第二
+6:53 這條資訊是不是大部分的工作都會用到？
+6:57 例如修改前端畫面後
+6:58 要執行某一個視覺測試
+7:00 這條規則只和前端有關
+7:02 就可以放進前端資料夾裡的 Nested CLAUDE.md
+7:04 等 Claude 真的處理到前端程式碼時
+7:07 再把這條規則讀進來就好
+7:09 第三
+7:10 這件事過幾個月後還會成立嗎？
+7:12 像是目前暫時使用舊版 API
+7:14 這種要求可能幾個星期後就失效
+7:17 如果一直留在 CLAUDE.md
+7:18 很容易讓未來的 Claude 繼續照著過期的做法工作
+7:22 所以，前面這三個問題
+7:23 其實是教你怎麼幫 CLAUDE.md 做減法
+7:26 如果你把關得很嚴格
+7:27 你會發現過濾完之後
+7:29 /init 自動生成的內容大概已經被你刪到很少了
+7:32 這時候我們就要來做加法了
+7:34 既然要把那些 Claude 猜不到的隱性知識寫進來
+7:37 我們該從何寫起呢？
+7:38 其實你不需要死背什麼分類
+7:40 只要跟著我反問自己以下五個問題
+7:42 就能把你腦中的經驗
+7:43 完美萃取出來寫進檔案裡
+7:45 第一
+7:46 這個專案有沒有什麼絕對不能搞錯的規定？
+7:48 假設你在做一個網路商店
+7:50 而且所有對客顯示的價格都必須含稅
+7:53 Claude 如果不知道這件事
+7:55 就可能在新的頁面上顯示未稅價格
+7:57 這種會直接影響使用者
+7:59 而且很難自己猜到的規定
+8:00 就應該寫進 CLAUDE.md
+8:03 第二
+8:03 有沒有什麼事情有一套固定的處理方式？
+8:06 例如這間商店的商品價格
+8:08 都要先在一份試算表裡修改
+8:10 再同步到網站
+8:11 直接修改網頁上的數字
+8:13 下次同步時就會被蓋掉
+8:15 這時候就要提醒 Claude
+8:16 修改價格要從哪一份試算表開始
+8:19 第三
+8:20 改完一個地方之後
+8:21 還有哪些地方要跟著改？
+8:23 例如會員價格調整後
+8:24 首頁，結帳頁面
+8:26 常見問題和通知信件
+8:27 都要一起更新
+8:29 這種很容易漏掉的連動關係
+8:31 也適合放進 CLAUDE.md
+8:33 第四
+8:34 做到什麼程度
+8:35 才算真的完成？
+8:36 例如改完網站畫面後
+8:38 要同時檢查電腦版和手機版
+8:40 修改購買流程後
+8:41 還要實際下一筆測試訂單
+8:43 這些每次都要完成的檢查
+8:45 也可以事先寫清楚
+8:46 第五
+8:47 如果 Claude 遇到不懂的事情
+8:49 應該去哪裡找答案？
+8:50 例如要寫網站文案
+8:52 就去看品牌語氣指南
+8:54 碰到退款問題
+8:55 就去看退款規則
+8:56 CLAUDE.md 只要告訴 Claude 資料放在哪裡
+8:59 等真的需要時再去讀
+9:01 所以一份好的 CLAUDE.md
+9:02 內容通常不會很多
+9:04 它主要留下不能搞錯的規定
+9:06 固定的處理方式
+9:07 容易漏掉的連動關係
+9:08 完成前的檢查
+9:09 以及其他重要資料的位置
+9:11 你可能會問
+9:12 那剛剛被我們從 CLAUDE.md 刪掉的內容
+9:15 接下來該怎麼辦？
+9:16 其實很多資訊都還有用
+9:18 只是需要放到更適合的位置
+9:20 我們快速盤點一下
+9:21 如果是客觀現狀
+9:22 就像前面說的
+9:23 留給 Explore 機制自己去找就好
+9:25 如果一條規則只跟某個資料夾有關
+9:28 比如前端專用的視覺測試
+9:30 那就放進前端的 Nested CLAUDE.md
+9:32 但如果是那種很長
+9:34 又只有特定任務才會用到的流程呢？
+9:37 比如你的程式要發布新版本時
+9:38 有十幾個項目要依序檢查
+9:40 這種流程
+9:41 就可以寫進 Skill 裡面
+9:43 等 Claude 真的準備要發布了
+9:45 再呼叫這套 Skill 出來用
+9:47 最後
+9:48 如果某件事是絕對不能犯的死罪
+9:50 那單靠 CLAUDE.md 提醒是絕對不夠的
+9:54 例如，API key 絕對不能被提交到 Git
+9:56 如果你只在 CLAUDE.md 裡面告訴 Claude 不要提交
+9:59 模型在處理複雜任務時
+10:00 還是很有可能會漏掉這條指示
+10:03 這種狀況
+10:03 就應該用 Hook 來攔截
+10:05 Hook 會在 git commit 之前
+10:07 用程式強制檢查
+10:09 只要偵測到疑似 API key
+10:10 就直接擋下這次提交
+10:12 如果各位朋友對 Hooks 這個功能不是很熟悉
+10:15 可以在留言跟我說
+10:16 我會另外做一集影片來詳解
+10:18 到這裡
+10:18 你應該都知道 CLAUDE.md 該寫什麼
+10:21 該怎麼整理了
+10:23 接下來還有最後一個問題
+10:24 CLAUDE.md 寫好以後
+10:25 我們應該怎麼維護呢？
+10:27 我自己的 CLAUDE.md 也經歷過這個過程
+10:29 一開始用 slash init 建立
+10:31 後來 Claude 每次犯錯
+10:32 我就補上一條規則
+10:34 這種只增不減的做法當下很合理
+10:36 畢竟每一條都是自己踩過的坑
+10:38 但長期下來
+10:39 檔案一定會越來越肥
+10:40 最後 Claude 的腦袋又被塞滿了
+10:43 其實
+10:43 一份好的 CLAUDE.md 就像一個花園
+10:45 它的維護工作只有兩件事
+10:47 新增與修剪
+10:48 我們先講新增
+10:50 你要怎麼知道自己跟 Claude 合作時
+10:52 哪些問題一直重複發生？
+10:54 這時候可以使用 Claude Code 內建的指令
+10:56 insights
+10:57 只要在 Claude Code 裡輸入 slash insights
+11:00 它就會分析歷史紀錄
+11:01 產生一份 HTML 報告
+11:03 這份報告會幫你回顧平常怎麼使用 Claude Code
+11:06 例如你習慣一次給完整規格
+11:08 還是分幾輪慢慢改
+11:09 接著，它會找出反覆出現的模式
+11:12 例如你是不是每次做完修改
+11:13 都需要重新提醒它檢查檔案
+11:16 更實用的是
+11:17 它會直接根據這些問題提出建議
+11:19 如果某個要求被重複提醒很多次
+11:21 它會替你產生一段可以直接複製到 CLAUDE.md 的規則
+11:25 如果某個工作流程經常重複
+11:27 它可能會建議你做成 Skill
+11:28 甚至建議你使用 Hook
+11:30 所以如果你已經累積了一段時間的使用紀錄
+11:33 強烈建議你跑一次 slash insights
+11:35 只增加那些真正需要的規則
+11:38 但是
+11:38 insights 幫你找出新問題之後
+11:39 還有一個更大的挑戰
+11:41 也就是修剪
+11:42 現在的 CLAUDE.md 裡
+11:43 已經累積了這麼多規則
+11:45 到底哪些還值得留著？
+11:46 很多時候
+11:47 最大的心魔是
+11:48 我們很習慣一直加規則
+11:50 卻根本不敢刪除既有的規則
+11:53 其實
+11:53 回頭審視這些既有的規則的時候
+11:55 有兩種東西是你應該要勇敢修剪掉的
+11:59 第一種
+11:59 是因為模型變強了
+12:01 所以不再需要的規則
+12:02 關於這一點
+12:03 Claude Code 官方團隊最近給了我們一個震撼教育
+12:07 他們在幫最新一代的 Fable 5 還有 Opus 5 模型
+12:09 優化系統提示詞的時候
+12:10 一口氣把原本的規則刪掉了超過百分之八十！
+12:13 而且刪完之後
+12:14 Claude Code 的能力完全沒有退步
+12:16 為什麼會這樣？
+12:17 因為同一條規則
+12:18 在舊模型上可以幫它少犯錯
+12:20 但到了新模型上
+12:21 反而會變成一種限制
+12:23 就像以前我們會很死板的規定 Claude 不要做什麼
+12:26 但現在模型變聰明了
+12:28 懂得觀察你的工作習慣和偏好
+12:30 如果你還留著這條舊規則
+12:31 它反而會綁手綁腳
+12:33 能力變差
+12:34 從這個例子我們就可以知道
+12:35 其實 CLAUDE.md 裡面的寫法
+12:37 是會根據你所使用的模型不同
+12:39 而有所變化的
+12:41 不過
+12:41 我們一般人很難自己判斷模型到底變多強
+12:44 我覺得最客觀的做法
+12:46 是去參考各家 AI 最新釋出的 Prompting Guide
+12:49 像是 Anthropic 推出 Fable 5
+12:51 或 Codex 推出 5.6 的時候都有給官方指南
+12:54 我們只要去比對最新的寫法
+12:56 看看有哪些在 CLAUDE.md 裡面的規則已經不需要了
+12:59 就可以刪除或是修正
+13:01 第二種應該修剪的
+13:02 是已經跟真實情況不符的規則
+13:05 也就是說
+13:06 你要去檢查現在的專案現狀
+13:08 如果真實的程式碼早就改了
+13:10 或者你們的工作流程已經跟以前不一樣了
+13:12 那就代表 CLAUDE.md 裡的這條規則已經過時了
+13:15 只要它跟 codebase 的事實不符
+13:17 就應該直接砍掉
+13:18 避免誤導 AI
+13:19 知道這兩個原則後
+13:20 最難的還是執行
+13:21 你不可能每個禮拜都去讀一次官方的 Prompting Guide
+13:24 也不可能記得專案裡每一個改動
+13:26 所以我把這整套修剪流程
+13:28 包裝成了一組 CLAUDE.md 健檢 Prompt
+13:30 Claude Code 或 Codex 都可以直接用
+13:32 它會先確認你現在用的是哪個模型
+13:35 去對照那個模型的官方 Prompting Guide
+13:37 再回來看你的 CLAUDE.md
+13:39 一條一條查證這些規則有沒有符合 best practice
+13:43 我趁著 Opus 5 發布
+13:44 就拿這組 Prompt
+13:45 幫幾個月前的一個專案跑了一次健檢
+13:47 效果真的不錯
+13:49 抓出不少我之前寫 CLAUDE.md 時犯的錯
+13:51 或是對 Opus 5 來說已經過時的寫法
+13:55 例如說
+13:56 我之前在 CLAUDE.md 裡寫的一些規則
+13:58 其實跟專案裡另外幾份文件是互相牴觸的
+14:01 所以它建議我
+14:02 那一整段刪掉，只留一行
+14:04 reference 到真正正確的那份文件
+14:07 我之前還把一整段網頁測試的流程
+14:09 寫在 CLAUDE.md 裡
+14:10 教 AI 開發完功能之後
+14:12 怎麼用登入的身分去測試
+14:14 它建議我整段搬去 Skill 裡面
+14:16 還有一個
+14:17 我相信同時在用 Claude 跟 Codex 的朋友
+14:19 一定都遇過一個問題
+14:20 那就是 CLAUDE.md 和 AGENTS.md 要怎麼同步
+14:23 要同時維護兩份檔案真的很麻煩
+14:25 這次健檢裡
+14:26 它也給了一個很聰明的做法
+14:28 直接在 CLAUDE.md 第一行去 reference AGENTS.md
+14:31 之後我們只要維護一個檔案就好
+14:33 AI 也可以透過這個 reference link
+14:35 去讀到我們真正有在維護的 single source of truth
+14:39 如果你也想定期整理你的 CLAUDE.md
+14:41 讓 AI 一直維持在最好的狀態
+14:43 這組 Prompt 我放在 Patreon
+14:44 有興趣的朋友可以去看看
+14:46 連結在資訊欄
+14:47 好，那最後幫大家整理一下
+14:49 今天到底學到了什麼
+14:50 我們先搞懂了 CLAUDE.md 和 AGENTS.md 的作用
+14:53 也知道指令檔放在不同位置
+14:55 會影響不同範圍的工作
+14:57 接著
+14:57 我們從 slash init 產生的第一版開始
+14:59 學會怎麼一條一條檢查裡面的內容
+15:02 Claude 自己就能從專案找到的資訊
+15:04 可以刪掉
+15:05 只和特定資料夾有關的規則
+15:07 可以往 Nested Level 放
+15:08 遇到很長的工作流程
+15:10 或是一定要被強制執行的要求
+15:12 也可以交給 Skill，Hook 或其他更適合的工具
+15:16 最後
+15:16 我們也談到怎麼持續維護這份檔案
+15:18 你可以從過去的 sessions 找出反覆發生的問題
+15:21 同時也要定期回頭看看
+15:23 那些以前有用的規則
+15:24 現在還有沒有存在的必要
+15:26 所以
+15:26 不管你現在是準備建立第一份 CLAUDE.md
+15:29 還是這份檔案已經用了很久
+15:31 你都可以用今天這套方法
+15:32 重新整理一次
+15:34 講到這裡
+15:34 其實我在寫這支影片腳本時
+15:36 一直想到凱文·凱利在他預測未來的著作必然裡面
+15:38 提出的一個核心觀念
+15:40 叫做 Becoming
+15:41 書裡寫到
+15:42 Everything is in the process of becoming
+15:44 世界上沒有任何東西是有終點的
+15:46 一切都在變成下一個版本的過程之中
+15:49 很多時候
+15:50 我們不敢刪除 CLAUDE.md 裡的舊規則
+15:53 就是在潛意識裡
+15:54 因為我們把它當作一份已經完成的規格書
+15:57 但事實上
+15:58 你的 codebase 是流動的
+16:00 AI 的能力也是流動的
+16:02 正因為這樣
+16:03 你的 CLAUDE.md 也更應該是流動的
+16:05 你需要持續寫下新的經驗
+16:07 也要定期清理掉已經不需要的舊限制
+16:09 讓這份檔案和你一起進化
+16:12 如果接受你的 CLAUDE.md 永遠在 Becoming 的路上
+16:15 你會發現跟 AI 合作起來輕鬆很多
+16:18 好啦，那以上就是今天的內容
+16:20 如果對你有一點幫助
+16:21 記得幫我按讚
+16:22 訂閱加分享
+16:23 支持我繼續做這類深度的 AI 內容
+16:25 我們下次見！</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://www.youtube.com/watch?v=wj7mHCviMvs" target="_blank" rel="noopener">https://www.youtube.com/watch?v=wj7mHCviMvs</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+  <!-- 文章頁星等編輯腳本 -->
+  <script>
+    (function () {
+      'use strict';
+
+      var editBtn = document.getElementById('article-rating-edit');
+      if (!editBtn) return;
+
+      // 從 URL 取得檔名
+      var pathParts = window.location.pathname.split('/');
+      var filename = pathParts[pathParts.length - 1];
+
+      // 從 meta 區塊讀取目前星等
+      var starSpan = document.querySelector('.star-rating');
+      var currentRating = 0;
+      if (starSpan && starSpan.textContent.trim()) {
+        var starText = starSpan.textContent.trim();
+        currentRating = (starText.match(/★/g) || []).length;
+      }
+
+      // ── 星等編輯彈窗 ──
+      function showRatingEditor() {
+        var old = document.getElementById('rating-editor-overlay');
+        if (old) old.remove();
+
+        var overlay = document.createElement('div');
+        overlay.id = 'rating-editor-overlay';
+        overlay.className = 'rating-editor-overlay';
+
+        var box = document.createElement('div');
+        box.className = 'rating-editor-box';
+
+        var title = document.createElement('div');
+        title.className = 'rating-editor-title';
+        title.textContent = '設定星等';
+
+        var starsRow = document.createElement('div');
+        starsRow.className = 'rating-editor-stars';
+
+        for (var s = 1; s <= 5; s++) {
+          (function (star) {
+            var btn = document.createElement('button');
+            btn.className = 'rating-editor-star';
+            btn.textContent = star <= currentRating ? '★' : '☆';
+            btn.dataset.value = star;
+            btn.addEventListener('click', function () {
+              // 高亮
+              var allBtns = starsRow.querySelectorAll('.rating-editor-star');
+              for (var k = 0; k < allBtns.length; k++) {
+                allBtns[k].textContent = k < star ? '★' : '☆';
+              }
+              // 儲存
+              saveRating(star, function (ok) {
+                if (ok) {
+                  showToast('✅ 星等已更新，網站重新部署中 (~30-60 秒)');
+                } else {
+                  showToast('❌ 更新失敗，請稍後再試');
+                }
+              });
+              overlay.remove();
+            });
+            starsRow.appendChild(btn);
+          })(s);
+        }
+
+        // 清除星等按鈕
+        var clearBtn = document.createElement('button');
+        clearBtn.className = 'rating-editor-clear';
+        clearBtn.textContent = '清除星等';
+        clearBtn.addEventListener('click', function () {
+          saveRating(0, function (ok) {
+            if (ok) {
+              showToast('✅ 星等已清除');
+            } else {
+              showToast('❌ 清除失敗，請稍後再試');
+            }
+          });
+          overlay.remove();
+        });
+
+        // 關閉按鈕
+        var closeBtn = document.createElement('button');
+        closeBtn.className = 'rating-editor-close';
+        closeBtn.textContent = '✕';
+        closeBtn.addEventListener('click', function () { overlay.remove(); });
+
+        box.appendChild(closeBtn);
+        box.appendChild(title);
+        box.appendChild(starsRow);
+        box.appendChild(clearBtn);
+        overlay.appendChild(box);
+
+        overlay.addEventListener('click', function (e) {
+          if (e.target === overlay) overlay.remove();
+        });
+
+        document.body.appendChild(overlay);
+      }
+
+      // ── 送出星等更新 ──
+      function saveRating(rating, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/api/rating', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            currentRating = rating;
+            // 更新頁面上的星等顯示
+            if (starSpan) {
+              var stars = '';
+              for (var k = 0; k < rating; k++) stars += '★';
+              for (var k = rating; k < 5; k++) stars += '☆';
+              starSpan.textContent = stars;
+            }
+            if (callback) callback(true);
+          } else {
+            console.error('Failed to save rating:', xhr.status);
+            if (callback) callback(false);
+          }
+        };
+        xhr.onerror = function () {
+          console.error('Network error saving rating');
+          if (callback) callback(false);
+        };
+        xhr.send(JSON.stringify({ filename: filename, rating: rating }));
+      }
+
+      // ── Toast 通知 ──
+      function showToast(msg) {
+        var old = document.getElementById('rating-toast');
+        if (old) old.remove();
+
+        var toast = document.createElement('div');
+        toast.id = 'rating-toast';
+        toast.className = 'rating-toast';
+        toast.textContent = msg;
+        document.body.appendChild(toast);
+
+        setTimeout(function () {
+          if (toast.parentNode) toast.parentNode.removeChild(toast);
+        }, 5000);
+      }
+
+      // 綁定編輯按鈕
+      editBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        showRatingEditor();
+      });
+    })();
+  </script>
+</body>
+</html>
