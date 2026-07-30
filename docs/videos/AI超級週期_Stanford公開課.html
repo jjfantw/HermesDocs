@@ -1,0 +1,5859 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>一部影片看懂 AI 超級週期｜下個經濟循環｜Stanford 公開課 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .meta .star-rating { color: #f1c40f; letter-spacing: 1px; font-size: 1.1rem; }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    /* ── 星等編輯按鈕（文章頁） ── */
+    .rating-edit-btn-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: none;
+      border: 1px solid #dee2e6;
+      border-radius: 4px;
+      padding: 2px 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      color: #868e96;
+      transition: all 0.15s;
+      vertical-align: middle;
+      margin-left: 8px;
+    }
+    .rating-edit-btn-inline:hover {
+      border-color: #667eea;
+      color: #667eea;
+      background: #eef0ff;
+    }
+
+    /* ── 星等編輯彈窗 ── */
+    .rating-editor-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .rating-editor-box {
+      background: #fff;
+      border-radius: 12px;
+      padding: 32px;
+      min-width: 300px;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      position: relative;
+    }
+    .rating-editor-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .rating-editor-stars {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .rating-editor-star {
+      background: none;
+      border: 2px solid transparent;
+      font-size: 2rem;
+      cursor: pointer;
+      color: #f1c40f;
+      padding: 4px 8px;
+      border-radius: 8px;
+      transition: all 0.15s;
+    }
+    .rating-editor-star:hover {
+      border-color: #667eea;
+      background: #eef0ff;
+      transform: scale(1.15);
+    }
+    .rating-editor-clear {
+      background: none;
+      border: 1px solid #dee2e6;
+      border-radius: 6px;
+      padding: 6px 16px;
+      font-size: 0.85rem;
+      color: #868e96;
+      cursor: pointer;
+    }
+    .rating-editor-clear:hover {
+      border-color: #e74c3c;
+      color: #e74c3c;
+    }
+    .rating-editor-close {
+      position: absolute;
+      top: 8px; right: 12px;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: #adb5bd;
+    }
+    .rating-editor-close:hover { color: #333; }
+
+    /* ── Toast 通知 ── */
+    .rating-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      z-index: 10000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      animation: toast-in 0.3s ease;
+    }
+    @keyframes toast-in {
+      from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>一部影片看懂 AI 超級週期｜下個經濟循環｜Stanford 公開課</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-07-30 14:07</span>
+        <span class="star-rating"><!--__STARS__--></span>
+        <button class="rating-edit-btn-inline" id="article-rating-edit" title="設定星等">✎ 評分</button>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">一部影片看懂 AI 超級週期 ｜下個經濟循環｜Stanford 公開課</h1>
+    <div class="meta"><span data-field="channel">📺 Jim AI Notebook</span><span data-field="duration">⏱ 43:06</span><span data-field="published_date">🗓 2026-07-28</span><span data-field="original_language">🌐 zh-Hans</span><a data-field="source_url" href="https://youtu.be/JjhVERuqFZA" target="_blank" rel="noopener">🔗 https://youtu.be/JjhVERuqFZA</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>Jim AI Notebook 濃縮 Stanford MS&amp;E435 九堂課，剖析 AI 超級週期的經濟學全貌。核心命題：AI 時代的價值金字塔倒過來了——底層晶片賺走 75% 營收，應用層毛利只有 0-30%。九位站在浪潮最前線的講者，從 Altimeter 合夥人 Apoorv Agrawal 的「倒三角」框架出發，依序探討 GPU 經濟學（Brad Gerstner）、AI 工廠建設（Chase Lockmiller / Crusoe）、企業 AI 導入困境（Ali Ghodsi / Databricks）、基礎設施與 Stargate 計畫（Sachin Katti / OpenAI）、後訓練與模型特化（Yash Patel / Applied Compute）、編碼 AI 與軟體市場擴張（Guillermo Rauch / Vercel）、推論成本之戰（Tuhin / Baseten），以及生命科學 AI（Eric Abrams / Anthropic + Josh / AI 造藥新創）。影片反覆論證：歷史上價值永遠往上層流動，倒三角終將翻正，只是這一次可能比誰想的都久。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">第一堂：倒過來的金字塔——AI 時代的價值分配</h2><span class="ts-badge" data-field="lesson_timestamp">0:35</span></div><div class="body" data-field="lesson_body"><p>Altimeter 合夥人 <strong>Apoorv Agrawal</strong> 開場就丟出核心命題：AI 每多服務一個用戶都不是免費的。過去 20 年的軟體生意，寫好一次、複製給第一個人和第一億個人成本幾乎一樣，趨近於零。但 AI 不一樣——它每回答你一次，背後都有一整排晶片在真的耗電、真的花錢。</p><p>他把整門課濃縮成一個讓很多人意外的形狀：<strong>過去雲端時代的產業像正立的金字塔</strong>，最上面離消費者最近的應用軟體賺走最多錢；<strong>但 AI 時代這個金字塔整個倒了過來</strong>，錢全部往最底層沉。</p><p>過去兩年整個 AI 產業新增營收超過 3,500 億美元，但其中約 <strong>75% 直接流進了最底層的晶片</strong>，不是應用、不是聊天機器人，而是賣運算硬體的那一層。應用層自己也漲了 10 倍，但放到整個產業裡連三角形的形狀都撼動不了。</p><p>看毛利更清楚：<strong>賣晶片的公司毛利高達 75%</strong>，站在食物鏈頂端；<strong>做應用的公司毛利常常只有 0-30%</strong>，有些甚至是負的。同一個產業，只是把時間往後推幾年，最肥的那一塊就從最上面沉到了最下面。</p><span class="tag" data-field="lesson_tag">倒三角 · 價值分配</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">第二堂：功能還是平台？應用層的生存考驗</h2><span class="ts-badge" data-field="lesson_timestamp">3:25</span></div><div class="body" data-field="lesson_body"><p>Apoorv 對應用層創業者提出一個殘酷問題：<strong>你做的是一個功能，還是一個平台？</strong> 如果你做的東西會讓人忍不住問「這為什麼不乾脆是大公司產品裡的一個按鈕」，那他大概就真的只該是一個按鈕。</p><p>中間的推論層戰場最混亂——新創暫時領先，但雲端巨頭隨時想把它收進自己的地盤。<strong>能活下來的是能長成平台的那種，只是一個功能的遲早會被吃掉。</strong></p><p>最上層還有更根本的變現難題：ChatGPT 約有 10 億人在用，但平均每個用戶每年只幫它賺進約 <strong>10 美元</strong>；而做搜尋的 Google，同一個用戶一年能賺到約 <strong>100 美元</strong>，整整差了 10 倍。原因有二：95% 用戶一毛錢都沒付，且 ChatGPT 不是那種你會沒事一直滑的地方。</p><p>Apoorv 壓注的答案是<strong>廣告</strong>。當年 Facebook 上市時滿街看空報告說手機螢幕太小放不了廣告，結果他們找到了空間還賺得比電腦時代多。他認為 AI 更適合廣告——因為它在跟你對話時，最清楚你當下真正想要什麼。</p><span class="tag" data-field="lesson_tag">平台 vs 功能 · AI 廣告</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">第三堂：GPU 經濟學——Token、邊際成本與傑文斯悖論</h2><span class="ts-badge" data-field="lesson_timestamp">5:21</span></div><div class="body" data-field="lesson_body"><p><strong>Brad Gerstner</strong> 從幾百萬美元起家，18 年後管理超過 150 億美元資金，是 OpenAI、Anthropic 和 NVIDIA 的大股東之一。他開場就把整堂課的前提說死：<strong>過去軟體能吃掉世界是因為複製幾乎不用錢，但 AI 不是這樣——每多一個用戶都要真的多燒一次算力。</strong></p><p>這一切都從 <strong>Token</strong> 開始。Token 是 AI 讀寫的最小單位，大概是一個字或半個詞。AI 每跟你講一句話，都是一個一個 Token 算出來的，而每算一個，背後的晶片就真的耗掉一點電、燒掉一點錢。<strong>邊際成本是實打實的</strong>——這也是為什麼有些 AI 公司營收好幾十億卻還在虧錢。</p><p>AI 實驗室花 1 元做出來的東西只能賣 0.2 元，這不是失誤，是一場刻意豪賭。他們賭兩件事：<strong>運算成本會一路崩跌、人們願意為聰明付的錢會一路暴漲</strong>。只要這兩條線交叉，負毛利就會翻正。</p><p><strong>NVIDIA 以 200 億美元收購 Groq</strong> 的故事極具戲劇性：Groq 負責人 Sunny 傳簡訊給 Brad 說「我覺得我們有機會跟 NVIDIA 合作」，Brad 因為交情怕唐突，把簡訊壓了整整一週不敢發。Sunny 又催了一次他才送出去，Jensen 幾乎秒回三個字「有意思」。從展示原型到正式出手只花了約 30 天。Groq 的本事說穿了就是省電——同一棟廠房、同樣一度電，Token 產出可以多出兩倍半。</p><p>過去兩年半，AI 推論成本下降了約 <strong>99%</strong>，幾乎是崩掉了。照理說花費應該大減，結果完全相反——總支出不減反增，連舊晶片的租金都在漲。這在經濟學上有個名字叫<strong>傑文斯悖論（Jevons Paradox）</strong>：當一樣東西變便宜變好用，人們反而用得更兇，兇到把省下來的錢全部又花回去。</p><p>Brad 轉述：Dario Amodei、Sam Altman、Elon Musk 和 Jensen Huang 這四個平常立場南轅北轍的人，罕見地講了同一句話——<strong>「我們幾乎已經走到指數曲線的盡頭了」</strong>。強人工智慧來得會比預期更早。接下來真正的難題不再是能不能做出來，而是做出來之後這麼大的財富要怎麼分配。</p><span class="tag" data-field="lesson_tag">GPU · Token · 傑文斯悖論 · Groq 收購</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">第四堂：AI 工廠建設——從空地到一座城市的用電量</h2><span class="ts-badge" data-field="lesson_timestamp">10:21</span></div><div class="body" data-field="lesson_body"><p><strong>Chase Lockmiller</strong> 是基建公司 Crusoe 的執行長，同時是個登山狂（七大洲最高峰爬了五座，包含聖母峰）。他說蓋 AI 工廠跟登山一樣，有 A 計畫、B 計畫，還有 B 計畫的備案。</p><p>Chase 一句話把資料中心拉回地面：<strong>「資料中心說穿了，就是一棟有電、有冷卻、能插電腦的建築。」</strong> 但一旦放大到一整座城市用電的規模，它就變成集化工、機械、電機、資訊工程於一身的工程巔峰。他們蓋的一個園區，用電量等於兩個丹佛市。</p><p>他攤開收據：<strong>一格百萬瓦（MW）</strong>的建設——蓋樓加自備發電 2,000 萬美元、晶片 3,000 萬、網路/冷卻/儲存各 1,000 萬——<strong>總價約 6,000 萬美元</strong>。而現在動不動在蓋 1GW 等級的園區，1,000 格疊起來，光一個園區就是 <strong>600 億美元</strong>，電費和維修都還沒算。</p><p>回本時間的關鍵分叉：單純租晶片出去約 4 年回本；但如果多做一層，不只租硬體還直接幫客戶把 AI 服務跑好、按用量賣，<strong>回本時間直接砍到 2 年</strong>。這其實就是倒三角開始鬆動的第一個小徵兆——價值正一點一點從純硬體往上爬。</p><p>三大誤會破解：① 瓶頸不是晶片不夠，晶片這關 4 年前就過了，<strong>真正缺的是通好電、可以直接插晶片開機的建築</strong>；② AI 沒有喝光水，灌一次冷卻水後整年用水量大概只等於一戶普通人家；③ 舊晶片沒有變垃圾，因為 AI 代理需求爆發，三年前的舊晶片租金不跌反漲。<strong>真正的瓶頸是電力，還有蓋電廠的焊工和水電工。</strong></p><p>Chase 用經濟學框架解釋全球瘋狂建設的理由：一個國家的經濟要成長，靠的是更多人力、更多資本、更好的技術。過去幾千年，人力想增加只有一條路——生小孩，前後要 20 年。<strong>但現在史上第一次，你可以用下單買晶片蓋資料中心的方式，直接「數位製造」出一批新的勞動力</strong>——不用睡覺、不用吃飯、開機就能上工。當你意識到錢可以直接換成勞動力、換成整個國家的經濟成長，你就懂了為什麼他們願意把幾兆美元眼睛都不眨地砸下去。</p><p>Crusoe 的選址策略反直覺到有點好笑：大家都跑去北維吉尼亞排隊搶電，他們反向跑去人煙稀少的西德州——<strong>因為那裡風大太陽大、政府補貼過度，再生能源蓋太多，電多到送不出去，價格一度變成負的</strong>。發電人得倒貼錢求別人把電用掉。Crusoe 登門說「太好了，我們正好有一個超級吃電的應用」。與其花大錢把電搬過來，不如把整座資料中心直接蓋在電最便宜的地方。</p><span class="tag" data-field="lesson_tag">AI 工廠 · Crusoe · 電力經濟</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">第五堂：企業 AI 的真相——95% 試點失敗，卡在「機構知識」</h2><span class="ts-badge" data-field="lesson_timestamp">19:11</span></div><div class="body" data-field="lesson_body"><p><strong>Ali Ghodsi</strong> 是 Databricks 的執行長，手上握有 2 萬多家企業客戶。他一開口就說了一句讓很多人意外的話：<strong>「我們早就有強人工智慧了，它已經比你日常打交道的很多人都聰明。」</strong> 他甚至當場做了舉手實驗，證明學生自己都自相矛盾。</p><p>但如果 AI 真的這麼聰明，為什麼企業花大錢導入卻幾乎全軍覆沒？Ali 引用 MIT 報告：<strong>高達 95% 的企業 AI 試點最後是失敗的</strong>，沒能真正上線變成生產力。他特別強調：這不是因為模型太笨，模型早就夠聰明了。</p><p>真正的原因藏在一個大家都忽略的地方：<strong>每一家公司裡都有一個做了幾十年、什麼都知道的老員工</strong>——你有問題去問他就對了。可是他腦子裡那套只有這家公司才懂的規矩、那些從來沒寫下來的經驗，AI 完全不知道。這些藏在人腦裡、沒進到模型裡的東西，有個名字叫<strong>「機構知識」（Institutional Knowledge）</strong>。少了它，再聰明的 AI 一進到你公司內部就變得手足無措。</p><p>Ali 下了一個很重的結論：<strong>「這不是 AI 的問題，是人的問題。」</strong> 我們總習慣把失敗怪到技術頭上，說 AI 還不夠好。可是 Ali 說模型早就夠好了，卡住的是我們自己——是我們沒有把腦子裡的東西交給它，是我們的流程還停在舊時代。</p><p>他講了一個 Databricks 自己的故事：要做一種叫「連接器」的軟體，本來一條要 9 個月。Ali 自己用 AI 兩天就寫出一個玩具版，回頭質問團隊為什麼要 9 個月。團隊研究後回覆：AI 確實有用，但頂多把 9 個月縮到 7 個半月——<strong>因為真正的瓶頸根本不在寫程式</strong>，而在產品經理要花一整季訪談、寫 80 頁需求書、測試環境很難架、一條線只有一個人扛、那個人請假就全停。後來一位工程師乾脆把整套流程重寫：需求書一週寫完（反正軟體便宜錯了再改）、測試外包出去、平行做 7 個人一起扛 7 條——結果一季出了 7 條。Ali 的結論很直白：<strong>換再強的模型都救不了你，這是人類的流程要重新接線。</strong></p><p>Ali 搬出一段歷史：<strong>電力早在 1880 年就發明了，可是反映在工廠生產力數字上，整整等了 40 年到 1920 年才出現。</strong> 因為工廠一開始只是把蒸汽機換成一台大電動馬達，機器擺放位置完全沒變。一直到有人重新設計整間工廠、把機器攤平、搬出城市，電力的威力才真正跑出來。Ali 說：<strong>AI 現在就卡在「換了引擎，卻還沒改裝廠房」的階段。</strong> 同樣的劇本雲端也演過——AWS 2004 年起步時所有人都在賭會不會蓋到破產，結果花了約 8 年三角形才慢慢翻正。諾貝爾獎得主 Solow 的名言最能形容這種尷尬：「電腦到處都是，唯獨在生產力統計裡看不見。」這句話放到今天的 AI 一樣準。</p><span class="tag" data-field="lesson_tag">企業 AI · 機構知識 · Databricks</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">第六堂：基礎設施——算力即營收，與看不見的電網風險</h2><span class="ts-badge" data-field="lesson_timestamp">14:56</span></div><div class="body" data-field="lesson_body"><p><strong>Sachin Katti</strong> 的資歷橫跨整個運算堆疊：在 Stanford 教了 15 年書、當過 Intel 的基礎長，最近離開加入 OpenAI，負責把 OpenAI 需要的所有算力實際交付出來——也就是 <strong>Stargate 計畫的實際執行者</strong>。</p><p>他丟出的第一句話非常反直覺：<strong>「營收只是算力的落後指標。」</strong> 對這些最前線的實驗室來說，你有多少算力、乘上用得多滿，基本上就決定了你能賺多少。OpenAI 過去三年算力每年漲 3 倍，營收也剛好每年漲 3 倍——兩條線貼得死死的。所以當你看到 OpenAI 拼命公布未來要蓋多少算力，<strong>你可以直接把它當成一張營收預測圖來讀。</strong></p><p>Sachin 糾正了一個根本誤解：當 OpenAI 說要採購算力，<strong>他們買的根本不是晶片，是一整條供應鏈</strong>——從最上游的一塊地、一座電廠，到一整櫃一整櫃的晶片和記憶體，再到把幾萬張晶片串起來的網路、散熱的冷卻，最後才吐得出 Token。缺任何一個環節，整座工廠就開不了機。他說真正困難的根本不是簽下那張採購合約——<strong>「簽約是最有趣的部分，簽完之後的一切才是真正困難的地方。」</strong></p><p><strong>Agent 的出現悄悄改變了運算的樣貌。</strong> Sachin 把運算分成三種：第一種是純聊天（你問一句他答一句，單節點）；第二種是會推理的 AI（在心裡想很多步才給答案，多節點）；第三種是 Agent（一整張圖——推理、查資料、開虛擬機器跑測試、再回來繼續想）。這種複雜工作光靠 GPU 在經濟上撐不起來，所以要混用各種晶片，<strong>連本來被看衰的 CPU 都因此復活了。</strong></p><p>一個大多數人完全沒想到的 AI 擴張物理極限：<strong>電網波動風險。</strong> 當一座資料中心裡成千上萬張晶片同時開始一個訓練任務、又同時停下來，整棟樓的功耗會在一瞬間同上同下，擺動幅度可能高達好幾百個 MW。這就像一整座城市的人約好在同一秒一起打開又一起關掉所有電器。問題是全世界電網從來沒有為這種瞬間的巨大擺動設計過——<strong>嚴重的话足以讓一整區的電跳掉。</strong></p><p>Sachin 對未來的願景很有畫面感：<strong>把人和 AI 的關係整個顛倒過來。</strong> 現在你交任務給 AI，它跑幾分鐘甚至幾小時，這中間你早就分心去做別的事了，等它回來問問題你還得重新回想來龍去脈。他想要的是反過來——AI 快到不斷追著你、催著你給下一步指令，讓你保持在心流狀態裡。<strong>到那個時候，慢的、拖後腿的會是人類，而不是 AI。</strong></p><span class="tag" data-field="lesson_tag">Stargate · 算力領先指標 · Agent · 電網風險</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">07</span><h2 data-field="lesson_title">第七堂：後訓練——5% 的算力，決定 100% 的輸贏</h2><span class="ts-badge" data-field="lesson_timestamp">23:42</span></div><div class="body" data-field="lesson_body"><p><strong>Yash Patel</strong> 的經歷很戲劇化：大一暑假直接寫冷郵件給 Sam Altman 要到一張小支票做自己的專案，後來進了 OpenAI 做出能上網能寫程式的 Agent，這條線後來變成了 Codex。大約一年前他離開 OpenAI，創了 Applied Compute，專門幫企業把通用大模型特化成自己的專屬模型。</p><p>Yash 的核心洞察：<strong>通用的大模型決定你的地板，但你的天花板得自己蓋。</strong> 那些最強的通用模型就像一個空降的天才新人——智商爆表，可是完全不懂你公司的事。誰請他來效果都差不多，這就是你的地板。真正拉開差距的，是拿這個模型餵進你自家的專有資料，用你自己對好壞的標準反覆去磨——這個步驟叫<strong>「後訓練」（Post-Training）</strong>。</p><p>一個很反直覺的數字：後訓練花的算力，可能只佔前面那個吃遍整個網路的大訓練的 <strong>5%</strong>。5% 聽起來像個零頭，可就是這 5% 的力氣決定了你這家公司到底是贏還是輸。這就像蓋房子——主結構花了 95% 的錢，可是真正讓這間房子值錢、讓它跟隔壁不一樣的，是最後那 5% 的裝潢和設計。</p><p>Yash 用 DoorDash 的案例說明：DoorDash 每年要讓超過 10 萬家新商家上線，其中一件苦差是把商家上傳的雜亂菜單照片變成整齊符合規範的線上店面。這件事用通用模型怎麼調指令都做不好。最後的解法很巧妙：<strong>讓真人去修正模型的輸出，然後把修正的量直接變成給模型的獎勵，對著錯誤率去優化。</strong> Yash 的結論很有力：企業其實不需要一直去調那些指令——你只要能定義清楚什麼是好、什麼是壞，就可以直接對著結果去優化。這就是天花板被蓋起來的方式，<strong>價值正一層一層往應用端流回去。</strong></p><span class="tag" data-field="lesson_tag">後訓練 · 模型特化 · DoorDash</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">08</span><h2 data-field="lesson_title">第八堂：編碼 AI——軟體史上最大的市場擴張</h2><span class="ts-badge" data-field="lesson_timestamp">27:37</span></div><div class="body" data-field="lesson_body"><p><strong>Guillermo Rauch</strong> 是 Vercel 的執行長，同時是全世界最紅的網頁框架 Next.js 的作者。他在阿根廷郊區長大，靠讀軟體手冊自學英文，11 歲就開始接遠端程式外包，高中輟學搬到舊金山。</p><p>他的核心一句話：<strong>這波 AI 帶來的是軟體史上最大的一次市場擴張。</strong> 過去全世界會寫程式的人大概 2,000 萬，市場天花板卡在這裡。但現在會寫程式的 AI 代理出現了，能自己動手把軟體做出來——<strong>能做出軟體的人一口氣放大了 10 倍、20 倍、甚至 100 倍</strong>，因為你不再需要會寫程式，你只要能把你想要什麼說清楚就行。市場從 2,000 萬人一下子變成幾乎所有人。</p><p>Guillermo 用一個好記的比喻：<strong>會寫程式的 AI 代理就像花生醬，正在被抹遍全世界。</strong> 可是花生醬三明治光有花生醬不夠，還要果醬——這個果醬就是把寫好的軟體真正部署出去、放到客人面前用的那一層。他的關鍵判斷：<strong>寫程式這件事本身不會讓你變得特別，因為 AI 已經幫大家做到了；把程式真正端到客人面前才會。</strong> 世界上堆滿了跑不起來的程式碼，而 AI 代理天生就愛把東西部署出去。所以在這個戰場最賺錢的，不見得是寫程式的那一層，而是幫 AI 把作業順利交出去的那一層。</p><p>AI 代理還悄悄改變了整朵雲的節奏：舊的網路講究的是快（亞馬遜網頁每慢 0.1 秒訂單就掉一個百分點），但 AI 代理的世界是反過來的——你丟一個任務給它，它可能出去工作幾秒、幾分鐘、幾小時，現在甚至可以讓它慢慢煮一整天，最後交給你一份完整報告或一整套軟體。<strong>從講求快的快餐店，變成了願意等它慢火燉的廚房。</strong></p><p>商業模式的地基也在悄悄換掉：過去的軟體生意賣的是座位（一家公司買 10 個帳號就付 10 份月費），但當軟體的背後是一個一個真的在燒電的 Token，按人頭算法就撐不住了。<strong>新模式是按 Token 計價——你用掉多少智慧就付多少錢。</strong> 從賣座位到賣用量，這看起來只是收費方式的小改，背後卻是整個軟體商業模式的地基在換。</p><p>Guillermo 描繪雲的三個生長方向：① 給 AI 代理用的地基（代理寫完的軟體總要有地方跑）；② 每一家公司都在蓋自己的 Agent（未來所有軟體本身可能都是一個 Agent，交付的不再是網頁而是一個會幫你做事的助手）；③ <strong>雲本身也會變成一個 Agent</strong>——像一台自動駕駛的車，自己配置、自己優化、自己修好問題，然後回頭跟你說「我幫你的軟體加速了兩倍，這是我改好的版本」。</p><p>一個讓他自己都愣住的真實故事：有用戶滑進他的私訊求救說「我朋友，我根本不知道 Vercel 是什麼，是我的 AI 把我帶來的」。他當下的回覆很妙：「那你能不能把我介紹給你的那個 AI？」你細想這個畫面——<strong>未來很可能是這樣：客戶的 AI 直接去跟廠商的 AI 談</strong>，我這邊有個問題、那邊有沒有解法，然後兩個 AI 把事情辦完，軟體就這樣悄悄湧現出來，人幾乎不用插手。</p><span class="tag" data-field="lesson_tag">編碼 AI · Vercel · 軟體市場擴張</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">09</span><h2 data-field="lesson_title">第九堂：推論成本之戰——30 兆 Token 背後的算力短缺</h2><span class="ts-badge" data-field="lesson_timestamp">32:01</span></div><div class="body" data-field="lesson_body"><p><strong>Tuhin</strong> 是 Baseten 的執行長，一家你可能沒聽過的隱形巨人——專門幫各種 AI 應用公司把模型的推論跑起來。他點中了整個應用戰場的核心：<strong>推論（Inference）就是 AI 的銷貨成本</strong>——每賣出一次服務，你真正要付出去的那筆直接成本。誰能把推論壓下來，誰才有機會真的把錢賺進口袋。</p><p>壓成本的第一招出乎意料地簡單：<strong>智慧路由。</strong> 想像你跟 AI 說了聲謝謝，它回你不客氣——如果連這三個字都動用最強最貴的大模型來回答，等於為了一句客套話點亮了一大排晶片。聰明的做法是在中間加一層路由，先判斷這句話難不難：簡單的（像「不客氣」）丟給便宜的小模型秒回，真正難的問題才交給最強的大模型。這就像一家公司不會為了收個包裹就驚動總經理——小事交給前台就好。</p><p>感受一下 Baseten 的體量：<strong>一天要處理約 30 兆個 Token</strong>。以純 Token 計算，這個量已經超過了 OpenAI 對外開放的那個 API 業務，也超過了 Google。一個大多數人沒聽過的名字，背後跑的量比那些如雷貫耳的巨頭還大。</p><p>算力短缺的實錄：他們在某家雲端上租了一批晶片，合約 10 月才到期，結果 5 月對方就打電話上門，<strong>要把每小時租金從 2 塊多美元直接漲到 5 塊多，硬生生翻了一倍。</strong> Tuhin 的原話是：「這太離譜了，我絕不接受。」更誇張的是，你現在下單 1,000 張新晶片，得排隊等上一年多才拿得到貨。他講了一句很重的話：<strong>「不管別人跟你說算力有多缺，實際上都還要再乘上 10 倍。」</strong> 而且他斷言這個短缺不會正常化——因為 AI 越來越會自己連續做很多步，模型又越來越大，兩股力量一起把需求往上推。</p><p>Tuhin 用機場安檢隊伍的類比說明為什麼算力只會越來越缺：機場晚上 11 點會關門讓隊伍歸零重置，<strong>可是全世界的推論需求永遠不會關門</strong>——美國睡了歐洲正好醒來，歐洲下班了亞洲又進入白天，地球上總有一個地方是下午 5 點正要開始用。這條隊伍 24 小時不停歇地一天一天複利疊加，永遠沒有喘息的空檔。</p><p>一個尖銳的東印度公司警告：有人把那些最前沿的實驗室比做當年的東印度公司——表面上是來談生意談合作，實際上是慢慢把整個地方的資源和控制權都拿走。<strong>你今天興沖沖地把應用全部接到某家前沿模型上，你以為在跟他合作，可你等於把你獨門的工作流程還有最寶貴的用戶資料全交了出去。</strong> 等他學會了你的那套「神聖配方」，回過頭就能取代你。</p><p>Tuhin 的解方只有四個字：<strong>「掌握自己的智慧。」</strong> 今天 90-95% 的推論花費都流向那幾家最前沿的封閉模型，方便是方便，但你等於把命脈交了出去。他的活路是：起步時先靠前沿模型（因為快、好用），但一旦做出成績要衝規模，<strong>就換成開源模型自己再訓練一輪，變成你專屬的模型。</strong> 關鍵事實：開源模型大概只落後前沿 90 天，成本卻便宜 7-9 成——這一換足以把你的毛利從趴在 0 附近一路拉到 40% 以上。</p><span class="tag" data-field="lesson_tag">推論成本 · Baseten · 算力短缺 · 開源</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">10</span><h2 data-field="lesson_title">最終堂：生命科學 AI——一個人就是一條產品線</h2><span class="ts-badge" data-field="lesson_timestamp">36:35</span></div><div class="body" data-field="lesson_body"><p>最後一堂請來兩位站在產業兩端的人：<strong>Anthropic 負責生命科學的 Eric Abrams</strong>，以及 <strong>AI 造藥新創的共同創辦人 Josh</strong>。他們在做同一件事：用 AI 端到端地壓縮整條造藥流程。</p><p>Josh 一句話把野心說清楚：<strong>「我們在做的是一套分子的電腦繪圖工具，目標是把設計一顆藥，從一門像煉金術一樣靠手感的技藝，變成真正的工程學。」</strong> 傳統造藥又慢又貴：理論上能下手的「標靶」（身體裡生病的開關）有上萬個，但全世界每年真正新增被推進到人體實驗的只有約 30 個。結果就是大家全擠在少數幾個已知的開關上反覆內卷——<strong>到今天，八成有名字的疾病還是無藥可醫。</strong></p><p>這個領域的工具原始到令人發笑。常有人問 Josh「你們的競爭對手是誰」，他的回答很妙也很發人深省：<strong>「我們的競爭對手，字面上就是酵母、老鼠，還有實驗室裡那些傳統的老工具。」</strong> 人類到今天造藥很多環節還在靠讓酵母發酵、讓老鼠試藥——這些方法用了幾十年甚至上百年。Josh 說現有的藥原始得像是奇蹟，很多藥打進身體會打到一堆不該打的地方，造成一堆本來不必有的副作用。正因為這麼原始，AI 進來撬動的空間才這麼大。</p><p>他們的作法：<strong>讓兩種 AI 一起工作。</strong> 一種是像 Claude 這樣的語言模型扮演外圈——那個會思考、會規劃、會查文獻的科學家；另一種是專門懂生物的基礎模型（如 AlphaFold），負責在內圈直接設計出分子的樣子。傳統上要 10-15 年的造藥流程，他們的目標是壓到最快幾週。</p><p>Josh 講了一句把整個生技圈焦慮講透的話：<strong>「現在藥廠圈裡翻來覆去只談兩件事——一個是 AI，一個是中國。」</strong> 因為中國在造藥上更便宜更快，法規上也更容易讓新藥趕快用到人身上，正在一步步跑贏美國。可是他話鋒一轉說了那句金句：<strong>「中國可以跑得比美國快，但中國跑不贏 AI。」</strong> 美國想追上甚至反超，靠的不是跟中國拼人力拼速度，而是賭 AI 這條全新的路能不能成功。所以美國的生技業是非常非常需要 AI 成功的——這已經不只是一門生意，而是一場國運的豪賭。</p><p>Eric 描繪的未來很浪漫：<strong>造藥的門檻會低到史無前例。</strong> 過去開一家生技公司需要一整棟樓的科學家、幾億美元的資金；可是未來很可能一個人坐在電腦前，用大量的 Claude 和那些懂生物的模型，就能同時跑一整條早期藥物的產品線。他們給這個畫面取了個名字：<strong>「一個人就是一條產品線。」</strong> 他們甚至半開玩笑地聊到，未來像減肥藥那樣能增加肌肉的藥、或幫你睡得更好的藥，可能會像日用品一樣普及，變成一種消費級的醫療。Eric 很謹慎地說他不會承諾五年內治好所有的病，他的目標是<strong>偏轉那條軌跡</strong>——讓人類對抗疾病的速度整個換一個檔次。</p><span class="tag" data-field="lesson_tag">生命科學 AI · 造藥 · Anthropic</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">五年之後，每一個人都會回頭問你：這一切在成型的時候，你看出來了嗎？你會希望自己那時候能回答——看出來了。因為此刻，我們就站在這個板塊移動的現場。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="0:35"><span class="ts">0:35</span><span class="text" data-field="key_point_text">Apoorv Agrawal 提出核心命題：AI 每多服務一個用戶都不是免費的，這與過去軟體「複製邊際成本趨近於零」的邏輯徹底不同</span></li><li data-field="key_point" data-timestamp="1:33"><span class="ts">1:33</span><span class="text" data-field="key_point_text">AI 時代的價值金字塔倒過來了：底層晶片賺走 75% 新增營收，應用層毛利只有 0-30%</span></li><li data-field="key_point" data-timestamp="3:25"><span class="ts">3:25</span><span class="text" data-field="key_point_text">Apoorv 的殘酷提問：你做的是一個功能還是一個平台？只是一個功能的，遲早被大公司內建取代</span></li><li data-field="key_point" data-timestamp="4:09"><span class="ts">4:09</span><span class="text" data-field="key_point_text">ChatGPT 約 10 億用戶，但每用戶年營收僅約 10 美元，Google 搜尋同一用戶可賺 100 美元，差距 10 倍</span></li><li data-field="key_point" data-timestamp="5:21"><span class="ts">5:21</span><span class="text" data-field="key_point_text">Brad Gerstner 講 GPU 經濟學：Token 是 AI 的最小成本單位，每多一個用戶就要多燒一次算力</span></li><li data-field="key_point" data-timestamp="6:45"><span class="ts">6:45</span><span class="text" data-field="key_point_text">AI 實驗室花 1 元做出來的東西只能賣 0.2 元，這是一場刻意豪賭：賭運算成本崩跌、人們願為聰明付的錢暴漲</span></li><li data-field="key_point" data-timestamp="7:26"><span class="ts">7:26</span><span class="text" data-field="key_point_text">NVIDIA 以 200 億美元收購 Groq，從一封被壓了一週不敢發的簡訊到成交只花 30 天</span></li><li data-field="key_point" data-timestamp="8:25"><span class="ts">8:25</span><span class="text" data-field="key_point_text">推論成本兩年半下降 99%，但總支出不減反增——傑文斯悖論：東西變便宜，人們反而用得更兇</span></li><li data-field="key_point" data-timestamp="9:41"><span class="ts">9:41</span><span class="text" data-field="key_point_text">Dario Amodei、Sam Altman、Elon Musk、Jensen Huang 四人罕見同聲：我們幾乎已走到指數曲線的盡頭</span></li><li data-field="key_point" data-timestamp="10:21"><span class="ts">10:21</span><span class="text" data-field="key_point_text">Chase Lockmiller 拆解 AI 工廠成本：一格百萬瓦總價約 6000 萬美元，1GW 園區就是 600 億美元</span></li><li data-field="key_point" data-timestamp="12:52"><span class="ts">12:52</span><span class="text" data-field="key_point_text">三大誤會破解：瓶頸不是晶片而是通好電的建築；AI 沒喝光水；舊晶片租金不跌反漲</span></li><li data-field="key_point" data-timestamp="13:52"><span class="ts">13:52</span><span class="text" data-field="key_point_text">史上第一次可以用下單買晶片的方式「數位製造勞動力」——錢可以直接換成經濟成長</span></li><li data-field="key_point" data-timestamp="14:15"><span class="ts">14:15</span><span class="text" data-field="key_point_text">Crusoe 反向操作：把資料中心蓋在西德州電價變負的地方，別人的難題變成護城河</span></li><li data-field="key_point" data-timestamp="15:18"><span class="ts">15:18</span><span class="text" data-field="key_point_text">Sachin Katti：營收只是算力的落後指標。OpenAI 算力每年漲 3 倍，營收也剛好每年漲 3 倍</span></li><li data-field="key_point" data-timestamp="17:16"><span class="ts">17:16</span><span class="text" data-field="key_point_text">Agent 改變運算模式：從單節點聊天 → 多節點推理 → 一整張圖的 Agent 工作流，CPU 因此復活</span></li><li data-field="key_point" data-timestamp="18:00"><span class="ts">18:00</span><span class="text" data-field="key_point_text">電網波動風險：上萬張晶片同時開始/停止訓練，功耗瞬間擺動數百 MW，足以讓整區跳電</span></li><li data-field="key_point" data-timestamp="19:11"><span class="ts">19:11</span><span class="text" data-field="key_point_text">Ali Ghodsi：95% 企業 AI 試點失敗，不是模型太笨，是「機構知識」沒灌進 AI 裡</span></li><li data-field="key_point" data-timestamp="21:29"><span class="ts">21:29</span><span class="text" data-field="key_point_text">Databricks 自身案例：一條連接器要做 9 個月，AI 只能省到 7.5 個月，真正瓶頸在人類流程</span></li><li data-field="key_point" data-timestamp="22:15"><span class="ts">22:15</span><span class="text" data-field="key_point_text">電力 1880 年發明，等了 40 年才反映在生產力上——AI 現在卡在「換了引擎卻還沒改裝廠房」</span></li><li data-field="key_point" data-timestamp="24:13"><span class="ts">24:13</span><span class="text" data-field="key_point_text">Yash Patel：通用大模型決定你的地板，但天花板得自己蓋。後訓練只花 5% 算力，卻決定公司輸贏</span></li><li data-field="key_point" data-timestamp="26:16"><span class="ts">26:16</span><span class="text" data-field="key_point_text">DoorDash 案例：用真人修正模型輸出、把修正量變成獎勵訊號，對著錯誤率直接優化</span></li><li data-field="key_point" data-timestamp="27:08"><span class="ts">27:08</span><span class="text" data-field="key_point_text">Ali Ghodsi 毫不猶豫押應用層：科技史上價值永遠往上層移動，前沿模型最後會變成薄利 Token 工廠</span></li><li data-field="key_point" data-timestamp="27:55"><span class="ts">27:55</span><span class="text" data-field="key_point_text">Guillermo Rauch：AI 帶來軟體史上最大市場擴張——從 2000 萬工程師變成幾乎所有人</span></li><li data-field="key_point" data-timestamp="28:49"><span class="ts">28:49</span><span class="text" data-field="key_point_text">花生醬三明治比喻：寫程式是花生醬（到處都有），部署到客人面前才是果醬（真正賺錢的地方）</span></li><li data-field="key_point" data-timestamp="30:22"><span class="ts">30:22</span><span class="text" data-field="key_point_text">商業模式地基轉換：從賣座位（按人頭月費）變成賣用量（按 Token 計價）</span></li><li data-field="key_point" data-timestamp="32:14"><span class="ts">32:14</span><span class="text" data-field="key_point_text">Tuhin：推論就是 AI 的銷貨成本。Baseten 一天處理 30 兆 Token，超過 OpenAI 對外 API 業務</span></li><li data-field="key_point" data-timestamp="33:56"><span class="ts">33:56</span><span class="text" data-field="key_point_text">算力短缺實錄：雲端商合約未到期就上門漲價，租金從 $2 多直接翻倍到 $5 多，新晶片下單要等一年</span></li><li data-field="key_point" data-timestamp="34:39"><span class="ts">34:39</span><span class="text" data-field="key_point_text">東印度公司警告：把應用全接到前沿模型上，等於把獨門工作流程和用戶資料交出去，他學會了就能取代你</span></li><li data-field="key_point" data-timestamp="35:33"><span class="ts">35:33</span><span class="text" data-field="key_point_text">開源模型只落後前沿 90 天，成本便宜 7-9 成，換用開源可把毛利從 0 拉到 40% 以上</span></li><li data-field="key_point" data-timestamp="36:35"><span class="ts">36:35</span><span class="text" data-field="key_point_text">生命科學 AI：傳統造藥 10-15 年，AI 目標壓到幾週。競爭對手「字面上就是酵母老鼠」</span></li><li data-field="key_point" data-timestamp="39:34"><span class="ts">39:34</span><span class="text" data-field="key_point_text">Josh 金句：「中國可以跑得比美國快，但中國跑不贏 AI」——美國生技業非常需要 AI 成功</span></li><li data-field="key_point" data-timestamp="40:13"><span class="ts">40:13</span><span class="text" data-field="key_point_text">未來願景：一個人就是一條產品線。造藥門檻從一整棟樓的科學家降到一個人坐在電腦前</span></li><li data-field="key_point" data-timestamp="41:20"><span class="ts">41:20</span><span class="text" data-field="key_point_text">三句實在話：投資人問壓的是哪一層、創業者問手上有沒有別人拿不走的資料、上班族趁現在把 AI 練成最順手的工具</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="AI 超級週期">AI 超級週期</span><span class="tag-chip" data-tag="Stanford MS&amp;E435">Stanford MS&amp;E435</span><span class="tag-chip" data-tag="倒三角">倒三角</span><span class="tag-chip" data-tag="GPU 經濟學">GPU 經濟學</span><span class="tag-chip" data-tag="傑文斯悖論">傑文斯悖論</span><span class="tag-chip" data-tag="Token 邊際成本">Token 邊際成本</span><span class="tag-chip" data-tag="算力即營收">算力即營收</span><span class="tag-chip" data-tag="AI Agent">AI Agent</span><span class="tag-chip" data-tag="企業 AI 導入">企業 AI 導入</span><span class="tag-chip" data-tag="機構知識">機構知識</span><span class="tag-chip" data-tag="後訓練">後訓練</span><span class="tag-chip" data-tag="模型特化">模型特化</span><span class="tag-chip" data-tag="推論成本">推論成本</span><span class="tag-chip" data-tag="生命科學 AI">生命科學 AI</span><span class="tag-chip" data-tag="AI 造藥">AI 造藥</span><span class="tag-chip" data-tag="NVIDIA">NVIDIA</span><span class="tag-chip" data-tag="OpenAI">OpenAI</span><span class="tag-chip" data-tag="Stargate">Stargate</span><span class="tag-chip" data-tag="Crusoe">Crusoe</span><span class="tag-chip" data-tag="Databricks">Databricks</span><span class="tag-chip" data-tag="Vercel">Vercel</span><span class="tag-chip" data-tag="Baseten">Baseten</span><span class="tag-chip" data-tag="Anthropic">Anthropic</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>部分人名為 Whisper 漂字還原，如「Tuhin」「Josh」「Guillermo Rauch」「Yash Patel」等，已根據上下文及公開資訊盡力校正，但拼寫可能有誤</li><li>Baseten CEO 全名在 SRT 中漂字為「Tofin」「Twin」「Turing」「陶瓶」「2hing」等多種變體，還原為「Tuhin」為合理推測</li><li>AI 造藥新創共同創辦人「Joss」還原為「Josh」，全名及公司名稱未能從 SRT 中確認</li><li>部分數字（如 30 兆 Token/天、600 億美元園區造價）來自講者口述，未經第三方驗證</li></ul></div></section>
+  <section class="glossary" data-field="asr_glossary"><h2>🎙️ ASR 漂字對照表</h2><div class="card"><table class="glossary"><tr data-field="asr_glossary_row"><td data-field="heard">罩</td><td>→</td><td data-field="corrected">兆</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Porey</td><td>→</td><td data-field="corrected">Apoorv</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Approfit</td><td>→</td><td data-field="corrected">Apoorv</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Polware</td><td>→</td><td data-field="corrected">Apoorv</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Altermeter</td><td>→</td><td data-field="corrected">Altimeter</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">NVN</td><td>→</td><td data-field="corrected">NVIDIA</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">NVidian</td><td>→</td><td data-field="corrected">NVIDIA</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Groku</td><td>→</td><td data-field="corrected">Groq</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Bread</td><td>→</td><td data-field="corrected">Brad</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Brett</td><td>→</td><td data-field="corrected">Brad</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Cruzzo</td><td>→</td><td data-field="corrected">Crusoe</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Charles</td><td>→</td><td data-field="corrected">Chase</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Deadbricks</td><td>→</td><td data-field="corrected">Databricks</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Aleth Gautzy</td><td>→</td><td data-field="corrected">Ali Ghodsi</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">阿里戈西</td><td>→</td><td data-field="corrected">Ali Ghodsi</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">阿力</td><td>→</td><td data-field="corrected">Ali</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Sachin Khati</td><td>→</td><td data-field="corrected">Sachin Katti</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">SATING</td><td>→</td><td data-field="corrected">Sachin Katti</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Stagate</td><td>→</td><td data-field="corrected">Stargate</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">杰文斯</td><td>→</td><td data-field="corrected">Jevons</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">編輯成本</td><td>→</td><td data-field="corrected">邊際成本</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">推論</td><td>→</td><td data-field="corrected">推理</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">帕命</td><td>→</td><td data-field="corrected">拼命</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">混理</td><td>→</td><td data-field="corrected">婚禮</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">YAS</td><td>→</td><td data-field="corrected">Yash</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">耶鸭史</td><td>→</td><td data-field="corrected">Yash</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Gillam Rauch</td><td>→</td><td data-field="corrected">Guillermo Rauch</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Gilmo</td><td>→</td><td data-field="corrected">Guillermo</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Guillermo</td><td>→</td><td data-field="corrected">Guillermo</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Versel</td><td>→</td><td data-field="corrected">Vercel</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Verso</td><td>→</td><td data-field="corrected">Vercel</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Next JSS</td><td>→</td><td data-field="corrected">Next.js</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Tofin</td><td>→</td><td data-field="corrected">Tuhin</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Twin</td><td>→</td><td data-field="corrected">Tuhin</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Turing</td><td>→</td><td data-field="corrected">Tuhin</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">陶瓶</td><td>→</td><td data-field="corrected">Tuhin</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">2hing</td><td>→</td><td data-field="corrected">Tuhin</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Bassettin</td><td>→</td><td data-field="corrected">Baseten</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">BASSETIN</td><td>→</td><td data-field="corrected">Baseten</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Dodash</td><td>→</td><td data-field="corrected">DoorDash</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Joss</td><td>→</td><td data-field="corrected">Josh</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Modcast</td><td>→</td><td data-field="corrected">Multicast</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Multi-Cast</td><td>→</td><td data-field="corrected">Multicast</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">solo</td><td>→</td><td data-field="corrected">Solow</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Dario Sam</td><td>→</td><td data-field="corrected">Dario Amodei</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Janson</td><td>→</td><td data-field="corrected">Jensen</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Cloud</td><td>→</td><td data-field="corrected">Claude</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">clode</td><td>→</td><td data-field="corrected">Claude</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Codex</td><td>→</td><td data-field="corrected">Codex</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">探機</td><td>→</td><td data-field="corrected">碳基</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">矽金片</td><td>→</td><td data-field="corrected">矽晶片</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">雪玲玲突興</td><td>→</td><td data-field="corrected">Tuhin 轉述</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">凸醒</td><td>→</td><td data-field="corrected">Tuhin</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">教母</td><td>→</td><td data-field="corrected">酵母</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">教母老鼠</td><td>→</td><td data-field="corrected">酵母老鼠</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">美角</td><td>→</td><td data-field="corrected">眉角</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">救系統</td><td>→</td><td data-field="corrected">舊系統</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">博利</td><td>→</td><td data-field="corrected">薄利</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">毛利伯</td><td>→</td><td data-field="corrected">毛利薄</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">平寬</td><td>→</td><td data-field="corrected">頻寬</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">平人立盤</td><td>→</td><td data-field="corrected">拼人力拼</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">鈣電廠</td><td>→</td><td data-field="corrected">蓋電廠</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">瓶預</td><td>→</td><td data-field="corrected">瓶頸</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">余醫生</td><td>→</td><td data-field="corrected">於一身</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">即化工</td><td>→</td><td data-field="corrected">集化工</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">升軟體</td><td>→</td><td data-field="corrected">生軟體</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">城市碼</td><td>→</td><td data-field="corrected">程式碼</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">城市外包</td><td>→</td><td data-field="corrected">程式外包</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">寫城市</td><td>→</td><td data-field="corrected">寫程式</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">會寫城市</td><td>→</td><td data-field="corrected">會寫程式</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">認住</td><td>→</td><td data-field="corrected">愣住</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">時訊</td><td>→</td><td data-field="corrected">私訊</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">發人聲醒</td><td>→</td><td data-field="corrected">發人深省</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">充規模</td><td>→</td><td data-field="corrected">衝規模</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">蟲趴在</td><td>→</td><td data-field="corrected">從趴在</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">翻陣</td><td>→</td><td data-field="corrected">翻正</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">收容</td><td>→</td><td data-field="corrected">收攏</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">沉流</td><td>→</td><td data-field="corrected">層流</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">架子</td><td>→</td><td data-field="corrected">價值</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">AINOP</td><td>→</td><td data-field="corrected">AI Notebook</td></tr></table></div></section>
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="whisper"><div class="raw-label">Whisper 原始輸出<button class="copy-btn" id="raw_whisper_4340133760_srt" onclick="copyRaw(this,'raw_whisper_4340133760_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_whisper_4340133760_text" onclick="copyRawText(this,'raw_whisper_4340133760_text')">📋 複製純文字</button></div><pre>1
+00:00:00,000 --&gt; 00:00:04,400
+- 大家好我是Jim
+
+2
+00:00:04,400 --&gt; 00:00:05,500
+这里是AI Notebook
+
+3
+00:00:05,500 --&gt; 00:00:07,300
+想象一下你打开手机看盘
+
+4
+00:00:07,300 --&gt; 00:00:08,200
+画面上这一年
+
+5
+00:00:08,200 --&gt; 00:00:10,500
+全世界往人工智慧砸下去的钱
+
+6
+00:00:10,500 --&gt; 00:00:11,700
+是用罩来计算的
+
+7
+00:00:11,700 --&gt; 00:00:12,900
+工厂一座座盖起来
+
+8
+00:00:12,900 --&gt; 00:00:15,500
+晶片一整柜一整柜亮灯新闻
+
+9
+00:00:15,500 --&gt; 00:00:16,500
+天天在喊革命
+
+10
+00:00:16,500 --&gt; 00:00:18,200
+可是如果你冷静的问一句
+
+11
+00:00:18,200 --&gt; 00:00:20,800
+这几兆美元最后到底流去哪里
+
+12
+00:00:20,800 --&gt; 00:00:22,300
+谁真的把它赚进了口袋
+
+13
+00:00:22,300 --&gt; 00:00:25,300
+你会发现答案跟大多数人想的完全相反
+
+14
+00:00:25,300 --&gt; 00:00:26,900
+史丹佛今年春天开了一门课
+
+15
+00:00:26,900 --&gt; 00:00:29,900
+把九位站在这波浪潮最前线的人一堂一堂
+
+16
+00:00:29,900 --&gt; 00:00:31,900
+请上台拆解这一个问题
+
+17
+00:00:31,900 --&gt; 00:00:34,500
+这支影片就是那九堂课的浓缩
+
+18
+00:00:34,500 --&gt; 00:00:35,900
+先看一句话
+
+19
+00:00:35,900 --&gt; 00:00:39,700
+这句话出自史丹佛今年春天一门课的第一堂讲的人
+
+20
+00:00:39,700 --&gt; 00:00:42,900
+是投资机构Altermeter的合伙人Apore Agrawal
+
+21
+00:00:42,900 --&gt; 00:00:45,900
+他说AI每多服务一个用户都不是免费的
+
+22
+00:00:45,900 --&gt; 00:00:47,300
+你可能觉得这不是废话吗
+
+23
+00:00:47,300 --&gt; 00:00:50,200
+可是如果你懂过去20年的软体生意
+
+24
+00:00:50,200 --&gt; 00:00:51,800
+就知道这句话有多反常
+
+25
+00:00:51,800 --&gt; 00:00:53,200
+过去的软体写好一次
+
+26
+00:00:53,200 --&gt; 00:00:56,000
+复制给第一个人和复制给第一亿个人
+
+27
+00:00:56,000 --&gt; 00:00:57,700
+成本几乎一样趋近于零
+
+28
+00:00:57,700 --&gt; 00:00:59,700
+这就是为什么软体能吃掉全世界
+
+29
+00:00:59,700 --&gt; 00:01:00,700
+但AI不一样
+
+30
+00:01:00,700 --&gt; 00:01:02,200
+他每回答你一次
+
+31
+00:01:02,200 --&gt; 00:01:03,900
+背后都有一整排晶片
+
+32
+00:01:03,900 --&gt; 00:01:05,200
+在真的耗电
+
+33
+00:01:05,200 --&gt; 00:01:07,400
+真的花钱这一个小小的差别
+
+34
+00:01:07,400 --&gt; 00:01:08,800
+藏着这波几兆美元
+
+35
+00:01:08,800 --&gt; 00:01:10,200
+最后留去哪的全部秘密
+
+36
+00:01:10,200 --&gt; 00:01:13,500
+这支影片就是把那门课九堂内容一堂一堂讲给你听
+
+37
+00:01:13,500 --&gt; 00:01:15,600
+先认识丢出这个问题的人
+
+38
+00:01:15,600 --&gt; 00:01:16,700
+Apore V Agrawal
+
+39
+00:01:16,700 --&gt; 00:01:19,900
+在一家叫Altermeter的投资机构做合伙人白天的工作
+
+40
+00:01:19,900 --&gt; 00:01:23,000
+就是判断这波AI里钱会往哪里累积
+
+41
+00:01:23,000 --&gt; 00:01:26,100
+他把整门课的核心浓缩成一句大白话的提问
+
+42
+00:01:26,100 --&gt; 00:01:30,100
+他找了九位站在浪潮最前线的人一堂一堂来回答
+
+43
+00:01:30,100 --&gt; 00:01:33,100
+而他自己给出的答案是一个让很多人意外的形状
+
+44
+00:01:33,100 --&gt; 00:01:36,600
+过去云端时代整个产业像一个正立的金字塔
+
+45
+00:01:36,600 --&gt; 00:01:40,100
+最上面离消费者最近的应用软体赚走最多钱
+
+46
+00:01:40,100 --&gt; 00:01:43,100
+可是他说 AI时代这个金字塔整个倒了过来
+
+47
+00:01:43,100 --&gt; 00:01:47,100
+前程到了最底层要看懂倒过来的到底是什么
+
+48
+00:01:47,100 --&gt; 00:01:49,100
+我们得先看一个数字
+
+49
+00:01:49,100 --&gt; 00:01:53,100
+过去两年整个AI产业多赚进来的钱超过3500亿美元
+
+50
+00:01:53,100 --&gt; 00:01:55,100
+听起来像雨露均粘对吧
+
+51
+00:01:55,100 --&gt; 00:01:57,100
+但真相是这些新增的营收里大约7成5
+
+52
+00:01:57,100 --&gt; 00:01:59,100
+直接流进了最底层的晶片
+
+53
+00:01:59,100 --&gt; 00:02:02,100
+不是应用不是那些你天天在用的聊天机器人
+
+54
+00:02:02,100 --&gt; 00:02:04,100
+而是卖运算硬体的那一层
+
+55
+00:02:04,100 --&gt; 00:02:07,100
+这两年应用层自己也涨了10倍速度很快
+
+56
+00:02:07,100 --&gt; 00:02:11,100
+可是放到整个产业里他连三角形的形状都撼动不了
+
+57
+00:02:11,100 --&gt; 00:02:13,100
+钱像水一样全部往最底下沉
+
+58
+00:02:13,100 --&gt; 00:02:15,100
+这就是这门课最核心的一张图
+
+59
+00:02:15,100 --&gt; 00:02:17,100
+一个倒过来的三角形
+
+60
+00:02:17,100 --&gt; 00:02:21,100
+而理解这个倒三角是理解后面所有一切的钥匙
+
+61
+00:02:21,100 --&gt; 00:02:23,100
+接下来我会一直回来提他
+
+62
+00:02:23,100 --&gt; 00:02:25,100
+把这件事讲的再具体一点
+
+63
+00:02:25,100 --&gt; 00:02:27,100
+这里要先解释一个词
+
+64
+00:02:27,100 --&gt; 00:02:29,100
+毛利意思很简单就是你卖一块钱的东西扣掉
+
+65
+00:02:29,100 --&gt; 00:02:31,100
+直接成本之后能留下多少
+
+66
+00:02:31,100 --&gt; 00:02:34,100
+云端时代最会赚的是最上层的应用软体
+
+67
+00:02:34,100 --&gt; 00:02:37,100
+一块钱收入可以留下八九成晶片
+
+68
+00:02:37,100 --&gt; 00:02:38,100
+反而是薄利的苦工
+
+69
+00:02:38,100 --&gt; 00:02:40,100
+可是AI时代这个关系整个倒过来
+
+70
+00:02:40,100 --&gt; 00:02:43,100
+现在卖晶片的公司毛利高达七成五
+
+71
+00:02:43,100 --&gt; 00:02:44,100
+站在食物链顶端
+
+72
+00:02:44,100 --&gt; 00:02:47,100
+而做应用的公司毛利常常只有0到三成
+
+73
+00:02:47,100 --&gt; 00:02:49,100
+有些甚至是负的同一个产业
+
+74
+00:02:49,100 --&gt; 00:02:50,100
+只是把时间往后推
+
+75
+00:02:50,100 --&gt; 00:02:52,100
+几年最肥的那一块
+
+76
+00:02:52,100 --&gt; 00:02:55,100
+就从最上面乘到了最下面问题来了
+
+77
+00:02:55,100 --&gt; 00:02:56,100
+为什么会变成这样
+
+78
+00:02:56,100 --&gt; 00:02:58,100
+如果把这座倒过来的塔切一刀
+
+79
+00:02:58,100 --&gt; 00:03:00,100
+看横切面会看到三层楼
+
+80
+00:03:00,100 --&gt; 00:03:01,100
+最底层是卖晶片的
+
+81
+00:03:01,100 --&gt; 00:03:02,100
+卖的是运算硬体
+
+82
+00:03:02,100 --&gt; 00:03:04,100
+一块钱能留下大约七成五
+
+83
+00:03:04,100 --&gt; 00:03:05,100
+是最肥的一层
+
+84
+00:03:05,100 --&gt; 00:03:07,100
+中间是做模型的
+
+85
+00:03:07,100 --&gt; 00:03:09,100
+卖的是智慧本身
+
+86
+00:03:09,100 --&gt; 00:03:10,100
+这一层打的最凶
+
+87
+00:03:10,100 --&gt; 00:03:11,100
+价格一直往下掉
+
+88
+00:03:11,100 --&gt; 00:03:13,100
+最上面是做应用的
+
+89
+00:03:13,100 --&gt; 00:03:15,100
+也就是把AI包成产品做给你我用的公司
+
+90
+00:03:15,100 --&gt; 00:03:16,100
+可是他们一块钱
+
+91
+00:03:16,100 --&gt; 00:03:18,100
+常常只能留下0到三成
+
+92
+00:03:18,100 --&gt; 00:03:20,100
+你会发现越耗尽消费者
+
+93
+00:03:20,100 --&gt; 00:03:22,100
+越像我们印象中会赚钱的那一层
+
+94
+00:03:22,100 --&gt; 00:03:23,100
+反而越爱薄
+
+95
+00:03:23,100 --&gt; 00:03:24,100
+这完全违反直觉
+
+96
+00:03:24,100 --&gt; 00:03:25,100
+那Porey说
+
+97
+00:03:25,100 --&gt; 00:03:26,100
+如果你在做应用
+
+98
+00:03:26,100 --&gt; 00:03:28,100
+得先问自己一个残酷的问题
+
+99
+00:03:28,100 --&gt; 00:03:31,100
+他问你是一个功能还是一个平台
+
+100
+00:03:31,100 --&gt; 00:03:32,100
+这句话听起来抽象
+
+101
+00:03:32,100 --&gt; 00:03:33,100
+其实很锋利
+
+102
+00:03:33,100 --&gt; 00:03:34,100
+他说如果你做的东西
+
+103
+00:03:34,100 --&gt; 00:03:36,100
+会让你忍不住问一句
+
+104
+00:03:36,100 --&gt; 00:03:38,100
+这为什么不干脆是大公司
+
+105
+00:03:38,100 --&gt; 00:03:39,100
+产品里的一个按钮
+
+106
+00:03:39,100 --&gt; 00:03:42,100
+那他大概就真的只该是一个按钮
+
+107
+00:03:42,100 --&gt; 00:03:43,100
+举个生活里的例子
+
+108
+00:03:43,100 --&gt; 00:03:45,100
+就像很多手机APP
+
+109
+00:03:45,100 --&gt; 00:03:46,100
+一开始独立存在
+
+110
+00:03:46,100 --&gt; 00:03:48,100
+后来手机系统直接内建了同样的功能
+
+111
+00:03:48,100 --&gt; 00:03:49,100
+那些APP就消失了
+
+112
+00:03:49,100 --&gt; 00:03:51,100
+在AI这座倒三角里
+
+113
+00:03:51,100 --&gt; 00:03:53,100
+中间这层推论的战场最混乱
+
+114
+00:03:53,100 --&gt; 00:03:54,100
+新创暂时领先
+
+115
+00:03:54,100 --&gt; 00:03:55,100
+但云端巨头
+
+116
+00:03:55,100 --&gt; 00:03:57,100
+随时想把它收进自己的地盘
+
+117
+00:03:57,100 --&gt; 00:04:00,100
+能活下来的是能长成平台的那种
+
+118
+00:04:00,100 --&gt; 00:04:02,100
+只是一个功能的迟早会被吃掉
+
+119
+00:04:02,100 --&gt; 00:04:05,100
+而在最上面还有一个更根本的变现难题
+
+120
+00:04:05,100 --&gt; 00:04:08,100
+你以为最红的ChatGPT一定最会赚钱
+
+121
+00:04:08,100 --&gt; 00:04:09,100
+对吧
+
+122
+00:04:09,100 --&gt; 00:04:10,100
+Approfit
+
+123
+00:04:10,100 --&gt; 00:04:11,100
+Polware摊开的数字刚好相反
+
+124
+00:04:11,100 --&gt; 00:04:13,100
+ChatGPT大约有10亿人在用
+
+125
+00:04:13,100 --&gt; 00:04:14,100
+可是平均每个用户
+
+126
+00:04:14,100 --&gt; 00:04:16,100
+每一年只帮他赚进大约10美元
+
+127
+00:04:16,100 --&gt; 00:04:17,100
+而做搜寻的Google
+
+128
+00:04:17,100 --&gt; 00:04:18,100
+同样一个用户
+
+129
+00:04:18,100 --&gt; 00:04:20,100
+一年能赚到大约100美元
+
+130
+00:04:20,100 --&gt; 00:04:21,100
+整整差了10倍
+
+131
+00:04:21,100 --&gt; 00:04:22,100
+原因有两个
+
+132
+00:04:22,100 --&gt; 00:04:23,100
+一是他的用户里
+
+133
+00:04:23,100 --&gt; 00:04:24,100
+差不多9成5的人
+
+134
+00:04:24,100 --&gt; 00:04:25,100
+一毛钱都没付
+
+135
+00:04:25,100 --&gt; 00:04:26,100
+二是ChatGPT
+
+136
+00:04:26,100 --&gt; 00:04:29,100
+不是那种你会没事一直滑
+
+137
+00:04:29,100 --&gt; 00:04:30,100
+一直拿到多8的地方
+
+138
+00:04:30,100 --&gt; 00:04:31,100
+你得主动去问他问题
+
+139
+00:04:31,100 --&gt; 00:04:34,100
+而世界上会主动对科技提问的人
+
+140
+00:04:34,100 --&gt; 00:04:35,100
+远比会滑
+
+141
+00:04:35,100 --&gt; 00:04:36,100
+手机的人少
+
+142
+00:04:36,100 --&gt; 00:04:37,100
+这10倍的缺口怎么补
+
+143
+00:04:37,100 --&gt; 00:04:39,100
+他压了一个很多人反对的答案
+
+144
+00:04:39,100 --&gt; 00:04:41,100
+他压的答案是广告
+
+145
+00:04:41,100 --&gt; 00:04:43,100
+很多人反对说AI对话这么私密
+
+146
+00:04:43,100 --&gt; 00:04:44,100
+怎么可能插广告
+
+147
+00:04:44,100 --&gt; 00:04:46,100
+Approfit的回应是搬出一段历史
+
+148
+00:04:46,100 --&gt; 00:04:48,100
+当年Facebook刚上市的时候
+
+149
+00:04:48,100 --&gt; 00:04:49,100
+满街都是看空报告
+
+150
+00:04:49,100 --&gt; 00:04:51,100
+理由是广告在电脑上有效
+
+151
+00:04:51,100 --&gt; 00:04:52,100
+但手机萤幕这么小
+
+152
+00:04:52,100 --&gt; 00:04:54,100
+根本没有地方放广告
+
+153
+00:04:54,100 --&gt; 00:04:57,100
+结果他们就在手机上找到了放广告的空间
+
+154
+00:04:57,100 --&gt; 00:04:59,100
+而且赚的比电脑时代还多
+
+155
+00:04:59,100 --&gt; 00:05:01,100
+他说今天讲AI不能做广告的人
+
+156
+00:05:01,100 --&gt; 00:05:03,100
+跟当年是同一批论调
+
+157
+00:05:03,100 --&gt; 00:05:05,100
+而且AI更适合广告
+
+158
+00:05:05,100 --&gt; 00:05:06,100
+因为你在跟他对话的时候
+
+159
+00:05:06,100 --&gt; 00:05:09,100
+他最清楚你当下真正想要什么
+
+160
+00:05:09,100 --&gt; 00:05:11,100
+这种精准广告主愿意付更高的价
+
+161
+00:05:11,100 --&gt; 00:05:13,100
+到底谁对5年后见真章
+
+162
+00:05:13,100 --&gt; 00:05:14,100
+这是最上层的困境
+
+163
+00:05:14,100 --&gt; 00:05:15,100
+现在我们往下走
+
+164
+00:05:15,100 --&gt; 00:05:17,100
+看看为什么这门生意的规则
+
+165
+00:05:17,100 --&gt; 00:05:18,100
+会被彻底改写
+
+166
+00:05:18,100 --&gt; 00:05:21,100
+这门课第三堂主题叫GPU
+
+167
+00:05:21,100 --&gt; 00:05:23,100
+经济学讲者是Brett Gerstner
+
+168
+00:05:23,100 --&gt; 00:05:24,100
+他从几百万美元起家
+
+169
+00:05:24,100 --&gt; 00:05:27,100
+18年后管理的资金超过150亿美元
+
+170
+00:05:27,100 --&gt; 00:05:28,100
+是OpenAI Anthropic
+
+171
+00:05:28,100 --&gt; 00:05:30,100
+还有NVidian的大股东之一
+
+172
+00:05:30,100 --&gt; 00:05:32,100
+站在这波里最会下注的位置
+
+173
+00:05:32,100 --&gt; 00:05:34,100
+他开场就把整堂课的前提说死了
+
+174
+00:05:34,100 --&gt; 00:05:36,100
+过去软体之所以能吃掉世界
+
+175
+00:05:36,100 --&gt; 00:05:38,100
+是因为复制它几乎不用钱
+
+176
+00:05:38,100 --&gt; 00:05:39,100
+但AI不是这样
+
+177
+00:05:39,100 --&gt; 00:05:42,100
+每多一个用户都要真的多少一次算力
+
+178
+00:05:42,100 --&gt; 00:05:44,100
+这句话跟第一堂Pori的话是同一个意思
+
+179
+00:05:44,100 --&gt; 00:05:46,100
+只是他要带你看这个差别
+
+180
+00:05:46,100 --&gt; 00:05:49,100
+到底把成本结构扭曲成什么样子
+
+181
+00:05:49,100 --&gt; 00:05:52,100
+而这一切都从一个叫Token的最小单位开始
+
+182
+00:05:52,100 --&gt; 00:05:54,100
+这里先把Token解释清楚
+
+183
+00:05:54,100 --&gt; 00:05:56,100
+你可以把Token想成AI
+
+184
+00:05:56,100 --&gt; 00:05:57,100
+独自和土自的最小单位
+
+185
+00:05:57,100 --&gt; 00:05:59,100
+大概是一个字或半个词
+
+186
+00:05:59,100 --&gt; 00:06:01,100
+AI每跟你讲一句话
+
+187
+00:06:01,100 --&gt; 00:06:02,100
+都是一个Token
+
+188
+00:06:02,100 --&gt; 00:06:03,100
+一个Token算出来的
+
+189
+00:06:03,100 --&gt; 00:06:05,100
+而每算一个背后的晶片
+
+190
+00:06:05,100 --&gt; 00:06:07,100
+就真的耗掉一点电烧掉一点钱
+
+191
+00:06:07,100 --&gt; 00:06:09,100
+这就是他跟过去软体最根本的不同
+
+192
+00:06:09,100 --&gt; 00:06:11,100
+这里还要补一个词边际成本
+
+193
+00:06:11,100 --&gt; 00:06:13,100
+白话说就是你多服务一个客人
+
+194
+00:06:13,100 --&gt; 00:06:15,100
+要多花的那笔钱
+
+195
+00:06:15,100 --&gt; 00:06:16,100
+过去的软体这笔钱趋近于零
+
+196
+00:06:16,100 --&gt; 00:06:19,100
+所以能躺着收八九成
+
+197
+00:06:19,100 --&gt; 00:06:21,100
+毛利AI没有这种好事
+
+198
+00:06:21,100 --&gt; 00:06:22,100
+他多服务一个人
+
+199
+00:06:22,100 --&gt; 00:06:23,100
+就多烧一次电
+
+200
+00:06:23,100 --&gt; 00:06:24,100
+编辑成本是实打实的
+
+201
+00:06:24,100 --&gt; 00:06:26,100
+这也是为什么你会看到
+
+202
+00:06:26,100 --&gt; 00:06:28,100
+有些AI公司营收好几十亿
+
+203
+00:06:28,100 --&gt; 00:06:29,100
+却还在亏钱
+
+204
+00:06:29,100 --&gt; 00:06:30,100
+不是他们不会做生意
+
+205
+00:06:30,100 --&gt; 00:06:32,100
+是这门生意的地基变了
+
+206
+00:06:32,100 --&gt; 00:06:34,100
+所以在很长一段时间里
+
+207
+00:06:34,100 --&gt; 00:06:36,100
+这些最前线的AI实验室做的是一门
+
+208
+00:06:36,100 --&gt; 00:06:38,100
+看起来很傻的生意
+
+209
+00:06:38,100 --&gt; 00:06:39,100
+用Bread的话说
+
+210
+00:06:39,100 --&gt; 00:06:40,100
+他们花一块钱做出来的东西
+
+211
+00:06:40,100 --&gt; 00:06:42,100
+当时只能卖两毛
+
+212
+00:06:42,100 --&gt; 00:06:43,100
+这不是失误
+
+213
+00:06:43,100 --&gt; 00:06:44,100
+是一场刻意的好赌
+
+214
+00:06:44,100 --&gt; 00:06:45,100
+他们赌的是两件事
+
+215
+00:06:45,100 --&gt; 00:06:46,100
+第一
+
+216
+00:06:46,100 --&gt; 00:06:48,100
+运算的成本会一路崩跌
+
+217
+00:06:48,100 --&gt; 00:06:48,700
+第二
+
+218
+00:06:48,700 --&gt; 00:06:50,100
+人们愿意为聪明付的钱
+
+219
+00:06:50,100 --&gt; 00:06:51,100
+会一路暴涨
+
+220
+00:06:51,100 --&gt; 00:06:52,100
+只要这两条线交叉负毛利
+
+221
+00:06:52,100 --&gt; 00:06:53,100
+就会翻证
+
+222
+00:06:53,100 --&gt; 00:06:54,100
+这听起来很玄
+
+223
+00:06:54,100 --&gt; 00:06:56,100
+可是他们手上握着一个
+
+224
+00:06:56,100 --&gt; 00:06:58,100
+能把成本压下去的秘密武器
+
+225
+00:06:58,100 --&gt; 00:06:59,100
+而这个武器背后
+
+226
+00:06:59,100 --&gt; 00:07:01,100
+还藏着一个科技史上
+
+227
+00:07:01,100 --&gt; 00:07:02,100
+最戏剧化的收购故事
+
+228
+00:07:02,100 --&gt; 00:07:04,100
+起点只是一封被压了一周
+
+229
+00:07:04,100 --&gt; 00:07:05,100
+不敢发的简讯
+
+230
+00:07:05,100 --&gt; 00:07:07,100
+故事的主角是一家
+
+231
+00:07:07,100 --&gt; 00:07:08,100
+他叫Groku的晶片新创
+
+232
+00:07:08,100 --&gt; 00:07:10,100
+本来是NVN的死对头
+
+233
+00:07:10,100 --&gt; 00:07:11,100
+Groku的负责人
+
+234
+00:07:11,100 --&gt; 00:07:12,100
+Sunny传简讯给Brad说
+
+235
+00:07:12,100 --&gt; 00:07:14,100
+我觉得我们有机会跟NVN合作
+
+236
+00:07:14,100 --&gt; 00:07:16,100
+你能不能帮我把话带给老板
+
+237
+00:07:16,100 --&gt; 00:07:17,100
+Jensen Brad
+
+238
+00:07:17,100 --&gt; 00:07:18,100
+因为交情怕唐突
+
+239
+00:07:18,100 --&gt; 00:07:20,100
+把这封简讯押了整整一周
+
+240
+00:07:20,100 --&gt; 00:07:21,100
+不敢发
+
+241
+00:07:21,100 --&gt; 00:07:22,100
+Sunny又催了一次
+
+242
+00:07:22,100 --&gt; 00:07:23,100
+他才终于送出去
+
+243
+00:07:23,100 --&gt; 00:07:24,100
+Jensen几乎是秒回
+
+244
+00:07:24,100 --&gt; 00:07:26,100
+只说了三个字有意思
+
+245
+00:07:26,100 --&gt; 00:07:28,100
+聊聊从展示出一个能跑的原型
+
+246
+00:07:28,100 --&gt; 00:07:29,100
+到NVN正式出手
+
+247
+00:07:29,100 --&gt; 00:07:32,100
+只花了大约30天成交金额200亿美元
+
+248
+00:07:32,100 --&gt; 00:07:34,100
+是NVN史上最大的一笔收购
+
+249
+00:07:34,100 --&gt; 00:07:35,100
+Brad的感慨是
+
+250
+00:07:35,100 --&gt; 00:07:36,100
+这种天大的交易
+
+251
+00:07:36,100 --&gt; 00:07:39,100
+常常就起于某一天某一个人的一个小决定
+
+252
+00:07:39,100 --&gt; 00:07:41,100
+而NVN之所以肯砸这么多钱
+
+253
+00:07:41,100 --&gt; 00:07:44,100
+是因为Groku手上有一个很具体的本事
+
+254
+00:07:44,100 --&gt; 00:07:45,100
+这个本事
+
+255
+00:07:45,100 --&gt; 00:07:46,100
+说穿了就是省电
+
+256
+00:07:46,100 --&gt; 00:07:49,100
+你可以把一座AI资料中心想象成一间Token
+
+257
+00:07:49,100 --&gt; 00:07:51,100
+工厂一端塞进电力和晶片
+
+258
+00:07:51,100 --&gt; 00:07:52,100
+另一端吐出Token
+
+259
+00:07:52,100 --&gt; 00:07:54,100
+而Groku和NVN合体之后
+
+260
+00:07:54,100 --&gt; 00:07:56,100
+在同一栋厂房用同样的一度电
+
+261
+00:07:56,100 --&gt; 00:07:58,100
+Token的产出可以多出两倍半
+
+262
+00:07:58,100 --&gt; 00:08:00,100
+这在别的产业听起来平平无奇
+
+263
+00:08:00,100 --&gt; 00:08:02,100
+但在AI的世界这是天大的事
+
+264
+00:08:02,100 --&gt; 00:08:04,100
+因为这座工厂真正的瓶颈
+
+265
+00:08:04,100 --&gt; 00:08:06,100
+从来不是厂房而是电力
+
+266
+00:08:06,100 --&gt; 00:08:07,100
+当电是你的天花板
+
+267
+00:08:07,100 --&gt; 00:08:09,100
+任何能让同样的电
+
+268
+00:08:09,100 --&gt; 00:08:11,100
+多吐一倍半Token的技术
+
+269
+00:08:11,100 --&gt; 00:08:13,100
+就等于凭空多出一大块产能
+
+270
+00:08:13,100 --&gt; 00:08:14,100
+直接变成钱
+
+271
+00:08:14,100 --&gt; 00:08:15,100
+省下的每一瓦都是钱
+
+272
+00:08:15,100 --&gt; 00:08:16,100
+这也解释了
+
+273
+00:08:16,100 --&gt; 00:08:17,100
+为什么运算成本
+
+274
+00:08:17,100 --&gt; 00:08:18,100
+能在短短几年里
+
+275
+00:08:18,100 --&gt; 00:08:21,100
+崩跌到一个让人不敢相信的地步
+
+276
+00:08:21,100 --&gt; 00:08:23,100
+这里有一个违反常识的现象
+
+277
+00:08:23,100 --&gt; 00:08:25,100
+过去两年半跑一次
+
+278
+00:08:25,100 --&gt; 00:08:26,100
+AI也就是推论的成本
+
+279
+00:08:26,100 --&gt; 00:08:28,100
+下降了大约9成9
+
+280
+00:08:28,100 --&gt; 00:08:29,100
+几乎是崩掉了
+
+281
+00:08:29,100 --&gt; 00:08:30,100
+照理说成本降这么多
+
+282
+00:08:30,100 --&gt; 00:08:32,100
+大家的花费应该大减才对
+
+283
+00:08:32,100 --&gt; 00:08:33,100
+对吧
+
+284
+00:08:33,100 --&gt; 00:08:34,100
+结果完全相反
+
+285
+00:08:34,100 --&gt; 00:08:35,100
+总支出不减反真
+
+286
+00:08:35,100 --&gt; 00:08:37,100
+连旧晶片的租金都在涨
+
+287
+00:08:37,100 --&gt; 00:08:38,100
+这在经济学上有个名字叫
+
+288
+00:08:38,100 --&gt; 00:08:39,100
+杰文斯悖论
+
+289
+00:08:39,100 --&gt; 00:08:40,100
+他的意思是
+
+290
+00:08:40,100 --&gt; 00:08:42,100
+当一样东西变便宜变好用
+
+291
+00:08:42,100 --&gt; 00:08:44,100
+人们反而会用得更凶
+
+292
+00:08:44,100 --&gt; 00:08:46,100
+凶到把省下来的钱全部又花回去
+
+293
+00:08:46,100 --&gt; 00:08:47,100
+甚至花更多
+
+294
+00:08:47,100 --&gt; 00:08:49,100
+当年蒸汽机效率提升
+
+295
+00:08:49,100 --&gt; 00:08:50,100
+没反而烧的更多
+
+296
+00:08:50,100 --&gt; 00:08:51,100
+就是这个道理
+
+297
+00:08:51,100 --&gt; 00:08:52,100
+AI也一样
+
+298
+00:08:52,100 --&gt; 00:08:54,100
+因为他同时在变聪明变便宜
+
+299
+00:08:54,100 --&gt; 00:08:56,100
+需求就像决堤一样涌出来
+
+300
+00:08:56,100 --&gt; 00:08:58,100
+所以就算成本一路狂降
+
+301
+00:08:58,100 --&gt; 00:08:59,100
+账单还是越来越厚
+
+302
+00:08:59,100 --&gt; 00:09:00,100
+而就在这个当口
+
+303
+00:09:00,100 --&gt; 00:09:01,100
+发生了一件
+
+304
+00:09:01,100 --&gt; 00:09:03,100
+让泡沫论者集体改口的事
+
+305
+00:09:03,100 --&gt; 00:09:06,100
+那件事是其中一家最前线的实验室
+
+306
+00:09:06,100 --&gt; 00:09:08,100
+营收连续三个月往上跳
+
+307
+00:09:08,100 --&gt; 00:09:10,100
+而且一个月比一个月跳的高幅度大
+
+308
+00:09:10,100 --&gt; 00:09:12,100
+到让原本喊泡沫的人都闭了嘴
+
+309
+00:09:12,100 --&gt; 00:09:14,100
+为什么这件事这么关键
+
+310
+00:09:14,100 --&gt; 00:09:16,100
+因为他证明了那场豪赌的第二只脚
+
+311
+00:09:16,100 --&gt; 00:09:18,100
+人们愿意为聪明付的钱
+
+312
+00:09:18,100 --&gt; 00:09:19,100
+真的在暴涨
+
+313
+00:09:19,100 --&gt; 00:09:21,100
+当成本一路往下营收一路往上
+
+314
+00:09:21,100 --&gt; 00:09:23,100
+这两条线一交叉
+
+315
+00:09:23,100 --&gt; 00:09:25,100
+那个花一块钱卖两毛的黑洞就开始翻证
+
+316
+00:09:25,100 --&gt; 00:09:26,100
+Brad说
+
+317
+00:09:26,100 --&gt; 00:09:28,100
+这是他第一次看到一家公司的营收曲线
+
+318
+00:09:28,100 --&gt; 00:09:30,100
+跟模型变聪明的曲线
+
+319
+00:09:30,100 --&gt; 00:09:33,100
+贴在同一条指数线上往上冲
+
+320
+00:09:33,100 --&gt; 00:09:34,100
+从这一刻起泡沫的质疑
+
+321
+00:09:34,100 --&gt; 00:09:35,100
+换了一个方向
+
+322
+00:09:35,100 --&gt; 00:09:37,100
+而更让人不安的是接下来这一幕
+
+323
+00:09:37,100 --&gt; 00:09:39,100
+四个平常吵个不停的人
+
+324
+00:09:39,100 --&gt; 00:09:41,100
+罕见的说了同一句话
+
+325
+00:09:41,100 --&gt; 00:09:43,100
+Brad转述最近私底下
+
+326
+00:09:43,100 --&gt; 00:09:45,100
+Dario Sam还有Elon跟Janson
+
+327
+00:09:45,100 --&gt; 00:09:47,100
+这四个平常立场南辕北辙的人
+
+328
+00:09:47,100 --&gt; 00:09:49,100
+罕见的讲了同一句话
+
+329
+00:09:49,100 --&gt; 00:09:52,100
+那就是我们几乎已经走到指数曲线的尽头了
+
+330
+00:09:52,100 --&gt; 00:09:54,100
+而大家好像根本还没发现他们的意思是
+
+331
+00:09:54,100 --&gt; 00:09:57,100
+那个大家口中的强人工智慧
+
+332
+00:09:57,100 --&gt; 00:09:58,100
+来的会比预期更早
+
+333
+00:09:58,100 --&gt; 00:10:00,100
+这句话你可以信一半移一半
+
+334
+00:10:00,100 --&gt; 00:10:03,100
+但重点在于当下注最重的四个人同时这样说
+
+335
+00:10:03,100 --&gt; 00:10:06,100
+接下来真正的难题就不再是能不能做出来
+
+336
+00:10:06,100 --&gt; 00:10:09,100
+而是做出来之后这么大的财富要怎么分配
+
+337
+00:10:09,100 --&gt; 00:10:11,100
+累积财富会前所未有力
+
+338
+00:10:11,100 --&gt; 00:10:13,100
+容易分配会前所未有力
+
+339
+00:10:13,100 --&gt; 00:10:15,100
+难讲完了为什么要烧钱
+
+340
+00:10:15,100 --&gt; 00:10:16,100
+以及钱正在翻证
+
+341
+00:10:16,100 --&gt; 00:10:18,100
+我们该亲眼去看这些钱
+
+342
+00:10:18,100 --&gt; 00:10:20,100
+到底在地面上盖出了什么
+
+343
+00:10:20,100 --&gt; 00:10:21,100
+这门课第四堂
+
+344
+00:10:21,100 --&gt; 00:10:23,100
+我们从财报走进工地
+
+345
+00:10:23,100 --&gt; 00:10:24,100
+讲者是Charles Lockmiller
+
+346
+00:10:24,100 --&gt; 00:10:26,100
+一家叫Cruzzo的基建公司的执行长
+
+347
+00:10:26,100 --&gt; 00:10:27,100
+他同时是个登山狂
+
+348
+00:10:27,100 --&gt; 00:10:29,100
+七大洲最高峰爬了五座
+
+349
+00:10:29,100 --&gt; 00:10:30,100
+包含圣母峰
+
+350
+00:10:30,100 --&gt; 00:10:31,100
+这个背景不是闲聊
+
+351
+00:10:31,100 --&gt; 00:10:33,100
+因为盖一座AI工厂跟登山一样
+
+352
+00:10:33,100 --&gt; 00:10:34,100
+有计划
+
+353
+00:10:34,100 --&gt; 00:10:35,100
+A计划B
+
+354
+00:10:35,100 --&gt; 00:10:36,100
+还有计划B的备案
+
+355
+00:10:36,100 --&gt; 00:10:39,100
+他做的事就是帮那些最大的科技巨头
+
+356
+00:10:39,100 --&gt; 00:10:41,100
+把AI工厂从一块空地盖起来
+
+357
+00:10:41,100 --&gt; 00:10:43,100
+他说AI说到底是资料演算法
+
+358
+00:10:43,100 --&gt; 00:10:45,100
+算力能源加上资料中心
+
+359
+00:10:45,100 --&gt; 00:10:47,100
+前两项是实验室的事
+
+360
+00:10:47,100 --&gt; 00:10:49,100
+而钱主要烧在后面那三项
+
+361
+00:10:49,100 --&gt; 00:10:50,100
+也就是他的地盘
+
+362
+00:10:50,100 --&gt; 00:10:51,100
+他摊开一张收据
+
+363
+00:10:51,100 --&gt; 00:10:54,100
+让大家看清楚这些钱到底怎么花
+
+364
+00:10:54,100 --&gt; 00:10:55,100
+Chase有一句话
+
+365
+00:10:55,100 --&gt; 00:10:57,100
+把很多人心中神秘的资料中心
+
+366
+00:10:57,100 --&gt; 00:10:58,100
+一下子拉回地面
+
+367
+00:10:58,100 --&gt; 00:11:00,100
+他说资料中心缩穿了
+
+368
+00:11:00,100 --&gt; 00:11:03,100
+就是一栋有电有冷却能插电脑的建筑
+
+369
+00:11:03,100 --&gt; 00:11:04,100
+就这么简单
+
+370
+00:11:04,100 --&gt; 00:11:05,100
+可是他马上补一句
+
+371
+00:11:05,100 --&gt; 00:11:08,100
+一旦你把这栋房子放大到一整座城市用电的规模
+
+372
+00:11:08,100 --&gt; 00:11:11,100
+他就变成即化工机械电机
+
+373
+00:11:11,100 --&gt; 00:11:13,100
+还有资讯工程余医生的工程巅峰
+
+374
+00:11:13,100 --&gt; 00:11:16,100
+这就像你家的电箱跟一座城市的变电站
+
+375
+00:11:16,100 --&gt; 00:11:17,100
+本质上是同一件事
+
+376
+00:11:17,100 --&gt; 00:11:18,100
+但难度差了几万倍
+
+377
+00:11:18,100 --&gt; 00:11:20,100
+他用家乡丹佛当此说
+
+378
+00:11:20,100 --&gt; 00:11:21,100
+他们盖的一个圆区
+
+379
+00:11:21,100 --&gt; 00:11:23,100
+用电量等于两个丹佛市
+
+380
+00:11:23,100 --&gt; 00:11:24,100
+整座城市的电
+
+381
+00:11:24,100 --&gt; 00:11:26,100
+全部拿去喂电脑
+
+382
+00:11:26,100 --&gt; 00:11:27,100
+而要衡量这种规模
+
+383
+00:11:27,100 --&gt; 00:11:28,100
+得换一个单位叫百万瓦
+
+384
+00:11:28,100 --&gt; 00:11:31,100
+这也是看懂那张收据的关键
+
+385
+00:11:31,100 --&gt; 00:11:32,100
+百万瓦
+
+386
+00:11:32,100 --&gt; 00:11:34,100
+就是这座工厂一次能吃掉多少电
+
+387
+00:11:34,100 --&gt; 00:11:36,100
+确实把一格百万瓦的算力
+
+388
+00:11:36,100 --&gt; 00:11:37,100
+一项一项算给你看
+
+389
+00:11:37,100 --&gt; 00:11:38,100
+盖楼加上自己发电
+
+390
+00:11:38,100 --&gt; 00:11:40,100
+要2000万美元
+
+391
+00:11:40,100 --&gt; 00:11:42,100
+里面塞的晶片是最贵的一块
+
+392
+00:11:42,100 --&gt; 00:11:43,100
+再花3000万
+
+393
+00:11:43,100 --&gt; 00:11:45,100
+加上把几万张晶片串起来的网路
+
+394
+00:11:45,100 --&gt; 00:11:46,100
+帮他散热的冷却
+
+395
+00:11:46,100 --&gt; 00:11:48,100
+还有储存又是1000万一格
+
+396
+00:11:48,100 --&gt; 00:11:50,100
+百万瓦总价大约6000万美元
+
+397
+00:11:50,100 --&gt; 00:11:52,100
+而现在动不动就在盖
+
+398
+00:11:52,100 --&gt; 00:11:53,100
+11瓦等级的圆区
+
+399
+00:11:53,100 --&gt; 00:11:55,100
+1000格这样叠起来
+
+400
+00:11:55,100 --&gt; 00:11:57,100
+光一个圆区就是600亿美元
+
+401
+00:11:57,100 --&gt; 00:11:58,100
+这还只是盖起来
+
+402
+00:11:58,100 --&gt; 00:12:00,100
+电费和维修都还没算进去
+
+403
+00:12:00,100 --&gt; 00:12:01,100
+你把这张收据对照一下
+
+404
+00:12:01,100 --&gt; 00:12:03,100
+前面那个倒三角就懂了
+
+405
+00:12:03,100 --&gt; 00:12:04,100
+为什么晶片那一层
+
+406
+00:12:04,100 --&gt; 00:12:05,100
+能吃掉大部分的钱
+
+407
+00:12:05,100 --&gt; 00:12:07,100
+因为光是硬体就占了收据的一半
+
+408
+00:12:07,100 --&gt; 00:12:10,100
+可是盖这么贵多久才赚的回来
+
+409
+00:12:10,100 --&gt; 00:12:12,100
+这里藏着一个关键的分叉
+
+410
+00:12:12,100 --&gt; 00:12:14,100
+确实算给大家看
+
+411
+00:12:14,100 --&gt; 00:12:16,100
+如果你只是单纯把晶片租出去
+
+412
+00:12:16,100 --&gt; 00:12:18,100
+让别人拿去用那台6000万美元的机器
+
+413
+00:12:18,100 --&gt; 00:12:20,100
+大概要4年才赚的回来
+
+414
+00:12:20,100 --&gt; 00:12:22,100
+但如果你网上多做一层
+
+415
+00:12:22,100 --&gt; 00:12:23,100
+不只租硬体
+
+416
+00:12:23,100 --&gt; 00:12:25,100
+还直接帮客户把AI服务跑好
+
+417
+00:12:25,100 --&gt; 00:12:26,100
+按用量卖出去
+
+418
+00:12:26,100 --&gt; 00:12:28,100
+回本时间可以直接砍到两年
+
+419
+00:12:28,100 --&gt; 00:12:30,100
+这就像你有一台烤箱
+
+420
+00:12:30,100 --&gt; 00:12:31,100
+你可以把烤箱租给人家
+
+421
+00:12:31,100 --&gt; 00:12:32,100
+也可以自己烤面包来卖
+
+422
+00:12:32,100 --&gt; 00:12:33,100
+后者当然赚的多
+
+423
+00:12:33,100 --&gt; 00:12:34,100
+回的快
+
+424
+00:12:34,100 --&gt; 00:12:35,100
+多做一层
+
+425
+00:12:35,100 --&gt; 00:12:36,100
+快了一倍
+
+426
+00:12:36,100 --&gt; 00:12:37,100
+你发现了吗
+
+427
+00:12:37,100 --&gt; 00:12:39,100
+这其实就是那个倒三角
+
+428
+00:12:39,100 --&gt; 00:12:41,100
+开始松动的第一个小征兆价值
+
+429
+00:12:41,100 --&gt; 00:12:44,100
+真一点一点从纯硬体往上爬
+
+430
+00:12:44,100 --&gt; 00:12:45,100
+不过在往上爬之前
+
+431
+00:12:45,100 --&gt; 00:12:46,100
+我们得先破解三个
+
+432
+00:12:46,100 --&gt; 00:12:49,100
+关于这些工厂的流传最广的误会
+
+433
+00:12:49,100 --&gt; 00:12:52,100
+答案可能跟你在新闻上听到都不一样
+
+434
+00:12:52,100 --&gt; 00:12:53,100
+第一个误会
+
+435
+00:12:53,100 --&gt; 00:12:54,100
+很多人以为卡在晶片不够
+
+436
+00:12:54,100 --&gt; 00:12:57,100
+但Chase说晶片这一关4年前就过了
+
+437
+00:12:57,100 --&gt; 00:12:59,100
+现在真正缺的是一块已经通好电
+
+438
+00:12:59,100 --&gt; 00:13:02,100
+可以直接插晶片开机的建筑
+
+439
+00:13:02,100 --&gt; 00:13:03,100
+第二个误会
+
+440
+00:13:03,100 --&gt; 00:13:04,100
+是AI喝光了水
+
+441
+00:13:04,100 --&gt; 00:13:07,100
+他反驳说这种工厂灌一次冷却水之后
+
+442
+00:13:07,100 --&gt; 00:13:09,100
+一整年的用水量大概只等于一户普通人家
+
+443
+00:13:09,100 --&gt; 00:13:11,100
+第三个误会是旧晶片会变垃圾
+
+444
+00:13:11,100 --&gt; 00:13:13,100
+结果因为AI代理需求爆发
+
+445
+00:13:13,100 --&gt; 00:13:15,100
+三年前的旧晶片租金不跌返涨
+
+446
+00:13:15,100 --&gt; 00:13:17,100
+比刚上市还贵
+
+447
+00:13:17,100 --&gt; 00:13:19,100
+那真正的瓶预是什么
+
+448
+00:13:19,100 --&gt; 00:13:22,100
+是电力还有钙电厂的焊工和水电工
+
+449
+00:13:22,100 --&gt; 00:13:24,100
+一格百万瓦的建设里光付给工人的工钱
+
+450
+00:13:24,100 --&gt; 00:13:26,100
+就要好几百万美元
+
+451
+00:13:26,100 --&gt; 00:13:27,100
+工人比晶片还难找
+
+452
+00:13:27,100 --&gt; 00:13:30,100
+而这一切疯狂的背后藏着一个经济学家
+
+453
+00:13:30,100 --&gt; 00:13:32,100
+听了会眼睛发亮的理由
+
+454
+00:13:32,100 --&gt; 00:13:34,100
+Chase用一个经济学框架解释了
+
+455
+00:13:34,100 --&gt; 00:13:36,100
+为什么全世界会集体封成这样
+
+456
+00:13:36,100 --&gt; 00:13:38,100
+一个国家的经济要成长
+
+457
+00:13:38,100 --&gt; 00:13:40,100
+靠的无非是三样更多的人力
+
+458
+00:13:40,100 --&gt; 00:13:42,100
+更多的资本更好的技术
+
+459
+00:13:42,100 --&gt; 00:13:44,100
+而过去几千年人力这一项
+
+460
+00:13:44,100 --&gt; 00:13:46,100
+想增加只有一条陆生小孩
+
+461
+00:13:46,100 --&gt; 00:13:48,100
+你得等他出生养大送去上学
+
+462
+00:13:48,100 --&gt; 00:13:51,100
+前后要20年快不了他自己有三个小孩
+
+463
+00:13:51,100 --&gt; 00:13:52,100
+最懂这有多慢
+
+464
+00:13:52,100 --&gt; 00:13:54,100
+可是现在史上第一次你可以用下单
+
+465
+00:13:54,100 --&gt; 00:13:56,100
+买晶片盖资料中心的方式
+
+466
+00:13:56,100 --&gt; 00:13:59,100
+直接数位地制造出一批新的劳动力
+
+467
+00:13:59,100 --&gt; 00:14:02,100
+这批劳动力不用睡觉不用吃饭开机就能上工
+
+468
+00:14:02,100 --&gt; 00:14:05,100
+当一个人意识到钱可以直接换成劳动力
+
+469
+00:14:05,100 --&gt; 00:14:07,100
+换成整个国家的经济成长你就懂了
+
+470
+00:14:07,100 --&gt; 00:14:10,100
+为什么他们愿意把几兆美元眼睛都不眨的砸下去
+
+471
+00:14:10,100 --&gt; 00:14:15,100
+而Cruzor盖工厂的地点选择更是反直觉到有点好笑
+
+472
+00:14:15,100 --&gt; 00:14:18,100
+大家都跑去北维吉尼亚排队抢电的时候
+
+473
+00:14:18,100 --&gt; 00:14:21,100
+Cruzor反过来跑去人烟稀少的西德州
+
+474
+00:14:21,100 --&gt; 00:14:24,100
+为什么因为那里风大太阳大政府又补贴过度
+
+475
+00:14:24,100 --&gt; 00:14:28,100
+再生能源盖的太多电多到送不出去价格一度变成负的
+
+476
+00:14:28,100 --&gt; 00:14:29,100
+你没听错是负的
+
+477
+00:14:29,100 --&gt; 00:14:32,100
+发电人得倒贴钱求别人把电用掉
+
+478
+00:14:32,100 --&gt; 00:14:34,100
+这时候他们就登门说太好了
+
+479
+00:14:34,100 --&gt; 00:14:36,100
+我们正好有一个超级吃电的应用
+
+480
+00:14:36,100 --&gt; 00:14:40,100
+这一步起很妙与其花大钱把电从远方搬过来
+
+481
+00:14:40,100 --&gt; 00:14:43,100
+不如把整座资料中心直接盖在店最便宜的地方
+
+482
+00:14:43,100 --&gt; 00:14:44,100
+把资料搬过去
+
+483
+00:14:44,100 --&gt; 00:14:46,100
+别人头痛的难题
+
+484
+00:14:46,100 --&gt; 00:14:47,100
+变成了他们的护城河
+
+485
+00:14:47,100 --&gt; 00:14:49,100
+看完了地面上这些钢筋水泥
+
+486
+00:14:49,100 --&gt; 00:14:53,100
+我们得再往上游走一步去看一个更根本的东西
+
+487
+00:14:53,100 --&gt; 00:14:55,100
+这些巨头买的其实根本不是晶片
+
+488
+00:14:55,100 --&gt; 00:14:56,100
+这门客
+
+489
+00:14:56,100 --&gt; 00:14:58,100
+第六堂回到母校演讲的是Sachin Khati
+
+490
+00:14:58,100 --&gt; 00:15:01,100
+他的资历横跨整个运算堆叠在史丹佛教了
+
+491
+00:15:01,100 --&gt; 00:15:05,100
+15年书当过intel的基础长最近离开加入open ai
+
+492
+00:15:05,100 --&gt; 00:15:08,100
+负责一件事把open ai需要的所有算力实际交付出来
+
+493
+00:15:08,100 --&gt; 00:15:11,100
+也就是那个超大计划Stagate的实际执行者
+
+494
+00:15:11,100 --&gt; 00:15:16,100
+主持人形容他是看过从电子一路到agent整条供应链的人
+
+495
+00:15:16,100 --&gt; 00:15:18,100
+他丢出的第一句话就非常反直觉
+
+496
+00:15:18,100 --&gt; 00:15:20,100
+营收只是算力的落后指标
+
+497
+00:15:20,100 --&gt; 00:15:22,100
+这句话什么意思我们等一下会解释
+
+498
+00:15:22,100 --&gt; 00:15:26,100
+但在那之前他先纠正了一个大家对这门生意的根本误解
+
+499
+00:15:26,100 --&gt; 00:15:30,100
+当open ai说要采购算力他们买的根本不是晶片
+
+500
+00:15:30,100 --&gt; 00:15:32,100
+是一整条供应链
+
+501
+00:15:32,100 --&gt; 00:15:38,100
+从最上游的一块地一座电厂到一整柜一整柜的晶片和记忆体
+
+502
+00:15:38,100 --&gt; 00:15:41,100
+再到把几万张晶片串起来的网路
+
+503
+00:15:41,100 --&gt; 00:15:43,100
+还有帮他们散热的冷却
+
+504
+00:15:43,100 --&gt; 00:15:45,100
+最后才吐得出token这一整串
+
+505
+00:15:45,100 --&gt; 00:15:47,100
+缺任何一个环节整座工厂就开不了机
+
+506
+00:15:47,100 --&gt; 00:15:50,100
+这就像你想煮一顿饭光有食材不够
+
+507
+00:15:50,100 --&gt; 00:15:53,100
+你还要有厨房有瓦斯有水电任何一样没接好
+
+508
+00:15:53,100 --&gt; 00:15:54,100
+饭就是煮不出来
+
+509
+00:15:54,100 --&gt; 00:15:58,100
+而这些东西美国其实已经很久没有大规模在盖了变压器
+
+510
+00:15:58,100 --&gt; 00:16:02,100
+变压器开关设备发电机一个一个轮流变成瓶颈
+
+511
+00:16:02,100 --&gt; 00:16:06,100
+所以他说真正困难的根本不是签下那张采购合约
+
+512
+00:16:06,100 --&gt; 00:16:08,100
+他说签约是最有趣的部分
+
+513
+00:16:08,100 --&gt; 00:16:10,100
+签完之后的一切才是真正困难的地方
+
+514
+00:16:10,100 --&gt; 00:16:14,100
+这句话任何装修过房子办过混理的人都秒懂
+
+515
+00:16:14,100 --&gt; 00:16:18,100
+签合约的那一刻大家握手拍照开香槟感觉大功告成
+
+516
+00:16:18,100 --&gt; 00:16:21,100
+可真正的苦工是后面那几百件会出错的小事
+
+517
+00:16:21,100 --&gt; 00:16:23,100
+放到AI工厂的规模
+
+518
+00:16:23,100 --&gt; 00:16:27,100
+这些小事是变压器要等一年是焊工不够是电网承受不住
+
+519
+00:16:27,100 --&gt; 00:16:29,100
+他要处理的是把几百亿美元的采购
+
+520
+00:16:29,100 --&gt; 00:16:32,100
+变成一栋真的能开机能稳定跑的工厂
+
+521
+00:16:32,100 --&gt; 00:16:35,100
+也正因为这条供应链这么难这么慢他才敢说
+
+522
+00:16:35,100 --&gt; 00:16:37,100
+营收只是算力的落后指标
+
+523
+00:16:37,100 --&gt; 00:16:40,100
+这句话其实藏着一个很大胆的预测
+
+524
+00:16:40,100 --&gt; 00:16:42,100
+他说对这些最前线的实验室来说
+
+525
+00:16:42,100 --&gt; 00:16:44,100
+你有多少算力程上用的多满
+
+526
+00:16:44,100 --&gt; 00:16:46,100
+基本上就决定了你能赚多少
+
+527
+00:16:46,100 --&gt; 00:16:48,100
+OpenAI过去三年算力每年涨三倍
+
+528
+00:16:48,100 --&gt; 00:16:50,100
+营收也刚好每年涨三倍
+
+529
+00:16:50,100 --&gt; 00:16:53,100
+两条线贴的死死的看不到镜头
+
+530
+00:16:53,100 --&gt; 00:16:55,100
+所以营收是跟在算力后面走的
+
+531
+00:16:55,100 --&gt; 00:16:57,100
+这就是落后指标的意思
+
+532
+00:16:57,100 --&gt; 00:16:58,100
+他带来一个很实用的看法
+
+533
+00:16:58,100 --&gt; 00:17:00,100
+当你看到OpenAI帕命公布
+
+534
+00:17:00,100 --&gt; 00:17:03,100
+未来要盖多少算力那张一路往上的图
+
+535
+00:17:03,100 --&gt; 00:17:06,100
+你可以直接把它当成一张营收预测图来读
+
+536
+00:17:06,100 --&gt; 00:17:08,100
+这也解释了前面Bread说的
+
+537
+00:17:08,100 --&gt; 00:17:10,100
+为什么明明还在烧钱
+
+538
+00:17:10,100 --&gt; 00:17:12,100
+以前却敢一直往最底层砸
+
+539
+00:17:12,100 --&gt; 00:17:14,100
+因为底层的算力就是未来营收本身
+
+540
+00:17:14,100 --&gt; 00:17:16,100
+而Agent的出现还悄悄改变了
+
+541
+00:17:16,100 --&gt; 00:17:18,100
+这座工厂内不长什么样子
+
+542
+00:17:18,100 --&gt; 00:17:20,100
+这里先解释Agent这个词
+
+543
+00:17:20,100 --&gt; 00:17:23,100
+Agent就是能自己动手连续做很多步的AI
+
+544
+00:17:23,100 --&gt; 00:17:24,100
+不只是回答你
+
+545
+00:17:24,100 --&gt; 00:17:25,100
+而是替你把事情做完
+
+546
+00:17:25,100 --&gt; 00:17:29,100
+Sachin说这个转变把运算的样子整个改写了
+
+547
+00:17:29,100 --&gt; 00:17:30,100
+第一种是纯聊天
+
+548
+00:17:30,100 --&gt; 00:17:31,100
+你问一句他答一句
+
+549
+00:17:31,100 --&gt; 00:17:32,100
+运算上就是单
+
+550
+00:17:32,100 --&gt; 00:17:34,100
+一个节点很单纯
+
+551
+00:17:34,100 --&gt; 00:17:35,100
+第二种是会推理的AI
+
+552
+00:17:35,100 --&gt; 00:17:37,100
+他会在心里想很多步
+
+553
+00:17:37,100 --&gt; 00:17:39,100
+才给你答案变成好几个节点
+
+554
+00:17:39,100 --&gt; 00:17:41,100
+第三种也就是Agent是一整张图
+
+555
+00:17:41,100 --&gt; 00:17:42,100
+他会推理去查资料
+
+556
+00:17:42,100 --&gt; 00:17:44,100
+打开一台虚拟机器跑测试
+
+557
+00:17:44,100 --&gt; 00:17:46,100
+再回来继续想一步接一步
+
+558
+00:17:46,100 --&gt; 00:17:48,100
+这种复杂的工作
+
+559
+00:17:48,100 --&gt; 00:17:50,100
+光靠GPU在经济上撑不起来
+
+560
+00:17:50,100 --&gt; 00:17:51,100
+所以要混用各种晶片
+
+561
+00:17:51,100 --&gt; 00:17:54,100
+连本来被看衰的CPU都因此复活了
+
+562
+00:17:54,100 --&gt; 00:17:55,100
+而这张越来越复杂的图
+
+563
+00:17:55,100 --&gt; 00:17:57,100
+也带来一个大家没料到的
+
+564
+00:17:57,100 --&gt; 00:17:58,100
+看不见的风险
+
+565
+00:17:58,100 --&gt; 00:18:00,100
+这个风险藏在电网里
+
+566
+00:18:00,100 --&gt; 00:18:01,100
+当一座资料中心里
+
+567
+00:18:01,100 --&gt; 00:18:02,100
+呈千上万张晶片
+
+568
+00:18:02,100 --&gt; 00:18:04,100
+同时开始一个训练任务
+
+569
+00:18:04,100 --&gt; 00:18:06,100
+又同时停下来整栋楼的功耗
+
+570
+00:18:06,100 --&gt; 00:18:08,100
+会在一瞬间同上同下
+
+571
+00:18:08,100 --&gt; 00:18:10,100
+摆动的幅度可能高达好几百个百万瓦
+
+572
+00:18:10,100 --&gt; 00:18:12,100
+这就像一整座城市的人约好在同一秒
+
+573
+00:18:12,100 --&gt; 00:18:15,100
+一起打开又一起关掉所有电器
+
+574
+00:18:15,100 --&gt; 00:18:17,100
+问题是全世界的电网
+
+575
+00:18:17,100 --&gt; 00:18:19,100
+从来没有为这种瞬间的巨大摆动设计过
+
+576
+00:18:19,100 --&gt; 00:18:22,100
+严重的话足以让一整周的电跳掉
+
+577
+00:18:22,100 --&gt; 00:18:24,100
+这是一个大多数人完全没想到的
+
+578
+00:18:24,100 --&gt; 00:18:26,100
+AI扩张的物理极限
+
+579
+00:18:26,100 --&gt; 00:18:28,100
+而SATING最有画面感
+
+580
+00:18:28,100 --&gt; 00:18:30,100
+是他对未来的一个愿景
+
+581
+00:18:30,100 --&gt; 00:18:33,100
+一个把人和AI的关系整个颠倒过来的世界
+
+582
+00:18:33,100 --&gt; 00:18:35,100
+这句话乍听有点怪
+
+583
+00:18:35,100 --&gt; 00:18:36,100
+人怎么会想当瓶颈
+
+584
+00:18:36,100 --&gt; 00:18:37,100
+他的意思是这样
+
+585
+00:18:37,100 --&gt; 00:18:39,100
+现在你交一个任务给AI
+
+586
+00:18:39,100 --&gt; 00:18:41,100
+他跑个几分钟甚至几小时
+
+587
+00:18:41,100 --&gt; 00:18:43,100
+这中间你早就分心去做别的事了
+
+588
+00:18:43,100 --&gt; 00:18:44,100
+等他回来问你问题
+
+589
+00:18:44,100 --&gt; 00:18:45,100
+你还得花力气
+
+590
+00:18:45,100 --&gt; 00:18:48,100
+把当初的来龙去脉重新想一遍
+
+591
+00:18:48,100 --&gt; 00:18:49,100
+这很没效率
+
+592
+00:18:49,100 --&gt; 00:18:50,100
+他想要的是反过来
+
+593
+00:18:50,100 --&gt; 00:18:51,100
+AI快到不断追着你
+
+594
+00:18:51,100 --&gt; 00:18:53,100
+催着你给下一步指令
+
+595
+00:18:53,100 --&gt; 00:18:55,100
+让你整个人保持在那种很专注
+
+596
+00:18:55,100 --&gt; 00:18:56,100
+很顺的心流状态里
+
+597
+00:18:56,100 --&gt; 00:18:58,100
+到那个时候慢的拖后腿的会是人类
+
+598
+00:18:58,100 --&gt; 00:18:59,100
+而不是AI
+
+599
+00:18:59,100 --&gt; 00:19:01,100
+这是一个很美的愿景
+
+600
+00:19:01,100 --&gt; 00:19:02,100
+可是回到现实
+
+601
+00:19:02,100 --&gt; 00:19:04,100
+一个尴尬的问题浮现了
+
+602
+00:19:04,100 --&gt; 00:19:05,100
+这些算力都盖好了
+
+603
+00:19:05,100 --&gt; 00:19:07,100
+真正掏钱的企业用起来了吗
+
+604
+00:19:07,100 --&gt; 00:19:09,100
+答案泼了所有人一盆冷水
+
+605
+00:19:09,100 --&gt; 00:19:11,100
+这本课第五堂
+
+606
+00:19:11,100 --&gt; 00:19:12,100
+换一个视角
+
+607
+00:19:12,100 --&gt; 00:19:14,100
+从盖工厂的人换到看企业怎么用AI的人
+
+608
+00:19:14,100 --&gt; 00:19:16,100
+讲者是Aleth Gautzy
+
+609
+00:19:16,100 --&gt; 00:19:17,100
+Deadbricks的执行长
+
+610
+00:19:17,100 --&gt; 00:19:18,100
+带着公司走了15年
+
+611
+00:19:18,100 --&gt; 00:19:20,100
+手上有2万多家企业客户
+
+612
+00:19:20,100 --&gt; 00:19:21,100
+这个数字很关键
+
+613
+00:19:21,100 --&gt; 00:19:25,100
+因为它意味着全世界企业导入AI的真实状况
+
+614
+00:19:25,100 --&gt; 00:19:27,100
+他看的比谁都清楚
+
+615
+00:19:27,100 --&gt; 00:19:28,100
+他一开口就说了一句
+
+616
+00:19:28,100 --&gt; 00:19:29,100
+让很多人意外的话
+
+617
+00:19:29,100 --&gt; 00:19:31,100
+我们早就有强人工智慧了
+
+618
+00:19:31,100 --&gt; 00:19:33,100
+他已经比你日常打交道的很多人都聪明
+
+619
+00:19:33,100 --&gt; 00:19:35,100
+他甚至当场做了个举手实验
+
+620
+00:19:35,100 --&gt; 00:19:38,100
+证明学生自己都自相矛盾
+
+621
+00:19:38,100 --&gt; 00:19:39,100
+但如果AI真的这么聪明
+
+622
+00:19:39,100 --&gt; 00:19:41,100
+一个尖锐的问题就来了
+
+623
+00:19:41,100 --&gt; 00:19:43,100
+那为什么企业花大钱导入
+
+624
+00:19:43,100 --&gt; 00:19:45,100
+却几乎全军覆没
+
+625
+00:19:45,100 --&gt; 00:19:46,100
+Aleth Gautzy
+
+626
+00:19:46,100 --&gt; 00:19:47,100
+引用一份MIT的报告
+
+627
+00:19:47,100 --&gt; 00:19:48,100
+数字冷的让人清醒
+
+628
+00:19:48,100 --&gt; 00:19:50,100
+高达9成5的企业AI
+
+629
+00:19:50,100 --&gt; 00:19:51,100
+试点最后是失败的
+
+630
+00:19:51,100 --&gt; 00:19:53,100
+没能真正上限变成生产力
+
+631
+00:19:53,100 --&gt; 00:19:54,100
+注意他特别强调
+
+632
+00:19:54,100 --&gt; 00:19:56,100
+这不是因为模型太笨
+
+633
+00:19:56,100 --&gt; 00:19:58,100
+前面说了模型早就够聪明了真正的原因
+
+634
+00:19:58,100 --&gt; 00:20:00,100
+藏在一个大家都忽略的地方
+
+635
+00:20:00,100 --&gt; 00:20:03,100
+他说每一家公司里都有一个做了几十年
+
+636
+00:20:03,100 --&gt; 00:20:05,100
+什么都知道的老员工
+
+637
+00:20:05,100 --&gt; 00:20:06,100
+你有问题去问他就对了
+
+638
+00:20:06,100 --&gt; 00:20:09,100
+可是他脑子里那套只有这家公司才懂得规矩
+
+639
+00:20:09,100 --&gt; 00:20:11,100
+那些从来没写下来的经验
+
+640
+00:20:11,100 --&gt; 00:20:12,100
+AI完全不知道
+
+641
+00:20:12,100 --&gt; 00:20:15,100
+这些藏在人脑里没进到模型里的东西
+
+642
+00:20:15,100 --&gt; 00:20:17,100
+有个名字叫机构知识
+
+643
+00:20:17,100 --&gt; 00:20:19,100
+少了他再聪明的AI
+
+644
+00:20:19,100 --&gt; 00:20:21,100
+一进到你公司内部就变得手足无措
+
+645
+00:20:21,100 --&gt; 00:20:23,100
+所以他下了一个很重的结论
+
+646
+00:20:23,100 --&gt; 00:20:25,100
+他说这不是AI的问题
+
+647
+00:20:25,100 --&gt; 00:20:26,100
+是人的问题
+
+648
+00:20:26,100 --&gt; 00:20:28,100
+这句话值得停来想一下
+
+649
+00:20:28,100 --&gt; 00:20:30,100
+我们总习惯把失败怪到技术头上说
+
+650
+00:20:30,100 --&gt; 00:20:32,100
+AI还不够好还不够聪明
+
+651
+00:20:32,100 --&gt; 00:20:34,100
+可是AI说不对
+
+652
+00:20:34,100 --&gt; 00:20:35,100
+模型早就够好了
+
+653
+00:20:35,100 --&gt; 00:20:36,100
+卡住的是我们自己
+
+654
+00:20:36,100 --&gt; 00:20:38,100
+是我们没有把脑子里的东西交给他
+
+655
+00:20:38,100 --&gt; 00:20:40,100
+是我们的流程还停在旧时代
+
+656
+00:20:40,100 --&gt; 00:20:43,100
+他说想在这波AI里真正做出影响力
+
+657
+00:20:43,100 --&gt; 00:20:44,100
+别去追
+
+658
+00:20:44,100 --&gt; 00:20:45,100
+怎么让模型更聪明
+
+659
+00:20:45,100 --&gt; 00:20:46,100
+去解决一件更土
+
+660
+00:20:46,100 --&gt; 00:20:47,100
+但更值钱的事
+
+661
+00:20:47,100 --&gt; 00:20:50,100
+怎么把一家公司的机构知识灌进AI里
+
+662
+00:20:50,100 --&gt; 00:20:52,100
+为了说明这件事有多难卡在哪
+
+663
+00:20:52,100 --&gt; 00:20:54,100
+他讲了一个他自己公司的故事
+
+664
+00:20:54,100 --&gt; 00:20:56,100
+是全场最精彩的一段
+
+665
+00:20:56,100 --&gt; 00:20:57,100
+你可以想想
+
+666
+00:20:57,100 --&gt; 00:20:59,100
+你自己的公司是不是也有这么一个人
+
+667
+00:20:59,100 --&gt; 00:21:01,100
+可能是做了20年的老会计
+
+668
+00:21:01,100 --&gt; 00:21:03,100
+可能是那个唯一搞得懂
+
+669
+00:21:03,100 --&gt; 00:21:04,100
+救系统的工程师
+
+670
+00:21:04,100 --&gt; 00:21:05,100
+遇到怪问题
+
+671
+00:21:05,100 --&gt; 00:21:07,100
+大家第一句都是去问他
+
+672
+00:21:07,100 --&gt; 00:21:09,100
+这个人脑子里装着这家公司
+
+673
+00:21:09,100 --&gt; 00:21:12,100
+所有没写下来的规矩和美角
+
+674
+00:21:12,100 --&gt; 00:21:15,100
+他要是哪天请长假整个团队就卡住了
+
+675
+00:21:15,100 --&gt; 00:21:17,100
+AI说这就是企业AI真正的难关
+
+676
+00:21:17,100 --&gt; 00:21:19,100
+你要做的不是把AI变得更聪明
+
+677
+00:21:19,100 --&gt; 00:21:22,100
+而是想办法把这个老员工脑子里那套东西
+
+678
+00:21:22,100 --&gt; 00:21:24,100
+一点一点搬进硅金片里
+
+679
+00:21:24,100 --&gt; 00:21:25,100
+让探机的经验
+
+680
+00:21:25,100 --&gt; 00:21:27,100
+跟硅机的智慧对话
+
+681
+00:21:27,100 --&gt; 00:21:28,100
+这件事听起来简单
+
+682
+00:21:28,100 --&gt; 00:21:29,100
+做起来却难如登天
+
+683
+00:21:29,100 --&gt; 00:21:31,100
+难道让一个看似简单的软体任务
+
+684
+00:21:31,100 --&gt; 00:21:33,100
+卡了整整9个月
+
+685
+00:21:33,100 --&gt; 00:21:34,100
+阿力的公司
+
+686
+00:21:34,100 --&gt; 00:21:36,100
+要做一种叫连接器的软体
+
+687
+00:21:36,100 --&gt; 00:21:37,100
+把不同系统接起来
+
+688
+00:21:37,100 --&gt; 00:21:38,100
+本来一条要做9个月
+
+689
+00:21:38,100 --&gt; 00:21:41,100
+他自己用AI两天就写出一个玩具版
+
+690
+00:21:41,100 --&gt; 00:21:42,100
+回头质问团队
+
+691
+00:21:42,100 --&gt; 00:21:43,100
+为什么要9个月
+
+692
+00:21:43,100 --&gt; 00:21:45,100
+团队研究之后回复AI确实有用
+
+693
+00:21:45,100 --&gt; 00:21:47,100
+但顶多把9个月说到7个半月
+
+694
+00:21:47,100 --&gt; 00:21:49,100
+因为真正的瓶颈根本不在写程式
+
+695
+00:21:49,100 --&gt; 00:21:51,100
+而在产品经理要花一整季访谈
+
+696
+00:21:51,100 --&gt; 00:21:52,100
+写80页需求书
+
+697
+00:21:52,100 --&gt; 00:21:54,100
+在测试环境很难架
+
+698
+00:21:54,100 --&gt; 00:21:56,100
+在一条线只有一个人扛
+
+699
+00:21:56,100 --&gt; 00:21:57,100
+那个人请假就全停
+
+700
+00:21:57,100 --&gt; 00:22:00,100
+后来一位工程师干脆把整套流程重写
+
+701
+00:22:00,100 --&gt; 00:22:01,100
+需求书一周写完
+
+702
+00:22:01,100 --&gt; 00:22:03,100
+反正软体便宜错了再改
+
+703
+00:22:03,100 --&gt; 00:22:04,100
+测试外包出去
+
+704
+00:22:04,100 --&gt; 00:22:06,100
+平行座7个人一起扛7条
+
+705
+00:22:06,100 --&gt; 00:22:08,100
+结果一季出了7条
+
+706
+00:22:08,100 --&gt; 00:22:09,100
+他的结论很直白
+
+707
+00:22:09,100 --&gt; 00:22:11,100
+换再强的模型都救不了你
+
+708
+00:22:11,100 --&gt; 00:22:13,100
+这是人类的流程要重新接线
+
+709
+00:22:13,100 --&gt; 00:22:15,100
+而历史上这种重新接线慢得惊人
+
+710
+00:22:15,100 --&gt; 00:22:17,100
+阿力搬出一段历史
+
+711
+00:22:17,100 --&gt; 00:22:19,100
+电力早在1880年就发明了
+
+712
+00:22:19,100 --&gt; 00:22:21,100
+可是他反映在工厂的生产力数字上
+
+713
+00:22:21,100 --&gt; 00:22:23,100
+整整等了40年到1920年才出现
+
+714
+00:22:23,100 --&gt; 00:22:26,100
+为什么这么慢
+
+715
+00:22:26,100 --&gt; 00:22:28,100
+因为工厂一开始只是把蒸汽机
+
+716
+00:22:28,100 --&gt; 00:22:31,100
+换成一台大电动马达机器摆放的位置
+
+717
+00:22:31,100 --&gt; 00:22:32,100
+完全没变
+
+718
+00:22:32,100 --&gt; 00:22:34,100
+一直到有人重新设计整间工厂
+
+719
+00:22:34,100 --&gt; 00:22:35,100
+把机器摊平
+
+720
+00:22:35,100 --&gt; 00:22:37,100
+搬出城市电力的威力才真正跑出来
+
+721
+00:22:37,100 --&gt; 00:22:38,100
+阿力说
+
+722
+00:22:38,100 --&gt; 00:22:40,100
+AI现在就卡在换了引擎
+
+723
+00:22:40,100 --&gt; 00:22:41,100
+却还没改装厂房的阶段
+
+724
+00:22:41,100 --&gt; 00:22:43,100
+同样的剧本云端也演过
+
+725
+00:22:43,100 --&gt; 00:22:45,100
+2004年AWS刚起步时
+
+726
+00:22:45,100 --&gt; 00:22:46,100
+所有人都在赌
+
+727
+00:22:46,100 --&gt; 00:22:47,100
+电脑讯会不会盖到破产
+
+728
+00:22:47,100 --&gt; 00:22:49,100
+结果花了大约8年
+
+729
+00:22:49,100 --&gt; 00:22:51,100
+那个三角形才慢慢翻证
+
+730
+00:22:51,100 --&gt; 00:22:53,100
+有位诺贝尔奖得主的名言
+
+731
+00:22:53,100 --&gt; 00:22:54,100
+最能形容这种尴尬
+
+732
+00:22:54,100 --&gt; 00:22:56,100
+诺贝尔奖得主solo
+
+733
+00:22:56,100 --&gt; 00:22:57,100
+曾说电脑到处都是
+
+734
+00:22:57,100 --&gt; 00:22:59,100
+唯独在生产力统计里看不见
+
+735
+00:22:59,100 --&gt; 00:23:02,100
+这句话放到今天的AI一样准
+
+736
+00:23:02,100 --&gt; 00:23:03,100
+而A-LINE给焦虑的年轻人
+
+737
+00:23:03,100 --&gt; 00:23:05,100
+还讲了一个很扎心的亲身故事
+
+738
+00:23:05,100 --&gt; 00:23:06,100
+他读博士的时候
+
+739
+00:23:06,100 --&gt; 00:23:08,100
+全网入学界最聪明的一群人
+
+740
+00:23:08,100 --&gt; 00:23:11,100
+都在押注一个叫Modcast的技术难题
+
+741
+00:23:11,100 --&gt; 00:23:13,100
+他还为此创了一家公司
+
+742
+00:23:13,100 --&gt; 00:23:15,100
+结果呢因为光纤铺太多平宽价格暴跌
+
+743
+00:23:15,100 --&gt; 00:23:18,100
+这个问题直接凭空蒸发了他的公司白做工
+
+744
+00:23:18,100 --&gt; 00:23:21,100
+当年没人想到真正的大机会
+
+745
+00:23:21,100 --&gt; 00:23:22,100
+是叫计程车
+
+746
+00:23:22,100 --&gt; 00:23:23,100
+是网路卖书
+
+747
+00:23:23,100 --&gt; 00:23:24,100
+是出租家里的空房间
+
+748
+00:23:24,100 --&gt; 00:23:27,100
+他说今天所有人都全押NVN
+
+749
+00:23:27,100 --&gt; 00:23:28,100
+全押那几家实验室
+
+750
+00:23:28,100 --&gt; 00:23:30,100
+很可能又是一次集体的隧道视野
+
+751
+00:23:30,100 --&gt; 00:23:32,100
+你现在追的最热门的东西
+
+752
+00:23:32,100 --&gt; 00:23:34,100
+八成就是下一个Multi-Cast
+
+753
+00:23:34,100 --&gt; 00:23:37,100
+这句话也把我们带到整支影片最关键的问题
+
+754
+00:23:37,100 --&gt; 00:23:39,100
+那个倒三角到底会不会翻证
+
+755
+00:23:39,100 --&gt; 00:23:42,100
+这本课第七堂来回答那个关键问题
+
+756
+00:23:42,100 --&gt; 00:23:43,100
+讲者是Yash Patel
+
+757
+00:23:43,100 --&gt; 00:23:44,100
+经历很戏剧化
+
+758
+00:23:44,100 --&gt; 00:23:47,100
+他大一暑假就直接写一封冷邮件给Sam Altman
+
+759
+00:23:47,100 --&gt; 00:23:49,100
+要到一张小支票做自己的专案
+
+760
+00:23:49,100 --&gt; 00:23:53,100
+后来进了OpenAI做出一个能上网能写程式的Agent
+
+761
+00:23:53,100 --&gt; 00:23:54,100
+这条线
+
+762
+00:23:54,100 --&gt; 00:23:55,100
+后来变成了Codex
+
+763
+00:23:55,100 --&gt; 00:23:57,100
+大约一年前他离开OpenAI
+
+764
+00:23:57,100 --&gt; 00:23:59,100
+创了一家叫Applied Compute的公司
+
+765
+00:23:59,100 --&gt; 00:24:00,100
+专门做一件事
+
+766
+00:24:00,100 --&gt; 00:24:03,100
+帮企业把通用的大模型特化成自己的专属模型
+
+767
+00:24:03,100 --&gt; 00:24:07,100
+他的核心洞察刚好回答了Alien那个机构知识的难题
+
+768
+00:24:07,100 --&gt; 00:24:10,100
+也给了倒三角会不会翻证一个很漂亮的答案
+
+769
+00:24:10,100 --&gt; 00:24:12,100
+这个答案跟盖房子有关
+
+770
+00:24:12,100 --&gt; 00:24:13,100
+Yash說
+
+771
+00:24:13,100 --&gt; 00:24:15,100
+通用的大模型决定你的地板
+
+772
+00:24:15,100 --&gt; 00:24:17,100
+但你的天花板得自己盖
+
+773
+00:24:17,100 --&gt; 00:24:18,100
+什么意思
+
+774
+00:24:18,100 --&gt; 00:24:21,100
+那些最强的通用模型就像一个空降的天才
+
+775
+00:24:21,100 --&gt; 00:24:22,100
+新人智商爆表
+
+776
+00:24:22,100 --&gt; 00:24:24,100
+可是完全不懂你公司的事
+
+777
+00:24:24,100 --&gt; 00:24:25,100
+谁请他来
+
+778
+00:24:25,100 --&gt; 00:24:26,100
+效果都差不多
+
+779
+00:24:26,100 --&gt; 00:24:27,100
+这就是你的地板
+
+780
+00:24:27,100 --&gt; 00:24:29,100
+真正拉开差距的是拿这个模型
+
+781
+00:24:29,100 --&gt; 00:24:31,100
+未经理自家的专有资料
+
+782
+00:24:31,100 --&gt; 00:24:33,100
+用你自己对好坏的标准反复去模
+
+783
+00:24:33,100 --&gt; 00:24:35,100
+这个模的步骤有个名字叫后训练
+
+784
+00:24:35,100 --&gt; 00:24:37,100
+他用一句话总结
+
+785
+00:24:37,100 --&gt; 00:24:39,100
+通用模型定地板要定天花板
+
+786
+00:24:39,100 --&gt; 00:24:40,100
+你得打造自己的特化系统
+
+787
+00:24:40,100 --&gt; 00:24:41,100
+你发现了吗
+
+788
+00:24:41,100 --&gt; 00:24:43,100
+这正好接上了那个倒三角的翻证
+
+789
+00:24:43,100 --&gt; 00:24:48,100
+因为最上层的应用终于开始长出别人的拿不走的护城河了
+
+790
+00:24:48,100 --&gt; 00:24:51,100
+而更让人意外的是盖这个天花板花的力气
+
+791
+00:24:51,100 --&gt; 00:24:52,100
+其实少得惊人
+
+792
+00:24:52,100 --&gt; 00:24:54,100
+这是一个很反直觉的数字
+
+793
+00:24:54,100 --&gt; 00:24:57,100
+前面说的后训练也就是把一个通用模型
+
+794
+00:24:57,100 --&gt; 00:24:59,100
+磨成你专属模型的那道工序
+
+795
+00:24:59,100 --&gt; 00:25:03,100
+他花的算力可能只占前面那个吃变整个网路的大训练的5%
+
+796
+00:25:03,100 --&gt; 00:25:06,100
+5%听起来像个零头
+
+797
+00:25:06,100 --&gt; 00:25:07,100
+对吧
+
+798
+00:25:07,100 --&gt; 00:25:09,100
+可就是这5%的力气决定了
+
+799
+00:25:09,100 --&gt; 00:25:10,100
+你这家公司到底是赢还是输
+
+800
+00:25:10,100 --&gt; 00:25:13,100
+这就像盖房子主结构花了9成5的钱
+
+801
+00:25:13,100 --&gt; 00:25:15,100
+可是真正让这间房子值钱
+
+802
+00:25:15,100 --&gt; 00:25:17,100
+让他跟隔壁不一样
+
+803
+00:25:17,100 --&gt; 00:25:19,100
+这是最后那5%的装潢和设计
+
+804
+00:25:19,100 --&gt; 00:25:20,100
+耶鸭史说
+
+805
+00:25:20,100 --&gt; 00:25:21,100
+这也是为什么
+
+806
+00:25:21,100 --&gt; 00:25:22,100
+他看好特化这一层
+
+807
+00:25:22,100 --&gt; 00:25:25,100
+因为他用最小的成本卡住了最关键的差异化
+
+808
+00:25:25,100 --&gt; 00:25:27,100
+而要理解为什么是现在
+
+809
+00:25:27,100 --&gt; 00:25:28,100
+我们得快速看一遍
+
+810
+00:25:28,100 --&gt; 00:25:31,100
+AI这十几年是怎么一步步走过来的
+
+811
+00:25:31,100 --&gt; 00:25:34,100
+AI走到今天大概转了4次大弯
+
+812
+00:25:34,100 --&gt; 00:25:37,100
+第一步是2017年一个叫Transformer的架构出现
+
+813
+00:25:37,100 --&gt; 00:25:39,100
+让机器第一次真的读懂了语言
+
+814
+00:25:39,100 --&gt; 00:25:42,100
+第二步是接下来几年的预训练时代
+
+815
+00:25:42,100 --&gt; 00:25:43,100
+做法很暴力
+
+816
+00:25:43,100 --&gt; 00:25:45,100
+就是让模型把整个网路读过一遍
+
+817
+00:25:45,100 --&gt; 00:25:47,100
+第三步是2024年
+
+818
+00:25:47,100 --&gt; 00:25:48,100
+模型学会了在回答前
+
+819
+00:25:48,100 --&gt; 00:25:50,100
+现在心里多想几步
+
+820
+00:25:50,100 --&gt; 00:25:51,100
+想久一点答的就更好
+
+821
+00:25:51,100 --&gt; 00:25:53,100
+第四步也就是现在重点变成
+
+822
+00:25:53,100 --&gt; 00:25:55,100
+只要一件事有标准答案
+
+823
+00:25:55,100 --&gt; 00:25:56,100
+能验证对错
+
+824
+00:25:56,100 --&gt; 00:25:58,100
+就让模型对着他反复苦练
+
+825
+00:25:58,100 --&gt; 00:25:59,100
+这第四步特别重要
+
+826
+00:25:59,100 --&gt; 00:26:02,100
+因为他需要一个能客观判对错的讯号
+
+827
+00:26:02,100 --&gt; 00:26:03,100
+而世界上刚好有一种东西
+
+828
+00:26:03,100 --&gt; 00:26:04,100
+天生就能编译
+
+829
+00:26:04,100 --&gt; 00:26:05,100
+能跑测试
+
+830
+00:26:05,100 --&gt; 00:26:07,100
+能明确告诉你对还是错
+
+831
+00:26:07,100 --&gt; 00:26:08,100
+那就是程式嘛
+
+832
+00:26:08,100 --&gt; 00:26:10,100
+这也解释了为什么各家实验室
+
+833
+00:26:10,100 --&gt; 00:26:12,100
+都不约而同先攻写程式
+
+834
+00:26:12,100 --&gt; 00:26:13,100
+而YAS手上
+
+835
+00:26:13,100 --&gt; 00:26:16,100
+有一个把这套用在企业的绝佳案例
+
+836
+00:26:16,100 --&gt; 00:26:18,100
+这个案例来自外送平台Dodash
+
+837
+00:26:18,100 --&gt; 00:26:21,100
+他们每年要让超过10万家新商家上线
+
+838
+00:26:21,100 --&gt; 00:26:24,100
+其中一件苦差是把商家上传了杂乱的菜单照片
+
+839
+00:26:24,100 --&gt; 00:26:27,100
+变成整齐符合规范的线上店面
+
+840
+00:26:27,100 --&gt; 00:26:29,100
+哪些是加料哪些能搭配
+
+841
+00:26:29,100 --&gt; 00:26:30,100
+规则很细
+
+842
+00:26:30,100 --&gt; 00:26:32,100
+这件事你用通用模型怎么调指令都做不好
+
+843
+00:26:32,100 --&gt; 00:26:34,100
+最后的解法很巧妙
+
+844
+00:26:34,100 --&gt; 00:26:36,100
+让真人去修正模型的输出
+
+845
+00:26:36,100 --&gt; 00:26:39,100
+然后把修正的量直接变成给模型的奖励
+
+846
+00:26:39,100 --&gt; 00:26:40,100
+对着错误率去优化
+
+847
+00:26:40,100 --&gt; 00:26:42,100
+YASH的结论很有力
+
+848
+00:26:42,100 --&gt; 00:26:44,100
+企业其实不需要一直去调那些指令
+
+849
+00:26:44,100 --&gt; 00:26:46,100
+你只要能定义清楚什么是好什么是坏
+
+850
+00:26:46,100 --&gt; 00:26:48,100
+就可以直接对着结果去优化
+
+851
+00:26:48,100 --&gt; 00:26:50,100
+这就是天花板被盖起来的方式
+
+852
+00:26:50,100 --&gt; 00:26:53,100
+价值症一层一层往应用端流回去
+
+853
+00:26:53,100 --&gt; 00:26:55,100
+而一位手握2万客户的执行长
+
+854
+00:26:55,100 --&gt; 00:26:57,100
+把这个趋势讲得更绝
+
+855
+00:26:57,100 --&gt; 00:26:59,100
+回到第5堂的阿里戈西
+
+856
+00:26:59,100 --&gt; 00:27:01,100
+他被问到一道经典的配置题
+
+857
+00:27:01,100 --&gt; 00:27:02,100
+如果给你100块
+
+858
+00:27:02,100 --&gt; 00:27:04,100
+你要压在能源晶片基建模型
+
+859
+00:27:04,100 --&gt; 00:27:06,100
+还是应用这5层里的哪一层
+
+860
+00:27:06,100 --&gt; 00:27:08,100
+他毫不犹豫压最上面的应用层
+
+861
+00:27:08,100 --&gt; 00:27:12,100
+他的理由是科技的历史上价值永远往上层移动
+
+862
+00:27:12,100 --&gt; 00:27:14,100
+硬体被作业系统踩在脚下
+
+863
+00:27:14,100 --&gt; 00:27:16,100
+作业系统又被上面的软体踩在脚下
+
+864
+00:27:16,100 --&gt; 00:27:18,100
+一层一层被商品化
+
+865
+00:27:18,100 --&gt; 00:27:19,100
+他甚至断言
+
+866
+00:27:19,100 --&gt; 00:27:21,100
+今天最风光的前沿模型
+
+867
+00:27:21,100 --&gt; 00:27:23,100
+最后会变成博利的token工厂
+
+868
+00:27:23,100 --&gt; 00:27:25,100
+毛利伯的向亚马逊在卖书
+
+869
+00:27:25,100 --&gt; 00:27:27,100
+最后只剩少数几家做的下去
+
+870
+00:27:27,100 --&gt; 00:27:28,100
+如果他跟Yash都说对了
+
+871
+00:27:28,100 --&gt; 00:27:30,100
+那真正的好戏在最上面
+
+872
+00:27:30,100 --&gt; 00:27:32,100
+所以接下来我们就一头栽进
+
+873
+00:27:32,100 --&gt; 00:27:34,100
+三个正在翻转的应用战场
+
+874
+00:27:34,100 --&gt; 00:27:36,100
+第一个是写程式
+
+875
+00:27:36,100 --&gt; 00:27:37,100
+这门课
+
+876
+00:27:37,100 --&gt; 00:27:38,100
+第8堂讲者是Gillam Rauch
+
+877
+00:27:38,100 --&gt; 00:27:40,100
+一家叫Versel的公司的执行长
+
+878
+00:27:40,100 --&gt; 00:27:42,100
+同时是全世界最红的网页框架
+
+879
+00:27:42,100 --&gt; 00:27:44,100
+Next JSS的作者他的故事很励志
+
+880
+00:27:44,100 --&gt; 00:27:46,100
+在阿根廷郊区长大
+
+881
+00:27:46,100 --&gt; 00:27:48,100
+靠读软体手册自学英文
+
+882
+00:27:48,100 --&gt; 00:27:50,100
+11岁就开始接远端的城市外包
+
+883
+00:27:50,100 --&gt; 00:27:52,100
+高中辍学搬到旧金山
+
+884
+00:27:52,100 --&gt; 00:27:53,100
+为了拿签证
+
+885
+00:27:53,100 --&gt; 00:27:54,100
+甚至去写了一本书
+
+886
+00:27:54,100 --&gt; 00:27:55,100
+他要讲的核心一句话
+
+887
+00:27:55,100 --&gt; 00:27:59,100
+这波AI带来的是软体史上最大的一次市场扩张
+
+888
+00:27:59,100 --&gt; 00:28:00,100
+这句话怎么理解
+
+889
+00:28:00,100 --&gt; 00:28:01,100
+他先给了一个数字
+
+890
+00:28:01,100 --&gt; 00:28:04,100
+过去他估算全世界会写城市的人
+
+891
+00:28:04,100 --&gt; 00:28:05,100
+大概2000万
+
+892
+00:28:05,100 --&gt; 00:28:06,100
+而接下来会发生的事
+
+893
+00:28:06,100 --&gt; 00:28:08,100
+会让这个数字变得像个笑话
+
+894
+00:28:08,100 --&gt; 00:28:10,100
+这里先解释一个词
+
+895
+00:28:10,100 --&gt; 00:28:12,100
+市场规模白话说就是
+
+896
+00:28:12,100 --&gt; 00:28:14,100
+这门生意最多能服务多少人
+
+897
+00:28:14,100 --&gt; 00:28:15,100
+过去能做软体的人
+
+898
+00:28:15,100 --&gt; 00:28:18,100
+就是2000万个会写城市的工程师
+
+899
+00:28:18,100 --&gt; 00:28:20,100
+市场的天花板卡在这里
+
+900
+00:28:20,100 --&gt; 00:28:22,100
+可是现在会写城市的AI代理出现了
+
+901
+00:28:22,100 --&gt; 00:28:24,100
+他能自己动手把软体做出来
+
+902
+00:28:24,100 --&gt; 00:28:26,100
+这一下能做出软体的人
+
+903
+00:28:26,100 --&gt; 00:28:28,100
+一口气放大了10倍20倍甚至100倍
+
+904
+00:28:28,100 --&gt; 00:28:30,100
+因为你不再需要会写城市
+
+905
+00:28:30,100 --&gt; 00:28:33,100
+你只要能把你想要什么说清楚就行
+
+906
+00:28:33,100 --&gt; 00:28:36,100
+市场从2000万人一下子变成几乎所有人
+
+907
+00:28:36,100 --&gt; 00:28:39,100
+Gilmo说自从某一代特别强的模型出现后
+
+908
+00:28:39,100 --&gt; 00:28:42,100
+他们平台上的部署量就开始爆发式成长
+
+909
+00:28:42,100 --&gt; 00:28:43,100
+市场一被撑开
+
+910
+00:28:43,100 --&gt; 00:28:45,100
+真正的问题就变成这么多软体
+
+911
+00:28:45,100 --&gt; 00:28:47,100
+被升出来最赚钱的会是谁
+
+912
+00:28:47,100 --&gt; 00:28:49,100
+他的答案藏在一个三明治里
+
+913
+00:28:49,100 --&gt; 00:28:51,100
+Gilmo给了一个很好记得比喻
+
+914
+00:28:51,100 --&gt; 00:28:53,100
+他说会写城市的AI代理
+
+915
+00:28:53,100 --&gt; 00:28:56,100
+就像花生酱正在被抹遍全世界
+
+916
+00:28:56,100 --&gt; 00:28:58,100
+到处都有人用他升软体
+
+917
+00:28:58,100 --&gt; 00:28:59,100
+可是一个花生酱
+
+918
+00:28:59,100 --&gt; 00:29:01,100
+三明治光有花生酱不够还要果酱
+
+919
+00:29:01,100 --&gt; 00:29:03,100
+这个果酱就是把写好的软体
+
+920
+00:29:03,100 --&gt; 00:29:06,100
+真正部署出去放到客人面前用的那一层
+
+921
+00:29:06,100 --&gt; 00:29:08,100
+他有一句很关键的判断
+
+922
+00:29:08,100 --&gt; 00:29:10,100
+写城市这件事本身不会让你变的特别
+
+923
+00:29:10,100 --&gt; 00:29:12,100
+因为AI已经帮大家做到了
+
+924
+00:29:12,100 --&gt; 00:29:15,100
+把城市真正端到客人面前才会
+
+925
+00:29:15,100 --&gt; 00:29:18,100
+他说世界上堆满了跑不起来的城市码
+
+926
+00:29:18,100 --&gt; 00:29:20,100
+而AI代理天生就爱把东西部署出去
+
+927
+00:29:20,100 --&gt; 00:29:22,100
+所以在这个战场最赚钱的
+
+928
+00:29:22,100 --&gt; 00:29:24,100
+不见得是写城市的那一层
+
+929
+00:29:24,100 --&gt; 00:29:26,100
+而是帮AI把作业顺利交出去的那一层
+
+930
+00:29:26,100 --&gt; 00:29:29,100
+而AI代理还悄悄改变了整朵云的节奏
+
+931
+00:29:29,100 --&gt; 00:29:32,100
+Gilmo说旧的网路讲究的是快
+
+932
+00:29:32,100 --&gt; 00:29:34,100
+亚马逊亮过网页
+
+933
+00:29:34,100 --&gt; 00:29:36,100
+每慢0.1秒订单就掉一个百分点
+
+934
+00:29:36,100 --&gt; 00:29:38,100
+所以一切都在追求急问急答
+
+935
+00:29:38,100 --&gt; 00:29:39,100
+越快越好
+
+936
+00:29:39,100 --&gt; 00:29:41,100
+但AI代理的世界是反过来的
+
+937
+00:29:41,100 --&gt; 00:29:42,100
+你丢一个任务给他
+
+938
+00:29:42,100 --&gt; 00:29:45,100
+他可能出去工作几秒几分钟几小时
+
+939
+00:29:45,100 --&gt; 00:29:47,100
+现在甚至可以让他慢慢煮一整天
+
+940
+00:29:47,100 --&gt; 00:29:49,100
+最后交给你一份完整的报告
+
+941
+00:29:49,100 --&gt; 00:29:51,100
+或一整套软体云
+
+942
+00:29:51,100 --&gt; 00:29:52,100
+从那个讲求快的快餐店
+
+943
+00:29:52,100 --&gt; 00:29:54,100
+变成了愿意等他慢火炖的厨房
+
+944
+00:29:54,100 --&gt; 00:29:55,100
+这个转变很深
+
+945
+00:29:55,100 --&gt; 00:29:57,100
+因为过去云端运算的需求
+
+946
+00:29:57,100 --&gt; 00:29:59,100
+天花板是世界上有几个工程师
+
+947
+00:29:59,100 --&gt; 00:30:02,100
+而现在每个AI代理都能没日没夜地写改修
+
+948
+00:30:02,100 --&gt; 00:30:04,100
+这个天花板等于被整个掀开了
+
+949
+00:30:04,100 --&gt; 00:30:05,100
+节奏变了
+
+950
+00:30:05,100 --&gt; 00:30:08,100
+连收钱的方式也跟着换了一套地基
+
+951
+00:30:08,100 --&gt; 00:30:10,100
+过去的软体生意卖的是座位
+
+952
+00:30:10,100 --&gt; 00:30:12,100
+一家公司买10个账号
+
+953
+00:30:12,100 --&gt; 00:30:13,100
+就付10份月费
+
+954
+00:30:13,100 --&gt; 00:30:14,100
+人越多付越多
+
+955
+00:30:14,100 --&gt; 00:30:15,100
+跟你实际用的多不多
+
+956
+00:30:15,100 --&gt; 00:30:16,100
+没什么关系
+
+957
+00:30:16,100 --&gt; 00:30:18,100
+但当软体的背后是一个一个
+
+958
+00:30:18,100 --&gt; 00:30:20,100
+真的在烧店的token
+
+959
+00:30:20,100 --&gt; 00:30:22,100
+这种按人头的算法就撑不住了
+
+960
+00:30:22,100 --&gt; 00:30:24,100
+新的模式是按token计价
+
+961
+00:30:24,100 --&gt; 00:30:27,100
+白话说就是你用掉多少智慧就付多少钱
+
+962
+00:30:27,100 --&gt; 00:30:28,100
+一分不多一分不少
+
+963
+00:30:28,100 --&gt; 00:30:29,100
+这其实很合理
+
+964
+00:30:29,100 --&gt; 00:30:32,100
+因为卖家自己的成本本来就是一个token
+
+965
+00:30:32,100 --&gt; 00:30:33,100
+一个token烧出来的
+
+966
+00:30:33,100 --&gt; 00:30:35,100
+他当然想照用量收
+
+967
+00:30:35,100 --&gt; 00:30:36,100
+从卖座位到卖用量
+
+968
+00:30:36,100 --&gt; 00:30:38,100
+这看起来只是收费方式的小改
+
+969
+00:30:38,100 --&gt; 00:30:42,100
+背后却是整个软体商业模式的地基在悄悄换掉
+
+970
+00:30:42,100 --&gt; 00:30:43,100
+而Guillermo認為这一切
+
+971
+00:30:43,100 --&gt; 00:30:46,100
+最后会把云变成一个会自己开车的东西
+
+972
+00:30:46,100 --&gt; 00:30:48,100
+Guillermo说在这个代理时代
+
+973
+00:30:48,100 --&gt; 00:30:51,100
+云正在往三个方向同时重新生长
+
+974
+00:30:51,100 --&gt; 00:30:54,100
+第一个方向是给AI代理用的地基
+
+975
+00:30:54,100 --&gt; 00:30:56,100
+因为那些代理写完的软体
+
+976
+00:30:56,100 --&gt; 00:30:58,100
+总得有个地方摆有个地方跑
+
+977
+00:30:58,100 --&gt; 00:31:01,100
+第二个方向是每一家公司都在盖自己的agent
+
+978
+00:31:01,100 --&gt; 00:31:04,100
+他说未来所有的软体本身可能都会是一个agent
+
+979
+00:31:04,100 --&gt; 00:31:06,100
+交付的不再是一个网页
+
+980
+00:31:06,100 --&gt; 00:31:08,100
+而是一个会帮你做事的助手
+
+981
+00:31:08,100 --&gt; 00:31:11,100
+第三个方向最科幻是云本身也会变成一个agent
+
+982
+00:31:11,100 --&gt; 00:31:15,100
+像一台自动驾驶的车自己配置自己优化自己修好问题
+
+983
+00:31:15,100 --&gt; 00:31:18,100
+然后回头跟你说我帮你的软体加速了两倍
+
+984
+00:31:18,100 --&gt; 00:31:19,100
+这是我改好的版本
+
+985
+00:31:19,100 --&gt; 00:31:22,100
+这三个方向其实是同一件事云再重新长一次
+
+986
+00:31:22,100 --&gt; 00:31:26,100
+而这一切带来一个很奇妙的未来画面
+
+987
+00:31:26,100 --&gt; 00:31:29,100
+Gillermo讲了一个让他自己都认住的真实故事
+
+988
+00:31:29,100 --&gt; 00:31:32,100
+有个用户滑进他的时讯求救
+
+989
+00:31:32,100 --&gt; 00:31:34,100
+说我朋友我根本不知道Verso是什么
+
+990
+00:31:34,100 --&gt; 00:31:35,100
+是我的AI把我带来的
+
+991
+00:31:35,100 --&gt; 00:31:37,100
+他当下的回复很妙
+
+992
+00:31:37,100 --&gt; 00:31:39,100
+那你能不能把我介绍给你的那个AI
+
+993
+00:31:39,100 --&gt; 00:31:41,100
+你细想一下这个画面未来
+
+994
+00:31:41,100 --&gt; 00:31:44,100
+很可能是这样客户的AI直接去跟厂商的AI谈
+
+995
+00:31:44,100 --&gt; 00:31:46,100
+我这边有个问题那边有没有解法
+
+996
+00:31:46,100 --&gt; 00:31:47,100
+然后两个AI把事情办完
+
+997
+00:31:47,100 --&gt; 00:31:51,100
+软体就这样悄悄的涌现出来
+
+998
+00:31:51,100 --&gt; 00:31:52,100
+人几乎不用插手
+
+999
+00:31:52,100 --&gt; 00:31:53,100
+这听起来很遥远
+
+1000
+00:31:53,100 --&gt; 00:31:54,100
+但他已经在发生了
+
+1001
+00:31:54,100 --&gt; 00:31:55,100
+这是第一个战场写程式
+
+1002
+00:31:55,100 --&gt; 00:31:59,100
+而第二个战场是一场更硬更贴近生死的账
+
+1003
+00:31:59,100 --&gt; 00:32:01,100
+关于成本
+
+1004
+00:32:01,100 --&gt; 00:32:04,100
+这本课第九堂讲者是Tofin
+
+1005
+00:32:04,100 --&gt; 00:32:06,100
+一家叫Bassettin的公司的执行长
+
+1006
+00:32:06,100 --&gt; 00:32:07,100
+你可能没听过这家公司
+
+1007
+00:32:07,100 --&gt; 00:32:09,100
+但他是一个隐形巨人
+
+1008
+00:32:09,100 --&gt; 00:32:11,100
+专门帮各种AI应用公司
+
+1009
+00:32:11,100 --&gt; 00:32:12,100
+把模型的推论跑起来
+
+1010
+00:32:12,100 --&gt; 00:32:14,100
+这里先解释一个很关键的词
+
+1011
+00:32:14,100 --&gt; 00:32:15,100
+推论
+
+1012
+00:32:15,100 --&gt; 00:32:16,100
+英文叫Inference
+
+1013
+00:32:16,100 --&gt; 00:32:18,100
+就是AI真正在回答你问题的那一步
+
+1014
+00:32:18,100 --&gt; 00:32:20,100
+是他每天出货的动作
+
+1015
+00:32:20,100 --&gt; 00:32:23,100
+Twin 有一句话点中了整个应用战场的核心推论
+
+1016
+00:32:23,100 --&gt; 00:32:24,100
+就是AI的销货成本
+
+1017
+00:32:24,100 --&gt; 00:32:26,100
+也就是每卖出一次服务
+
+1018
+00:32:26,100 --&gt; 00:32:28,100
+你真正要付出去的那笔直接成本
+
+1019
+00:32:28,100 --&gt; 00:32:30,100
+这句话为什么重要
+
+1020
+00:32:30,100 --&gt; 00:32:32,100
+因为如果推论就是你的成本
+
+1021
+00:32:32,100 --&gt; 00:32:33,100
+那谁能把推论压下来
+
+1022
+00:32:33,100 --&gt; 00:32:34,100
+谁才有机会
+
+1023
+00:32:34,100 --&gt; 00:32:35,100
+真的把钱赚进口袋
+
+1024
+00:32:35,100 --&gt; 00:32:37,100
+而压成本的第一招
+
+1025
+00:32:37,100 --&gt; 00:32:38,100
+出乎意料的简单
+
+1026
+00:32:38,100 --&gt; 00:32:41,100
+想象一下你跟AI说了声谢谢
+
+1027
+00:32:41,100 --&gt; 00:32:42,100
+他回你不客气
+
+1028
+00:32:42,100 --&gt; 00:32:45,100
+如果连这三个字都动用最强最贵的大模型来回答
+
+1029
+00:32:45,100 --&gt; 00:32:47,100
+那等于为了一句客套话
+
+1030
+00:32:47,100 --&gt; 00:32:48,100
+点亮了一大排晶片
+
+1031
+00:32:48,100 --&gt; 00:32:49,100
+太浪费了
+
+1032
+00:32:49,100 --&gt; 00:32:51,100
+网路上还真的有个梗
+
+1033
+00:32:51,100 --&gt; 00:32:52,100
+说你对AI说一次谢谢
+
+1034
+00:32:52,100 --&gt; 00:32:54,100
+背后就烧掉好几百颗晶片
+
+1035
+00:32:54,100 --&gt; 00:32:57,100
+所以聪明的做法是在中间加一层智慧路由
+
+1036
+00:32:57,100 --&gt; 00:32:59,100
+他会先判断这句话难不难
+
+1037
+00:32:59,100 --&gt; 00:33:01,100
+简单的像不客气这种
+
+1038
+00:33:01,100 --&gt; 00:33:03,100
+就丢给便宜的小模型秒回
+
+1039
+00:33:03,100 --&gt; 00:33:05,100
+真正难的问题才交给最强的大模型
+
+1040
+00:33:05,100 --&gt; 00:33:07,100
+这就像一家公司
+
+1041
+00:33:07,100 --&gt; 00:33:08,100
+不会为了收个包裹
+
+1042
+00:33:08,100 --&gt; 00:33:09,100
+你就惊动总经理
+
+1043
+00:33:09,100 --&gt; 00:33:10,100
+小事交给前台
+
+1044
+00:33:10,100 --&gt; 00:33:12,100
+就好把每一次推论的成本
+
+1045
+00:33:12,100 --&gt; 00:33:13,100
+这样一点一点省下来
+
+1046
+00:33:13,100 --&gt; 00:33:15,100
+积少成多就是毛利
+
+1047
+00:33:15,100 --&gt; 00:33:17,100
+可是这场仗真正难打的地方
+
+1048
+00:33:17,100 --&gt; 00:33:19,100
+在于这门生意的原料正在闹一场
+
+1049
+00:33:19,100 --&gt; 00:33:21,100
+比石油还严重的短缺
+
+1050
+00:33:21,100 --&gt; 00:33:23,100
+为了让你感受这个隐形巨人的体量
+
+1051
+00:33:23,100 --&gt; 00:33:24,100
+给你一个数字
+
+1052
+00:33:24,100 --&gt; 00:33:25,100
+BASSETIN
+
+1053
+00:33:25,100 --&gt; 00:33:26,100
+这家你可能没听过的公司
+
+1054
+00:33:26,100 --&gt; 00:33:28,100
+一天要处理的TOKEN
+
+1055
+00:33:28,100 --&gt; 00:33:30,100
+也就是AI读境和吐出的字
+
+1056
+00:33:30,100 --&gt; 00:33:32,100
+大约是30兆个
+
+1057
+00:33:32,100 --&gt; 00:33:34,100
+30兆这个数字大到没有实感
+
+1058
+00:33:34,100 --&gt; 00:33:35,100
+这样说吧
+
+1059
+00:33:35,100 --&gt; 00:33:36,100
+TOKEN宣称光是这个量
+
+1060
+00:33:36,100 --&gt; 00:33:37,100
+以纯TOKEN计算
+
+1061
+00:33:37,100 --&gt; 00:33:39,100
+已经超过了OpenAI
+
+1062
+00:33:39,100 --&gt; 00:33:41,100
+对外开放的那个界面业务
+
+1063
+00:33:41,100 --&gt; 00:33:42,100
+也超过了Google的
+
+1064
+00:33:42,100 --&gt; 00:33:44,100
+一个大多数人没听过的名字
+
+1065
+00:33:44,100 --&gt; 00:33:45,100
+背后跑的量
+
+1066
+00:33:45,100 --&gt; 00:33:47,100
+比那些如雷贯耳的巨头还大
+
+1067
+00:33:47,100 --&gt; 00:33:48,100
+而这么庞大的推论量
+
+1068
+00:33:48,100 --&gt; 00:33:49,100
+全都得靠晶片来跑
+
+1069
+00:33:49,100 --&gt; 00:33:51,100
+也就是说BASSETIN
+
+1070
+00:33:51,100 --&gt; 00:33:52,100
+对算力的胃口是天文数字
+
+1071
+00:33:52,100 --&gt; 00:33:54,100
+可偏偏算力现在买不到
+
+1072
+00:33:54,100 --&gt; 00:33:56,100
+陶瓶讲了一个具体到小数点的故事
+
+1073
+00:33:56,100 --&gt; 00:33:58,100
+雪玲玲突兴说
+
+1074
+00:33:58,100 --&gt; 00:34:01,100
+他们在某家云端上租了一批晶片
+
+1075
+00:34:01,100 --&gt; 00:34:02,100
+合约10月才到期
+
+1076
+00:34:02,100 --&gt; 00:34:04,100
+结果5月对方就打电话
+
+1077
+00:34:04,100 --&gt; 00:34:05,100
+上门要把每一小时租金
+
+1078
+00:34:05,100 --&gt; 00:34:07,100
+从2块多美元
+
+1079
+00:34:07,100 --&gt; 00:34:08,100
+直接涨到5块多
+
+1080
+00:34:08,100 --&gt; 00:34:09,100
+硬生生翻了一倍
+
+1081
+00:34:09,100 --&gt; 00:34:10,100
+他的原话是
+
+1082
+00:34:10,100 --&gt; 00:34:11,100
+这太离谱了我绝不接受
+
+1083
+00:34:11,100 --&gt; 00:34:12,100
+更夸张的是
+
+1084
+00:34:12,100 --&gt; 00:34:14,100
+你现在下单1000张新晶片
+
+1085
+00:34:14,100 --&gt; 00:34:16,100
+得排队等上一年多才拿到货
+
+1086
+00:34:16,100 --&gt; 00:34:17,100
+他讲了一句很重的话
+
+1087
+00:34:17,100 --&gt; 00:34:19,100
+不管别人跟你说算力有多缺
+
+1088
+00:34:19,100 --&gt; 00:34:21,100
+实际上都还要再招上10倍
+
+1089
+00:34:21,100 --&gt; 00:34:24,100
+而且他断言这个短缺不会正常化
+
+1090
+00:34:24,100 --&gt; 00:34:27,100
+因为AI越来越会自己连续做很多步
+
+1091
+00:34:27,100 --&gt; 00:34:28,100
+模型又越来越大
+
+1092
+00:34:28,100 --&gt; 00:34:30,100
+两股力量一起把需求往上推
+
+1093
+00:34:30,100 --&gt; 00:34:31,100
+他只会越来越缺
+
+1094
+00:34:31,100 --&gt; 00:34:33,100
+面对又贵又缺的算力
+
+1095
+00:34:33,100 --&gt; 00:34:35,100
+他给应用公司指了一条活路
+
+1096
+00:34:35,100 --&gt; 00:34:37,100
+也讲了一个很有画面的警告
+
+1097
+00:34:37,100 --&gt; 00:34:39,100
+2hing转述了一个很尖锐的比喻
+
+1098
+00:34:39,100 --&gt; 00:34:41,100
+有人把那些最前沿的实验室
+
+1099
+00:34:41,100 --&gt; 00:34:43,100
+比做当年的东印度公司
+
+1100
+00:34:43,100 --&gt; 00:34:44,100
+什么意思
+
+1101
+00:34:44,100 --&gt; 00:34:45,100
+当年东印度公司登陆印度
+
+1102
+00:34:45,100 --&gt; 00:34:47,100
+表面上是来谈生意谈合作
+
+1103
+00:34:47,100 --&gt; 00:34:51,100
+实际上是慢慢把整个地方的资源和控制权都拿走
+
+1104
+00:34:51,100 --&gt; 00:34:54,100
+他说今天你信匆匆地把你的应用
+
+1105
+00:34:54,100 --&gt; 00:34:56,100
+全部接到某家前沿模型上
+
+1106
+00:34:56,100 --&gt; 00:34:57,100
+你以为再跟他合作
+
+1107
+00:34:57,100 --&gt; 00:35:00,100
+可你等于把你独门的工作流程
+
+1108
+00:35:00,100 --&gt; 00:35:02,100
+还有最宝贵的用户资料全交了出去
+
+1109
+00:35:02,100 --&gt; 00:35:04,100
+等他学会了你的那套神圣配方
+
+1110
+00:35:04,100 --&gt; 00:35:06,100
+回过头就能取代你这个警告
+
+1111
+00:35:06,100 --&gt; 00:35:07,100
+听起来有点沉重
+
+1112
+00:35:07,100 --&gt; 00:35:08,100
+但逻辑上站得住脚
+
+1113
+00:35:08,100 --&gt; 00:35:11,100
+所以他的解方只有四个字
+
+1114
+00:35:11,100 --&gt; 00:35:13,100
+这四个字是掌握自己的智慧
+
+1115
+00:35:13,100 --&gt; 00:35:16,100
+Turing说今天九成到九成五的推论花费
+
+1116
+00:35:16,100 --&gt; 00:35:19,100
+都流向那几家最前沿的封闭模型
+
+1117
+00:35:19,100 --&gt; 00:35:20,100
+方便是方便
+
+1118
+00:35:20,100 --&gt; 00:35:22,100
+但你等于把命脉交了出去
+
+1119
+00:35:22,100 --&gt; 00:35:23,100
+他指的活路是这样
+
+1120
+00:35:23,100 --&gt; 00:35:25,100
+起步的时候先靠前沿模型
+
+1121
+00:35:25,100 --&gt; 00:35:26,100
+因为快好用
+
+1122
+00:35:26,100 --&gt; 00:35:28,100
+可是一旦你做出了成绩要充规模
+
+1123
+00:35:28,100 --&gt; 00:35:29,100
+就换成开源模型
+
+1124
+00:35:29,100 --&gt; 00:35:30,100
+自己再训练一轮
+
+1125
+00:35:30,100 --&gt; 00:35:32,100
+变成你专属的模型
+
+1126
+00:35:32,100 --&gt; 00:35:33,100
+这里有个关键事实
+
+1127
+00:35:33,100 --&gt; 00:35:35,100
+开源模型大概只落后前沿90天
+
+1128
+00:35:35,100 --&gt; 00:35:37,100
+成本却便宜7到9成
+
+1129
+00:35:37,100 --&gt; 00:35:40,100
+这一换足以把你的毛利虫趴在0附近
+
+1130
+00:35:40,100 --&gt; 00:35:41,100
+一路拉到4成以上
+
+1131
+00:35:41,100 --&gt; 00:35:43,100
+这也呼应了第七堂YESH的天花板
+
+1132
+00:35:43,100 --&gt; 00:35:46,100
+你把智慧握回自己手上才守得住
+
+1133
+00:35:46,100 --&gt; 00:35:49,100
+那个倒三角开始翻阵流回应用层的价值
+
+1134
+00:35:49,100 --&gt; 00:35:50,100
+两个战场看下来
+
+1135
+00:35:50,100 --&gt; 00:35:53,100
+你会发现一个共同点价值都在往上流
+
+1136
+00:35:53,100 --&gt; 00:35:56,100
+而第三个战场可能跟你我的性命关系最深
+
+1137
+00:35:56,100 --&gt; 00:35:58,100
+在进入第三个战场前
+
+1138
+00:35:58,100 --&gt; 00:36:00,100
+补一个凸醒很有画面的类比
+
+1139
+00:36:00,100 --&gt; 00:36:02,100
+说明算力为什么只会越来越缺
+
+1140
+00:36:02,100 --&gt; 00:36:03,100
+他说推论的需求
+
+1141
+00:36:03,100 --&gt; 00:36:05,100
+就像机场的安检队伍
+
+1142
+00:36:05,100 --&gt; 00:36:08,100
+清晨5点没人早上8点就排到门外
+
+1143
+00:36:08,100 --&gt; 00:36:09,100
+差别在哪
+
+1144
+00:36:09,100 --&gt; 00:36:10,100
+机场晚上11点会关门
+
+1145
+00:36:10,100 --&gt; 00:36:12,100
+让队伍归零重置一次
+
+1146
+00:36:12,100 --&gt; 00:36:14,100
+可是全世界的推论需求永远不会关门
+
+1147
+00:36:14,100 --&gt; 00:36:15,100
+美国睡了
+
+1148
+00:36:15,100 --&gt; 00:36:16,100
+欧洲正好醒来
+
+1149
+00:36:16,100 --&gt; 00:36:17,100
+欧洲下班了
+
+1150
+00:36:17,100 --&gt; 00:36:18,100
+亚洲又进入白天
+
+1151
+00:36:18,100 --&gt; 00:36:21,100
+地球上总有一个地方是下午5点正要开始用
+
+1152
+00:36:21,100 --&gt; 00:36:24,100
+所以这条队伍24小时不停歇地
+
+1153
+00:36:24,100 --&gt; 00:36:25,100
+一天一天复利叠加
+
+1154
+00:36:25,100 --&gt; 00:36:27,100
+永远没有喘息的空档
+
+1155
+00:36:27,100 --&gt; 00:36:28,100
+这就是为什么他敢说
+
+1156
+00:36:28,100 --&gt; 00:36:30,100
+算力短缺不会结束
+
+1157
+00:36:30,100 --&gt; 00:36:31,100
+好看完了写程式
+
+1158
+00:36:31,100 --&gt; 00:36:32,100
+看完了成本之争
+
+1159
+00:36:32,100 --&gt; 00:36:34,100
+我们进入最后也最动人的一个战场
+
+1160
+00:36:34,100 --&gt; 00:36:35,100
+生命科学
+
+1161
+00:36:35,100 --&gt; 00:36:37,100
+这门课最后一堂
+
+1162
+00:36:37,100 --&gt; 00:36:39,100
+请来两位站在产业两端的人
+
+1163
+00:36:39,100 --&gt; 00:36:42,100
+一位是anthropic负责生命科学的Eric Abrams
+
+1164
+00:36:42,100 --&gt; 00:36:45,100
+一位是AI造药新创拆的共同创办人Joss
+
+1165
+00:36:45,100 --&gt; 00:36:46,100
+他们在做同一件事
+
+1166
+00:36:46,100 --&gt; 00:36:49,100
+用AI端到端地压缩整条造药的流程
+
+1167
+00:36:49,100 --&gt; 00:36:50,100
+Joss有一句话
+
+1168
+00:36:50,100 --&gt; 00:36:52,100
+一下子把这件事的野心说清楚了
+
+1169
+00:36:52,100 --&gt; 00:36:55,100
+他说他们在做的是一套分子的电脑绘图工具
+
+1170
+00:36:55,100 --&gt; 00:36:56,100
+目标是把设计一颗药
+
+1171
+00:36:56,100 --&gt; 00:36:59,100
+从一门像炼金术一样靠手感的记忆
+
+1172
+00:36:59,100 --&gt; 00:37:01,100
+变成一门真正的工程学
+
+1173
+00:37:01,100 --&gt; 00:37:02,100
+这个切入点很重要
+
+1174
+00:37:02,100 --&gt; 00:37:04,100
+因为传统造药又慢又贵
+
+1175
+00:37:04,100 --&gt; 00:37:06,100
+慢到你不敢相信
+
+1176
+00:37:06,100 --&gt; 00:37:08,100
+但在讲AI怎么加速之前
+
+1177
+00:37:08,100 --&gt; 00:37:11,100
+得先让你看见这个领域真正的痛藏在哪里
+
+1178
+00:37:11,100 --&gt; 00:37:13,100
+先解释一个词标靶
+
+1179
+00:37:13,100 --&gt; 00:37:15,100
+你可以把它想成身体里一个生病的开关
+
+1180
+00:37:15,100 --&gt; 00:37:19,100
+而要的工作就是去精准的按对那个开关
+
+1181
+00:37:19,100 --&gt; 00:37:20,100
+听起来科幻的地方在这里
+
+1182
+00:37:20,100 --&gt; 00:37:22,100
+理论上能下手的开关有上万个
+
+1183
+00:37:22,100 --&gt; 00:37:27,100
+可是你猜全世界每年真正新增被推进到人体实验的有几个?
+
+1184
+00:37:27,100 --&gt; 00:37:28,100
+大约只有30个
+
+1185
+00:37:28,100 --&gt; 00:37:31,100
+因为每一个开关都要先确定它跟疾病真的相关
+
+1186
+00:37:31,100 --&gt; 00:37:33,100
+确定要打上去是安全的
+
+1187
+00:37:33,100 --&gt; 00:37:35,100
+还得能大量做得出来关卡人
+
+1188
+00:37:35,100 --&gt; 00:37:38,100
+结果就是大家全挤在少数几个已知的开关上
+
+1189
+00:37:38,100 --&gt; 00:37:39,100
+反复内卷
+
+1190
+00:37:39,100 --&gt; 00:37:41,100
+而代价是到今天
+
+1191
+00:37:41,100 --&gt; 00:37:43,100
+八成有名字的疾病还是无药可医
+
+1192
+00:37:43,100 --&gt; 00:37:44,100
+这不是我们缺乏想象力
+
+1193
+00:37:44,100 --&gt; 00:37:47,100
+是找出好开关这件事慢到不可思议
+
+1194
+00:37:47,100 --&gt; 00:37:49,100
+而这正好是AI最可能撬开的地方
+
+1195
+00:37:49,100 --&gt; 00:37:51,100
+这个领域的工具
+
+1196
+00:37:51,100 --&gt; 00:37:52,100
+原始到你会笑出来
+
+1197
+00:37:52,100 --&gt; 00:37:54,100
+常有人问Joss
+
+1198
+00:37:54,100 --&gt; 00:37:55,100
+你们猜的竞争对手是谁
+
+1199
+00:37:55,100 --&gt; 00:37:57,100
+他的回答很妙也很发人声醒
+
+1200
+00:37:57,100 --&gt; 00:37:59,100
+他说我们的竞争对手
+
+1201
+00:37:59,100 --&gt; 00:38:00,100
+字面上就是教母老鼠
+
+1202
+00:38:00,100 --&gt; 00:38:03,100
+还有实验室里那些传统的老工具
+
+1203
+00:38:03,100 --&gt; 00:38:05,100
+你想想人类到今天造药很多环节
+
+1204
+00:38:05,100 --&gt; 00:38:07,100
+还在靠让教母发酵
+
+1205
+00:38:07,100 --&gt; 00:38:08,100
+让老鼠试药
+
+1206
+00:38:08,100 --&gt; 00:38:10,100
+这些方法用了几十年甚至上百年
+
+1207
+00:38:10,100 --&gt; 00:38:13,100
+Joss说现有的药原始得像是奇迹
+
+1208
+00:38:13,100 --&gt; 00:38:14,100
+很多药打进身体
+
+1209
+00:38:14,100 --&gt; 00:38:16,100
+会打到一堆不该打的地方
+
+1210
+00:38:16,100 --&gt; 00:38:18,100
+造成一堆本来不必有的副作用
+
+1211
+00:38:18,100 --&gt; 00:38:21,100
+这说明了这个领域的工具还停在很早的阶段
+
+1212
+00:38:21,100 --&gt; 00:38:22,100
+正因为这么原始
+
+1213
+00:38:22,100 --&gt; 00:38:24,100
+AI进来撬动的空间才这么大
+
+1214
+00:38:24,100 --&gt; 00:38:26,100
+那AI到底怎么撬
+
+1215
+00:38:26,100 --&gt; 00:38:29,100
+两位讲者用了一个你一定听得懂的类比
+
+1216
+00:38:29,100 --&gt; 00:38:30,100
+这个类比是这样
+
+1217
+00:38:30,100 --&gt; 00:38:32,100
+你想一年前用AI写程式
+
+1218
+00:38:32,100 --&gt; 00:38:33,100
+还要来回出错很多次
+
+1219
+00:38:33,100 --&gt; 00:38:37,100
+可是现在他几乎能一次就生出一个能跑的应用造药
+
+1220
+00:38:37,100 --&gt; 00:38:39,100
+正在发生一模一样的跃迁
+
+1221
+00:38:39,100 --&gt; 00:38:42,100
+他们的做法是让两种AI一起工作
+
+1222
+00:38:42,100 --&gt; 00:38:45,100
+一种是像Cloud这样的语言模型扮演外圈
+
+1223
+00:38:45,100 --&gt; 00:38:47,100
+那个会思考会规划会查文献的科学家
+
+1224
+00:38:47,100 --&gt; 00:38:49,100
+另一种是专门懂生物的基础模型
+
+1225
+00:38:49,100 --&gt; 00:38:53,100
+比如AI的模型负责在内圈直接设计出分子的样子
+
+1226
+00:38:53,100 --&gt; 00:38:55,100
+这里顺带解释一个词
+
+1227
+00:38:55,100 --&gt; 00:38:56,100
+蛋白质
+
+1228
+00:38:56,100 --&gt; 00:38:57,100
+你可以把它想成
+
+1229
+00:38:57,100 --&gt; 00:38:59,100
+组成我们身体的一块一块的生命积木
+
+1230
+00:38:59,100 --&gt; 00:39:04,100
+而模型是到很晚近的世代才第一次真的看懂了这种积木场怎样
+
+1231
+00:39:04,100 --&gt; 00:39:06,100
+传统上要10-15年的造药流程
+
+1232
+00:39:06,100 --&gt; 00:39:08,100
+他们的目标是压到最快几周
+
+1233
+00:39:08,100 --&gt; 00:39:10,100
+而价值也会从卖药本身慢慢转向
+
+1234
+00:39:10,100 --&gt; 00:39:12,100
+卖这一整套工具
+
+1235
+00:39:12,100 --&gt; 00:39:15,100
+这件事还牵动这一场国家级的竞赛
+
+1236
+00:39:15,100 --&gt; 00:39:16,100
+Joss讲了一句话
+
+1237
+00:39:16,100 --&gt; 00:39:19,100
+把整个生技圈现在的焦虑讲得很透
+
+1238
+00:39:19,100 --&gt; 00:39:22,100
+他说现在药厂圈这里翻来覆去只谈两件事
+
+1239
+00:39:22,100 --&gt; 00:39:24,100
+一个是AI一个是中国
+
+1240
+00:39:24,100 --&gt; 00:39:26,100
+因为中国在造药这件事上更便宜更快
+
+1241
+00:39:26,100 --&gt; 00:39:30,100
+法规上也更容易让一款新药赶快用到人身上
+
+1242
+00:39:30,100 --&gt; 00:39:32,100
+正在一步步跑赢美国
+
+1243
+00:39:32,100 --&gt; 00:39:34,100
+可是他话锋一转说了那句金句
+
+1244
+00:39:34,100 --&gt; 00:39:35,100
+中国可以跑得比美国快
+
+1245
+00:39:35,100 --&gt; 00:39:37,100
+但中国跑不赢AI
+
+1246
+00:39:37,100 --&gt; 00:39:38,100
+这句话的意思是
+
+1247
+00:39:38,100 --&gt; 00:39:39,100
+美国想追上甚至反超
+
+1248
+00:39:39,100 --&gt; 00:39:42,100
+靠的不是跟中国平人立盘速度
+
+1249
+00:39:42,100 --&gt; 00:39:45,100
+而是赌AI这条全新的路能不能成功
+
+1250
+00:39:45,100 --&gt; 00:39:48,100
+所以他说美国的生技业是非常非常需要AI成功的
+
+1251
+00:39:48,100 --&gt; 00:39:50,100
+这已经不只是一门生意
+
+1252
+00:39:50,100 --&gt; 00:39:51,100
+而是一场国运的豪赌
+
+1253
+00:39:51,100 --&gt; 00:39:55,100
+而这一切最后会落到一个很浪漫的画面上
+
+1254
+00:39:55,100 --&gt; 00:39:57,100
+Eric描绘的未来是这样
+
+1255
+00:39:57,100 --&gt; 00:39:59,100
+造药的门槛会低到史无前例
+
+1256
+00:39:59,100 --&gt; 00:40:02,100
+过去开一家生技公司需要一整栋楼的科学家
+
+1257
+00:40:02,100 --&gt; 00:40:03,100
+几亿美元的资金
+
+1258
+00:40:03,100 --&gt; 00:40:06,100
+可是未来很可能一个人坐在电脑前
+
+1259
+00:40:06,100 --&gt; 00:40:08,100
+用大量的clode和那些懂生物的模型
+
+1260
+00:40:08,100 --&gt; 00:40:11,100
+你就能同时跑一整条早期药物的产品线
+
+1261
+00:40:11,100 --&gt; 00:40:13,100
+他们给这个画面取了个名字
+
+1262
+00:40:13,100 --&gt; 00:40:15,100
+一个人就是一条产品线
+
+1263
+00:40:15,100 --&gt; 00:40:18,100
+他们甚至半开玩笑的聊到未来像减肥药那样
+
+1264
+00:40:18,100 --&gt; 00:40:20,100
+能让你增加肌肉的药
+
+1265
+00:40:20,100 --&gt; 00:40:21,100
+或是帮你睡得更好的药
+
+1266
+00:40:21,100 --&gt; 00:40:23,100
+可能会像日用品一样普及
+
+1267
+00:40:23,100 --&gt; 00:40:25,100
+变成一种消费级的医疗
+
+1268
+00:40:25,100 --&gt; 00:40:26,100
+当然Eric很谨慎
+
+1269
+00:40:26,100 --&gt; 00:40:28,100
+他说他不会承诺五年内治好所有的病
+
+1270
+00:40:28,100 --&gt; 00:40:30,100
+他的目标是偏转那条轨迹
+
+1271
+00:40:30,100 --&gt; 00:40:32,100
+让人类对抗疾病的速度
+
+1272
+00:40:32,100 --&gt; 00:40:33,100
+整个换一个档次
+
+1273
+00:40:33,100 --&gt; 00:40:34,100
+好九堂课
+
+1274
+00:40:34,100 --&gt; 00:40:36,100
+三个战场我们都看完了
+
+1275
+00:40:36,100 --&gt; 00:40:40,100
+现在该把这个倒三角做一个总结
+
+1276
+00:40:40,100 --&gt; 00:40:42,100
+让我们把整支影片收容成一张图
+
+1277
+00:40:42,100 --&gt; 00:40:45,100
+今天这波几兆美元画出来的是一个倒三角型
+
+1278
+00:40:45,100 --&gt; 00:40:47,100
+最底层的晶片和电力
+
+1279
+00:40:47,100 --&gt; 00:40:49,100
+吃掉了绝大部分的钱
+
+1280
+00:40:49,100 --&gt; 00:40:50,100
+越往上越靠近你
+
+1281
+00:40:50,100 --&gt; 00:40:53,100
+我用得到的应用反而越薄着现况
+
+1282
+00:40:53,100 --&gt; 00:40:54,100
+但这门课九位讲者
+
+1283
+00:40:54,100 --&gt; 00:40:55,100
+用九个不同的角度
+
+1284
+00:40:55,100 --&gt; 00:40:57,100
+反复告诉我们同一件事
+
+1285
+00:40:57,100 --&gt; 00:40:59,100
+历史上价值永远往上沉流
+
+1286
+00:40:59,100 --&gt; 00:41:00,100
+云端花了大约八年
+
+1287
+00:41:00,100 --&gt; 00:41:02,100
+把三角形翻证电力花了四十年
+
+1288
+00:41:02,100 --&gt; 00:41:04,100
+这一次可能比谁想的都久
+
+1289
+00:41:04,100 --&gt; 00:41:07,100
+因为底层的晶片和电力实在太难盖了
+
+1290
+00:41:07,100 --&gt; 00:41:08,100
+但方向是清楚的
+
+1291
+00:41:08,100 --&gt; 00:41:11,100
+从企业的特化模型到应用公司
+
+1292
+00:41:11,100 --&gt; 00:41:12,100
+把智慧握回自己手上
+
+1293
+00:41:12,100 --&gt; 00:41:14,100
+那个翻证的力量已经在动了
+
+1294
+00:41:14,100 --&gt; 00:41:16,100
+所以如果你也身在这波浪潮里
+
+1295
+00:41:16,100 --&gt; 00:41:17,100
+该怎么看怎么做
+
+1296
+00:41:17,100 --&gt; 00:41:20,100
+我想给不同的你三句很实在的话
+
+1297
+00:41:20,100 --&gt; 00:41:22,100
+第一如果你是投资人
+
+1298
+00:41:22,100 --&gt; 00:41:24,100
+别只盯着谁现在最赚
+
+1299
+00:41:24,100 --&gt; 00:41:27,100
+要问自己你压的是哪一层底层的晶片
+
+1300
+00:41:27,100 --&gt; 00:41:28,100
+今天最肥
+
+1301
+00:41:28,100 --&gt; 00:41:29,100
+没错
+
+1302
+00:41:29,100 --&gt; 00:41:30,100
+但别忘了那个倒三角
+
+1303
+00:41:30,100 --&gt; 00:41:31,100
+历史上它最后都会翻证
+
+1304
+00:41:31,100 --&gt; 00:41:32,100
+价值会往上流
+
+1305
+00:41:32,100 --&gt; 00:41:33,100
+第二如果你在创业
+
+1306
+00:41:33,100 --&gt; 00:41:35,100
+别再问你的模型有多强
+
+1307
+00:41:35,100 --&gt; 00:41:37,100
+因为模型会越来越像水电
+
+1308
+00:41:37,100 --&gt; 00:41:38,100
+人人都有
+
+1309
+00:41:38,100 --&gt; 00:41:39,100
+你要问的是你手上
+
+1310
+00:41:39,100 --&gt; 00:41:41,100
+有没有别人拿不走的专有资料
+
+1311
+00:41:41,100 --&gt; 00:41:42,100
+那才是真正的护城河
+
+1312
+00:41:42,100 --&gt; 00:41:43,100
+是你的天花板
+
+1313
+00:41:43,100 --&gt; 00:41:46,100
+第三如果你只是每天用AI上班的人
+
+1314
+00:41:46,100 --&gt; 00:41:49,100
+那就趁现在把它练成你最顺手的工具
+
+1315
+00:41:49,100 --&gt; 00:41:51,100
+因为这门课有个共识
+
+1316
+00:41:51,100 --&gt; 00:41:53,100
+现在学是最划算时候
+
+1317
+00:41:53,100 --&gt; 00:41:54,100
+这个溢价之后只会收缩
+
+1318
+00:41:54,100 --&gt; 00:41:57,100
+这三句话背后其实是同一个判断
+
+1319
+00:41:57,100 --&gt; 00:41:59,100
+也是这门课最想留给你的东西
+
+1320
+00:41:59,100 --&gt; 00:42:02,100
+最后回到开这门课的Apovy Agrawal
+
+1321
+00:42:02,100 --&gt; 00:42:03,100
+他说了一句话
+
+1322
+00:42:03,100 --&gt; 00:42:04,100
+当做整门课的初衷
+
+1323
+00:42:04,100 --&gt; 00:42:05,100
+他说五年之后
+
+1324
+00:42:05,100 --&gt; 00:42:07,100
+每一个人都会回头问你
+
+1325
+00:42:07,100 --&gt; 00:42:09,100
+这一切在成型的时候你看出来了吗?
+
+1326
+00:42:09,100 --&gt; 00:42:12,100
+他说你会希望自己那时候能回答
+
+1327
+00:42:12,100 --&gt; 00:42:13,100
+看出来了
+
+1328
+00:42:13,100 --&gt; 00:42:15,100
+因为此刻我们就站在这个板块移动的现场
+
+1329
+00:42:15,100 --&gt; 00:42:18,100
+你不一定要成为那个盖工厂写模型的人
+
+1330
+00:42:18,100 --&gt; 00:42:19,100
+但你至少可以看懂
+
+1331
+00:42:19,100 --&gt; 00:42:21,100
+这几兆美元画出来的三角形
+
+1332
+00:42:21,100 --&gt; 00:42:24,100
+正朝着哪个方向慢慢翻转
+
+1333
+00:42:24,100 --&gt; 00:42:25,100
+从头到尾
+
+1334
+00:42:25,100 --&gt; 00:42:27,100
+这波钱画出来的是一个倒三角形
+
+1335
+00:42:27,100 --&gt; 00:42:29,100
+最底层的晶片与电力吃掉了
+
+1336
+00:42:29,100 --&gt; 00:42:32,100
+绝大部分越往上越靠近你
+
+1337
+00:42:32,100 --&gt; 00:42:34,100
+我用得到的应用反而越薄
+
+1338
+00:42:34,100 --&gt; 00:42:36,100
+但历史一次又一次告诉我们
+
+1339
+00:42:36,100 --&gt; 00:42:38,100
+三角形最后都会慢慢翻正
+
+1340
+00:42:38,100 --&gt; 00:42:39,100
+架子会一层一层往上流
+
+1341
+00:42:39,100 --&gt; 00:42:41,100
+只是这一次可能比谁想的都久
+
+1342
+00:42:41,100 --&gt; 00:42:42,100
+如果你是投资人
+
+1343
+00:42:42,100 --&gt; 00:42:44,100
+问自己压的是哪一层
+
+1344
+00:42:44,100 --&gt; 00:42:45,100
+如果你在创业
+
+1345
+00:42:45,100 --&gt; 00:42:47,100
+问自己手上有没有别人拿不走的资料
+
+1346
+00:42:47,100 --&gt; 00:42:49,100
+如果你只是每天用AI上班的人
+
+1347
+00:42:49,100 --&gt; 00:42:52,100
+那就把它练成你最顺手的工具
+
+1348
+00:42:52,100 --&gt; 00:42:53,100
+最后问你一个问题
+
+1349
+00:42:53,100 --&gt; 00:42:55,100
+如果三角形真的会翻正
+
+1350
+00:42:55,100 --&gt; 00:42:56,100
+你觉得下一个
+
+1351
+00:42:56,100 --&gt; 00:42:58,100
+吃到最大一块的会是晶片云
+
+1352
+00:42:58,100 --&gt; 00:43:00,100
+还是某个现在还没人看得起的应用
+
+1353
+00:43:00,100 --&gt; 00:43:02,100
+留言告诉我喜欢的话
+
+1354
+00:43:02,100 --&gt; 00:43:03,100
+订阅AINOP
+
+1355
+00:43:03,100 --&gt; 00:43:04,100
+开启通知
+
+1356
+00:43:04,100 --&gt; 00:43:06,100
+我们下次见
+
+</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://youtu.be/JjhVERuqFZA" target="_blank" rel="noopener">https://youtu.be/JjhVERuqFZA</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+  <!-- 文章頁星等編輯腳本 -->
+  <script>
+    (function () {
+      'use strict';
+
+      var editBtn = document.getElementById('article-rating-edit');
+      if (!editBtn) return;
+
+      // 從 URL 取得檔名
+      var pathParts = window.location.pathname.split('/');
+      var filename = pathParts[pathParts.length - 1];
+
+      // 從 meta 區塊讀取目前星等
+      var starSpan = document.querySelector('.star-rating');
+      var currentRating = 0;
+      if (starSpan && starSpan.textContent.trim()) {
+        var starText = starSpan.textContent.trim();
+        currentRating = (starText.match(/★/g) || []).length;
+      }
+
+      // ── 星等編輯彈窗 ──
+      function showRatingEditor() {
+        var old = document.getElementById('rating-editor-overlay');
+        if (old) old.remove();
+
+        var overlay = document.createElement('div');
+        overlay.id = 'rating-editor-overlay';
+        overlay.className = 'rating-editor-overlay';
+
+        var box = document.createElement('div');
+        box.className = 'rating-editor-box';
+
+        var title = document.createElement('div');
+        title.className = 'rating-editor-title';
+        title.textContent = '設定星等';
+
+        var starsRow = document.createElement('div');
+        starsRow.className = 'rating-editor-stars';
+
+        for (var s = 1; s <= 5; s++) {
+          (function (star) {
+            var btn = document.createElement('button');
+            btn.className = 'rating-editor-star';
+            btn.textContent = star <= currentRating ? '★' : '☆';
+            btn.dataset.value = star;
+            btn.addEventListener('click', function () {
+              // 高亮
+              var allBtns = starsRow.querySelectorAll('.rating-editor-star');
+              for (var k = 0; k < allBtns.length; k++) {
+                allBtns[k].textContent = k < star ? '★' : '☆';
+              }
+              // 儲存
+              saveRating(star, function (ok) {
+                if (ok) {
+                  showToast('✅ 星等已更新，網站重新部署中 (~30-60 秒)');
+                } else {
+                  showToast('❌ 更新失敗，請稍後再試');
+                }
+              });
+              overlay.remove();
+            });
+            starsRow.appendChild(btn);
+          })(s);
+        }
+
+        // 清除星等按鈕
+        var clearBtn = document.createElement('button');
+        clearBtn.className = 'rating-editor-clear';
+        clearBtn.textContent = '清除星等';
+        clearBtn.addEventListener('click', function () {
+          saveRating(0, function (ok) {
+            if (ok) {
+              showToast('✅ 星等已清除');
+            } else {
+              showToast('❌ 清除失敗，請稍後再試');
+            }
+          });
+          overlay.remove();
+        });
+
+        // 關閉按鈕
+        var closeBtn = document.createElement('button');
+        closeBtn.className = 'rating-editor-close';
+        closeBtn.textContent = '✕';
+        closeBtn.addEventListener('click', function () { overlay.remove(); });
+
+        box.appendChild(closeBtn);
+        box.appendChild(title);
+        box.appendChild(starsRow);
+        box.appendChild(clearBtn);
+        overlay.appendChild(box);
+
+        overlay.addEventListener('click', function (e) {
+          if (e.target === overlay) overlay.remove();
+        });
+
+        document.body.appendChild(overlay);
+      }
+
+      // ── 送出星等更新 ──
+      function saveRating(rating, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/api/rating', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            currentRating = rating;
+            // 更新頁面上的星等顯示
+            if (starSpan) {
+              var stars = '';
+              for (var k = 0; k < rating; k++) stars += '★';
+              for (var k = rating; k < 5; k++) stars += '☆';
+              starSpan.textContent = stars;
+            }
+            if (callback) callback(true);
+          } else {
+            console.error('Failed to save rating:', xhr.status);
+            if (callback) callback(false);
+          }
+        };
+        xhr.onerror = function () {
+          console.error('Network error saving rating');
+          if (callback) callback(false);
+        };
+        xhr.send(JSON.stringify({ filename: filename, rating: rating }));
+      }
+
+      // ── Toast 通知 ──
+      function showToast(msg) {
+        var old = document.getElementById('rating-toast');
+        if (old) old.remove();
+
+        var toast = document.createElement('div');
+        toast.id = 'rating-toast';
+        toast.className = 'rating-toast';
+        toast.textContent = msg;
+        document.body.appendChild(toast);
+
+        setTimeout(function () {
+          if (toast.parentNode) toast.parentNode.removeChild(toast);
+        }, 5000);
+      }
+
+      // 綁定編輯按鈕
+      editBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        showRatingEditor();
+      });
+    })();
+  </script>
+</body>
+</html>
