@@ -1,5 +1,12 @@
 [
   {
+    "title": "每家公司都該有一顆自己的大腦：YC 總裁講座 - Hermes Docs",
+    "url": "videos/YC總裁_公司大腦.html",
+    "date": "2026-07-30 06:08",
+    "rating": 0,
+    "content": "每家公司都該有一顆自己的大腦：YC 總裁講座 - Hermes Docs 返回首頁 每家公司都該有一顆自己的大腦：YC 總裁講座 發布時間：2026-07-30 14:07 ✎ 評分 🌙 YouTube 影片重點整理 每家公司都該有一顆自己的大腦 : YC 總裁講座 📺 Jim AI Notebook ⏱ 13:27 🗓 2026-07-23 🌐 zh-Hant 🔗 https://youtu.be/-N8u52bRbG8 YC 總裁 Garry Tan 在 AI Engineer World&#x27;s Fair 發表演講，核心論點是「每家公司都該有一顆自己的大腦」。他從一個爭議數字出發：AI 讓工程師產出提升 400 倍，保守估計也有 8 到 80 倍。關鍵不在模型本身，而在你如何把工作串起來——技能檔就是員工、路由表就是組織圖、規則檔就是流程手冊。他提出「潛在空間」與「確定性空間」的區分：模型負責判斷，程式碼負責確定性工作。從人類工作記憶 7±2 的限制對比 AI 100 萬 Token 的上下文，他定義「上下文工程」就是決定此刻該把哪三本書攤開在桌上。公司大腦的本質是一座圖書"
+  },
+  {
     "title": "一部影片看懂 AI 超級週期｜下個經濟循環｜Stanford 公開課 - Hermes Docs",
     "url": "videos/AI超級週期_Stanford公開課.html",
     "date": "2026-07-30 06:08",
@@ -12,13 +19,6 @@
     "date": "2026-07-30 06:08",
     "rating": 0,
     "content": "模型越強，Superpowers 和 MattPocock-Skills 應該刪除誰？ - Hermes Docs 返回首頁 模型越強，Superpowers 和 MattPocock-Skills 應該刪除誰？ 發布時間：2026-07-30 14:07 ✎ 評分 🌙 YouTube 影片重點整理 模型越強，Superpowers 和 MattPocock-Skills 應該刪除誰？ 📺 AI隨風 ⏱ 9:05 🗓 2026-07-21 🌐 zh-Hans 🔗 https://youtu.be/JPGo_5fczaA 本影片深入對比兩個熱門 AI 編程工作流：Superpowers（GitHub 258k stars）與 Matt Skills（GitHub 180k stars）。核心論點是：隨著模型推理能力越來越強，過度詳細的工作流反而會限制模型發揮。Matt Skills 的計劃文檔以文字描述為主，保留推理空間給模型，適合 GPT-5.6、Kimi K3、Fable-5 等強模型；Superpowers 的計劃文檔則包含詳細代碼與接口定義，適合弱模型或需要團隊提前審查的場景。影"
-  },
-  {
-    "title": "每家公司都該有一顆自己的大腦：YC 總裁講座 - Hermes Docs",
-    "url": "videos/YC總裁_公司大腦.html",
-    "date": "2026-07-30 06:07",
-    "rating": 0,
-    "content": "每家公司都該有一顆自己的大腦：YC 總裁講座 - Hermes Docs 返回首頁 每家公司都該有一顆自己的大腦：YC 總裁講座 發布時間：2026-07-30 14:07 ✎ 評分 🌙 YouTube 影片重點整理 每家公司都該有一顆自己的大腦 : YC 總裁講座 📺 Jim AI Notebook ⏱ 13:27 🗓 2026-07-23 🌐 zh-Hant 🔗 https://youtu.be/-N8u52bRbG8 YC 總裁 Garry Tan 在 AI Engineer World&#x27;s Fair 發表演講，核心論點是「每家公司都該有一顆自己的大腦」。他從一個爭議數字出發：AI 讓工程師產出提升 400 倍，保守估計也有 8 到 80 倍。關鍵不在模型本身，而在你如何把工作串起來——技能檔就是員工、路由表就是組織圖、規則檔就是流程手冊。他提出「潛在空間」與「確定性空間」的區分：模型負責判斷，程式碼負責確定性工作。從人類工作記憶 7±2 的限制對比 AI 100 萬 Token 的上下文，他定義「上下文工程」就是決定此刻該把哪三本書攤開在桌上。公司大腦的本質是一座圖書"
   },
   {
     "title": "一部影片看懂 AI 超級週期 ｜下個經濟循環｜Stanford 公開課 - Hermes Docs",
