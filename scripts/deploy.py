@@ -246,15 +246,95 @@ def poll_deployment(title: str) -> bool:
     return False
 
 
+def wrap_report(report_path: str, out_filename: str) -> str:
+    """Extract wrap div + style + script from a render_report.py output,
+    wrap in article.template.html, and save to docs/videos/.
+    Returns the dest_path on success, or raises on failure."""
+    with open(report_path, "r", encoding="utf-8") as f:
+        report_html = f.read()
+
+    # Extract <style> block
+    style_m = re.search(r"<style>(.*?)</style>", report_html, re.DOTALL)
+    styles = style_m.group(1) if style_m else ""
+
+    # Extract wrap div content using div-depth counting (before JSON-LD)
+    body_start = report_html.find('<div class="wrap"')
+    json_start = report_html.find('<script type="application/ld+json">')
+    body_content = ""
+    if body_start >= 0 and json_start > body_start:
+        depth = 0
+        i = body_start
+        while i < json_start:
+            if report_html[i:i+4] == "<div":
+                depth += 1
+                i += 4
+            elif report_html[i:i+6] == "</div>":
+                depth -= 1
+                i += 6
+                if depth == 0:
+                    body_content = report_html[body_start:i].strip()
+                    break
+            else:
+                i += 1
+    if not body_content:
+        m = re.search(
+            r'<div class="wrap"[^>]*>(.*?)</div>\s*<script type="application/ld\+json">',
+            report_html, re.DOTALL,
+        )
+        body_content = m.group(1).strip() if m else ""
+
+    # Extract <script> block after JSON-LD (theme toggle + copyRaw + copyRawText)
+    json_script_end = report_html.find("</script>", json_start) + len("</script>")
+    script_start = report_html.find("<script>", json_script_end)
+    script_end = report_html.find("</script>", script_start) + len("</script>")
+    all_scripts = report_html[script_start:script_end] if script_start >= 0 and script_end > script_start else ""
+
+    content_to_insert = f"<style>\n{styles}\n</style>\n{body_content}\n{all_scripts}"
+
+    # Extract title from report's <title> or <h1>
+    title_m = re.search(r"<title>(.*?)</title>", report_html, re.IGNORECASE)
+    title = title_m.group(1).strip() if title_m else os.path.splitext(out_filename)[0]
+
+    # Read article template
+    article_template_path = os.path.join(TEMPLATES_DIR, "article.template.html")
+    with open(article_template_path, "r", encoding="utf-8") as f:
+        template = f.read()
+
+    date_str = datetime.now().strftime("%Y-%m-%d %H:%M")
+    article = template.replace("<!--__TITLE__-->", title)
+    article = article.replace("<!--__DATE__-->", date_str)
+    article = article.replace("<!--__CONTENT__-->", content_to_insert)
+
+    dest_path = os.path.join(VIDEOS_DIR, out_filename)
+    os.makedirs(VIDEOS_DIR, exist_ok=True)
+    with open(dest_path, "w", encoding="utf-8") as f:
+        f.write(article)
+    log(f"📦 Wrapped report → {dest_path} ({len(article)} chars)")
+    return dest_path
+
+
 def main():
     if len(sys.argv) < 2:
         print("Usage: python3 deploy.py <path/to/new_article.html>")
+        print("       python3 deploy.py --from-report <report.html> <output_filename.html>")
         sys.exit(1)
 
-    src_path = os.path.abspath(sys.argv[1])
-    if not os.path.isfile(src_path):
-        log(f"❌ File not found: {src_path}")
-        sys.exit(1)
+    # ── --from-report mode: auto-wrap render_report.py output ──
+    if sys.argv[1] == "--from-report":
+        if len(sys.argv) < 4:
+            print("Usage: python3 deploy.py --from-report <report.html> <output_filename.html>")
+            sys.exit(1)
+        report_path = os.path.abspath(sys.argv[2])
+        out_filename = sys.argv[3]
+        if not os.path.isfile(report_path):
+            log(f"❌ Report file not found: {report_path}")
+            sys.exit(1)
+        src_path = wrap_report(report_path, out_filename)
+    else:
+        src_path = os.path.abspath(sys.argv[1])
+        if not os.path.isfile(src_path):
+            log(f"❌ File not found: {src_path}")
+            sys.exit(1)
 
     # ── 1. Copy article to videos/ ──
     title = extract_title(src_path)

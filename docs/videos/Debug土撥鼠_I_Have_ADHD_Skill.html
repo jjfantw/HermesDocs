@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>讓 AI 不再廢話的神奇 Skills: I-have-adhd - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .meta .star-rating { color: #f1c40f; letter-spacing: 1px; font-size: 1.1rem; }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    /* ── 星等編輯按鈕（文章頁） ── */
+    .rating-edit-btn-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: none;
+      border: 1px solid #dee2e6;
+      border-radius: 4px;
+      padding: 2px 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      color: #868e96;
+      transition: all 0.15s;
+      vertical-align: middle;
+      margin-left: 8px;
+    }
+    .rating-edit-btn-inline:hover {
+      border-color: #667eea;
+      color: #667eea;
+      background: #eef0ff;
+    }
+
+    /* ── 星等編輯彈窗 ── */
+    .rating-editor-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .rating-editor-box {
+      background: #fff;
+      border-radius: 12px;
+      padding: 32px;
+      min-width: 300px;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      position: relative;
+    }
+    .rating-editor-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .rating-editor-stars {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .rating-editor-star {
+      background: none;
+      border: 2px solid transparent;
+      font-size: 2rem;
+      cursor: pointer;
+      color: #f1c40f;
+      padding: 4px 8px;
+      border-radius: 8px;
+      transition: all 0.15s;
+    }
+    .rating-editor-star:hover {
+      border-color: #667eea;
+      background: #eef0ff;
+      transform: scale(1.15);
+    }
+    .rating-editor-clear {
+      background: none;
+      border: 1px solid #dee2e6;
+      border-radius: 6px;
+      padding: 6px 16px;
+      font-size: 0.85rem;
+      color: #868e96;
+      cursor: pointer;
+    }
+    .rating-editor-clear:hover {
+      border-color: #e74c3c;
+      color: #e74c3c;
+    }
+    .rating-editor-close {
+      position: absolute;
+      top: 8px; right: 12px;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: #adb5bd;
+    }
+    .rating-editor-close:hover { color: #333; }
+
+    /* ── Toast 通知 ── */
+    .rating-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      z-index: 10000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      animation: toast-in 0.3s ease;
+    }
+    @keyframes toast-in {
+      from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>讓 AI 不再廢話的神奇 Skills: I-have-adhd</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-07-30 20:14</span>
+        <span class="star-rating"></span>
+        <button class="rating-edit-btn-inline" id="article-rating-edit" title="設定星等">✎ 評分</button>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">讓 AI 不再廢話的神奇 Skills: I-have-adhd</h1>
+    <div class="meta"><span data-field="channel">📺 Debug 土撥鼠</span><span data-field="duration">⏱ 00:52</span><span data-field="published_date">🗓 2026-07-26</span><span data-field="original_language">🌐 zh-Hant</span><a data-field="source_url" href="https://youtube.com/shorts/hnidu5Kprig" target="_blank" rel="noopener">🔗 https://youtube.com/shorts/hnidu5Kprig</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>Debug 土撥鼠介紹一個近期爆紅的開源 Claude Code Skill「I Have ADHD」，它不讓 AI 變聰明，而是強制 AI 遵守三條輸出規則：先講下一步不鋪陳、多步驟任務編號拆解、避免離題一次只處理一件事。X 上有開源大佬表示裝完後輸出品質提升 10 倍。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">I Have ADHD 是什麼？</h2><span class="ts-badge" data-field="lesson_timestamp">00:00</span></div><div class="body" data-field="lesson_body"><p>「I Have ADHD」是一個近期在開發者社群爆紅的開源 Claude Code Skill，GitHub 連結：https://github.com/ayghri/i-have-adhd。</p><p>它的核心概念非常簡單：<strong>AI 回答時常常前面講一大堆，最後才告訴你真正該做什麼</strong>。裝了這個 Skill 之後，AI 的回答變得更直接、更好讀，也更容易照著做。</p><p>在 X（Twitter）上，有一位開源大佬直接說：<strong>裝完之後輸出品質提升了 10 倍</strong>。</p><span class="tag" data-field="lesson_tag">背景介紹</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">三條核心輸出規則</h2><span class="ts-badge" data-field="lesson_timestamp">00:23</span></div><div class="body" data-field="lesson_body"><p><strong>規則一：先講下一步，不要先鋪陳背景。</strong> 不要先說一堆分析，一開頭就告訴你現在該做什麼。</p><p><strong>規則二：多步驟任務要編號。</strong> 只要超過一個步驟，就拆成 1、2、3，每一步都要是明確可以執行的動作。</p><p><strong>規則三：避免離題。</strong> 如果還有第二個問題，不要全部混在一起講。先把眼前這件事處理完，再問你要不要處理下一件。</p><span class="tag" data-field="lesson_tag">核心規則</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">為什麼值得裝？</h2><span class="ts-badge" data-field="lesson_timestamp">00:43</span></div><div class="body" data-field="lesson_body"><p>簡單講，<strong>它不是讓 AI 變聰明，而是讓 AI 不要把答案藏在一堆廢話裡</strong>。</p><p>如果你覺得 AI Agent 常常講太多、重點太慢出現，這個 Skill 很值得裝來試試看。</p><span class="tag" data-field="lesson_tag">結論</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">他不是讓 AI 變聰明，而是讓 AI 不要把答案藏在一堆廢話裡。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="00:00"><span class="ts">00:00</span><span class="text" data-field="key_point_text">開源 Skill「I Have ADHD」近期爆紅，解決 AI 回答廢話太多的問題</span></li><li data-field="key_point" data-timestamp="00:15"><span class="ts">00:15</span><span class="text" data-field="key_point_text">X 上開源大佬表示裝完後輸出品質提升 10 倍</span></li><li data-field="key_point" data-timestamp="00:23"><span class="ts">00:23</span><span class="text" data-field="key_point_text">規則一：先講下一步，不要鋪陳背景或分析，一開頭就告訴你該做什麼</span></li><li data-field="key_point" data-timestamp="00:29"><span class="ts">00:29</span><span class="text" data-field="key_point_text">規則二：多步驟任務要編號，超過一步就拆成 1 2 3，每步都要明確可執行</span></li><li data-field="key_point" data-timestamp="00:35"><span class="ts">00:35</span><span class="text" data-field="key_point_text">規則三：避免離題，先把眼前這件事處理完，再問要不要處理下一件</span></li><li data-field="key_point" data-timestamp="00:43"><span class="ts">00:43</span><span class="text" data-field="key_point_text">核心精神：不是讓 AI 變聰明，而是讓 AI 不要把答案藏在一堆廢話裡</span></li><li data-field="key_point" data-timestamp="00:47"><span class="ts">00:47</span><span class="text" data-field="key_point_text">推薦給覺得 AI Agent 常講太多、重點太慢出現的人</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="I Have ADHD">I Have ADHD</span><span class="tag-chip" data-tag="Claude Code">Claude Code</span><span class="tag-chip" data-tag="Skill">Skill</span><span class="tag-chip" data-tag="AI 輸出品質">AI 輸出品質</span><span class="tag-chip" data-tag="開源工具">開源工具</span><span class="tag-chip" data-tag="Debug 土撥鼠">Debug 土撥鼠</span></div>
+  </section>
+
+  
+  
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="whisper"><div class="raw-label">Whisper 原始輸出<button class="copy-btn" id="raw_whisper_4378057088_srt" onclick="copyRaw(this,'raw_whisper_4378057088_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_whisper_4378057088_text" onclick="copyRawText(this,'raw_whisper_4378057088_text')">📋 複製純文字</button></div><pre>1
+00:00:00,000 --&gt; 00:00:02,000
+最近有一個很紅的開源Skill
+
+2
+00:00:02,000 --&gt; 00:00:03,700
+叫做I have ADHD
+
+3
+00:00:03,700 --&gt; 00:00:05,040
+他解決問題很簡單
+
+4
+00:00:05,040 --&gt; 00:00:07,460
+AI回答時常常前面講一大堆
+
+5
+00:00:07,460 --&gt; 00:00:09,340
+最後才告訴你真正該做什麼
+
+6
+00:00:09,340 --&gt; 00:00:10,800
+但裝了這個Skill之後
+
+7
+00:00:10,800 --&gt; 00:00:13,040
+AI的回答變得更直接更好讀
+
+8
+00:00:13,040 --&gt; 00:00:14,160
+也更容易照著做
+
+9
+00:00:14,160 --&gt; 00:00:15,340
+甚至在X上
+
+10
+00:00:15,340 --&gt; 00:00:17,000
+有一位開源大佬直接說
+
+11
+00:00:17,000 --&gt; 00:00:19,500
+裝完之後輸出品質提升了10倍
+
+12
+00:00:19,500 --&gt; 00:00:20,700
+那他到底做了什麼呢?
+
+13
+00:00:20,700 --&gt; 00:00:23,340
+其實就是強制AI遵守一套輸出規則
+
+14
+00:00:23,340 --&gt; 00:00:24,600
+1. 先講下一步
+
+15
+00:00:24,600 --&gt; 00:00:25,800
+不要先鋪陳背景
+
+16
+00:00:25,800 --&gt; 00:00:27,200
+不要先說一堆分析
+
+17
+00:00:27,200 --&gt; 00:00:29,100
+一開頭就告訴你現在該做什麼
+
+18
+00:00:29,100 --&gt; 00:00:31,000
+2. 多個步驟的任務要編好
+
+19
+00:00:31,000 --&gt; 00:00:32,200
+只要超過一個步驟
+
+20
+00:00:32,200 --&gt; 00:00:33,700
+就拆成1 2 3
+
+21
+00:00:33,700 --&gt; 00:00:35,600
+每一步都要明確可以執行的動作
+
+22
+00:00:35,600 --&gt; 00:00:36,800
+3. 避免離題
+
+23
+00:00:36,800 --&gt; 00:00:38,100
+如果還有第二個問題
+
+24
+00:00:38,100 --&gt; 00:00:39,300
+不要全部混在一起講
+
+25
+00:00:39,300 --&gt; 00:00:41,000
+先把眼前這件事處理完
+
+26
+00:00:41,000 --&gt; 00:00:42,500
+再問你要不要處理下一件
+
+27
+00:00:42,500 --&gt; 00:00:43,200
+簡單講
+
+28
+00:00:43,200 --&gt; 00:00:44,600
+他不是讓AI變聰明
+
+29
+00:00:44,600 --&gt; 00:00:47,100
+而是讓AI不要把答案藏在一堆廢話裡
+
+30
+00:00:47,100 --&gt; 00:00:49,000
+如果你覺得AI Agent常常講太多
+
+31
+00:00:49,000 --&gt; 00:00:50,000
+重點太慢出現
+
+32
+00:00:50,000 --&gt; 00:00:51,800
+這個Skill很值得裝來試試看
+
+</pre></div><div class="raw-block" data-field="raw_source_item" data-raw-type="description"><div class="raw-label">YouTube 影片描述<button class="copy-btn" id="raw_description_4378582976_srt" onclick="copyRaw(this,'raw_description_4378582976_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_description_4378582976_text" onclick="copyRawText(this,'raw_description_4378582976_text')">📋 複製純文字</button></div><pre>連結：https://github.com/ayghri/i-have-adhd</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://youtube.com/shorts/hnidu5Kprig" target="_blank" rel="noopener">https://youtube.com/shorts/hnidu5Kprig</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+  <!-- 文章頁星等編輯腳本 -->
+  <script>
+    (function () {
+      'use strict';
+
+      var editBtn = document.getElementById('article-rating-edit');
+      if (!editBtn) return;
+
+      // 從 URL 取得檔名
+      var pathParts = window.location.pathname.split('/');
+      var filename = pathParts[pathParts.length - 1];
+
+      // 從 meta 區塊讀取目前星等
+      var starSpan = document.querySelector('.star-rating');
+      var currentRating = 0;
+      if (starSpan && starSpan.textContent.trim()) {
+        var starText = starSpan.textContent.trim();
+        currentRating = (starText.match(/★/g) || []).length;
+      }
+
+      // ── 星等編輯彈窗 ──
+      function showRatingEditor() {
+        var old = document.getElementById('rating-editor-overlay');
+        if (old) old.remove();
+
+        var overlay = document.createElement('div');
+        overlay.id = 'rating-editor-overlay';
+        overlay.className = 'rating-editor-overlay';
+
+        var box = document.createElement('div');
+        box.className = 'rating-editor-box';
+
+        var title = document.createElement('div');
+        title.className = 'rating-editor-title';
+        title.textContent = '設定星等';
+
+        var starsRow = document.createElement('div');
+        starsRow.className = 'rating-editor-stars';
+
+        for (var s = 1; s <= 5; s++) {
+          (function (star) {
+            var btn = document.createElement('button');
+            btn.className = 'rating-editor-star';
+            btn.textContent = star <= currentRating ? '★' : '☆';
+            btn.dataset.value = star;
+            btn.addEventListener('click', function () {
+              // 高亮
+              var allBtns = starsRow.querySelectorAll('.rating-editor-star');
+              for (var k = 0; k < allBtns.length; k++) {
+                allBtns[k].textContent = k < star ? '★' : '☆';
+              }
+              // 儲存
+              saveRating(star, function (ok) {
+                if (ok) {
+                  showToast('✅ 星等已更新，網站重新部署中 (~30-60 秒)');
+                } else {
+                  showToast('❌ 更新失敗，請稍後再試');
+                }
+              });
+              overlay.remove();
+            });
+            starsRow.appendChild(btn);
+          })(s);
+        }
+
+        // 清除星等按鈕
+        var clearBtn = document.createElement('button');
+        clearBtn.className = 'rating-editor-clear';
+        clearBtn.textContent = '清除星等';
+        clearBtn.addEventListener('click', function () {
+          saveRating(0, function (ok) {
+            if (ok) {
+              showToast('✅ 星等已清除');
+            } else {
+              showToast('❌ 清除失敗，請稍後再試');
+            }
+          });
+          overlay.remove();
+        });
+
+        // 關閉按鈕
+        var closeBtn = document.createElement('button');
+        closeBtn.className = 'rating-editor-close';
+        closeBtn.textContent = '✕';
+        closeBtn.addEventListener('click', function () { overlay.remove(); });
+
+        box.appendChild(closeBtn);
+        box.appendChild(title);
+        box.appendChild(starsRow);
+        box.appendChild(clearBtn);
+        overlay.appendChild(box);
+
+        overlay.addEventListener('click', function (e) {
+          if (e.target === overlay) overlay.remove();
+        });
+
+        document.body.appendChild(overlay);
+      }
+
+      // ── 送出星等更新 ──
+      function saveRating(rating, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/api/rating', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            currentRating = rating;
+            // 更新頁面上的星等顯示
+            if (starSpan) {
+              var stars = '';
+              for (var k = 0; k < rating; k++) stars += '★';
+              for (var k = rating; k < 5; k++) stars += '☆';
+              starSpan.textContent = stars;
+            }
+            if (callback) callback(true);
+          } else {
+            console.error('Failed to save rating:', xhr.status);
+            if (callback) callback(false);
+          }
+        };
+        xhr.onerror = function () {
+          console.error('Network error saving rating');
+          if (callback) callback(false);
+        };
+        xhr.send(JSON.stringify({ filename: filename, rating: rating }));
+      }
+
+      // ── Toast 通知 ──
+      function showToast(msg) {
+        var old = document.getElementById('rating-toast');
+        if (old) old.remove();
+
+        var toast = document.createElement('div');
+        toast.id = 'rating-toast';
+        toast.className = 'rating-toast';
+        toast.textContent = msg;
+        document.body.appendChild(toast);
+
+        setTimeout(function () {
+          if (toast.parentNode) toast.parentNode.removeChild(toast);
+        }, 5000);
+      }
+
+      // 綁定編輯按鈕
+      editBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        showRatingEditor();
+      });
+    })();
+  </script>
+</body>
+</html>
