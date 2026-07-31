@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>58萬瀏覽6.5萬人收藏的Agent排障表，我抄了 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>58萬瀏覽6.5萬人收藏的Agent排障表，我抄了</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-07-31 22:20</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">58萬瀏覽6.5萬人收藏的Agent排障表，我抄了</h1>
+    <div class="meta"><span data-field="channel">📺 为什么叫QQ</span><span data-field="duration">⏱ 12:08</span><span data-field="published_date">🗓 2026-07</span><span data-field="original_language">🌐 zh-Hans</span><a data-field="source_url" href="https://www.youtube.com/watch?v=s3yiXTxueoI" target="_blank" rel="noopener">🔗 https://www.youtube.com/watch?v=s3yiXTxueoI</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>這支影片拆解了一篇在 X 上獲得 58 萬瀏覽、6.5 萬收藏的 Agent 工程長文。作者從一線工程師視角，將 Agent 系統劃分為三層：Harness（環境層）管工具/權限/狀態，Loop（回饋層）管重試/評分/停止條件，Graph（流程層）管節點/分支/匯合。核心貢獻是一張「症狀到層」的排障決策表，讓模糊的「Agent 又抽風了」變成可執行的排查工單。影片還整理了七條可直接抄進程式碼庫的工程紀律，以及三個要警惕的坑：圖的過早儀式化、術語包裝通膨、廠商敘事夾帶私貨。最後給出三個趨勢判斷：Harness 標準化加速、Loop 競爭核心在證據系統、Graph 將經歷去泡沫化。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">三層架構：Harness / Loop / Graph</h2><span class="ts-badge" data-field="lesson_timestamp">1:54</span></div><div class="body" data-field="lesson_body"><p>作者 beamnxw 把 Agent 工程切成三層，每層有明確的職責邊界：<strong>Harness Engineering</strong> 負責模型周圍的機器——System Prompt、工具定義、記憶、沙箱、權限、日誌、上下文壓縮、路由，全部算 Harness。<strong>Loop Engineering</strong> 設計重複的工作回饋循環，管重試、評分、停止條件。<strong>Graph Engineering</strong> 把工作流的拓撲結構顯式化——節點、分支、匯合。</p><p>記住這個思維模型：<strong>環境、回饋、流程</strong>。圖跑在 Harness 裡，循環活在圖裡，而 Harness 給循環提供狀態、工具和評估器。</p><p>一個粗暴但極其好用的判斷法：把你架構圖裡的「基座模型」拿掉，剩下的基本全是 Harness。兩個團隊用同一個基座模型，產出卻天差地別——一邊提供了乾淨的工具、穩定的工作區、嚴格受限的權限和完全可觀測的狀態；另一邊只有模糊的 Prompt 和極其不可靠的 API 封裝。<strong>你硬換更強的大模型，也救不了爛透了的工程環境。</strong></p><span class="tag" data-field="lesson_tag">三層架構</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">症狀到層的排障決策表</h2><span class="ts-badge" data-field="lesson_timestamp">3:06</span></div><div class="body" data-field="lesson_body"><p>這篇文章最實在的用法，就是把「Agent 又抽風了」這種模糊抱怨，直接翻譯成工程師可執行的排查工單：</p><p><strong>症狀一</strong>：Agent 沒法安全存取資料或工具 → 歸 <strong>Harness</strong>，查工具契約、權限控制、沙箱隔離和上下文注入。<strong>症狀二</strong>：跨會話就忘進度 → 歸 <strong>Harness</strong>，排查持久化狀態、檢查點、進度產物和壓縮策略。<strong>症狀三</strong>：第一次跑得差不多但結果極不穩定 → 歸 <strong>Loop</strong>，立刻加上外部評分器、確定性測試和有界重試。</p><p><strong>症狀四</strong>：成功了也不停手，或毫無證據就宣佈收工 → 歸 <strong>Loop</strong>，做基於證據的終止狀態設計和對 Token 預算有感知的停止規則。<strong>症狀五</strong>：多個專家 Agent 需按嚴格順序協同 → 歸 <strong>Graph</strong>，顯式定義節點、邊、路由和匯合邏輯。<strong>症狀六</strong>：多步流程出錯，死活定位不到壞在哪一步 → <strong>Graph + Harness</strong> 一起上，需要跟圖節點對齊的、帶狀態的 Trace。</p><p><strong>症狀七</strong>（最反直覺）：業務流還在快速迭代，需求三天兩頭變 → <strong>往回退！</strong> 用最簡單的 Harness，保持純模型驅動，推遲圖的形式化。</p><span class="tag" data-field="lesson_tag">排障決策表</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">七條可直接抄的工程實踐</h2><span class="ts-badge" data-field="lesson_timestamp">4:42</span></div><div class="body" data-field="lesson_body"><p>影片按落地優先級排序了七條實踐，沒有一條需要買新框架，全是扎實的工程紀律：</p><p><strong>① 證據驅動的停止規則</strong>：Agent 拍胸脯說做完了，這話一文不值。只有測試通過、URL 可解析、Schema 校驗通過、或有人工審批批准，這些硬性指標才叫真正的停止條件。「假裝完成」的事故肉眼可見地變少了。</p><p><strong>② 有界重試</strong>：光寫一句「失敗了繼續試」不能當循環規格。每個循環必須寫清楚四件事：可測量的目標、每輪必須拿到的新證據、最大重試次數、以及具名的兜底路徑。無界重試最大的惡果就是成本黑洞——Token 帳單纔是最誠實的警報器。</p><p><strong>③ 最小權限</strong>：在 Harness 層面，權限、網路隔離、白名單、API 金鑰處理和人工授權，一樣都別省。權限給得太寬，被注入攻擊或搞崩系統只是時間問題。</p><p><strong>④ 進度檔 + Git 歷史做持久化</strong>：光靠上下文壓縮根本不夠，還需要初始化器、結構化的進度檔、Git 提交歷史以及嚴格的增量工作紀律。要讓每一個新啟動的上下文，都能一眼讀懂之前到底發生了什麼。</p><p><strong>⑤ 確定性檢查永遠優先於模型自評</strong>：讓同一個模型既當選手又當裁判，沒有任何外部防護——這是原文列出的「五個最昂貴錯誤」之一。自審存在嚴重的共同盲區：它寫程式碼時在哪瞎了，評審時往往還在同一個地方瞎。能用自動化測試、Schema 校驗、程式碼 Diff 解決的，就千萬別用另一個 LLM 去評審。</p><p><strong>⑥ 先跑 Trace，再去畫 Graph</strong>：業務都沒跑通就急著搞複雜的圖編排，高居原文「昂貴錯誤清單」榜首。正確姿勢：先用最簡單的 Harness 跑跑看，收集真實執行的 Trace，看系統真正穩定的執行路徑到底長什麼樣，然後再用圖把這套流程固化下來。</p><p><strong>⑦ 工具給得寧窄勿寬</strong>：原文有句話說得很狠——別把 Harness 當垃圾場！塞進去的工具一多，選擇的錯誤率直線上升，上下文變得極其嘈雜，模型反而更困惑。更多的工具和記憶，絕不會自動等價於更好的結果。</p><span class="tag" data-field="lesson_tag">七條實踐</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">三個要警惕的坑</h2><span class="ts-badge" data-field="lesson_timestamp">7:30</span></div><div class="body" data-field="lesson_body"><p><strong>坑一：Graph 的「過早儀式化」</strong>。如果任務僅僅是給一個 Agent 三個工具讓它幹活，強行上圖只會過早凍結假設，讓整個系統變得無比脆弱。圖架構真正發揮價值的場景非常明確：實質性的條件分支、並行執行、多級審批、錯誤恢復路徑、以及多專家 Agent 的協同。AutoGen 文件也說得很直白：只有在需要精確控制執行順序、不同結果需走向不同分支、或帶複雜循環的時候，才需要用圖。需求還在「三天一改」的早期階段，過早畫圖無異於作繭自縛。</p><p><strong>坑二：術語包裝的嚴重通膨</strong>。Prompt、Context、Harness、Loop、Graph 這些詞接連走紅，它們確實指向了不同的工程抽象層次，但這個圈子造新詞的速度越來越快。作為工程師要清醒：盲目追逐新名詞，並不能讓你的系統變得更穩。</p><p><strong>坑三：要當心「廠商敘事」</strong>。這篇文大量引用了 LangChain、OpenAI Agents SDK、LangGraph、AutoGen 這些框架的說法，這些來源裡有乾貨，但畢竟多出自框架或平臺的維護方，難免夾帶推廣自己生態的私貨。底線原則：他們總結的具體工程避坑指南可以抄，但他們推銷的「複雜架構結論」必須經過自己的驗證——拿你生產環境真實的 Trace 去驗證，別拿他們發表會上的 PPT 去驗證。</p><span class="tag" data-field="lesson_tag">三個坑</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">核心洞察與未來趨勢</h2><span class="ts-badge" data-field="lesson_timestamp">9:19</span></div><div class="body" data-field="lesson_body"><p>這篇文章真正的行業貢獻就一句話：它把「Agent 不可靠」這團說不清、道不明的技術焦慮，利落地切成了三塊能各自定責的工程切面。環境出毛病去修 Harness；回饋不閉環去修 Loop；流程卡殼了去修 Graph。每一層都有清晰的驗收標準和第一責任人。以後誰要是再拿「模型不夠聰明」來搪塞生產事故，那就是最偷懶的藉口。</p><p>更隱蔽的收穫：<strong>證據驅動停止、有界重試、最小權限原則、確定性檢查優先</strong>——這些詞在傳統分散式系統裡、在 SRE 的運維手冊裡、在網路安全規範裡，無處不在。Agent 工程發展到 2026 年，真正沉澱下來的好東西，一大半其實都是過去的老工程紀律換了身時髦的衣服。這對開發者來說是天大的好消息：你過去十年敲程式碼、排雷攢下的工程直覺一點都沒作廢，這玩意兒正在轉化為你在 AI 時代最堅固的護城河。</p><p>往後看三個趨勢判斷：<strong>Harness 層的標準化會繼續加速</strong>——工具協議、權限模型、Trace 格式這些東西正在迅速變成公共基礎設施，自己造輪子的差異化空間會越來越小。<strong>Loop 層的核心競爭點將集中在「證據系統」上</strong>——誰的自動化評分器做得更便宜、更準、更快，誰的循環就敢多跑幾輪，測試工程的含金量會重新飆升。<strong>Graph 層必將經歷一輪「去泡沫化」</strong>——現在那些跟風一股腦全上圖架構的項目，有一部分註定會退回到簡單的 Harness，最終能留下來的只有那些真正存在複雜分支、並行、審批和恢復剛需的重型系統。</p><span class="tag" data-field="lesson_tag">趨勢判斷</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">循環（Loop）只應該加在「失敗成本遠高於驗證成本」的地方。而在其餘的任何位置，最簡單的架構，就是最正確的架構。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="0:00"><span class="ts">0:00</span><span class="text" data-field="key_point_text">開場：介紹 X 上爆紅的 Agent 工程長文，58 萬瀏覽、6.5 萬收藏，作者 beamnxw</span></li><li data-field="key_point" data-timestamp="1:54"><span class="ts">1:54</span><span class="text" data-field="key_point_text">三層架構核心：Harness 管環境（工具/權限/記憶/沙箱）、Loop 管回饋（重試/評分/停止）、Graph 管流程（節點/分支/匯合）</span></li><li data-field="key_point" data-timestamp="2:24"><span class="ts">2:24</span><span class="text" data-field="key_point_text">粗暴判斷法：把架構圖裡的「基座模型」拿掉，剩下的全是 Harness</span></li><li data-field="key_point" data-timestamp="3:06"><span class="ts">3:06</span><span class="text" data-field="key_point_text">排障決策表：七種症狀對應到 Harness / Loop / Graph 三層，把模糊抱怨翻譯成可執行工單</span></li><li data-field="key_point" data-timestamp="4:42"><span class="ts">4:42</span><span class="text" data-field="key_point_text">七條可抄實踐：證據驅動停止規則、有界重試、最小權限、進度檔+Git 持久化、確定性檢查優先、先跑 Trace 再畫圖、工具寧窄勿寬</span></li><li data-field="key_point" data-timestamp="7:30"><span class="ts">7:30</span><span class="text" data-field="key_point_text">三個坑：Graph 過早儀式化（需求三天一改就別畫圖）、術語包裝通膨（新名詞換不停）、廠商敘事夾帶私貨（框架方推複雜架構要打折聽）</span></li><li data-field="key_point" data-timestamp="9:19"><span class="ts">9:19</span><span class="text" data-field="key_point_text">核心貢獻：把「Agent 不可靠」切成三塊可各自定責的工程切面——環境出毛病修 Harness、回饋不閉環修 Loop、流程卡殼修 Graph</span></li><li data-field="key_point" data-timestamp="10:04"><span class="ts">10:04</span><span class="text" data-field="key_point_text">關鍵洞察：證據驅動、有界重試、最小權限、確定性檢查——這些全是傳統分散式系統/SRE 的老紀律換了層新皮</span></li><li data-field="key_point" data-timestamp="10:31"><span class="ts">10:31</span><span class="text" data-field="key_point_text">三個趨勢判斷：Harness 標準化加速、Loop 競爭核心在證據系統（評分器更便宜更準更快）、Graph 將去泡沫化</span></li><li data-field="key_point" data-timestamp="11:28"><span class="ts">11:28</span><span class="text" data-field="key_point_text">收尾提醒：Loop 只該加在「失敗成本遠高於驗證成本」的地方，其餘位置最簡單的架構就是最正確的架構</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="Agent工程">Agent工程</span><span class="tag-chip" data-tag="Harness">Harness</span><span class="tag-chip" data-tag="Loop">Loop</span><span class="tag-chip" data-tag="Graph">Graph</span><span class="tag-chip" data-tag="排障決策表">排障決策表</span><span class="tag-chip" data-tag="證據驅動">證據驅動</span><span class="tag-chip" data-tag="有界重試">有界重試</span><span class="tag-chip" data-tag="最小權限">最小權限</span><span class="tag-chip" data-tag="Agent架構">Agent架構</span><span class="tag-chip" data-tag="工程紀律">工程紀律</span><span class="tag-chip" data-tag="LLM">LLM</span><span class="tag-chip" data-tag="AI Agent">AI Agent</span></div>
+  </section>
+
+  
+  
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="description"><div class="raw-label">影片描述（原始簡中）<button class="copy-btn" id="raw_description_4316377408_srt" onclick="copyRaw(this,'raw_description_4316377408_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_description_4316377408_text" onclick="copyRawText(this,'raw_description_4316377408_text')">📋 複製純文字</button></div><pre>一篇 X 上 58万 浏览、6.5万收藏的长文，把 Agent 工程划成三层：Harness 管环境，Loop 管反馈，Graph 管流程。名词听着新，东西到底实不实用？这期我从一线工程师视角过一遍：一张&quot;症状到层&quot;的排障决策表；七条可以直接抄进代码库的实践——证据驱动停止规则、有界重试、最小权限、进度文件加 git 持久化、确定性检查优先、先跑 trace 再画图、工具宁窄勿宽；三个要警惕的坑——图工程过早仪式化、术语改名通胀、厂商叙事夹带私货。原帖 44 条评论只有数字没有正文，但同期社区讨论有真东西：Reddit 的&quot;戴帽子的 cron job&quot;之争、dailydoseofds 的 context rot 分析、从业者 pgvector 检索砍掉 5 倍上下文的实操。逐条评估哪条能落地，哪条只是情绪。评论区聊聊：你最贵的一次 agent 事故，归哪一层？</pre></div><div class="raw-block" data-field="raw_source_item" data-raw-type="transcript"><div class="raw-label">逐字稿（原始簡中）<button class="copy-btn" id="raw_transcript_4316377728_srt" onclick="copyRaw(this,'raw_transcript_4316377728_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_transcript_4316377728_text" onclick="copyRawText(this,'raw_transcript_4316377728_text')">📋 複製純文字</button></div><pre>0:00 大家好 我是为什么叫QQ
+0:02 最近在X上刷到一篇长文
+0:04 截至截图时已经有快58万的浏览量了
+0:07 文章标题巨长：
+0:08 叫 Agent Harness Engineering vs LoopEngineering vs Graph Engineering
+0:14 点进去之前 我以为又是一碗干瘪的术语鸡汤；
+0:17 但看完之后 我不仅立马存了书签
+0:20 还反手转给了组里的同事
+0:22 原因很朴素：过去半年
+0:24 我们线上Agent出的那些幺蛾子
+0:27 几乎都能按这篇文章的分层对号入座
+0:29 哪层坏了修哪层 以前要排查半天的故障
+0:32 现在收敛快多了
+0:34 今天这期 我带大家从一线工程师的视角
+0:37 不聊虚的 硬核拆解这篇爆文
+0:40 哪些能直接抄
+0:41 哪些要绕坑走 我都给你捋得明明白白
+0:44 先聊聊痛点
+0:45 做过Agent上线的朋友肯定深有体会：
+0:48 Demo阶段怎么跑怎么乖
+0:50 一上生产环境 事情立马变得玄学起来
+0:53 Agent哼哧哼哧跑了一大圈 告诉你&quot;我干完了&quot;
+0:56 结果产出物全是坏的
+0:58 循环重试了二十次 Token账单翻了三倍
+1:01 Bug还在原地嘲笑你
+1:03 跨会话再打开 它把昨天的进度忘得干干净净；
+1:07 你多给它加了五个工具 它反而开始胡乱调用
+1:10 出了问题你去问模型 模型一脸无辜
+1:12 你可能也体验过这种绝望：故障明明就在那儿
+1:16 但你根本不知道该从哪儿查起
+1:18 是该改Prompt？换模型？加记忆？还是加流程编排？
+1:23 每个方向都有人跳出来给你推荐框架
+1:25 每个框架都拍着胸脯说自己是终极答案
+1:28 这篇文章的真正价值 就精准卡在这个痛点上
+1:31 它其实没有发明任何新东西
+1:33 而是给了一张&quot;排障地图&quot;：
+1:35 你的系统到底由哪几层组成？每层负责什么？
+1:38 出了具体的症状 该去哪一层抓&quot;内鬼&quot;
+1:41 先快速交代下背景
+1:43 作者是X上的 beamnxw 这篇帖子数据相当夸张
+1:47 58万的浏览 6.5万个收藏
+1:49 大家刷到就存
+1:51 本质上是把它当成了一张工程速查表
+1:53 怕以后找不到
+1:54 文章的&quot;30秒太长不看版&quot;核心就三句话：
+1:58 Harness Engineering：造模型周围的机器 负责管&quot;环境&quot;
+2:02 Loop Engineering：设计重复的工作反馈循环 负责管&quot;反馈&quot;
+2:07 Graph Engineering：把工作流的拓扑结构显式化
+2:10 比如节点 分支 汇合 负责管流程
+2:13 记住这个思维模型：环境 反馈 流程
+2:17 这三层是怎么嵌套的？图跑在Harness里
+2:20 循环活在图里 而Harness给循环提供状态，工具和评估器
+2:24 文章里给了一个非常粗暴但极其好用的判断法：
+2:28 把你架构图里的&quot;基座模型&quot;拿掉
+2:30 剩下的基本全是Harness
+2:32 System Prompt 工具定义 记忆 沙箱 权限
+2:35 日志 上下文压缩 路由 全算
+2:37 文章里有个观察我深感认同：
+2:39 两个团队用同一个基座模型 产出却天差地别
+2:43 一边提供了干净的工具 稳定的工作区
+2:46 严格受限的权限和完全可观测的状态；
+2:50 另一边只有模糊的Prompt
+2:51 和极其不可靠的API封装
+2:54 只能说 智能水平差不多 但&quot;打工条件&quot;完全不同
+2:57 你硬换更强的大模型 也救不了烂透了的工程环境
+3:01 好 进入最硬核的重点
+3:03 这篇文对我们一线工程师最实在的用法
+3:06 就是这张&quot;故障定位决策表&quot;
+3:08 很多人觉得这三层划分太学院派
+3:11 但换个角度 它其实是&quot;症状到层&quot;的精准映射
+3:15 我直接念重点 大家可以准备截图
+3:17 症状一： Agent没法安全访问数据或工具
+3:21 这归Harness管 你需要去查工具契约
+3:24 权限控制 沙箱隔离和上下文注入
+3:27 症状二： 跨会话就忘进度
+3:30 还是归Harness 去排查持久化状态
+3:32 检查点，进度产物和压缩策略
+3:35 症状三： 第一次跑得差不多 但结果极其不稳定
+3:39 这归Loop管
+3:40 立刻加上外部评分器 确定性测试和有界重试
+3:44 症状四： 成功了也不停手
+3:47 或者毫无证据就宣布收工
+3:49 依然是Loop的问题
+3:50 你需要做基于证据的终止状态设计
+3:53 以及对Token预算有感知的停止规则
+3:56 症状五： 多个专家Agent需要按严格顺序协同
+3:59 这终于轮到Graph了
+4:01 去显式定义节点 边 路由和汇合逻辑
+4:04 症状六： 多步流程出错 死活定位不到坏在哪一步
+4:09 这时候Graph和Harness得一起上
+4:11 你需要上跟图节点对齐的 带状态的Trace（追踪）
+4:15 症状七： 业务流还在快速迭代 需求三天两头变
+4:19 这个时候千万别急着画图 往回退！
+4:22 用最简单的Harness 保持纯模型驱动
+4:25 推迟图的形式化
+4:26 这第七条特别反直觉 我待会儿展开细说
+4:29 我自己用这张表的真实感受是：
+4:31 它把老板和业务方那句你们的Agent怎么又抽风了的模糊抱怨
+4:36 直接翻译成了工程师可执行的排查工单
+4:39 光冲这一条 这篇文章就完全值回票价
+4:42 第二个关键点 可以直接抄的作业
+4:45 我挑了七条 按我认为的落地优先级排了个序
+4:49 第一条 也是全篇的金句：证据驱动的停止规则
+4:53 Agent拍着胸脯说它做完了 这话一文不值
+4:57 只有测试通过 URL链接可解析
+4:59 Schema校验通过 或者有人工评审批准
+5:02 这些硬性指标才叫真正的&quot;停止条件&quot;
+5:06 &quot;假装完成&quot;的事故肉眼可见地变少了
+5:08 第二条 有界重试
+5:10 光写一句&quot;失败了继续试&quot;
+5:12 绝对不能当成循环的规格
+5:14 每一个循环必须写清楚四件事：
+5:17 可测量的目标 每轮必须拿到的新证据
+5:20 最大重试次数 以及具名的兜底路径
+5:23 无界重试最大的恶果就一个：成本黑洞
+5:26 Token账单才是最诚实的报警器 第三条 最小权限
+5:30 在Harness层面
+5:31 权限 网络隔离 白名单 API密钥处理和人工授权
+5:35 一样都别省
+5:36 权限给得太宽
+5:38 被注入攻击或者搞崩系统只是时间问题
+5:41 第四条 用进度文件加上Git历史来做持久化
+5:45 这条经验主要来自Anthropic在多会话代码生成上的踩坑记录
+5:49 光靠上下文压缩根本不够
+5:51 你还需要初始化器 结构化的进度文件
+5:55 Git提交历史以及严格的增量工作纪律
+5:58 要让每一个新启动的上下文
+6:01 都能一眼读懂之前到底发生了什么
+6:03 说到这 刚好弹幕区大家可以交流一下：
+6:06 你们的Agent项目里 进度持久化都是怎么做的？
+6:09 把你的方案打在公屏上
+6:11 第五条 确定性检查永远优先于模型自评
+6:15 让同一个模型既当选手又当裁判，没有任何外部防护
+6:19 这是原文列出的&quot;五个最昂贵错误&quot;之一
+6:22 自审存在严重的共同盲区——它写代码时在哪瞎了
+6:25 评审时往往还在同一个地方瞎
+6:28 能用自动化测试 Schema校验 代码Diff解决的
+6:31 就千万别用另一个LLM去评审
+6:33 这就好比我们严格遵循的TDD
+6:36 必须按照红灯报错 绿灯通过 最后再重构的单向闭环来推进
+6:41 不能本末倒置
+6:42 实在必须用大模型做评审的，一定要做上下文分离；
+6:46 如果是高危动作 必须上人工审批
+6:49 第六条 先跑Trace 再去画Graph
+6:51 业务都没跑通就急着去搞复杂的图编排
+6:54 高居原文&quot;昂贵错误清单&quot;的榜首
+6:57 正确的姿势是：先用最简单的Harness跑跑看
+7:00 收集真实运行的Trace
+7:02 看看系统真正稳定的执行路径到底长什么样
+7:05 然后再去用图把这套流程固化下来
+7:08 第七条 工具给得宁窄勿宽
+7:11 原文有句话说得很狠：别把Harness当垃圾场！
+7:14 塞进去的工具一多 选择的错误率直线上升
+7:17 上下文变得极其嘈杂 模型反而更困惑
+7:21 更多的工具和记忆 绝不会自动等价于更好的结果
+7:24 这七条实践 没有任何一条需要你去买新框架
+7:28 全是扎扎实实的工程纪律
+7:30 第三个关键点 到了泼冷水的时间了
+7:33 我们要警惕几个大坑
+7:34 第一个坑，graph的&quot;过早仪式化&quot;
+7:37 原文作者自己都提醒了：如果你的任务仅仅是给一个Agent三个工具让它干活
+7:43 那强行上图只会过早地冻结假设
+7:46 让整个系统变得无比脆弱
+7:48 图架构真正发挥价值的场景非常明确：
+7:51 实质性的条件分支
+7:52 并发执行 多级审批 错误恢复路径
+7:55 以及多专家Agent的协同
+7:57 AutoGen的文档其实也说得很直白：
+8:00 只有在需要精确控制执行顺序
+8:02 不同结果需要走向不同分支
+8:04 或者带复杂循环的时候 才需要用图
+8:07 在需求还处在&quot;三天一改&quot;的早期阶段
+8:10 过早画图无异于作茧自缚
+8:12 这也就印证了刚才决策表里那句&quot;往回退&quot;，逻辑完全闭环了 
+8:17 第二个坑
+8:18  术语包装的严重通胀
+8:20 关于这块 近两年Prompt Context Harness
+8:23 Loop Graph这些词接连走红 被炒得火热
+8:26 它们确实指向了不同的工程抽象层次
+8:29 谈不上谁在抢谁的风头 
+8:31 但不可否认 这个圈子造新词的速度越来越快了
+8:34 但作为工程师我们要清醒：
+8:36 盲目追逐新名词 并不能让你的系统变得更稳
+8:39 第三个坑， 要当心&quot;厂商叙事&quot;
+8:42 这篇文里大量引用了LangChain
+8:45 OpenAI Agents SDK LangGraph，AutoGen这些框架的说法
+8:49 不可否认 这些来源里有干货
+8:51 前面提到的判断法和清单也确实好用
+8:54 但这些资料毕竟多出自框架或平台的维护方
+8:57 难免夹带推广自己生态的私货
+9:00 所以 当你看到他们得出你需要上更复杂的显式图编排这种结论时
+9:05 一定要打个折扣听
+9:06 我的底线原则是：
+9:08 他们总结的具体工程避坑指南可以抄
+9:11 但他们推销的&quot;复杂架构结论&quot;必须经过自己的验证
+9:14 拿你生产环境真实的Trace去验证
+9:17 别拿他们发布会上的PPT去验证
+9:19 总结一下 这篇文章真正的行业贡献
+9:22 我认为就一句话：它把&quot;Agent不可靠&quot;这团说不清
+9:25 道不明的技术焦虑
+9:27 利落地切成了三块能各自定责的工程切面
+9:31 环境出毛病 去修Harness；
+9:32 反馈不闭环 去修Loop；流程卡壳了 去修Graph
+9:37 每一层都有清晰的验收标准和第一责任人
+9:40 当然 软件工程总有交叉覆盖，这三层也会互相影响
+9:44 但至少排障的抓手彻底分开了
+9:47 以后 谁要是再拿模型 不够聪明来搪塞生产事故
+9:51 那就是最偷懒的借口
+9:53 除了这些 还有一个更隐蔽的收获
+9:55 仔细回味一下：
+9:56 证据驱动停止 有界重试 最小权限原则
+10:00 确定性检查优先——这些词
+10:02 你是不是都觉得特别眼熟？
+10:04 没错 在传统分布式系统里 在SRE的运维手册里
+10:08 在网络安全规范里 它们无处不在
+10:11 Agent工程发展到2026年 真正沉淀下来的好东西
+10:15 一大半其实都是过去的老工程纪律换了身时髦的衣服
+10:19 这对我们在座的开发者来说是个天大的好消息
+10:22 说白了 你过去十年敲代码
+10:24 排雷攒下的工程直觉一点都没作废
+10:27 这玩意儿正在转化为你在AI时代最坚固的护城河
+10:31 往后看 基于目前的趋势 我有三个基本判断
+10:34 Harness层的标准化会继续加速
+10:37 像工具协议 权限模型 Trace格式这些东西
+10:41 正在迅速变成公共基础设施
+10:43 自己造轮子的差异化空间会越来越小
+10:46 Loop层的核心竞争点将集中在&quot;证据系统&quot;上
+10:49 谁的自动化评分器做得更便宜 更准 更快
+10:52 谁的循环就敢多跑几轮
+10:54 测试工程的含金量会重新飙升
+10:56 这话我今天就放在这儿，大家两年后可以回来挖坟验证
+11:01 Graph层必将经历一轮&quot;去泡沫化&quot;
+11:03 现在那些跟风一股脑全上图架构的项目
+11:06 有一部分注定会退回到简单的Harness
+11:09 最终能留下来的 只有那些真正存在复杂分支
+11:13 并行 审批和恢复刚需的重型系统
+11:15 至于那些新名词 大概率还会继续换
+11:18 包装通胀的节奏一时半会儿停不下来
+11:21 但&quot;症状到分层&quot;的排障逻辑
+11:23 绝对比那些转瞬即逝的术语更长寿
+11:26 大家把这个思维模型学走就行了
+11:28 最后留一句实在的提醒：循环（Loop）
+11:31 只应该加在&quot;失败成本远高于验证成本&quot;的地方
+11:35 而在其余的任何位置
+11:36 最简单的架构 就是最正确的架构
+11:39 好了 现在我想听听你们的实战教训
+11:41 你目前维护的Agent系统里
+11:43 最昂贵 最惨痛的一次生产事故
+11:46 事后复盘看 到底该归咎于哪一层？
+11:48 是环境（Harness） 反馈（Loop）还是流程（Graph）？
+11:53 具体的症状又是怎样的？欢迎把经历打在评论区
+11:56 我想拿着那张决策表和大家对一对
+11:59 如果这期视频对你有启发 记得点赞 投币 收藏
+12:02 一键三连走一波
+12:04 我是为什么叫QQ 关注我 我们下期见！</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://www.youtube.com/watch?v=s3yiXTxueoI" target="_blank" rel="noopener">https://www.youtube.com/watch?v=s3yiXTxueoI</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

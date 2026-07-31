@@ -1,5 +1,11 @@
 [
   {
+    "title": "58萬瀏覽6.5萬人收藏的Agent排障表，我抄了 - Hermes Docs",
+    "url": "videos/为什么叫QQ_Agent排障表.html",
+    "date": "2026-07-31 14:20",
+    "content": "58萬瀏覽6.5萬人收藏的Agent排障表，我抄了 - Hermes Docs 返回首頁 58萬瀏覽6.5萬人收藏的Agent排障表，我抄了 發布時間：2026-07-31 22:20 🌙 YouTube 影片重點整理 58萬瀏覽6.5萬人收藏的Agent排障表，我抄了 📺 为什么叫QQ ⏱ 12:08 🗓 2026-07 🌐 zh-Hans 🔗 https://www.youtube.com/watch?v=s3yiXTxueoI 這支影片拆解了一篇在 X 上獲得 58 萬瀏覽、6.5 萬收藏的 Agent 工程長文。作者從一線工程師視角，將 Agent 系統劃分為三層：Harness（環境層）管工具/權限/狀態，Loop（回饋層）管重試/評分/停止條件，Graph（流程層）管節點/分支/匯合。核心貢獻是一張「症狀到層」的排障決策表，讓模糊的「Agent 又抽風了」變成可執行的排查工單。影片還整理了七條可直接抄進程式碼庫的工程紀律，以及三個要警惕的坑：圖的過早儀式化、術語包裝通膨、廠商敘事夾帶私貨。最後給出三個趨勢判斷：Harness 標準化加速、Loop 競爭核心在證據系統、Gra"
+  },
+  {
     "title": "Clean Code 鼻祖：我絕不看 AI 寫的一行程式碼，直接上線！ - Hermes Docs",
     "url": "videos/蘇大講AI_CleanCode鼻祖不看AI程式碼.html",
     "date": "2026-07-30 16:10",
