@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 越強，越需要關注這三件事 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>AI 越強，越需要關注這三件事</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-08-02 22:39</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">AI 越強，越需要關注這三件事</h1>
+    <div class="meta"><span data-field="channel">📺 曉輝博士</span><span data-field="duration">⏱ 7:28</span><span data-field="published_date">🗓 2026-07-01</span><span data-field="original_language">🌐 zh</span><a data-field="source_url" href="https://youtu.be/6C7xkBSXA-c" target="_blank" rel="noopener">🔗 https://youtu.be/6C7xkBSXA-c</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>曉輝博士分享在 AI 時代每個人都需要關注的三件事：第一，有意識地持續記錄個人上下文（日記、流水帳），累積成專屬資料庫後讓 AI 幫你分析、預測未來、回顧主線；第二，用古法寫作提升思維能力，不要完全依賴 AI 生成內容，寫作是整理思緒、發現盲區的關鍵能力；第三，找到一個真人榜樣（role model），透過深入了解他的作品與判斷，獲得直接且持續的激勵。這三件事的核心是幫助我們在 AI 時代建立主體性，提升自己的上限。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">第一件事：持續記錄你的上下文</h2><span class="ts-badge" data-field="lesson_timestamp">0:12</span></div><div class="body" data-field="lesson_body"><p>曉輝博士從 2021 年開始每天記一小段流水帳，有的長有的短，最短可能只有一兩句話。他把這五年的日記全部交給 AI 做系統整理，發現啟發價值非常大 — 因為沒有 AI 的話，他其實不太會回頭看這些記錄。</p><p>有了 AI 之後，可以讓它幫你總結每個月都在做什麼、主要事件是什麼，從日積月累的記錄中<strong>湧現出你的主線</strong>，而且每一年的主線都不一樣。</p><p>更進一步，他可以讓 AI 基於這些資料<strong>預測未來五到十年的發展</strong>，給出三種可能的情景，像水晶球一樣照見未來，再回頭校準今天應該怎麼做選擇。他也讓 AI 分析五年的焦慮狀態，結果發現自認最焦慮的階段，反而是狀態最好的一段時間 — 這讓他重新認識自己身心平衡的真實樣貌。</p><p>核心觀點：當 AI 提供的都是平均化的服務時，<strong>獨有的上下文是我們最寶貴的資產庫</strong>。那些很細碎的情感、想法、觀察，你如果不記，沒有人會幫你記。</p><span class="tag" data-field="lesson_tag">上下文記錄</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">第二件事：用古法寫作提升思維能力</h2><span class="ts-badge" data-field="lesson_timestamp">3:49</span></div><div class="body" data-field="lesson_body"><p>曉輝博士認為，<strong>在沒有 AI 輔助下寫作，是今天更重要的能力</strong>。他多年來有寫部落格、公眾號的習慣，但現在很多人已經不再天天寫了。</p><p>他分享了一個關鍵方法：把 AI 當成<strong>素材</strong>而非基礎。同事的做法是 — AI 產出的某段話有用就貼過來，但<strong>不要在 AI 寫好的東西基礎上修改</strong>，因為 AI 生成的內容有很多邏輯斷裂的地方，在那上面改非常麻煩。</p><p>他引用 Anthropic 最新的就業影響報告指出：對寫作者而言，AI 幾乎全是<strong>增強</strong>而非取代。在其他職業中有些已被完全自動化，但寫作者沒有 — 放棄寫作、完全用 AI 生成內容，是得不償失的。</p><p>寫作的本質是<strong>整理思緒、發現思維盲區</strong>，這個過程本身就是價值，不應該外包給 AI。</p><span class="tag" data-field="lesson_tag">寫作與思考</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">第三件事：找到一個真人榜樣</h2><span class="ts-badge" data-field="lesson_timestamp">5:12</span></div><div class="body" data-field="lesson_body"><p>在資訊爆炸、來源難辨的時代，曉輝博士建議<strong>找到一個讓你佩服的具體的人</strong>作為 role model。這個人可以是做產品的、你身邊的同事、任何你欣賞且知道他在做什麼、有什麼成果的人。</p><p>他最近的榜樣是 <strong>Paul Graham</strong> — YC 的創辦人、《黑客與畫家》作者。他認為 PG 的每篇文章對想從事企業經營的人都是非常好的讀物。透過文章、訪談、一系列作品<strong>深入且全方面地了解這個人</strong>，在接觸其他資訊時會產生非常直接的激勵。</p><p>關鍵是：這種激勵如果<strong>不跟一個具體的人綁定</strong>，很難對你造成直接的影響。找到一個你相信、你喜歡他的作品或判斷的人，把他當作榜樣，對成長非常有幫助。</p><span class="tag" data-field="lesson_tag">榜樣與激勵</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">這三件事是我們提升在 AI 時代自主性的一個非常重要的基礎 — 讓你的主體性得以持續地建立起來。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="0:12"><span class="ts">0:12</span><span class="text" data-field="key_point_text">第一件事：持續記錄個人上下文 — 把日記、流水帳交給 AI 做系統整理，從中湧現出每年的主線</span></li><li data-field="key_point" data-timestamp="1:46"><span class="ts">1:46</span><span class="text" data-field="key_point_text">用五年日記讓 AI 預測未來三種情景，像水晶球一樣照見未來，再校準今天的選擇</span></li><li data-field="key_point" data-timestamp="2:25"><span class="ts">2:25</span><span class="text" data-field="key_point_text">讓 AI 分析五年的焦慮狀態，發現自認最焦慮的階段反而是狀態最好的時期</span></li><li data-field="key_point" data-timestamp="3:00"><span class="ts">3:00</span><span class="text" data-field="key_point_text">獨有的上下文是 AI 時代最寶貴的資產庫，AI 提供平均化服務，個人觀察與思考無法被取代</span></li><li data-field="key_point" data-timestamp="3:49"><span class="ts">3:49</span><span class="text" data-field="key_point_text">第二件事：寫作 — 在沒有 AI 輔助下寫作是今天更重要的能力，不要完全用 AI 生成內容</span></li><li data-field="key_point" data-timestamp="4:19"><span class="ts">4:19</span><span class="text" data-field="key_point_text">把 AI 當素材而非基礎：只取有用的段落，不要在 AI 寫好的東西上修改，因為邏輯斷裂很難修</span></li><li data-field="key_point" data-timestamp="4:40"><span class="ts">4:40</span><span class="text" data-field="key_point_text">引用 Anthropic 就業影響報告：寫作者幾乎全是增強而非被自動化取代</span></li><li data-field="key_point" data-timestamp="5:12"><span class="ts">5:12</span><span class="text" data-field="key_point_text">第三件事：找到一個真人榜樣（role model）— 一個你欣賞、佩服的具體的人</span></li><li data-field="key_point" data-timestamp="5:54"><span class="ts">5:54</span><span class="text" data-field="key_point_text">曉輝博士的榜樣是 Paul Graham（YC 創辦人、《黑客與畫家》作者），透過文章、訪談深入了解</span></li><li data-field="key_point" data-timestamp="6:51"><span class="ts">6:51</span><span class="text" data-field="key_point_text">總結：回顧上下文、寫作、找榜樣 — 三件事幫助在 AI 時代建立主體性、提升自主性</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="AI時代">AI時代</span><span class="tag-chip" data-tag="自我提升">自我提升</span><span class="tag-chip" data-tag="人機協作">人機協作</span><span class="tag-chip" data-tag="寫作">寫作</span><span class="tag-chip" data-tag="上下文記錄">上下文記錄</span><span class="tag-chip" data-tag="榜樣">榜樣</span><span class="tag-chip" data-tag="主體性">主體性</span><span class="tag-chip" data-tag="Paul Graham">Paul Graham</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>影片無官方字幕，內容來自 Whisper large-v3-turbo 語音轉寫，部分專有名詞（如 Anthropic 報告細節）為語音辨識結果，未經原始文字驗證</li></ul></div></section>
+  
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="whisper"><div class="raw-label">Whisper 原始輸出<button class="copy-btn" id="raw_whisper_4306694976_srt" onclick="copyRaw(this,'raw_whisper_4306694976_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_whisper_4306694976_text" onclick="copyRawText(this,'raw_whisper_4306694976_text')">📋 複製純文字</button></div><pre>1
+00:00:00,000 --&gt; 00:00:01,120
+Hello 下班了
+
+2
+00:00:01,120 --&gt; 00:00:03,700
+今天我想分享三件事
+
+3
+00:00:03,700 --&gt; 00:00:04,960
+我觉得最近一段时间
+
+4
+00:00:04,960 --&gt; 00:00:06,820
+我一直在持续琢磨的
+
+5
+00:00:06,820 --&gt; 00:00:08,540
+在AI时代来了之后
+
+6
+00:00:08,540 --&gt; 00:00:09,380
+对每个人来说
+
+7
+00:00:09,380 --&gt; 00:00:11,060
+可能都非常非常重要的三件事
+
+8
+00:00:11,060 --&gt; 00:00:12,440
+那第一件呢
+
+9
+00:00:12,440 --&gt; 00:00:14,060
+就是说你要持续的记录
+
+10
+00:00:14,060 --&gt; 00:00:17,380
+我前段时间做了一个很有意思的尝试
+
+11
+00:00:17,380 --&gt; 00:00:19,880
+就是把我最近五年
+
+12
+00:00:19,880 --&gt; 00:00:22,820
+所有记的日记给到了AI
+
+13
+00:00:22,820 --&gt; 00:00:24,820
+我是从2021年开始
+
+14
+00:00:24,820 --&gt; 00:00:29,660
+坚持每天记一小段自己的流水账
+
+15
+00:00:29,660 --&gt; 00:00:31,240
+就是大概做了哪些事
+
+16
+00:00:31,240 --&gt; 00:00:32,080
+有什么样思考
+
+17
+00:00:32,080 --&gt; 00:00:32,980
+有的长有的短
+
+18
+00:00:32,980 --&gt; 00:00:36,060
+最短的可能就是今天来不及记了
+
+19
+00:00:36,060 --&gt; 00:00:37,400
+就大概是做了哪些事
+
+20
+00:00:37,400 --&gt; 00:00:39,320
+可能就一两句话就写完了
+
+21
+00:00:39,320 --&gt; 00:00:41,820
+有的时候想法比较多的时候
+
+22
+00:00:41,820 --&gt; 00:00:43,280
+就会哗啦哗啦写一大段
+
+23
+00:00:43,280 --&gt; 00:00:44,220
+期间呢
+
+24
+00:00:44,220 --&gt; 00:00:47,160
+还有的时候会用语音的方式去输入
+
+25
+00:00:47,160 --&gt; 00:00:49,660
+这个时候可能内容是最长的
+
+26
+00:00:49,660 --&gt; 00:00:50,740
+这个过程中
+
+27
+00:00:50,740 --&gt; 00:00:53,860
+我其实一直以来都没有下定决心
+
+28
+00:00:53,860 --&gt; 00:00:55,780
+可以把这些事情开放给AI
+
+29
+00:00:55,780 --&gt; 00:00:57,480
+因为我觉得它是我的隐私
+
+30
+00:00:57,480 --&gt; 00:01:00,060
+但是有一次偶然的机会
+
+31
+00:01:00,060 --&gt; 00:01:03,520
+我尝试用我自己的这个AI工具
+
+32
+00:01:03,520 --&gt; 00:01:07,360
+去把这些内容做了一个系统的整理
+
+33
+00:01:07,360 --&gt; 00:01:09,100
+然后我发现对我来说
+
+34
+00:01:09,100 --&gt; 00:01:10,620
+启发价值都非常大
+
+35
+00:01:10,620 --&gt; 00:01:12,920
+因为每天日记月累
+
+36
+00:01:12,920 --&gt; 00:01:14,220
+我没有AI的话
+
+37
+00:01:14,220 --&gt; 00:01:16,520
+其实我不太会去回头看
+
+38
+00:01:16,520 --&gt; 00:01:18,460
+但是有了AI之后呢
+
+39
+00:01:18,460 --&gt; 00:01:20,220
+你就可以让它帮你总结
+
+40
+00:01:20,220 --&gt; 00:01:23,080
+每个月都在干什么
+
+41
+00:01:23,080 --&gt; 00:01:24,460
+主要事件都是什么
+
+42
+00:01:24,460 --&gt; 00:01:26,920
+你就会发现从这些日记月累
+
+43
+00:01:26,920 --&gt; 00:01:29,200
+每一天的记录中会找到
+
+44
+00:01:29,200 --&gt; 00:01:31,640
+涌现出一些你的主线
+
+45
+00:01:31,640 --&gt; 00:01:33,000
+就包括每一年的主线
+
+46
+00:01:33,000 --&gt; 00:01:33,900
+都是不一样的
+
+47
+00:01:33,900 --&gt; 00:01:35,580
+在这我就不展开介绍了
+
+48
+00:01:35,580 --&gt; 00:01:36,460
+因为确实涉及到
+
+49
+00:01:36,460 --&gt; 00:01:37,960
+我自己的一个工作状态的
+
+50
+00:01:37,960 --&gt; 00:01:39,840
+一个起伏变化
+
+51
+00:01:39,840 --&gt; 00:01:41,280
+然后每一年都在做什么事情
+
+52
+00:01:41,280 --&gt; 00:01:42,800
+但是比较有意思的一点
+
+53
+00:01:42,800 --&gt; 00:01:44,280
+就是我可以基于这个东西
+
+54
+00:01:44,280 --&gt; 00:01:46,200
+帮我让它帮我做很多的事情
+
+55
+00:01:46,200 --&gt; 00:01:48,560
+比如我可以让它帮我去预测
+
+56
+00:01:48,560 --&gt; 00:01:50,320
+接下来五到十年我的发展
+
+57
+00:01:50,320 --&gt; 00:01:53,900
+当然它不是一个确切的未来
+
+58
+00:01:53,900 --&gt; 00:01:54,080
+对吧
+
+59
+00:01:54,080 --&gt; 00:01:56,240
+它只是基于我前些年的状态
+
+60
+00:01:56,240 --&gt; 00:01:57,240
+我最近的状态
+
+61
+00:01:57,240 --&gt; 00:01:59,080
+帮我去推测可能会发生什么
+
+62
+00:01:59,080 --&gt; 00:02:00,460
+我让它给我三种情景
+
+63
+00:02:00,460 --&gt; 00:02:02,020
+然后它就会告诉我
+
+64
+00:02:02,020 --&gt; 00:02:03,420
+那第一种可能是什么
+
+65
+00:02:03,420 --&gt; 00:02:04,440
+第二种可能是什么
+
+66
+00:02:04,440 --&gt; 00:02:06,060
+第三种可能是什么状态
+
+67
+00:02:06,060 --&gt; 00:02:07,560
+然后你会从这三种状态中
+
+68
+00:02:07,560 --&gt; 00:02:09,540
+看到哪些是你想要的未来
+
+69
+00:02:09,540 --&gt; 00:02:10,980
+哪些是你不想要的未来
+
+70
+00:02:10,980 --&gt; 00:02:13,060
+相当于有了一个水晶球一样
+
+71
+00:02:13,060 --&gt; 00:02:14,840
+让你去照见未来
+
+72
+00:02:14,840 --&gt; 00:02:17,900
+再去校准今天应该怎么做选择
+
+73
+00:02:17,900 --&gt; 00:02:19,780
+我觉得这个是挺有意思的一点
+
+74
+00:02:19,780 --&gt; 00:02:20,360
+这个数据库
+
+75
+00:02:20,360 --&gt; 00:02:21,640
+我其实不只能做这个事
+
+76
+00:02:21,640 --&gt; 00:02:23,980
+它还可以做其他的分析
+
+77
+00:02:23,980 --&gt; 00:02:25,640
+比如说我让它帮我分析了一下
+
+78
+00:02:25,640 --&gt; 00:02:29,240
+我这五年的焦虑的状态怎么样
+
+79
+00:02:29,240 --&gt; 00:02:31,920
+因为我这五年也经历了很多事情
+
+80
+00:02:31,920 --&gt; 00:02:33,640
+包括之前创业的状态
+
+81
+00:02:33,640 --&gt; 00:02:35,280
+包括后来做研究的状态
+
+82
+00:02:35,280 --&gt; 00:02:36,540
+其实经历了很多
+
+83
+00:02:36,540 --&gt; 00:02:38,120
+然后让它帮我分析
+
+84
+00:02:38,120 --&gt; 00:02:39,580
+到底在某一个阶段
+
+85
+00:02:39,580 --&gt; 00:02:41,700
+我的焦虑水平到底是怎么样的
+
+86
+00:02:41,700 --&gt; 00:02:43,140
+然后它就会帮我分析
+
+87
+00:02:43,140 --&gt; 00:02:45,500
+会有一些我意想不到的结论
+
+88
+00:02:45,500 --&gt; 00:02:48,760
+比如说我当时觉得会比较焦虑的那段状态
+
+89
+00:02:48,760 --&gt; 00:02:50,780
+其实是我状态最好的一段时间
+
+90
+00:02:50,780 --&gt; 00:02:52,380
+这个其实让我看到
+
+91
+00:02:52,380 --&gt; 00:02:54,480
+自己身心平衡的这个状态
+
+92
+00:02:54,480 --&gt; 00:02:55,520
+到底是什么样子的
+
+93
+00:02:55,520 --&gt; 00:02:58,040
+所以这个也是非常有意思的
+
+94
+00:02:58,040 --&gt; 00:02:59,040
+一个分析角度
+
+95
+00:02:59,040 --&gt; 00:03:00,880
+所以我觉得对于每个人来说
+
+96
+00:03:00,880 --&gt; 00:03:03,600
+去积累自己的上下文非常的重要
+
+97
+00:03:03,600 --&gt; 00:03:06,080
+就是一个独属于你的
+
+98
+00:03:06,080 --&gt; 00:03:07,960
+你对这个世界的观察
+
+99
+00:03:07,960 --&gt; 00:03:10,100
+思考和你每天做了什么
+
+100
+00:03:10,100 --&gt; 00:03:12,000
+这个东西AI没办法帮你做
+
+101
+00:03:12,000 --&gt; 00:03:14,580
+当然就是可能你每天跟AI去对话聊天
+
+102
+00:03:14,580 --&gt; 00:03:16,240
+它可以帮你沉淀一些记忆
+
+103
+00:03:16,240 --&gt; 00:03:20,400
+但是呢你真的那些很细碎的情感想法
+
+104
+00:03:20,400 --&gt; 00:03:21,680
+那些观察
+
+105
+00:03:21,680 --&gt; 00:03:24,160
+你如果不记的话是没有人帮你记的
+
+106
+00:03:24,160 --&gt; 00:03:27,860
+所以我觉得现在当AI提供的
+
+107
+00:03:27,860 --&gt; 00:03:29,980
+都是一些平均化的服务的时候
+
+108
+00:03:29,980 --&gt; 00:03:32,640
+反倒是这个独有的上下文
+
+109
+00:03:32,640 --&gt; 00:03:34,600
+是我们最宝贵的一个资产库
+
+110
+00:03:34,600 --&gt; 00:03:36,260
+基于它可以做很多分析
+
+111
+00:03:36,260 --&gt; 00:03:38,680
+包括关键词词云统计
+
+112
+00:03:38,680 --&gt; 00:03:40,980
+各种你接触的什么人
+
+113
+00:03:40,980 --&gt; 00:03:43,180
+什么人给你带来了什么样的状态
+
+114
+00:03:43,180 --&gt; 00:03:43,400
+对吧
+
+115
+00:03:43,400 --&gt; 00:03:45,280
+你都可以让AI帮你去做很多的交叉
+
+116
+00:03:45,280 --&gt; 00:03:46,460
+教验和分析
+
+117
+00:03:46,460 --&gt; 00:03:48,060
+这个是非常有意思的一点
+
+118
+00:03:48,060 --&gt; 00:03:49,020
+然后第二点呢
+
+119
+00:03:49,020 --&gt; 00:03:52,340
+我最近觉得非常重要的就是写作
+
+120
+00:03:52,340 --&gt; 00:03:54,080
+我之前前两天分享
+
+121
+00:03:54,080 --&gt; 00:03:56,100
+那篇文章怎么做一个很好的研究
+
+122
+00:03:56,100 --&gt; 00:03:57,680
+其中有一项就是要写作
+
+123
+00:03:57,680 --&gt; 00:03:58,660
+写作这件事
+
+124
+00:03:58,660 --&gt; 00:04:01,720
+我觉得是要去重新提上日程的
+
+125
+00:04:01,720 --&gt; 00:04:03,940
+因为我很多年前就有写博客的习惯
+
+126
+00:04:03,940 --&gt; 00:04:05,140
+后来写公众号
+
+127
+00:04:05,140 --&gt; 00:04:07,920
+再到后来可能也不是会天天去写了
+
+128
+00:04:07,920 --&gt; 00:04:10,780
+但是我觉得这个东西是一个非常重要的能力
+
+129
+00:04:10,780 --&gt; 00:04:13,880
+甚至是在没有AI的辅助下去写作
+
+130
+00:04:13,880 --&gt; 00:04:15,760
+会是今天更重要的一个能力
+
+131
+00:04:15,760 --&gt; 00:04:19,900
+然后我们有同事会用这个AI打草稿
+
+132
+00:04:19,900 --&gt; 00:04:21,780
+但是他不直接用AI
+
+133
+00:04:21,780 --&gt; 00:04:23,200
+不是在AI的基础上去改
+
+134
+00:04:23,200 --&gt; 00:04:25,940
+而是真的是把AI做成一个素材
+
+135
+00:04:25,940 --&gt; 00:04:27,420
+就是你这段话对我有用
+
+136
+00:04:27,420 --&gt; 00:04:28,540
+我就把它粘过来
+
+137
+00:04:28,540 --&gt; 00:04:31,460
+而不是说在AI写好的一个东西基础上
+
+138
+00:04:31,460 --&gt; 00:04:32,480
+我再去改
+
+139
+00:04:32,480 --&gt; 00:04:34,200
+再去修改打磨
+
+140
+00:04:34,200 --&gt; 00:04:36,120
+因为它里面有很多逻辑断裂的地方
+
+141
+00:04:36,120 --&gt; 00:04:38,860
+你如果这样去改的话是很麻烦的
+
+142
+00:04:38,860 --&gt; 00:04:40,720
+所以这也是我昨天看到
+
+143
+00:04:40,720 --&gt; 00:04:45,040
+Anthropic那个最新的对就业影响的那个报告里面
+
+144
+00:04:45,040 --&gt; 00:04:47,460
+他讲到对于writer来讲
+
+145
+00:04:47,460 --&gt; 00:04:49,100
+对于这些创作者来讲
+
+146
+00:04:49,100 --&gt; 00:04:51,640
+似乎AI并没有替代他们的工作
+
+147
+00:04:51,640 --&gt; 00:04:54,860
+在其他职业里面有一些是被完全自动化掉的
+
+148
+00:04:54,860 --&gt; 00:04:57,060
+但是对于写作者来说是没有的
+
+149
+00:04:57,060 --&gt; 00:04:58,320
+基本上全是增强
+
+150
+00:04:58,320 --&gt; 00:05:00,520
+所以我觉得这个就是写作的替代
+
+151
+00:05:00,520 --&gt; 00:05:03,740
+我觉得如果你放弃了写作这件事
+
+152
+00:05:03,740 --&gt; 00:05:05,440
+我觉得是得不偿失的
+
+153
+00:05:05,440 --&gt; 00:05:07,760
+完全用AI设程内容我觉得是得不偿失的
+
+154
+00:05:07,760 --&gt; 00:05:12,980
+然后第三个我想分享的就是去寻找一个你的role model
+
+155
+00:05:12,980 --&gt; 00:05:13,760
+非常的重要
+
+156
+00:05:13,760 --&gt; 00:05:15,440
+什么叫role model呢
+
+157
+00:05:15,440 --&gt; 00:05:17,180
+就是你非常欣赏的人
+
+158
+00:05:17,180 --&gt; 00:05:19,740
+然后因为现在我们接触到的信息
+
+159
+00:05:19,740 --&gt; 00:05:21,880
+很多都是各个渠道的信息
+
+160
+00:05:21,880 --&gt; 00:05:24,760
+然后大量的不知道哪来的信息
+
+161
+00:05:24,760 --&gt; 00:05:26,180
+然后再给我们塞过来
+
+162
+00:05:26,180 --&gt; 00:05:27,980
+但是我们就很难判断这个信息源
+
+163
+00:05:27,980 --&gt; 00:05:28,320
+对吧
+
+164
+00:05:28,320 --&gt; 00:05:32,360
+然后我觉得去寻找一些让你觉得很佩服的人
+
+165
+00:05:32,360 --&gt; 00:05:34,440
+他无论是做产品的
+
+166
+00:05:34,440 --&gt; 00:05:37,320
+或者是做明星
+
+167
+00:05:37,320 --&gt; 00:05:41,420
+或者是什么你身边的一个让你觉得特别欣赏的人
+
+168
+00:05:41,420 --&gt; 00:05:43,220
+他只要是一个具体的人
+
+169
+00:05:43,220 --&gt; 00:05:44,320
+你知道他在做什么
+
+170
+00:05:44,320 --&gt; 00:05:47,320
+你知道他有什么样的很好的成果出来
+
+171
+00:05:47,320 --&gt; 00:05:49,260
+都是一个非常好的role model
+
+172
+00:05:49,260 --&gt; 00:05:50,840
+我觉得要找到这么一个人
+
+173
+00:05:50,840 --&gt; 00:05:52,460
+会对你的成长非常有帮助
+
+174
+00:05:52,460 --&gt; 00:05:54,360
+我最近找到的人是谁呢
+
+175
+00:05:54,360 --&gt; 00:05:55,780
+是Paul Graham
+
+176
+00:05:55,780 --&gt; 00:05:58,000
+就是YC的创始人
+
+177
+00:05:58,000 --&gt; 00:05:59,340
+他写过很多的文章
+
+178
+00:05:59,340 --&gt; 00:06:00,960
+是关于投资和创业的
+
+179
+00:06:00,960 --&gt; 00:06:03,440
+包括他也写过一本书叫黑客与画家
+
+180
+00:06:03,440 --&gt; 00:06:06,540
+我觉得他的每篇文章对于
+
+181
+00:06:06,540 --&gt; 00:06:09,100
+这个想要从事企业经营的人来说
+
+182
+00:06:09,100 --&gt; 00:06:11,540
+都是一个非常好的独模
+
+183
+00:06:11,540 --&gt; 00:06:13,420
+所以他是我最近的一个role model
+
+184
+00:06:13,420 --&gt; 00:06:16,340
+我觉得他是非常非常值得学习的
+
+185
+00:06:16,340 --&gt; 00:06:17,940
+然后好处呢
+
+186
+00:06:17,940 --&gt; 00:06:19,520
+就是你可以通过他的文章
+
+187
+00:06:19,520 --&gt; 00:06:20,360
+通过他的访谈
+
+188
+00:06:20,360 --&gt; 00:06:22,120
+通过他的一系列的东西
+
+189
+00:06:22,120 --&gt; 00:06:24,880
+去深入的全方面的了解这个人
+
+190
+00:06:24,880 --&gt; 00:06:26,840
+然后这样的好处就是
+
+191
+00:06:26,840 --&gt; 00:06:28,940
+在你对其他的上下文的过程中
+
+192
+00:06:28,940 --&gt; 00:06:32,340
+你会产生很多非常直接的激励
+
+193
+00:06:32,340 --&gt; 00:06:33,840
+就是对你的刺激
+
+194
+00:06:33,840 --&gt; 00:06:34,600
+对这种刺激的话
+
+195
+00:06:34,600 --&gt; 00:06:37,600
+其实如果他不是跟一个人绑定在一起的话
+
+196
+00:06:37,600 --&gt; 00:06:39,540
+其实很难对你造成直接的影响
+
+197
+00:06:39,540 --&gt; 00:06:41,840
+所以去找一个你非常喜欢
+
+198
+00:06:41,840 --&gt; 00:06:43,040
+你觉得他的作品很好
+
+199
+00:06:43,040 --&gt; 00:06:45,040
+或者他的一个什么判断很好
+
+200
+00:06:45,040 --&gt; 00:06:47,040
+或者你非常相信这个人
+
+201
+00:06:47,040 --&gt; 00:06:48,040
+这么一个定位的话
+
+202
+00:06:48,040 --&gt; 00:06:49,600
+你去把他作为一个role model
+
+203
+00:06:49,600 --&gt; 00:06:51,100
+我觉得这三件事吧
+
+204
+00:06:51,100 --&gt; 00:06:56,000
+是我们提升在AI时代的自主性的一个非常重要的基础
+
+205
+00:06:56,000 --&gt; 00:06:59,200
+让你的主体性得以持续的建立起来
+
+206
+00:06:59,200 --&gt; 00:07:01,400
+就一个是你要回顾你的上下文
+
+207
+00:07:01,400 --&gt; 00:07:03,500
+要持续的积累你的上下文
+
+208
+00:07:03,500 --&gt; 00:07:04,700
+让你的未来
+
+209
+00:07:04,700 --&gt; 00:07:07,800
+在回顾今天做了什么事的时候有据可查
+
+210
+00:07:07,800 --&gt; 00:07:09,700
+不是什么都没有留下
+
+211
+00:07:09,700 --&gt; 00:07:12,000
+对然后第二个就是去写作
+
+212
+00:07:12,000 --&gt; 00:07:13,900
+其实写作也就是记录对吧
+
+213
+00:07:13,900 --&gt; 00:07:17,300
+然后去通过写作去找到你思维中的一些盲区
+
+214
+00:07:17,300 --&gt; 00:07:20,300
+第三个去找到一个你的榜样
+
+215
+00:07:20,300 --&gt; 00:07:22,900
+你希望成为什么样的人的那样的榜样
+
+216
+00:07:22,900 --&gt; 00:07:25,400
+我觉得这个对我来说是非常有帮助的三点
+
+217
+00:07:25,400 --&gt; 00:07:26,900
+就跟大家做一个分享
+
+218
+00:07:26,900 --&gt; 00:07:27,700
+拜拜
+
+</pre></div><div class="raw-block" data-field="raw_source_item" data-raw-type="whisper"><div class="raw-label">Whisper STT 逐字稿<button class="copy-btn" id="raw_whisper_4306694912_srt" onclick="copyRaw(this,'raw_whisper_4306694912_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_whisper_4306694912_text" onclick="copyRawText(this,'raw_whisper_4306694912_text')">📋 複製純文字</button></div><pre>WHISPER_SRT_PLACEHOLDER</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://youtu.be/6C7xkBSXA-c" target="_blank" rel="noopener">https://youtu.be/6C7xkBSXA-c</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
