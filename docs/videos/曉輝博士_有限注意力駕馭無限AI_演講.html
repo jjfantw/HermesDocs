@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>人的有限注意力真的能駕馭近乎無限的AI嗎？ - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>人的有限注意力真的能駕馭近乎無限的AI嗎？</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-08-02 22:13</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">人的有限注意力真的能駕馭近乎無限的AI嗎？</h1>
+    <div class="meta"><span data-field="channel">📺 曉輝博士</span><span data-field="duration">⏱ 5:45</span><span data-field="published_date">🗓 2026-08</span><span data-field="original_language">🌐 zh-Hans</span><a data-field="source_url" href="https://www.youtube.com/watch?v=zVG9CzE81Mw" target="_blank" rel="noopener">🔗 https://www.youtube.com/watch?v=zVG9CzE81Mw</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>曉輝博士分享搬家過程中注意力耗盡的親身經歷：搬家需要大量判斷（丟不丟、怎麼收納），半天就讓前額葉報廢。同時還得準備一場面向企業家的分享，在判斷力歸零的狀態下，他選擇把困境告訴 AI。AI 沒有用蘇格拉底提問法慢慢引導，而是主動改為「迅速收斂」策略，只問三個核心問題幫助聚焦。最終在注意力極度短缺的情況下，完成了一次高品質的分享。曉輝博士由此反思：人類的有限注意力真的能駕馭近乎無限的 AI 嗎？答案或許是——承認自己的有限性，珍惜選擇與判斷的自由，這正是人類與 AI 最大的區別。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">搬家決策疲勞：前額葉的極限</h2><span class="ts-badge" data-field="lesson_timestamp">0:22</span></div><div class="body" data-field="lesson_body"><p>搬家過程中需要做<strong>大量密集的判斷</strong>：什麼東西要丟、什麼要留、怎麼收納、放在哪裡。即使找了搬家公司，還是要不斷指揮操作、回答各種問題。</p><p>半天下來，<strong>前額葉直接報廢</strong>——腦子不轉了，連「晚上吃什麼」這種簡單判斷都不想下。短時間內集中做大量決策，會快速消耗人的判斷力資源。</p></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">判斷力歸零時的 AI 協作策略</h2><span class="ts-badge" data-field="lesson_timestamp">1:19</span></div><div class="body" data-field="lesson_body"><p>面對週末要給企業家做分享的壓力，曉輝博士做了一個決定：<strong>把自己的困境誠實告訴 AI</strong>——「我現在沒有時間、沒有判斷力做深度思考，但我有很多上下文和素材可以給你。」</p><p>他原本想讓 AI 用<strong>蘇格拉底提問法</strong>慢慢引導，但 AI 主動判斷這個情境不適合——「這個時候你不能再用蘇格拉底提問法了，你要用的是<strong>迅速收斂、迅速聚焦</strong>。」</p><p>AI 只問了<strong>三個核心問題</strong>：分享對象是誰？最想傳達的核心主張是什麼？還有哪些需要注意的事？回答完就可以去忙搬家的事。</p></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">有限注意力 × 無限 AI：人類的出路</h2><span class="ts-badge" data-field="lesson_timestamp">3:58</span></div><div class="body" data-field="lesson_body"><p>曉輝博士觀察到 AI 能力正在快速增長——大家都在談 <strong>Harness Engineering</strong>，Anthropic 的新模型也在不斷打破認知上限，甚至超越了 2027 年的 AI 預測。</p><p>在這種情況下，<strong>人類的有限頻寬、有限注意力，試圖駕馭一個近乎無限的 AI 智能</strong>——這怎麼可能？</p><p>他的答案是：<strong>承認自己的有限性</strong>。人的生命有限、注意力有限，但人可以承擔責任、做出選擇——這是人類與 AI 最大的區別。</p><p>越是無限可能的時代，<strong>越需要人的判斷力</strong>。選擇做什麼、不做什麼、往哪個方向走、跟什麼人在一起——這些選擇比以往任何時候都更加重要。</p></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">我們固然跟 AI 相比有很多的局限，但我們也依然擁有選擇和判斷的自由——這也是 AI 不具備的能力。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="0:05"><span class="ts">0:05</span><span class="text" data-field="key_point_text">AI 時代真正重要的是人的注意力和判斷力</span></li><li data-field="key_point" data-timestamp="0:22"><span class="ts">0:22</span><span class="text" data-field="key_point_text">搬家需要大量密集判斷，半天就讓前額葉報廢</span></li><li data-field="key_point" data-timestamp="1:19"><span class="ts">1:19</span><span class="text" data-field="key_point_text">把判斷力告急的困境誠實告訴 AI，讓它協助準備分享</span></li><li data-field="key_point" data-timestamp="2:31"><span class="ts">2:31</span><span class="text" data-field="key_point_text">AI 主動改為「迅速收斂」策略，只問三個核心問題幫助聚焦</span></li><li data-field="key_point" data-timestamp="3:10"><span class="ts">3:10</span><span class="text" data-field="key_point_text">提供清晰上下文 + AI 迅速回饋，讓注意力短缺下仍產出高品質分享</span></li><li data-field="key_point" data-timestamp="4:00"><span class="ts">4:00</span><span class="text" data-field="key_point_text">人類有限注意力 vs 無限 AI——承認有限性，珍惜選擇與判斷的自由</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="AI">AI</span><span class="tag-chip" data-tag="注意力">注意力</span><span class="tag-chip" data-tag="判斷力">判斷力</span><span class="tag-chip" data-tag="前額葉">前額葉</span><span class="tag-chip" data-tag="決策疲勞">決策疲勞</span><span class="tag-chip" data-tag="AI協作">AI協作</span><span class="tag-chip" data-tag="Harness Engineering">Harness Engineering</span><span class="tag-chip" data-tag="有限與無限">有限與無限</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>「Methos 的模型」——Whisper 漂字，可能指 Anthropic 的 Metis 模型或其他，無法從語音確認精確名稱</li><li>「2027 的那個 AI 的預測」——未指明具體是哪一份預測報告</li></ul></div></section>
+  <section class="glossary" data-field="asr_glossary"><h2>🎙️ ASR 漂字對照表</h2><div class="card"><table class="glossary"><tr data-field="asr_glossary_row"><td data-field="heard">前额业</td><td>→</td><td data-field="corrected">前額葉</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">吃钱</td><td>→</td><td data-field="corrected">之前</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">打顿</td><td>→</td><td data-field="corrected">打斷</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">述出</td><td>→</td><td data-field="corrected">輸出</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Anthropec</td><td>→</td><td data-field="corrected">Anthropic</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Methos</td><td>→</td><td data-field="corrected">[未確認，可能為 Metis 或其他模型名]</td></tr></table></div></section>
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="whisper"><div class="raw-label">Whisper 原始輸出<button class="copy-btn" id="raw_whisper_4386394496_srt" onclick="copyRaw(this,'raw_whisper_4386394496_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_whisper_4386394496_text" onclick="copyRawText(this,'raw_whisper_4386394496_text')">📋 複製純文字</button></div><pre>1
+00:00:00,000 --&gt; 00:00:01,200
+哈喽下班了
+
+2
+00:00:01,200 --&gt; 00:00:02,600
+几天没更新啊
+
+3
+00:00:02,600 --&gt; 00:00:03,700
+因为我在忙着搬家
+
+4
+00:00:03,700 --&gt; 00:00:05,920
+然后让我意识到一个非常重要的事情
+
+5
+00:00:05,920 --&gt; 00:00:09,160
+就是AI时代可能真正重要的是
+
+6
+00:00:09,160 --&gt; 00:00:11,100
+我们的注意力和判断力
+
+7
+00:00:11,100 --&gt; 00:00:14,340
+我们其实正在用有限带宽的注意力
+
+8
+00:00:14,340 --&gt; 00:00:19,100
+去尝试驾驭一个无限的智能
+
+9
+00:00:19,100 --&gt; 00:00:21,820
+我觉得这个给我带来一个挺大的冲击的
+
+10
+00:00:21,820 --&gt; 00:00:22,260
+为什么呢
+
+11
+00:00:22,260 --&gt; 00:00:25,180
+因为搬家的过程需要做大量的判断
+
+12
+00:00:25,180 --&gt; 00:00:27,260
+比如说这个东西要不要扔
+
+13
+00:00:27,260 --&gt; 00:00:27,900
+要不要留
+
+14
+00:00:27,900 --&gt; 00:00:28,920
+然后怎么收纳
+
+15
+00:00:28,920 --&gt; 00:00:29,780
+放在哪个地方
+
+16
+00:00:29,780 --&gt; 00:00:31,240
+虽然我找了搬家公司
+
+17
+00:00:31,240 --&gt; 00:00:34,820
+但是你还是要指挥他们去做这个操作
+
+18
+00:00:34,820 --&gt; 00:00:36,260
+很多的判断都要问你
+
+19
+00:00:36,260 --&gt; 00:00:37,260
+这个时候呢
+
+20
+00:00:37,260 --&gt; 00:00:38,320
+就是感觉半天下来
+
+21
+00:00:38,320 --&gt; 00:00:39,940
+我的前额业已经报废了
+
+22
+00:00:39,940 --&gt; 00:00:41,760
+就感觉已经脑子已经不转了
+
+23
+00:00:41,760 --&gt; 00:00:45,160
+这个时候我还面临着一个挑战
+
+24
+00:00:45,160 --&gt; 00:00:48,960
+就是我周末还要做一个面向很多人的一个分享
+
+25
+00:00:48,960 --&gt; 00:00:51,380
+那这个时候我该怎么办
+
+26
+00:00:51,380 --&gt; 00:00:53,280
+就我的前额业已经没有了
+
+27
+00:00:53,280 --&gt; 00:00:55,520
+就我的判断力感觉已经烧没了
+
+28
+00:00:55,520 --&gt; 00:00:57,040
+你就让我再决定一下
+
+29
+00:00:57,040 --&gt; 00:00:58,000
+今天晚上要吃什么
+
+30
+00:00:58,000 --&gt; 00:00:59,640
+我都已经不想下这样的判断了
+
+31
+00:00:59,640 --&gt; 00:01:04,880
+因为确实是短时间内集中的要做很多的扔东西的判断
+
+32
+00:01:04,880 --&gt; 00:01:07,920
+要做这个接下来怎么面对新生活的这个判断
+
+33
+00:01:07,920 --&gt; 00:01:10,020
+还有很多的心理的这种状态上的波动
+
+34
+00:01:10,020 --&gt; 00:01:11,500
+那这样的一种情况下
+
+35
+00:01:11,500 --&gt; 00:01:14,760
+我还要去准备一个给很多企业家的一个分享
+
+36
+00:01:14,760 --&gt; 00:01:15,160
+哇
+
+37
+00:01:15,160 --&gt; 00:01:17,740
+这个时候可是让我非常的焦虑
+
+38
+00:01:17,740 --&gt; 00:01:19,860
+然后我做了一个决定
+
+39
+00:01:19,860 --&gt; 00:01:22,800
+我想到AI它是一个智力伙伴
+
+40
+00:01:22,800 --&gt; 00:01:27,780
+它是一个有无限资源的这么一个智力的这个供给
+
+41
+00:01:27,780 --&gt; 00:01:30,920
+那我还是可以用它来去帮助我解决这个问题的
+
+42
+00:01:30,920 --&gt; 00:01:32,400
+我做了一件什么事呢
+
+43
+00:01:32,400 --&gt; 00:01:33,020
+我就跟他说
+
+44
+00:01:33,020 --&gt; 00:01:37,560
+我接下来要做一个分享
+
+45
+00:01:37,560 --&gt; 00:01:40,500
+但是我现在已经没有时间
+
+46
+00:01:40,500 --&gt; 00:01:43,260
+没有这个判断力去做深度思考了
+
+47
+00:01:43,260 --&gt; 00:01:45,380
+但是我有很多的上下文
+
+48
+00:01:45,380 --&gt; 00:01:48,240
+我有一些已经想到要分享的内容
+
+49
+00:01:48,240 --&gt; 00:01:49,060
+我可以告诉你
+
+50
+00:01:49,060 --&gt; 00:01:50,500
+包括这个群体是什么
+
+51
+00:01:50,500 --&gt; 00:01:52,700
+哪些是我特别愿意分享的
+
+52
+00:01:52,700 --&gt; 00:01:54,500
+我希望在这次分享中传达什么
+
+53
+00:01:54,500 --&gt; 00:01:56,140
+我把这个东西写得非常详细
+
+54
+00:01:56,140 --&gt; 00:01:57,460
+但是我跟他说
+
+55
+00:01:57,460 --&gt; 00:01:58,340
+因为我在搬家
+
+56
+00:01:58,340 --&gt; 00:02:00,480
+所以我没有更多的时间
+
+57
+00:02:00,480 --&gt; 00:02:03,500
+跟你去打磨这个细节
+
+58
+00:02:03,500 --&gt; 00:02:06,860
+以及我没有办法去把我的注意力提供给你
+
+59
+00:02:06,860 --&gt; 00:02:08,280
+我可能要一会儿离开一次
+
+60
+00:02:08,280 --&gt; 00:02:10,360
+因为确实搬家的过程中
+
+61
+00:02:10,360 --&gt; 00:02:12,020
+甚至知道第二天收纳的过程中
+
+62
+00:02:12,020 --&gt; 00:02:12,980
+还是有很多的事情
+
+63
+00:02:12,980 --&gt; 00:02:13,940
+包括家里还有孩子
+
+64
+00:02:13,940 --&gt; 00:02:16,440
+还有很多的不断的来的人
+
+65
+00:02:16,440 --&gt; 00:02:17,280
+装东西的人
+
+66
+00:02:17,280 --&gt; 00:02:18,580
+还有很多的打断
+
+67
+00:02:18,580 --&gt; 00:02:19,620
+我跟AI说
+
+68
+00:02:19,620 --&gt; 00:02:22,480
+我说我还是非常想把这次的分享的质量提上去的
+
+69
+00:02:22,480 --&gt; 00:02:24,260
+所以你可以用苏格拉底提问法
+
+70
+00:02:24,260 --&gt; 00:02:25,160
+问我很多问题
+
+71
+00:02:25,160 --&gt; 00:02:26,120
+但一次问我一个
+
+72
+00:02:26,120 --&gt; 00:02:27,820
+我有时间就回答一下你
+
+73
+00:02:27,820 --&gt; 00:02:28,120
+对吧
+
+74
+00:02:28,120 --&gt; 00:02:29,540
+然后这个时候
+
+75
+00:02:29,540 --&gt; 00:02:31,140
+AI他就发挥了他的作用
+
+76
+00:02:31,140 --&gt; 00:02:31,680
+他说
+
+77
+00:02:31,680 --&gt; 00:02:34,140
+这个时候你不能再用苏格拉底提问法了
+
+78
+00:02:34,140 --&gt; 00:02:36,860
+你要用的是迅速收敛
+
+79
+00:02:36,860 --&gt; 00:02:37,920
+迅速聚焦
+
+80
+00:02:37,920 --&gt; 00:02:39,280
+我只问你三个问题
+
+81
+00:02:39,280 --&gt; 00:02:40,520
+你就告诉我
+
+82
+00:02:40,520 --&gt; 00:02:42,200
+然后你就可以去干你的事情了
+
+83
+00:02:42,200 --&gt; 00:02:43,520
+问了什么问题呢
+
+84
+00:02:43,520 --&gt; 00:02:44,640
+他就大概就说了一下
+
+85
+00:02:44,640 --&gt; 00:02:46,020
+你这次的分享对象是谁
+
+86
+00:02:46,020 --&gt; 00:02:50,460
+然后你最希望传达的一个核心的主张是什么
+
+87
+00:02:50,460 --&gt; 00:02:52,920
+你觉得还有哪些事物他需要注意的
+
+88
+00:02:52,920 --&gt; 00:02:53,200
+对
+
+89
+00:02:53,200 --&gt; 00:02:54,420
+大概是这么几个问题啊
+
+90
+00:02:54,420 --&gt; 00:02:55,860
+问了几个问题之后
+
+91
+00:02:55,860 --&gt; 00:02:57,860
+就发现他可以述出内容了
+
+92
+00:02:57,860 --&gt; 00:02:59,920
+包括这个互动过程
+
+93
+00:02:59,920 --&gt; 00:03:01,540
+其实也持续了两三个小时
+
+94
+00:03:01,540 --&gt; 00:03:03,680
+我就是从上午早晨
+
+95
+00:03:03,680 --&gt; 00:03:06,020
+回答这几个问题就已经搞到了中午
+
+96
+00:03:06,020 --&gt; 00:03:07,340
+确实是一直在打顿
+
+97
+00:03:07,340 --&gt; 00:03:08,120
+一直在打顿
+
+98
+00:03:08,120 --&gt; 00:03:10,280
+但是他给我交付的结果
+
+99
+00:03:10,280 --&gt; 00:03:11,400
+我还是非常满意的
+
+100
+00:03:11,400 --&gt; 00:03:12,300
+为什么呢
+
+101
+00:03:12,300 --&gt; 00:03:13,460
+我觉得首先有两点
+
+102
+00:03:13,460 --&gt; 00:03:15,320
+一个是我给他提供的上下文
+
+103
+00:03:15,320 --&gt; 00:03:16,920
+是非常清晰明确的
+
+104
+00:03:16,920 --&gt; 00:03:21,600
+就是虽然我没有时间去重新去思考具体的细节
+
+105
+00:03:21,600 --&gt; 00:03:23,640
+但是我还是有很多素材
+
+106
+00:03:23,640 --&gt; 00:03:25,880
+我有很多吃钱的积累
+
+107
+00:03:25,880 --&gt; 00:03:27,120
+然后第二个呢
+
+108
+00:03:27,120 --&gt; 00:03:29,240
+就是他的迅速的这个回馈
+
+109
+00:03:29,240 --&gt; 00:03:34,060
+让我迅速聚焦和收敛到这次分享最重要的一些命题上
+
+110
+00:03:34,060 --&gt; 00:03:37,980
+反而是让我释放了很多我的判断力和注意力
+
+111
+00:03:37,980 --&gt; 00:03:40,960
+当然还有一些最后临场的一些增删改查
+
+112
+00:03:40,960 --&gt; 00:03:42,300
+就我自己去添加了
+
+113
+00:03:42,300 --&gt; 00:03:45,080
+但分享完之后效果非常的好
+
+114
+00:03:45,080 --&gt; 00:03:48,220
+也是我近期分享效果非常好的一次
+
+115
+00:03:48,220 --&gt; 00:03:49,380
+有很多的正反馈
+
+116
+00:03:49,380 --&gt; 00:03:53,380
+也是我在这样一种注意力非常短缺的情况下
+
+117
+00:03:53,380 --&gt; 00:03:58,120
+输出了一次非常高质量的分享内容的一次经历
+
+118
+00:03:58,120 --&gt; 00:04:00,120
+我觉得这个非常有意思啊
+
+119
+00:04:00,120 --&gt; 00:04:01,340
+就给我一个感觉
+
+120
+00:04:01,340 --&gt; 00:04:03,300
+因为大家都在讲Harness Engineering
+
+121
+00:04:03,300 --&gt; 00:04:06,540
+然后包括今天也看到了Anthropec
+
+122
+00:04:06,540 --&gt; 00:04:07,780
+它的Methos的模型
+
+123
+00:04:07,780 --&gt; 00:04:10,480
+增长的智能的上限非常的快
+
+124
+00:04:10,480 --&gt; 00:04:12,200
+也打破了很多的人认知
+
+125
+00:04:12,200 --&gt; 00:04:14,300
+包括2027的那个AI的预测
+
+126
+00:04:14,300 --&gt; 00:04:16,680
+都已经被这个Methos超越了
+
+127
+00:04:16,680 --&gt; 00:04:18,080
+在这样一种情况下
+
+128
+00:04:18,080 --&gt; 00:04:20,520
+我们人类的有限带宽有限注意力
+
+129
+00:04:20,520 --&gt; 00:04:23,580
+就是在尝试去驾驭这样的一个无限能力的
+
+130
+00:04:23,580 --&gt; 00:04:24,720
+这样的一个AI智能
+
+131
+00:04:24,720 --&gt; 00:04:26,560
+那怎么可能驾驭呢
+
+132
+00:04:26,560 --&gt; 00:04:26,960
+对吧
+
+133
+00:04:26,960 --&gt; 00:04:28,580
+我觉得还是很难驾驭的
+
+134
+00:04:28,580 --&gt; 00:04:30,700
+所以人现在其实应该做的事情
+
+135
+00:04:30,700 --&gt; 00:04:33,040
+就是要意识到这种自己的有限性
+
+136
+00:04:33,040 --&gt; 00:04:37,260
+意识到我们是有限的
+
+137
+00:04:37,260 --&gt; 00:04:38,420
+我们的生命是有限的
+
+138
+00:04:38,420 --&gt; 00:04:39,600
+我们注意力是有限的
+
+139
+00:04:39,600 --&gt; 00:04:40,880
+我们可以承担责任
+
+140
+00:04:40,880 --&gt; 00:04:43,120
+这是我们跟AI最大的区别
+
+141
+00:04:43,120 --&gt; 00:04:46,080
+那在这样的一种判断之下
+
+142
+00:04:46,080 --&gt; 00:04:48,840
+那就应该去选择到底要做什么不做什么
+
+143
+00:04:48,840 --&gt; 00:04:51,180
+要去哪个方向
+
+144
+00:04:51,180 --&gt; 00:04:52,720
+然后做哪些选择
+
+145
+00:04:52,720 --&gt; 00:04:54,260
+你是一家企业的话
+
+146
+00:04:54,260 --&gt; 00:04:56,780
+那你的企业要去做什么样的业务
+
+147
+00:04:56,780 --&gt; 00:04:58,360
+现在方向非常多
+
+148
+00:04:58,360 --&gt; 00:04:59,520
+什么事都可以做
+
+149
+00:04:59,520 --&gt; 00:05:00,580
+越是这种
+
+150
+00:05:00,580 --&gt; 00:05:03,220
+无限可能情况下
+
+151
+00:05:03,220 --&gt; 00:05:04,500
+越是需要人的判断力
+
+152
+00:05:04,500 --&gt; 00:05:07,060
+而且在你的判断力
+
+153
+00:05:07,060 --&gt; 00:05:08,440
+没有那么充裕的情况下
+
+154
+00:05:08,440 --&gt; 00:05:10,400
+你很难做出高质量的决策
+
+155
+00:05:10,400 --&gt; 00:05:11,600
+那这个时候
+
+156
+00:05:11,600 --&gt; 00:05:14,280
+该怎么去选择你想过的生活
+
+157
+00:05:14,280 --&gt; 00:05:16,340
+这个成了一个最根本的问题
+
+158
+00:05:16,340 --&gt; 00:05:17,520
+所以我觉得
+
+159
+00:05:17,520 --&gt; 00:05:19,340
+我们固然跟AI相比
+
+160
+00:05:19,340 --&gt; 00:05:20,200
+有很多的局限
+
+161
+00:05:20,200 --&gt; 00:05:22,620
+但我们也依然拥有
+
+162
+00:05:22,620 --&gt; 00:05:24,440
+选择和判断的自由
+
+163
+00:05:24,440 --&gt; 00:05:26,400
+这也是AI不具备的能力
+
+164
+00:05:26,400 --&gt; 00:05:29,040
+所以今天的这个分享吧
+
+165
+00:05:29,040 --&gt; 00:05:30,820
+我们可能都来到了一个
+
+166
+00:05:30,820 --&gt; 00:05:33,880
+更需要判断力和注意力的时代
+
+167
+00:05:33,880 --&gt; 00:05:35,640
+然后选择一个你想要的生活
+
+168
+00:05:35,640 --&gt; 00:05:37,720
+选择你想要做什么样的事业
+
+169
+00:05:37,720 --&gt; 00:05:39,980
+选择你希望跟什么样的人在一起
+
+170
+00:05:39,980 --&gt; 00:05:42,920
+可能比以往任何时候都更加重要
+
+171
+00:05:42,920 --&gt; 00:05:44,080
+拜拜
+
+</pre></div><div class="raw-block" data-field="raw_source_item" data-raw-type="whisper"><div class="raw-label">Whisper STT 逐字稿（large-v3-turbo, MPS）<button class="copy-btn" id="raw_whisper_4386394816_srt" onclick="copyRaw(this,'raw_whisper_4386394816_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_whisper_4386394816_text" onclick="copyRawText(this,'raw_whisper_4386394816_text')">📋 複製純文字</button></div><pre>哈喽下班了
+几天没更新啊
+因为我在忙着搬家
+然后让我意识到一个非常重要的事情
+就是AI时代可能真正重要的是
+我们的注意力和判断力
+我们其实正在用有限带宽的注意力
+去尝试驾驭一个无限的智能
+我觉得这个给我带来一个挺大的冲击的
+为什么呢
+因为搬家的过程需要做大量的判断
+比如说这个东西要不要扔
+要不要留
+然后怎么收纳
+放在哪个地方
+虽然我找了搬家公司
+但是你还是要指挥他们去做这个操作
+很多的判断都要问你
+这个时候呢
+就是感觉半天下来
+我的前额业已经报废了
+就感觉已经脑子已经不转了
+这个时候我还面临着一个挑战
+就是我周末还要做一个面向很多人的一个分享
+那这个时候我该怎么办
+就我的前额业已经没有了
+就我的判断力感觉已经烧没了
+你就让我再决定一下
+今天晚上要吃什么
+我都已经不想下这样的判断了
+因为确实是短时间内集中的要做很多的扔东西的判断
+要做这个接下来怎么面对新生活的这个判断
+还有很多的心理的这种状态上的波动
+那这样的一种情况下
+我还要去准备一个给很多企业家的一个分享
+哇
+这个时候可是让我非常的焦虑
+然后我做了一个决定
+我想到AI它是一个智力伙伴
+它是一个有无限资源的这么一个智力的这个供给
+那我还是可以用它来去帮助我解决这个问题的
+我做了一件什么事呢
+我就跟他说
+我接下来要做一个分享
+但是我现在已经没有时间
+没有这个判断力去做深度思考了
+但是我有很多的上下文
+我有一些已经想到要分享的内容
+我可以告诉你
+包括这个群体是什么
+哪些是我特别愿意分享的
+我希望在这次分享中传达什么
+我把这个东西写得非常详细
+但是我跟他说
+因为我在搬家
+所以我没有更多的时间
+跟你去打磨这个细节
+以及我没有办法去把我的注意力提供给你
+我可能要一会儿离开一次
+因为确实搬家的过程中
+甚至知道第二天收纳的过程中
+还是有很多的事情
+包括家里还有孩子
+还有很多的不断的来的人
+装东西的人
+还有很多的打断
+我跟AI说
+我说我还是非常想把这次的分享的质量提上去的
+所以你可以用苏格拉底提问法
+问我很多问题
+但一次问我一个
+我有时间就回答一下你
+对吧
+然后这个时候
+AI他就发挥了他的作用
+他说
+这个时候你不能再用苏格拉底提问法了
+你要用的是迅速收敛
+迅速聚焦
+我只问你三个问题
+你就告诉我
+然后你就可以去干你的事情了
+问了什么问题呢
+他就大概就说了一下
+你这次的分享对象是谁
+然后你最希望传达的一个核心的主张是什么
+你觉得还有哪些事物他需要注意的
+对
+大概是这么几个问题啊
+问了几个问题之后
+就发现他可以述出内容了
+包括这个互动过程
+其实也持续了两三个小时
+我就是从上午早晨
+回答这几个问题就已经搞到了中午
+确实是一直在打顿
+一直在打顿
+但是他给我交付的结果
+我还是非常满意的
+为什么呢
+我觉得首先有两点
+一个是我给他提供的上下文
+是非常清晰明确的
+就是虽然我没有时间去重新去思考具体的细节
+但是我还是有很多素材
+我有很多吃钱的积累
+然后第二个呢
+就是他的迅速的这个回馈
+让我迅速聚焦和收敛到这次分享最重要的一些命题上
+反而是让我释放了很多我的判断力和注意力
+当然还有一些最后临场的一些增删改查
+就我自己去添加了
+但分享完之后效果非常的好
+也是我近期分享效果非常好的一次
+有很多的正反馈
+也是我在这样一种注意力非常短缺的情况下
+输出了一次非常高质量的分享内容的一次经历
+我觉得这个非常有意思啊
+就给我一个感觉
+因为大家都在讲Harness Engineering
+然后包括今天也看到了Anthropec
+它的Methos的模型
+增长的智能的上限非常的快
+也打破了很多的人认知
+包括2027的那个AI的预测
+都已经被这个Methos超越了
+在这样一种情况下
+我们人类的有限带宽有限注意力
+就是在尝试去驾驭这样的一个无限能力的
+这样的一个AI智能
+那怎么可能驾驭呢
+对吧
+我觉得还是很难驾驭的
+所以人现在其实应该做的事情
+就是要意识到这种自己的有限性
+意识到我们是有限的
+我们的生命是有限的
+我们注意力是有限的
+我们可以承担责任
+这是我们跟AI最大的区别
+那在这样的一种判断之下
+那就应该去选择到底要做什么不做什么
+要去哪个方向
+然后做哪些选择
+你是一家企业的话
+那你的企业要去做什么样的业务
+现在方向非常多
+什么事都可以做
+越是这种
+无限可能情况下
+越是需要人的判断力
+而且在你的判断力
+没有那么充裕的情况下
+你很难做出高质量的决策
+那这个时候
+该怎么去选择你想过的生活
+这个成了一个最根本的问题
+所以我觉得
+我们固然跟AI相比
+有很多的局限
+但我们也依然拥有
+选择和判断的自由
+这也是AI不具备的能力
+所以今天的这个分享吧
+我们可能都来到了一个
+更需要判断力和注意力的时代
+然后选择一个你想要的生活
+选择你想要做什么样的事业
+选择你希望跟什么样的人在一起
+可能比以往任何时候都更加重要
+拜拜</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://www.youtube.com/watch?v=zVG9CzE81Mw" target="_blank" rel="noopener">https://www.youtube.com/watch?v=zVG9CzE81Mw</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
