@@ -1,5 +1,11 @@
 [
   {
+    "title": "手搓AI應用前先在Github上找找 - Hermes Docs",
+    "url": "videos/曉輝博士_先在GitHub找現成方案_分享.html",
+    "date": "2026-08-02 14:44",
+    "content": "手搓AI應用前先在Github上找找 - Hermes Docs 返回首頁 手搓AI應用前先在Github上找找 發布時間：2026-08-02 22:44 🌙 YouTube 影片重點整理 手搓AI應用前先在Github上找找 📺 曉輝博士 ⏱ 3:58 🗓 2026-07-03 🌐 zh-Hans 🔗 https://www.youtube.com/watch?v=MAvzM4RWZTs 摘要 曉輝博士分享一個使用 AI 的「反直覺」心得：與其直接讓 AI 從零手搓應用，更高效的做法是先讓 AI 到 GitHub 上搜尋是否已有現成方案。他以自己的需求為例——想要一個瀏覽器外掛，能在網頁或 PDF 上選取文字後直接獲得 AI 解釋，不需複製貼上——透過 AI 在 GitHub 上找到 2-3 個現成的 Chrome 擴充功能，安裝設定後即可使用。他強調這個方法能省 Token、省時間、避免重複造輪子，即使現有方案不完全符合需求，也可以在既有基礎上讓 AI 繼續改進，站在巨人的肩膀上。這個思維適用於各種場景（如 PPT 工作台），也鼓勵大家將自己的專業成果開源回饋社群。 重點列表 0"
+  },
+  {
     "title": "AI 越強，越需要關注這三件事 - Hermes Docs",
     "url": "videos/曉輝博士_AI時代三件事.html",
     "date": "2026-08-02 14:39",

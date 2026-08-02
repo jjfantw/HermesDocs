@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>手搓AI應用前先在Github上找找 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>手搓AI應用前先在Github上找找</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-08-02 22:44</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">手搓AI應用前先在Github上找找</h1>
+    <div class="meta"><span data-field="channel">📺 曉輝博士</span><span data-field="duration">⏱ 3:58</span><span data-field="published_date">🗓 2026-07-03</span><span data-field="original_language">🌐 zh-Hans</span><a data-field="source_url" href="https://www.youtube.com/watch?v=MAvzM4RWZTs" target="_blank" rel="noopener">🔗 https://www.youtube.com/watch?v=MAvzM4RWZTs</a></div>
+  </header>
+
+  
+  
+  
+  <section class="summary"><h2>摘要</h2><div class="card"><p data-field="summary">曉輝博士分享一個使用 AI 的「反直覺」心得：與其直接讓 AI 從零手搓應用，更高效的做法是先讓 AI 到 GitHub 上搜尋是否已有現成方案。他以自己的需求為例——想要一個瀏覽器外掛，能在網頁或 PDF 上選取文字後直接獲得 AI 解釋，不需複製貼上——透過 AI 在 GitHub 上找到 2-3 個現成的 Chrome 擴充功能，安裝設定後即可使用。他強調這個方法能省 Token、省時間、避免重複造輪子，即使現有方案不完全符合需求，也可以在既有基礎上讓 AI 繼續改進，站在巨人的肩膀上。這個思維適用於各種場景（如 PPT 工作台），也鼓勵大家將自己的專業成果開源回饋社群。</p></div></section>
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點列表</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="0:00"><span class="ts">0:00</span><span class="text" data-field="key_point_text">開場：分享一個使用 AI 實現功能的「反直覺」心得</span></li><li data-field="key_point" data-timestamp="0:20"><span class="ts">0:20</span><span class="text" data-field="key_point_text">核心方法：把需求描述給 AI，讓它先去 GitHub 搜尋現有方案，比直接手搓更高效</span></li><li data-field="key_point" data-timestamp="0:30"><span class="ts">0:30</span><span class="text" data-field="key_point_text">個人案例：想要一個瀏覽器工具，選取網頁/PDF 文字後直接獲得 AI 解釋，不需複製貼上</span></li><li data-field="key_point" data-timestamp="1:22"><span class="ts">1:22</span><span class="text" data-field="key_point_text">AI 搜尋 GitHub 後找到 2-3 個常用 Chrome 擴充功能，並告知安裝方式與功能限制</span></li><li data-field="key_point" data-timestamp="1:54"><span class="ts">1:54</span><span class="text" data-field="key_point_text">好處一：省 Token（從零手搓浪費 Token，現在 Token 很貴）</span></li><li data-field="key_point" data-timestamp="2:02"><span class="ts">2:02</span><span class="text" data-field="key_point_text">好處二：省時間（vibe coding 有成就感但 bug 多，專業的事交給專業的人）</span></li><li data-field="key_point" data-timestamp="2:14"><span class="ts">2:14</span><span class="text" data-field="key_point_text">好處三：不重複造輪子，站在既有基礎上改進</span></li><li data-field="key_point" data-timestamp="2:27"><span class="ts">2:27</span><span class="text" data-field="key_point_text">思維轉變：早期大家傾向自己手搓證明能力，現在應善用現成資源節省成本</span></li><li data-field="key_point" data-timestamp="2:59"><span class="ts">2:59</span><span class="text" data-field="key_point_text">實例成果：找到一個 Chrome 外掛，安裝後設定 API key 即可使用</span></li><li data-field="key_point" data-timestamp="3:14"><span class="ts">3:14</span><span class="text" data-field="key_point_text">延伸應用：此方法適用於各種場景，如 PPT 工作台在 GitHub 上已有許多開源方案</span></li><li data-field="key_point" data-timestamp="3:33"><span class="ts">3:33</span><span class="text" data-field="key_point_text">結語：站在前人肩膀上高效協作，也鼓勵專業人士開源回饋社群</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="AI">AI</span><span class="tag-chip" data-tag="vibe coding">vibe coding</span><span class="tag-chip" data-tag="GitHub">GitHub</span><span class="tag-chip" data-tag="開源">開源</span><span class="tag-chip" data-tag="生產力">生產力</span><span class="tag-chip" data-tag="瀏覽器外掛">瀏覽器外掛</span><span class="tag-chip" data-tag="Chrome 擴充功能">Chrome 擴充功能</span></div>
+  </section>
+
+  
+  <section class="glossary" data-field="asr_glossary"><h2>🎙️ ASR 漂字對照表</h2><div class="card"><table class="glossary"><tr data-field="asr_glossary_row"><td data-field="heard">GateHub</td><td>→</td><td data-field="corrected">GitHub</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">webcoding</td><td>→</td><td data-field="corrected">vibe coding</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">频率</td><td>→</td><td data-field="corrected">貼近</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">手挫</td><td>→</td><td data-field="corrected">手搓</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">report</td><td>→</td><td data-field="corrected">repo</td></tr></table></div></section>
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="whisper"><div class="raw-label">Whisper 原始輸出<button class="copy-btn" id="raw_whisper_4340621888_srt" onclick="copyRaw(this,'raw_whisper_4340621888_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_whisper_4340621888_text" onclick="copyRawText(this,'raw_whisper_4340621888_text')">📋 複製純文字</button></div><pre>1
+00:00:00,000 --&gt; 00:00:01,200
+哈喽下班了
+
+2
+00:00:01,200 --&gt; 00:00:04,800
+今天我想跟大家分享一个最近一段时间
+
+3
+00:00:04,800 --&gt; 00:00:05,700
+我使用AI
+
+4
+00:00:05,700 --&gt; 00:00:08,780
+去让它帮我实现一些功能的一个小的心得
+
+5
+00:00:08,780 --&gt; 00:00:10,580
+有点反直觉
+
+6
+00:00:10,580 --&gt; 00:00:14,500
+比如说大家觉得AI现在已经这么方便去vibe coding了
+
+7
+00:00:14,500 --&gt; 00:00:18,420
+那我有任何的需求让它帮我去搓一个应用出来
+
+8
+00:00:18,420 --&gt; 00:00:19,680
+这不都是很容易的事
+
+9
+00:00:19,680 --&gt; 00:00:20,500
+分分钟的事吗
+
+10
+00:00:20,500 --&gt; 00:00:22,500
+但是我告诉大家一个更容易的
+
+11
+00:00:22,500 --&gt; 00:00:23,580
+你跟它说
+
+12
+00:00:23,580 --&gt; 00:00:25,120
+把你的需求描述给它
+
+13
+00:00:25,120 --&gt; 00:00:27,000
+然后你让它去GitHub上帮你找
+
+14
+00:00:27,000 --&gt; 00:00:29,320
+其实这个是更高效的一个办法
+
+15
+00:00:29,320 --&gt; 00:00:30,360
+举个例子来说
+
+16
+00:00:30,360 --&gt; 00:00:33,480
+就是我一直以来都有一个小小的夙愿
+
+17
+00:00:33,480 --&gt; 00:00:34,720
+就是愿望
+
+18
+00:00:34,720 --&gt; 00:00:36,620
+就是当我看那些论文的时候
+
+19
+00:00:36,620 --&gt; 00:00:38,900
+当我浏览一些国外的网站的时候
+
+20
+00:00:38,900 --&gt; 00:00:41,700
+然后我就发现有一些我不明白的句子
+
+21
+00:00:41,700 --&gt; 00:00:43,740
+然后我就希望搞明白
+
+22
+00:00:43,740 --&gt; 00:00:44,000
+对吧
+
+23
+00:00:44,000 --&gt; 00:00:45,440
+一些词不明白的
+
+24
+00:00:45,440 --&gt; 00:00:49,840
+那以前我的办法就是把它复制粘贴到一个AI的Chatbot里
+
+25
+00:00:49,840 --&gt; 00:00:50,920
+或者一个agent里面
+
+26
+00:00:50,920 --&gt; 00:00:53,940
+让他帮我去给我答案
+
+27
+00:00:53,940 --&gt; 00:00:54,480
+给我反馈
+
+28
+00:00:54,480 --&gt; 00:00:55,360
+我再跟他对话
+
+29
+00:00:55,360 --&gt; 00:00:57,280
+但是这个就脱离了上下文
+
+30
+00:00:57,280 --&gt; 00:00:59,520
+脱离了我读这个文章的上下文
+
+31
+00:00:59,520 --&gt; 00:01:01,600
+而且要粘拉粘去的非常麻烦
+
+32
+00:01:01,600 --&gt; 00:01:03,140
+然后我就跟AI说
+
+33
+00:01:03,140 --&gt; 00:01:04,660
+我说我就想要一个
+
+34
+00:01:04,660 --&gt; 00:01:06,380
+在我浏览网站
+
+35
+00:01:06,380 --&gt; 00:01:07,660
+浏览网页的时候
+
+36
+00:01:07,660 --&gt; 00:01:08,900
+或者读PDF的时候
+
+37
+00:01:08,900 --&gt; 00:01:10,360
+能够帮我去
+
+38
+00:01:10,360 --&gt; 00:01:12,640
+在我就指哪打哪吧
+
+39
+00:01:12,640 --&gt; 00:01:13,180
+就是我
+
+40
+00:01:13,180 --&gt; 00:01:14,840
+不明白的位置
+
+41
+00:01:14,840 --&gt; 00:01:15,600
+我标注出来
+
+42
+00:01:15,600 --&gt; 00:01:17,200
+他就可以帮我去解释
+
+43
+00:01:17,200 --&gt; 00:01:17,960
+也可以对话
+
+44
+00:01:17,960 --&gt; 00:01:21,080
+甚至是可以帮我把这次对话的一些信息保存下来
+
+45
+00:01:21,080 --&gt; 00:01:22,120
+存到我的知识库
+
+46
+00:01:22,120 --&gt; 00:01:26,440
+然后那这个需求你能不能帮我去Github上找一找
+
+47
+00:01:26,440 --&gt; 00:01:28,840
+看看有没有人已经做着这个功能出来
+
+48
+00:01:28,840 --&gt; 00:01:29,960
+我就不需要重新做了
+
+49
+00:01:29,960 --&gt; 00:01:32,680
+然后他就可以去帮我去考察一遍
+
+50
+00:01:32,680 --&gt; 00:01:37,880
+然后也会帮我把其中两到三个大家经常会用的下载的
+
+51
+00:01:37,880 --&gt; 00:01:40,440
+告诉我该怎么安装怎么使用
+
+52
+00:01:40,440 --&gt; 00:01:45,880
+然后他同时也会告诉我就是你的哪些需求可能他还满足不了
+
+53
+00:01:45,880 --&gt; 00:01:52,880
+就是你还可以在让他在Github的report的基础上再去帮你完善相关的功能
+
+54
+00:01:52,880 --&gt; 00:01:53,720
+这都没问题
+
+55
+00:01:53,720 --&gt; 00:01:54,320
+对
+
+56
+00:01:54,320 --&gt; 00:01:58,080
+其实这个的好处就是你不需要再重头手挫
+
+57
+00:01:58,080 --&gt; 00:02:01,200
+首先重头手挫是需要浪费token的
+
+58
+00:02:01,200 --&gt; 00:02:02,400
+现在token都很贵对吧
+
+59
+00:02:02,400 --&gt; 00:02:04,200
+然后第二个是需要时间
+
+60
+00:02:04,200 --&gt; 00:02:06,800
+虽然就是我们webcoding是很有成就感的
+
+61
+00:02:06,800 --&gt; 00:02:09,600
+你可以把一些功能做的非常频率你的需求
+
+62
+00:02:09,600 --&gt; 00:02:11,360
+但其中还是有很多bug
+
+63
+00:02:11,360 --&gt; 00:02:14,600
+就是其实感觉还是应该专业的人更专业的事对吧
+
+64
+00:02:14,600 --&gt; 00:02:16,600
+既然别人已经都验证过的东西
+
+65
+00:02:16,600 --&gt; 00:02:18,600
+我们就不用重复造轮子
+
+66
+00:02:18,600 --&gt; 00:02:21,080
+但如果他实在是满足不了你的需求
+
+67
+00:02:21,080 --&gt; 00:02:23,960
+这个时候你再让AI在原来人家已经有的基础上
+
+68
+00:02:23,960 --&gt; 00:02:26,120
+我们站在巨人的肩膀上我们继续改进嘛
+
+69
+00:02:26,120 --&gt; 00:02:26,560
+对吧
+
+70
+00:02:26,560 --&gt; 00:02:27,720
+这个也是没问题的
+
+71
+00:02:27,720 --&gt; 00:02:33,760
+所以我觉得这个也是一个工作方式和习惯的改变
+
+72
+00:02:33,760 --&gt; 00:02:36,920
+因为以前大家刚开始会webcoding的时候
+
+73
+00:02:36,920 --&gt; 00:02:39,960
+大家都倾向于自己去做对吧
+
+74
+00:02:39,960 --&gt; 00:02:41,520
+验证我也可以
+
+75
+00:02:41,520 --&gt; 00:02:45,000
+但现在这个阶段大家都知道大家都可以了
+
+76
+00:02:45,000 --&gt; 00:02:48,800
+这个时候我们还是应该用现成的去节省一些token
+
+77
+00:02:48,800 --&gt; 00:02:50,000
+节省一些能源
+
+78
+00:02:50,000 --&gt; 00:02:51,280
+节省一些钱对吧
+
+79
+00:02:51,280 --&gt; 00:02:53,840
+那这个还是大家要有这个意识啊
+
+80
+00:02:53,840 --&gt; 00:02:59,080
+对我今天就是找到了一个非常好用的一个这个插件啊
+
+81
+00:02:59,080 --&gt; 00:03:00,400
+就是chrome的插件
+
+82
+00:03:00,400 --&gt; 00:03:02,440
+直接安装好就可以使用了
+
+83
+00:03:02,440 --&gt; 00:03:04,240
+当然要配置上你的API的key
+
+84
+00:03:04,240 --&gt; 00:03:08,720
+所以其实包括这个配置步骤你不知道的话也让AI帮你
+
+85
+00:03:08,720 --&gt; 00:03:12,080
+就是告诉你该怎么配也是非常快速可以完成的
+
+86
+00:03:12,080 --&gt; 00:03:14,720
+所以我觉得这个思想和这个方法
+
+87
+00:03:14,720 --&gt; 00:03:16,720
+大家可以适用在很多场景
+
+88
+00:03:16,720 --&gt; 00:03:19,280
+比如说你想搓一个PPT的工作台
+
+89
+00:03:19,280 --&gt; 00:03:20,720
+那现在
+
+90
+00:03:20,720 --&gt; 00:03:25,600
+GateHub上有很多人已经把自己搓的PPT工作台全都开源出来了
+
+91
+00:03:25,600 --&gt; 00:03:26,960
+你在这个境界上去改
+
+92
+00:03:26,960 --&gt; 00:03:29,600
+去搭积木一样去让AI帮你调整
+
+93
+00:03:29,600 --&gt; 00:03:33,040
+我觉得就是刻意去更高效的站在前人的肩膀上
+
+94
+00:03:33,040 --&gt; 00:03:34,240
+也不用重复造轮子
+
+95
+00:03:34,240 --&gt; 00:03:38,640
+对其实这也是技术社区一直以来的一个开源社区吧
+
+96
+00:03:38,640 --&gt; 00:03:40,800
+一个很好的这个协作习惯
+
+97
+00:03:40,800 --&gt; 00:03:45,040
+然后我觉得普通人可能也要慢慢的去试用这种协作方式
+
+98
+00:03:45,040 --&gt; 00:03:49,960
+当然如果你的经验特别是这个在一个领域是非常专业的
+
+99
+00:03:49,960 --&gt; 00:03:53,960
+那你其实也可以去开源到GateHub上去跟大家共享
+
+100
+00:03:53,960 --&gt; 00:03:57,000
+对所以这个作为一个小的分享吧
+
+101
+00:03:57,000 --&gt; 00:03:57,400
+拜拜
+
+</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://www.youtube.com/watch?v=MAvzM4RWZTs" target="_blank" rel="noopener">https://www.youtube.com/watch?v=MAvzM4RWZTs</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
