@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 是拐杖還是教練？Angela Duckworth 畢業演講的兩個重點 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>AI 是拐杖還是教練？Angela Duckworth 畢業演講的兩個重點</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-08-05 13:32</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">AI 是拐杖還是教練？Angela Duckworth 畢業演講的兩個重點</h1>
+    <div class="meta"><span data-field="channel">📺 昌健胡說</span><span data-field="duration">⏱ 2:50</span><span data-field="published_date">🗓 2026-05-24</span><span data-field="original_language">🌐 zh-Hans</span><a data-field="source_url" href="https://youtube.com/shorts/-xQ9Qn5mbyA?si=Zodu5CnDw8nvUeYV" target="_blank" rel="noopener">🔗 https://youtube.com/shorts/-xQ9Qn5mbyA?si=Zodu5CnDw8nvUeYV</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>這支 Shorts 轉述 Angela Duckworth 在賓大畢業典禮上的 AI 演講：她承認講稿與 AI 共同完成，並主張問題不在「該不該用 AI」，而在使用方式。若只是讓 AI 代替自己給答案，它會變成拐杖；若持續追問「為什麼、怎麼來、有沒有更好版本」，AI 就能像教練一樣訓練思考。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">問題不只是「能不能用 AI」，而是 AI 是否替你思考</h2><span class="ts-badge" data-field="lesson_timestamp">00:18</span></div><div class="body" data-field="lesson_body"><p>影片把討論焦點放在「AI 讓人變聰明，還是讓人變廢」。Angela Duckworth 先承認這個擔心不是空穴來風：如果一直讓 AI 替自己思考，最後可能越來越不思考。</p><p>她引用影片中提到的教育界擔憂：有人認為 AI 對教育的弊可能大於利，也有大學老師擔心 AI 會破壞學術誠信。</p><span class="tag" data-field="lesson_tag">核心問題</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">把 AI 當教練：用追問讓自己理解問題</h2><span class="ts-badge" data-field="lesson_timestamp">00:49</span></div><div class="body" data-field="lesson_body"><p>她分享自己卡在偏門統計方法時使用 ChatGPT 的經驗。影片說，AI 並不是直接給一個答案，而是先講清概念、提醒常見誤區，再給具體操作步驟。</p><p>關鍵在互動方式：不明白就繼續追問，還不懂就要求 AI 舉例。大約十分鐘後，她不是只拿到答案，而是真的理解了問題。</p><span class="tag" data-field="lesson_tag">使用方式</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">AI 回饋可以訓練判斷力</h2><span class="ts-badge" data-field="lesson_timestamp">01:20</span></div><div class="body" data-field="lesson_body"><p>影片提到一個求職信練習：一組完全自己寫，另一組用 AI 輔助。結果用 AI 的一組花更少時間，但寫作能力提升更多。</p><p>原因不是 AI 代寫本身，而是它持續展示「更好的版本」：句子太長可以縮短、詞不準要替換、結構不順要調整。當人反覆看見更好的樣子，自己的判斷力也會被訓練出來。</p><span class="tag" data-field="lesson_tag">能力訓練</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">老師的價值不是資訊，而是要求、陪伴與期待</h2><span class="ts-badge" data-field="lesson_timestamp">01:44</span></div><div class="body" data-field="lesson_body"><p>影片第二個問題是：既然知識網上都有，AI 也能回答問題，還需要老師嗎？Angela Duckworth 的回答是：學生仍需要有人要求他們在期限前讀完困難文章、交出以為自己寫不出來的論文。</p><p>她強調教育真正珍貴的地方，不只是把資訊倒進腦子，而是有人看著學生說「我知道這很難，但我相信你能做到」。</p><span class="tag" data-field="lesson_tag">教育角色</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">AI 時代更稀缺的是承載知識的容器</h2><span class="ts-badge" data-field="lesson_timestamp">02:15</span></div><div class="body" data-field="lesson_body"><p>影片引用一句話：「圖書館裡面的知識是免費的，但你得自帶容器。」放到 AI 時代，AI 可以把全世界的知識擺到面前，但不能替人長出好奇心、耐心、判斷力與責任感。</p><p>因此影片的收束不是反 AI，而是提醒：如果只讓 AI 給答案，它就是拐杖；如果不斷追問為什麼、怎麼來、有沒有更好的版本，它就是教練。</p><span class="tag" data-field="lesson_tag">結論</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">如果你只是讓 AI 給你答案，那它就是拐杖；如果你不斷追問它為什麼、怎麼來、有沒有更好的版本，那它就是你的教練。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="00:00"><span class="ts">00:00</span><span class="text" data-field="key_point_text">影片開場指出，Angela Duckworth 在賓大畢業典禮上承認這篇演講是與 AI 一起寫的，且她不感到羞愧。</span></li><li data-field="key_point" data-timestamp="00:18"><span class="ts">00:18</span><span class="text" data-field="key_point_text">她提出核心問題：AI 到底讓人變聰明，還是讓人變得不再思考。</span></li><li data-field="key_point" data-timestamp="00:27"><span class="ts">00:27</span><span class="text" data-field="key_point_text">第一個重點是對 AI 的擔憂：若一直讓 AI 代替思考，人可能越來越少思考；大學教師也擔心 AI 破壞學術誠信。</span></li><li data-field="key_point" data-timestamp="00:49"><span class="ts">00:49</span><span class="text" data-field="key_point_text">她用自己的統計問題經驗說明，AI 沒有直接丟答案，而是講清概念、提醒誤區、給操作步驟，讓她透過追問真正理解問題。</span></li><li data-field="key_point" data-timestamp="01:20"><span class="ts">01:20</span><span class="text" data-field="key_point_text">求職信練習實驗中，用 AI 輔助的一組花較少時間，寫作能力卻提升更多，因為 AI 不斷展示更好的句子、用詞與結構。</span></li><li data-field="key_point" data-timestamp="01:44"><span class="ts">01:44</span><span class="text" data-field="key_point_text">第二個重點是老師仍然必要：知識雖然網上都有、AI 也能回答問題，但學生仍需要被要求、被推動、被相信。</span></li><li data-field="key_point" data-timestamp="02:15"><span class="ts">02:15</span><span class="text" data-field="key_point_text">影片總結教育的價值不是把資訊倒進腦袋，而是幫人長出承載知識的容器：好奇心、耐心、判斷力與責任感。</span></li><li data-field="key_point" data-timestamp="02:36"><span class="ts">02:36</span><span class="text" data-field="key_point_text">結論是每次用 AI 都要問：是在讓它替我思考，還是在讓它訓練我思考。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="AI">AI</span><span class="tag-chip" data-tag="教育">教育</span><span class="tag-chip" data-tag="Angela Duckworth">Angela Duckworth</span><span class="tag-chip" data-tag="批判思考">批判思考</span><span class="tag-chip" data-tag="學習方法">學習方法</span><span class="tag-chip" data-tag="教師角色">教師角色</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>YouTube 無官方字幕、描述為空；主文依 Whisper 逐字稿整理。</li><li>Whisper 將「ChatGPT」聽成「去IGPT」，已在 ASR 漂字對照表標記。</li><li>Whisper 第 00:05 附近將書名或作品名聽成「寫建議」，該片段未在主文延伸解讀。</li></ul></div></section>
+  <section class="glossary" data-field="asr_glossary"><h2>🎙️ ASR 漂字對照表</h2><div class="card"><table class="glossary"><tr data-field="asr_glossary_row"><td data-field="heard">去IGPT</td><td>→</td><td data-field="corrected">ChatGPT（依語境推定）</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">安爵拉</td><td>→</td><td data-field="corrected">Angela Duckworth</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">必大於利 / 利大於弊</td><td>→</td><td data-field="corrected">弊大於利 / 利大於弊（語境修正）</td></tr></table></div></section>
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="description"><div class="raw-label">YouTube metadata description<button class="copy-btn" id="raw_description_4368748992_srt" onclick="copyRaw(this,'raw_description_4368748992_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_description_4368748992_text" onclick="copyRawText(this,'raw_description_4368748992_text')">📋 複製純文字</button></div><pre>（影片描述為空）
+原始標題：顶级教授承认用AI写稿，AI是拐杖还是教练？#ai #科技 #干货</pre></div><div class="raw-block" data-field="raw_source_item" data-raw-type="whisper"><div class="raw-label">Whisper STT SRT（原始逐字稿，保留簡中字與 ASR 漂字）<button class="copy-btn" id="raw_whisper_4368749312_srt" onclick="copyRaw(this,'raw_whisper_4368749312_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_whisper_4368749312_text" onclick="copyRawText(this,'raw_whisper_4368749312_text')">📋 複製純文字</button></div><pre>1
+00:00:00,000 --&gt; 00:00:03,480
+朋友们,这可能是美国毕业季最诚实的一场AI演讲
+
+2
+00:00:03,480 --&gt; 00:00:05,900
+在宾大的毕业典礼上,Angela Duckworth
+
+3
+00:00:05,900 --&gt; 00:00:08,160
+也就是那位写建议的顶级心理学家
+
+4
+00:00:08,160 --&gt; 00:00:09,620
+麦卡瑟天才奖得主
+
+5
+00:00:09,620 --&gt; 00:00:11,300
+居然当做全场的毕业生成人
+
+6
+00:00:11,300 --&gt; 00:00:13,760
+今天这篇演讲是我和AI一起写的
+
+7
+00:00:13,760 --&gt; 00:00:15,080
+而更狠的是,他还说
+
+8
+00:00:15,080 --&gt; 00:00:17,640
+我一点也不惭愧,甚至我还有点骄傲
+
+9
+00:00:17,640 --&gt; 00:00:18,700
+但这还不是重点
+
+10
+00:00:18,700 --&gt; 00:00:21,720
+重点是,他接下来回答了一个所有人都绕不开的问题
+
+11
+00:00:21,720 --&gt; 00:00:24,620
+AI到底是在让我们变聪明,还是在让我们变废
+
+12
+00:00:24,620 --&gt; 00:00:26,100
+我刚看完了这场演讲
+
+13
+00:00:26,100 --&gt; 00:00:27,700
+给你分享两个最关键的重点
+
+14
+00:00:27,700 --&gt; 00:00:30,900
+先说第一个,如果我们天天用AI,大脑会不会废掉
+
+15
+00:00:30,900 --&gt; 00:00:32,640
+Angela一上来就问台下的毕业生
+
+16
+00:00:32,640 --&gt; 00:00:33,760
+你们有没有担心过
+
+17
+00:00:33,760 --&gt; 00:00:35,600
+如果我们一直让AI替我们思考
+
+18
+00:00:35,600 --&gt; 00:00:37,440
+最后会不会变得越来越不思考
+
+19
+00:00:37,440 --&gt; 00:00:40,080
+他自己先举了手,台下很多人也跟着举手
+
+20
+00:00:40,080 --&gt; 00:00:42,220
+他说,这个担心并不是空穴来风
+
+21
+00:00:42,220 --&gt; 00:00:44,540
+现在认为,AI对教育必大于利的
+
+22
+00:00:44,540 --&gt; 00:00:45,780
+是利大于弊的四倍
+
+23
+00:00:45,780 --&gt; 00:00:47,560
+还有三分之二的大学老师担心
+
+24
+00:00:47,560 --&gt; 00:00:49,140
+AI他会破坏学术诚信
+
+25
+00:00:49,140 --&gt; 00:00:51,080
+但紧接着他讲了一个自己的经历
+
+26
+00:00:51,080 --&gt; 00:00:54,340
+有一天晚上,他被一个很偏门的统计学的方法卡住了
+
+27
+00:00:54,340 --&gt; 00:00:55,580
+身边没有人可以帮他
+
+28
+00:00:55,580 --&gt; 00:00:58,880
+他先生在客厅忙房地产,对这个问题也完全帮不上忙
+
+29
+00:00:58,880 --&gt; 00:01:01,420
+于是他打开了去IGPT,把问题丢给了他
+
+30
+00:01:01,420 --&gt; 00:01:03,500
+结果AI不是直接丢给他一个答案
+
+31
+00:01:03,500 --&gt; 00:01:05,520
+而是先用几句话把概念讲清楚
+
+32
+00:01:05,520 --&gt; 00:01:06,840
+提醒他常见的误区
+
+33
+00:01:06,840 --&gt; 00:01:08,540
+然后又给出了具体的操作步骤
+
+34
+00:01:08,540 --&gt; 00:01:10,420
+他不明白的地方就继续追问
+
+35
+00:01:10,420 --&gt; 00:01:12,380
+还不懂就让AI举例子演示
+
+36
+00:01:12,380 --&gt; 00:01:14,800
+大概十分钟后,他不只是拿到了答案
+
+37
+00:01:14,800 --&gt; 00:01:16,320
+而是真的理解了那个问题
+
+38
+00:01:16,320 --&gt; 00:01:17,660
+这个地方特别的关键
+
+39
+00:01:17,660 --&gt; 00:01:19,020
+AI没有替他思考
+
+40
+00:01:19,020 --&gt; 00:01:20,480
+AI是在带着他思考
+
+41
+00:01:20,480 --&gt; 00:01:22,240
+而他的博士生也做过一个实验
+
+42
+00:01:22,240 --&gt; 00:01:24,300
+有两组年轻人练习写求职信
+
+43
+00:01:24,300 --&gt; 00:01:26,820
+一组完全自己写,另一组用AI辅助
+
+44
+00:01:26,820 --&gt; 00:01:27,980
+结果非常的意外
+
+45
+00:01:27,980 --&gt; 00:01:30,000
+用AI的那组花了时间更少
+
+46
+00:01:30,000 --&gt; 00:01:31,700
+但写作的能力提升了很多
+
+47
+00:01:31,700 --&gt; 00:01:32,480
+为什么呢
+
+48
+00:01:32,480 --&gt; 00:01:34,620
+因为AI会不停地给你看更好的版本
+
+49
+00:01:34,620 --&gt; 00:01:36,200
+这个句子太长了,可以缩短
+
+50
+00:01:36,200 --&gt; 00:01:37,740
+这个词不准,你需要换掉
+
+51
+00:01:37,740 --&gt; 00:01:39,620
+这个结构不顺,你需要重新调整
+
+52
+00:01:39,620 --&gt; 00:01:42,240
+他说,当你一遍遍地看见更好的长什么样
+
+53
+00:01:42,240 --&gt; 00:01:44,400
+你自己的判断力也会被慢慢地训练出来
+
+54
+00:01:44,400 --&gt; 00:01:45,780
+而第二个问题更关键
+
+55
+00:01:45,780 --&gt; 00:01:47,120
+既然知识网上都有
+
+56
+00:01:47,120 --&gt; 00:01:48,580
+那AI又能回答问题
+
+57
+00:01:48,580 --&gt; 00:01:49,840
+那我们还需要老师吗
+
+58
+00:01:49,840 --&gt; 00:01:51,720
+安爵拉说,每到学习末的时候
+
+59
+00:01:51,720 --&gt; 00:01:53,120
+他都会告诉学生一个秘密
+
+60
+00:01:53,120 --&gt; 00:01:55,120
+这一学期我教给你们的所有知识
+
+61
+00:01:55,120 --&gt; 00:01:55,860
+网上全都有
+
+62
+00:01:55,860 --&gt; 00:01:56,960
+文章可以搜到
+
+63
+00:01:56,960 --&gt; 00:01:58,040
+作业也有人做过
+
+64
+00:01:58,040 --&gt; 00:01:59,060
+讲解视频也不缺
+
+65
+00:01:59,060 --&gt; 00:02:00,660
+而学生一听都愣住了
+
+66
+00:02:00,660 --&gt; 00:02:02,340
+然后他说,但你们还是需要我
+
+67
+00:02:02,340 --&gt; 00:02:03,800
+因为你们需要有人要求你
+
+68
+00:02:03,800 --&gt; 00:02:05,840
+在周二之前读完那篇很难的文章
+
+69
+00:02:05,840 --&gt; 00:02:07,180
+你也需要有人要求你
+
+70
+00:02:07,180 --&gt; 00:02:08,580
+在周四之前交出那篇
+
+71
+00:02:08,580 --&gt; 00:02:09,960
+你以为自己写不出来的论文
+
+72
+00:02:09,960 --&gt; 00:02:11,400
+更需要有人看着你说
+
+73
+00:02:11,400 --&gt; 00:02:12,420
+我知道这很难
+
+74
+00:02:12,420 --&gt; 00:02:13,640
+但我相信你能做到
+
+75
+00:02:13,640 --&gt; 00:02:15,860
+他说,这才是教育真正之前的地方
+
+76
+00:02:15,860 --&gt; 00:02:18,060
+教育它不是把信息倒进你的脑子里面
+
+77
+00:02:18,060 --&gt; 00:02:19,760
+因为现在的信息实在太便宜了
+
+78
+00:02:19,760 --&gt; 00:02:22,760
+而真正稀缺的是,有人帮你长出装知识的容器
+
+79
+00:02:22,760 --&gt; 00:02:24,400
+他高中老师就说过一句话
+
+80
+00:02:24,400 --&gt; 00:02:26,180
+图书馆里面的知识是免费的
+
+81
+00:02:26,180 --&gt; 00:02:27,180
+但你得自带容器
+
+82
+00:02:27,180 --&gt; 00:02:28,960
+而放到AI时代,这句话更狠
+
+83
+00:02:28,960 --&gt; 00:02:31,160
+AI可以把全世界的知识摆到你面前
+
+84
+00:02:31,160 --&gt; 00:02:32,860
+但它不能替你长出好奇心
+
+85
+00:02:32,860 --&gt; 00:02:34,560
+耐心,判断力和责任感
+
+86
+00:02:34,560 --&gt; 00:02:36,460
+所以Angela这场演讲真正想说的
+
+87
+00:02:36,460 --&gt; 00:02:37,540
+不是该不该用AI
+
+88
+00:02:37,540 --&gt; 00:02:39,040
+而是你每次用AI的时候
+
+89
+00:02:39,040 --&gt; 00:02:40,100
+都要问自己一个问题
+
+90
+00:02:40,100 --&gt; 00:02:41,540
+我是在让他替我思考
+
+91
+00:02:41,540 --&gt; 00:02:43,000
+还是在让他训练我思考
+
+92
+00:02:43,000 --&gt; 00:02:44,720
+如果你只是让AI给你答案
+
+93
+00:02:44,720 --&gt; 00:02:45,580
+那它就是拐杖
+
+94
+00:02:45,580 --&gt; 00:02:47,260
+但如果你不断的追问他为什么
+
+95
+00:02:47,260 --&gt; 00:02:47,940
+怎么来的
+
+96
+00:02:47,940 --&gt; 00:02:49,000
+有没有更好的版本
+
+97
+00:02:49,000 --&gt; 00:02:50,140
+那他就是你的教练
+
+</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://youtube.com/shorts/-xQ9Qn5mbyA?si=Zodu5CnDw8nvUeYV" target="_blank" rel="noopener">https://youtube.com/shorts/-xQ9Qn5mbyA?si=Zodu5CnDw8nvUeYV</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
