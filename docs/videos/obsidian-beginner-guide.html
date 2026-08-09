@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>零基礎 20 分鐘學會 Obsidian 95% 功能：從 Vault 到雙向連結的入門指南 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>零基礎 20 分鐘學會 Obsidian 95% 功能：從 Vault 到雙向連結的入門指南</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-08-09 23:45</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">零基礎 20 分鐘學會 Obsidian 95% 功能：從 Vault 到雙向連結的入門指南</h1>
+    <div class="meta"><span data-field="channel">📺 李廠長來了</span><span data-field="duration">⏱ 18:03</span><span data-field="published_date">🗓 2026-08-08</span><span data-field="original_language">🌐 zh-Hant</span><a data-field="source_url" href="https://www.youtube.com/watch?v=NIhT5pd4Znc" target="_blank" rel="noopener">🔗 https://www.youtube.com/watch?v=NIhT5pd4Znc</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>這支影片用零基礎教學方式介紹 Obsidian：先指出許多人把資料分散在不同軟體裡，最後變成「知識囤積」而不是可重用的知識管理；接著說明第二大腦的概念，是把值得保留的資訊放進可靠的外部系統，日後能快速找回並看見知識間的連結。影片示範 Obsidian 的下載、安裝與建立 Vault，並強調 Vault 本質上是本機資料夾，筆記以 Markdown 保存，因此資料仍由使用者掌控，也能被其他程式讀取。後半段依序介紹主畫面按鍵、搜尋、書籤、快速切換、關係圖譜、白板、每日筆記、模板、命令面板與資料庫等功能。影片也示範附件資料夾設定、核心插件與第三方插件管理，以及 Markdown 標題、粗體、斜體、列表與任務勾選框。最後重點放在雙向連結、反向連結、嵌入筆記、外部連結與關係圖譜，並用「文件夾像建築物、連結像道路」的比喻說明：文件夾用來放需要固定位置的資料，連結才是整理概念關係的主要工具。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">先解決「知識囤積」：資料要能被找回與再利用</h2><span class="ts-badge" data-field="lesson_timestamp">00:00</span></div><div class="body" data-field="lesson_body"><p>影片開頭把問題定義得很清楚：很多人用手機筆記、Google Drive、Notion 等工具保存資料，但真正遇到工作或學習需求時，仍要回到大量文件夾裡搜尋與篩選。</p><p>講者把這種狀態稱為不是知識管理，而是<strong>知識囤積</strong>；Obsidian 要解決的是讓資訊能被長期累積、重新找回、並且在不同想法之間建立聯繫。</p><span class="tag" data-field="lesson_tag">知識管理</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">第二大腦的核心：可靠外部系統 + 知識之間的連結</h2><span class="ts-badge" data-field="lesson_timestamp">01:19</span></div><div class="body" data-field="lesson_body"><p>影片對第二大腦的定義是：把值得保留的資訊放進可靠的外部系統，以後需要時可以快速找到，也能看到知識之間的聯繫。</p><p>Obsidian 的定位不是單純記錄文字，而是把筆記、研究、文章和想法互相連起來，逐漸形成一個關聯的知識網路。</p><span class="tag" data-field="lesson_tag">第二大腦</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">建立 Vault：Obsidian 知識庫就是本機資料夾</h2><span class="ts-badge" data-field="lesson_timestamp">03:14</span></div><div class="body" data-field="lesson_body"><p>影片示範從官網下載 Obsidian，並說明它支援 iOS、Android、Windows、macOS 與 Linux。啟動後可以快速開始，也可以手動建立新 Vault。</p><p>講者更推薦手動建立 Vault，因為可以自行決定知識庫名稱與存放位置。影片也示範在 Obsidian 內建立文件夾與筆記後，本機資料夾裡也會同步出現相同內容。</p><span class="tag" data-field="lesson_tag">Vault</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">Markdown 與本地優先：資料不被鎖在應用裡</h2><span class="ts-badge" data-field="lesson_timestamp">04:48</span></div><div class="body" data-field="lesson_body"><p>Obsidian 裡的筆記以 Markdown 形式保存，因此即使離開 Obsidian，其他應用程式也能打開；影片也指出 Markdown 對 AI 和人類都相對容易讀懂。</p><p>這支影片強調 Obsidian 的一個核心理念：筆記屬於使用者自己，不會被鎖在單一應用內，使用者始終保有資料控制權。</p><span class="tag" data-field="lesson_tag">本地優先</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">主畫面導覽：搜尋、書籤、白板、模板、命令面板與資料庫</h2><span class="ts-badge" data-field="lesson_timestamp">05:23</span></div><div class="body" data-field="lesson_body"><p>影片依序介紹主畫面的常用按鍵：側邊欄收合、文件列表、搜尋、書籤，以及左側任務欄的快速切換、關係圖譜、新建白板、每日筆記、插入模板、命令面板與建立資料庫。</p><p>其中搜尋可查筆記、文件夾、標籤、行或章節；書籤可快速訪問常用內容並分組；白板可把文字、筆記與圖片拖到畫板上建立關係；資料庫可依條件篩選筆記。</p><span class="tag" data-field="lesson_tag">介面功能</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">入門設定：先把附件集中到指定資料夾</h2><span class="ts-badge" data-field="lesson_timestamp">08:12</span></div><div class="body" data-field="lesson_body"><p>影片建議到「設定 → 文件與連結」中，把附件的預設存放路徑改成指定附件資料夾。</p><p>這樣拖入圖片、PDF 或其他檔案時，Obsidian 會自動把附件放進指定資料夾，避免每次拖入圖片都讓整個知識庫變得凌亂。</p><span class="tag" data-field="lesson_tag">設定</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">07</span><h2 data-field="lesson_title">插件管理：核心插件可精簡，第三方插件需啟用社群市場</h2><span class="ts-badge" data-field="lesson_timestamp">09:27</span></div><div class="body" data-field="lesson_body"><p>核心插件是 Obsidian 團隊預先提供的基本工具，有些預設開啟、有些預設關閉；影片建議關閉不需要的功能，減少介面雜亂。</p><p>第三方插件由開發者與使用者社群製作。若要安裝，需要關閉安全模式，再到社群插件市場瀏覽；也可以按下載量、更新時間、發布時間或名稱排序，安裝後還要按「啟用」。</p><span class="tag" data-field="lesson_tag">插件</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">08</span><h2 data-field="lesson_title">Markdown 基礎格式：標題、粗斜體、列表與任務勾選框</h2><span class="ts-badge" data-field="lesson_timestamp">11:12</span></div><div class="body" data-field="lesson_body"><p>影片示範 Obsidian 的基本書寫格式：標題用 # 號，而且 # 後面要空一格；一個 # 是一級標題、兩個 # 是二級標題，依此類推。</p><p>粗體可用 Ctrl 或 Command + B，斜體可用 Ctrl 或 Command + I；數字加句點可建立有序列表，短橫線可建立項目符號，短橫線加空格與方括號可建立任務勾選框。</p><span class="tag" data-field="lesson_tag">Markdown</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">09</span><h2 data-field="lesson_title">雙向連結與反向連結：讓筆記變成知識網路</h2><span class="ts-badge" data-field="lesson_timestamp">12:25</span></div><div class="body" data-field="lesson_body"><p>影片把雙括號連結描述為 Obsidian 的關鍵能力：遇到想深入了解的概念時，可以用雙括號連到既有筆記，也可以先建立尚不存在的筆記連結，之後再補內容。</p><p>反向連結會自動顯示目前筆記被哪些地方引用。隨著想法不斷互相連接，知識庫就不再只是傳統文件夾，而會變成不同想法之間的關係網路。</p><span class="tag" data-field="lesson_tag">雙向連結</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">10</span><h2 data-field="lesson_title">嵌入筆記、外部連結與關係圖譜：把內容彙總成可視化系統</h2><span class="ts-badge" data-field="lesson_timestamp">14:32</span></div><div class="body" data-field="lesson_body"><p>如果想在一條筆記裡直接顯示另一條筆記內容，可以在雙括號前加驚嘆號來嵌入筆記；影片說這適合做概覽頁、總結或儀表板，也能避免在多個筆記中重複相同資訊。</p><p>關係圖譜則把筆記顯示為節點、連結顯示為線。當筆記越來越多，圖譜會形成圍繞特定主題的群組，成為思維的視覺地圖。</p><span class="tag" data-field="lesson_tag">關係圖譜</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">11</span><h2 data-field="lesson_title">文件夾 vs 連結：文件夾放位置，連結管關係</h2><span class="ts-badge" data-field="lesson_timestamp">16:26</span></div><div class="body" data-field="lesson_body"><p>影片用城市比喻說明：文件夾像建築物，決定知識的存放位置；連結像道路，不移動建築物本身，而是展示不同地點之間的連接關係。</p><p>因此文件夾適合放附件、模板、歸檔項目、每日筆記、地圖或日曆等需要固定位置的內容；連結與反向連結才是整理知識關係的主要工具。</p><span class="tag" data-field="lesson_tag">整理方法</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">文件夾像建築物，連結像道路；Obsidian 的重點不是把資料塞進更多資料夾，而是讓想法之間有路可走。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="00:00"><span class="ts">00:00</span><span class="text" data-field="key_point_text">開場指出常見問題：資料散落在手機筆記、Google Drive、Notion 等工具裡，容易變成難以再利用的知識囤積。</span></li><li data-field="key_point" data-timestamp="01:19"><span class="ts">01:19</span><span class="text" data-field="key_point_text">第二大腦是把值得保存的資訊放進可靠外部系統，讓日後能快速找回並看見不同知識之間的聯繫。</span></li><li data-field="key_point" data-timestamp="03:14"><span class="ts">03:14</span><span class="text" data-field="key_point_text">示範下載安裝 Obsidian，並建議手動建立 Vault，方便自行命名與選擇本機儲存位置。</span></li><li data-field="key_point" data-timestamp="04:23"><span class="ts">04:23</span><span class="text" data-field="key_point_text">Vault 本質上是電腦裡的資料夾；在 Obsidian 建立的資料夾與筆記，也會同步出現在本機檔案系統。</span></li><li data-field="key_point" data-timestamp="04:55"><span class="ts">04:55</span><span class="text" data-field="key_point_text">Obsidian 筆記以 Markdown 儲存，其他程式也能讀取；影片強調資料不會被鎖在應用內，使用者保有控制權。</span></li><li data-field="key_point" data-timestamp="05:23"><span class="ts">05:23</span><span class="text" data-field="key_point_text">導覽主畫面功能：側邊欄、文件列表、搜尋、書籤、快速切換、關係圖譜、白板、每日筆記、模板、命令面板與資料庫。</span></li><li data-field="key_point" data-timestamp="08:12"><span class="ts">08:12</span><span class="text" data-field="key_point_text">建議在設定中把附件預設儲存位置改成指定附件資料夾，避免拖入圖片或 PDF 時讓 Vault 結構變凌亂。</span></li><li data-field="key_point" data-timestamp="09:27"><span class="ts">09:27</span><span class="text" data-field="key_point_text">介紹核心插件與第三方插件：可關閉不需要的核心插件，第三方插件需關閉安全模式後到社群插件市場瀏覽、排序、安裝與啟用。</span></li><li data-field="key_point" data-timestamp="11:12"><span class="ts">11:12</span><span class="text" data-field="key_point_text">示範 Markdown 基本格式：用 # 加空格建立各級標題，用快捷鍵加粗或斜體，用數字、短橫線與勾選框建立列表。</span></li><li data-field="key_point" data-timestamp="12:25"><span class="ts">12:25</span><span class="text" data-field="key_point_text">雙括號連結是 Obsidian 的核心操作，可把現有筆記或尚未建立的筆記先連起來，不必打斷思路。</span></li><li data-field="key_point" data-timestamp="13:43"><span class="ts">13:43</span><span class="text" data-field="key_point_text">反向連結會自動顯示哪些筆記引用了目前筆記，讓知識庫從傳統文件夾變成概念之間的連接網路。</span></li><li data-field="key_point" data-timestamp="14:32"><span class="ts">14:32</span><span class="text" data-field="key_point_text">嵌入筆記是在雙括號前加驚嘆號，可把另一條筆記內容直接顯示在目前筆記中，適合概覽頁、總結或儀表板。</span></li><li data-field="key_point" data-timestamp="15:33"><span class="ts">15:33</span><span class="text" data-field="key_point_text">關係圖譜把筆記視為節點、連結視為線，隨著筆記增加會形成主題群組，成為思維的視覺地圖。</span></li><li data-field="key_point" data-timestamp="16:26"><span class="ts">16:26</span><span class="text" data-field="key_point_text">文件夾像城市裡的建築物，用來放附件、模板、歸檔、每日筆記等需要位置的內容；連結像道路，是整理知識關係的主要工具。</span></li><li data-field="key_point" data-timestamp="17:27"><span class="ts">17:27</span><span class="text" data-field="key_point_text">結尾建議從持續新增筆記、關聯想法、整理知識庫開始，後續影片會介紹如何把 Codex 與 Obsidian 結合。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="Obsidian">Obsidian</span><span class="tag-chip" data-tag="第二大腦">第二大腦</span><span class="tag-chip" data-tag="知識管理">知識管理</span><span class="tag-chip" data-tag="Markdown">Markdown</span><span class="tag-chip" data-tag="Vault">Vault</span><span class="tag-chip" data-tag="雙向連結">雙向連結</span><span class="tag-chip" data-tag="反向連結">反向連結</span><span class="tag-chip" data-tag="關係圖譜">關係圖譜</span><span class="tag-chip" data-tag="插件">插件</span><span class="tag-chip" data-tag="本地優先">本地優先</span></div>
+  </section>
+
+  
+  
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="description"><div class="raw-label">YouTube 描述<button class="copy-btn" id="raw_description_4305016704_srt" onclick="copyRaw(this,'raw_description_4305016704_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_description_4305016704_text" onclick="copyRawText(this,'raw_description_4305016704_text')">📋 複製純文字</button></div><pre>這支影片會從零開始，帶你一步步搭建自己的第二大腦，把散落在各處的筆記、文件和想法，真正變成一套可以長期累積、隨時調用的知識系統。
+
+你會學到：
+✅ Vault、Markdown、資料夾和附件怎麼設定
+✅ 雙向連結、反向連結到底強在哪
+✅ 關係圖譜如何把零散筆記變成知識網路
+✅ 模板、白板、書籤、資料庫和第三方插件怎麼用
+✅ 什麼時候該用資料夾，什麼時候該用連結
+
+🔗 下载链接：
+Obsidian: https://obsidian.md/zh/ 
+
+📺 其它关联影片/【往期精彩视频】：
+https://www.youtube.com/watch?v=mBoxAlg7V3M 
+
+如果你看完这部影片有所收获，请点赞支持👍，订阅我的频道❤️
+你也可以分享出去，让更多人受益！☀️☀️
+============================================
+零基礎20分鐘學會Obsidian 95%功能！#Obsidian #Obsidian教程 #Obsidian教學 #Obsidian零基础 #Obsidian零基礎 #Obsidian入门 #Obsidian入門 #Obsidian功能 #Obsidian用法 #Obsidian怎么用 #Obsidian怎麼用 #Obsidian中文教程 #Obsidian中文教學 #Obsidian新手教程 #Obsidiantutorial #Obsidianbeginnertutorial #Obsidiansecondbrain #第二大脑 #第二大腦 #知识管理 #知識管理 #个人知识管理 #個人知識管理 #知识库 #知識庫 #双向链接 #雙向連結 #反向链接 #反向連結 #Obsidianbacklinks #关系图谱 #關係圖譜 #Obsidiangraphview #Markdown #ObsidianMarkdown #ObsidianVault #ObsidianCanvas #Obsidian白板 #Obsidian插件 #Obsidian外掛 #Obsidian模板 #Obsidian每日笔记 #Obsidian数据库 #本地笔记 #本地優先 #笔记软件 #效率工具 #第二大脑笔记 #知识管理系统
+============================================
+
+📽️ 时间轴： 
+00:00 Obsidian
+01:19 第二大腦
+03:14 下載安裝
+05:23 主屏幕按鍵
+08:12 設置
+09:27 插件
+11:12 筆記格式
+12:25 鏈接
+14:32 嵌入筆記
+15:33 關係圖譜
+16:26 文件夾還是鏈接
+17:27 總結
+
+✅ 联系方式： 
+邮件： lichangzhanglaile@gmail.com
+
+🔔 订阅： 
+油管YouTube：https://www.youtube.com/@lichangzhanglaile 
+领英LinkedIn：https://www.linkedin.com/in/alex-li-5446a8103/ 
+X/Twitter: https://twitter.com/limingxuanalex 
+哔哩哔哩：https://space.bilibili.com/474455919?spm_id_from=333.1007.0.0 
+微信视频号：【全网同名】李厂长来了
+小红书：【全网同名】李厂长来了
+抖音：【全网同名】李厂长来了
+西瓜视频：【全网同名】李厂长来了
+今日头条：【全网同名】李厂长来了
+
+免责声明： 视频仅供娱乐和教育之用。所有信息都是基于互联网的公开资料，请进行独立研究并做出明智决策。</pre></div><div class="raw-block" data-field="raw_source_item" data-raw-type="transcript"><div class="raw-label">YouTube zh-Hant 字幕逐字稿<button class="copy-btn" id="raw_transcript_4305017024_srt" onclick="copyRaw(this,'raw_transcript_4305017024_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_transcript_4305017024_text" onclick="copyRawText(this,'raw_transcript_4305017024_text')">📋 複製純文字</button></div><pre>0:00 不知道你是不是跟我一樣
+0:02 不管是平時讀書學習
+0:03 還是整理工作內容
+0:05 用了很多不同的軟件
+0:07 不管是手機自帶的筆記本
+0:09 還是Google Drive
+0:10 Notion這類的專業軟件
+0:12 但其實很多時候
+0:13 我們做的並不是知識管理
+0:15 而是知識囤積
+0:16 你會發現你劃線收藏的內容
+0:19 幾乎都躺在你的收藏夾裡吃灰
+0:21 很難再被二次利用
+0:23 有時候你工作的時候要找個文件
+0:26 還得打開文件夾去搜關鍵詞
+0:28 然後在海量的文件夾裡重新篩選
+0:31 浪費了時間不說
+0:32 效率也不高
+0:33 那如果你是上面這些情況的話
+0:35 我今天給你介紹的這個工具肯定能幫到你
+0:38 它叫Obsidian
+0:39 其實這個工具很早就有了
+0:42 但我想系統性地給你說清楚它的所有核心用法
+0:45 所以我會把這個工具
+0:47 拆成兩期视频給大家講解
+0:49 第一期视频
+0:50 我們先來看看怎麼下載、安裝
+0:52 把Obsidian的基礎功能都搞清楚
+0:55 然後第二期视频
+0:56 我們再來看看
+0:57 怎麼把Obsidian和Codex結合起來
+1:00 打造我們的第二大腦
+1:02 幫我們系統性地管理知識和工作內容
+1:05 而且我們今天教給大家的方法
+1:07 哪怕你是免費用戶也能用
+1:09 而且可以說是市面上
+1:10 最完整的Obsidian用法教程
+1:13 你可以先點個贊收藏一下
+1:15 以後想學的時候就可以隨時找到了
+1:17 那我們話不多說馬上開始
+1:19 首先在我們進入教程之前
+1:21 先給大家簡單介紹一下
+1:23 什麼是&quot;第二大腦&quot;這個概念
+1:25 那我們每天看文章、開會、學習課程
+1:28 都會產生很多新的靈感和想法
+1:31 但人的大腦並不擅長長期保存這些細節
+1:34 很多東西當時覺得很重要
+1:36 幾天以後就忘了
+1:38 那所謂第二大腦
+1:39 就是把這些值得保留的信息
+1:41 放進一個可靠的外部系統
+1:43 以後需要的時候就可以快速找到
+1:46 還能看到不同知識之間的聯繫
+1:49 Obsidian就是一個能幫助我們搭建第二大腦的工具
+1:53 而且隨著我們收集的信息越來越多
+1:55 筆記、研究、文章和各種想法
+1:58 要想把它們整理得井井有條
+2:00 就會變得越來越困難
+2:02 而Obsidian剛好擅長做這件事
+2:05 它不像傳統的文檔系統那樣記錄筆記
+2:08 它除了可以幫你把信息結構化
+2:10 而且還能找到筆記之間
+2:12 彼此的共同點和聯繫
+2:14 然後把你的筆記互相链接
+2:17 慢慢就形成一個互相關聯的知識網絡
+2:20 這樣你的筆記就不僅僅是放在文件夾裡
+2:23 而是能像你腦海中的想法一樣相互連接
+2:26 而且Obsidian裡所有的筆記
+2:28 都保存在本地電腦裡的一個知識庫裡
+2:31 本質上就是一個存放筆記的文件夾
+2:34 那正因為這種本地優先的方式
+2:36 你可以完全掌控自己的筆記
+2:39 在整理和關聯想法的同時
+2:41 保護你的數據
+2:43 所以接下來的教程裡
+2:44 我會告訴你如何開始使用Obsidian
+2:47 並了解它的核心原理和概念
+2:49 我們來看看什麼是知識庫
+2:51 為什麼很多人選擇Obsidian
+2:53 而不是其它筆記軟件
+2:55 以及它有哪些
+2:56 讓你高效捕捉和連接想法的關鍵功能
+3:00 我們還會介紹如何用Obsidian
+3:02 幫你快速創建筆記
+3:04 並通過&quot;反向链接&quot;這個功能連接你的想法
+3:07 並且把所有內容都存成簡單的markdown格式
+3:11 既方便你訪問又能保證未來不會過時
+3:14 首先我們先來看看怎麼把Obsidian下載安裝好
+3:18 第一步我們去官網上下載安裝包
+3:20 Obsidian這裡會自動識別你的電腦系統
+3:23 點擊它就能直接下載
+3:25 Obsidian也支持多個平台的使用
+3:28 包括iOS、安卓、Windows、MacOS和Linux
+3:31 當你安裝好後
+3:33 首先你看到的就是Obsidian的啟動界面
+3:36 這裡邊有幾個選項
+3:37 比如快速開始、新建倉庫
+3:40 打開本地倉庫、同步遠程倉庫
+3:43 如果你想快速開始使用Obsidian
+3:45 就選擇快速開始
+3:47 這個選項會自動幫你創建一個知識庫
+3:49 也就是一個新的工作區域
+3:51 帶著一個歡迎主題的起始筆記
+3:54 那如果你想看看知識庫的存放位置
+3:59 在這裡查看文件路徑
+4:01 不過我這裡最推薦的
+4:03 還是選擇我們接下來介紹的第二種方法
+4:06 也就是手動創建倉庫
+4:08 因為這樣
+4:08 你就能完全掌控你的倉庫名稱和存儲位置
+4:12 所以我們在新建倉庫這裡選擇創建
+4:15 然後可以給這個知識庫取個名字
+4:17 比如這裡我叫李廠長第二大腦
+4:20 接著選擇你想把這個知識庫
+4:22 放在電腦上的哪個位置
+4:23 現在我們的知識庫就已經創建好了
+4:26 還記得我們剛剛說過的
+4:28 Obsidian的知識庫
+4:29 其實就是我們電腦上的一個文件夾嗎？
+4:32 比如這裡你看到的這個
+4:33 歡迎主題的筆記
+4:34 也同時會出現在文件夾裡
+4:36 如果我們這裡新建一個文件夾叫YouTube
+4:39 你的文件夾裡就會同步出現它
+4:42 我們還可以繼續新建一個筆記
+4:44 叫YouTube數據
+4:45 同樣這個筆記也會出現在文件夾裡
+4:48 這種結構有一個特別大的好處
+4:50 就是你的筆記除了在Obsidian裡
+4:52 在其它的應用裡也依然能被訪問
+4:55 因為在Obsidian裡面
+4:57 筆記都是以markdown的形式保存的
+4:59 所以很多程序都能打開它
+5:02 而且markdown文件的內容
+5:03 不管是AI
+5:04 還是我們普通人
+5:05 打開都能看得懂
+5:07 所以這種文件形式
+5:08 剛好成為AI和人類之間的一個橋樑
+5:12 這也體現了Obsidian的一個核心理念
+5:14 也就是你的筆記屬於你自己
+5:17 它們不會被鎖在Obsidian這個應用裡
+5:19 我們始終對自己的數據
+5:21 擁有完全的控制權
+5:23 接下來咱們就來看看
+5:25 主屏幕上的這些按鍵都是什麼意思
+5:27 我們先從上面的標題欄說起
+5:29 第一個是收起功能
+5:31 當我們點它的時候
+5:32 就可以收起和打開側邊欄
+5:34 接著是文件列表
+5:36 點開它就能看到所有的文件夾和筆記
+5:39 然後是搜索
+5:40 它可以讓你搜索筆記、文件夾
+5:43 標籤、行、或者章節
+5:45 接下來是書籤功能
+5:46 能讓你快速訪問常用的內容
+5:49 並且把它們分組管理
+5:51 比如這裡我們新建一個新的書籤組
+5:53 叫YouTube每月數據分析
+5:55 然後我們回到文件夾裡
+5:57 選擇YouTube數據這個標籤頁
+5:59 加到這個書籤下
+6:01 當然我們在這裡還可以給它起個標題
+6:04 選擇把它放在哪個書籤組下面
+6:06 接下來我們來到左邊的任務欄裡
+6:08 第一個是快速切換功能
+6:10 主要用來快速在筆記和文件夾之間切換
+6:13 那相比功能更細緻的搜索工具
+6:16 快速切換更適合在文件中間快速跳轉
+6:20 下面是查看關係圖譜
+6:22 點擊它就可以看到筆記和筆記之間的關係
+6:25 你看這裡因為我們才開始創建筆記
+6:28 所以彼此之間還沒有什麼聯繫
+6:30 等你的筆記越來越多後
+6:32 你就能在這裡
+6:33 看到Obsidian那個著名的
+6:34 類似大腦的結構圖了
+6:36 再往下是新建白板
+6:38 白板功能允許你把文字
+6:40 筆記和圖片拖到一個畫板上
+6:43 類似於做思維導圖
+6:44 比如你可以添加一張帶有文字的卡片
+6:47 你可以改變顏色
+6:48 或者添加備註
+6:49 你還可以拖動這些白板來給它們建立聯繫
+6:53 正因為如此
+6:53 這個功能非常適合做頭腦風暴
+6:56 和理清思路這類的工作
+6:58 然後是創建今天的日記
+7:00 這個功能很適合記錄當天的特定信息
+7:03 接下來是插入模板
+7:05 當你第一次點擊的時候
+7:06 你會在右上角這裡看到一條信息
+7:08 告訴你沒法列出模板
+7:10 因為你還沒有配置模板文件夾
+7:13 所以你可以點擊這裡的设置
+7:15 選擇模板
+7:16 然後選擇一個模板文件夾的位置
+7:18 這樣等你在那個文件夾裡
+7:20 創建好模板文件後
+7:22 你就能用它了
+7:23 接下來是命令面板
+7:24 這裡包含了Obsidian裡
+7:26 可以使用的所有命令集合
+7:28 從這裡你可以搜索
+7:30 或者運行各種命令
+7:31 也能看到它們對應的快捷鍵
+7:33 最後一個是創建數據庫
+7:35 數據庫基本上就像是你的筆記表格
+7:38 或者過濾視圖
+7:40 當你創建數據庫的時候
+7:41 Obsidian會根據你設定的條件來篩選筆記
+7:45 不過大家現在
+7:46 只需要知道它能幫你
+7:47 根據特定條件篩選筆記就足夠了
+7:50 屏幕中間的區域是主要編輯區
+7:53 你可以在這裡編輯你的筆記
+7:55 Obsidian的使用方式跟瀏覽器很像
+7:57 頂部有標籤頁
+7:58 你可以打開多個筆記
+8:00 還能以不同方式排列它們
+8:02 比如你可以點擊不同的標籤頁來查看分屏效果
+8:06 這樣就能同時看到兩個筆記
+8:08 或者也可以直接拖動標籤頁來切換分屏
+8:12 接下來為了讓我們的筆記內容更清晰
+8:15 更有條理
+8:16 我們還需要在设置裡進行一些微調
+8:18 比如要更改上傳文件的存儲位置
+8:21 默认情況下我們上傳的圖片、PDF
+8:24 或者其它文件都會散落在知識庫裡
+8:27 那為了更好地整理
+8:28 我們去设置裡找到文件與链接
+8:31 然後把附件的默认存放路徑
+8:33 改成指定附件文件夾
+8:36 當我們選了這個選項後
+8:37 就會出現一個新的设置
+8:39 叫附件文件夾路徑
+8:41 這時候我們回到主頁
+8:43 這裡我們可以新建一個文件夾
+8:45 起個名字
+8:46 比如叫附件
+8:47 這時候當你在Obsidian裡創建這個文件夾的時候
+8:50 電腦上的第二大腦知識庫裡
+8:53 也會同步創建一個
+8:54 一模一樣的文件夾
+8:56 創建好後回到设置裡
+8:58 選擇剛才創建的附件文件夾
+9:00 作為我們上傳文件的存儲位置
+9:03 現在當我們直接拖一張圖片到筆記裡
+9:06 Obsidian就會自動把那個圖片
+9:08 存到附件文件夾裡
+9:10 這也有助於保持你的資料庫整齊
+9:13 如果我們沒有這樣设置
+9:14 那每次只要當我們拖圖片進去
+9:17 Obsidian都會新創建一個筆記
+9:19 就會顯得整個筆記本非常凌亂
+9:22 所以這個设置
+9:23 主要是在你直接拖圖片
+9:25 到筆記裡的時候起作用
+9:27 接下來我們來看看设置裡的插件
+9:29 大家現在看到的這些插件
+9:31 都是由Obsidian團隊內部
+9:33 提前已經設定好的核心插件
+9:36 這些插件涵蓋了Obsidian裡最基本的工具
+9:39 這裡面有一些是默认開啟的
+9:41 有一些是默认關閉的
+9:43 你可以看看哪些功能是你不需要的
+9:45 就可以把它關閉
+9:46 這樣也可以避免你的界面顯得雜亂
+9:49 比如有些用戶可能不需要錄音功能
+9:52 每個插件都有一句話
+9:53 簡短說明它的功能
+9:55 那如果你不確定某個插件
+9:57 可以在網上查一下
+9:58 或者問問AI幫忙解釋
+10:00 除了官方的核心插件
+10:01 Obsidian這裡還支持第三方插件
+10:04 第三方插件是由開發者和用戶共同製作的
+10:08 因為Obsidian是開源的
+10:09 所以代碼也是公開透明的
+10:12 這些社群裡的插件
+10:13 Obsidian團隊都會提前進行
+10:16 初步的代碼審核
+10:17 而且它們還有一個社區會幫忙監控
+10:20 盡可能地減少潛在的安全風險
+10:22 如果你想安裝第三方的插件
+10:25 就選擇關閉安全模式
+10:27 然後在社區插件市場裡選擇瀏覽
+10:29 這時候你就可以在裡面
+10:31 找適合你平時工作的插件了
+10:33 當然你還可以點擊這個向上的按鈕
+10:36 在這裡可以按插件的下載量
+10:38 更新時間
+10:39 發布時間和名稱順序來排序
+10:41 那如果你不知道該安裝哪個插件
+10:43 一個好方法就是按下載量來篩選
+10:46 因為它能顯示最受歡迎的插件
+10:49 比如這裡我們選擇這個畫圖的工具
+10:51 直接點安裝就行了
+10:53 安裝完成後
+10:54 我們還要選擇這裡的啟用來開啟它
+10:57 當然如果你不需要某個插件的話
+10:59 也可以卸載
+11:00 或者禁用它
+11:01 那以上就是想入門Obsidian最重要的一些设置
+11:04 當我們把這些设置配置好後
+11:06 隨著你知識庫的內容越來越多
+11:09 你的第二大腦就會更容易方便管理
+11:12 接下來我們繼續講筆記裡的格式设置
+11:15 Obsidian裡筆記的格式
+11:16 和其它記筆記的軟件相比
+11:18 操作方式可能有點不同
+11:20 首先我們先新建一個筆記
+11:22 第一個不同點是標題
+11:24 在Obsidian裡標題是用#號來做的
+11:27 用#號的時候
+11:28 大家一定要記得後面要空一格
+11:30 如果不空格的話
+11:32 Obsidian這裡就只會顯示成普通的標籤
+11:35 如果你想設計不同級別的標題
+11:37 記得一個#號加一個空格是一級標題
+11:40 兩個#號加一個空格是二級標題
+11:43 三個#號加一個空格是三級標題
+11:46 而四個#號加一個空格是四級標題
+11:49 你看現在標題的每個級別
+11:51 都能清楚的分辨出來
+11:53 接下來是加粗和斜體的格式
+11:55 就像大多數其它軟件一樣
+11:57 你可以用Ctrl或者Command加B來加粗
+12:00 用Ctrl或者Command加I來斜體
+12:03 做列表的話
+12:04 你可以輸入數字加句點
+12:06 然後按空格來創建下一個條目
+12:08 如果是项目符號的話
+12:09 只需要先加一個短橫線
+12:12 然後空格就可以了
+12:13 你還可以做任務勾選框
+12:15 這個非常適合做任務列表或者計劃安排
+12:18 方法是輸入一個短橫線
+12:20 接著空格
+12:21 再一個左括號
+12:23 空格和右括號
+12:24 再加一個空格
+12:25 接下來這部分我們重點講一下
+12:28 為什麼要链接筆記
+12:29 以及链接這個功能真正的威力
+12:32 每當你在Obsidian裡輸入筆記的時候
+12:34 遇到想深入了解的概念
+12:36 最重要的操作
+12:37 就是用雙括號來創建筆記的链接
+12:40 當你輸入後
+12:41 Obsidian會彈出下拉菜單
+12:43 顯示你當前的筆記列表
+12:45 接著你可以馬上選一個
+12:47 你已有的筆記並链接它
+12:49 這樣你就不用費勁地翻文件夾
+12:51 或者在知識庫裡翻來覆去地找筆記了
+12:54 链接功能可以把你的筆記串聯起來
+12:57 在不同的想法之間建立聯繫
+12:59 久而久之
+13:00 链接功能就能成為Obsidian裡
+13:02 一個關聯知識系統的主要用法了
+13:05 而且在這個系統裡
+13:06 你還能創建還不存在的筆記链接
+13:09 比如說我們在這裡用雙括號
+13:11 輸入一個還不存在的筆記链接
+13:13 叫Obsidian深度用法
+13:15 你能看到因為這個筆記還不存在
+13:18 所以它的顏色
+13:19 和已經創建好的筆記顏色相比
+13:21 是偏淡的
+13:22 這時候只有當我們點擊它的時候
+13:24 這個筆記才真正存在
+13:26 當我們點擊後
+13:27 Obsidian就會自動在你的知識庫裡
+13:30 創建這個筆記
+13:31 這樣你在記筆記的時候
+13:32 有了新的想法就可以先寫下來
+13:35 之後再進行補充
+13:36 不需要中斷思路去新建一個筆記
+13:39 只需要先創建好链接
+13:41 內容可以以後再補充
+13:43 那正因為有這個链接系統
+13:45 Obsidian最重要的一個功能
+13:46 就是反向链接
+13:48 我們從一個筆記連接到另外一個筆記
+13:51 其實這不只是單向連接
+13:53 Obsidian會自動雙向追蹤這些連接
+13:56 也就是說被链接的筆記知道自己
+13:59 被別的地方引用了
+14:00 你可以在界面的右下角
+14:02 看到反向链接
+14:03 這裡會顯示所有引用了這個筆記的地方
+14:06 比如我們剛才链接的Obsidian深度用法
+14:09 品牌策劃和內容選題
+14:11 也都可以找到相對應的链接
+14:14 那隨著你不斷把想法互相連接
+14:17 你的知識庫就不再像傳統的文件夾那樣
+14:19 獨立存在
+14:20 而更像是在不同想法之間的連接
+14:23 今天寫的筆記可能會和幾週前
+14:26 甚至幾年前寫的筆記產生關聯
+14:28 這些反向链接經常能揭示它們之間的關係
+14:32 還有一個你會用的實用功能是嵌入筆記
+14:35 有時候你可能想直接在一條筆記裡
+14:38 顯示另一條筆記的內容
+14:39 不用複製粘貼文字
+14:41 只要嵌入那條筆記就行
+14:43 方法是在雙括號前加一個感嘆號
+14:46 比如我們輸入感嘆號和雙括號
+14:48 然後選擇YouTube內容選題
+14:50 這樣YouTube內容選題
+14:51 這條筆記下的全部內容
+14:53 就會直接嵌入到你當前的筆記裡
+14:56 這樣你就能引用一條筆記的同時
+14:58 保持所有內容都關聯到它的原始來源
+15:02 也能避免在多個筆記裡重複同樣的信息
+15:05 嵌入筆記特別適合做概覽頁、總結或者儀表盤
+15:09 一次性把多個筆記的內容彙總到同一個地方
+15:13 最後你也可以添加外部链接
+15:15 想顯示的文字放在方括號裡
+15:18 實際的網址放在圓括號裡
+15:20 你按回車
+15:21 文字就會變成一個可點擊的链接
+15:23 可以打開文章、视频或者其它任何在線資源
+15:27 這個功能和很多其它應用裡的超链接一樣
+15:30 讓你能把筆記和知識庫以外的信息連接起來
+15:34 那當你打開這裡的查看關係圖譜
+15:36 這個第二大腦的概念就更加清晰了
+15:39 這也是Obsidian的主要賣點之一
+15:42 關係圖譜是你整個知識網絡的一個
+15:44 可視化呈現方式
+15:46 每個節點就是一個筆記
+15:48 點與點之間的線就是連接這些節點的關聯
+15:51 隨著你的資料庫不斷擴大
+15:53 你會看到圖譜中
+15:55 會開始形成一些聚集的群組
+15:57 這些群組代表著圍繞一個特定主題
+16:00 相關聯的筆記
+16:02 比如這幾篇筆記
+16:03 都是和YouTube视频有關的
+16:04 那這些筆記自然會形成一個自己的知識圈
+16:07 隨著時間推移
+16:09 YouTube這個主題
+16:10 就成了這個圈子的知識中心
+16:12 如果你有其它主題的筆記
+16:14 這些筆記也會各自形成自己的主題圈子
+16:17 剛開始的時候
+16:18 知識圖譜可能看起來很少、很分散
+16:21 但只要你繼續寫下去
+16:22 情況就會改變
+16:24 它會慢慢變成你思維的視覺地圖
+16:27 那你看到現在
+16:28 可能會問一個重要問題
+16:29 那我什麼時候該用文件夾？
+16:32 什麼時候該用链接呢？
+16:33 一個簡單的理解方法是
+16:35 把你的Obsidian知識庫想象成是一座城市
+16:38 文件夾就像是裡面的建築物
+16:41 決定了某個知識的存放位置
+16:43 所以我們應該把文件夾用來放那些
+16:46 真的需要存放位置的東西
+16:48 比如說附件、模板、歸檔的项目、每日筆記
+16:52 或者像地圖、日曆等等這類信息
+16:55 而链接或者反向链接就像是道路
+16:58 道路是不會移動建築物本身的
+17:00 而是展示不同地點之間的連接關係
+17:03 在Obsidian裡
+17:04 链接是知識之間交流的方式
+17:07 是你主要的整理工具
+17:09 那如果兩個節點在概念上相關
+17:11 簡單來說
+17:12 就能把它們連接起來
+17:13 隨著時間推移
+17:15 這些連接會形成一個思想網絡
+17:17 有時候這些關係要過幾週
+17:19 幾個月甚至幾年後
+17:21 才會真正的顯現出來
+17:23 而這也正是關係圖譜的作用
+17:25 幫你看清知識之間聯繫
+17:27 Okay以上這些內容
+17:29 就是Obsidian的基本用法
+17:30 只要當你開始寫筆記
+17:32 關聯想法、整理你的知識庫
+17:34 你的Obsidian系統就會變得越來越好用
+17:37 接下來最好的學習方法
+17:39 就是不停地往裡面添加筆記
+17:42 另外最近我也在準備
+17:43 如何把我們常用的Codex
+17:45 和Obsidian結合起來
+17:47 幫大家一步步打造自己的第二大腦
+17:50 你可以先訂閱我的頻道
+17:51 這樣等视频一上線
+17:53 就能第一時間查看了
+17:54 最後這期视频做的是真的很不容易
+17:57 希望大家給這個视频點個贊
+17:59 這樣就能分享給更多人了
+18:01 那我們下期影片見拜拜</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://www.youtube.com/watch?v=NIhT5pd4Znc" target="_blank" rel="noopener">https://www.youtube.com/watch?v=NIhT5pd4Znc</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
