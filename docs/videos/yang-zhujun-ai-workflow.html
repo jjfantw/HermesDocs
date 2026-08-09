@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 正確打開方式：高手不是追工具，而是帶著問題設計工作流 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>AI 正確打開方式：高手不是追工具，而是帶著問題設計工作流</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-08-09 22:49</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">AI 正確打開方式：高手不是追工具，而是帶著問題設計工作流</h1>
+    <div class="meta"><span data-field="channel">📺 楊竹筠</span><span data-field="duration">⏱ 3:57</span><span data-field="published_date">🗓 2026-08-08</span><span data-field="original_language">🌐 zh-Hans</span><a data-field="source_url" href="https://www.youtube.com/watch?v=VvZ1v713pD0" target="_blank" rel="noopener">🔗 https://www.youtube.com/watch?v=VvZ1v713pD0</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>這支影片的核心觀點是：真正會用 AI 的人，不是因為手上有更高級的工具、更多 Agent 或一整套工作台，而是更清楚自己每天到底在做什麼。影片主張，多數人一開始就問錯問題，總是追問 AI 能做什麼；高手則先問自己到底要解決什麼問題，再帶著問題去找工具。講者把關鍵能力濃縮成「把工作說清楚」：拆清楚每一步輸入、判斷、交付與銜接，讓 AI 不需要猜下一步。影片也以內容創作流程為例，說明如何把語音靈感存入知識庫，再用 Codex / Claude Code 類工具整理觀點、補充資訊、形成腳本，並在重複動作出現時才沉澱成 skill。最後，影片提醒 AI 放大的不是會用多少工具，而是對事物的理解；好的 AI 協作應按動作分工，並保護甚至增強人的思維能力。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">先別追工具，先問問題</h2><span class="ts-badge" data-field="lesson_timestamp">00:27</span></div><div class="body" data-field="lesson_body"><p>影片指出，真正會用 AI 的人和普通人的差別，不在於用了更高級的模型、更多 Agent、Skills 或完整工作台；那些只是最後呈現出來的結果。</p><p>真正的起點，是他們比多數人更清楚自己每天到底在做什麼。若一開始只盯著「這個 AI 能做什麼」，就容易陷入追工具的時間黑洞。</p><p>講者給出的對比是：<strong>普通人拿著工具找場景，高手帶著問題去找工具</strong>。工具應該是解題的最後一步，不是工作的起點。</p><span class="tag" data-field="lesson_tag">問題導向</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">高手的六個字：把工作說清楚</h2><span class="ts-badge" data-field="lesson_timestamp">01:28</span></div><div class="body" data-field="lesson_body"><p>講者把高手真正拉開差距的能力濃縮成六個字：<strong>把工作說清楚</strong>。這不是提示詞技巧，而是思維清晰度、對自己工作的理解程度，以及拆解能力。</p><p>AI 在影片中被描述為「超級放大器」：你清晰，它會讓你更清晰；你糊塗，它就會胡亂腦補。</p><p>所以不要先憑空建立一個 AI 員工，再塞給它一堆手冊；而是要先把自己的真實工作還原出來，拆清楚每一步輸入什麼、怎麼判斷、交付什麼、又怎麼銜接下一步。</p><span class="tag" data-field="lesson_tag">工作拆解</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">FDE 式做法：先摸清真實業務，再決定 AI 介入點</h2><span class="ts-badge" data-field="lesson_timestamp">02:07</span></div><div class="body" data-field="lesson_body"><p>影片提到，現在很火的 FDE，本質上也是同一件事：先進入企業的真實業務，把目標、流程和關鍵卡點摸清楚，再決定 AI 應該在哪些地方介入。</p><p>這個觀點延續前面的主軸：AI 不是拿來替代理解業務的捷徑，而是建立在清楚理解流程之後的介入手段。</p><span class="tag" data-field="lesson_tag">FDE</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">內容創作案例：語音靈感、知識庫與工具協作</h2><span class="ts-badge" data-field="lesson_timestamp">02:17</span></div><div class="body" data-field="lesson_body"><p>講者以自己的內容創作流程舉例：以前走路或準備睡覺時突然有想法，等打開電腦再寫，很多靈感已經消失。現在則可以直接用手機向 agent 發語音，先把原文保存進數位生命系統。</p><p>等有空坐下來，再用 Codex 或 Claude Code 類工具整理觀點、補充資訊、協作並形成腳本。影片強調，工具會變，但知識庫會一直存在，這才是真正的資產。</p><p>因此講者建議每個人都搭建自己的知識庫，哪怕一開始很小，也會隨著思考、經歷與人生體驗不斷伸展，成為自己的第二大腦。</p><span class="tag" data-field="lesson_tag">內容創作</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">Skill 應該從真實場景長出來</h2><span class="ts-badge" data-field="lesson_timestamp">03:13</span></div><div class="body" data-field="lesson_body"><p>影片說，當某個動作在工作過程中不斷重複，這時候才把規則固定成一個 skill。</p><p>一個真正有用的 skill，不是單純從別人那裡下載過來就完成了；它是在自己的真實工作場景裡，一步一步長出來的。</p><p>AI 和人的協作，本質上不是按崗位分工，而是按動作分工。這樣做的長期好處，是保護甚至增強人的思維能力，而不是消解思考、製造依賴。</p><span class="tag" data-field="lesson_tag">Skills</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">AI 最終放大的，不是你會用多少工具，而是你對事物的理解。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="00:00"><span class="ts">00:00</span><span class="text" data-field="key_point_text">真正把 AI 用起來、甚至靠它賺到錢的人，用 AI 的方式可能和一般人完全不同。</span></li><li data-field="key_point" data-timestamp="00:27"><span class="ts">00:27</span><span class="text" data-field="key_point_text">高手和普通人的差異不在於用了更高級的 AI、Agent、Skills 或工作台；那些只是最後呈現的結果。</span></li><li data-field="key_point" data-timestamp="00:39"><span class="ts">00:39</span><span class="text" data-field="key_point_text">真正的起點是更清楚自己每天到底在做什麼，否則很容易把第一個問題問錯。</span></li><li data-field="key_point" data-timestamp="00:47"><span class="ts">00:47</span><span class="text" data-field="key_point_text">不要先問「AI 能做什麼」，而要先問「我要解決什麼問題」；普通人拿工具找場景，高手帶問題找工具。</span></li><li data-field="key_point" data-timestamp="01:28"><span class="ts">01:28</span><span class="text" data-field="key_point_text">高手的關鍵殺手鐧是「把工作說清楚」，這取決於思維清晰度、對自己工作的理解與拆解能力。</span></li><li data-field="key_point" data-timestamp="01:36"><span class="ts">01:36</span><span class="text" data-field="key_point_text">AI 是超級放大器：你清晰，它會讓你更清晰；你糊塗，它就會胡亂腦補。</span></li><li data-field="key_point" data-timestamp="01:52"><span class="ts">01:52</span><span class="text" data-field="key_point_text">不要先憑空建立 AI 員工再塞手冊，而要先還原真實工作，拆出輸入、判斷、交付與銜接。</span></li><li data-field="key_point" data-timestamp="02:07"><span class="ts">02:07</span><span class="text" data-field="key_point_text">影片把 FDE 類工作理解為：先進入真實業務，摸清目標、流程與關鍵卡點，再決定 AI 介入位置。</span></li><li data-field="key_point" data-timestamp="02:17"><span class="ts">02:17</span><span class="text" data-field="key_point_text">內容創作案例：先用手機語音把靈感保存到數位生命系統，再用 Codex / Claude Code 整理觀點、補充資訊並形成腳本。</span></li><li data-field="key_point" data-timestamp="02:40"><span class="ts">02:40</span><span class="text" data-field="key_point_text">工具永遠會變，但知識庫會一直存在；講者建議每個人都搭建自己的知識庫，讓它成為第二大腦。</span></li><li data-field="key_point" data-timestamp="02:56"><span class="ts">02:56</span><span class="text" data-field="key_point_text">拍攝後可用 Codex 與剪輯工具節省剪輯時間，同時讓資訊 agent 搜尋前沿資訊、學習深度內容、研究下一個主題。</span></li><li data-field="key_point" data-timestamp="03:13"><span class="ts">03:13</span><span class="text" data-field="key_point_text">只有當某個動作在真實工作場景中不斷重複，才把規則固定成 skill；有用的 skill 是從場景中長出來的。</span></li><li data-field="key_point" data-timestamp="03:26"><span class="ts">03:26</span><span class="text" data-field="key_point_text">AI 與人的協作本質不是按崗位分工，而是按動作分工；長期好處是保護並增強人的思維能力。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="AI工作流">AI工作流</span><span class="tag-chip" data-tag="AI生產力">AI生產力</span><span class="tag-chip" data-tag="問題導向">問題導向</span><span class="tag-chip" data-tag="知識庫">知識庫</span><span class="tag-chip" data-tag="Skills">Skills</span><span class="tag-chip" data-tag="FDE">FDE</span><span class="tag-chip" data-tag="內容創作">內容創作</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>YouTube 無 description、無官方字幕 / 自動字幕；內容主要依 Whisper 轉錄。</li><li>Whisper 片段中的「Workbody」「小龍蝦」「chat cut」等詞無法從上下文完全核對，已避免在主文中當成確定產品名展開。</li></ul></div></section>
+  <section class="glossary" data-field="asr_glossary"><h2>🎙️ ASR 漂字對照表</h2><div class="card"><table class="glossary"><tr data-field="asr_glossary_row"><td data-field="heard">AI聊天礦</td><td>→</td><td data-field="corrected">AI 聊天框</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Cloud Code</td><td>→</td><td data-field="corrected">Claude Code</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">非說</td><td>→</td><td data-field="corrected">飛書</td></tr></table></div></section>
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="whisper"><div class="raw-label">Whisper SRT 原始轉錄（保留來源語言）<button class="copy-btn" id="raw_whisper_4315682240_srt" onclick="copyRaw(this,'raw_whisper_4315682240_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_whisper_4315682240_text" onclick="copyRawText(this,'raw_whisper_4315682240_text')">📋 複製純文字</button></div><pre>1
+00:00:00,000 --&gt; 00:00:02,980
+你知道吗那些真正把AI用起来甚至赚到钱的人啊
+
+2
+00:00:02,980 --&gt; 00:00:05,280
+他们用AI的方式可能跟你完全不一样
+
+3
+00:00:05,280 --&gt; 00:00:07,700
+不仅仅是淘汰了AI聊天矿那么简单啊
+
+4
+00:00:07,700 --&gt; 00:00:09,840
+甚至那些左手Codex右手Workbody
+
+5
+00:00:09,840 --&gt; 00:00:11,600
+做了好多的Skills工作流
+
+6
+00:00:11,600 --&gt; 00:00:13,580
+搭了一整套的AI工作台的人
+
+7
+00:00:13,580 --&gt; 00:00:16,340
+也有绝大部分没有真正的赚到钱
+
+8
+00:00:16,340 --&gt; 00:00:19,020
+那到底什么样的人才是用AI的高手
+
+9
+00:00:19,020 --&gt; 00:00:21,260
+以及未来我们究竟要拥有什么能力
+
+10
+00:00:21,260 --&gt; 00:00:24,560
+才能把AI变成个人的真正的超级生产力
+
+11
+00:00:24,560 --&gt; 00:00:27,080
+那这条视频呢我试着跟你讲清楚
+
+12
+00:00:27,080 --&gt; 00:00:29,960
+首先你要知道这些高手跟普通人最大的区别
+
+13
+00:00:29,960 --&gt; 00:00:32,700
+根本就不是用了什么更厉害更高级的AI啊
+
+14
+00:00:32,700 --&gt; 00:00:34,920
+那些Skills Agent甚至工作台
+
+15
+00:00:34,920 --&gt; 00:00:38,060
+全都只是最后呈现出来的结果
+
+16
+00:00:38,060 --&gt; 00:00:39,280
+而真正的起点是
+
+17
+00:00:39,280 --&gt; 00:00:41,560
+他们比绝大多数人更清楚
+
+18
+00:00:41,560 --&gt; 00:00:43,780
+自己每天到底在做什么
+
+19
+00:00:43,780 --&gt; 00:00:45,860
+所以我觉得大多数人用AI
+
+20
+00:00:45,860 --&gt; 00:00:47,420
+第一个问题就问错了
+
+21
+00:00:47,420 --&gt; 00:00:48,660
+很多人呢会盯着AI问
+
+22
+00:00:48,660 --&gt; 00:00:50,780
+这个AI能做什么做到什么程度
+
+23
+00:00:50,780 --&gt; 00:00:52,480
+但真正应该先问的是
+
+24
+00:00:52,480 --&gt; 00:00:54,920
+我到底要解决什么问题
+
+25
+00:00:54,920 --&gt; 00:00:56,440
+这个顺序很重要啊
+
+26
+00:00:56,440 --&gt; 00:00:57,460
+如果不明白这个道理
+
+27
+00:00:57,460 --&gt; 00:01:00,560
+你就会掉进一个超级消耗的时间黑洞
+
+28
+00:01:00,560 --&gt; 00:01:02,360
+因为AI的发展实在太快了
+
+29
+00:01:02,360 --&gt; 00:01:04,420
+刚学了小龙虾又流行Cloud Code
+
+30
+00:01:04,420 --&gt; 00:01:05,520
+刚装了Cloud Code
+
+31
+00:01:05,520 --&gt; 00:01:07,920
+隔壁呢又已经安装了100个Skills
+
+32
+00:01:07,920 --&gt; 00:01:08,760
+一定要记住
+
+33
+00:01:08,760 --&gt; 00:01:10,980
+普通人是拿着工具找场景
+
+34
+00:01:10,980 --&gt; 00:01:13,920
+而高手是带着问题去找工具
+
+35
+00:01:13,920 --&gt; 00:01:16,340
+工具应该是解题的最后一步
+
+36
+00:01:16,340 --&gt; 00:01:17,940
+你根本就不需要什么都用
+
+37
+00:01:17,940 --&gt; 00:01:18,660
+什么都学
+
+38
+00:01:18,660 --&gt; 00:01:19,680
+那你可能会说啊
+
+39
+00:01:19,680 --&gt; 00:01:21,060
+我早就琢磨出这个道理了
+
+40
+00:01:21,060 --&gt; 00:01:22,620
+但是到底该怎么做呢
+
+41
+00:01:22,620 --&gt; 00:01:25,260
+接下来这一波才是高手真正的杀手锏
+
+42
+00:01:25,260 --&gt; 00:01:27,260
+也是拉开差距的关键
+
+43
+00:01:27,260 --&gt; 00:01:28,260
+六个字
+
+44
+00:01:28,260 --&gt; 00:01:30,560
+把工作说清楚
+
+45
+00:01:30,560 --&gt; 00:01:32,260
+这个呢取决于它的思维清晰度
+
+46
+00:01:32,260 --&gt; 00:01:35,660
+取决于它的自己工作的了解程度和拆解能力
+
+47
+00:01:35,660 --&gt; 00:01:36,320
+你要记住啊
+
+48
+00:01:36,320 --&gt; 00:01:38,320
+AI呢就是一个超级放大器
+
+49
+00:01:38,320 --&gt; 00:01:40,860
+你清晰它就会比你更清晰
+
+50
+00:01:40,860 --&gt; 00:01:41,600
+你糊涂呢
+
+51
+00:01:41,600 --&gt; 00:01:43,160
+它就会胡乱脑补
+
+52
+00:01:43,160 --&gt; 00:01:44,360
+所以千万不要跟他说
+
+53
+00:01:44,360 --&gt; 00:01:46,220
+现在呢你就是我的助理啊
+
+54
+00:01:46,220 --&gt; 00:01:47,820
+我呢是做自媒体的
+
+55
+00:01:47,820 --&gt; 00:01:49,260
+你的职责呢是什么什么
+
+56
+00:01:49,260 --&gt; 00:01:52,120
+然后呢就指望他能够完成胜任这个岗位
+
+57
+00:01:52,120 --&gt; 00:01:53,260
+你要反过来思考
+
+58
+00:01:53,260 --&gt; 00:01:55,180
+不是先凭空创建一个AI员工
+
+59
+00:01:55,180 --&gt; 00:01:56,620
+再塞给他一堆手册
+
+60
+00:01:56,620 --&gt; 00:01:59,820
+而是先把自己的真实工作还原出来
+
+61
+00:01:59,820 --&gt; 00:02:01,120
+每一步输入什么
+
+62
+00:02:01,120 --&gt; 00:02:02,720
+怎么判断交付什么
+
+63
+00:02:02,720 --&gt; 00:02:04,380
+又怎么和下一步衔接
+
+64
+00:02:04,380 --&gt; 00:02:06,160
+一直猜到AI不需要猜
+
+65
+00:02:06,160 --&gt; 00:02:07,860
+就知道下一步该做什么
+
+66
+00:02:07,860 --&gt; 00:02:09,280
+那其实现在很火的FDE
+
+67
+00:02:09,280 --&gt; 00:02:11,060
+本质上干的也是这件事
+
+68
+00:02:11,060 --&gt; 00:02:12,480
+先进入企业的真实业务
+
+69
+00:02:12,480 --&gt; 00:02:14,360
+把目标留成关键卡点
+
+70
+00:02:14,360 --&gt; 00:02:15,120
+摸清楚
+
+71
+00:02:15,120 --&gt; 00:02:17,920
+再决定AI应该在哪些地方介入
+
+72
+00:02:17,920 --&gt; 00:02:18,820
+比如我做内容
+
+73
+00:02:18,820 --&gt; 00:02:20,020
+以前呢突然有个想法
+
+74
+00:02:20,020 --&gt; 00:02:22,320
+但是呢可能再走路或者是准备睡觉
+
+75
+00:02:22,320 --&gt; 00:02:23,760
+等打开电脑再写
+
+76
+00:02:23,760 --&gt; 00:02:25,160
+很多灵感已经消失了
+
+77
+00:02:25,160 --&gt; 00:02:26,420
+过程呢也非常低效
+
+78
+00:02:26,420 --&gt; 00:02:27,820
+现在我就可以拿起手机
+
+79
+00:02:27,820 --&gt; 00:02:29,960
+直接给非说上的agent发语音
+
+80
+00:02:29,960 --&gt; 00:02:32,820
+让它原文保存在我的数字生命系统
+
+81
+00:02:32,820 --&gt; 00:02:34,020
+等我有空坐下来呢
+
+82
+00:02:34,020 --&gt; 00:02:36,120
+再用codex或者之前的cloud code
+
+83
+00:02:36,120 --&gt; 00:02:36,960
+整理观点
+
+84
+00:02:36,960 --&gt; 00:02:37,780
+补充信息
+
+85
+00:02:37,780 --&gt; 00:02:38,420
+协作
+
+86
+00:02:38,420 --&gt; 00:02:39,220
+形成脚本
+
+87
+00:02:39,220 --&gt; 00:02:40,020
+这里要注意啊
+
+88
+00:02:40,020 --&gt; 00:02:41,360
+工具呢永远是会变的
+
+89
+00:02:41,360 --&gt; 00:02:43,760
+但是我们这个知识库一直都是在的
+
+90
+00:02:43,760 --&gt; 00:02:45,520
+这个呢才是我们真正的资产
+
+91
+00:02:45,520 --&gt; 00:02:46,520
+所以强烈建议啊
+
+92
+00:02:46,520 --&gt; 00:02:48,360
+每个人都去搭建自己的知识库
+
+93
+00:02:48,360 --&gt; 00:02:49,600
+哪怕它现在很小
+
+94
+00:02:49,600 --&gt; 00:02:51,260
+但是它会随着你的思考
+
+95
+00:02:51,260 --&gt; 00:02:51,900
+你的经历
+
+96
+00:02:51,900 --&gt; 00:02:52,800
+你的人生体验
+
+97
+00:02:52,800 --&gt; 00:02:53,860
+不断的伸展
+
+98
+00:02:53,860 --&gt; 00:02:55,960
+成为你真正的第二大脑
+
+99
+00:02:55,960 --&gt; 00:02:56,860
+那拍摄这一步呢
+
+100
+00:02:56,860 --&gt; 00:02:58,400
+我肯定是会真人出镜的
+
+101
+00:02:58,400 --&gt; 00:02:59,400
+那拍好之后呢
+
+102
+00:02:59,400 --&gt; 00:03:01,540
+再用codex和chat cut做剪辑
+
+103
+00:03:01,540 --&gt; 00:03:02,800
+这个呀帮我节约了
+
+104
+00:03:02,800 --&gt; 00:03:04,240
+至少两三个小时的时间
+
+105
+00:03:04,240 --&gt; 00:03:05,500
+那剪辑过程中
+
+106
+00:03:05,500 --&gt; 00:03:06,320
+我就可以继续的
+
+107
+00:03:06,320 --&gt; 00:03:07,300
+用我的信息agent
+
+108
+00:03:07,300 --&gt; 00:03:08,720
+搜最新的前沿信息
+
+109
+00:03:08,720 --&gt; 00:03:11,100
+学一些新的深度的内容
+
+110
+00:03:11,100 --&gt; 00:03:12,460
+研究下一个主题
+
+111
+00:03:12,460 --&gt; 00:03:13,200
+那这个过程中
+
+112
+00:03:13,200 --&gt; 00:03:14,260
+如果发现某一个动作
+
+113
+00:03:14,260 --&gt; 00:03:15,320
+是不断重复的
+
+114
+00:03:15,320 --&gt; 00:03:18,380
+这个时候我才会把规则固定成一个skill
+
+115
+00:03:18,380 --&gt; 00:03:19,240
+所以我相信啊
+
+116
+00:03:19,240 --&gt; 00:03:20,380
+一个真正有用的skill
+
+117
+00:03:20,380 --&gt; 00:03:22,480
+不是光从别人那里下载过来就可以了
+
+118
+00:03:22,480 --&gt; 00:03:23,000
+反而呢
+
+119
+00:03:23,000 --&gt; 00:03:23,500
+它就是这样
+
+120
+00:03:23,500 --&gt; 00:03:25,360
+在你的真实的工作场景里面
+
+121
+00:03:25,360 --&gt; 00:03:26,800
+一步一步的展出来的
+
+122
+00:03:26,800 --&gt; 00:03:28,600
+而AI和人的协作呢
+
+123
+00:03:28,600 --&gt; 00:03:30,400
+本质上不是按岗位分工
+
+124
+00:03:30,400 --&gt; 00:03:31,980
+而是按动作分工
+
+125
+00:03:31,980 --&gt; 00:03:33,360
+而且这样做
+
+126
+00:03:33,360 --&gt; 00:03:35,300
+还有一个更加长期主义的好处
+
+127
+00:03:35,300 --&gt; 00:03:36,580
+就是保护
+
+128
+00:03:36,580 --&gt; 00:03:38,700
+甚至增强你的思维能力
+
+129
+00:03:38,700 --&gt; 00:03:40,120
+而不是消解你的思考
+
+130
+00:03:40,120 --&gt; 00:03:41,320
+让你产生依赖
+
+131
+00:03:41,320 --&gt; 00:03:43,060
+你要知道AI最终放大的
+
+132
+00:03:43,060 --&gt; 00:03:44,300
+不是你会用多少工具
+
+133
+00:03:44,300 --&gt; 00:03:46,140
+而是你对事物的理解
+
+134
+00:03:46,140 --&gt; 00:03:48,940
+那么我们究竟怎么训练自己的清晰度呢
+
+135
+00:03:48,940 --&gt; 00:03:50,620
+如果你对这个问题感兴趣
+
+136
+00:03:50,620 --&gt; 00:03:52,220
+评论区打出感兴趣
+
+137
+00:03:52,220 --&gt; 00:03:53,420
+那感兴趣的朋友多的话
+
+138
+00:03:53,420 --&gt; 00:03:54,980
+我专门出一心想一想
+
+139
+00:03:54,980 --&gt; 00:03:55,300
+好了
+
+140
+00:03:55,300 --&gt; 00:03:56,020
+我是如此
+
+141
+00:03:56,020 --&gt; 00:03:56,760
+下期见
+
+</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://www.youtube.com/watch?v=VvZ1v713pD0" target="_blank" rel="noopener">https://www.youtube.com/watch?v=VvZ1v713pD0</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
