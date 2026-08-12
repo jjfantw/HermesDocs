@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>看不懂 Claude 的輸出？其實只要改一個內建設定 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>看不懂 Claude 的輸出？其實只要改一個內建設定</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-08-12 19:13</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">看不懂 Claude 的輸出？其實只要改一個內建設定</h1>
+    <div class="meta"><span data-field="channel">📺 Gary Chen</span><span data-field="duration">⏱ 11:41</span><span data-field="published_date">🗓 2026-08-12</span><span data-field="original_language">🌐 zh-Hant</span><a data-field="source_url" href="https://www.youtube.com/watch?v=E8Bx9OlpmdM" target="_blank" rel="noopener">🔗 https://www.youtube.com/watch?v=E8Bx9OlpmdM</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>這支影片主張，許多人覺得 Claude 變難用，未必是模型能力下降，而是輸出風格和使用者的理解方式對不上。影片介紹 Claude Code 的 output style 功能：它不改變寫程式能力，只改變 AI 回覆你的語氣、長度、術語密度與報告格式。作者示範 Lydia Hallie 分享的 ELI5 風格，並說明可用 /config 切換 output style，或用 /branch 讓 Claude 根據你看不懂的輸出生成多種風格版本。影片也比較內建四套風格、Matt Pocock 的 wait what skill，以及作者團隊針對技術小白、vibe coder／PM、工程師設計的三套風格思路。最後提醒 output style 可以跟著專案與任務切換，也應隨著使用者能力與工作情境持續迭代。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">問題不是 Claude 一定變笨，而是輸出變得難讀</h2><span class="ts-badge" data-field="lesson_timestamp">0:00</span></div><div class="body" data-field="lesson_body"><p>影片用一段誇張但常見的 Claude 回覆作為例子：『正交性』『冪等路徑』『語意層抽象』這類詞彙堆在一起，讓使用者每個字都認識，卻完全不知道下一步該做什麼。</p><p>作者的判斷是：至少在這支影片討論的情境裡，抱怨點不一定是模型能力，而是<strong>模型表達方式和使用者狀態不匹配</strong>。測試可能過、功能可能能動，但報告像論文一樣難讀。</p><p>因此解法不是急著換模型，而是替 AI 建一份『跟我說話的說明書』，也就是 Claude Code 的 output style。</p><span class="tag" data-field="lesson_tag">核心問題</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">ELI5 output style：讓 Claude 用你疲累時也讀得懂的方式回覆</h2><span class="ts-badge" data-field="lesson_timestamp">2:17</span></div><div class="body" data-field="lesson_body"><p>影片引用 Claude Code 團隊工程師 Lydia Hallie 的作法：把一段輸出風格指令放進 output styles 資料夾，就能在設定裡切換。她分享的風格是 Explain Like I’m five，也就是把使用者當成五歲小孩解釋。</p><p>這套風格要求 Claude：用簡單詞彙、短句、僅講必要資訊；如果非用專有名詞不可，講完要馬上解釋；最後要交代做了什麼、是否成功、接下來該做什麼。</p><p>作者強調 output style <strong>僅改變 Claude 跟你說話的方式</strong>，不改變寫程式能力。你是在規定報告格式，不是在降低模型能力。</p><span class="tag" data-field="lesson_tag">快速設定</span></div><div class="lesson-cmds" data-field="lesson_commands"><h3 class="cmds-heading">📋 本節指令一覽</h3><ol class="cmds-list"><li><code>/config</code></li><li><code>output style</code></li><li><code>選擇 ELI5</code></li></ol></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">內建四套風格：不要每個專案都用同一種說話方式</h2><span class="ts-badge" data-field="lesson_timestamp">3:48</span></div><div class="body" data-field="lesson_body"><p>影片整理 Claude Code 內建的四套 output style：Default 是日常簡潔有效率；Proactive 更像行動派，會少討論、多動手；Learning 會刻意留一段程式碼讓使用者練習；Explanatory 則會解釋改動背後的架構、pattern 與專案慣例。</p><p>作者建議，Explanatory 適合剛接手別人的 code、新 repo 或新框架。它能幫你邊做邊理解上下文。</p><p>但如果你已經很熟專案，Explanatory 可能把你早就知道的事再說一次，反而讓『解決囉嗦』變成『更囉嗦』。</p><span class="tag" data-field="lesson_tag">內建選項</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">用 /branch 客製你的風格，而不是直接抄別人的設定</h2><span class="ts-badge" data-field="lesson_timestamp">4:38</span></div><div class="body" data-field="lesson_body"><p>影片示範的客製流程是：當你收到一段看不懂的天書輸出時，不要急著罵它；先用 /branch 從目前對話分岔，避免打斷原本工作。</p><p>接著請 Claude 把那段輸出用五種不同風格重寫，讓你挑出讀起來最順的版本。選定後，再請它把這種風格做成 output style。</p><p>作者在這個過程中提到 STE100（Simplified Technical English）：航太維修手冊為了避免誤解，要求短句、一句一個動作、固定詞彙、一詞一義。影片認為這套成熟的技術寫作原則很適合拿來約束 AI 的回覆。</p><span class="tag" data-field="lesson_tag">客製方法</span></div><div class="lesson-cmds" data-field="lesson_commands"><h3 class="cmds-heading">📋 本節指令一覽</h3><ol class="cmds-list"><li><code>/branch</code></li></ol></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">output style 是常駐規則；wait what skill 是需要時才召喚的翻譯器</h2><span class="ts-badge" data-field="lesson_timestamp">5:51</span></div><div class="body" data-field="lesson_body"><p>影片比較 Matt Pocock 的 wait what skill：當 AI 又開始講天書時，使用者可以召喚這個 skill，讓 AI 用更簡單的話重講一次。</p><p>兩者差異在使用時機。output style 是常駐說話規則，適合你覺得 AI 每次輸出都太艱澀的狀況；wait what skill 則像臨時翻譯器，適合僅有少數回覆看不懂時使用。</p><p>作者提醒，風格沒有絕對好壞。新手怕太 technical；資深工程師怕太白話浪費時間。真正重要的是找到你讀起來最不費力的版本，並持續迭代。</p><span class="tag" data-field="lesson_tag">兩種解法比較</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">三種人需要三種 output style：小白、PM／vibe coder、工程師</h2><span class="ts-badge" data-field="lesson_timestamp">7:14</span></div><div class="body" data-field="lesson_body"><p>作者團隊設計了三套風格。第一套給純技術小白，定位是『技術翻譯機』：術語每次出現都用白話解釋，抽象概念用生活比喻，且遇到刪資料、花錢、動正式環境等高風險操作要先停下來警告。</p><p>第二套給有一定技術認知的 PM 或 vibe coder，採 STE100 簡報版：句子短、主動語態、常見詞如 API／前後端／資料庫不必解釋，但工程細節第一次出現要給一行說明；每個改動要講清楚影響哪個功能、使用者看到什麼變化，以及方案 trade-off。</p><p>第三套給工程師。精神是：先說改了什麼、能不能動；細節等使用者追問；如果 AI 做了使用者可能有意見的判斷，必須放在第一句，不準埋在長報告最後。</p><span class="tag" data-field="lesson_tag">團隊設計思路</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">07</span><h2 data-field="lesson_title">進階玩法：讓風格跟著專案、任務與狀態切換</h2><span class="ts-badge" data-field="lesson_timestamp">10:20</span></div><div class="body" data-field="lesson_body"><p>影片最後補充，output style 其實可以跟著專案走，存在每個專案的 settings.local.json 裡。不同專案可以掛不同風格，互不影響。</p><p>例如新接觸的專案可用 Explanatory 邊做邊學；趕時間或 vibe coding 可用言簡意賅的風格衝進度；下班前或腦袋很累時可用 Lydia 的 ELI5 減少理解成本。</p><p>output style 也不該設定一次就用到底。三個月前需要解釋的概念，現在可能已經是常識；這時可以把技術密度往上調，讓 Claude 的說話方式持續貼近你的能力與當下工作狀態。</p><span class="tag" data-field="lesson_tag">迭代策略</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">Output style 不是把 Claude 變笨，而是讓它用你真的會讀的方式，把關鍵資訊說出來。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="0:00"><span class="ts">0:00</span><span class="text" data-field="key_point_text">作者開場指出，自己感到 Claude 回覆越來越難讀；例子是輸出充滿正交性、冪等路徑、語意層抽象等術語，讓人看懂每個字卻不懂整句。影片的核心解法不是換模型，而是調整 Claude Code 的 output style。</span></li><li data-field="key_point" data-timestamp="1:06"><span class="ts">1:06</span><span class="text" data-field="key_point_text">影片強調這不是個人問題。工程師文章和 Matt Pocock 都抱怨 Opus 5 的輸出像天書；問題常不是功能做錯，而是關鍵資訊被包在冗長術語裡，形成額外認知負擔。</span></li><li data-field="key_point" data-timestamp="2:17"><span class="ts">2:17</span><span class="text" data-field="key_point_text">Lydia Hallie 分享 Claude Code 可以自訂輸出風格。她的 ELI5 風格要求 Claude 用簡單詞彙、短句、僅講必要內容，必要術語要立刻解釋，最後交代做了什麼、是否成功、下一步是什麼。</span></li><li data-field="key_point" data-timestamp="3:48"><span class="ts">3:48</span><span class="text" data-field="key_point_text">Claude Code 內建四套 output style：Default 偏簡潔有效率；Proactive 更行動導向；Learning 會留下部分程式碼讓使用者練習；Explanatory 會說明架構、pattern 與專案慣例，適合不熟的 repo 或新框架，但熟悉專案時可能更囉嗦。</span></li><li data-field="key_point" data-timestamp="4:38"><span class="ts">4:38</span><span class="text" data-field="key_point_text">若內建風格不合用，可以用 /branch 從目前對話分岔，請 Claude 把難懂輸出重寫成五種風格，選定後再請它做成 output style。作者也提到 STE100 簡化技術英文：短句、一句一個動作、固定詞彙、一詞一義，可借來管理 AI 的說話方式。</span></li><li data-field="key_point" data-timestamp="5:51"><span class="ts">5:51</span><span class="text" data-field="key_point_text">Matt Pocock 的 wait what skill 是另一種解法：不是常駐風格，而是在 AI 講天書時才召喚它重講一次。影片比較兩者：output style 適合常態輸出都難懂的情境；skill 適合少數時候需要翻譯。</span></li><li data-field="key_point" data-timestamp="7:14"><span class="ts">7:14</span><span class="text" data-field="key_point_text">作者團隊設計三套 output style。技術小白版重點是術語白話化、生活比喻與高風險操作先警告；vibe coder／PM 版採 STE100 簡報風，重點是使用者變化、功能影響與 trade-off；工程師版先講改了什麼、能不能動，細節等使用者追問，並把有爭議的判斷放第一句。</span></li><li data-field="key_point" data-timestamp="10:20"><span class="ts">10:20</span><span class="text" data-field="key_point_text">進階玩法是讓 output style 跟著專案、任務與精神狀態切換；新專案可用 explanatory，趕時間可用言簡意賅風格，疲累時可用 ELI5。output style 不是一次設定到底，應隨著能力提升調整技術密度。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="Claude Code">Claude Code</span><span class="tag-chip" data-tag="Output Style">Output Style</span><span class="tag-chip" data-tag="AI 工具">AI 工具</span><span class="tag-chip" data-tag="溝通風格">溝通風格</span><span class="tag-chip" data-tag="STE100">STE100</span><span class="tag-chip" data-tag="ELI5">ELI5</span><span class="tag-chip" data-tag="Matt Pocock">Matt Pocock</span><span class="tag-chip" data-tag="Lydia Hallie">Lydia Hallie</span></div>
+  </section>
+
+  
+  
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="description"><div class="raw-label">YouTube 描述<button class="copy-btn" id="raw_description_4343374976_srt" onclick="copyRaw(this,'raw_description_4343374976_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_description_4343374976_text" onclick="copyRawText(this,'raw_description_4343374976_text')">📋 複製純文字</button></div><pre>加入我的 Patreon，查看完整文章還有提示詞模板：https://www.patreon.com/GaryChen/posts/166382405
+--
+最近很多人覺得 Claude 越用越難懂，一堆術語、一句話要看好幾遍。但問題可能不是模型變笨，而是它講話的方式跟你對不上。這支影片教你用 Claude Code 內建的 output style 功能，30 秒改掉 AI 的說話方式，還會拆解 Anthropic 工程師的 ELI5 風格、內建四套 style 怎麼選、我們團隊針對三種技術背景設計的三套風格思路，以及 Matt Pocock 用 skill 做的另一種解法差在哪。
+
+📌 時間戳
+0:00 Claude 是不是真的變笨了
+1:06 不是你一個人的錯覺
+2:17 官方工程師的 ELI5 設定法
+3:48 內建四套風格怎麼選
+4:38 用 branch 生出屬於你的風格
+5:51 Matt Pocock 的另一招：wait what skill
+7:14 我們團隊的三套設計理念
+10:20 進階玩法：跟著專案走、隨時調整
+
+📢 追蹤我的頻道
+👍 覺得有幫助請按讚、訂閱、開小鈴鐺！
+
+reference:
+Lyida 的貼文：https://x.com/lydiahallie/status/2080378470111256907
+Matt Pocock skill repo: https://github.com/mattpocock/skills
+
+#ClaudeCode #OutputStyle #Anthropic #AI工具 #開發者工具</pre></div><div class="raw-block" data-field="raw_source_item" data-raw-type="transcript"><div class="raw-label">YouTube 字幕（含時間戳）<button class="copy-btn" id="raw_transcript_4343375296_srt" onclick="copyRaw(this,'raw_transcript_4343375296_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_transcript_4343375296_text" onclick="copyRawText(this,'raw_transcript_4343375296_text')">📋 複製純文字</button></div><pre>0:00 Claude 降智已經不是一天兩天的事情了
+0:02 我印象中最美好的黃金版本
+0:03 大概是 Opus 4.5
+0:04 後來模型在 benchmark 上的分數
+0:06 雖然越跑越高
+0:07 但我實際用起來
+0:08 卻覺得越來越累，越來越難用
+0:10 到底它有沒有變笨我不知道
+0:12 但它回給我的話真的越來越難讀
+0:14 一堆專業術語
+0:15 一句話常常要看好幾遍才懂
+0:17 我甚至開始懷疑
+0:18 是不是因為每天跟 AI 頻繁多工處理
+0:21 搞得我自己腦子燒壞
+0:22 智商也降低了？
+0:23 前幾天我請 Opus 5 幫我整理一個功能的做法
+0:26 它回我
+0:26 這個設計的正交性
+0:28 保證了狀態收斂的冪等路徑
+0:30 語意層的抽象已經內化
+0:31 在 pipeline 的攝取階段
+0:33 每個字我都認識
+0:34 但合在一起我卻完全不知道它在說什麼
+0:36 我盯著螢幕看了快一分鐘
+0:37 最後腦中只有一個字，蛤？
+0:40 直到前陣子看到 Claude Code 團隊工程師的一篇推特貼文
+0:43 我才突然醒悟
+0:44 Opus 5 可能只是講話的方式跟你對不上了
+0:47 並不是它變笨了
+0:48 而且這個問題根本不用換模型
+0:50 也不用等 Anthropic 修
+0:51 直接用 Claude Code 裡面
+0:52 一個叫 output style 的內建功能就能解決
+0:54 這支影片就是要教你
+0:56 怎麼設定 Claude 的 output style
+0:57 讓你找回最初的感動
+0:59 我不會講太多廢話
+1:00 也不會拆太複雜的底層邏輯
+1:02 整支影片全部都是乾貨
+1:04 那我們廢話不多說，直接開始
+1:06 先說清楚
+1:07 這絕對不是你一個人的問題
+1:09 前陣子有一篇在工程師圈瘋傳的部落格文章
+1:11 作者就在抱怨
+1:12 說現在讀 AI 的輸出
+1:13 已經變成一種額外的認知勞動
+1:15 它越來越冗長
+1:17 術語越來越密集
+1:18 還常常夾雜一些看似很有道理的廢話
+1:21 他甚至說自己拿到一段 Claude 的回覆
+1:22 每一個字都要查字典才看得懂
+1:25 連前陣子介紹過的 Matt Pocock 都公開說到
+1:28 Opus 5 最近講話簡直像天書一樣
+1:30 非常囉嗦
+1:31 一堆奇怪的 LLM 用語
+1:32 每次看它的輸出都覺得很痛苦
+1:34 他還貼過一段 Opus 的回覆當範例
+1:37 說那段話明明是很關鍵的資訊
+1:38 但讀完後卻完全不知道它想表達什麼
+1:41 有趣的是
+1:42 不管是部落格作者還是 Matt
+1:44 沒有人說它把事情做錯
+1:46 測試照樣過，功能照樣動
+1:48 大家罵的全部是同一件事
+1:50 看不懂 AI 到底在說什麼東西
+1:51 Matt 甚至承認那段天書其實是關鍵資訊
+1:54 只是讀不懂
+1:56 所以你可以確定的是
+1:57 以 Opus 5 來說
+1:58 問題應該不是出在模型變笨了
+2:00 更多的是它的表達方式出了問題
+2:03 它越來越像一個能力很強
+2:05 但完全不會講人話的天才同事
+2:07 事情做得漂亮
+2:08 但報告寫得像論文一樣難懂
+2:10 既然這是溝通問題
+2:11 解法自然就不是把這個同事開除
+2:13 而是給它一份跟我說話的說明書
+2:15 而這就是 output style 在做的事情
+2:17 回到開頭提到的那篇推特貼文
+2:19 發文的人叫 Lydia Hallie
+2:21 她是 Claude Code 團隊的工程師
+2:23 她說 Claude Code 其實可以讓你自訂它的輸出風格
+2:25 只要把指令寫成一個檔案
+2:27 丟進 output styles 資料夾
+2:29 之後在設定裡隨時切換就能用
+2:31 她還分享了一套她自己最愛的風格
+2:33 名字很好笑
+2:34 叫解釋給五歲小孩聽
+2:36 原文是 Explain Like I&#x27;m five
+2:38 她說每次忙了一整天之後
+2:39 她就會開這一套輸出的 style
+2:41 因為那時候腦袋已經完全沒有力氣
+2:43 讀 AI 產出的長篇大論了
+2:46 這一套風格的內容其實只有幾句話
+2:47 大意是
+2:48 我今天超級爆炸累，腦子已經燒掉了
+2:51 請把我當成五歲小孩
+2:52 用簡單的詞彙，簡短的句子跟我講話
+2:55 只講最必要的事
+2:56 如果一定要用專有名詞
+2:58 請在講完後就馬上解釋清楚
+3:00 最後告訴我你做了什麼
+3:01 有沒有成功
+3:02 以及我接下來該做什麼
+3:04 先跟大家強調一件事
+3:05 output style 改變的
+3:06 只有它跟你說話的方式
+3:07 它寫程式碼的能力完全不受影響
+3:10 你可以想像成那個天才同事
+3:11 還是同一個人
+3:12 腦子還是那顆腦子
+3:13 只是你為他規定了報告的格式而已
+3:15 設定方式非常簡單
+3:17 30 秒就能搞定
+3:18 第一步
+3:18 把 output style 的文字複製起來
+3:21 Lydia 的原文我會放在影片資訊欄
+3:23 有需要的可以直接拿去用
+3:25 第二步，打開 Claude Code
+3:26 把文字貼給它
+3:28 跟它說幫我把這個加進 output style
+3:30 它就會自動放到正確的位置
+3:32 第三步
+3:33 輸入斜線 config，輸入 output
+3:35 然後在清單中找到 output style 這個選項
+3:38 並選擇 ELI5 後按 Enter 就立刻生效了
+3:42 不會做的朋友可以直接請 Claude Code 手把手帶你做
+3:44 或者直接幫你設定
+3:45 其實你在輸入斜線 config 的時候就會發現
+3:48 Claude Code 本來就內建了四套 output style
+3:50 不用自己寫就能直接選
+3:52 預設的 Default 風格就是簡潔，有效率
+3:54 也就是你現在每天看到的樣子
+3:57 Proactive 是行動派
+3:58 廢話更少
+3:59 能動手就直接動手
+4:01 不太會花時間跟你多討論
+4:03 Learning 比較特別
+4:04 它會故意停下來
+4:05 留一小段程式碼讓你親手寫
+4:07 讓你邊用邊練功
+4:08 適合真的想學寫程式的人
+4:10 但我自己不是很喜歡
+4:12 而最後一個叫做 explanatory
+4:13 這個 style 是
+4:15 Claude 每做一個改動都會順便解釋
+4:16 這個架構為什麼這樣設計
+4:18 這段 code 用了什麼 pattern
+4:19 這個專案的慣例是什麼
+4:21 我自己的建議是
+4:22 explanatory 非常適合用在
+4:24 你還不熟的專案
+4:25 例如接手別人的 code
+4:27 進入一個新的 repo
+4:28 或是使用一個沒碰過的框架的時候使用
+4:30 但如果你在做自己很熟的專案
+4:32 就千萬不要開
+4:33 因為它會把你早就知道的事情再重複一遍
+4:35 本來想解決囉嗦
+4:36 結果變得更囉嗦
+4:38 那如果內建的四套你都不喜歡
+4:40 Lydia 那套你也覺得不好用
+4:41 因為每個人偏好的溝通的方式都不太一樣
+4:43 這時候可以直接請 Claude 幫你生成
+4:45 屬於你的 output style
+4:47 做法是這樣
+4:48 下次你又收到一段看不懂的天書輸出時
+4:50 先不要急著罵它
+4:51 直接輸入斜線 branch
+4:53 這個指令會從目前的對話
+4:55 分岔出一個新的對話
+4:57 不會打斷你原本的工作
+4:58 接著在新的對話裡跟它說
+5:00 我想建立自己的 Claude Code Output Style
+5:02 請你把這段回覆
+5:03 用五種不同的風格重寫一次
+5:05 讓我找到一種我習慣的溝通方式
+5:08 等 Claude 產出
+5:09 然後你也選好了自己喜歡的風格之後
+5:12 你再跟它說
+5:13 把這個風格做成 output style 就搞定了
+5:16 我自己嘗試這招的時候
+5:18 發現了一個很有意思的東西
+5:19 叫 STE100
+5:20 全名是 Simplified Technical English
+5:22 翻譯成中文是簡化技術英文
+5:24 這是歐洲航太工業幾十年前
+5:26 訂定的一個寫作標準
+5:28 因為飛機維修手冊如果寫得讓人看不懂
+5:30 維修人員只要做錯一步
+5:31 就有可能會出人命
+5:32 所以他們的規矩是
+5:33 句子要短
+5:34 一句話只講一個動作
+5:35 詞彙表要固定
+5:36 而且一個詞只能有一個意思
+5:38 技術文件寫到沒人看得懂
+5:40 並不是 AI 時代才出現的問題
+5:42 而是工程界幾十年前就付出過代價
+5:44 並且已經解決過的老問題
+5:46 而現在把這一套成熟的解法
+5:47 拿來管理 AI 的說話方式
+5:49 我覺得非常有意思
+5:50 前面提到的 Matt Pocock
+5:52 前幾天也針對 AI 不講人話這個問題搞了一招
+5:54 但他的做法不是 output style
+5:56 而是一個叫做 wait what 的 skill
+5:58 它不是常駐的設定
+5:59 而是當 AI 又開始講天書的時候
+6:01 你才召喚它
+6:02 等於跟 AI 說蛤？你剛剛到底在說什麼？
+6:05 它就會用簡單的話重講一次
+6:07 更有意思的是
+6:08 這個 skill 裡面用的正是剛剛講的 STE100 標準
+6:11 再加上額外請 AI 用你專案裡的詞彙說話
+6:15 兩者對比的話
+6:16 output style 是一個常駐的說話規則
+6:18 適合你覺得 AI 每一次 output 都很艱澀難懂的狀況
+6:21 而 Matt 的 skill 是一個需要才用的翻譯功能
+6:24 覺得 AI 的輸出只有少數時候讓人難懂的朋友
+6:26 也可以用 Matt 的 skill 玩玩看
+6:28 不過話又說回來
+6:30 output style 沒有絕對的好壞
+6:31 對新手來說
+6:32 講得太 technical 會增加認知負擔
+6:34 工作一天下來累得要死
+6:36 反過來
+6:36 對資深工程師來說
+6:38 講得太白話就是在浪費他的時間
+6:40 加上每個人的專案性質不同
+6:42 甚至團隊內部的通用語言都不一樣
+6:44 所以風格這種東西非常個人化
+6:47 我看得順眼的你可能覺得囉嗦
+6:49 你喜歡的我可能覺得太簡略
+6:51 所以千萬不要直接抄別人的設定就結束
+6:53 花個十分鐘用斜線 branch 這招
+6:55 多生幾個版本自己測試
+6:56 找到那個讓你讀起來最不費力的風格
+6:58 才是正解
+6:59 但要提醒各位的是
+7:01 這東西就跟 skill 一樣
+7:02 當你找到了喜歡的風格後
+7:04 有時候可能還是會有一些 corner case 是你當初沒考慮到的
+7:07 所以也不要期待能夠直接找到完美的解方
+7:09 先快速做出第一版
+7:11 然後開始使用看看
+7:12 有問題持續迭代就好了
+7:14 搞懂 output style 的玩法之後
+7:16 我們團隊上週就自己設計了
+7:18 三套 output style
+7:18 每一套都是按照不同的技術背景來設計的
+7:21 分別針對三種人群
+7:22 第一是純技術小白
+7:24 第二是對軟體開發有一定認知的軟體 PM
+7:27 或玩了一段時間的 vibe coder
+7:29 最後是專業的工程師
+7:31 我想簡單分享一下三套的設計理念
+7:33 讓你們也可以參考
+7:34 並打造出自己的 output style
+7:36 給純技術小白的
+7:37 我叫它技術翻譯機
+7:39 小白最大的風險不是學得慢
+7:41 是不知道自己正在做什麼
+7:42 所以第一條規則
+7:43 術語每次出現都用白話解釋
+7:46 抽象的概念用生活比喻講
+7:48 例如 API 就像餐廳幫你點餐的服務生
+7:51 這裡的重點在於術語不要省略
+7:53 而是要被解釋
+7:54 新手如果跳過所有的術語
+7:55 你用一年還是不知道
+7:57 什麼是 migration，什麼是 endpoint
+7:58 之後看文件，跟工程師溝通都會卡住
+8:01 AI 在進步
+8:02 但你的技術認知並沒有進步
+8:04 這套 output style 讓你在做東西的過程中
+8:06 把這些詞一個一個學起來
+8:08 還有就是
+8:09 因為小白分不出哪些操作有風險
+8:11 所以只要遇到會刪資料
+8:12 會花錢，會動到正式環境的動作
+8:15 它都會先停下來用白話警告你
+8:17 等你點頭才動手
+8:18 第二套是給有一定技術認知的 vibe coder 的 output style
+8:22 這群人不需要學寫 code
+8:23 他們需要的是精準的資訊拿去做決策
+8:26 你可能知道什麼是 API
+8:28 分得清前後端
+8:29 但你不寫 code
+8:30 所以這套我直接拿剛剛講的航太標準來改
+8:32 叫它 STE100 簡報版
+8:35 句子要短，主動語態
+8:36 一個詞只有一個意思
+8:38 API，前後端，資料庫這種等級的詞
+8:40 直接用不解釋
+8:41 工程內部的細節
+8:42 像 migration，race condition
+8:44 第一次出現給一行解釋
+8:46 然後因為 PM 或者 Vibe Coder 通常更在乎的是產品不是 code
+8:49 我加了一條專屬的規則
+8:51 就是每個改動都必須講清楚
+8:52 動到哪個功能
+8:53 使用者會看到什麼變化
+8:55 要做決策的時候
+8:56 選項排成 trade-off
+8:57 A 快但有風險，B 慢但穩
+9:00 然後給你它針對這個需求的建議
+9:03 第三套是給工程師的
+9:04 精神上是從 Lydia 的 ELI5 延伸出來的
+9:08 工程師缺的不是理解力，是注意力
+9:10 所以它像一個同事站在你桌邊講話
+9:13 先講改了什麼，能不能動
+9:15 細節你要再問才給
+9:16 還有只要它做了你可能有意見的判斷
+9:19 比方說沒問過你就把某個東西關掉
+9:21 它必須放在第一句講
+9:23 不准埋在報告最後面
+9:24 這套聽起來很懶
+9:25 但對有技術背景的人來說
+9:27 可能是最誠實的一套
+9:28 因為 AI 丟給你一千字的輸出
+9:30 你根本不會讀
+9:31 只會眼睛掃過去
+9:32 心裡想說應該沒問題吧
+9:33 然後按下確認
+9:34 當輸出縮到幾行
+9:36 你才會真的每一行都讀進去
+9:37 才能擋住該擋下來的東西
+9:39 這三套背後其實共用同一個設計原則
+9:42 要治 AI 的囉嗦
+9:43 光跟它說講簡單一點是沒有用的
+9:46 它只會把長廢話換成短廢話
+9:48 真正有效的方法
+9:49 是你要把你喜歡的溝通方式
+9:50 精鍊成原則
+9:52 是叫它用你的詞彙說話
+9:53 你的專案裡把使用者叫 member
+9:55 就規定它不准叫 user
+9:57 它講的話越貼近你自己慣用的語言
+9:59 你讀起來就越不費力
+10:01 以上就是我們設計這三套的完整思路
+10:04 方法我都講給你了
+10:05 你完全可以照同樣的設計思路
+10:06 打造一套專屬於你的 output style
+10:08 想省時間的話
+10:09 也可以在影片下方資訊欄
+10:11 加入我的 Patreon
+10:11 直接下載我們團隊設計好的這三套
+10:13 回去玩玩看
+10:15 不過還是要再次強調
+10:16 每個人喜歡的溝通方式都不一樣
+10:18 適合我的不一定適合你
+10:20 影片最後
+10:21 我想再補充兩個進階的玩法
+10:23 第一是 output style 其實是跟著專案走的
+10:26 它存在每個專案的 settings.local.json 裡面
+10:29 所以你可以 A 專案掛一套
+10:30 B 專案掛另外一套
+10:32 完全互不影響
+10:33 比方說新接觸的專案可以像我剛剛說的一樣
+10:36 掛 explanatory 邊做邊學
+10:37 趕時間或者用 vibe coding 隨便玩玩的話
+10:40 就掛言簡意賅的 output style 衝進度
+10:42 下班前或者加班的時候
+10:44 可以用 Lydia 的 ELI5 讓自己頭不會那麼痛
+10:47 第二
+10:48 output style 不是設定一次就用到底的東西
+10:50 你的能力會進步
+10:51 三個月前需要解釋的概念
+10:53 現在可能已經變成常識了
+10:55 這時候就可以把 style 的技術密度往上調
+10:57 Claude Code 團隊自己也是這樣用的
+10:59 不同專案，不同任務
+11:00 甚至當天累不累
+11:02 都會切換不同的 style
+11:03 就好像聽音樂一樣
+11:05 同一首歌
+11:05 你有時候想大聲點
+11:07 有時候想小聲點
+11:08 有時候想開降噪模式
+11:09 有時候想開通透模式
+11:11 隨時都可以調到自己耳朵最舒服的狀態
+11:14 Output style 這個功能上線很久了
+11:16 但大部分人到今天都還在用預設值
+11:19 然後一邊用一邊罵模型降智
+11:21 花個五分鐘設定一次
+11:23 之後每一天都能為你省下大量精力
+11:25 這是我近期滿喜歡的一個
+11:26 Claude Code 客製化設定
+11:28 希望今天的內容對你有幫助
+11:30 如果你也有用過
+11:31 歡迎在底下留言告訴我
+11:32 你私藏的 output style
+11:34 那以上就是今天的內容
+11:35 喜歡的話記得幫我按讚，追蹤，分享
+11:38 這是我持續創作下去的最大動力
+11:39 我們下次見！</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://www.youtube.com/watch?v=E8Bx9OlpmdM" target="_blank" rel="noopener">https://www.youtube.com/watch?v=E8Bx9OlpmdM</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

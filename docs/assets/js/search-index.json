@@ -1,5 +1,11 @@
 [
   {
+    "title": "看不懂 Claude 的輸出？其實只要改一個內建設定 - Hermes Docs",
+    "url": "videos/GaryChen_ClaudeCode_OutputStyle.html",
+    "date": "2026-08-12 11:13",
+    "content": "看不懂 Claude 的輸出？其實只要改一個內建設定 - Hermes Docs 返回首頁 看不懂 Claude 的輸出？其實只要改一個內建設定 發布時間：2026-08-12 19:13 🌙 YouTube 影片重點整理 看不懂 Claude 的輸出？其實只要改一個內建設定 📺 Gary Chen ⏱ 11:41 🗓 2026-08-12 🌐 zh-Hant 🔗 https://www.youtube.com/watch?v=E8Bx9OlpmdM 這支影片主張，許多人覺得 Claude 變難用，未必是模型能力下降，而是輸出風格和使用者的理解方式對不上。影片介紹 Claude Code 的 output style 功能：它不改變寫程式能力，只改變 AI 回覆你的語氣、長度、術語密度與報告格式。作者示範 Lydia Hallie 分享的 ELI5 風格，並說明可用 /config 切換 output style，或用 /branch 讓 Claude 根據你看不懂的輸出生成多種風格版本。影片也比較內建四套風格、Matt Pocock 的 wait what skill，以及作者團隊針"
+  },
+  {
     "title": "教你用 Claude Code 把任意書籍變成 Skill！#claudecode #vibecoding #github #開源項目 #skills - Hermes Docs",
     "url": "videos/我是阿眾_Book-to-Skill_ClaudeCode書籍Skill.html",
     "date": "2026-08-10 12:11",
