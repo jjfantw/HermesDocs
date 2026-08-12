@@ -1,5 +1,11 @@
 [
   {
+    "title": "逼大模型當「野人」：Caveman 與熵引導分支如何壓低 Agent 成本 - Hermes Docs",
+    "url": "videos/wow_哇_Caveman_EGB_Agent工具路由.html",
+    "date": "2026-08-12 12:16",
+    "content": "逼大模型當「野人」：Caveman 與熵引導分支如何壓低 Agent 成本 - Hermes Docs 返回首頁 逼大模型當「野人」：Caveman 與熵引導分支如何壓低 Agent 成本 發布時間：2026-08-12 20:16 🌙 YouTube 影片重點整理 逼大模型當「野人」：Caveman 與熵引導分支如何壓低 Agent 成本 📺 wow.哇 ⏱ 16:50 🗓 2026-04-17 🌐 zh-Hans 🔗 https://www.youtube.com/watch?v=QgDgUxBU-ek 這支影片從 AI Agent 基礎設施的快速擴張談起，指出開發者正在面對兩種成本壓力：輸出端的 Token 稅，以及執行端在海量 API 空間中的搜尋成本。前半段介紹 Caveman 協議，影片稱它透過要求模型以極簡電報體回覆，平均砍掉 75% 的輸出 token，並用本地壓縮與文言文模式進一步壓縮上下文與字元。影片接著引用簡潔性約束相關研究，主張過度闡述不只費錢，也可能誘發幻覺；當模型被迫保持簡短時，特定科學與數學基準的準確率反而上升。後半段轉向佐治亞理工與亞馬遜的熵引導分支（E"
+  },
+  {
     "title": "看不懂 Claude 的輸出？其實只要改一個內建設定 - Hermes Docs",
     "url": "videos/GaryChen_ClaudeCode_OutputStyle.html",
     "date": "2026-08-12 11:13",

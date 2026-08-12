@@ -1,0 +1,1624 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>逼大模型當「野人」：Caveman 與熵引導分支如何壓低 Agent 成本 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>逼大模型當「野人」：Caveman 與熵引導分支如何壓低 Agent 成本</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-08-12 20:16</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">逼大模型當「野人」：Caveman 與熵引導分支如何壓低 Agent 成本</h1>
+    <div class="meta"><span data-field="channel">📺 wow.哇</span><span data-field="duration">⏱ 16:50</span><span data-field="published_date">🗓 2026-04-17</span><span data-field="original_language">🌐 zh-Hans</span><a data-field="source_url" href="https://www.youtube.com/watch?v=QgDgUxBU-ek" target="_blank" rel="noopener">🔗 https://www.youtube.com/watch?v=QgDgUxBU-ek</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>這支影片從 AI Agent 基礎設施的快速擴張談起，指出開發者正在面對兩種成本壓力：輸出端的 Token 稅，以及執行端在海量 API 空間中的搜尋成本。前半段介紹 Caveman 協議，影片稱它透過要求模型以極簡電報體回覆，平均砍掉 75% 的輸出 token，並用本地壓縮與文言文模式進一步壓縮上下文與字元。影片接著引用簡潔性約束相關研究，主張過度闡述不只費錢，也可能誘發幻覺；當模型被迫保持簡短時，特定科學與數學基準的準確率反而上升。後半段轉向佐治亞理工與亞馬遜的熵引導分支（EGB）論文，說明當企業有成千上萬個 API 時，傳統工具呼叫會遇到上下文爆炸、組合爆炸與試錯破產。EGB 的核心是根據模型預測的不確定度決定是否分支：低熵時單線前進，高熵時才展開多路探索，並在成功或走入死胡同後動態剪枝。影片最後把 MCP、Caveman、EGB 串成 Agent 走向企業級基礎設施的三層圖像：通信層統一工具、輸出層壓縮 token、執行層用數學路由與剪枝。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">1. Agent 的成本問題不只在模型單價，而在高頻工作流累積出的 Token 稅</h2><span class="ts-badge" data-field="lesson_timestamp">00:54</span></div><div class="body" data-field="lesson_body"><p>影片指出，大模型被訓練成禮貌的聊天助理後，常在輸出中帶有過度闡述、問候語與冗餘語法。這些文字在一般聊天視窗看起來像是貼心，但放進高頻、自動化的 Agent 工作流後，會在成百上千次微操作中被放大成實際費用與延遲。</p><p>這裡的核心概念是 <strong>Token 稅</strong>：不是單次回答多幾句而已，而是每一次讀檔、寫檔、執行腳本、回報狀態都被多餘語言拖慢。影片把它稱為開發者在 Agent 進入終端工程流程後撞上的成本惡夢。</p><span class="tag" data-field="lesson_tag">Token Tax</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">2. Caveman 協議用「聰明野人」角色把輸出壓成電報體</h2><span class="ts-badge" data-field="lesson_timestamp">01:33</span></div><div class="body" data-field="lesson_body"><p>影片介紹 Caveman 作為 token 優化協議，核心做法是透過輕量指令注入，要求模型在保持技術準確性的前提下剝離連詞、冠詞、口語填充與對沖語。模型被要求用接近「事物、動作、原因、下一步」的極簡電報體回答。</p><p>影片稱這種做法平均砍掉 75% 的輸出 token；同時，工具包還有本地壓縮模組，可壓縮專案記憶檔。影片也提到文言文模式，利用古漢語的高資訊密度進一步壓縮字元。</p><span class="tag" data-field="lesson_tag">Caveman Protocol</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">3. 簡短不只是省錢：影片主張冗長解釋也可能誘發幻覺</h2><span class="ts-badge" data-field="lesson_timestamp">03:46</span></div><div class="body" data-field="lesson_body"><p>影片接著把 Caveman 連到學術研究：傳統提示詞工程常以為模型思考與輸出越多，推理就越嚴謹；但影片引用 2026 年 3 月的簡潔性約束研究，說大型語言模型可能在冗長解釋中被自己的廢話繞暈，最後說服自己給出錯誤答案。</p><p>影片說，當透過類似 Caveman 的指令強制模型保持極度簡短時，特定科學與數學基準的準確率反而提高 26 個百分點。這段的重點不是「所有任務都越短越好」，而是影片明確主張：在工程工作流裡，剝離修辭可以同時降低成本與幻覺風險。</p><span class="tag" data-field="lesson_tag">Brevity &amp; Hallucination</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">4. 海量工具空間讓傳統工具呼叫從玩具 demo 變成組合爆炸</h2><span class="ts-badge" data-field="lesson_timestamp">06:28</span></div><div class="body" data-field="lesson_body"><p>影片後半段轉向執行端：如果說 Caveman 是讓模型閉嘴做事，熵引導分支要解決的是模型在成千上萬個 API 中如何選路。影片指出，多數 demo 的工具庫只有個位數或十幾個工具，因此模型看起來很聰明；但真實企業環境可能有上百、上千、甚至上萬個內部 API。</p><p>影片列出三個失效點：第一，<strong>上下文爆炸</strong>，因為不可能把一萬個 API 文件全塞進 prompt；第二，<strong>組合爆炸</strong>，長週期任務連續十步工具呼叫時，錯誤機率會被放大；第三，<strong>試錯破產</strong>，傳統 Tree of Thought 或 DFS 可能讓 Agent 在大量錯誤分支上重試，直接推高 API 成本。</p><span class="tag" data-field="lesson_tag">Large Tool Spaces</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">5. Slate 基準用長週期、多工具任務檢驗 Agent 的真實規劃能力</h2><span class="ts-badge" data-field="lesson_timestamp">08:35</span></div><div class="body" data-field="lesson_body"><p>在提出 EGB 前，影片說佐治亞理工與亞馬遜團隊先建立 Slate 基準，因為既有測試集工具太少，或只看單步準確率，無法反映真實世界的多步協同。Slate 被描述成一個合成的電商微服務宇宙，Agent 必須在大量功能相似、命名容易混淆的 API 中完成退貨審批、跨國物流追蹤、複雜訂單修改等任務。</p><p>影片指出，頂尖模型在這種壓力測試中暴露出脆弱性：出錯後不一定能理解錯誤根源，可能用相同錯誤參數反覆請求；面對相似 API 時，也容易窮舉相關工具，浪費算力與 token。</p><span class="tag" data-field="lesson_tag">Slate Benchmark</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">6. EGB 的核心：只在高熵、不確定的節點展開分支</h2><span class="ts-badge" data-field="lesson_timestamp">10:19</span></div><div class="body" data-field="lesson_body"><p>影片把 EGB 描述為基於不確定性感知的動態搜尋算法。它用資訊熵衡量模型對下一個工具選擇的確定程度：如果模型很篤定，熵低；如果多個工具機率接近，熵高，代表模型處在不確定狀態。</p><p>傳統多路徑搜尋每一步都保留 Top-k 分支；影片批評這像是無論問題多簡單都強行切出平行宇宙。EGB 的做法則是 <strong>只在高熵節點分支</strong>：低熵時單線前進，高熵時才花成本探索。</p><span class="tag" data-field="lesson_tag">Entropy-Guided Branching</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">07</span><h2 data-field="lesson_title">7. 動態剪枝把算力用在刀口：低熵快走，高熵探索，成功後收縮</h2><span class="ts-badge" data-field="lesson_timestamp">11:57</span></div><div class="body" data-field="lesson_body"><p>影片用「圍棋大師」比喻 EGB 的探索與利用。當 Agent 遇到熟悉、低熵的邏輯鏈條，EGB 會收縮分支、單線前進，不浪費 token 探索其他選項；當遇到模糊報錯或相似高階 API，熵上升，系統才在該節點展開分支。</p><p>最後，當某條探索路徑成功或走入死胡同，算法會剪掉無效分支，把算力重新收縮到正確軌道。影片稱這種機制在 Slate 長週期任務中提高成功率，並把平均 token 數與 API 呼叫次數降低一個數量級。</p><span class="tag" data-field="lesson_tag">Dynamic Pruning</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">08</span><h2 data-field="lesson_title">8. 影片的 Agent 終局圖像：MCP 擴工具、Caveman 壓輸出、EGB 管路由</h2><span class="ts-badge" data-field="lesson_timestamp">13:57</span></div><div class="body" data-field="lesson_body"><p>影片最後把三件事拼成企業級 Agent 基礎設施：通信層由 MCP 統一工具介面，讓模型連接更多資料源與工具；輸出層由 Caveman 類協議壓縮自然語言中的多餘修辭；執行層則由 EGB 這類方法，在海量工具庫中做路由與剪枝。</p><p>影片的結論是，下一階段的價值不只在更會寫 prompt，而在能構建高熵動態路由的底層框架。誰能把 EGB 這類剪枝算法整合進 Agent 調度器，誰就更可能成為企業級 AI Agent 的路由基礎設施。</p><span class="tag" data-field="lesson_tag">Agent Infrastructure</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">Agent 的效率，不只取決於模型多聰明，也取決於它少說多少廢話、少走多少錯路。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="00:00"><span class="ts">00:00</span><span class="text" data-field="key_point_text">影片開場指出 AI Agent 基建快速升溫，Hermes Agent 與記憶插件等項目被視為本月開源雷達上的主角。</span></li><li data-field="key_point" data-timestamp="00:54"><span class="ts">00:54</span><span class="text" data-field="key_point_text">當 Agent 被接入高頻自動化工作流，禮貌問候與冗長解釋會在大量微操作中累積成昂貴的 Token 稅。</span></li><li data-field="key_point" data-timestamp="01:33"><span class="ts">01:33</span><span class="text" data-field="key_point_text">Caveman 被描述為 token 優化基礎設施，透過強制模型扮演「聰明的野人」來壓縮輸出。</span></li><li data-field="key_point" data-timestamp="02:15"><span class="ts">02:15</span><span class="text" data-field="key_point_text">Caveman 的做法是剝離連詞、冠詞、填充詞與對沖語，要求模型以「事物、動作、原因、下一步」式的電報體回答。</span></li><li data-field="key_point" data-timestamp="02:44"><span class="ts">02:44</span><span class="text" data-field="key_point_text">影片稱 Caveman 平均砍掉 75% 的輸出 token，並用本地壓縮模組壓縮專案記憶檔。</span></li><li data-field="key_point" data-timestamp="03:46"><span class="ts">03:46</span><span class="text" data-field="key_point_text">影片引用簡潔性約束研究，主張過度闡述可能讓模型在冗長解釋中產生幻覺。</span></li><li data-field="key_point" data-timestamp="04:20"><span class="ts">04:20</span><span class="text" data-field="key_point_text">影片稱類似 Caveman 的極簡指令在特定科學與數學基準中，讓準確率提高 26 個百分點。</span></li><li data-field="key_point" data-timestamp="05:43"><span class="ts">05:43</span><span class="text" data-field="key_point_text">主題轉向「在 10 萬個 API 中尋找最優解」，也就是 Agent 工具鏈在執行端面對的搜尋問題。</span></li><li data-field="key_point" data-timestamp="06:28"><span class="ts">06:28</span><span class="text" data-field="key_point_text">第一個問題是海量工具空間：玩具 demo 只處理少量工具，但真實企業可能有成百上千甚至上萬個內部 API。</span></li><li data-field="key_point" data-timestamp="07:39"><span class="ts">07:39</span><span class="text" data-field="key_point_text">影片列出三個痛點：上下文爆炸、組合爆炸、試錯破產。</span></li><li data-field="key_point" data-timestamp="08:35"><span class="ts">08:35</span><span class="text" data-field="key_point_text">佐治亞理工與亞馬遜團隊提出 Slate 基準，用來評估 Agent 面對大規模工具集與長週期任務時的表現。</span></li><li data-field="key_point" data-timestamp="10:19"><span class="ts">10:19</span><span class="text" data-field="key_point_text">EGB 以資訊熵衡量模型對下一步工具選擇的不確定度，只有在高熵節點才展開分支。</span></li><li data-field="key_point" data-timestamp="11:57"><span class="ts">11:57</span><span class="text" data-field="key_point_text">EGB 在低熵情境收縮成單線執行，在不確定情境才展開多路探索，並依結果動態剪枝與回溯。</span></li><li data-field="key_point" data-timestamp="13:57"><span class="ts">13:57</span><span class="text" data-field="key_point_text">影片最後把 MCP、Caveman、EGB 分別放在通信層、輸出層、執行層，視為企業級 Agent 基礎設施的拼圖。</span></li><li data-field="key_point" data-timestamp="15:49"><span class="ts">15:49</span><span class="text" data-field="key_point_text">結論強調，沒有底層演算法與 token 壓縮支撐，單靠病毒式敘事很難承受真實算力成本。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="AI Agent">AI Agent</span><span class="tag-chip" data-tag="Caveman">Caveman</span><span class="tag-chip" data-tag="Token 稅">Token 稅</span><span class="tag-chip" data-tag="熵引導分支">熵引導分支</span><span class="tag-chip" data-tag="EGB">EGB</span><span class="tag-chip" data-tag="工具呼叫">工具呼叫</span><span class="tag-chip" data-tag="MCP">MCP</span><span class="tag-chip" data-tag="Hermes Agent">Hermes Agent</span><span class="tag-chip" data-tag="Slate Benchmark">Slate Benchmark</span><span class="tag-chip" data-tag="API 路由">API 路由</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>YouTube 無字幕且 transcript API 顯示停用逐字稿；主文依影片描述與 Whisper STT 產生，專有名詞已做人工校正但仍建議以原影片確認。</li><li>影片口播中的榜單名稱與部分專案名（如 Man Palace、Cloudman / Claude 相關字樣）受 ASR 漂字影響，未在主文做延伸判斷。</li></ul></div></section>
+  <section class="glossary" data-field="asr_glossary"><h2>🎙️ ASR 漂字對照表</h2><div class="card"><table class="glossary"><tr data-field="asr_glossary_row"><td data-field="heard">商引導 / 商營島 / 商引到分支</td><td>→</td><td data-field="corrected">熵引導分支（Entropy-Guided Branching, EGB）</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">EGP</td><td>→</td><td data-field="corrected">EGB</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">減值 / 減支 / 剪直</td><td>→</td><td data-field="corrected">剪枝</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">佐塞亞理工</td><td>→</td><td data-field="corrected">佐治亞理工</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Julia Bruzi</td><td>→</td><td data-field="corrected">Julius Brussee（影片描述連結作者名；ASR 可能漂字）</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">CloudOps 4.6</td><td>→</td><td data-field="corrected">Claude / Claude Opus 相關字樣（未完全確認）</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">OpenCloud</td><td>→</td><td data-field="corrected">Claude Code / Claude 相關字樣（未完全確認）</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Top cake</td><td>→</td><td data-field="corrected">Top-k</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Lost in the middle 幻覺</td><td>→</td><td data-field="corrected">Lost in the middle 問題</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">托捆稅</td><td>→</td><td data-field="corrected">Token 稅</td></tr></table></div></section>
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="description"><div class="raw-label">YouTube shortDescription（原始描述）<button class="copy-btn" id="raw_description_4381224192_srt" onclick="copyRaw(this,'raw_description_4381224192_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_description_4381224192_text" onclick="copyRawText(this,'raw_description_4381224192_text')">📋 複製純文字</button></div><pre>AI Agent 正在疯狂进化，但高昂的“Token 税”却成了开发者的噩梦！大模型过度礼貌的“废话”不仅费钱，还会让 AI 降智产生幻觉？本期视频，我将带你潜入本月的开源黑暗森林，揭秘暴涨的底层框架，并深度解读“山顶洞人协议 (Caveman)”如何用极简电报体砍掉 75% 算力。同时，我们还将硬核拆解佐治亚理工与亚马逊的重磅论文，看看“熵引导分支 (EGB)”算法如何用热力学定律，拯救 Agent 在十万个 API 中的搜索迷宫！
+AI Agents are evolving at an insane pace, but the astronomical &quot;Token Tax&quot; is becoming a developer&#x27;s worst nightmare! Did you know that an LLM&#x27;s polite &quot;fluff&quot; not only burns money but also induces hallucinations? In this video, we dive into the open-source dark forest to explore how the &quot;Caveman Protocol&quot; cuts compute by 75% through extreme brevity. We also break down a groundbreaking paper from Georgia Tech &amp; Amazon, revealing how &quot;Entropy-Guided Branching (EGB)&quot; uses thermodynamics to help Agents navigate the massive maze of 10,000+ APIs!
+▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+📄 核心内容 &amp; 关键词 | Key Content &amp; Keywords:
+Token税与山顶洞人协议 (Token Tax &amp; Caveman Protocol): 为什么大模型的“礼貌废话”会拖垮自动化工作流？我们剖析了 Caveman 协议如何通过强制模型扮演“聪明的野人”，实现 75% 的算力节省与极高的物理压缩比。
+Why does an LLM&#x27;s &quot;politeness&quot; destroy automated workflows? We explore how the Caveman protocol forces models to act as &quot;smart cavemen,&quot; saving 75% in compute and achieving massive physical compression.
+简洁性与降智干预 (Brevity &amp; Hallucination Mitigation): 结合学术界最新发现，揭示为什么“剥夺大模型的修辞特权”能将其在科学数学基准上的准确率暴增 26%，从物理层面消除幻觉温床。
+Drawing on recent academic findings, we reveal why &quot;stripping LLMs of their rhetorical privileges&quot; boosts accuracy by 26% on scientific benchmarks and eliminates the root causes of hallucinations.
+海量工具空间难题 (Large Tool Spaces): 当真实企业环境中存在上万个 API 时，传统的工具调用范式为何会面临“上下文爆炸”与“组合爆炸”？
+Why do traditional tool-calling paradigms face &quot;context explosion&quot; and &quot;combinatorial explosion&quot; when dealing with tens of thousands of internal APIs in real enterprise environments?
+熵引导分支策略 (Entropy-Guided Branching, EGB): 深度解读佐治亚理工与亚马逊的联合论文。这套基于不确定性感知（Uncertainty-aware）的动态剪枝算法，如何像围棋大师一样在探索与利用中找到最优解。
+A deep dive into the joint paper by Georgia Tech &amp; Amazon. How does this uncertainty-aware dynamic pruning algorithm find the optimal path like a Go master balancing exploration and exploitation?
+▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+🔔 订阅并加入我的会员 | Subscribe &amp; Join my membership!
+你认为在未来的 AI Agent 时代，大模型应该保留“人类的情感温度”，还是变成“极致冷酷的算力机器”？在评论区分享你的看法！
+Do you think future AI Agents should retain &quot;human-like warmth&quot; or become &quot;ruthlessly efficient compute machines&quot;? Share your thoughts in the comments below!
+如果你喜欢本期内容，请不要忘记点赞、分享，并【订阅】我的频道，开启小铃铛，第一时间获取关于前沿科技的深度解析。
+If you enjoyed this video, please like, share, and SUBSCRIBE for more deep dives into our technological future.
+👉 支持我持续创作 | Support My Work:
+加入我的会员频道，提前观看视频并获得专属福利！
+Join my channel membership to get early access to videos and exclusive perks!
+https://www.youtube.com/channel/UCUruNDxpAAIsagdOH9cBuXA/join
+▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+🔗 本期视频提及的项目与论文链接 | Mentioned Links:
+https://github.com/JuliusBrussee/caveman
+https://arxiv.org/pdf/2604.00025
+https://arxiv.org/pdf/2604.12126
+▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+#AIAgent #TokenTax #OpenSource #LLM #CavemanProtocol #MachineLearning #ArtificialIntelligence #Web3 #TechTrends #人工智能 #AI代理 #大语言模型 #开源社区 #科技前沿 #深度学习 #算法 #效率优化</pre></div><div class="raw-block" data-field="raw_source_item" data-raw-type="whisper"><div class="raw-label">Whisper STT SRT（原始逐字稿）<button class="copy-btn" id="raw_whisper_4381224512_srt" onclick="copyRaw(this,'raw_whisper_4381224512_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_whisper_4381224512_text" onclick="copyRawText(this,'raw_whisper_4381224512_text')">📋 複製純文字</button></div><pre>1
+00:00:00,000 --&gt; 00:00:02,440
+在本月的开源黑暗四林中
+
+2
+00:00:02,440 --&gt; 00:00:04,600
+I-Agent的基建狂潮
+
+3
+00:00:04,600 --&gt; 00:00:07,640
+正在以一种令人窒息的动能席卷一切
+
+4
+00:00:07,640 --&gt; 00:00:09,140
+我们来看今天
+
+5
+00:00:09,140 --&gt; 00:00:12,020
+奥姆利亨特雷达上的两大绝对霸主
+
+6
+00:00:12,020 --&gt; 00:00:14,380
+一个是底层编排框架
+
+7
+00:00:14,380 --&gt; 00:00:15,320
+Hermes Agent
+
+8
+00:00:15,320 --&gt; 00:00:19,680
+正在以每天激增近4200个星的恐怖云素
+
+9
+00:00:19,680 --&gt; 00:00:22,940
+稳健的向10万星的神座发起冲锋
+
+10
+00:00:22,940 --&gt; 00:00:26,780
+而主打持久化上下文的记忆插件Cloudman
+
+11
+00:00:26,780 --&gt; 00:00:30,560
+更是迎来了超过82%的二次加速
+
+12
+00:00:30,560 --&gt; 00:00:32,860
+日增突破4100星
+
+13
+00:00:32,860 --&gt; 00:00:34,460
+直逼6万星大关
+
+14
+00:00:34,460 --&gt; 00:00:37,360
+编排引擎与记忆神经的爆发
+
+15
+00:00:37,360 --&gt; 00:00:38,660
+标志着大模型
+
+16
+00:00:38,660 --&gt; 00:00:42,980
+已经彻底在复杂的终端工程流血线中扎根了
+
+17
+00:00:42,980 --&gt; 00:00:46,860
+但当这些Agent开始全天候的在终端里
+
+18
+00:00:46,860 --&gt; 00:00:49,120
+读写文件执行脚本的时候
+
+19
+00:00:49,120 --&gt; 00:00:51,700
+开发者们迎头撞上了一个
+
+20
+00:00:51,700 --&gt; 00:00:53,800
+极其痛楚的金具鞋恶梦
+
+21
+00:00:53,800 --&gt; 00:00:54,580
+Token税
+
+22
+00:00:54,580 --&gt; 00:00:58,880
+长期以来像CloudOps 4.6这样的大圆模型
+
+23
+00:00:58,880 --&gt; 00:01:00,720
+被训练成了礼貌的仆人
+
+24
+00:01:00,720 --&gt; 00:01:04,120
+他们在输出时充满了过度阐述
+
+25
+00:01:04,120 --&gt; 00:01:07,700
+礼貌性的问候以及冗余的语法结构
+
+26
+00:01:07,700 --&gt; 00:01:09,020
+在网页聊天框里
+
+27
+00:01:09,020 --&gt; 00:01:11,100
+这种废话看起来很贴心
+
+28
+00:01:11,100 --&gt; 00:01:15,700
+但当Agent被接入高频执行的自动化工作流失
+
+29
+00:01:15,700 --&gt; 00:01:18,380
+一句简单的我很高兴为您解答
+
+30
+00:01:18,380 --&gt; 00:01:21,920
+就会在成百上千次的微操作循环中
+
+31
+00:01:21,920 --&gt; 00:01:24,800
+疯狂燃烧掉天价的API费用
+
+32
+00:01:24,800 --&gt; 00:01:27,920
+并直接拖垮系统响应延迟
+
+33
+00:01:27,920 --&gt; 00:01:30,920
+为了应对这些吞噬预算的Token刺客
+
+34
+00:01:30,920 --&gt; 00:01:33,780
+今天雷达上的第三个爆点诞生了
+
+35
+00:01:33,780 --&gt; 00:01:37,460
+它就是主打Token优化的基础设施协议
+
+36
+00:01:37,460 --&gt; 00:01:39,940
+Caveman迎来了它的起点时刻
+
+37
+00:01:39,940 --&gt; 00:01:43,980
+它在今天单日狂揽2787颗星
+
+38
+00:01:43,980 --&gt; 00:01:47,340
+实现了796%的恐怖暴涨
+
+39
+00:01:47,340 --&gt; 00:01:50,820
+总薪数强势突破3.5万大关
+
+40
+00:01:50,820 --&gt; 00:01:53,920
+可能有很多观众不了解Caveman的来历
+
+41
+00:01:53,920 --&gt; 00:01:55,200
+我简单的说一下
+
+42
+00:01:55,200 --&gt; 00:01:57,120
+它是从10分钟的玩笑
+
+43
+00:01:57,120 --&gt; 00:02:00,400
+到节省75%算力的核心基建
+
+44
+00:02:00,400 --&gt; 00:02:03,980
+Caveman协议是由荷兰的莱顿大学的
+
+45
+00:02:03,980 --&gt; 00:02:07,460
+19岁数据科学学生Julia Bruzi开发的
+
+46
+00:02:07,460 --&gt; 00:02:11,840
+这个原本只花了他10分钟就写出来的玩笑项目
+
+47
+00:02:11,840 --&gt; 00:02:15,000
+其核心逻辑极其粗暴并且有效
+
+48
+00:02:15,000 --&gt; 00:02:18,520
+就是强制大模型扮演一个聪明的野人
+
+49
+00:02:18,520 --&gt; 00:02:20,740
+通过轻量级的指令注入
+
+50
+00:02:20,740 --&gt; 00:02:23,960
+系统强迫大模型在保持百分之百
+
+51
+00:02:23,960 --&gt; 00:02:25,980
+技术准确性的前提下
+
+52
+00:02:25,980 --&gt; 00:02:27,260
+无情的剥离
+
+53
+00:02:27,260 --&gt; 00:02:30,140
+一中所有的连词贯词
+
+54
+00:02:30,140 --&gt; 00:02:33,000
+口语填充词以及对冲性废话
+
+55
+00:02:33,000 --&gt; 00:02:37,840
+模型被要求必须以事物动作原因下一步
+
+56
+00:02:37,840 --&gt; 00:02:41,960
+这种极度克制的电报体结构来进行回复
+
+57
+00:02:41,960 --&gt; 00:02:44,340
+结果是毁灭性的高效
+
+58
+00:02:44,340 --&gt; 00:02:47,300
+Caveman将模型输出的token数量
+
+59
+00:02:47,300 --&gt; 00:02:50,260
+平均砍掉了惊人的75%
+
+60
+00:02:50,260 --&gt; 00:02:53,240
+为了对付agent每次启动都要读取
+
+61
+00:02:53,240 --&gt; 00:02:56,000
+庞大背景提示词的上下文税
+
+62
+00:02:56,000 --&gt; 00:02:59,200
+工具包还配备了本地压缩模块
+
+63
+00:02:59,200 --&gt; 00:03:02,840
+能将项目的核心记忆文件压缩46%
+
+64
+00:03:03,500 --&gt; 00:03:05,000
+更令人叛计觉得是
+
+65
+00:03:05,000 --&gt; 00:03:09,920
+为了追求极致的物理压缩协议甚至内置了一个文言文模式
+
+66
+00:03:09,920 --&gt; 00:03:11,420
+利用古汉语
+
+67
+00:03:11,420 --&gt; 00:03:12,500
+省略主语
+
+68
+00:03:12,500 --&gt; 00:03:15,200
+无动词变味的极高信息密度
+
+69
+00:03:15,200 --&gt; 00:03:19,660
+系统能在维持技术参数不丢失的情况下
+
+70
+00:03:19,660 --&gt; 00:03:24,220
+实现高达80%到90%的字符及缩减
+
+71
+00:03:24,220 --&gt; 00:03:28,780
+这是对算力榨取最硬核的东方烂门主义演绎
+
+72
+00:03:28,780 --&gt; 00:03:32,100
+其实我们大众都在用脚投票
+
+73
+00:03:32,100 --&gt; 00:03:34,480
+废话不仅费钱还会降制
+
+74
+00:03:34,480 --&gt; 00:03:36,200
+如果仅仅是省钱
+
+75
+00:03:36,200 --&gt; 00:03:39,080
+Caveman是不足以引爆整个工程界的
+
+76
+00:03:39,080 --&gt; 00:03:40,840
+真正让他封城的是他
+
+77
+00:03:40,840 --&gt; 00:03:43,480
+无意间踩中了AI学术界
+
+78
+00:03:43,480 --&gt; 00:03:46,420
+关于模型降制的底层秘密
+
+79
+00:03:46,420 --&gt; 00:03:47,680
+在传统的提示词
+
+80
+00:03:47,680 --&gt; 00:03:48,820
+工程认知中
+
+81
+00:03:48,820 --&gt; 00:03:50,520
+开发者普遍认为
+
+82
+00:03:50,520 --&gt; 00:03:52,940
+模型思考和输出的越多
+
+83
+00:03:52,940 --&gt; 00:03:54,260
+推理就越严谨
+
+84
+00:03:54,260 --&gt; 00:03:57,040
+但2026年3月的这篇论文
+
+85
+00:03:57,040 --&gt; 00:03:59,600
+简洁性约束对原模型
+
+86
+00:03:59,600 --&gt; 00:04:01,680
+性能排序的逆转效应
+
+87
+00:04:01,680 --&gt; 00:04:03,400
+彻底推翻了这一尝试
+
+88
+00:04:03,400 --&gt; 00:04:07,080
+研究团队在评估了31个大模型后发现
+
+89
+00:04:07,080 --&gt; 00:04:10,680
+大型语言模型经常因为过度阐述
+
+90
+00:04:10,680 --&gt; 00:04:12,520
+而产生严重的幻觉
+
+91
+00:04:12,520 --&gt; 00:04:14,840
+他们在漫长的冗余解释中
+
+92
+00:04:14,840 --&gt; 00:04:17,280
+往往会用废话把自己绕晕
+
+93
+00:04:17,280 --&gt; 00:04:20,280
+最终说服自己给出一个错误的答案
+
+94
+00:04:20,280 --&gt; 00:04:23,960
+实验揭示了一个惊人的因果干预结果
+
+95
+00:04:23,960 --&gt; 00:04:27,320
+当通过类似Caveman的指令强制大模型
+
+96
+00:04:27,320 --&gt; 00:04:29,360
+保持极度减暖的时候
+
+97
+00:04:29,360 --&gt; 00:04:32,760
+他们在特定科学和数学基准上的准确率
+
+98
+00:04:32,760 --&gt; 00:04:34,760
+反而暴增了26个百分点
+
+99
+00:04:34,760 --&gt; 00:04:37,920
+研究指出在标准的大元回复中
+
+100
+00:04:37,920 --&gt; 00:04:39,520
+真正有技术价值的答案
+
+101
+00:04:39,520 --&gt; 00:04:41,520
+通常只占42%
+
+102
+00:04:41,520 --&gt; 00:04:44,960
+其余58%全是涂增噪音的废话
+
+103
+00:04:44,960 --&gt; 00:04:46,000
+换句话说
+
+104
+00:04:46,000 --&gt; 00:04:49,000
+Caveman协议不仅帮企业省下了钱
+
+105
+00:04:49,000 --&gt; 00:04:53,800
+还在物理层面上剥离了诱发AI产生幻觉的温床
+
+106
+00:04:53,800 --&gt; 00:04:57,640
+让聪明的大模型不再因为化劳而变笨
+
+107
+00:04:57,640 --&gt; 00:05:00,000
+随着Caveman协议光速渗透
+
+108
+00:05:00,000 --&gt; 00:05:02,000
+进各大主流的agent的终端
+
+109
+00:05:02,000 --&gt; 00:05:06,240
+这标志着AI开发者社区的一次认知大觉醒
+
+110
+00:05:06,240 --&gt; 00:05:08,660
+对于硬核的软件工程而言
+
+111
+00:05:08,660 --&gt; 00:05:12,540
+我们必须彻底抛弃对大模型的拟人化迷梦
+
+112
+00:05:12,540 --&gt; 00:05:15,840
+他们根本不是用来嘘寒问暖的虚理员工
+
+113
+00:05:15,840 --&gt; 00:05:18,960
+而是高并发高成本的算的引擎
+
+114
+00:05:18,960 --&gt; 00:05:22,800
+让一台超级计算机对你进行人类礼仪上的寒暄
+
+115
+00:05:22,800 --&gt; 00:05:24,900
+是一种极度奢侈的浪费
+
+116
+00:05:24,900 --&gt; 00:05:27,840
+当模型被剥夺了修辞特权
+
+117
+00:05:27,840 --&gt; 00:05:29,940
+回归冷酷的代码本质时
+
+118
+00:05:29,940 --&gt; 00:05:34,120
+他们才真正成为开发者大脑的高带宽延伸
+
+119
+00:05:34,120 --&gt; 00:05:39,380
+而当野人协议在输出端将算力效率逼近物理极限时
+
+120
+00:05:39,380 --&gt; 00:05:43,120
+这就引出了我们今天要深度探讨的下一个残酷命题
+
+121
+00:05:43,120 --&gt; 00:05:45,980
+在10万个API中寻找最优解
+
+122
+00:05:45,980 --&gt; 00:05:49,640
+商引到分支与agent工具链的暴力美学
+
+123
+00:05:49,640 --&gt; 00:05:53,880
+当我们将视角从输出端转向执行端时
+
+124
+00:05:53,880 --&gt; 00:05:58,040
+一个更加恐怖的算力黑洞正在吞噬着整个agent的赛道
+
+125
+00:05:58,040 --&gt; 00:06:02,380
+我们尝试通过这篇重磅论文去探索迷思
+
+126
+00:06:02,380 --&gt; 00:06:07,800
+来自佐塞亚理工学院与亚马逊联合团队的商引导分支策略
+
+127
+00:06:07,800 --&gt; 00:06:11,520
+如果说Caveman教会的大模型闭嘴做事
+
+128
+00:06:11,520 --&gt; 00:06:13,940
+那么这篇论文则是在交纳模型
+
+129
+00:06:13,940 --&gt; 00:06:19,140
+当面对一个拥有成千上万个可用API的真实企业环境时
+
+130
+00:06:19,140 --&gt; 00:06:21,940
+如何不迷失在无尽的角色术中
+
+131
+00:06:21,940 --&gt; 00:06:26,100
+用最少的试错成本找到一条通往成功的路径
+
+132
+00:06:26,100 --&gt; 00:06:28,780
+我们接下来分成这四部分来拆解
+
+133
+00:06:28,780 --&gt; 00:06:31,520
+第一部分我们要告别玩具沙盒
+
+134
+00:06:31,520 --&gt; 00:06:34,400
+直面海量工具空间的真实噩梦
+
+135
+00:06:34,400 --&gt; 00:06:36,180
+在过去的两年里
+
+136
+00:06:36,180 --&gt; 00:06:38,580
+让大约模型调用外部工具
+
+137
+00:06:38,580 --&gt; 00:06:42,560
+已经从前沿探索变成了烂大街的基础功能
+
+138
+00:06:42,560 --&gt; 00:06:46,300
+但这其中隐藏着一个巨大的幸存者偏差
+
+139
+00:06:46,300 --&gt; 00:06:49,220
+目前市面上绝大多数的agent的演示
+
+140
+00:06:49,220 --&gt; 00:06:52,160
+无论是帮你查天气订机票
+
+141
+00:06:52,160 --&gt; 00:06:54,540
+还是在终端里运行几行pattern代码
+
+142
+00:06:54,540 --&gt; 00:06:57,940
+他们所面对的工具库通常是个位数
+
+143
+00:06:57,940 --&gt; 00:06:59,560
+最多不超过十几个
+
+144
+00:06:59,560 --&gt; 00:07:02,880
+在只有5个工具的玩具沙盒里
+
+145
+00:07:02,880 --&gt; 00:07:04,680
+大模型显得极其聪明
+
+146
+00:07:04,680 --&gt; 00:07:08,540
+它可以轻松的把所有工具的描述和参数
+
+147
+00:07:08,540 --&gt; 00:07:09,760
+塞进promptly
+
+148
+00:07:09,760 --&gt; 00:07:14,160
+然后通过简单的思维链决定先用哪个后用哪个
+
+149
+00:07:14,160 --&gt; 00:07:17,580
+但是真实的商业环境是极度残酷的
+
+150
+00:07:17,580 --&gt; 00:07:23,720
+想象一下亚马逊谷歌或者任何一家大型互联网公司的微服务架构
+
+151
+00:07:23,720 --&gt; 00:07:26,880
+我们可以看到一个真实的企业级agent
+
+152
+00:07:26,880 --&gt; 00:07:28,600
+面对的不是5个工具
+
+153
+00:07:28,600 --&gt; 00:07:31,800
+而是成百上千甚至上万个内部API
+
+154
+00:07:31,800 --&gt; 00:07:35,920
+在这个被论文称为海量工具空间的黑暗森林里
+
+155
+00:07:35,920 --&gt; 00:07:39,700
+传统的工具调用范式会瞬间土崩瓦解
+
+156
+00:07:39,700 --&gt; 00:07:41,600
+首先就是上下文爆炸
+
+157
+00:07:41,600 --&gt; 00:07:45,900
+你不可能把1万个API的文档全塞进上下文窗口里
+
+158
+00:07:45,900 --&gt; 00:07:48,600
+这会直接撑爆EM token的极限
+
+159
+00:07:48,600 --&gt; 00:07:51,400
+并引发严重的lost in the middle幻觉
+
+160
+00:07:51,400 --&gt; 00:07:54,260
+然后还会面临组合爆炸
+
+161
+00:07:54,260 --&gt; 00:07:58,500
+当一个长周期任务需要连续调用10个不同的工具时
+
+162
+00:07:58,500 --&gt; 00:08:04,160
+它潜在的调用路径是一个指数级膨胀的组合数学恶梦
+
+163
+00:08:04,160 --&gt; 00:08:08,420
+哪怕模型在每一步只有1%的概率选错工具
+
+164
+00:08:08,420 --&gt; 00:08:13,160
+在十步之后任务失败率也将变成一个令人绝望的天文数字
+
+165
+00:08:13,160 --&gt; 00:08:15,420
+最后就是试错破产
+
+166
+00:08:15,420 --&gt; 00:08:22,640
+传统的tree of thought或者DFS算法会让agent在无数个错误分支上疯狂重视
+
+167
+00:08:22,640 --&gt; 00:08:27,240
+导致API调用费用瞬间击穿企业的财务预算
+
+168
+00:08:27,240 --&gt; 00:08:30,800
+为了解决这个工业界迫在眉睫的痛点
+
+169
+00:08:30,800 --&gt; 00:08:35,080
+研究团队首先做了一件极其硬核的基础设施建设
+
+170
+00:08:35,080 --&gt; 00:08:41,220
+这就是第二部分Slate基准测试扯下LM规划能力的遮羞补
+
+171
+00:08:41,220 --&gt; 00:08:43,620
+在提出解决方案之前
+
+172
+00:08:43,620 --&gt; 00:08:47,480
+论文团队敏锐的发现了一个学术界的盲区
+
+173
+00:08:47,480 --&gt; 00:08:51,220
+也就是在目前根本没有一个合格的框架
+
+174
+00:08:51,220 --&gt; 00:08:56,740
+能够评估agent在面对海量工具执行长周期任务时的表现
+
+175
+00:08:56,740 --&gt; 00:08:59,640
+现有的测试集要么工具数量太少
+
+176
+00:08:59,640 --&gt; 00:09:01,640
+要么只看单部准确率
+
+177
+00:09:01,640 --&gt; 00:09:04,980
+完全无法反映真实事件的多部协同
+
+178
+00:09:04,980 --&gt; 00:09:07,640
+为此团队开发了Slate
+
+179
+00:09:07,640 --&gt; 00:09:11,220
+这是一个专为评估海量工具集成agent
+
+180
+00:09:11,220 --&gt; 00:09:15,360
+而设计的大规模的上下文感知的基准测试
+
+181
+00:09:15,360 --&gt; 00:09:18,320
+在这个合成的电商微服宇宙中
+
+182
+00:09:18,320 --&gt; 00:09:21,340
+agent必须在无数功能相似
+
+183
+00:09:21,340 --&gt; 00:09:23,660
+命名迷惑的API中穿梭
+
+184
+00:09:23,660 --&gt; 00:09:25,600
+完成退货审批
+
+185
+00:09:25,600 --&gt; 00:09:26,960
+跨国物流追踪
+
+186
+00:09:26,960 --&gt; 00:09:28,500
+复杂订单修改
+
+187
+00:09:28,500 --&gt; 00:09:30,580
+等等长周期任务
+
+188
+00:09:30,580 --&gt; 00:09:31,800
+在这个照耀镜下
+
+189
+00:09:31,800 --&gt; 00:09:33,180
+目前顶尖的大模型
+
+190
+00:09:33,180 --&gt; 00:09:35,180
+暴露出了令人震惊的脆弱
+
+191
+00:09:35,180 --&gt; 00:09:36,340
+这包括第一
+
+192
+00:09:36,340 --&gt; 00:09:37,560
+纠错能力丧失
+
+193
+00:09:37,560 --&gt; 00:09:38,420
+在论文中
+
+194
+00:09:38,420 --&gt; 00:09:41,520
+当agent在第三步调用了一个错误的API
+
+195
+00:09:41,520 --&gt; 00:09:42,720
+导致报错事
+
+196
+00:09:42,720 --&gt; 00:09:45,100
+他往往无法理解错误的根源
+
+197
+00:09:45,100 --&gt; 00:09:46,440
+会陷入死循环
+
+198
+00:09:46,440 --&gt; 00:09:49,580
+疯狂用相同的错误参数反复请求
+
+199
+00:09:49,580 --&gt; 00:09:52,060
+直到达到最大失措次数
+
+200
+00:09:52,060 --&gt; 00:09:52,880
+第二
+
+201
+00:09:52,880 --&gt; 00:09:54,320
+搜索效率极低
+
+202
+00:09:54,320 --&gt; 00:09:56,160
+面对相似的API时
+
+203
+00:09:56,160 --&gt; 00:09:57,840
+agent往往会选择
+
+204
+00:09:57,840 --&gt; 00:09:59,880
+把所有相关的API穷取
+
+205
+00:10:00,000 --&gt; 00:10:02,640
+这极其浪费算力和Token
+
+206
+00:10:02,640 --&gt; 00:10:05,560
+面对这种人工智障般的表现
+
+207
+00:10:05,560 --&gt; 00:10:07,240
+传统的打补丁方法
+
+208
+00:10:07,240 --&gt; 00:10:09,920
+比如给Prompt加上请仔细思考
+
+209
+00:10:09,920 --&gt; 00:10:11,260
+已经完全失效了
+
+210
+00:10:11,260 --&gt; 00:10:13,700
+我们需要一种全新的数学机制
+
+211
+00:10:13,700 --&gt; 00:10:15,420
+来引导Agent的决策
+
+212
+00:10:15,420 --&gt; 00:10:17,540
+这就引出了论文的核心杀起
+
+213
+00:10:17,540 --&gt; 00:10:19,560
+我们现在进入第三个部分
+
+214
+00:10:19,560 --&gt; 00:10:23,800
+EGB用热力学定律拯救Agent搜索迷宫
+
+215
+00:10:23,800 --&gt; 00:10:25,820
+在计算机科学中
+
+216
+00:10:25,820 --&gt; 00:10:29,120
+解决指数及搜索数爆炸的唯一方法
+
+217
+00:10:29,120 --&gt; 00:10:30,180
+就是减值
+
+218
+00:10:30,180 --&gt; 00:10:31,500
+但问题是
+
+219
+00:10:31,500 --&gt; 00:10:34,000
+当大模型站在一个分叉路口
+
+220
+00:10:34,000 --&gt; 00:10:36,700
+面对100个可能的工具调用时
+
+221
+00:10:36,700 --&gt; 00:10:39,040
+它应该减掉哪99个呢
+
+222
+00:10:39,040 --&gt; 00:10:42,220
+研究团队从信息论和热力学中
+
+223
+00:10:42,220 --&gt; 00:10:43,060
+汲取了灵感
+
+224
+00:10:43,060 --&gt; 00:10:45,360
+提取了商引导分支算法
+
+225
+00:10:45,360 --&gt; 00:10:48,000
+这是一个基于不确定性感知的
+
+226
+00:10:48,000 --&gt; 00:10:49,360
+动态搜索算法
+
+227
+00:10:49,360 --&gt; 00:10:50,680
+要理解EGB
+
+228
+00:10:50,680 --&gt; 00:10:53,180
+我们首先要理解什么是预测商
+
+229
+00:10:53,180 --&gt; 00:10:54,440
+在信息论中
+
+230
+00:10:54,440 --&gt; 00:10:56,780
+商代表了系统的不确定度
+
+231
+00:10:56,780 --&gt; 00:10:59,480
+当大模型在预测下一个工具时
+
+232
+00:10:59,480 --&gt; 00:11:01,340
+如果处于低商状态
+
+233
+00:11:01,340 --&gt; 00:11:05,760
+也就是如果模型对于下一步该调用什么工具非常笃定
+
+234
+00:11:05,760 --&gt; 00:11:07,980
+这时信息商就极低
+
+235
+00:11:07,980 --&gt; 00:11:09,620
+如果处于高商状态
+
+236
+00:11:09,620 --&gt; 00:11:13,540
+也就是如果模型面对5个看起来都差不多的工具
+
+237
+00:11:13,540 --&gt; 00:11:16,380
+给它们的概率都是20%左右
+
+238
+00:11:16,380 --&gt; 00:11:18,320
+这时的信息商就极高
+
+239
+00:11:18,320 --&gt; 00:11:21,080
+说明模型处于严重的不确定中
+
+240
+00:11:21,080 --&gt; 00:11:23,680
+传统的多路径搜索算法
+
+241
+00:11:23,680 --&gt; 00:11:24,780
+不管三七二十一
+
+242
+00:11:24,780 --&gt; 00:11:27,780
+每一步都会强制保留top cake分支
+
+243
+00:11:27,780 --&gt; 00:11:31,000
+这就像一个无论遇到多简单的问题
+
+244
+00:11:31,000 --&gt; 00:11:34,600
+都要强行分裂出几个平行宇宙去尝试的疯子
+
+245
+00:11:34,600 --&gt; 00:11:38,560
+而EGP算法的做法极其优雅并且高效
+
+246
+00:11:38,560 --&gt; 00:11:41,620
+它只在高商的节点进行分支扩展
+
+247
+00:11:41,620 --&gt; 00:11:44,100
+最后我们将进入第四个部分
+
+248
+00:11:44,100 --&gt; 00:11:47,980
+动态减值的暴力美学将好钢用在刀刃上
+
+249
+00:11:47,980 --&gt; 00:11:51,240
+EGP算法在执行长周期任务时
+
+250
+00:11:51,240 --&gt; 00:11:54,200
+展现出了一种如同围棋大师般
+
+251
+00:11:54,200 --&gt; 00:11:57,580
+动态调整探索与利用的暴力美学
+
+252
+00:11:57,580 --&gt; 00:12:00,460
+这包括首先是确定性突破
+
+253
+00:12:00,460 --&gt; 00:12:04,700
+当agent遇到一条熟悉的低伤的逻辑链条的时候
+
+254
+00:12:04,700 --&gt; 00:12:07,500
+EGP算法会瞬间收缩分支
+
+255
+00:12:07,500 --&gt; 00:12:09,560
+像一把利剑一样单线途径
+
+256
+00:12:09,560 --&gt; 00:12:12,300
+绝不浪费哪怕一个多余的token
+
+257
+00:12:12,300 --&gt; 00:12:14,680
+去探索毫无意义的其他选项
+
+258
+00:12:14,680 --&gt; 00:12:18,320
+这种行为极大地降低了运算延迟
+
+259
+00:12:18,320 --&gt; 00:12:21,600
+把最基础的执行成本压到了最低
+
+260
+00:12:21,600 --&gt; 00:12:23,760
+其次是不确定性展开
+
+261
+00:12:23,760 --&gt; 00:12:25,720
+一旦任务进入深水期
+
+262
+00:12:25,720 --&gt; 00:12:27,920
+比如遇到了一个模糊的暴挫
+
+263
+00:12:27,920 --&gt; 00:12:31,680
+或者面临几个极其相似的高级API时
+
+264
+00:12:31,680 --&gt; 00:12:34,520
+系统的信息商就会瞬间飙升
+
+265
+00:12:34,520 --&gt; 00:12:39,120
+此时EGP算法会敏锐地捕捉到这种不确定性
+
+266
+00:12:39,120 --&gt; 00:12:41,780
+并立刻在这个节点展开分支
+
+267
+00:12:41,780 --&gt; 00:12:46,120
+它允许agent同时在几个不同的假设路径上
+
+268
+00:12:46,120 --&gt; 00:12:47,060
+进行试探
+
+269
+00:12:47,060 --&gt; 00:12:49,860
+最后是动态减支与回溯
+
+270
+00:12:49,860 --&gt; 00:12:53,040
+当其中一条探索分支获得成功
+
+271
+00:12:53,040 --&gt; 00:12:54,780
+或者遭遇此胡同时
+
+272
+00:12:54,780 --&gt; 00:12:57,820
+算法会果断减断其他无效分支
+
+273
+00:12:57,820 --&gt; 00:13:01,200
+将算力重新收缩到正确的轨道上
+
+274
+00:13:01,200 --&gt; 00:13:05,480
+这种该快就快该慢就慢的动态调度机制
+
+275
+00:13:05,480 --&gt; 00:13:09,680
+完美解决了海量工具空间中的算力分配问题
+
+276
+00:13:09,680 --&gt; 00:13:11,480
+它不是盲目的穷举
+
+277
+00:13:11,480 --&gt; 00:13:15,240
+而是让agent拥有了类似人类的原认知
+
+278
+00:13:15,240 --&gt; 00:13:17,500
+也就是知道自己什么时候懂了
+
+279
+00:13:17,500 --&gt; 00:13:18,660
+什么时候没懂
+
+280
+00:13:18,660 --&gt; 00:13:20,540
+在实验数据上
+
+281
+00:13:20,540 --&gt; 00:13:23,700
+这套机制彻底碾压了现有的基线算法
+
+282
+00:13:23,700 --&gt; 00:13:27,680
+它不仅在slate基准测试的长周期任务中
+
+283
+00:13:27,680 --&gt; 00:13:31,000
+大幅提高了任务完成的绝对成功率
+
+284
+00:13:31,000 --&gt; 00:13:32,000
+更关键的是
+
+285
+00:13:32,000 --&gt; 00:13:36,380
+它将执行这些复杂任务所消耗的平均token数量
+
+286
+00:13:36,380 --&gt; 00:13:39,440
+和API调用次数降低了一个数量级
+
+287
+00:13:39,440 --&gt; 00:13:43,260
+那么当我们把这一篇商营岛分支策略的论文
+
+288
+00:13:43,260 --&gt; 00:13:46,420
+与今天雷达上狂飙的Hermes Agent
+
+289
+00:13:46,420 --&gt; 00:13:48,800
+以及我们刚讨论完的Caveman协议
+
+290
+00:13:48,800 --&gt; 00:13:50,440
+放在一起审视时
+
+291
+00:13:50,440 --&gt; 00:13:54,900
+你会发现一幅关于AI Agent终局的宏大拼图
+
+292
+00:13:54,900 --&gt; 00:13:57,220
+已经完整的拼合在了一起
+
+293
+00:13:57,220 --&gt; 00:14:01,060
+目前的Agent赛道正在经历一场隐秘的大迁徙
+
+294
+00:14:01,060 --&gt; 00:14:02,860
+首先在通信层
+
+295
+00:14:02,860 --&gt; 00:14:05,520
+MCP正在统一所有的工具接口
+
+296
+00:14:05,520 --&gt; 00:14:09,440
+让大模型可以无缝连接世界上的所有数据源
+
+297
+00:14:09,440 --&gt; 00:14:12,640
+这导致了工具池的无限膨胀
+
+298
+00:14:12,640 --&gt; 00:14:14,380
+其次是输出层
+
+299
+00:14:14,380 --&gt; 00:14:17,000
+像Caveman这样的极简协议
+
+300
+00:14:17,000 --&gt; 00:14:20,840
+正在榨干自然源中每一滴多余的修辞损分
+
+301
+00:14:20,840 --&gt; 00:14:23,980
+把token利用率逼近物理极限
+
+302
+00:14:23,980 --&gt; 00:14:25,860
+再是在执行层
+
+303
+00:14:25,860 --&gt; 00:14:28,940
+这是今天这篇EGB论文所揭示的
+
+304
+00:14:28,940 --&gt; 00:14:33,100
+如何在面对因MCP而爆炸的海量工具库时
+
+305
+00:14:33,100 --&gt; 00:14:35,900
+用数学的方法进行简直与路由
+
+306
+00:14:35,900 --&gt; 00:14:38,540
+这三者的结合宣告了Agent
+
+307
+00:14:38,540 --&gt; 00:14:40,300
+他已经不再是玩具了
+
+308
+00:14:40,300 --&gt; 00:14:43,900
+他也为企业级自主编排系统指明了道路
+
+309
+00:14:43,900 --&gt; 00:14:45,480
+对于我们普通人而言
+
+310
+00:14:45,480 --&gt; 00:14:47,040
+我们不要再去觉
+
+311
+00:14:47,040 --&gt; 00:14:48,960
+如何写一个更好的prompt
+
+312
+00:14:48,960 --&gt; 00:14:51,040
+让模型调用不够工具了
+
+313
+00:14:51,040 --&gt; 00:14:53,120
+下一个百亿级别的赛道
+
+314
+00:14:53,120 --&gt; 00:14:58,280
+属于那些能够构建高商动态路由的基础设施框架
+
+315
+00:14:58,280 --&gt; 00:15:00,080
+谁能将EGB这种
+
+316
+00:15:00,000 --&gt; 00:15:02,120
+热力学级别的简直算法
+
+317
+00:15:02,120 --&gt; 00:15:04,520
+无缝集成到类似Hermes Agent
+
+318
+00:15:04,520 --&gt; 00:15:07,420
+或者OpenCloud的底层调度器中
+
+319
+00:15:07,420 --&gt; 00:15:10,140
+谁就能成为企业级Air Agent的
+
+320
+00:15:10,140 --&gt; 00:15:11,060
+终极路由器
+
+321
+00:15:11,060 --&gt; 00:15:12,060
+在未来
+
+322
+00:15:12,060 --&gt; 00:15:14,580
+这不仅意味着极高的任务达成率
+
+323
+00:15:14,580 --&gt; 00:15:17,060
+更意味着能为企业省下
+
+324
+00:15:17,060 --&gt; 00:15:19,300
+数以千万计的托捆税
+
+325
+00:15:19,300 --&gt; 00:15:21,180
+在算力及权力的时代
+
+326
+00:15:21,180 --&gt; 00:15:22,680
+这就是最冷酷
+
+327
+00:15:22,680 --&gt; 00:15:25,180
+也是最无法反驳的商业护城河
+
+328
+00:15:25,180 --&gt; 00:15:27,080
+那么今天的视频
+
+329
+00:15:27,080 --&gt; 00:15:28,220
+却要接近尾声了
+
+330
+00:15:28,220 --&gt; 00:15:29,820
+看着今日榜单上
+
+331
+00:15:29,820 --&gt; 00:15:34,160
+Man Palace那高达2088%的强力反弹
+
+332
+00:15:34,160 --&gt; 00:15:36,620
+我们必须保持极致的冷静
+
+333
+00:15:36,620 --&gt; 00:15:38,780
+在Hermes Agent和Cloud面
+
+334
+00:15:38,780 --&gt; 00:15:43,300
+双双日增突破4100颗星的绝对统治力面前
+
+335
+00:15:43,300 --&gt; 00:15:46,100
+Man Palace这种低基数的跳跃
+
+336
+00:15:46,100 --&gt; 00:15:49,160
+更像是叙事崩溃后的一次死猫跳
+
+337
+00:15:49,160 --&gt; 00:15:52,460
+这正揭示了Agent赛道最残酷的真相
+
+338
+00:15:52,460 --&gt; 00:15:55,840
+一旦核心圈层的开发者转化完毕
+
+339
+00:15:55,840 --&gt; 00:15:58,120
+如果缺乏像论文里提到的
+
+340
+00:15:58,120 --&gt; 00:16:01,920
+商引导分支这种突破性的底层算法支撑
+
+341
+00:16:01,920 --&gt; 00:16:03,920
+动能就会迅速衰竭
+
+342
+00:16:03,920 --&gt; 00:16:06,160
+没有数学上的确定性减值
+
+343
+00:16:06,160 --&gt; 00:16:08,200
+没有物理层面的token压榨
+
+344
+00:16:08,200 --&gt; 00:16:09,920
+再华丽的病毒叙事
+
+345
+00:16:09,920 --&gt; 00:16:13,420
+也终将在真实的算力成本面前败下阵来
+
+346
+00:16:13,420 --&gt; 00:16:14,960
+当Hermes Agent
+
+347
+00:16:14,960 --&gt; 00:16:18,760
+稳健的向着10万星神座发起最后冲锋
+
+348
+00:16:18,760 --&gt; 00:16:24,760
+当Caveman以796%的惊人增速撕开token优化赛道的时候
+
+349
+00:16:24,760 --&gt; 00:16:28,160
+我们应当看清这场认知套利的终局
+
+350
+00:16:28,160 --&gt; 00:16:31,480
+永远属于那些能将沉重的认知负担
+
+351
+00:16:31,480 --&gt; 00:16:35,160
+转化为高效和可靠的基础设施的项目
+
+352
+00:16:35,160 --&gt; 00:16:39,040
+这才是我们在这场淘汰赛中活下去的唯一户篮
+
+353
+00:16:39,040 --&gt; 00:16:41,560
+好的 今天的视频就先聊到这里
+
+354
+00:16:41,560 --&gt; 00:16:42,960
+如果你喜欢今天的节目
+
+355
+00:16:42,960 --&gt; 00:16:45,560
+别忘了点赞分享并订阅我的频道
+
+356
+00:16:45,560 --&gt; 00:16:47,880
+及时获取科技资讯和生的解析
+
+357
+00:16:47,880 --&gt; 00:16:49,460
+感谢观看 我们下期再见
+</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://www.youtube.com/watch?v=QgDgUxBU-ek" target="_blank" rel="noopener">https://www.youtube.com/watch?v=QgDgUxBU-ek</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
