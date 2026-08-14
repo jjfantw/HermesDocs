@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>吳恩達談 AI 開源、蒸餾、算力泡沫與未來技能 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>吳恩達談 AI 開源、蒸餾、算力泡沫與未來技能</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-08-14 18:41</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">吳恩達談 AI 開源、蒸餾、算力泡沫與未來技能</h1>
+    <div class="meta"><span data-field="channel">📺 Best Partners TV</span><span data-field="duration">⏱ 19:54</span><span data-field="published_date">🗓 2026-08-13</span><span data-field="original_language">🌐 zh-Hans</span><a data-field="source_url" href="https://youtu.be/LHCqSqneZGQ" target="_blank" rel="noopener">🔗 https://youtu.be/LHCqSqneZGQ</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>這支影片整理吳恩達近期受訪時對多個 AI 爭議的判斷：開源與閉源不是非此即彼，企業真正需要的是模型選擇彈性與落地場景；他反對用「危險」論述打壓開源模型，也認為把中國開源模型進步主要歸因於知識蒸餾，是被過度放大的說法。影片同時談到 OpenWorker 這類桌面 AI Agent、企業採用 AI 的系統工程、應用層價值被低估、摩根士丹利式的高層推動案例，以及算力與資料中心建設。對「算力泡沫」與「AI 失業潮」，影片呈現吳恩達的看法：推理算力需求仍會擴大，AI 不會讓大量工作直接消失，反而會要求各職能更新技能。最後，影片把問題收束到教育與技能重塑：不能用 2022 或 2026 的標準培養未來人才，而要面向 2028 年之後的工作需求。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">1. 企業 AI 落地不是買授權，而是找到真場景</h2><span class="ts-badge" data-field="lesson_timestamp">1:32</span></div><div class="body" data-field="lesson_body"><p>影片指出，很多企業已經購買 ChatGPT 或 Microsoft Copilot 之類的授權，卻仍覺得 AI 沒有真正帶來競爭優勢。吳恩達的判斷是：<strong>買到工具不等於完成落地</strong>。</p><p>真正的工作在於找出合適應用場景，讓懂業務的人理解技術，再把流程、變革管理與基礎設施接起來。影片把這稱為一套系統工程，而不是單一工具採購。</p><span class="tag" data-field="lesson_tag">企業採用</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">2. 開源與閉源可以共存，但企業必須保留選擇權</h2><span class="ts-badge" data-field="lesson_timestamp">3:00</span></div><div class="body" data-field="lesson_body"><p>吳恩達在影片中表態支持 OpenAI、Anthropic 等閉源公司成功，但反對把它們的成功建立在限制其他人使用開源模型之上。</p><p>他認為開源模型的核心價值是<strong>選擇與可切換性</strong>：企業無法預測半年或一年後誰是最佳模型，因此架構上應避免被單一供應商綁死。</p><span class="tag" data-field="lesson_tag">模型策略</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">3. 反開源敘事可能削弱美國自己的 AI 發展</h2><span class="ts-badge" data-field="lesson_timestamp">4:52</span></div><div class="body" data-field="lesson_body"><p>影片提到，其他地區在 ChatGPT 之後積極擁抱開源模型，使知識傳播與模型改進速度加快。相較之下，美國大量研究集中在閉源專有模型內，遇到建模問題時不容易公開請教。</p><p>吳恩達因此批評反開源遊說已經阻礙美國 AI 領域發展，也讓價格敏感市場更可能採用其他地區的開源模型。</p><span class="tag" data-field="lesson_tag">產業政策</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">4. 「中國模型主要靠蒸餾」被影片描述為過度放大的說法</h2><span class="ts-badge" data-field="lesson_timestamp">6:55</span></div><div class="body" data-field="lesson_body"><p>針對中國開源模型進步是否主要來自知識蒸餾，影片呈現吳恩達的反駁：美國與中國都有技術創新，美國前沿實驗室也會閱讀其他地區的開源研究。</p><p>以 Kimi 3 爭議為例，他認為若模型在很短時間內開源可用，要完成聲稱中的大規模蒸餾，時間窗口並不合理；因此這類說法更像是被放大的 FUD。</p><span class="tag" data-field="lesson_tag">知識蒸餾</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">5. AI 基礎設施重要，但應用層價值被低估</h2><span class="ts-badge" data-field="lesson_timestamp">9:29</span></div><div class="body" data-field="lesson_body"><p>影片把 AI 描述成同時發生在線上與物理世界的故事：資料中心、電網、半導體、冷卻設備都是基礎。</p><p>但吳恩達提醒，真正更有價值且被低估的是基礎設施之上的應用程式。他用網際網路時代思科與應用服務的關係比喻：基礎設施能賺錢，但應用層創造的總價值可能更大。</p><span class="tag" data-field="lesson_tag">應用價值</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">6. 企業護城河來自既有資產與 AI 的深度結合</h2><span class="ts-badge" data-field="lesson_timestamp">11:14</span></div><div class="body" data-field="lesson_body"><p>對企業來說，影片中的重點不是「模型本身」能不能被前沿廠商下一版功能取代，而是企業多年累積的客戶關係、技術、資料與供應鏈能不能被重新組合。</p><p>摩根士丹利的案例被用來說明：高層定調、全員 AI 培訓、業務與技術一起探索，可能帶來服務規模擴大百倍或速度提升十倍，而不只是百分之幾的成本下降。</p><span class="tag" data-field="lesson_tag">護城河</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">07</span><h2 data-field="lesson_title">7. 算力與就業的焦點不是恐慌，而是技能更新</h2><span class="ts-badge" data-field="lesson_timestamp">12:48</span></div><div class="body" data-field="lesson_body"><p>影片中，吳恩達不把資料中心投資簡化成一定賺錢，但他相信推理算力需求仍會增加，尤其 AI 在軟體工程的滲透率還低，後續需求會繼續擴大。</p><p>對失業潮，他否定「50% 人會丟工作」的說法。影片的論點是：AI 會自動化部分工作，但多數職能仍需要人類引導 AI；問題變成如何讓工程師、行銷、招聘、記者、人資與營運人員掌握新技能。</p><span class="tag" data-field="lesson_tag">未來工作</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">08</span><h2 data-field="lesson_title">8. 資料中心與資料架構都要為 Agent 時代重設</h2><span class="ts-badge" data-field="lesson_timestamp">15:31</span></div><div class="body" data-field="lesson_body"><p>影片後段指出，企業資料不能只為人類閱讀準備，也要讓 AI Agent 使用。Agent 取用資料的頻率更高、模式更無序，因此需要自動化接口與更適合機器調用的資料架構。</p><p>對資料中心反對聲浪，吳恩達的看法是集中式資料中心雖然消耗能源與水，但比各處分散部署設備更有效率；部分反對可能其實源自對 AI 的不適。</p><span class="tag" data-field="lesson_tag">AI Agent 基礎設施</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">影片最後的收束是：開源/閉源、算力、就業與教育的核心，不是情緒戰，而是企業與個人能否保留選擇、找到場景、更新技能。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="0:00"><span class="ts">0:00</span><span class="text" data-field="key_point_text">影片開場列出 AI 開源/閉源、模型蒸餾、算力泡沫與失業潮等爭議，並說明吳恩達橫跨學術、產業、投資與教育的背景。</span></li><li data-field="key_point" data-timestamp="0:30"><span class="ts">0:30</span><span class="text" data-field="key_point_text">回顧 2010 年「模型越大越聰明」的早期信念，以及 Google Brain 的規模化文化如何與 Transformer、現代 AI 革命相連。</span></li><li data-field="key_point" data-timestamp="1:32"><span class="ts">1:32</span><span class="text" data-field="key_point_text">企業買 ChatGPT 或 Copilot 授權不等於取得競爭優勢；真正困難在於找到場景、推動人員變革、結合業務與基礎設施。</span></li><li data-field="key_point" data-timestamp="2:06"><span class="ts">2:06</span><span class="text" data-field="key_point_text">OpenWorker 被描述為開源桌面 AI Agent，目標是讓 AI 不只回答問題，也能產出文件、發郵件、在 Slack 發訊息或搭建資料看板。</span></li><li data-field="key_point" data-timestamp="3:00"><span class="ts">3:00</span><span class="text" data-field="key_point_text">吳恩達支持 OpenAI、Anthropic 等閉源公司成功，但反對以此切斷其他人使用開源模型的權利；開源的核心價值是避免供應商鎖定。</span></li><li data-field="key_point" data-timestamp="4:17"><span class="ts">4:17</span><span class="text" data-field="key_point_text">他提醒企業無法預測半年或一年後最強模型是哪一個，因此應保持可切換模型的架構彈性。</span></li><li data-field="key_point" data-timestamp="4:52"><span class="ts">4:52</span><span class="text" data-field="key_point_text">影片指出，其他地區積極擁抱開源模型後快速追近；反開源遊說反而可能阻礙美國 AI 發展。</span></li><li data-field="key_point" data-timestamp="6:55"><span class="ts">6:55</span><span class="text" data-field="key_point_text">針對中國開源模型與知識蒸餾爭議，吳恩達認為「主要靠蒸餾」被誇大，並以 Kimi 3 的時間窗口反駁大規模蒸餾說法。</span></li><li data-field="key_point" data-timestamp="8:43"><span class="ts">8:43</span><span class="text" data-field="key_point_text">開源模型的商業模式仍在摸索，但影片引用紅帽與開源上市公司的案例，說明開源也可能形成成熟商業模式。</span></li><li data-field="key_point" data-timestamp="9:29"><span class="ts">9:29</span><span class="text" data-field="key_point_text">AI 不只是線上模型故事，也牽涉資料中心、電網、半導體與冷卻設備；但比基礎設施更被低估的是上層應用創造的價值。</span></li><li data-field="key_point" data-timestamp="11:14"><span class="ts">11:14</span><span class="text" data-field="key_point_text">企業護城河不在模型本身，而在多年累積的客戶、資料、供應鏈與技術資產能否與 AI 深度結合。</span></li><li data-field="key_point" data-timestamp="11:49"><span class="ts">11:49</span><span class="text" data-field="key_point_text">摩根士丹利案例用來說明高層定調、全員 AI 培訓與業務/技術共同探索，能挖出比單純降本更大的成長場景。</span></li><li data-field="key_point" data-timestamp="12:48"><span class="ts">12:48</span><span class="text" data-field="key_point_text">面對算力泡沫問題，吳恩達不給投資建議，但認為推理算力仍明顯不足，尤其軟體工程中的 AI 採用會推升需求。</span></li><li data-field="key_point" data-timestamp="13:35"><span class="ts">13:35</span><span class="text" data-field="key_point_text">對「50% 人失業」的說法，他判斷不會發生；軟體工程反而顯示熟練 AI 工程師仍短缺，工作會要求技能升級。</span></li><li data-field="key_point" data-timestamp="15:31"><span class="ts">15:31</span><span class="text" data-field="key_point_text">資料架構也需要重整，因為未來資料不只給人用，還要讓 AI Agent 高頻、無序且自動化地取用。</span></li><li data-field="key_point" data-timestamp="16:17"><span class="ts">16:17</span><span class="text" data-field="key_point_text">影片呈現他對資料中心反對聲浪的看法：集中計算比各處分散設備更有效率，部分抵觸可能源於對 AI 本身的不安。</span></li><li data-field="key_point" data-timestamp="17:53"><span class="ts">17:53</span><span class="text" data-field="key_point_text">收尾談教育與技能：DeepLearning.AI 的目標是建立面向未來職能的學習路徑，各行各業都需要重新定義技能。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="吳恩達">吳恩達</span><span class="tag-chip" data-tag="AI 開源">AI 開源</span><span class="tag-chip" data-tag="閉源模型">閉源模型</span><span class="tag-chip" data-tag="知識蒸餾">知識蒸餾</span><span class="tag-chip" data-tag="AI Agent">AI Agent</span><span class="tag-chip" data-tag="OpenWorker">OpenWorker</span><span class="tag-chip" data-tag="算力">算力</span><span class="tag-chip" data-tag="資料中心">資料中心</span><span class="tag-chip" data-tag="AI 就業">AI 就業</span><span class="tag-chip" data-tag="企業 AI 落地">企業 AI 落地</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>本報告主要根據 YouTube zh-Hans 字幕與頻道描述整理；未額外核對原始《華盛頓郵報》訪談全文。</li></ul></div></section>
+  
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="description"><div class="raw-label">YouTube 頻道描述原文（zh-Hans）<button class="copy-btn" id="raw_description_4371666496_srt" onclick="copyRaw(this,'raw_description_4371666496_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_description_4371666496_text" onclick="copyRawText(this,'raw_description_4371666496_text')">📋 複製純文字</button></div><pre>吴恩达近期接受《华盛顿邮报》深度访谈，就AI核心争议表态。他回顾2010年越大越聪明信念如何催生Transformer与现代AI革命，指出企业买AI许可证不等于获得竞争优势，落地核心在找真实场景。针对开源闭源之争，他明确反对以危险论打压开源，强调企业必须保持模型切换灵活性，直言美国反开源游说已阻碍自身发展。关于Kimi 3蒸馏论，他从时间窗口指出大规模蒸馏不可能完成，认为是被夸大的FUD策略。他判断算力终将被消化、AI不会造成大规模失业，软件工程反而缺工程师；指出应用层价值被严重低估，类比互联网时代思科与应用的关系；企业护城河来自将既有资产与AI深度结合的领导决心，以摩根士丹利为例。他认为数据中心抵触本质源于对AI的不适，集中计算反而更环保，呼吁教育面向2028年重新定义各行业技能。
+
+https://www.youtube.com/watch?v=2OUGXI9Y1sk</pre></div><div class="raw-block" data-field="raw_source_item" data-raw-type="transcript"><div class="raw-label">YouTube 字幕逐字稿（zh-Hans，含時間戳）<button class="copy-btn" id="raw_transcript_4371666816_srt" onclick="copyRaw(this,'raw_transcript_4371666816_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_transcript_4371666816_text" onclick="copyRawText(this,'raw_transcript_4371666816_text')">📋 複製純文字</button></div><pre>0:00 大家好，这里是最佳拍档，我是大飞
+0:02 关于AI行业的各种话题
+0:04 比如说开源闭源之争
+0:06 模型蒸馏论
+0:07 算力泡沫论
+0:08 AI失业潮
+0:09 一直争论不断
+0:10 这些讨论呢
+0:11 往往情绪大于事实
+0:13 立场多过证据
+0:14 可能很多人不知道
+0:15 吴恩达是这个行业里极少数既当过萨姆·奥特曼（Sam Altman）老板
+0:19 也当过达里奥·阿莫代伊（Dario Amodei）老板的人
+0:21 他同时在斯坦福、谷歌、百度、投资基金、教育平台等多个维度
+0:25 深度参与了AI产业的发展
+0:28 所以今天我们来听听他的判断是怎样的
+0:30 时间回到2010年
+0:32 那时候深度学习还远没有今天的热度
+0:34 吴恩达找到了谷歌创始人拉里·佩奇（Larry Page）
+0:37 提出了一个在当时备受争议的想法
+0:39 如果我们能构建一个极其庞大的神经网络
+0:42 给它喂海量的数据
+0:43 它们就能学到不可思议的东西
+0:46 这个想法听起来其实挺简单的
+0:48 就是越大越聪明
+0:49 但是在那个时候，大多数人并不买账
+0:52 后来吴恩达组建了谷歌大脑团队
+0:54 首要方向就是构建超大规模的AI系统
+0:57 正是谷歌大脑这种追求规模化的文化
+1:00 最终催生了Transformer的发明
+1:02 这项技术后来被OpenAI和整个业界广泛采用
+1:05 直接引爆了我们现在正在经历的这场现代AI革命
+1:08 说起来也有意思
+1:10 推动这一切的核心理念
+1:11 其实早在吴恩达斯坦福时期的早期研究中
+1:14 就已经萌芽了
+1:15 造的AI越大
+1:16 它就越聪明，这个朴素的信念
+1:18 直到今天还在推着整个行业往前走
+1:20 即便在14年前
+1:22 吴恩达对AI的未来就非常乐观
+1:24 现在他依然充满期待
+1:26 但是他也坦诚，有时候会非常兴奋
+1:28 有时候又会纳闷
+1:30 为什么我们没有走得更远
+1:32 一个很现实的观察是
+1:33 尽管AI技术本身已经非常惊人
+1:36 但是很多企业依然觉得这项技术还没能真正帮到他们
+1:39 为什么？
+1:40 因为没有哪家公司能够仅仅通过购买ChatGPT或者微软Copilot的许可证
+1:45 就获得竞争优势
+1:46 这是一个很多人不愿意承认的真相
+1:49 真正的问题不在于你买没买最新的模型
+1:52 而在于你能不能找到合适的应用场景
+1:54 这涉及到人员的变革管理
+1:56 需要让合适的人理解这项技术
+1:58 把它和实际业务场景结合起来
+2:01 当然也离不开基础设施的支持
+2:03 不是买个工具就完事了
+2:04 这是一套系统工程
+2:06 说到AI真正落地干活
+2:08 吴恩达最近和朋友罗汉·普拉萨德（Rohan Prasad）一直在开发一款开源的桌面AI Agent
+2:13 叫做OpenWorker
+2:14 这款产品的思路很直接
+2:16 你不只是和它聊天
+2:17 它实际上还能替你完成工作
+2:19 现在很多人用ChatGPT、Claude、Gemini这类工具
+2:22 主要还是提问然后拿答案
+2:24 再自己复制粘贴去整理
+2:26 但是AI完全可以走得更远
+2:28 它可以直接生成一份排版精美的完整文档
+2:30 而不是给你一堆文本让你自己去调格式
+2:33 它可以直接帮你发电子邮件
+2:35 在Slack这类工作通讯软件里帮你发消息
+2:38 甚至帮你搭建一个数据看板
+2:40 OpenWorker是完全开源免费的
+2:42 任何人都可以在自己的电脑上跑这些功能
+2:44 吴恩达也特别提到
+2:46 他其实非常看好Claude的Computer Use功能、ChatGPT的相关能力以及Gemini
+2:50 这些产品都非常优秀
+2:52 OpenWorker做的事情
+2:53 是给大家提供一个任何人都可以免费使用的开源版本
+2:57 聊完具体产品
+2:58 话题进入这两年最大的一个争议
+3:00 开源模型和闭源模型之争
+3:02 吴恩达在这个问题上的立场非常鲜明
+3:04 但也很微妙
+3:06 他首先做了一个澄清
+3:07 他可能是唯一一个既当过Sam的老板也当过Dario的老板的人
+3:11 所以他实际上非常支持OpenAI和Anthropic
+3:14 由衷希望他们发展得很好
+3:16 顺利完成出色的IPO
+3:17 他真的希望这些伟大的美国企业能够成功
+3:20 但是，这些企业的成功
+3:22 不能以切断其他人对开源模型的访问为代价
+3:25 这个表态其实很有意思，他没有站队
+3:27 而是划出了一条清晰的边界
+3:29 OpenAI、Anthropic、谷歌在训练闭源专有模型方面确实做得非常出色
+3:34 他们以相当高的价格出售API访问权限
+3:37 这是他们的商业模式
+3:39 而开源模型
+3:39 是人们在互联网上公开发布、任何人都可以免费使用的模型
+3:44 这些模型性能极其卓越
+3:45 非常智能，而且通常成本要低得多
+3:48 真正让吴恩达感到震惊的是
+3:50 少数企业投入了大量资源进行游说
+3:53 声称开源模型是危险的
+3:55 他用了荒谬这个词来评价这种说法
+3:58 还有一种说词是
+3:59 开源模型在某种程度上不如闭源模型
+4:01 他说自己完全无法理解这种逻辑
+4:04 开源模型给企业带来的最核心价值是什么？
+4:06 是选择
+4:07 它意味着你不会被锁定在某一个闭源专有模型提供商那里
+4:11 吴恩达给企业领导者的一个建议非常实在
+4:14 我建议所有在做AI落地决策的人都认真听一听
+4:17 他说，我无法预测一年甚至六个月后
+4:20 哪个模型会成为最顶尖的模型
+4:22 因此在构建业务时
+4:24 最重要的事情之一就是保持选择的灵活性
+4:26 不要被单一供应商绑定
+4:29 他自己就同时使用OpenAI、Claude、Gemini
+4:31 也使用很多不同的模型
+4:33 但不会让自己受制于其中任何一家
+4:35 因为一年后
+4:36 我们肯定希望用最好的那个
+4:38 不管它是一个成本更低的开源模型
+4:40 还是一个闭源专有模型
+4:42 因此，保持这种灵活性至关重要
+4:45 更何况
+4:45 全球的供应链都在使用开源模型
+4:48 确保能够继续使用开源模型
+4:49 对商业运转本身就很重要
+4:52 那其他国家在开源模型上的推进呢？
+4:54 有观点试图把开源模型和其他国家的模型画等号
+4:57 再拿国家安全来说事
+4:59 吴恩达认为这个等式根本不成立
+5:02 几年前ChatGPT刚发布的时候
+5:04 美国在生成式AI技术上
+5:05 确实占据了决定性的领先优势
+5:08 但是从那以后
+5:08 其他地区的应对非常出色
+5:11 其中做得最对的一件事
+5:12 就是积极拥抱开源模型
+5:14 事实证明
+5:15 当你把模型免费开放给所有人用的时候
+5:17 它固然帮助了全世界
+5:19 但是对你自身的帮助
+5:20 甚至远远超过对全世界的帮助
+5:23 开放性、沟通的自由
+5:24 以及知识的快速传播
+5:26 让这些地区正在飞速发展
+5:28 正在逼近与领先模型同等的水平
+5:31 反观美国
+5:32 大量研究工作都投入到了闭源专有模型中
+5:35 如果你在开发中遇到问题
+5:36 很难知道该去请教谁来解决这个建模难题
+5:39 顶多是一家公司以天价挖走另一家的工程师
+5:43 然后才有一些知识的传播
+5:45 吴恩达直言
+5:45 这种反对开源模型的游说活动
+5:47 已经阻碍了美国AI领域的发展
+5:50 当然美国也有非常出色的开源模型
+5:52 比如英伟达的Nemotron模型就很强大
+5:55 AI初创公司Mistral的表现也非常亮眼
+5:57 他很乐意看到更多这样的成果涌现
+6:00 他的核心立场是
+6:01 专有模型和开源模型都有成功的空间
+6:04 最重要的是维持一个公平的竞争环境
+6:07 让人们有选择使用最佳模型的权利
+6:10 不过，有一件事让他觉得很遗憾
+6:12 那就是全世界都将广泛使用开源模型
+6:15 全球很大一部分地区都会依赖开源模型
+6:17 但是美国在开源模型上投资不足
+6:20 意味着像非洲国家这样对价格敏感的地区
+6:23 在寻求技术采用时只能转向其他选项
+6:26 在美国可能感觉不明显
+6:28 但是在这些地区
+6:29 其他地区的开源模型已经占据了巨大的市场份额
+6:33 这非常遗憾
+6:34 因为他希望美国的开源模型能够在全球更具竞争力
+6:37 商业账其实算起来很简单
+6:39 如果一个开源模型能让你以五分之一或者三分之一的成本
+6:43 获得相应的智能算力
+6:44 你却不使用，那就是巨大的竞争劣势
+6:47 对于每一个想构建AI应用的开发者来说
+6:50 如果你的算力成本比别人高出三倍
+6:52 这在商业层面就是非常致命的劣势
+6:55 说到中国开源模型的进步
+6:56 有一个说法最近传得很广
+6:58 认为中国开源模型取得的成绩
+7:00 很大程度上要归功于知识蒸馏
+7:02 而不是自身研发
+7:03 吴恩达对这个说法的反驳非常直接
+7:06 首先他指出，美国有伟大的技术创新
+7:08 中国同样有卓越的技术创新
+7:10 事实上，很多美国前沿实验室
+7:12 都在积极阅读其他地区实验室发表的大量开源研究成果
+7:16 因为必须这么做
+7:17 不这么做就太不明智了
+7:19 所以美国的实验室也绝对在从这些研究中受益匪浅
+7:23 他认为
+7:24 把知识蒸馏视为中国模型进步的主要因素
+7:26 这个观点被极度夸大了
+7:28 这里存在一个关于公平性的核心问题
+7:31 世界各地的AI实验室都从公开的互联网上获取数据
+7:35 把互联网上的知识蒸馏到他们的AI模型中
+7:38 如果他们回过头来说
+7:39 我已经把互联网知识蒸馏到我的模型里了
+7:42 从现在起任何人都不能再从我的模型里蒸馏
+7:45 这公平吗？
+7:46 吴恩达认为
+7:47 社会究竟该如何界定这里的公平与否
+7:49 本身就是一个悬而未决的问题
+7:52 具体到最近发布的Kimi 3
+7:54 有人声称它主要是通过蒸馏训练出来的
+7:57 考虑到它的基础模型在很短的时间内开源可用
+8:00 吴恩达说他发现这种说法很难令人信服
+8:02 因为他们根本不可能在这么短的时间内
+8:05 获取那么庞大的数据
+8:06 Kimi 3怎么可能在这么短的时间内就训练完成呢？
+8:10 时间窗口显然对不上
+8:11 这是一个非常硬的逻辑漏洞
+8:13 他在政策讨论中感觉到的是
+8:15 有些人为了攻击开源模型
+8:17 可谓无所不用其极
+8:19 还有一个很有意思的观察
+8:20 当你获得一个开源模型时
+8:22 无论它是哪个实验室发布的
+8:24 只要你在美国的基础设施上运行它
+8:26 它基本上就变成了一个由美国基础设施控制的模型
+8:30 就好像如果你在美国把代码发布到网上
+8:33 然后被其他国家使用了
+8:34 从那一刻起就是那个国家在控制它了
+8:37 所以那些想要延缓美国采用开源模型的恐惧、不确定和怀疑情绪
+8:41 实在太多了
+8:43 那开源模型怎么赚钱呢？
+8:45 闭源厂商按Token收费
+8:47 有利润空间支撑庞大的算力建设
+8:49 开源模型的资金从哪来呢？
+8:51 吴恩达提到
+8:52 比尔·格利（Bill Gurley）最近在《华盛顿邮报》发表了一篇文章
+8:55 专门探讨开源作为一种成熟商业模式的可行性
+8:58 红帽公司就是一个经典案例
+9:00 通过开源Linux操作系统建立了一项伟大的业务
+9:03 还有很多其他企业也是建立在开源基础之上的
+9:06 如何把这种模式具体应用到开源模型上
+9:08 细节还在摸索之中
+9:10 但是，在股票市场上
+9:11 已经有一些上市公司凭借开源战略不仅吸引了聪明的投资者
+9:15 而且发展得相当不错
+9:17 诚然，训练开源模型的资本支出
+9:19 确实远高于编写传统软件
+9:21 但是他相信适合的商业模式终究会被摸索出来
+9:25 只要开源模型能带来根本性的成本优势
+9:27 这就值得高度关注
+9:29 聊完模型本身，我们把视角拉远一点
+9:32 AI不仅仅是发生在线上的数字故事
+9:35 它也是一个发生在物理世界的故事
+9:37 围绕AI的大规模基础设施建设
+9:39 正在推动经济增长
+9:41 数据中心、电网、半导体、冷却设备
+9:43 这些实体设施是AI运行的基础
+9:46 吴恩达说
+9:47 全球正在投资建设更多、规模更大的数据中心
+9:50 这是好事
+9:51 但这个故事里有一个容易被忽视的部分
+9:53 大量资金被投入到数据中心建设、GPU采购
+9:56 以及基础设施层的资本支出中
+9:59 毫无疑问
+9:59 我们迫切需要更多的推理算力
+10:01 就是模型训练完成后
+10:02 用来输出智能结果的算力
+10:04 这方面的算力似乎永远都不够用
+10:07 然而
+10:07 真正更有价值且被严重低估的部分
+10:10 是建立在这些基础设施之上的所有应用程序的价值
+10:14 吴恩达举了一个很形象的例子
+10:16 当年互联网兴起的时候
+10:17 思科表现极为出色，赚得盆满钵满
+10:20 但是
+10:20 建立在互联网之上的那些应用程序
+10:22 创造的价值要庞大得多
+10:24 事情必然会这样发展
+10:26 因为你必须依靠那些构建应用程序的人
+10:28 去创造足够的收入
+10:29 才能支付给基础设施提供商
+10:32 所以在他的AI Fund
+10:33 他和合伙人Kiristy Tan花了大量时间帮助大型企业思考
+10:37 到底哪些应用程序能真正改变商业模式
+10:40 而不是仅仅跟聊天机器人聊聊天、复制粘贴文本或者修改邮件语法
+10:45 他们要找的是能带来颠覆性自动化的场景
+10:48 这不只是为了节省成本
+10:49 更令人兴奋的是它们能够驱动业务的实质性增长
+10:53 人们至今还没有充分意识到
+10:54 这些应用场景将比目前高度关注的基础设施建设故事
+10:58 更具商业价值
+11:00 说到企业应用
+11:00 就不得不提一个所有投资者和创业者都关心的问题
+11:04 如果你投资的公司或者你做的产品
+11:06 很可能被前沿模型厂商的下一次产品更新
+11:09 直接实现相同功能，那该怎么办呢？
+11:12 企业的护城河到底在哪里呢？
+11:14 吴恩达的回答非常务实
+11:15 无论是小型初创企业还是大型传统公司
+11:18 大家都在思考什么是能够让企业具备防御性、维持长期生存的护城河
+11:23 对于大型企业来说
+11:24 他们许多现有的资产
+11:26 都是经过几十年甚至更长时间积累起来的
+11:29 这其实非常难以被取代
+11:31 但是他们真正需要做的
+11:32 是建立正确的自上而下的领导机制
+11:35 去思考
+11:35 基于我们已经积累的所有宝贵资产
+11:37 包括客户关系、技术积累、海量数据、供应链体系
+11:41 我们应该在哪个环节引入AI来提升效率
+11:43 或者更激动人心的是
+11:45 以此来推动业务的大幅增长
+11:47 他举了一个非常新的例子
+11:49 就在访谈当周的早些时候
+11:51 他拜访了摩根士丹利
+11:52 和首席执行官泰德·皮克（Ted Pick）以及丹·西姆科维茨（Dan Simkowitz）、安迪·萨珀斯坦（Andy Saperstein）交流
+11:57 他发现这正是一家伟大的金融机构
+12:00 从最高管理层定下基调全面拥抱AI的绝佳案例
+12:04 摩根士丹利提出
+12:05 要在全球范围内为每一位员工提供AI培训
+12:08 还推行了一系列叫挑战实验室的实践活动
+12:11 把业务负责人和技术负责人聚集在一起
+12:13 共同探索AI应用场景
+12:15 吴恩达发现
+12:16 业务与技术领导者之间的这种合作
+12:19 往往能挖掘出真正有价值的应用场景
+12:21 这些场景绝不是仅仅带来微小的效率提升
+12:24 当你深入思考企业是如何创造价值的时候
+12:27 你不会满足于让某项任务的执行成本降低百分之几
+12:31 相反你可能会想
+12:32 怎么把这项服务规模扩大一百倍来推动增长
+12:35 或者把服务速度提升十倍
+12:37 从而更迅速地响应客户
+12:39 提供更高价值的产品
+12:41 这些探索非常激动人心
+12:42 它们产生的价值
+12:43 将远远超过人们日常谈论的那种基础业务提效和成本节约
+12:48 聊到基础设施投资
+12:49 就绕不开一个问题
+12:50 现在这么多钱砸进去
+12:52 会不会有泡沫呢？
+12:53 吴恩达首先声明
+12:54 他不给任何人投资建议
+12:56 但有一点他深信不疑
+12:57 那就是我们需要多得多的推理算力
+13:00 拿软件工程来说
+13:01 这是AI提速最快、赋能最深的领域
+13:03 因为AI正在编写海量的代码
+13:06 这里有两个很有意思的观察
+13:08 首先，AI的渗透率依然很低
+13:10 很多软件工程师还没有完全接纳AI工具
+13:12 但那些已经用上AI的人
+13:14 不仅工作速度和生产力大幅提升
+13:16 而且在工作中也获得了更多乐趣
+13:19 当下
+13:19 我们就已经处于推理算力供不应求的状态了
+13:22 所以随着AI在软件领域的渗透不断加深
+13:25 对AI算力的需求只会越来越大
+13:27 这并不意味着
+13:28 投资硬件设施就一定稳赚不赔
+13:30 但是他相信，无论建出多少算力
+13:33 最终都会被完全消化掉
+13:35 关于AI还有一个最耸人听闻的论调
+13:37 就是所谓的失业狂潮
+13:39 有人宣称50%的人将丢掉饭碗
+13:42 吴恩达的判断非常明确
+13:43 这根本不会发生
+13:44 相反
+13:45 软件工程领域已经非常生动地展示了截然不同的景象
+13:49 尽管AI正在将大量工作自动化
+13:51 但现实是
+13:52 我们依然极度缺乏熟练的AI工程师
+13:55 AI正在为软件工程师赋能
+13:57 不仅让工程师的价值不降反升
+13:59 也让软件工程类的招聘需求持续增长
+14:02 整个行业依然非常健康且在不断扩张
+14:05 AI会首先渗透到软件领域
+14:07 然后逐步深入营销、招聘等其他行业
+14:10 整体来看，虽然会有少数例外
+14:11 但对于绝大多数工作类别而言
+14:14 AI不可能包揽一切
+14:15 我们依然需要人类来引导和辅助AI
+14:18 真正的挑战在于人们需要掌握新的技能
+14:21 我们不能指望继续用两年前写代码的方式来保住现在的饭碗
+14:25 可即便是大家改变了技能结构、学习了新技能
+14:28 我们依然找不到足够的软件和AI工程师
+14:31 随着AI步入更多领域
+14:33 软件行业的现状预示了其他行业将要面临的一个趋势
+14:36 那就是你确实需要提升和更新技能
+14:39 但与此同时，人类也能胜任更多工作
+14:42 并且有望获得更丰厚的报酬
+14:44 所以我们面临的挑战
+14:45 不是如何应对失业狂潮
+14:47 而是如何帮助每个人掌握未来必不可少的新技能
+14:51 那推理算力怎么来呢？
+14:53 最直接的方法之一就是建更多的数据中心
+14:56 吴恩达说得很实在
+14:57 如果建了更多数据中心
+14:58 他相信这些设施全都会派上用场
+15:01 至于具体是盈利还是亏损
+15:02 他现在很难断言，但他确信
+15:05 市场对推理数据中心的需求是极其庞大的
+15:08 那未来会不会有更有创意的方法
+15:10 或者突破性的新技术来
+15:12 进一步大幅降低成本呢？
+15:14 从他观察到的研究动向来看
+15:16 他对此充满信心
+15:17 认为也许正是因为AI的出现
+15:19 计算机和数据中心的价值比以往任何时候都要高
+15:22 大规模建设它们是完全合乎逻辑的
+15:25 虽然我们还需要进一步精确测算具体需求量
+15:28 但显而易见的是
+15:29 我们需要更多的数据中心
+15:31 除了数据中心本身
+15:32 另一项基础设施建设重点是数据架构
+15:35 他提到自己刚和埃森哲的合作伙伴聊到这个
+15:38 事实证明AI是由数据驱动的
+15:40 他看到许多大型企业正在重新思考如何组织数据
+15:43 来确保数据不仅仅是为人类准备的
+15:46 更是为AI Agent准备好的
+15:48 未来的数据仍然会被人类使用
+15:50 但也会被Agent频繁调用
+15:52 而企业解锁海量商业价值的关键途径之一
+15:54 就是让你的数据架构适合Agent使用
+15:57 Agent使用数据的方式和人类截然不同
+16:00 它们访问频率极高
+16:01 访问模式有时也更加无序
+16:03 所以需要建立自动化接口
+16:05 打个比方
+16:06 如果你的Agent想要访问数据
+16:08 它总不能每隔60秒就停下来让你输入一次密码
+16:10 这些都是底层基础设施上的细节问题
+16:13 但这些细节
+16:14 恰恰是在企业中解锁海量价值的另一块基石
+16:17 对于数据中心建设的反对声浪
+16:19 有些地方甚至出台了为期一年的数据中心暂停建设令
+16:23 吴恩达的评价非常直接
+16:25 如果想要拖慢AI的发展步伐
+16:26 恐怕再也找不到比这种暂停建设令更好的借口了
+16:30 他并不是要无视民众的担忧，确实
+16:33 数据中心建在某些地方可能有些碍眼
+16:35 也许该想办法把它们设计得更美观一些
+16:38 但是
+16:38 除此之外的很多问题都被过度炒作了
+16:41 一个反直觉的事实是
+16:42 我们能为环境保护做的最好贡献之一
+16:45 就是将计算资源集中在数据中心里
+16:48 吴恩达说自己办公室里就有一台服务器机架
+16:50 但无论是从能源消耗、水资源消耗
+16:53 还是其他任何角度来看
+16:54 他这台机架的效率都远远低于那些经过专门设计、极度高效的数据中心
+16:59 所以把所有本地部署的设备
+17:01 统统转移到数据中心集中管理
+17:03 是对环境最好的保护
+17:05 不可否认，由于算力高度集中
+17:07 数据中心确实会消耗大量能源和水
+17:09 但这总比算力设备分散各处要环保得多
+17:12 真正的问题在于
+17:13 我们正在消耗如此庞大的算力
+17:16 这势必会产生一定的环境影响
+17:18 但既然我们必须使用这么多算力
+17:20 将它们集中在数据中心显然是更优解
+17:23 吴恩达甚至提出了一个很值得玩味的观察
+17:25 他怀疑人们对数据中心的抵触
+17:27 很大程度上源于对AI的不适与抵触
+17:30 而不仅仅是对数据中心本身的排斥
+17:33 这让他感到担忧
+17:34 因为AI将会让许多人的生活变得更美好
+17:37 从他个人的角度来说
+17:38 AI帮他处理掉了一些枯燥的琐事
+17:40 让他的生活变得更有趣了
+17:42 他将AI视为一股非常积极的力量
+17:45 然而不知为何
+17:46 现在涌现了太多奇怪的反AI游说活动
+17:49 如果任由这种情况发展下去
+17:51 将真正损害发展的利益
+17:53 最后两人聊到了和我们每个人都相关的一个话题
+17:55 教育和技能
+17:57 吴恩达创办了DeepLearning.AI
+17:59 目的就是帮助人们培养机器学习和AI领域的职业技能
+18:02 他观察到一个很多国家都面临的共同挑战
+18:06 传统教育体系适应新技术的发展过于缓慢
+18:09 现实情况是
+18:10 我们不能再用2022年的标准来培养软件工程师了
+18:13 甚至都不能用2026年的标准
+18:15 我们应该着眼于2028年乃至更遥远未来的岗位需求
+18:19 来培养他们
+18:20 但怎么让教育体系跟上步伐呢？
+18:22 软件和AI工程未来的发展方向
+18:24 在他脑海中越来越清晰
+18:26 他认为自己能够看清人们需要具备哪些新技能
+18:29 实际上他也在努力弄清楚
+18:31 其他所有岗位未来的技能需求
+18:34 我们不可能让每个人都去当软件工程师
+18:36 虽然那很有趣
+18:37 但并不现实
+18:38 不过对于记者、营销人员、招聘人员、人力资源专家以及运营专员来说
+18:43 他们的工作形态必将发生改变
+18:46 他不认为这些岗位会消失
+18:47 我们绝对依然需要大量的人来从事这些工作
+18:50 但问题在于
+18:51 要想成为新一代的营销人员、新一代的招聘人员或者新一代的记者
+18:55 他们需要掌握哪些新技能呢？
+18:58 吴恩达对此有自己的见解
+18:59 但是他也认为需要将这些见解系统化
+19:02 为人们提供一条清晰的学习路径
+19:04 这正是Coursera、DeepLearning.AI
+19:06 以及他和合作伙伴们正在努力实现的目标
+19:09 听完吴恩达这一整轮访谈
+19:11 我自己最大的感受是
+19:12 在这个行业情绪起伏越来越剧烈的时刻
+19:15 这种同时跨越学术、产业、投资、教育多个维度的声音
+19:19 反而显得异常清醒
+19:21 开源和闭源不是非此即彼的站队游戏
+19:24 真正重要的是保持选择的灵活性
+19:26 算力泡沫和失业恐慌更多是情绪放大
+19:29 真实的商业逻辑和就业市场给出的信号恰恰相反
+19:33 企业的护城河不在模型本身
+19:34 而在你能不能用几十年积累的资产和AI真正结合
+19:38 数据中心的争议背后
+19:40 藏着的是人们对新技术本身的不适
+19:42 吴恩达的这些判断不一定每一条都完全正确
+19:45 但至少提供了一个脱离情绪战的思考框架
+19:48 不知道大家怎么看吴恩达的这些观点呢？
+19:50 欢迎在评论区分享讨论
+19:52 感谢收看，我们下期再见</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://youtu.be/LHCqSqneZGQ" target="_blank" rel="noopener">https://youtu.be/LHCqSqneZGQ</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
