@@ -1,5 +1,11 @@
 [
   {
+    "title": "15 分鐘學完 CLAUDE.md：從入門到精通 - Hermes Docs",
+    "url": "videos/GaryChen_CLAUDE-md_AGENTS-md_入門到精通.html",
+    "date": "2026-08-16 23:06",
+    "content": "15 分鐘學完 CLAUDE.md：從入門到精通 - Hermes Docs 返回首頁 15 分鐘學完 CLAUDE.md：從入門到精通 發布時間：2026-08-17 07:06 🌙 YouTube 影片重點整理 15 分鐘學完 CLAUDE.md：從入門到精通 📺 Gary Chen ⏱ 16:26 🗓 2026-07-30 🌐 zh-TW 🔗 https://www.youtube.com/watch?v=wj7mHCviMvs 這支影片把 CLAUDE.md／AGENTS.md 當成 Claude Code 與 Codex 的核心指令檔來說明：它會在每次對話開始前被讀入 context，因此不應塞滿 AI 自己能探索到的客觀資料，而應留下專案裡真正難以推斷、經常適用、且長期有效的隱性知識。影片也整理了 User、Project、Nested 三種層級，示範用 /init 建立第一版後如何做減法與加法，並用 /insights、官方 Prompting Guide、專案現況查證來長期新增與修剪規則。 01 CLAUDE.md / AGENTS.md 是 AI 開工前的最高指令 0"
+  },
+  {
     "title": "模型越強，Superpowers 和 MattPocock-Skills 應該刪除誰？ - Hermes Docs",
     "url": "videos/AI隨風_Superpowers_vs_MattPocock_Skills強模型工作流.html",
     "date": "2026-08-16 14:00",
