@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>模型越強，Superpowers 和 MattPocock-Skills 應該刪除誰？ - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>模型越強，Superpowers 和 MattPocock-Skills 應該刪除誰？</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-08-16 22:00</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">模型越強，Superpowers 和 MattPocock-Skills 應該刪除誰？</h1>
+    <div class="meta"><span data-field="channel">📺 AI隨風</span><span data-field="duration">⏱ 09:05</span><span data-field="published_date">🗓 2026-07-21</span><span data-field="original_language">🌐 zh-Hans</span><a data-field="source_url" href="https://www.youtube.com/watch?v=JPGo_5fczaA" target="_blank" rel="noopener">🔗 https://www.youtube.com/watch?v=JPGo_5fczaA</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>這支影片比較 Superpowers 與 MattPocock Skills 兩套 AI 編程工作流，核心問題是：模型能力越強後，工作流到底是在幫助模型，還是在用過度細節限制模型。影片先說明模型升級主要提升推理能力與長任務處理能力，因此提示詞與需求輸入也應從『告訴 AI 每一步怎麼做』，逐步轉向『說清楚目標與驗證條件，讓模型自行推理實作』。接著影片比較兩套流程在需求對齊與計畫生成上的差異：需求對齊階段兩者都依賴模型能力，只是提問方式不同；真正差異較大的地方在寫計畫。影片認為 Superpowers 的 Writing Plans 傾向產出非常細的介面、測試與程式碼層級細節，在強模型情境下可能增加 token 消耗並限制模型推理；MattPocock Skills 則較偏 PRD / spec / 驗證條件，保留較多實作空間給模型。結論是：強模型、且你願意讓模型自行推理實作時，較建議使用 MattPocock Skills；弱模型，或團隊需要先審核詳細介面與核心邏輯時，Superpowers 仍然適合。影片最後建議最好依自己的業務流程，建立一套從需求對齊到提交的自訂工作流。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">1. 強模型時代，輸入要從『步驟』轉向『目標與驗證』</h2><span class="ts-badge" data-field="lesson_timestamp">00:33</span></div><div class="body" data-field="lesson_body"><p>影片的基本判斷是：模型迭代時，提升的是推理能力與支援長任務的能力。弱模型需要使用者把步驟、介面、程式碼細節講得更清楚，因為這能降低模型推理難度。</p><p>但當模型變強後，過度詳細的過程約束反而可能成為限制。更適合的輸入，是說清楚<strong>要達成的目標</strong>與<strong>驗證目標是否完成的條件</strong>，把中間實作過程交給模型推理。</p><span class="tag" data-field="lesson_tag">提示方式轉變</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">2. 兩套工作流的主流程其實很像</h2><span class="ts-badge" data-field="lesson_timestamp">02:15</span></div><div class="body" data-field="lesson_body"><p>影片把 MattPocock Skills 與 Superpowers 放在同一個工作流脈絡下比較：兩者大致都會先做需求對齊，形成文檔，再拆分、執行、review，最後提交或發布。</p><p>也就是說，差異不在於『有沒有流程』，而在於每一步對模型推理空間的保留程度，尤其是後面寫計畫時到底寫到多細。</p><span class="tag" data-field="lesson_tag">流程比較</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">3. 需求對齊：MattPocock Skills 偏樹狀補全，Superpowers 偏追問深化</h2><span class="ts-badge" data-field="lesson_timestamp">03:10</span></div><div class="body" data-field="lesson_body"><p>影片描述 MattPocock Skills 的需求對齊像是把模糊想法拆成多個分支，例如主體、狀態、售後等，再逐一問答補齊，最後形成共享理解、領域詞彙、歧義點與重大決策。</p><p>Superpowers 的頭腦風暴則被形容為蘇格拉底式提問：根據目前程式碼或敘述文檔往下追問，直到形成總結文檔。影片認為這一段兩者都很依賴模型能力，產出結果差距可能不大；MattPocock Skills 較適合模糊想法，Superpowers 較適合需求已相對明確時往下追。</p><span class="tag" data-field="lesson_tag">需求對齊</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">4. 真正差異在『寫計畫』：細到程式碼，還是保留推理空間</h2><span class="ts-badge" data-field="lesson_timestamp">05:10</span></div><div class="body" data-field="lesson_body"><p>影片認為寫計畫是兩套工具差異最大的地方。Superpowers 的 Writing Plans 會把目標、約束、檔案結構、功能、失敗測試、程式碼與介面寫得很細。</p><p>MattPocock Skills 產出的文檔則更偏 PRD / spec：問題、解決方案、使用者故事、實作決策、介面定義、驗證條件與測試條件。影片的判斷是，後者更適合強模型，因為它讓模型自己推理實作細節；前者在強模型下可能變成 token 消耗與推理限制。</p><span class="tag" data-field="lesson_tag">計畫生成</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">5. Superpowers 不一定要刪，取決於模型能力與審核需求</h2><span class="ts-badge" data-field="lesson_timestamp">07:35</span></div><div class="body" data-field="lesson_body"><p>影片沒有給出一刀切的答案，而是分情境：如果你使用強模型，並且允許模型自行推理實作細節，影片建議偏向使用 MattPocock Skills，少用過度細節化的 Superpowers 計畫流程。</p><p>但如果你使用的是較弱模型，或團隊需要在開發前先審核詳細介面、核心邏輯、關鍵實作，Superpowers 仍然有價值。因為它能把細節提前攤開，讓人或團隊先 review。</p><span class="tag" data-field="lesson_tag">使用建議</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">6. 最終建議：不要只學工具，要沉澱自己的工作流</h2><span class="ts-badge" data-field="lesson_timestamp">08:25</span></div><div class="body" data-field="lesson_body"><p>影片總結時提到，強模型如 GPT-5.6、Kimi K3、Fable-5 這類情境，可盡量用 MattPocock Skills 完成頭腦風暴、計畫書寫與程式碼實作；較弱模型或嚴格 review 流程則可用 Superpowers。</p><p>更重要的是，影片建議依照自己的業務流程，建立一套從需求對齊到提交的完整流程。這樣比較利於控制、修改，也比只追逐某一個熱門工作流更穩定。</p><span class="tag" data-field="lesson_tag">自訂流程</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">強模型時代，工作流的價值不是把每一步都寫死，而是把目標與驗證條件說清楚，讓模型有空間完成推理。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="00:00"><span class="ts">00:00</span><span class="text" data-field="key_point_text">開場提出問題：Superpowers 與 MattPocock Skills 都是熱門 AI 編程工作流，且部分技能相似，因此需要判斷強模型時代該選哪一套。</span></li><li data-field="key_point" data-timestamp="00:33"><span class="ts">00:33</span><span class="text" data-field="key_point_text">模型升級主要提升推理能力與長任務處理能力；模型越弱時越需要詳細步驟，模型越強時越應聚焦目標與驗證條件。</span></li><li data-field="key_point" data-timestamp="02:15"><span class="ts">02:15</span><span class="text" data-field="key_point_text">兩套工作流流程相似，都是需求對齊、形成文檔、拆分、執行、review、提交 / 發布。</span></li><li data-field="key_point" data-timestamp="03:10"><span class="ts">03:10</span><span class="text" data-field="key_point_text">需求對齊上，MattPocock Skills 類似樹狀補全模糊需求；Superpowers 則偏蘇格拉底式追問。兩者都依賴模型能力，產出差距不一定大。</span></li><li data-field="key_point" data-timestamp="05:10"><span class="ts">05:10</span><span class="text" data-field="key_point_text">寫計畫是最大差異：Superpowers 的計畫更細，包含目標、約束、檔案結構、功能、失敗測試、程式碼與介面；MattPocock Skills 較偏 PRD、使用者故事、實作決策、驗證與測試條件。</span></li><li data-field="key_point" data-timestamp="07:35"><span class="ts">07:35</span><span class="text" data-field="key_point_text">是否刪除 Superpowers 要看情境：強模型且允許模型自行推理時可少用；需要提前審核細節或使用較弱模型時仍適合。</span></li><li data-field="key_point" data-timestamp="08:25"><span class="ts">08:25</span><span class="text" data-field="key_point_text">總結建議：強模型如影片提到的 GPT-5.6、Kimi K3、Fable-5 可偏向 MattPocock Skills；較弱模型或嚴格 review 流程可用 Superpowers；最好建立自己的業務流程。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="AI 編程工作流">AI 編程工作流</span><span class="tag-chip" data-tag="Superpowers">Superpowers</span><span class="tag-chip" data-tag="MattPocock Skills">MattPocock Skills</span><span class="tag-chip" data-tag="強模型">強模型</span><span class="tag-chip" data-tag="需求對齊">需求對齊</span><span class="tag-chip" data-tag="Writing Plans">Writing Plans</span><span class="tag-chip" data-tag="PRD">PRD</span><span class="tag-chip" data-tag="TDD">TDD</span><span class="tag-chip" data-tag="程式碼審查">程式碼審查</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>此影片沒有 YouTube 官方字幕；主內容由 Whisper STT 取得，已依標題與描述修正主要專有名詞。</li><li>Whisper 對工具名稱與技能名稱有明顯漂字；未能從畫面 OCR 逐一核對所有 GitHub 星數與技能名，因此具體數字只保留在原始逐字稿附錄中，不作為主文重點。</li><li>片中提到的模型名稱 GPT-5.6、Kimi K3、Fable-5 依描述與語音整理；未額外查證其真實存在或版本狀態。</li></ul></div></section>
+  <section class="glossary" data-field="asr_glossary"><h2>🎙️ ASR 漂字對照表</h2><div class="card"><table class="glossary"><tr data-field="asr_glossary_row"><td data-field="heard">SuperPulse / CyberPulse / CPUPARSE</td><td>→</td><td data-field="corrected">Superpowers（依影片標題與描述還原）</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">MART / MAT / MultiSkills / Mattis Skills</td><td>→</td><td data-field="corrected">MattPocock Skills（依影片標題與描述還原）</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">WritingPrint</td><td>→</td><td data-field="corrected">Writing Plans</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Greep with DOS</td><td>→</td><td data-field="corrected">需求對齊相關技能名；原音不清，未強行還原</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">talking 消耗</td><td>→</td><td data-field="corrected">token 消耗</td></tr></table></div></section>
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="description"><div class="raw-label">YouTube 原始描述<button class="copy-btn" id="raw_description_4340483264_srt" onclick="copyRaw(this,'raw_description_4340483264_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_description_4340483264_text" onclick="copyRawText(this,'raw_description_4340483264_text')">📋 複製純文字</button></div><pre>🔥 AI 编程工作流到底该怎么选？
+
+最近两个非常火的 AI 编程工作流：
+
+🚀 Superpowers
+🚀 Matt Skills
+
+一个在 GitHub 上拥有超高热度，一个是最近快速崛起的新方案。
+
+但问题来了：
+
+❓模型越来越强之后，这些工作流真的还能提升效果吗？
+❓强模型时代，复杂的技能流程到底是帮助 AI，还是限制 AI？
+
+这期视频我会详细对比：
+
+✅ Superpowers 和 Matt Skills 的核心区别
+✅ 两者在需求分析、计划生成上的差异
+✅ 为什么强模型时代，过度详细的流程可能反而降低效果
+✅ GPT-5.6、Kimi K3、Fable-5 这类强模型应该如何选择工作流
+✅ 什么情况下应该使用 Superpowers，什么情况下更适合 Matt Skills
+
+AI 编程正在从「告诉 AI 每一步怎么做」，进入「告诉 AI 目标，让 AI 自己推理完成」的阶段。
+
+理解这个变化，比学会某一个工具更加重要。
+00:00 介绍
+02:15 流程对比
+03:10 需求对齐
+05:10 写计划
+07:35 应该删除谁？
+08:25 总结</pre></div><div class="raw-block" data-field="raw_source_item" data-raw-type="whisper"><div class="raw-label">Whisper STT 原始逐字稿（簡中 / 含漂字）<button class="copy-btn" id="raw_whisper_4340483584_srt" onclick="copyRaw(this,'raw_whisper_4340483584_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_whisper_4340483584_text" onclick="copyRawText(this,'raw_whisper_4340483584_text')">📋 複製純文字</button></div><pre>1
+00:00:00,000 --&gt; 00:00:04,000
+大家好,在AI编程的工作流里面有两个非常流行的工作流
+
+2
+00:00:04,000 --&gt; 00:00:08,460
+一个是SuperPulse,那么在GitHub上的SaaS也有258K了
+
+3
+00:00:08,460 --&gt; 00:00:11,640
+那么还有一个是最近冒起来非常火的MultiSkills
+
+4
+00:00:11,640 --&gt; 00:00:13,780
+那么在GitHub上也有180K了
+
+5
+00:00:13,780 --&gt; 00:00:17,260
+而且这两个工作流里面有些技能是非常相似的
+
+6
+00:00:17,260 --&gt; 00:00:18,680
+那么这就会导致一个问题
+
+7
+00:00:18,680 --&gt; 00:00:21,200
+但在使用过程中应该选择谁呢
+
+8
+00:00:21,200 --&gt; 00:00:22,940
+模型越来越强之后
+
+9
+00:00:22,940 --&gt; 00:00:25,700
+哪个工作流对模型的支持是最好的
+
+10
+00:00:25,700 --&gt; 00:00:28,160
+哪个工作流对模型用起的反作用呢
+
+11
+00:00:28,160 --&gt; 00:00:30,880
+那本期视频就来给大家详细的讲解一下
+
+12
+00:00:30,880 --&gt; 00:00:33,980
+这两个工作流该如何选择以及区别
+
+13
+00:00:33,980 --&gt; 00:00:37,440
+首先我们来理解一下模型的发展到底是在发展什么
+
+14
+00:00:37,440 --&gt; 00:00:40,300
+那对于我们跟AI进行对话
+
+15
+00:00:40,300 --&gt; 00:00:42,040
+我们输入了我们的需求
+
+16
+00:00:42,040 --&gt; 00:00:43,900
+然后模型会进行推理
+
+17
+00:00:43,900 --&gt; 00:00:46,480
+然后最终会输出我们用了代码
+
+18
+00:00:46,480 --&gt; 00:00:50,020
+那么模型在发展在版本在迭代在升级的时候
+
+19
+00:00:50,020 --&gt; 00:00:54,060
+他就会把自己的这个推理能力和支持更长的任务
+
+20
+00:00:54,060 --&gt; 00:00:55,620
+也就是更长的推理
+
+21
+00:00:55,620 --&gt; 00:00:57,580
+所以这块能力是在提升的
+
+22
+00:00:57,580 --&gt; 00:01:01,900
+那这块能力的提升就会导致我们的输入有可能会产生变化
+
+23
+00:01:01,900 --&gt; 00:01:05,080
+那比如说在模型比较差的情况下
+
+24
+00:01:05,080 --&gt; 00:01:07,360
+那么我们的输入要更详细的
+
+25
+00:01:07,360 --&gt; 00:01:08,560
+我们要告诉他怎么做
+
+26
+00:01:08,560 --&gt; 00:01:09,380
+第一步怎么做
+
+27
+00:01:09,380 --&gt; 00:01:11,180
+代码的接口是什么样子的
+
+28
+00:01:11,180 --&gt; 00:01:14,160
+那么他收到我们这个更加详细的需求之后
+
+29
+00:01:14,160 --&gt; 00:01:16,700
+他的推理的这个难度就会减少
+
+30
+00:01:16,700 --&gt; 00:01:18,240
+所以输出来效果会更好
+
+31
+00:01:18,240 --&gt; 00:01:20,220
+那等模型越来越强之后
+
+32
+00:01:20,220 --&gt; 00:01:22,060
+也就是他的推理能力越来越强之后
+
+33
+00:01:22,060 --&gt; 00:01:23,900
+这就要求我们的输入
+
+34
+00:01:23,900 --&gt; 00:01:24,860
+也就是我们的需求
+
+35
+00:01:24,860 --&gt; 00:01:26,480
+过程的细节要少
+
+36
+00:01:26,480 --&gt; 00:01:27,920
+我们要更注重的是
+
+37
+00:01:27,920 --&gt; 00:01:30,360
+我们要他实现的目标是什么
+
+38
+00:01:30,360 --&gt; 00:01:33,580
+验证这个实现目标的条件是什么
+
+39
+00:01:33,580 --&gt; 00:01:37,260
+那整个实现过程全部靠模型的推理去完成
+
+40
+00:01:37,260 --&gt; 00:01:40,580
+我们就不再需要去详细定义这个过程的细节了
+
+41
+00:01:40,580 --&gt; 00:01:42,540
+这个就是模型增长之后
+
+42
+00:01:42,540 --&gt; 00:01:45,860
+我们跟模型之间的提示词的变化
+
+43
+00:01:45,860 --&gt; 00:01:47,060
+所以总的来说
+
+44
+00:01:47,060 --&gt; 00:01:49,000
+不管是你工作流还是技能
+
+45
+00:01:49,000 --&gt; 00:01:50,860
+带来的问题都是一样的
+
+46
+00:01:50,860 --&gt; 00:01:55,960
+比如说在模型越弱的时候技能提供的是更加详细的过程
+
+47
+00:01:55,960 --&gt; 00:01:56,660
+这种约束
+
+48
+00:01:56,660 --&gt; 00:01:59,060
+那么模型变强之后
+
+49
+00:01:59,060 --&gt; 00:02:02,460
+如果你提供的还是很详细的这个过程约束的话
+
+50
+00:02:02,460 --&gt; 00:02:05,620
+那么给模型带来的就是更臃烛的少将观
+
+51
+00:02:05,620 --&gt; 00:02:07,760
+也限制了他的推理的效果
+
+52
+00:02:07,760 --&gt; 00:02:10,940
+所以这个是一个模型变强之后技能的变化
+
+53
+00:02:10,940 --&gt; 00:02:12,080
+那这两个工作流
+
+54
+00:02:12,080 --&gt; 00:02:16,500
+哪一个工作流违反了我们刚刚讲的模型变强之后
+
+55
+00:02:16,500 --&gt; 00:02:18,120
+提供了过多的细节呢
+
+56
+00:02:18,120 --&gt; 00:02:19,260
+那接着往下看
+
+57
+00:02:19,260 --&gt; 00:02:23,360
+首先我们来了解一下这两种工作流常用的这个技能啊
+
+58
+00:02:23,360 --&gt; 00:02:24,760
+第一个呢就是MART这个工作流
+
+59
+00:02:24,760 --&gt; 00:02:26,960
+它是从Greep with DOS这个技能
+
+60
+00:02:26,960 --&gt; 00:02:29,700
+会跟你进行一个虚学对齐沟通
+
+61
+00:02:29,700 --&gt; 00:02:32,000
+然后呢会转换成文档
+
+62
+00:02:32,000 --&gt; 00:02:35,020
+然后再把文档进行一个垂直拆分
+
+63
+00:02:35,020 --&gt; 00:02:36,400
+然后再去执行
+
+64
+00:02:36,400 --&gt; 00:02:37,300
+然后再去CodeReview
+
+65
+00:02:37,300 --&gt; 00:02:38,140
+最后去提交
+
+66
+00:02:38,140 --&gt; 00:02:38,820
+发布
+
+67
+00:02:38,820 --&gt; 00:02:40,980
+那么这是一个常用的工作流啊
+
+68
+00:02:40,980 --&gt; 00:02:42,180
+那CyberPulse的工作流就是
+
+69
+00:02:42,180 --&gt; 00:02:43,240
+首先是头脑风暴
+
+70
+00:02:43,240 --&gt; 00:02:45,480
+风暴完之后会生成一个文档
+
+71
+00:02:45,480 --&gt; 00:02:46,760
+那么基于这个文档
+
+72
+00:02:46,760 --&gt; 00:02:49,920
+再去调用这个WritingPrint去写这个计划文档
+
+73
+00:02:49,920 --&gt; 00:02:52,260
+那写了计划文档之后就可以用这个TDD
+
+74
+00:02:52,260 --&gt; 00:02:55,300
+或者说其他的这种执行计划的这个技能啊
+
+75
+00:02:55,300 --&gt; 00:02:55,760
+去执行
+
+76
+00:02:55,760 --&gt; 00:02:56,780
+然后再去review呢
+
+77
+00:02:56,780 --&gt; 00:02:57,800
+再去发布
+
+78
+00:02:57,800 --&gt; 00:03:00,900
+两者的流程是非常相似的
+
+79
+00:03:00,900 --&gt; 00:03:02,540
+都是需求对齐计划
+
+80
+00:03:02,540 --&gt; 00:03:04,420
+然后拆分
+
+81
+00:03:04,420 --&gt; 00:03:05,160
+然后再执行
+
+82
+00:03:05,160 --&gt; 00:03:05,740
+再验收
+
+83
+00:03:05,740 --&gt; 00:03:07,520
+所以整个过程是非常相似的
+
+84
+00:03:07,520 --&gt; 00:03:10,500
+那我们再详细的对比一下几个核心的技能啊
+
+85
+00:03:10,500 --&gt; 00:03:11,900
+那第一个就是需求对齐
+
+86
+00:03:11,900 --&gt; 00:03:13,800
+那MAT这边是Greed with DOS
+
+87
+00:03:13,800 --&gt; 00:03:15,880
+那SuperPulse这边是头脑风暴
+
+88
+00:03:15,880 --&gt; 00:03:18,480
+那我们首先来看一个动画的演示
+
+89
+00:03:18,480 --&gt; 00:03:20,160
+来对比一下这两个技能
+
+90
+00:03:20,160 --&gt; 00:03:22,600
+在需求对齐这个维度上有什么区别
+
+91
+00:03:22,600 --&gt; 00:03:25,360
+那我们可以看一下MATSkills里面
+
+92
+00:03:25,360 --&gt; 00:03:27,720
+首先会拆出四个分支
+
+93
+00:03:27,720 --&gt; 00:03:29,480
+那么基于四个分支
+
+94
+00:03:29,480 --&gt; 00:03:30,500
+比如主体是谁
+
+95
+00:03:30,500 --&gt; 00:03:31,500
+然后去回答
+
+96
+00:03:31,500 --&gt; 00:03:32,240
+去问答
+
+97
+00:03:32,240 --&gt; 00:03:35,440
+那如果说主体这个分支的问题都解决了
+
+98
+00:03:35,440 --&gt; 00:03:36,400
+他又会回来
+
+99
+00:03:36,400 --&gt; 00:03:37,460
+回到第二个分支
+
+100
+00:03:37,460 --&gt; 00:03:38,100
+比如状态
+
+101
+00:03:38,100 --&gt; 00:03:39,820
+你有订单有什么样的状态
+
+102
+00:03:39,820 --&gt; 00:03:41,940
+然后如果这个解决完之后
+
+103
+00:03:41,940 --&gt; 00:03:42,820
+他再回到这边
+
+104
+00:03:42,820 --&gt; 00:03:43,860
+售后有什么问题
+
+105
+00:03:43,860 --&gt; 00:03:46,640
+然后所有的分支的问题都解决了之后
+
+106
+00:03:46,640 --&gt; 00:03:48,920
+他会形成一个共享的理解
+
+107
+00:03:48,920 --&gt; 00:03:50,240
+一些领域的词汇
+
+108
+00:03:50,240 --&gt; 00:03:51,540
+比如说一些起义点啊
+
+109
+00:03:51,540 --&gt; 00:03:53,040
+一些重大决策啊
+
+110
+00:03:53,040 --&gt; 00:03:53,840
+都会记下来
+
+111
+00:03:53,840 --&gt; 00:03:56,360
+所以你使用MATSkills里面去进行
+
+112
+00:03:56,360 --&gt; 00:03:57,420
+去对齐的时候
+
+113
+00:03:57,420 --&gt; 00:04:00,820
+那么他会对完之后会形成一些文档
+
+114
+00:04:00,820 --&gt; 00:04:02,120
+在后续过程中会起到
+
+115
+00:04:02,120 --&gt; 00:04:02,920
+非常重要的作用
+
+116
+00:04:02,920 --&gt; 00:04:04,460
+我们再看一下CyberPulse
+
+117
+00:04:04,460 --&gt; 00:04:07,360
+那么他这边的话是形容苏格拉底式的提问
+
+118
+00:04:07,360 --&gt; 00:04:08,200
+也就是说
+
+119
+00:04:08,200 --&gt; 00:04:10,000
+他会针对当前代码顾
+
+120
+00:04:10,000 --&gt; 00:04:11,920
+或者说你的详细的叙述文档啊
+
+121
+00:04:11,920 --&gt; 00:04:13,280
+来进行问题的追问
+
+122
+00:04:13,280 --&gt; 00:04:14,080
+比如第一个问题
+
+123
+00:04:14,080 --&gt; 00:04:16,500
+问的是什么时候算下转成功
+
+124
+00:04:16,500 --&gt; 00:04:18,040
+如果你回答支付完成
+
+125
+00:04:18,040 --&gt; 00:04:18,940
+算下转成功
+
+126
+00:04:18,940 --&gt; 00:04:21,080
+那么他就会针对这个支付完成
+
+127
+00:04:21,080 --&gt; 00:04:22,900
+又会更详细的往下追问
+
+128
+00:04:22,900 --&gt; 00:04:24,980
+他是一层一层的往下追问的
+
+129
+00:04:24,980 --&gt; 00:04:26,840
+所以说这叫苏格拉底式的提问
+
+130
+00:04:26,840 --&gt; 00:04:28,960
+然后最后经过几轮的问答之后
+
+131
+00:04:28,960 --&gt; 00:04:30,420
+他觉得OK没有问题了
+
+132
+00:04:30,420 --&gt; 00:04:32,880
+那么会生成一个这样总的一个文档
+
+133
+00:04:32,880 --&gt; 00:04:34,420
+所以这两个技能
+
+134
+00:04:34,420 --&gt; 00:04:36,760
+其实在需求对齐这个维度上
+
+135
+00:04:36,760 --&gt; 00:04:38,800
+都非常依赖于模型的能力
+
+136
+00:04:38,800 --&gt; 00:04:40,760
+只是两种问答的方式不一样
+
+137
+00:04:40,760 --&gt; 00:04:43,020
+所以他们的产出的结果
+
+138
+00:04:43,020 --&gt; 00:04:44,440
+我觉得差不了多少
+
+139
+00:04:44,440 --&gt; 00:04:46,220
+但是MART这个需求对齐啊
+
+140
+00:04:46,220 --&gt; 00:04:47,100
+非常适合这种
+
+141
+00:04:47,100 --&gt; 00:04:49,600
+你有一个模糊的想法的时候
+
+142
+00:04:49,600 --&gt; 00:04:51,280
+它像一棵树一样去补全
+
+143
+00:04:51,280 --&gt; 00:04:52,140
+你的所有的需求
+
+144
+00:04:52,140 --&gt; 00:04:54,380
+然后最后再总结成一个词汇
+
+145
+00:04:54,380 --&gt; 00:04:57,000
+那SuperPulse的头脑风暴呢
+
+146
+00:04:57,000 --&gt; 00:04:58,520
+比较适合你的需求
+
+147
+00:04:58,520 --&gt; 00:04:59,380
+比较明确
+
+148
+00:04:59,380 --&gt; 00:05:00,680
+然后呢
+
+149
+00:05:00,680 --&gt; 00:05:02,480
+因为他追问的这个问题的层数
+
+150
+00:05:02,480 --&gt; 00:05:05,060
+是没有像MART SKILLS那么全的
+
+151
+00:05:05,060 --&gt; 00:05:06,800
+所以说这两种在使用上
+
+152
+00:05:06,800 --&gt; 00:05:07,700
+有点点区别
+
+153
+00:05:07,700 --&gt; 00:05:08,840
+这个技能在
+
+154
+00:05:08,840 --&gt; 00:05:09,840
+不管是落模型
+
+155
+00:05:09,840 --&gt; 00:05:10,280
+强模型
+
+156
+00:05:10,280 --&gt; 00:05:11,400
+都可以去使用
+
+157
+00:05:11,400 --&gt; 00:05:12,900
+那么第二个就是写计划
+
+158
+00:05:12,900 --&gt; 00:05:15,600
+那这一步是非常非常大的区别的
+
+159
+00:05:15,600 --&gt; 00:05:17,360
+也是对T视频里面
+
+160
+00:05:17,360 --&gt; 00:05:19,080
+要详细的去讲解的
+
+161
+00:05:19,080 --&gt; 00:05:20,220
+那MART SKILLS里面
+
+162
+00:05:20,220 --&gt; 00:05:21,500
+会通过2Spec
+
+163
+00:05:21,500 --&gt; 00:05:23,560
+把你的这个GRAVE WITH DOS
+
+164
+00:05:23,560 --&gt; 00:05:24,600
+就是需求对齐
+
+165
+00:05:24,600 --&gt; 00:05:25,920
+产生所有的对话
+
+166
+00:05:25,920 --&gt; 00:05:27,720
+来进行一个总结梳理
+
+167
+00:05:27,720 --&gt; 00:05:29,860
+那写成这个SPEC这个文档
+
+168
+00:05:29,860 --&gt; 00:05:30,880
+然后呢
+
+169
+00:05:30,880 --&gt; 00:05:31,760
+如果你有需要
+
+170
+00:05:31,760 --&gt; 00:05:33,360
+再针对这个SPEC
+
+171
+00:05:33,360 --&gt; 00:05:35,660
+进行垂直拆分成更细的
+
+172
+00:05:35,660 --&gt; 00:05:37,220
+这种小需求小功能
+
+173
+00:05:37,220 --&gt; 00:05:39,300
+那么它的流程大概是这个样子的
+
+174
+00:05:39,300 --&gt; 00:05:40,280
+那输入也有对话
+
+175
+00:05:40,280 --&gt; 00:05:41,380
+然后用户是有SPEC
+
+176
+00:05:41,380 --&gt; 00:05:42,560
+然后就拆拆拆拆完之后
+
+177
+00:05:42,560 --&gt; 00:05:44,320
+进行一个这样的保存
+
+178
+00:05:44,320 --&gt; 00:05:45,840
+然后SuperPulse的话
+
+179
+00:05:45,840 --&gt; 00:05:47,580
+要用这个Writing Plans
+
+180
+00:05:47,580 --&gt; 00:05:49,460
+就是写计划这个技能呢
+
+181
+00:05:49,460 --&gt; 00:05:51,440
+它就会根据你的这个
+
+182
+00:05:51,440 --&gt; 00:05:53,520
+头脑风暴的这个文档啊
+
+183
+00:05:53,520 --&gt; 00:05:54,840
+进行更细的细化
+
+184
+00:05:54,840 --&gt; 00:05:55,740
+我们来看一下
+
+185
+00:05:55,740 --&gt; 00:05:56,660
+这两个技能
+
+186
+00:05:56,660 --&gt; 00:05:58,380
+实际长出的这个文档
+
+187
+00:05:58,380 --&gt; 00:05:59,140
+大概是什么样子
+
+188
+00:05:59,140 --&gt; 00:06:00,380
+我们首先来看第一个
+
+189
+00:06:00,380 --&gt; 00:06:03,000
+第一个是SuperPulse的Writing Plans
+
+190
+00:06:03,000 --&gt; 00:06:04,140
+写完的计划
+
+191
+00:06:04,140 --&gt; 00:06:04,720
+我们可以看一下
+
+192
+00:06:04,720 --&gt; 00:06:06,040
+好目标是什么
+
+193
+00:06:06,040 --&gt; 00:06:07,080
+然后的话
+
+194
+00:06:07,080 --&gt; 00:06:07,900
+约束
+
+195
+00:06:07,900 --&gt; 00:06:09,700
+然后文件的结构
+
+196
+00:06:09,700 --&gt; 00:06:10,880
+好功能
+
+197
+00:06:10,880 --&gt; 00:06:12,980
+然后开始有代码了
+
+198
+00:06:12,980 --&gt; 00:06:14,120
+开始代码
+
+199
+00:06:14,120 --&gt; 00:06:16,740
+开始写这个失败测试
+
+200
+00:06:16,740 --&gt; 00:06:18,440
+那很多代码
+
+201
+00:06:18,440 --&gt; 00:06:19,340
+很多很多代码
+
+202
+00:06:19,340 --&gt; 00:06:21,280
+所以他写出来计划里面
+
+203
+00:06:21,280 --&gt; 00:06:22,540
+是有非常详细的代码
+
+204
+00:06:22,540 --&gt; 00:06:23,660
+或者叫接口的
+
+205
+00:06:23,660 --&gt; 00:06:24,620
+非常详细
+
+206
+00:06:24,620 --&gt; 00:06:25,940
+那我们再看一下
+
+207
+00:06:25,940 --&gt; 00:06:27,260
+Martis Skills
+
+208
+00:06:27,260 --&gt; 00:06:28,960
+写完的文档是什么样子的
+
+209
+00:06:28,960 --&gt; 00:06:30,120
+那么这是他的一个
+
+210
+00:06:30,120 --&gt; 00:06:31,640
+PRD文档
+
+211
+00:06:31,640 --&gt; 00:06:32,220
+问题
+
+212
+00:06:32,220 --&gt; 00:06:33,900
+然后解决方案
+
+213
+00:06:33,900 --&gt; 00:06:35,180
+那用户的一个故事
+
+214
+00:06:35,180 --&gt; 00:06:36,000
+就是场景
+
+215
+00:06:36,000 --&gt; 00:06:37,180
+那么这些场景的话
+
+216
+00:06:37,180 --&gt; 00:06:39,080
+全部是通过文字去描述的
+
+217
+00:06:39,080 --&gt; 00:06:40,660
+其实这些就是工程点
+
+218
+00:06:40,660 --&gt; 00:06:43,080
+他自己需要去推理去完成的
+
+219
+00:06:43,080 --&gt; 00:06:43,960
+然后的话
+
+220
+00:06:43,960 --&gt; 00:06:44,940
+这些都全是
+
+221
+00:06:44,940 --&gt; 00:06:46,120
+然后实现的这个决策
+
+222
+00:06:46,120 --&gt; 00:06:48,080
+然后模型
+
+223
+00:06:48,080 --&gt; 00:06:48,840
+然后就是接口
+
+224
+00:06:48,840 --&gt; 00:06:49,340
+定义
+
+225
+00:06:49,340 --&gt; 00:06:50,640
+定义好接口
+
+226
+00:06:50,640 --&gt; 00:06:52,440
+然后再就是一些验证条件
+
+227
+00:06:52,440 --&gt; 00:06:53,600
+一些测试条件
+
+228
+00:06:53,600 --&gt; 00:06:55,260
+所以他写的这个文档
+
+229
+00:06:55,260 --&gt; 00:06:57,860
+更偏向于我们现在经常说的
+
+230
+00:06:57,860 --&gt; 00:06:58,780
+比如说go模式
+
+231
+00:06:58,780 --&gt; 00:07:01,340
+或者叫循环工程里的这个文档
+
+232
+00:07:01,340 --&gt; 00:07:02,740
+包含了你要做什么
+
+233
+00:07:02,740 --&gt; 00:07:04,100
+验证他的条件是什么
+
+234
+00:07:04,100 --&gt; 00:07:06,660
+所以这种文档就比较适合
+
+235
+00:07:06,660 --&gt; 00:07:08,360
+在强模型里面去使用
+
+236
+00:07:08,360 --&gt; 00:07:10,460
+因为全部靠模型去推理去完成
+
+237
+00:07:10,460 --&gt; 00:07:11,540
+那么CPUPARSE的文档
+
+238
+00:07:11,540 --&gt; 00:07:13,180
+就写的非常非常细了
+
+239
+00:07:13,180 --&gt; 00:07:14,320
+而且把接口啊
+
+240
+00:07:14,320 --&gt; 00:07:15,360
+什么定义都写好了
+
+241
+00:07:15,360 --&gt; 00:07:17,520
+这些其实在强模型的效果下
+
+242
+00:07:17,520 --&gt; 00:07:18,400
+是一个累赘
+
+243
+00:07:18,400 --&gt; 00:07:19,500
+会产生更多的
+
+244
+00:07:19,500 --&gt; 00:07:20,260
+talking消耗而已
+
+245
+00:07:20,260 --&gt; 00:07:22,020
+因为他完全自己可以推倒出来
+
+246
+00:07:22,020 --&gt; 00:07:23,140
+相当于你现在写
+
+247
+00:07:23,140 --&gt; 00:07:24,720
+把这些东西都加到商业文里面去
+
+248
+00:07:24,720 --&gt; 00:07:26,160
+限制了模型的推理
+
+249
+00:07:26,160 --&gt; 00:07:28,300
+所以在强模型的情况下
+
+250
+00:07:28,300 --&gt; 00:07:30,100
+不是太建议使用CPUPARSE
+
+251
+00:07:30,100 --&gt; 00:07:32,140
+去完成这样的计划的书写
+
+252
+00:07:32,140 --&gt; 00:07:33,740
+那还有其他技能
+
+253
+00:07:33,740 --&gt; 00:07:34,600
+其实都差不多
+
+254
+00:07:34,600 --&gt; 00:07:35,640
+比如说像CPUPARSE
+
+255
+00:07:35,640 --&gt; 00:07:36,880
+后面的执行计划
+
+256
+00:07:36,880 --&gt; 00:07:38,840
+会依赖前面说的那个计划
+
+257
+00:07:38,840 --&gt; 00:07:40,280
+所以一旦前面的计划
+
+258
+00:07:40,280 --&gt; 00:07:41,700
+都不适配强模型的话
+
+259
+00:07:41,700 --&gt; 00:07:43,860
+那你后面的流程其实是走不下去了
+
+260
+00:07:43,860 --&gt; 00:07:44,980
+这些带来这个问题
+
+261
+00:07:44,980 --&gt; 00:07:46,100
+那乔模型下
+
+262
+00:07:46,100 --&gt; 00:07:47,860
+要不要把CPUPARSE沾掉呢
+
+263
+00:07:47,860 --&gt; 00:07:49,740
+那么这个也要分情况
+
+264
+00:07:49,740 --&gt; 00:07:51,280
+如果你允许模型
+
+265
+00:07:51,280 --&gt; 00:07:53,180
+自己去推理实现你的细节
+
+266
+00:07:53,180 --&gt; 00:07:54,520
+那么你就可以使用MAT
+
+267
+00:07:54,520 --&gt; 00:07:55,860
+这个MATSKIRES技能
+
+268
+00:07:55,860 --&gt; 00:07:57,060
+不要使用CPUPARSE
+
+269
+00:07:57,060 --&gt; 00:07:59,160
+那如果你要对AI生成的代码
+
+270
+00:07:59,160 --&gt; 00:08:01,120
+提前进行一个审核
+
+271
+00:08:01,120 --&gt; 00:08:02,680
+比如说你需要它生成
+
+272
+00:08:02,680 --&gt; 00:08:04,960
+先生成详细的这个接口
+
+273
+00:08:04,960 --&gt; 00:08:07,600
+详细的关键的核心逻辑
+
+274
+00:08:07,600 --&gt; 00:08:09,520
+这些全部要给你提前生成好
+
+275
+00:08:09,520 --&gt; 00:08:10,360
+你们小组
+
+276
+00:08:10,360 --&gt; 00:08:12,440
+或者说你自己要去进行一个深度的review
+
+277
+00:08:12,440 --&gt; 00:08:13,960
+那么你就用CPUPARSE
+
+278
+00:08:13,960 --&gt; 00:08:15,100
+这个是没有问题的
+
+279
+00:08:15,100 --&gt; 00:08:16,560
+因为你要提前把控
+
+280
+00:08:16,560 --&gt; 00:08:18,400
+或者说小组内进行审核
+
+281
+00:08:18,400 --&gt; 00:08:20,040
+用这个是完全没有问题的
+
+282
+00:08:20,040 --&gt; 00:08:21,140
+那落模型的话
+
+283
+00:08:21,140 --&gt; 00:08:23,140
+那么非常建议你使用CPUPARSE
+
+284
+00:08:23,140 --&gt; 00:08:24,720
+那么它提供了很多这种
+
+285
+00:08:24,720 --&gt; 00:08:27,180
+帮助落模型提升的这种流程
+
+286
+00:08:27,180 --&gt; 00:08:28,500
+写的非常详细
+
+287
+00:08:28,500 --&gt; 00:08:29,640
+所以总的来说
+
+288
+00:08:29,640 --&gt; 00:08:30,820
+如果你使用强模型
+
+289
+00:08:30,820 --&gt; 00:08:31,820
+比如说GPT5.6
+
+290
+00:08:31,820 --&gt; 00:08:32,580
+KIMIK3
+
+291
+00:08:32,580 --&gt; 00:08:34,300
+Fibbo5这样的模型的话
+
+292
+00:08:34,300 --&gt; 00:08:35,980
+那么尽量使用MATSKIRES
+
+293
+00:08:35,980 --&gt; 00:08:37,040
+来完成你的这个
+
+294
+00:08:37,040 --&gt; 00:08:38,400
+通浪风暴计划的书写
+
+295
+00:08:38,400 --&gt; 00:08:39,640
+以及代码的实现
+
+296
+00:08:39,640 --&gt; 00:08:40,800
+那么如果你使用的是
+
+297
+00:08:40,800 --&gt; 00:08:41,760
+稍微差一点的模型
+
+298
+00:08:41,760 --&gt; 00:08:44,300
+或者说你组内需要对计划的生成
+
+299
+00:08:44,300 --&gt; 00:08:45,440
+要进行严格的把控
+
+300
+00:08:45,440 --&gt; 00:08:46,320
+严格的review的话
+
+301
+00:08:46,320 --&gt; 00:08:48,260
+那么非常推荐你使用CPUPARSE
+
+302
+00:08:48,260 --&gt; 00:08:49,660
+那么其实更推荐的是
+
+303
+00:08:49,660 --&gt; 00:08:51,200
+根据自己的业务流程
+
+304
+00:08:51,200 --&gt; 00:08:52,800
+去书写自己的这一套
+
+305
+00:08:52,800 --&gt; 00:08:55,480
+从需求对齐到整个提交的
+
+306
+00:08:55,480 --&gt; 00:08:58,040
+整个到整个提交的完整流程
+
+307
+00:08:58,040 --&gt; 00:08:58,640
+那这样的话
+
+308
+00:08:58,640 --&gt; 00:09:01,040
+也非常利于自己去控制
+
+309
+00:09:01,040 --&gt; 00:09:01,800
+自己去修改
+
+310
+00:09:01,800 --&gt; 00:09:03,060
+OK那本期视频就到这
+
+311
+00:09:03,060 --&gt; 00:09:04,620
+希望这个视频对你有所帮助
+
+</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://www.youtube.com/watch?v=JPGo_5fczaA" target="_blank" rel="noopener">https://www.youtube.com/watch?v=JPGo_5fczaA</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

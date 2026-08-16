@@ -1,5 +1,11 @@
 [
   {
+    "title": "模型越強，Superpowers 和 MattPocock-Skills 應該刪除誰？ - Hermes Docs",
+    "url": "videos/AI隨風_Superpowers_vs_MattPocock_Skills強模型工作流.html",
+    "date": "2026-08-16 14:00",
+    "content": "模型越強，Superpowers 和 MattPocock-Skills 應該刪除誰？ - Hermes Docs 返回首頁 模型越強，Superpowers 和 MattPocock-Skills 應該刪除誰？ 發布時間：2026-08-16 22:00 🌙 YouTube 影片重點整理 模型越強，Superpowers 和 MattPocock-Skills 應該刪除誰？ 📺 AI隨風 ⏱ 09:05 🗓 2026-07-21 🌐 zh-Hans 🔗 https://www.youtube.com/watch?v=JPGo_5fczaA 這支影片比較 Superpowers 與 MattPocock Skills 兩套 AI 編程工作流，核心問題是：模型能力越強後，工作流到底是在幫助模型，還是在用過度細節限制模型。影片先說明模型升級主要提升推理能力與長任務處理能力，因此提示詞與需求輸入也應從『告訴 AI 每一步怎麼做』，逐步轉向『說清楚目標與驗證條件，讓模型自行推理實作』。接著影片比較兩套流程在需求對齊與計畫生成上的差異：需求對齊階段兩者都依賴模型能力，只是提問方式不同；真正差異較"
+  },
+  {
     "title": "吳恩達談 AI 開源、蒸餾、算力泡沫與未來技能 - Hermes Docs",
     "url": "videos/andrew-ng-ai-open-source-compute-jobs.html",
     "date": "2026-08-14 10:41",
