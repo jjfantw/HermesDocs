@@ -1,5 +1,11 @@
 [
   {
+    "title": "Claude Code Hooks 完整教學：設定架構、Event / Matcher / Handler 與兩個實戰案例 - Hermes Docs",
+    "url": "videos/GaryChen_ClaudeCodeHooks完整教學.html",
+    "date": "2026-08-16 23:59",
+    "content": "Claude Code Hooks 完整教學：設定架構、Event / Matcher / Handler 與兩個實戰案例 - Hermes Docs 返回首頁 Claude Code Hooks 完整教學：設定架構、Event / Matcher / Handler 與兩個實戰案例 發布時間：2026-08-17 07:59 🌙 YouTube 影片重點整理 Claude Code Hooks 完整教學：設定架構、Event / Matcher / Handler 與兩個實戰案例 📺 Gary Chen ⏱ 19:57 🗓 2026-08-16 🌐 zh-Hant 🔗 https://youtu.be/rLNGSDYkK-w?si=UJNe-qqwCCfnf013 這支影片把 Claude Code Hooks 定位成比 CLAUDE.md 更強制、穩定的自動化機制：CLAUDE.md 像提醒紙條，仍依賴模型自己記得；Hook 則由軟體在固定時機強制觸發。影片依序說明 Hook 設定檔的三層架構 Event、Matcher、Handler，整理常用 Event 與五種 Handler"
+  },
+  {
     "title": "15 分鐘學完 CLAUDE.md：從入門到精通 - Hermes Docs",
     "url": "videos/GaryChen_CLAUDE-md_AGENTS-md_入門到精通.html",
     "date": "2026-08-16 23:06",

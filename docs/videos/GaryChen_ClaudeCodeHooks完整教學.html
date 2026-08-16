@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Code Hooks 完整教學：設定架構、Event / Matcher / Handler 與兩個實戰案例 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>Claude Code Hooks 完整教學：設定架構、Event / Matcher / Handler 與兩個實戰案例</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-08-17 07:59</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">Claude Code Hooks 完整教學：設定架構、Event / Matcher / Handler 與兩個實戰案例</h1>
+    <div class="meta"><span data-field="channel">📺 Gary Chen</span><span data-field="duration">⏱ 19:57</span><span data-field="published_date">🗓 2026-08-16</span><span data-field="original_language">🌐 zh-Hant</span><a data-field="source_url" href="https://youtu.be/rLNGSDYkK-w?si=UJNe-qqwCCfnf013" target="_blank" rel="noopener">🔗 https://youtu.be/rLNGSDYkK-w?si=UJNe-qqwCCfnf013</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>這支影片把 Claude Code Hooks 定位成比 CLAUDE.md 更強制、穩定的自動化機制：CLAUDE.md 像提醒紙條，仍依賴模型自己記得；Hook 則由軟體在固定時機強制觸發。影片依序說明 Hook 設定檔的三層架構 Event、Matcher、Handler，整理常用 Event 與五種 Handler 類型，並用兩個案例示範：提交前阻擋 .env / API 金鑰，以及文章完成前啟動 Humanizer Gate 檢查 AI 腔。最後比較 Claude Code 與 Codex 的 Hook 差異，提醒不要直接複製設定，而要用「何時啟動、啟動後做什麼」重新描述需求。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">Hook 是把「固定時機」與「強制動作」綁在一起</h2><span class="ts-badge" data-field="lesson_timestamp">0:00</span></div><div class="body" data-field="lesson_body"><p>影片先用 CLAUDE.md 當對照：CLAUDE.md 每次工作時會被讀取，適合放專案資訊或個人偏好，但它本質上仍像給 AI 的提醒紙條，是否遵守仍依賴模型自己判斷。</p><p>Hook 的差別是 deterministic：由 Claude Code 軟體在背後掌控，設定的時間點一到就強制介入，不是靠模型自己記得。影片用便利商店自動門比喻，只要有人走到感應區，門就必定打開。</p><p>因此，一次性任務直接在對話講；專案通用規則寫進 CLAUDE.md；但只要是固定時機一到就絕對要執行、而且不想承擔 AI 忘記風險的動作，就適合做成 Hook。</p><span class="tag" data-field="lesson_tag">核心概念</span></div><div class="lesson-cmds" data-field="lesson_commands"><h3 class="cmds-heading">📋 本節指令一覽</h3><ol class="cmds-list"><li><code>CLAUDE.md</code></li></ol></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">Hook 設定檔的三層架構：Event、Matcher、Handler</h2><span class="ts-badge" data-field="lesson_timestamp">2:23</span></div><div class="body" data-field="lesson_body"><p>影片說明 Hook 設定通常是 JSON，會放在專案資料夾的 `.claude/settings.json`。不需要死背格式，先理解三層分工即可。</p><p>第一層是 <strong>Event</strong>，決定 Hook 什麼時候啟動。例子是語法檢查使用 `PostToolUse`，也就是 Claude 剛調用完工具時觸發。</p><p>第二層是 <strong>Matcher</strong>，負責從 Claude 可能調用的許多工具中篩出真正要攔截的操作；第三層是 <strong>Handler</strong>，在條件符合後決定要叫哪個腳本、服務或 AI 出來做事。</p><span class="tag" data-field="lesson_tag">設定模型</span></div><div class="lesson-cmds" data-field="lesson_commands"><h3 class="cmds-heading">📋 本節指令一覽</h3><ol class="cmds-list"><li><code>.claude/settings.json</code></li><li><code>PostToolUse</code></li></ol></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">常用 Event：從啟動、工具使用、結束到特殊狀況</h2><span class="ts-badge" data-field="lesson_timestamp">4:00</span></div><div class="body" data-field="lesson_body"><p>Claude Code 目前有 31 種 Event，影片建議先用工作階段分類來理解。對話開始或恢復時有 `SessionStart`，可用來強制載入 Skill；送出 prompt 時有 `UserPromptSubmit`，可在對話前先撈出相關記憶。</p><p>工具使用前後是安全防呆與驗收的關鍵：`PreToolUse` 在工具即將執行前觸發，適合擋危險 Git 指令；`PostToolUse` 在工具成功執行後觸發，適合快速驗收，例如 UI 檔案改完後掃描圖片連結或色彩對比。</p><p>工作結束或特殊狀況包含 `Stop`、`Notification`、`SubagentStart` / `SubagentStop`、`PreCompact`。影片特別提醒第一次接觸可先記住四個：`SessionStart`、`PreToolUse`、`PostToolUse`、`Stop`。</p><span class="tag" data-field="lesson_tag">事件時機</span></div><div class="lesson-cmds" data-field="lesson_commands"><h3 class="cmds-heading">📋 本節指令一覽</h3><ol class="cmds-list"><li><code>SessionStart</code></li><li><code>UserPromptSubmit</code></li><li><code>PreToolUse</code></li><li><code>PostToolUse</code></li><li><code>Stop</code></li><li><code>Notification</code></li><li><code>SubagentStart</code></li><li><code>SubagentStop</code></li><li><code>PreCompact</code></li><li><code>git reset --hard</code></li><li><code>git push</code></li></ol></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">Matcher 與 Handler 決定 Hook 會不會吵、做得夠不夠準</h2><span class="ts-badge" data-field="lesson_timestamp">9:00</span></div><div class="body" data-field="lesson_body"><p>Matcher 的工作是從所有可能動作裡挑出 Hook 真正要處理的目標。影片例子是只關心 `Edit` 和 `Write`，甚至可以再加 if 條件，只檢查副檔名是 `.ts` 的程式碼。</p><p>Handler 決定條件符合後實際做什麼。影片列出五種類型：`command`、`http`、`mcp_tool`、`prompt`、`agent`。`command` 最常見，適合跑本機指令或腳本；`http` 可把錯誤送 Slack；`mcp_tool` 可從 Jira 等 MCP 工具抓任務。</p><p>`prompt` 與 `agent` 都會呼叫另一個 AI 判斷，但 `prompt` 只根據事件資料回答；`agent` 會啟動 subagent，能讀檔、搜尋程式碼或跑測試後再回傳驗收結果。</p><span class="tag" data-field="lesson_tag">觸發範圍</span></div><div class="lesson-cmds" data-field="lesson_commands"><h3 class="cmds-heading">📋 本節指令一覽</h3><ol class="cmds-list"><li><code>Edit</code></li><li><code>Write</code></li><li><code>.ts</code></li><li><code>command</code></li><li><code>http</code></li><li><code>mcp_tool</code></li><li><code>prompt</code></li><li><code>agent</code></li></ol></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">實戰一：提交前擋下 .env 與 API 金鑰</h2><span class="ts-badge" data-field="lesson_timestamp">11:55</span></div><div class="body" data-field="lesson_body"><p>建立 Hook 時，影片建議先講清楚兩件事：它要在什麼時候啟動，以及啟動後要做什麼。第一個案例的需求是：當 Claude 準備執行 Git commit 時，先檢查提交內容是否包含 `.env` 檔案或疑似 API 金鑰。</p><p>Claude 建立出的 Hook 使用 `PreToolUse`，Matcher 鎖定 `Bash`，放在全域 `.claude/settings.json`，所以任何專案只要 Claude 準備執行 Git commit 都會經過這道檢查。</p><p>Handler 會叫起一支 `Git Commit Secret Guard` 檢查程式；如果與提交無關就安靜結束，若發現 `.env`、私鑰、憑證或疑似 API 金鑰，就阻擋提交並指出問題檔案。影片也示範敏感資料會擋下、移除後可正常提交。</p><span class="tag" data-field="lesson_tag">安全防呆</span></div><div class="lesson-cmds" data-field="lesson_commands"><h3 class="cmds-heading">📋 本節指令一覽</h3><ol class="cmds-list"><li><code>Git Commit</code></li><li><code>.env</code></li><li><code>API key</code></li><li><code>PreToolUse</code></li><li><code>Bash</code></li><li><code>.claude/settings.json</code></li><li><code>Git Commit Secret Guard</code></li></ol></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">實戰二：用 Humanizer Gate 阻止 AI 腔文章直接結束</h2><span class="ts-badge" data-field="lesson_timestamp">14:11</span></div><div class="body" data-field="lesson_body"><p>第二個案例處理的是比較質化的判斷：Claude 寫出的文章資訊可能正確，但讀起來有 AI 腔。影片示範的需求是：每當 Claude 寫完 Blog 文章、準備結束工作時，啟動一個 Agent 讀取文章，呼叫 Humanizer Skill 檢查。</p><p>這個 Hook 使用 `Stop` Event；當 Claude 準備結束工作時，Hook 先確認這次是否有修改 Blog 文章，再由 `Humanizer Gate` 找出尚未通過檢查的文章，要求 Claude 開 Agent 審查。</p><p>如果 Agent 找出 AI 寫作痕跡，會把問題段落與原因交回給 Claude，請它繼續修改；通過後這次工作才結束。文章若後來又被修改，原本的通過紀錄會失效，下次結束前重新檢查。</p><span class="tag" data-field="lesson_tag">內容品質</span></div><div class="lesson-cmds" data-field="lesson_commands"><h3 class="cmds-heading">📋 本節指令一覽</h3><ol class="cmds-list"><li><code>Stop</code></li><li><code>Humanizer Gate</code></li><li><code>Humanizer Skill</code></li><li><code>Agent</code></li></ol></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">07</span><h2 data-field="lesson_title">長期使用 Hook 前，要檢查範圍與退出條件</h2><span class="ts-badge" data-field="lesson_timestamp">15:40</span></div><div class="body" data-field="lesson_body"><p>影片提醒，請 Claude 建立第一版 Hook 時，只要先說清楚「何時啟動」與「啟動後做什麼」即可；但要長期穩定使用，還要檢查觸發範圍是否精確。</p><p>範圍太大會讓 Hook 在無關操作中被叫起，浪費時間並打斷工作。影片的 Git 案例先用 Matcher 鎖定 `Bash`，再由檢查程式判斷是否真的是 Git commit；無關指令就安靜結束。</p><p>Stop Hook 還必須有明確的通過條件與退出條件，否則可能一直退回、修改、再檢查。Humanizer Gate 會記錄目前版本是否通過；如果連續三輪仍未通過，就停止退回，交給人工確認。</p><span class="tag" data-field="lesson_tag">穩定性</span></div><div class="lesson-cmds" data-field="lesson_commands"><h3 class="cmds-heading">📋 本節指令一覽</h3><ol class="cmds-list"><li><code>Bash</code></li><li><code>Git commit</code></li><li><code>Stop Hook</code></li></ol></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">08</span><h2 data-field="lesson_title">Codex 可沿用判斷方式，但不能直接複製 Claude Code 設定</h2><span class="ts-badge" data-field="lesson_timestamp">17:44</span></div><div class="body" data-field="lesson_body"><p>影片結尾指出，Codex 用戶也可以沿用同一套需求表達方式：先說清楚什麼時候啟動，以及啟動後要做什麼。</p><p>但 Claude Code 與 Codex 支援的 Event 和 Handler 不完全相同。影片提到 Claude Code 有 31 種 Event，Codex 有 11 種；`PreToolUse` 與 `Stop` 兩邊都有，因此 `.env` 檢查和 Humanizer Gate 的基本做法可以搬過去。</p><p>Handler 差異更大：Claude Code 支援 `command`、`http`、`mcp_tool`、`prompt`、`agent`，Codex 目前真正會執行的是 `command`。所以最簡單的做法不是複製設定，而是把要解決的問題直接告訴 Codex，請它依目前支援格式重新建立。</p><span class="tag" data-field="lesson_tag">Codex 差異</span></div><div class="lesson-cmds" data-field="lesson_commands"><h3 class="cmds-heading">📋 本節指令一覽</h3><ol class="cmds-list"><li><code>PreToolUse</code></li><li><code>Stop</code></li><li><code>command</code></li><li><code>http</code></li><li><code>mcp_tool</code></li><li><code>prompt</code></li><li><code>agent</code></li></ol></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">先找出一件你經常提醒 AI、而且每次都發生在固定時機的事情；只要它會重複發生，而且適合在固定時機自動處理，就值得做成 Hook。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="0:00"><span class="ts">0:00</span><span class="text" data-field="key_point_text">CLAUDE.md 適合放專案資訊與偏好，但仍是提醒紙條；若動作必須在固定時機強制執行，就適合做成 Hook。</span></li><li data-field="key_point" data-timestamp="2:23"><span class="ts">2:23</span><span class="text" data-field="key_point_text">Hook 設定檔通常是 JSON，核心分成三層：Event 決定何時啟動，Matcher 決定攔截哪個操作，Handler 決定最後做什麼。</span></li><li data-field="key_point" data-timestamp="4:00"><span class="ts">4:00</span><span class="text" data-field="key_point_text">影片從 31 種 Event 中挑出核心類別，包含 SessionStart、UserPromptSubmit、PreToolUse、PostToolUse、Stop、Notification、SubagentStart / Stop、PreCompact。</span></li><li data-field="key_point" data-timestamp="9:00"><span class="ts">9:00</span><span class="text" data-field="key_point_text">Matcher 用來縮小 Hook 處理範圍，例如只鎖定 Edit / Write，或再用 if 條件限制副檔名，避免無關操作也觸發。</span></li><li data-field="key_point" data-timestamp="9:40"><span class="ts">9:40</span><span class="text" data-field="key_point_text">Handler 分成 command、http、mcp_tool、prompt、agent；command 適合跑本機腳本，http / mcp_tool 適合外部服務或 MCP，prompt / agent 適合 AI 判斷。</span></li><li data-field="key_point" data-timestamp="11:55"><span class="ts">11:55</span><span class="text" data-field="key_point_text">第一個實戰案例是在 Git commit 前檢查 .env、私鑰、憑證或疑似 API 金鑰，發現問題就阻擋提交並指出檔案。</span></li><li data-field="key_point" data-timestamp="14:11"><span class="ts">14:11</span><span class="text" data-field="key_point_text">第二個實戰案例是文章完成前啟動 Humanizer Gate，讓 Agent 呼叫 Humanizer Skill 檢查 AI 腔，通過後才結束。</span></li><li data-field="key_point" data-timestamp="15:40"><span class="ts">15:40</span><span class="text" data-field="key_point_text">建立 Hook 後還要檢查兩件事：觸發範圍是否夠精確，以及 Stop Hook 是否有明確通過條件與退出條件，避免無限迴圈。</span></li><li data-field="key_point" data-timestamp="17:44"><span class="ts">17:44</span><span class="text" data-field="key_point_text">Codex 可以沿用相同判斷方式，但 Event / Handler 支援不同；Claude Code 設定不能直接複製到 Codex。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="Claude Code">Claude Code</span><span class="tag-chip" data-tag="Hooks">Hooks</span><span class="tag-chip" data-tag="CLAUDE.md">CLAUDE.md</span><span class="tag-chip" data-tag="Codex">Codex</span><span class="tag-chip" data-tag="Event">Event</span><span class="tag-chip" data-tag="Matcher">Matcher</span><span class="tag-chip" data-tag="Handler">Handler</span><span class="tag-chip" data-tag="PreToolUse">PreToolUse</span><span class="tag-chip" data-tag="PostToolUse">PostToolUse</span><span class="tag-chip" data-tag="Stop">Stop</span><span class="tag-chip" data-tag="AI 自動化">AI 自動化</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>本報告使用影片描述與官方 zh-TW 逐字稿整理，未額外進行畫面 OCR；畫面上的實際 JSON 範例若有逐字細節，未在主文中擅自補寫。</li></ul></div></section>
+  
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="description"><div class="raw-label">YouTube description<button class="copy-btn" id="raw_description_4341219584_srt" onclick="copyRaw(this,'raw_description_4341219584_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_description_4341219584_text" onclick="copyRawText(this,'raw_description_4341219584_text')">📋 複製純文字</button></div><pre>加入我的 Patreon，查看完整文章還有提示詞模板：https://www.patreon.com/GaryChen/posts/claude-code-shi-166812099/
+--
+CLAUDE.md 裡寫了規則，Claude 還是常常忘記，因為那只是給 AI 的提醒紙條。Hook 不一樣，它由軟體強制執行，時機一到就一定會跑。這支影片從 Hook 是什麼講起，帶你認識十個核心 Event、Matcher 怎麼收斂範圍、五種 Handler 各適合什麼，也拆解 Superpowers、Claude-Mem、Impeccable 這些熱門專案的實際用法。最後用兩個真實案例帶你建立第一個 Hook：提交程式碼前擋下 API 金鑰，以及寫完文章自動檢查 AI 腔。用 Codex 的朋友也適用，結尾會談兩邊的關鍵差異。
+
+📌 時間戳
+0:00 AI 為什麼記不住你的規則
+2:23 設定檔的三層架構
+4:00 十個核心 Event
+9:00 Matcher 與 Handler
+11:55 建立你的第一個 Hook
+17:44 Codex 的兩個差異
+18:56 總結
+
+📢 追蹤我的頻道
+👍 覺得有幫助請按讚、訂閱、開小鈴鐺！
+
+#ClaudeCode #Hooks #AI工具 #Codex #自動化</pre></div><div class="raw-block" data-field="raw_source_item" data-raw-type="transcript"><div class="raw-label">官方 zh-TW transcript with timestamps<button class="copy-btn" id="raw_transcript_4341219904_srt" onclick="copyRaw(this,'raw_transcript_4341219904_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_transcript_4341219904_text" onclick="copyRawText(this,'raw_transcript_4341219904_text')">📋 複製純文字</button></div><pre>0:00 上一支介紹 CLAUDE.md 的影片裡，我們學到
+0:02 Claude Code 每次開始工作時都會讀取 CLAUDE.md
+0:05 所以這份檔案很適合拿來放專案資訊
+0:08 或是你的個人偏好
+0:10 但有些狀況是
+0:11 明明 CLAUDE.md 裡面寫了改完程式一定要跑測試
+0:14 或是準備執行危險的 Git 指令時一定要先停下來
+0:17 Claude 卻還是常常忘記
+0:19 如果你感到心有戚戚焉
+0:20 那是因為 CLAUDE.md 就像是給 AI 的一個提醒紙條而已
+0:23 它提供了指示，Claude 會盡力遵守
+0:26 卻不保證每一次都會乖乖照做
+0:28 如果你希望有一套更強制，更穩定的機制的話
+0:31 這就是 Hooks 可以幫你的地方
+0:33 這支影片我會帶你完整搞懂 Hook 到底是什麼
+0:36 它和 Claude Code 裡面其他功能有什麼差別
+0:39 你會知道 Hooks 有哪幾個種類
+0:41 而這幾個種類的 hooks 適合做什麼樣類型的工作？
+0:45 如果你好奇別的大神都是怎麼樣使用 Hooks 的話
+0:47 我也會拆解熱門的 GitHub repo
+0:49 分析給你聽他們都是怎麼樣去使用 Hooks 的
+0:52 最後，我會用實際案例帶你一步步用 Claude Code
+0:54 建立屬於你的第一個 Hook
+0:56 不論你是 Claude Code 還是 Codex 用戶
+0:58 Hook 的原理都是通用的
+1:00 因此看這支影片之後
+1:01 你要在哪個 agent 裡面建立都可以
+1:03 那我們就開始今天的影片
+1:05 首先，我們來聊聊，到底什麼是 Hook？
+1:08 你可以把它想像成便利商店的自動門
+1:11 它背後有一套非常死板，絕對會執行的規則
+1:13 只要有人走到感應區，門就立刻打開
+1:16 完全沒有商量的空間
+1:18 Hooks 在 Claude Code 裡的角色也是一模一樣的
+1:21 你可以設定只要 Claude 一改完程式碼
+1:23 測試就自動跑起來
+1:25 你會發現
+1:26 這句話的前半段是在定義觸發的時機與情境
+1:29 而後半段是觸發後要做什麼
+1:31 所以說穿了
+1:32 Hook 就是把這兩件事情緊緊綁在一起的自動化設定
+1:35 你定義好一個特定的情況
+1:37 以及這個情況發生時你的 agent 要去做什麼事情
+1:40 Hook 跟上一支提到的 Claude Markdown
+1:42 最關鍵的差別在於是誰來負責啟動
+1:44 CLAUDE.md 是讓模型自己去看
+1:46 這代表它必須依賴 AI 自己去判斷什麼時候該遵守
+1:49 但 Hook 完全不一樣
+1:51 Hook 是 deterministic 的
+1:52 它是由 Claude Code 這套軟體在背後掌控的強制機制
+1:56 只要設定的時間點一到
+1:58 軟體就會直接介入，強制執行任務
+2:01 而不是靠模型自己去判斷要不要做
+2:04 所以幫大家簡單歸納一下
+2:05 如果只是一次性的任務
+2:07 你在對話的時候直接講就可以了
+2:09 如果是專案通用的規則跟大方向
+2:11 很適合寫在 CLAUDE.md 裡面
+2:12 讓模型當作參考
+2:14 但如果這個動作是只要特定時機一到
+2:16 就絕對必須嚴格執行
+2:18 而且你一點都不想承擔被 AI 忘記的風險
+2:20 那這時候，就非常適合把它做成 Hook 了
+2:23 好，那一份真正的 Hook 設定檔到底長什麼樣子呢？
+2:28 它其實只是用 JSON 格式寫的指令而已
+2:30 通常會放在你專案資料夾裡面的
+2:32 .claude/settings.json 檔案中
+2:34 雖然看起來很像一堆密密麻麻的程式碼
+2:37 但你完全不需要死背，也不用自己一行一行手打
+2:40 只要搞懂它裡面的三層架構就可以了
+2:43 我們直接舉個例子
+2:45 假設有一個 Hook 的任務是檢查程式碼有沒有語法錯誤
+2:48 如果你把這個設定檔打開
+2:49 你會看到它裡面的分工非常明確，總共分成三層
+2:53 第一層叫做 Event
+2:55 它負責決定這個 Hook 要在什麼時候啟動
+2:58 在這個語法檢查的例子裡面
+3:00 我們的 Event 會設定成 PostToolUse
+3:02 意思就是在 Claude 剛調用完工具的這個瞬間啟動
+3:06 第二層叫做 Matcher
+3:08 它是用來設定篩選條件的
+3:10 Claude 在工作的時候會調用非常多種工具
+3:13 但我們不可能每一次它調用工具
+3:15 都把這個 Hook 叫出來執行
+3:17 所以 Matcher 的功用
+3:18 就是在告訴系統在這麼多的工作裡面
+3:21 有哪些具體的操作，是真正要去篩選，去攔截的？
+3:24 以這個語法檢查為例
+3:25 我們就會把 Matcher 設定成只鎖定修改程式碼這個動作
+3:30 最後第三層叫做 Handler
+3:31 也就是真正採取行動的地方
+3:33 當前面的條件都符合了
+3:35 就由它來決定接下來要叫誰出來做事
+3:38 以我們這個例子來說
+3:39 Handler 就是去把你電腦裡面的語法檢查腳本叫出來
+3:42 讓它自動幫你把錯誤抓出來
+3:45 所以，如果要簡單總結這三層架構
+3:47 你可以把它想成三個問題
+3:49 Event 決定了什麼時候發生？
+3:52 Matcher 決定了具體要攔截哪個操作？
+3:55 Handler 決定了最後要做什麼動作？
+3:57 這就是 Hook 最核心的運作邏輯
+4:00 好，理解了 Hook 的基本架構跟極限之後
+4:02 接下來，我們就來好好認識一下剛才提到的 Event
+4:04 也就是啟動的時間點
+4:07 老實說
+4:07 Claude Code 裡面目前有多達三十一種 Event
+4:11 聽起來很嚇人
+4:12 但我們只要按照系統的工作階段來分類
+4:14 抓出十個最核心的 Event 就夠了
+4:16 我們先來看第一階段
+4:17 也就是系統剛啟動
+4:19 以及剛接收到你指令的時候
+4:21 這個階段有兩個很重要的 Event
+4:23 首先是 Session Start
+4:25 顧名思義
+4:25 它會在你開啟對話的那一瞬間觸發
+4:29 不管你是開新對話，接續之前的紀錄
+4:32 或是輸入 clear 指令清空畫面
+4:34 只要對話環境一建立，它就會立刻啟動
+4:37 這可以拿來做什麼呢？
+4:39 GitHub 上有個很熱門的專案叫做 Superpowers
+4:41 作者就利用了 Session Start Hook
+4:43 設定只要用戶一開啟對話
+4:44 就強制 AI 載入 Superpowers 這項 Skill
+4:47 他這麼做
+4:48 正是為了對付 AI 載入 Skill 的隨機性
+4:50 透過 Session Start Hook
+4:51 就能確保用戶的每一個對話
+4:53 都有確實載入這項技能
+4:55 第二個 event 是 User Prompt Submit
+4:57 它會在你按下 Enter 送出 prompt 的那一刻被觸發
+5:01 這可以拿來做什麼？
+5:02 我們以 Claude-Mem 為例
+5:04 這是一個幫 Claude Code 建立長期記憶的開源專案
+5:07 用來解決 AI 跨對話會失憶的問題
+5:09 它就是利用 User Prompt Submit 這個 Hook
+5:11 去攔截你送出的提問
+5:12 在背後呼叫一支叫做 worker-service 的程式
+5:15 讓這支程式先去背景資料庫
+5:17 撈出跟這次對話最相關的記憶
+5:19 然後再塞給 Claude Code
+5:20 透過這個做法
+5:21 就能強制確保 AI 在每一次對話前
+5:23 都已經帶上你的相關記憶
+5:25 接著進入第二階段
+5:27 當 Claude 準備去修改檔案或下達指令的時候
+5:29 它其實是透過呼叫背後的各種 Tools 來完成的
+5:33 而這個階段的 hooks
+5:34 就是發生在 Claude 已經決定好要用哪個工具
+5:36 但還沒真的執行的空檔
+5:38 所以非常適合用來做安全防呆
+5:40 這裡最關鍵的 Event 就是 Pre Tool Use
+5:43 這種 hook 會在工具正準備被調用前觸發
+5:46 還記得我們之前介紹的 Matt Pocock Skills 嗎？
+5:48 他在裡面就有一個 hook 來幫你擋掉危險的 Git 指令
+5:52 它會用這個 hooks 去檢查 claude tool call 指令的內容
+5:56 只要發現 Claude 試圖執行像 git reset --hard
+5:59 這種會把程式碼洗掉的指令
+6:00 或是危險的 git push
+6:02 這個 hook 就會立刻攔截
+6:04 當場中斷 Claude 的動作
+6:05 並告訴它你沒有權限執行這個操作
+6:08 接著我們進入第三階段
+6:09 也就是 Claude 順利執行完 Tool call 之後的瞬間
+6:13 這階段最常用的 Event 叫做 PostToolUse
+6:15 非常適合用來做快速的驗收
+6:17 我自己很喜歡一款叫做 Impeccable 的前端設計 Skill
+6:20 它就是在這裡把關的
+6:21 只要 Claude 一改完 UI 檔案
+6:23 它就會立刻啟動幫你揪錯
+6:26 它是怎麼檢查的呢？
+6:27 舉例來說
+6:28 如果 Claude 寫了圖片標籤
+6:30 但裡面的圖片連結卻是空的
+6:32 這在網頁上會變成一塊無法顯示的錯誤圖示
+6:35 Impeccable 的這個 hook 就會透過掃描程式碼
+6:38 立刻把這個問題抓出來
+6:39 又或者是字體顏色太淡看不清楚
+6:42 它會直接去計算文字跟背景顏色的數學對比值
+6:44 一旦發現不符合標準
+6:46 它就會自動跟 Claude 說
+6:47 Claude 就會自動幫你修好
+6:49 最後我們來到第四階段
+6:51 也就是當 Claude 執行完所有任務
+6:53 準備停下來等你
+6:55 或是遇到一些特殊狀況的時候
+6:57 這個階段有一個很關鍵的 Event 叫做 Stop
+6:59 它會在你這一回合的對話完全結束時觸發
+7:02 我們再拿剛才的 Impeccable 來說
+7:03 如果你去看它的原始碼，會發現它把
+7:05 排版節奏，配色和諧度
+7:07 這種比較深度的美感檢查
+7:09 刻意留到 Stop 階段才做
+7:11 為什麼呢？
+7:11 因為它會把你這整個工作階段裡
+7:14 所有改過的檔案全部統整起來做一次總體檢
+7:17 如果每改一行程式碼就跑這種深度檢查
+7:20 開發速度會被嚴重拖慢
+7:21 所以把它放到最後 Stop 的時候再一次做完
+7:23 是最聰明的做法
+7:25 我之前有出一部 cross model review 的影片
+7:27 其實就是利用這個 stop event
+7:29 讓 Claude 在寫完 plan 觸發 stop event 的時候
+7:32 去呼叫 codex 進行 peer review
+7:34 除了 Stop 之外
+7:36 這階段還有幾種處理特殊狀況的 Event
+7:39 第一個是很多人都會用的 Notification
+7:41 也就是通知提醒
+7:42 你可以把它設定成桌面通知或提示音
+7:45 這樣 Claude 在背景工作時
+7:46 你不用一直守在電腦前
+7:48 可以先去泡杯咖啡，或處理別的事
+7:51 等它需要你確認權限，回答問題時
+7:53 電腦就會發出提示，把你叫回來
+7:55 第二個是 Subagent 系列的 Event
+7:57 主要有 SubagentStart 和 SubagentStop
+8:00 當主 Claude 叫一個 subagent 開始工作時
+8:03 就會觸發 SubagentStart
+8:04 當這個 subagent 做完，準備交回結果時
+8:07 就會觸發 SubagentStop
+8:09 這兩個時機非常適合拿來控管 subagent 的工作品質
+8:12 你可以在 subagent 開始前
+8:14 先補上這次任務的規則和品質要求
+8:16 等它做完後
+8:17 再用 Hook 檢查產出有沒有達標
+8:19 最後一個是 PreCompact
+8:21 當對話太長時
+8:22 Claude 會自動把前面的內容濃縮
+8:24 騰出空間繼續工作
+8:26 但如果你發現
+8:27 每次濃縮之後
+8:28 它總是會漏掉你最在意的資訊
+8:30 例如關鍵決策，目前進度
+8:32 或是不能更動的規則
+8:33 你就可以使用 PreCompact Hook
+8:35 在濃縮開始前
+8:37 先把這些重要資訊整理並保存下來
+8:39 這樣濃縮完成後
+8:40 Claude 還是能接著前面的共識繼續工作
+8:43 如果你是第一次接觸
+8:44 先記住四個最常見的 Event 就好
+8:46 SessionStart 會在對話開始或恢復時出現
+8:49 PreToolUse 會在 Claude 準備使用工具
+8:52 但還沒真的執行前出現
+8:54 PostToolUse 會在工具成功執行之後出現
+8:57 Stop 則是在 Claude 做完這一輪工作
+8:59 準備停下來時出現
+9:00 理解 Event 之後，接著來看第二個元件
+9:03 Matcher
+9:04 它的工作很簡單
+9:05 就是從所有可能出現的動作裡
+9:08 挑出這個 Hook 真正需要處理的目標
+9:10 像這個 Hook 的 Matcher 顯示的是 Edit 和 Write
+9:12 代表它只關心 Claude 修改檔案的動作
+9:15 讀取檔案，搜尋資料，或執行其他工具時
+9:19 它都不會繼續往下跑
+9:20 但如果還想分得更細
+9:21 下面還可以再加一個 if 條件
+9:23 例如在這個案例中
+9:24 它只會檢查副檔名是 .ts 的程式碼
+9:29 當以上條件都符合之後
+9:30 才會交給下一個 Handler 處理
+9:33 Matcher 把目標挑出來之後
+9:34 接著就輪到第三個元件，Handler
+9:36 它會決定條件符合之後
+9:38 這個 Hook 實際要做什麼
+9:40 目前 Handler 總共有五種類型
+9:42 分別是 command，http，mcp_tool，prompt 和 agent
+9:46 接下來
+9:46 我們一個一個來看它們適合處理哪些事情
+9:49 第一個，也是最常用的 Handler，叫做 command
+9:52 它的作用
+9:54 就是讓 Hook 直接執行電腦上的指令或腳本
+9:57 比如 Claude 改完程式碼之後
+9:59 自動執行 lint 檢查
+10:00 或是用 Prettier 把格式整理好
+10:02 也可以在 Claude 準備執行指令之前
+10:04 先跑一段檢查程式，把危險操作擋下來
+10:07 接下來是 http 和 mcp_tool
+10:10 http 可以把 Hook 收到的資料傳到外部服務
+10:13 比如工具執行失敗時
+10:15 自動把錯誤訊息送到 Slack
+10:16 讓團隊立刻知道
+10:18 mcp_tool 則可以直接使用已經連線的 MCP 工具
+10:22 比如每次開始工作時
+10:23 自動從 Jira 抓回今天的任務
+10:25 交給 Claude 當作這次工作的背景資訊
+10:27 最後兩種 Handler 是 prompt 和 agent
+10:30 它們都會呼叫另一個 AI 來檢查條件有沒有符合
+10:33 差別在於它們完成判斷的過程
+10:36 先看 prompt
+10:37 當 Hook 被觸發時
+10:38 Claude Code 會把這次事件的資料
+10:40 連同你事先寫好的檢查條件
+10:42 一起交給另一個 AI 模型
+10:44 這個 AI 只會根據收到的資料回答
+10:46 不會自己打開檔案或搜尋其他資訊
+10:49 例如 Claude 準備提交程式碼時
+10:51 你可以請 prompt 檢查這次的 Commit 訊息
+10:54 有沒有符合團隊格式
+10:55 如果符合，就讓這次提交繼續
+10:57 如果不符合，就把原因交回給 Claude
+10:59 請它重新修改
+11:01 agent 的運作方式更完整
+11:03 當 Hook 被觸發時
+11:04 它會叫起一個 subagent
+11:05 並把這次的事件資料和驗收條件交給它
+11:08 這個 subagent 可以先讀取檔案，搜尋程式碼
+11:11 或是執行測試
+11:12 查清楚實際狀況之後，再回傳驗收結果
+11:16 例如 Claude 說功能已經完成
+11:18 準備結束工作時
+11:19 你可以請 agent 檢查修改過的檔案
+11:22 對照原本的需求，再實際執行測試
+11:24 如果全部符合，就讓 Claude 結束工作
+11:27 如果發現缺少功能或測試失敗
+11:28 就把原因交回給 Claude，讓它繼續修改
+11:31 簡單來說
+11:32 prompt 是拿著現有資料直接回答
+11:34 agent 則可以先讀檔案，搜尋程式碼或執行測試
+11:38 查清楚之後再回答
+11:40 這裡要注意
+11:40 每個 Event 支援的 Handler 類型都不太一樣
+11:43 比如有些 Event 可以使用 prompt 和 agent
+11:46 有些只能使用 command，http 或 mcp_tool
+11:49 所以實際設定之前
+11:51 記得先請 AI 查一下官方文件
+11:53 確認你選的 Event 能不能搭配這個 Handler
+11:55 到這裡
+11:56 一個 Hook 的架構你應該已經清楚了
+11:59 接下來
+11:59 我會教你怎麼把需求講給 AI 聽
+12:01 讓它幫你建立第一個 Hooks
+12:04 要請 AI 幫你建立 Hook
+12:05 其實先講清楚兩件事就夠了
+12:07 它要在什麼時候啟動
+12:08 以及啟動之後要做什麼
+12:10 比如
+12:11 當 Claude 準備提交程式碼時
+12:13 先檢查這次的修改裡有沒有 E N V 檔案或 API 金鑰
+12:17 如果有，就把這次提交擋下來
+12:19 所以你表達的重點
+12:20 前半段是啟動時機，後半段是要做的事
+12:24 有了這兩個資訊
+12:24 AI 就能先幫你建立第一版 Hook
+12:27 接下來
+12:27 我們就把剛才的需求直接講給 Claude Code 聽
+12:30 你可以說請幫我在我的全域設定裡建立一個 Hook
+12:34 每當你準備執行 Git Commit 時
+12:35 先檢查這次要提交的內容
+12:37 如果裡面包含 E N V 檔案
+12:39 或是疑似 API 金鑰
+12:40 就先把提交擋下來
+12:42 並告訴我是哪一個檔案有問題
+12:44 如果沒有發現，就讓提交正常繼續
+12:46 完成之後
+12:47 請測試有敏感資料會擋下
+12:49 沒有敏感資料會放行這兩種情況
+12:52 Claude 建立完成之後
+12:53 會把這個 Hook 加進我的全域設定
+12:56 它使用的 Event 是 PreToolUse
+12:58 代表 Claude 每次準備執行工具之前
+13:00 Hook 會先介入
+13:02 它的 Matcher 是 Bash
+13:03 所以只有 Claude 準備執行終端機指令時
+13:05 才會叫起這支檢查程式
+13:07 因為我把它放在根目錄之下的點 claude 資料夾
+13:10 settings json 裡
+13:11 所以不管我正在使用哪一個專案
+13:13 只要 Claude 準備執行 Git Commit
+13:15 都會經過這道檢查
+13:16 接著看 Handler
+13:18 它會叫起一支名為 Git Commit Secret Guard
+13:20 的檢查程式
+13:22 雖然 Matcher 會在每一個 Bash 指令執行前叫起它
+13:25 但程式會先判斷這次有沒有要執行 Git Commit
+13:28 如果和提交無關，它就安靜結束
+13:30 只有真的要提交時
+13:31 才會檢查這次要進入 Git 的內容
+13:33 只要發現 E N V 檔案，私鑰，憑證
+13:37 或是疑似 API 金鑰
+13:38 就會擋下這次提交
+13:40 並告訴我問題出在哪一個檔案
+13:42 如果沒有發現問題，就讓提交正常繼續
+13:45 接著我們直接試一次
+13:47 我先請 Claude 提交一個包含 E N V 檔案的修改
+13:50 你可以看到
+13:51 Git Commit 還沒有真的執行
+13:53 Hook 就先把它攔了下來
+13:54 並指出是哪一個檔案有問題
+13:56 把敏感資料移除之後再試一次
+13:58 這次檢查通過，提交就可以正常繼續
+14:01 剛才第一個例子
+14:02 我們是用 Command Handler 執行一支檢查程式
+14:05 因為 E N V 檔案和 API 金鑰都有明確的判斷規則
+14:08 用程式比對就夠了
+14:11 接下來
+14:11 我想示範一種需要質化判斷的 Hook
+14:14 這個例子來自我平常做內容時很常遇到的問題
+14:17 Claude 寫出來的文章
+14:18 資訊可能都對
+14:20 讀起來卻有一股很重的 AI 腔
+14:22 所以我希望
+14:23 每次 Claude 寫完一篇文章
+14:24 Hook 都能再幫我檢查一次
+14:26 看看裡面還有沒有 AI 味
+14:28 為了建立這個 Hook
+14:29 我會直接對 Claude 說請幫我建立一個 Hook
+14:31 每當你寫完一篇 Blog 文章
+14:33 準備結束工作時，啟動一個 Agent
+14:36 這個 Agent 要讀取你剛產出的文章
+14:38 呼叫用來去除 AI 寫作痕跡的 Humanizer Skill
+14:41 再檢查文章裡有沒有 AI 味
+14:43 如果發現問題
+14:44 就把有問題的段落和原因交回給你
+14:46 請你繼續修改
+14:47 檢查通過之後，才能結束工作
+14:50 Claude 建立完成之後
+14:51 會把這個 Hook 放進目前專案的 settings json
+14:54 它使用的 Event 是 Stop
+14:55 所以每當 Claude 準備結束這次工作時
+14:58 Hook 就會先檢查這個過程中有沒有修改 Blog 文章
+15:01 這次使用的仍然是 Command Handler
+15:03 它會執行一支叫做 Humanizer Gate 的檢查程式
+15:06 這支程式不會自己判斷文章有沒有 AI 味
+15:09 它負責找出這次修改過
+15:10 而且還沒通過檢查的文章
+15:12 再要求 Claude 開一個 Agent 來審查
+15:14 接著我們直接試一次
+15:16 當 Claude 寫完文章，準備結束工作時
+15:18 你可以看到 Hook 先把它攔下來
+15:20 接著 Claude 會開一個 Agent
+15:22 呼叫 Humanizer 中文版 Skill
+15:24 讀完文章
+15:25 再把有 AI 寫作痕跡的段落和原因交回來
+15:28 Claude 修改完成之後
+15:29 Hook 會再檢查一次
+15:31 確認通過，這次工作才會結束
+15:33 如果文章後來又被修改
+15:34 原本的通過紀錄也會失效
+15:36 下次結束前還是要重新檢查
+15:38 做完這兩個例子之後，你會發現
+15:40 請 Claude 建立第一版 Hook 時
+15:42 只要先說清楚什麼時候啟動和啟動後做什麼就夠了
+15:46 但要讓這個 Hook 長期穩定使用
+15:48 建立完成後還要再檢查兩件事
+15:50 第一，觸發範圍夠不夠精確
+15:53 Hook 的範圍如果設得太大
+15:55 就會在很多無關的操作中被叫起
+15:56 浪費時間，也會一直打斷工作
+15:59 所以 Matcher 要先縮小範圍
+16:00 Handler 裡面再檢查更細的條件
+16:03 所以，我們剛才設定的 Git Hook
+16:04 才會先用 Matcher 鎖定 Bash
+16:06 再由檢查程式判斷這次執行的是不是 Git Commit
+16:09 其他終端機指令雖然也會叫起檢查程式
+16:12 但確認與提交無關之後
+16:13 就會立刻安靜結束
+16:15 第二，Stop Hook 有沒有設定結束條件
+16:18 Stop Hook 每次阻止 Claude 結束
+16:20 都會要求它繼續工作
+16:22 等 Claude 修改完成，再次準備結束時
+16:25 同一支 Hook 又會啟動
+16:26 如果沒有明確的通過條件
+16:28 它就可能一直退回，修改，再重新檢查
+16:31 所以剛才的 Humanizer Gate 會記錄
+16:34 目前這個版本的文章是否已經通過
+16:36 通過之後
+16:37 只要文章沒有再被修改，下一次就會直接放行
+16:41 如果連續檢查三輪還是沒有通過
+16:43 就停止退回，交給我人工確認
+16:45 這樣才能避免整個工作卡在重複檢查裡
+16:48 簡單來說，建立 Hook 時
+16:50 先講清楚什麼時候啟動和啟動後做什麼
+16:53 建立完成後
+16:54 再確認它只會在需要的時候啟動
+16:56 而且知道什麼時候該停止
+16:58 這樣才適合長期放在你的工作流程裡
+17:01 如果你看到這裡
+17:02 知道 Hooks 可以解決什麼問題
+17:04 但還不知道自己應該先裝哪一些
+17:06 我把最常用的十五個情境整理成了一份
+17:09 Hooks 實戰大全
+17:11 裡面包含程式開發
+17:12 內容創作和日常工作會用到的 Hook
+17:14 每一個案例都有可以直接交給 AI 的建立 Prompt
+17:17 你只要複製貼上
+17:18 就能讓 AI 幫你完成設定
+17:21 每個人的工作方式都不一樣
+17:22 只看一份清單
+17:24 你可能還是不知道哪些 Hook 最適合自己
+17:26 所以我另外準備了一個 Hook 推薦 Prompt
+17:29 它會分析你電腦裡過去所有的 Session
+17:31 找出你經常重複提醒 AI 的事情
+17:33 以及總是在固定時機執行的步驟
+17:35 再根據你真實的使用習慣
+17:37 推薦適合你的 Hooks
+17:38 完整內容我放在 Patreon
+17:40 需要的朋友可以在影片下方資訊欄找到連結
+17:44 到這裡
+17:44 我們已經用 Claude Code 完整做了兩個 Hook
+17:46 如果你平常主要使用 Codex
+17:48 前面學到的判斷方式一樣可以沿用
+17:50 先說清楚什麼時候啟動
+17:52 以及啟動後要做什麼
+17:53 不過兩邊目前支援的 Event 和 Handler 不完全相同
+17:56 所以 Claude Code 的設定不能直接複製到 Codex
+17:59 用 Codex 的朋友
+18:00 你只要記住兩個差異
+18:02 第一個差異，是 Event 的數量
+18:04 Claude Code 目前有三十一種
+18:05 Codex 則有十一種
+18:07 不過像剛才用到的 PreToolUse 和 Stop
+18:09 兩邊都有支援
+18:10 所以 E N V 檢查和 Humanizer Gate 的基本做法
+18:13 都能搬到 Codex
+18:14 實際建立時
+18:15 你不用自己背這些 Event 的名稱
+18:17 只要講清楚希望它在什麼時候啟動
+18:19 Codex 就會根據目前支援的 Event
+18:22 判斷這個需求能不能做到
+18:24 第二個差異，是 Handler
+18:26 Claude Code 支援 command，http，mcp tool
+18:29 prompt 和 agent
+18:30 Codex 目前真正會執行的只有 command
+18:33 不過
+18:33 這不代表 Codex 不能完成需要 AI 判斷的流程
+18:36 像剛才的 Humanizer Gate
+18:38 本身就是 Command Handler
+18:39 先執行檢查程式
+18:40 再要求主要的 Agent 呼叫 Skill 完成審查
+18:44 所以同一個需求通常還是做得到
+18:46 只是背後的串接方式會不同
+18:48 最簡單的做法
+18:49 就是把你想解決的問題直接告訴 Codex
+18:52 請它按照目前支援的格式重新建立
+18:54 不要直接複製 Claude Code 的設定
+18:56 講到這裡
+18:57 相信你已經對 Hooks 有一個完整的理解
+18:59 它可以在固定的時機
+19:01 自動替你執行檢查，通知或防呆
+19:04 Event 決定什麼時候啟動
+19:05 Matcher 決定哪些情況需要處理
+19:07 Handler 則負責啟動之後要做什麼
+19:10 實際建立時
+19:11 你也不需要自己背設定或手寫程式
+19:13 先找出一件你經常提醒 AI
+19:15 而且每次都發生在固定時機的事情
+19:18 接著把什麼時候啟動和啟動後做什麼講清楚
+19:20 讓 AI 幫你建立第一版
+19:22 再確認它的觸發範圍和結束條件
+19:24 你可以從一個很小的問題開始
+19:26 像是提交程式碼前檢查金鑰
+19:28 只要這件事會重複發生
+19:30 而且適合在固定時機自動處理
+19:31 它就值得做成 Hook
+19:33 你一個一個把這些重複提醒交給 Hook
+19:35 會發現很多原本需要自己記得
+19:37 反覆確認的事情
+19:38 慢慢變成工作流程裡會自動發生的一部分
+19:41 而你也可以把注意力留給真正需要自己判斷的事情
+19:44 今天這支影片我們團隊光是研究還有撰寫腳本
+19:47 就花了快要一週的時間
+19:49 如果對你有所幫助
+19:50 希望可以幫我留言，按讚，熱推
+19:52 以及分享給你的朋友
+19:53 這些就是對我最大的支持，那我們下次見</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://youtu.be/rLNGSDYkK-w?si=UJNe-qqwCCfnf013" target="_blank" rel="noopener">https://youtu.be/rLNGSDYkK-w?si=UJNe-qqwCCfnf013</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
