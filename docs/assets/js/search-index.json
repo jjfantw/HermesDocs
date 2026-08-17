@@ -1,5 +1,11 @@
 [
   {
+    "title": "如何設計一個好的 AI Skill ？ 整理 6 條共同規律 - Hermes Docs",
+    "url": "videos/JimAINotebook_AISkill設計六條規律.html",
+    "date": "2026-08-17 11:01",
+    "content": "如何設計一個好的 AI Skill ？ 整理 6 條共同規律 - Hermes Docs 返回首頁 如何設計一個好的 AI Skill ？ 整理 6 條共同規律 發布時間：2026-08-17 19:01 🌙 YouTube 影片重點整理 如何設計一個好的 AI Skill ？ 整理 6 條共同規律 📺 Jim AI Notebook ⏱ 27:44 🗓 2026-08-14 🌐 zh-Hant 🔗 https://youtu.be/2AFkG_u4cPo 這支影片整理 AI Agent Skill 的設計方法：skill 不是給 AI 的新功能，而是一份會在合適時機被模型翻開的作業手冊。影片先用一支七行、二十一萬顆星的 skill 對比大型官方 skill，說明好的 skill 沒有固定長度，但有共同規律。它把 skill 分成知識型、禁令型、流程型、品味型、紀律型五類，並提出六條鐵律：description 是觸發鉤子、正文只放地圖、確定的事交給腳本、解釋為什麼勝過大寫命令、先堵住模型會抄的捷徑、寫完一定要測。影片也用官方 PDF、webapp testing、skill-crea"
+  },
+  {
     "title": "不掌握權重就不擁有產品 | 紅杉資本Sonya Huang | 模型權重 | 主權AI | 開源大模型 | AI創業 | 大模型自建 | 智能層競爭 | 後訓練 | AI基礎設施 - Hermes Docs",
     "url": "videos/BestPartnersTV_主權AI模型權重.html",
     "date": "2026-08-17 10:43",

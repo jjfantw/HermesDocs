@@ -1,0 +1,4333 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>如何設計一個好的 AI Skill ？ 整理 6 條共同規律 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>如何設計一個好的 AI Skill ？ 整理 6 條共同規律</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-08-17 19:01</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">如何設計一個好的 AI Skill ？ 整理 6 條共同規律</h1>
+    <div class="meta"><span data-field="channel">📺 Jim AI Notebook</span><span data-field="duration">⏱ 27:44</span><span data-field="published_date">🗓 2026-08-14</span><span data-field="original_language">🌐 zh-Hant</span><a data-field="source_url" href="https://youtu.be/2AFkG_u4cPo" target="_blank" rel="noopener">🔗 https://youtu.be/2AFkG_u4cPo</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>這支影片整理 AI Agent Skill 的設計方法：skill 不是給 AI 的新功能，而是一份會在合適時機被模型翻開的作業手冊。影片先用一支七行、二十一萬顆星的 skill 對比大型官方 skill，說明好的 skill 沒有固定長度，但有共同規律。它把 skill 分成知識型、禁令型、流程型、品味型、紀律型五類，並提出六條鐵律：description 是觸發鉤子、正文只放地圖、確定的事交給腳本、解釋為什麼勝過大寫命令、先堵住模型會抄的捷徑、寫完一定要測。影片也用官方 PDF、webapp testing、skill-creator、Obsidian skills、Karpathy guidelines、grill-me、TDD、verification-before-completion、frontend-design 等例子，展示不同類型 skill 如何用描述、反例、狀態機、測試與 hook 來改變模型行為。最後，影片用 38 支知名 skill 的統計與版本演化指出：好 skill 的趨勢是描述越來越像觸發條件、正文越來越短、機械步驟越來越多交給腳本，並且要用評測確認真的提升模型表現。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">1. Skill 不是新能力，而是 AI 的作業手冊</h2><span class="ts-badge" data-field="lesson_timestamp">00:57</span></div><div class="body" data-field="lesson_body"><p>影片把 skill 解釋成一個資料夾：主檔案是說明書，旁邊可以放參考文件與腳本。它不像對話框裡的一次性指令，也不像系統提示詞永遠貼在牆上，而是像櫃子裡的作業手冊：外面只有標籤，用到才翻。</p><p>這也引出 skill 的核心成本模型：模型永遠先看到 name 與 description；只有判斷用得上時才載入正文；參考檔與程式則是第三層，真的需要時才碰。影片稱這種設計為漸進式揭露：<strong>先看標籤，需要才翻書，真的動手才拿工具</strong>。</p><span class="tag" data-field="lesson_tag">Agent Skills</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">2. 先判斷你要改的是模型哪一層</h2><span class="ts-badge" data-field="lesson_timestamp">03:57</span></div><div class="body" data-field="lesson_body"><p>影片把 skill 分成五種類型。知識型補模型不知道的規格；禁令型用否定句立界線；流程型規定先後順序與結束條件；品味型調整審美與選擇；紀律型則用來防止模型偷懶、擴大範圍或假裝完成。</p><p>這不是單純分類遊戲，而是動手前的第一個岔路口。你想改的是知識、流程、審美、紀律還是壞習慣，會直接決定 skill 的長度、語氣、description 寫法、是否需要腳本與測試方式。</p><span class="tag" data-field="lesson_tag">Skill分類</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">3. Description 是觸發鉤子，不是內容摘要</h2><span class="ts-badge" data-field="lesson_timestamp">06:04</span></div><div class="body" data-field="lesson_body"><p>影片反覆強調：description 是模型決定要不要翻開 skill 的唯一入口。模型面前可能有很多標籤，它要在很短時間內判斷哪一本手冊該打開；如果 description 模糊，正文寫得再漂亮也不會被讀到。</p><p>好的 description 不是介紹『這支 skill 做了什麼』，而是預測『使用者講出哪些話、遇到哪些檔案或情境時，應該使用這支 skill』。工具型 skill 尤其要把可能的動詞、檔案類型與任務情境鋪進描述中。</p><span class="tag" data-field="lesson_tag">Description</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">4. 正文要像地圖，確定的事交給腳本</h2><span class="ts-badge" data-field="lesson_timestamp">09:04</span></div><div class="body" data-field="lesson_body"><p>影片用官方 webapp testing skill 說明：短不代表教得少。95 行的說明書可以用決策樹交代流程，把真正複雜、重複、確定的工作封進腳本，讓模型直接跑結果，而不是讀進大量程式碼或用自然語言手算。</p><p>這背後是 token 成本。MCP 會把工具能力大量塞進上下文；skill 的優勢是可以把重工放在第三層，用不到就是零成本。原則是：<strong>說明書留給判斷題，機械步驟交給可執行腳本</strong>。</p><span class="tag" data-field="lesson_tag">漸進式揭露</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">5. 大寫命令少用；解釋後果，比喊不准有效</h2><span class="ts-badge" data-field="lesson_timestamp">06:04</span></div><div class="body" data-field="lesson_body"><p>影片指出，大寫的『永遠』『絕對不准』是稀缺資源。若整份文件到處都是命令，模型會把它當背景音；真正有效的寫法是告訴模型為什麼這件事重要，以及做錯會造成什麼後果。</p><p>官方 PDF skill 的例子是：不要在 PDF 裡使用某些上標下標特殊字元，因為印出來會變成黑色方塊，且螢幕上可能看不出來。這種『錯誤後果』比單純禁止更能讓模型記住。</p><span class="tag" data-field="lesson_tag">指令語氣</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">6. 把模型會偷走的捷徑先寫死</h2><span class="ts-badge" data-field="lesson_timestamp">12:42</span></div><div class="body" data-field="lesson_body"><p>影片用 Karpathy guidelines、TDD skill、verification-before-completion 等例子說明：很多 skill 的有效性來自先預測模型會怎麼偷懶。它不是只寫正確做法，而是列出模型會講的藉口、壞習慣與紅旗。</p><p>例如 TDD skill 不是只說『先寫測試』，而是列出『這件事很簡單不用測』『我等一下補測試』『先留著當參考』等藉口，逐條回應。驗證型 skill 則把觸發器裝在模型準備說『完成、修好、通過』的那一刻：沒有新鮮驗證證據，就不能宣稱完成。</p><span class="tag" data-field="lesson_tag">紀律型Skill</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">07</span><h2 data-field="lesson_title">7. 行為型 skill 要用狀態與出口條件，而不是問幾題就停</h2><span class="ts-badge" data-field="lesson_timestamp">14:58</span></div><div class="body" data-field="lesson_body"><p>grill-me 這類行為型 skill 的目標不是提供工具，而是改變工作節奏。它在動工前先攔住使用者與模型，用一輪輪問題把計畫問清楚，並把『哪些事實該由模型查、哪些決策必須由人做』分清楚。</p><p>影片特別強調出口條件：不是問滿幾題就停，而是『前沿清空，而且沒有任何東西被默默假設』才結束。這種狀態機寫法，比固定題數更能避免形式化追問。</p><span class="tag" data-field="lesson_tag">行為設計</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">08</span><h2 data-field="lesson_title">8. 品味型 skill 靠角色與反例，不靠檢查表</h2><span class="ts-badge" data-field="lesson_timestamp">20:11</span></div><div class="body" data-field="lesson_body"><p>影片用官方 frontend-design skill 說明品味型 skill 的寫法。它不是列出通用設計規則，而是先點名 AI 常見的模板感：米白底加大標題、黑底螢光綠、報紙細線無圓角等。這些風格可能好看，但如果每題都給同一套，就是預設值，不是選擇。</p><p>因此品味型 skill 先派角色：你是一間小工作室的設計總監，客戶已經退回所有模板感提案。再要求先定設計語言、加入記憶點、開始前自我批判。當要改的是審美時，<strong>角色與反例比檢查表更有用</strong>。</p><span class="tag" data-field="lesson_tag">品味型Skill</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">09</span><h2 data-field="lesson_title">9. 統計結果：好 skill 多半短，但短法依類型不同</h2><span class="ts-badge" data-field="lesson_timestamp">21:17</span></div><div class="body" data-field="lesson_body"><p>作者統計 38 支知名 skill，發現整體中位數約 182 行，官方 17 支中位數約 130 行；超過 300 行的不到四分之一。這支持了『正文只放地圖』的原則。</p><p>但不同類型策略不同。工具型 skill 通常 description 較長、腳本較多，因為它要覆蓋使用者可能說出的各種任務情境；紀律型 skill 則 description 較短，把篇幅留在正文中說服模型、堵住捷徑。</p><span class="tag" data-field="lesson_tag">實測統計</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">10</span><h2 data-field="lesson_title">10. Skill 會演化：描述變大，正文變瘦，規則變成腳本</h2><span class="ts-badge" data-field="lesson_timestamp">23:24</span></div><div class="body" data-field="lesson_body"><p>影片追蹤多個 GitHub 專案的版本歷史，看到一個方向：官方 skill 的 description 越來越像使用時機，正文越來越短；以前寫『這是什麼』，後來改成『什麼時候用』。</p><p>另一個趨勢是規則從口號變成可執行檢查。例如試算表 skill 從『每份試算表必須零公式錯誤』，演化成『只要檢查程式還在報錯，就不要交出去』。同一條規則，從自然語言承諾變成可跑的驗證。</p><span class="tag" data-field="lesson_tag">演化趨勢</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">11</span><h2 data-field="lesson_title">11. 寫完一定要測，否則不知道那堆字有沒有用</h2><span class="ts-badge" data-field="lesson_timestamp">24:38</span></div><div class="body" data-field="lesson_body"><p>影片最後回到最容易被跳過的一條：寫完要測。正確順序是先讓模型裸著做一次，記下它失敗在哪裡，整理成測試情境與基準分，再開始寫 skill，並用前後對照確認是否真的有效。</p><p>影片提到一份 skill 評測：86 個任務、11 個領域，有 skill 的那一邊平均高出 16.2 個百分點。這同時說明 skill 有效果，但也不是換一顆腦袋；它是把模型原本會做的事導向正確做法。</p><span class="tag" data-field="lesson_tag">評測</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">Skill 的價值不在你寫了多少，而是在它被翻開的那一刻，剛好寫著模型需要的那一句。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="00:00"><span class="ts">00:00</span><span class="text" data-field="key_point_text">影片用一支只有七行、二十一萬顆星的 skill 開場，對比 MCP 與長篇說明書，提出問題：為什麼有些 skill 很短卻有效，有些寫很長仍不會被使用。</span></li><li data-field="key_point" data-timestamp="00:57"><span class="ts">00:57</span><span class="text" data-field="key_point_text">Agent Skill 被定義成一個資料夾：主檔案是說明書，旁邊可放參考文件與小程式；AI 平常只看名稱與 description，需要時才讀正文。</span></li><li data-field="key_point" data-timestamp="03:57"><span class="ts">03:57</span><span class="text" data-field="key_point_text">影片先給分類與結論：skill 可分成知識型、禁令型、流程型、品味型、紀律型；共通鐵律有六條。</span></li><li data-field="key_point" data-timestamp="06:04"><span class="ts">06:04</span><span class="text" data-field="key_point_text">第一條：description 不是摘要，而是觸發鉤子；它要寫使用者說出什麼情境時，模型應該翻開這支 skill。</span></li><li data-field="key_point" data-timestamp="09:04"><span class="ts">09:04</span><span class="text" data-field="key_point_text">第二與第三條：正文只放地圖，細節與重複步驟放到參考檔或腳本；確定、有唯一答案、可執行的事，不要用文字拜託模型自己做。</span></li><li data-field="key_point" data-timestamp="12:42"><span class="ts">12:42</span><span class="text" data-field="key_point_text">第四與第五條：大寫命令要少用，應解釋錯誤後果；同時要明確列出模型會找的捷徑、藉口與壞習慣，提前堵住。</span></li><li data-field="key_point" data-timestamp="14:58"><span class="ts">14:58</span><span class="text" data-field="key_point_text">行為型 skill 的重點是攔在關鍵時刻，例如 grill-me 在動工前先追問計畫，TDD skill 則先列出模型會偷懶不寫測試的藉口。</span></li><li data-field="key_point" data-timestamp="20:11"><span class="ts">20:11</span><span class="text" data-field="key_point_text">品味型 skill 不適合只給檢查表，而是透過角色、反例與自我批判，讓模型避開模板感，建立具體審美方向。</span></li><li data-field="key_point" data-timestamp="21:17"><span class="ts">21:17</span><span class="text" data-field="key_point_text">作者統計 38 支知名 skill：中位數約 182 行，官方 skill 中位數約 130 行；描述長度、腳本數量與 skill 類型之間呈現不同策略。</span></li><li data-field="key_point" data-timestamp="23:24"><span class="ts">23:24</span><span class="text" data-field="key_point_text">版本演化顯示：官方 skill 越來越把 description 寫成使用時機，正文則持續縮短；規則從口號變成可跑的檢查腳本。</span></li><li data-field="key_point" data-timestamp="24:38"><span class="ts">24:38</span><span class="text" data-field="key_point_text">最後一條：寫完一定要測。先讓模型裸跑，記錄失敗點，再用測試情境與前後評測確認 skill 是否真的有效。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="Agent Skills">Agent Skills</span><span class="tag-chip" data-tag="AI Skill">AI Skill</span><span class="tag-chip" data-tag="Claude Code">Claude Code</span><span class="tag-chip" data-tag="MCP">MCP</span><span class="tag-chip" data-tag="提示詞工程">提示詞工程</span><span class="tag-chip" data-tag="AI工作流">AI工作流</span><span class="tag-chip" data-tag="Skill設計">Skill設計</span><span class="tag-chip" data-tag="Agent工程">Agent工程</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>YouTube 未提供字幕，主文依影片 description 章節與 Whisper 逐字稿整理；未使用 OCR。</li><li>Whisper 對部分詞彙有明顯漂字，例如『程式』被轉成『城市』、『觸發鉤子/鉤子』被轉成『掉溝』等；主文已依上下文修正，原始逐字稿保留於附錄。</li><li>影片提到的星數、樣本數、日期與統計值依影片內容保留，未額外查證外部來源。</li></ul></div></section>
+  <section class="glossary" data-field="asr_glossary"><h2>🎙️ ASR 漂字對照表</h2><div class="card"><table class="glossary"><tr data-field="asr_glossary_row"><td data-field="heard">SKILL / Skill</td><td>→</td><td data-field="corrected">skill / Agent Skill</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">掉溝</td><td>→</td><td data-field="corrected">鉤子 / 觸發鉤子</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">城市</td><td>→</td><td data-field="corrected">程式</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">資料夾 / 檔案</td><td>→</td><td data-field="corrected">skill 資料夾 / SKILL.md 說明檔</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">拷問我</td><td>→</td><td data-field="corrected">grill-me / grill me</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">品位</td><td>→</td><td data-field="corrected">品味</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">MTP</td><td>→</td><td data-field="corrected">MCP</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">hook / 系統層級關卡</td><td>→</td><td data-field="corrected">hook 機制</td></tr></table></div></section>
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="description"><div class="raw-label">YouTube 原始描述與章節<button class="copy-btn" id="raw_description_4348713472_srt" onclick="copyRaw(this,'raw_description_4348713472_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_description_4348713472_text" onclick="copyRawText(this,'raw_description_4348713472_text')">📋 複製純文字</button></div><pre>⏱ 章節
+00:00 開場：7 行的檔案，21 萬顆星
+00:57 什麼是 Agent Skill：一個資料夾，三層載入
+03:57 先給答案：五種類型，六條規律
+06:04 規律一：description 決定它會不會被叫出來
+09:04 規律二：正文寫短，細節和腳本放外面
+12:42 規律三：先寫清楚不做什麼，再堵住捷徑
+14:58 行為型 skill 怎麼寫（grill-me、TDD）
+20:11 品味型 skill：用角色和反例教審美
+21:17 實測統計：38 支知名 skill 量出來的結果
+23:24 趨勢：這一年 skill 的寫法怎麼變
+24:38 怎麼測一支 skill 到底有沒有用
+
+大家好，我是 Jim，這裡是 AI Notebook。今天這支影片只回答一個問題，一支好的 skill 到底要怎麼設計。你電腦裡的 AI，其實是可以被你教的。教的方法不是打一長串指令，是給它一個資料夾，資料夾裡放一份說明書，AI 覺得這件事用得上，才自己翻開來看。這種資料夾有一個名字，叫 skill。現在全世界最紅的一支 skill，整份檔案只有七行。七行，收到了二十一萬顆星星。那是 GitHub 上的收藏數。同一時間，另一種做法叫 MCP，做同一件事，花掉的字數是它的三十二倍，而字數在這裡是要付錢的。所以問題來了，同樣是教 AI 做事，為什麼有人七行就成，有人寫了五百行還是沒被理睬。為了回答
+
+📎 資料來源
+• Agent Skills overview — Claude Docs https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview
+• Skill authoring best practices — Claude Docs https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices
+• Equipping agents for the real world with Agent Skills — Anthropic Engineering https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills
+• anthropics/skills — the official skill repository (pdf, skill-creator, webapp-testing, frontend-design) https://github.com/anthropics/skills
+• Agent Skills — the open specification https://agentskills.io
+• Simon Willison — Claude Skills are awesome, maybe a bigger deal than MCP https://simonwillison.net/2025/Oct/16/claude-skills/
+• Jesse Vincent — Superpowers (announcement post) https://blog.fsck.com/2025/10/09/superpowers/
+• obra/superpowers — TDD, systematic-debugging, verification-before-completion https://github.com/obra/superpowers
+• mattpocock/skills — grill-me and grilling https://github.com/mattpocock/skills
+• kepano/obsidian-skills — obsidian-markdown and obsidian-bases https://github.com/kepano/obsidian-skills
+• andrej-karpathy-skills — the behavioural guidelines file https://github.com/multica-ai/andrej-karpathy-skills
+• OthmanAdi/planning-with-files — hook-enforced planning skill https://github.com/OthmanAdi/planning-with-files
+• SkillsBench — benchmarking agent skills (arXiv) https://arxiv.org/pdf/2606.11435
+• Evaluating Agent Skills with MLflow https://mlflow.org/blog/evaluating-skills-mlflow/
+• anthropics/skills #1447 — the 2026-07-16 rewrite of the docx / pptx / xlsx skills https://github.com/anthropics/skills/pull/1447
+• obra/superpowers 9c9547c (2025-10-16) — 「Now that skills are a first-class thing in Claude Code, restore them to the primary plugin」 https://github.com/obra/superpowers/commit/9c9547cc042d05906d0eb26506f275ff6c82f679
+
+---
+Jim AI Notebook | Note the Future
+每日深度解析 AI 最新進展
+
+#AI #AISkill #AgentSkills #ClaudeCode #MCP #提示詞工程 #AINotebook</pre></div><div class="raw-block" data-field="raw_source_item" data-raw-type="whisper"><div class="raw-label">Whisper 逐字稿（含時間戳，原始輸出）<button class="copy-btn" id="raw_whisper_4348713792_srt" onclick="copyRaw(this,'raw_whisper_4348713792_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_whisper_4348713792_text" onclick="copyRawText(this,'raw_whisper_4348713792_text')">📋 複製純文字</button></div><pre>1
+00:00:00,000 --&gt; 00:00:06,020
+大家好,我是Jim
+
+2
+00:00:06,020 --&gt; 00:00:07,260
+这里是AI Notebook
+
+3
+00:00:07,260 --&gt; 00:00:09,160
+今天这支影片只回答一个问题
+
+4
+00:00:09,160 --&gt; 00:00:11,280
+一支好的SKILL到底要怎么设计
+
+5
+00:00:11,280 --&gt; 00:00:13,780
+你电脑里的AI其实是可以被你教的
+
+6
+00:00:13,780 --&gt; 00:00:15,820
+教的方法不是打一长串指令
+
+7
+00:00:15,820 --&gt; 00:00:17,760
+是给他一个资料夹资料夹里
+
+8
+00:00:17,760 --&gt; 00:00:18,860
+放一份说明书
+
+9
+00:00:18,860 --&gt; 00:00:21,200
+AI觉得这件事用得上才自己翻开来
+
+10
+00:00:21,200 --&gt; 00:00:23,300
+看这种资料夹有一个名字叫SKILL
+
+11
+00:00:23,300 --&gt; 00:00:24,960
+现在全世界最红的一支
+
+12
+00:00:24,960 --&gt; 00:00:25,640
+SKILL
+
+13
+00:00:25,640 --&gt; 00:00:27,400
+整份档案只有七行
+
+14
+00:00:27,400 --&gt; 00:00:29,280
+七行收到了21万颗星星
+
+15
+00:00:29,280 --&gt; 00:00:30,980
+那是Github上的收藏
+
+16
+00:00:30,980 --&gt; 00:00:33,600
+同一时间另一种做法叫MCP
+
+17
+00:00:33,600 --&gt; 00:00:34,600
+做同一件事
+
+18
+00:00:34,600 --&gt; 00:00:36,280
+花掉的字数是它的32倍
+
+19
+00:00:36,280 --&gt; 00:00:37,920
+而字数在这里是要付钱的
+
+20
+00:00:37,920 --&gt; 00:00:38,680
+所以问题来了
+
+21
+00:00:38,680 --&gt; 00:00:40,200
+同样是教AI做事
+
+22
+00:00:40,200 --&gt; 00:00:41,840
+为什么有人七行就成
+
+23
+00:00:41,840 --&gt; 00:00:42,960
+有人写了500行
+
+24
+00:00:42,960 --&gt; 00:00:44,040
+还是没被理睬
+
+25
+00:00:44,040 --&gt; 00:00:45,140
+为了回答这件事
+
+26
+00:00:45,140 --&gt; 00:00:46,880
+我把十几个最有名的资料夹
+
+27
+00:00:46,880 --&gt; 00:00:48,000
+一个一个打开来读
+
+28
+00:00:48,000 --&gt; 00:00:50,200
+还把38支有名的SKILL
+
+29
+00:00:50,200 --&gt; 00:00:51,700
+全部量了一遍行数
+
+30
+00:00:51,700 --&gt; 00:00:52,480
+描述长度
+
+31
+00:00:52,480 --&gt; 00:00:53,500
+附带的程式
+
+32
+00:00:53,500 --&gt; 00:00:55,120
+一支一支数出来
+
+33
+00:00:55,120 --&gt; 00:00:57,280
+所以我把它们一条一条整理出来了
+
+34
+00:00:57,280 --&gt; 00:00:59,380
+我们先看那支七行的档案
+
+35
+00:00:59,380 --&gt; 00:01:00,560
+它到底长什么样子
+
+36
+00:01:00,560 --&gt; 00:01:01,380
+第一行写名字
+
+37
+00:01:01,380 --&gt; 00:01:02,740
+第二行写一句描述
+
+38
+00:01:02,740 --&gt; 00:01:04,540
+说明这支SKILL是干嘛的
+
+39
+00:01:04,540 --&gt; 00:01:06,500
+写的是一场毫不留情的访谈
+
+40
+00:01:06,500 --&gt; 00:01:07,960
+用来把一个计划问清楚
+
+41
+00:01:07,960 --&gt; 00:01:09,880
+第三行是一行设定
+
+42
+00:01:09,880 --&gt; 00:01:11,080
+意思是禁止模型
+
+43
+00:01:11,080 --&gt; 00:01:12,380
+自己教用它
+
+44
+00:01:12,380 --&gt; 00:01:13,880
+剩下的正文只有一句话
+
+45
+00:01:13,880 --&gt; 00:01:14,700
+去跑一次拷问
+
+46
+00:01:14,700 --&gt; 00:01:15,760
+就这样没了
+
+47
+00:01:15,760 --&gt; 00:01:16,780
+没有流程图
+
+48
+00:01:16,780 --&gt; 00:01:17,380
+没有范例
+
+49
+00:01:17,380 --&gt; 00:01:18,380
+没有半行程式
+
+50
+00:01:18,380 --&gt; 00:01:20,200
+一份七行的纯文字档
+
+51
+00:01:20,200 --&gt; 00:01:21,460
+被21万个人收藏
+
+52
+00:01:21,460 --&gt; 00:01:22,540
+而我在同一个星期
+
+53
+00:01:22,540 --&gt; 00:01:25,240
+打开另一支官方的SKILL光说明书
+
+54
+00:01:25,240 --&gt; 00:01:26,740
+就有485行
+
+55
+00:01:26,740 --&gt; 00:01:28,700
+旁边还附了10支小程式
+
+56
+00:01:28,700 --&gt; 00:01:30,320
+两支都是很成功的作品
+
+57
+00:01:30,320 --&gt; 00:01:32,180
+这就是这件事最有意思的地方
+
+58
+00:01:32,180 --&gt; 00:01:33,100
+教AI做事
+
+59
+00:01:33,100 --&gt; 00:01:34,280
+没有一个标准答案
+
+60
+00:01:34,280 --&gt; 00:01:35,280
+可是它有规律
+
+61
+00:01:35,280 --&gt; 00:01:36,740
+这一年多一大批人
+
+62
+00:01:36,740 --&gt; 00:01:37,900
+在同一个题目上
+
+63
+00:01:37,900 --&gt; 00:01:40,260
+试错答案都写在公开的档案里
+
+64
+00:01:40,260 --&gt; 00:01:41,500
+所以我做了两件事
+
+65
+00:01:41,500 --&gt; 00:01:43,220
+我把最有名的十几支
+
+66
+00:01:43,220 --&gt; 00:01:44,460
+一支一支打开来读
+
+67
+00:01:44,460 --&gt; 00:01:46,960
+另外我把38支全部量了一遍
+
+68
+00:01:46,960 --&gt; 00:01:48,240
+这件事没有那么悬
+
+69
+00:01:48,240 --&gt; 00:01:49,180
+它其实有几条
+
+70
+00:01:49,180 --&gt; 00:01:50,840
+可以直接照做的规矩
+
+71
+00:01:50,840 --&gt; 00:01:51,880
+不过在那之前
+
+72
+00:01:51,880 --&gt; 00:01:52,920
+我们得先讲清楚
+
+73
+00:01:52,920 --&gt; 00:01:54,240
+SKILL到底是什么
+
+74
+00:01:54,240 --&gt; 00:01:55,600
+SKILL这个字
+
+75
+00:01:55,600 --&gt; 00:01:57,440
+白话讲就是一个资料夹
+
+76
+00:01:57,440 --&gt; 00:01:58,720
+里面放着你教AI
+
+77
+00:01:58,720 --&gt; 00:01:59,760
+做一件事的方法
+
+78
+00:01:59,760 --&gt; 00:02:01,560
+资料夹里一定有一份主档案
+
+79
+00:02:01,560 --&gt; 00:02:02,440
+那就是说明书
+
+80
+00:02:02,440 --&gt; 00:02:04,480
+本文旁边可以再放参考文件
+
+81
+00:02:04,480 --&gt; 00:02:06,340
+也可以放写好的小程式
+
+82
+00:02:06,340 --&gt; 00:02:07,580
+AI平常不会看它
+
+83
+00:02:07,580 --&gt; 00:02:09,340
+等到他觉得这件事用得上
+
+84
+00:02:09,340 --&gt; 00:02:10,460
+才自己翻开来读
+
+85
+00:02:10,460 --&gt; 00:02:12,020
+官方自己用的比喻
+
+86
+00:02:12,020 --&gt; 00:02:14,120
+是帮新同事准备的入职手册
+
+87
+00:02:14,120 --&gt; 00:02:15,240
+新人第一天上班
+
+88
+00:02:15,240 --&gt; 00:02:17,660
+你不会把整间公司的规章念给他听
+
+89
+00:02:17,660 --&gt; 00:02:20,120
+你给他一本手册放在柜子上
+
+90
+00:02:20,120 --&gt; 00:02:22,140
+他要报仗的时候翻报仗那一张
+
+91
+00:02:22,140 --&gt; 00:02:24,320
+要请假的时候翻请假那一张
+
+92
+00:02:24,320 --&gt; 00:02:25,520
+SKILL就是那本手册
+
+93
+00:02:25,520 --&gt; 00:02:26,960
+这样讲你可能会问
+
+94
+00:02:26,960 --&gt; 00:02:28,700
+那跟我平常直接打字
+
+95
+00:02:28,700 --&gt; 00:02:30,060
+叫他做事差在哪里
+
+96
+00:02:30,060 --&gt; 00:02:30,680
+差别是这样
+
+97
+00:02:30,680 --&gt; 00:02:32,420
+你在对话框里打的指令
+
+98
+00:02:32,420 --&gt; 00:02:33,160
+讲完就没了
+
+99
+00:02:33,160 --&gt; 00:02:34,960
+下次还要总打系统提示词
+
+100
+00:02:34,960 --&gt; 00:02:36,680
+是贴在门口那边规章墙
+
+101
+00:02:36,680 --&gt; 00:02:37,600
+永远都在
+
+102
+00:02:37,600 --&gt; 00:02:39,400
+可是贴太多就没有人看
+
+103
+00:02:39,400 --&gt; 00:02:41,520
+SKILL是柜子里那本作业手册
+
+104
+00:02:41,520 --&gt; 00:02:42,840
+外面只贴一张标签
+
+105
+00:02:42,840 --&gt; 00:02:45,780
+用到才翻开MCP是门禁卡跟外线电话
+
+106
+00:02:45,780 --&gt; 00:02:48,460
+他负责连到外面的系统去把资料抓回来
+
+107
+00:02:48,460 --&gt; 00:02:51,040
+最后一种是把模型送回学校重读
+
+108
+00:02:51,040 --&gt; 00:02:52,020
+那最贵也最慢
+
+109
+00:02:52,020 --&gt; 00:02:53,400
+所以四种方法里面
+
+110
+00:02:53,400 --&gt; 00:02:53,720
+SKILL
+
+111
+00:02:53,720 --&gt; 00:02:55,240
+卡在一个很好的位置
+
+112
+00:02:55,240 --&gt; 00:02:56,060
+他可以带着走
+
+113
+00:02:56,060 --&gt; 00:02:57,440
+可以存进版本控制
+
+114
+00:02:57,440 --&gt; 00:02:58,600
+随时想改就改
+
+115
+00:02:58,600 --&gt; 00:03:01,400
+我们把那本手册分成三层来看
+
+116
+00:03:01,400 --&gt; 00:03:02,580
+这是整件事的灵魂
+
+117
+00:03:02,580 --&gt; 00:03:03,880
+先讲Token这个词
+
+118
+00:03:03,880 --&gt; 00:03:05,860
+Token就是模型的字数配额
+
+119
+00:03:05,860 --&gt; 00:03:08,080
+你塞给它的每一个字都要算钱
+
+120
+00:03:08,080 --&gt; 00:03:09,720
+也会占掉它的记忆空间
+
+121
+00:03:09,720 --&gt; 00:03:11,800
+第一层是每一支SKILL的名牌
+
+122
+00:03:11,800 --&gt; 00:03:13,780
+名牌上只有名字跟一句描述
+
+123
+00:03:13,780 --&gt; 00:03:14,940
+大概100个Token
+
+124
+00:03:14,940 --&gt; 00:03:17,300
+这一层永远都在模型随时看得到
+
+125
+00:03:17,300 --&gt; 00:03:18,780
+就像柜子上那一排标签
+
+126
+00:03:18,780 --&gt; 00:03:20,560
+第二层是说明书本文
+
+127
+00:03:20,560 --&gt; 00:03:22,540
+只有当模型判断这件事用得上
+
+128
+00:03:22,540 --&gt; 00:03:24,380
+它才把整份说明书书读进来
+
+129
+00:03:24,380 --&gt; 00:03:26,860
+官方建议控制在5000个Token以内
+
+130
+00:03:26,860 --&gt; 00:03:29,160
+第三层是资料夹里其他的东西
+
+131
+00:03:29,160 --&gt; 00:03:30,700
+参考文件跟小程式
+
+132
+00:03:30,700 --&gt; 00:03:32,240
+用不到就是零
+
+133
+00:03:32,240 --&gt; 00:03:33,840
+这一层里面最妙的是程式
+
+134
+00:03:33,840 --&gt; 00:03:35,120
+程式是拿去执行的
+
+135
+00:03:35,120 --&gt; 00:03:36,500
+不是拿去读的模型
+
+136
+00:03:36,500 --&gt; 00:03:38,360
+不会把几百行程式读进脑袋
+
+137
+00:03:38,360 --&gt; 00:03:39,860
+它只是跑一次看结果
+
+138
+00:03:39,860 --&gt; 00:03:41,900
+所以你可以在一支SKILL里
+
+139
+00:03:41,900 --&gt; 00:03:42,780
+放一整套工具
+
+140
+00:03:42,780 --&gt; 00:03:44,040
+成本几乎是零
+
+141
+00:03:44,040 --&gt; 00:03:45,760
+这三层有一个正式名称叫
+
+142
+00:03:45,760 --&gt; 00:03:46,600
+渐进式揭露
+
+143
+00:03:46,600 --&gt; 00:03:48,220
+翻成白话就是先看标签
+
+144
+00:03:48,220 --&gt; 00:03:49,040
+需要才翻书
+
+145
+00:03:49,040 --&gt; 00:03:50,240
+真的动手才拿工具
+
+146
+00:03:50,240 --&gt; 00:03:52,020
+这三层是后面每一条
+
+147
+00:03:52,020 --&gt; 00:03:54,040
+规则的地基底值
+
+148
+00:03:54,040 --&gt; 00:03:55,420
+讲到这里我们看第一件
+
+149
+00:03:55,420 --&gt; 00:03:56,540
+真正要决定的是
+
+150
+00:03:56,540 --&gt; 00:03:58,480
+你要写一支SKILL之前
+
+151
+00:03:58,480 --&gt; 00:03:59,560
+先问自己一个问题
+
+152
+00:03:59,560 --&gt; 00:04:01,240
+你要改的是模型的哪一层
+
+153
+00:04:01,240 --&gt; 00:04:02,620
+这个问题最关键
+
+154
+00:04:02,620 --&gt; 00:04:03,900
+因为答案不一样
+
+155
+00:04:03,900 --&gt; 00:04:06,000
+你的档案就长得完全不一样
+
+156
+00:04:06,000 --&gt; 00:04:07,140
+答案总共有五种
+
+157
+00:04:07,140 --&gt; 00:04:09,020
+你要补的是他不知道的东西
+
+158
+00:04:09,020 --&gt; 00:04:10,040
+这叫知识型
+
+159
+00:04:10,040 --&gt; 00:04:12,360
+一款笔记软体公开的那五支
+
+160
+00:04:12,360 --&gt; 00:04:13,520
+就是这样把模型
+
+161
+00:04:13,520 --&gt; 00:04:15,280
+没学过的规格塞进他脑袋
+
+162
+00:04:15,280 --&gt; 00:04:16,980
+你要挡的是他的坏习惯
+
+163
+00:04:16,980 --&gt; 00:04:17,880
+这叫禁令型
+
+164
+00:04:17,880 --&gt; 00:04:19,460
+有一位很有名的研究者
+
+165
+00:04:19,460 --&gt; 00:04:20,360
+整理的那四条就是
+
+166
+00:04:20,360 --&gt; 00:04:21,620
+他不给新知识
+
+167
+00:04:21,620 --&gt; 00:04:23,720
+他用否定句在模型四周立强
+
+168
+00:04:23,720 --&gt; 00:04:25,520
+你要定的是先后顺序
+
+169
+00:04:25,520 --&gt; 00:04:26,460
+这叫流程型
+
+170
+00:04:26,460 --&gt; 00:04:27,700
+开头那支拷问就是
+
+171
+00:04:27,700 --&gt; 00:04:29,300
+他规定先做什么再做什么
+
+172
+00:04:29,300 --&gt; 00:04:31,020
+用状态决定什么时候结束
+
+173
+00:04:31,020 --&gt; 00:04:32,220
+你要调的是审美
+
+174
+00:04:32,220 --&gt; 00:04:33,180
+这叫品位型
+
+175
+00:04:33,180 --&gt; 00:04:34,920
+官方那支管界面设计的
+
+176
+00:04:34,920 --&gt; 00:04:36,260
+就是他给角色
+
+177
+00:04:36,260 --&gt; 00:04:37,520
+给反例不给检查表
+
+178
+00:04:37,520 --&gt; 00:04:39,760
+你要防的是他偷懒跟说谎
+
+179
+00:04:39,760 --&gt; 00:04:40,520
+这叫纪律型
+
+180
+00:04:40,520 --&gt; 00:04:42,020
+那一整套工作纪律就是
+
+181
+00:04:42,020 --&gt; 00:04:43,020
+他预先列出
+
+182
+00:04:43,020 --&gt; 00:04:44,460
+你会找的每一个借口
+
+183
+00:04:44,460 --&gt; 00:04:45,420
+一条一条挡掉
+
+184
+00:04:45,420 --&gt; 00:04:47,120
+这五种写法完全不一样
+
+185
+00:04:47,120 --&gt; 00:04:48,640
+可是他们都算好作品
+
+186
+00:04:48,640 --&gt; 00:04:50,180
+因为他们动的层不同
+
+187
+00:04:50,180 --&gt; 00:04:52,240
+所以这张图不是分类游戏
+
+188
+00:04:52,240 --&gt; 00:04:54,380
+它是你动手前的第一个岔路口
+
+189
+00:04:54,380 --&gt; 00:04:55,940
+你选错陈后面写
+
+190
+00:04:55,940 --&gt; 00:04:57,280
+再多都是白费力气
+
+191
+00:04:57,280 --&gt; 00:04:58,280
+陈决定的篇幅
+
+192
+00:04:58,280 --&gt; 00:04:59,200
+也决定的语气
+
+193
+00:04:59,200 --&gt; 00:04:59,980
+再见
+
+194
+00:04:59,980 --&gt; 00:05:00,000
+再见
+
+195
+00:05:00,000 --&gt; 00:05:02,300
+好了 接下來是共通的部分
+
+196
+00:05:02,300 --&gt; 00:05:04,360
+我讀完十幾支最有名的作品
+
+197
+00:05:04,360 --&gt; 00:05:05,700
+整理出六條鐵律
+
+198
+00:05:05,700 --&gt; 00:05:07,160
+不管你改的是哪一層
+
+199
+00:05:07,160 --&gt; 00:05:08,140
+這六條都成立
+
+200
+00:05:08,140 --&gt; 00:05:09,400
+我現在全部給你後面
+
+201
+00:05:09,400 --&gt; 00:05:11,140
+再一條一條帶你看證據
+
+202
+00:05:11,140 --&gt; 00:05:13,000
+第一條那句描述是一支掉溝
+
+203
+00:05:13,000 --&gt; 00:05:14,340
+不是一段摘要
+
+204
+00:05:14,340 --&gt; 00:05:16,360
+你不是在寫這支skill做了什麼
+
+205
+00:05:16,360 --&gt; 00:05:17,800
+你是在寫使用者講出
+
+206
+00:05:17,800 --&gt; 00:05:19,700
+哪一種話的時候應該來找我
+
+207
+00:05:19,700 --&gt; 00:05:20,240
+第二條
+
+208
+00:05:20,240 --&gt; 00:05:22,300
+本文只放地圖說明書的本體
+
+209
+00:05:22,300 --&gt; 00:05:23,200
+越短越好
+
+210
+00:05:23,200 --&gt; 00:05:25,040
+細節推到旁邊的參考檔
+
+211
+00:05:25,040 --&gt; 00:05:26,800
+模型真的需要的時候才去翻
+
+212
+00:05:26,800 --&gt; 00:05:27,700
+第三條
+
+213
+00:05:27,700 --&gt; 00:05:29,000
+確定的事情交給腳本
+
+214
+00:05:29,000 --&gt; 00:05:29,760
+步驟固定
+
+215
+00:05:29,760 --&gt; 00:05:30,820
+答案只有一個的是
+
+216
+00:05:30,820 --&gt; 00:05:32,700
+你寫成一支小城市讓他去跑
+
+217
+00:05:32,700 --&gt; 00:05:34,520
+不要用文字拜託他自己算
+
+218
+00:05:34,520 --&gt; 00:05:35,120
+第四條
+
+219
+00:05:35,120 --&gt; 00:05:36,120
+解釋為什麼
+
+220
+00:05:36,120 --&gt; 00:05:37,520
+勝過用大寫壓人
+
+221
+00:05:37,520 --&gt; 00:05:40,120
+你告訴模型這件事做錯會發生什麼
+
+222
+00:05:40,120 --&gt; 00:05:42,420
+比連寫30次不准有效的多
+
+223
+00:05:42,420 --&gt; 00:05:43,000
+第五條
+
+224
+00:05:43,000 --&gt; 00:05:44,320
+模型會抄得捷徑
+
+225
+00:05:44,320 --&gt; 00:05:45,660
+你要先寫使堵住
+
+226
+00:05:45,660 --&gt; 00:05:47,260
+你不要只寫正確做法
+
+227
+00:05:47,260 --&gt; 00:05:49,500
+你要把它會找的每個藉口先寫出來
+
+228
+00:05:49,500 --&gt; 00:05:50,120
+第六條
+
+229
+00:05:50,120 --&gt; 00:05:51,160
+寫完一定要測
+
+230
+00:05:51,160 --&gt; 00:05:52,660
+你先讓模型裸著做一次
+
+231
+00:05:52,660 --&gt; 00:05:53,760
+看它卡在哪裡
+
+232
+00:05:53,760 --&gt; 00:05:55,260
+再回頭改你的檔案
+
+233
+00:05:55,260 --&gt; 00:05:56,060
+這六條
+
+234
+00:05:56,060 --&gt; 00:05:58,200
+就像考卷的答案先寫在黑板上
+
+235
+00:05:58,200 --&gt; 00:05:59,760
+接下來我們一條一條回去
+
+236
+00:05:59,760 --&gt; 00:06:01,520
+看真正做得好的那些人
+
+237
+00:06:01,520 --&gt; 00:06:03,820
+是怎麼把這幾條寫進檔案裡的
+
+238
+00:06:03,820 --&gt; 00:06:04,920
+第一條
+
+239
+00:06:04,920 --&gt; 00:06:06,520
+鐵律說描述是掉鉤
+
+240
+00:06:06,520 --&gt; 00:06:08,700
+我們就從官方最早那批裡面
+
+241
+00:06:08,700 --&gt; 00:06:10,120
+最經典的一支開始
+
+242
+00:06:10,120 --&gt; 00:06:12,120
+看處理PDF檔的那一支
+
+243
+00:06:12,120 --&gt; 00:06:13,160
+你打開他的說明書
+
+244
+00:06:13,160 --&gt; 00:06:14,120
+第一眼要看的不是本文
+
+245
+00:06:14,120 --&gt; 00:06:15,420
+是檔案最上面那幾行
+
+246
+00:06:15,420 --&gt; 00:06:16,300
+那幾行是
+
+247
+00:06:16,300 --&gt; 00:06:17,600
+這支SKILL的名牌
+
+248
+00:06:17,600 --&gt; 00:06:19,400
+白話就是檔案開頭的名牌
+
+249
+00:06:19,400 --&gt; 00:06:21,160
+你想像一下模型的處境
+
+250
+00:06:21,160 --&gt; 00:06:22,840
+它面前有100張標籤
+
+251
+00:06:22,840 --&gt; 00:06:23,740
+你問了一句話
+
+252
+00:06:23,740 --&gt; 00:06:26,440
+它要在0點幾秒內決定翻哪一本
+
+253
+00:06:26,440 --&gt; 00:06:29,100
+它唯一能看的就是每一張標籤上的那一句
+
+254
+00:06:29,100 --&gt; 00:06:30,900
+所以社群後來有一個共識
+
+255
+00:06:30,900 --&gt; 00:06:32,160
+描述才是班機
+
+256
+00:06:32,160 --&gt; 00:06:32,900
+本文不是
+
+257
+00:06:32,900 --&gt; 00:06:34,160
+你本文寫的再漂亮
+
+258
+00:06:34,160 --&gt; 00:06:34,840
+描述模糊
+
+259
+00:06:34,840 --&gt; 00:06:36,700
+這支SKILL一輩子不會被翻開
+
+260
+00:06:36,700 --&gt; 00:06:38,340
+那官方這一支怎麼寫
+
+261
+00:06:38,340 --&gt; 00:06:39,840
+它把那一欄分成三段
+
+262
+00:06:39,840 --&gt; 00:06:40,980
+開頭是一句命令
+
+263
+00:06:40,980 --&gt; 00:06:43,380
+只要使用者想對PDF檔做任何事
+
+264
+00:06:43,380 --&gt; 00:06:45,540
+就用這支SKILL範圍開到最大
+
+265
+00:06:45,540 --&gt; 00:06:46,980
+接著是一長串動詞
+
+266
+00:06:46,980 --&gt; 00:06:47,700
+讀取合併
+
+267
+00:06:47,700 --&gt; 00:06:48,500
+切開旋轉
+
+268
+00:06:48,500 --&gt; 00:06:49,340
+填表單
+
+269
+00:06:49,340 --&gt; 00:06:50,740
+把使用者可能會講的詞
+
+270
+00:06:50,740 --&gt; 00:06:52,200
+全部鋪進去
+
+271
+00:06:52,200 --&gt; 00:06:53,300
+最後補一句兜頂
+
+272
+00:06:53,300 --&gt; 00:06:54,940
+只要使用者提到一個PDF檔
+
+273
+00:06:54,940 --&gt; 00:06:56,300
+或者要你做一個出來
+
+274
+00:06:56,300 --&gt; 00:06:56,840
+就用這一支
+
+275
+00:06:56,840 --&gt; 00:06:58,640
+你看得出來這三段的方向
+
+276
+00:06:58,640 --&gt; 00:07:00,740
+它不是在介紹自己
+
+277
+00:07:00,740 --&gt; 00:07:02,080
+它是在猜你會怎麼開
+
+278
+00:07:02,680 --&gt; 00:07:03,580
+名牌
+
+279
+00:07:03,580 --&gt; 00:07:05,580
+講完我們翻進同一支的本文
+
+280
+00:07:05,580 --&gt; 00:07:07,900
+這裡剛好看得到第四條鐵律
+
+281
+00:07:07,900 --&gt; 00:07:09,440
+這一支的本文有300多行
+
+282
+00:07:09,440 --&gt; 00:07:10,600
+可是它的文字非常少
+
+283
+00:07:10,600 --&gt; 00:07:11,900
+因為裡面塞了17段
+
+284
+00:07:11,900 --&gt; 00:07:13,640
+可以直接執行的程式碼
+
+285
+00:07:13,640 --&gt; 00:07:15,640
+它的第一句話先講自己是誰
+
+286
+00:07:15,640 --&gt; 00:07:17,200
+第二句就開始分錄
+
+287
+00:07:17,200 --&gt; 00:07:19,280
+要填表單的去看表單那一份
+
+288
+00:07:19,280 --&gt; 00:07:21,840
+要進階用法的去看參考那一份
+
+289
+00:07:21,840 --&gt; 00:07:23,300
+等於這本手冊的第一頁就是
+
+290
+00:07:23,300 --&gt; 00:07:24,840
+目錄不是長篇大論
+
+291
+00:07:24,840 --&gt; 00:07:26,440
+我最喜歡的是它的客製
+
+292
+00:07:26,440 --&gt; 00:07:27,900
+整份文件裡大寫的禁止
+
+293
+00:07:27,900 --&gt; 00:07:29,100
+只出現兩次
+
+294
+00:07:29,100 --&gt; 00:07:31,280
+而且那兩次講的是同一件事
+
+295
+00:07:31,280 --&gt; 00:07:31,980
+他說
+
+296
+00:07:31,980 --&gt; 00:07:33,740
+永遠不要在PDF裡使用那種
+
+297
+00:07:33,740 --&gt; 00:07:35,340
+上標下標的特殊符號
+
+298
+00:07:35,340 --&gt; 00:07:36,280
+為什麼
+
+299
+00:07:36,280 --&gt; 00:07:37,800
+因為那些字元印出來會變成
+
+300
+00:07:37,800 --&gt; 00:07:38,780
+一整塊黑色的方塊
+
+301
+00:07:38,780 --&gt; 00:07:39,840
+整份文件就毀了
+
+302
+00:07:39,840 --&gt; 00:07:42,120
+而且你在螢幕上看不出來
+
+303
+00:07:42,120 --&gt; 00:07:42,940
+你注意它的寫法
+
+304
+00:07:42,940 --&gt; 00:07:44,280
+它不是只寫一句不準
+
+305
+00:07:44,280 --&gt; 00:07:45,380
+它把後果寫在後面
+
+306
+00:07:45,380 --&gt; 00:07:47,620
+這就是那條鐵律的長相
+
+307
+00:07:47,620 --&gt; 00:07:49,780
+大寫的命令是稀缺資源
+
+308
+00:07:49,780 --&gt; 00:07:52,020
+同一份文件裡寫30次不準模型
+
+309
+00:07:52,020 --&gt; 00:07:53,040
+就當你是背景音樂
+
+310
+00:07:53,040 --&gt; 00:07:54,320
+你只寫一次
+
+311
+00:07:54,320 --&gt; 00:07:57,040
+而且那一次是真的會出事的一壘
+
+312
+00:07:57,040 --&gt; 00:07:57,740
+它才記得
+
+313
+00:07:57,740 --&gt; 00:07:59,720
+描述要強
+
+314
+00:07:59,720 --&gt; 00:08:00,740
+正文要軟
+
+315
+00:08:00,740 --&gt; 00:08:02,520
+這兩件事官方自己有一支東西
+
+316
+00:08:02,520 --&gt; 00:08:03,320
+同時示範了
+
+317
+00:08:03,320 --&gt; 00:08:05,680
+它放了一支專門用來寫Skill的
+
+318
+00:08:05,680 --&gt; 00:08:07,340
+Skill你可以叫它原技能
+
+319
+00:08:07,340 --&gt; 00:08:10,400
+它裡面有兩句話我覺得是整個題目最重要的兩句
+
+320
+00:08:10,400 --&gt; 00:08:11,180
+第一句是
+
+321
+00:08:11,180 --&gt; 00:08:13,940
+請把Skill的描述寫的稍微強勢一點
+
+322
+00:08:13,940 --&gt; 00:08:14,800
+為什麼要強勢
+
+323
+00:08:14,800 --&gt; 00:08:17,780
+因為官方觀察到模型天生有一個傾向
+
+324
+00:08:17,780 --&gt; 00:08:20,940
+他會覺得這件事我自己好像也會就不去翻手冊了
+
+325
+00:08:20,940 --&gt; 00:08:22,880
+這個傾向叫做觸發不足
+
+326
+00:08:22,880 --&gt; 00:08:24,400
+所以描述要主動一點
+
+327
+00:08:24,400 --&gt; 00:08:27,340
+要像一個站在門口說這件事交給我的人
+
+328
+00:08:27,340 --&gt; 00:08:28,440
+第二句剛好相反
+
+329
+00:08:28,440 --&gt; 00:08:32,140
+他說如果你發現自己一直在寫全大寫的永遠要跟絕對不準
+
+330
+00:08:32,140 --&gt; 00:08:33,280
+那是一支黃旗
+
+331
+00:08:33,280 --&gt; 00:08:34,380
+黃旗的意思是
+
+332
+00:08:34,380 --&gt; 00:08:35,700
+你先停下來想一下
+
+333
+00:08:35,700 --&gt; 00:08:36,800
+他接著解釋
+
+334
+00:08:36,800 --&gt; 00:08:38,340
+今天的模型很聰明
+
+335
+00:08:38,340 --&gt; 00:08:39,780
+他會揣摩你的意思
+
+336
+00:08:39,780 --&gt; 00:08:40,900
+與其大聲命令
+
+337
+00:08:40,900 --&gt; 00:08:42,600
+不如告訴他為什麼這件事重要
+
+338
+00:08:42,600 --&gt; 00:08:45,040
+這兩句放在一起就是這門手藝的性格
+
+339
+00:08:45,040 --&gt; 00:08:46,200
+對外要強勢
+
+340
+00:08:46,200 --&gt; 00:08:48,200
+讓人找得到你對那要講道理
+
+341
+00:08:48,200 --&gt; 00:08:49,200
+不要用大寫壓人
+
+342
+00:08:49,200 --&gt; 00:08:51,200
+他還順便示範了最後一條鐵律
+
+343
+00:08:51,200 --&gt; 00:08:53,700
+他教的方法是你開兩個AI
+
+344
+00:08:53,700 --&gt; 00:08:55,800
+一個負責寫這支Skill
+
+345
+00:08:55,800 --&gt; 00:08:57,140
+另一個完全不知情
+
+346
+00:08:57,140 --&gt; 00:08:58,140
+直接拿去用
+
+347
+00:08:58,140 --&gt; 00:08:59,500
+你看第二個卡在哪裡
+
+348
+00:08:59,500 --&gt; 00:09:01,860
+回頭改改的依據是他真的做了什麼
+
+349
+00:09:01,860 --&gt; 00:09:04,260
+不是你以為他會怎麼做
+
+350
+00:09:04,260 --&gt; 00:09:05,500
+第二條鐵律說
+
+351
+00:09:05,500 --&gt; 00:09:07,040
+董倫指放地圖第三條說
+
+352
+00:09:07,040 --&gt; 00:09:09,200
+能寫成程式的就不要用嘴巴教
+
+353
+00:09:09,200 --&gt; 00:09:10,900
+這兩條聽起來像潔癖
+
+354
+00:09:10,900 --&gt; 00:09:12,800
+其實他們是被錢逼出來的
+
+355
+00:09:12,800 --&gt; 00:09:15,760
+我們把時間拉回2025年的10月你就懂了
+
+356
+00:09:15,760 --&gt; 00:09:17,360
+那時候大家再接MCP
+
+357
+00:09:17,360 --&gt; 00:09:20,260
+MCP你可以想成AI的門禁卡跟外線電話
+
+358
+00:09:20,260 --&gt; 00:09:22,140
+他讓模型連得到你的信箱
+
+359
+00:09:22,140 --&gt; 00:09:22,960
+你的資料庫
+
+360
+00:09:22,960 --&gt; 00:09:24,160
+你的專案很好用
+
+361
+00:09:24,160 --&gt; 00:09:25,300
+可是有一個副作用
+
+362
+00:09:25,300 --&gt; 00:09:25,960
+每接一套
+
+363
+00:09:25,960 --&gt; 00:09:28,400
+他就要先把這套系統能做的每件事
+
+364
+00:09:28,400 --&gt; 00:09:30,040
+完整寫給模型看一遍
+
+365
+00:09:30,040 --&gt; 00:09:30,760
+接五套
+
+366
+00:09:30,760 --&gt; 00:09:32,440
+你還沒開始交代工作
+
+367
+00:09:32,440 --&gt; 00:09:34,700
+模型的記憶就先被塞掉一大半
+
+368
+00:09:34,700 --&gt; 00:09:36,940
+後來有人拿同一個任務實測
+
+369
+00:09:36,940 --&gt; 00:09:38,800
+同樣是去Github上做事
+
+370
+00:09:38,800 --&gt; 00:09:39,700
+跑75次
+
+371
+00:09:39,700 --&gt; 00:09:41,760
+一邊走MCP邊走命令列
+
+372
+00:09:41,760 --&gt; 00:09:42,700
+加上一支Skill
+
+373
+00:09:42,700 --&gt; 00:09:45,560
+走MCP那一邊花掉的字數是另一邊的32倍
+
+374
+00:09:45,560 --&gt; 00:09:47,700
+32倍不是慢一點的差別是
+
+375
+00:09:47,700 --&gt; 00:09:49,460
+同一件是你付了32次的錢
+
+376
+00:09:49,460 --&gt; 00:09:50,540
+就在這個氣氛裡
+
+377
+00:09:50,540 --&gt; 00:09:52,840
+10月16號官方一次丟出4支
+
+378
+00:09:52,840 --&gt; 00:09:55,940
+Skill教模型處理最無聊的4種檔案PDF
+
+379
+00:09:55,940 --&gt; 00:09:57,040
+文書檔簡報
+
+380
+00:09:57,040 --&gt; 00:09:58,680
+試算表他們沒有協定
+
+381
+00:09:58,680 --&gt; 00:09:59,800
+沒有伺服器
+
+382
+00:09:59,800 --&gt; 00:10:00,040
+就是
+
+383
+00:10:00,000 --&gt; 00:10:01,400
+是四个资料夹
+
+384
+00:10:01,400 --&gt; 00:10:03,640
+你现在知道为什么所有人都在比谁写的短了
+
+385
+00:10:03,640 --&gt; 00:10:04,680
+指数
+
+386
+00:10:04,680 --&gt; 00:10:05,760
+这件事被看见之后
+
+387
+00:10:05,760 --&gt; 00:10:08,200
+同一天有一位很资深的独立开发者
+
+388
+00:10:08,200 --&gt; 00:10:10,800
+写了一篇短文把整个气氛点燃了
+
+389
+00:10:10,800 --&gt; 00:10:12,400
+标题是Claude的Skill
+
+390
+00:10:12,400 --&gt; 00:10:14,360
+很厉害可能比MTP更重要
+
+391
+00:10:14,360 --&gt; 00:10:15,920
+他的理由不是效能是简单
+
+392
+00:10:15,920 --&gt; 00:10:17,800
+他说MCP是一整套协定
+
+393
+00:10:17,800 --&gt; 00:10:19,080
+你要跑伺服器要处理
+
+394
+00:10:19,080 --&gt; 00:10:20,880
+连线Skill只是一份纯文字档
+
+395
+00:10:20,880 --&gt; 00:10:21,960
+加上开头几行设定
+
+396
+00:10:21,960 --&gt; 00:10:22,480
+如此而已
+
+397
+00:10:22,480 --&gt; 00:10:24,160
+他讲了一句我很喜欢的话
+
+398
+00:10:24,160 --&gt; 00:10:26,240
+他说这个做法更贴近语言模型
+
+399
+00:10:26,240 --&gt; 00:10:28,680
+本来的精神就是丢一段文字进去
+
+400
+00:10:28,680 --&gt; 00:10:30,080
+让模型自己想办法
+
+401
+00:10:30,080 --&gt; 00:10:32,680
+两个月之后这句话应验了
+
+402
+00:10:32,680 --&gt; 00:10:33,960
+12月18号
+
+403
+00:10:33,960 --&gt; 00:10:35,960
+这套格式被公开成一份规格
+
+404
+00:10:35,960 --&gt; 00:10:37,580
+捐给了一个中立的基金会
+
+405
+00:10:37,580 --&gt; 00:10:38,780
+48小时之内
+
+406
+00:10:38,780 --&gt; 00:10:41,440
+微软把它接近自己的程式编辑器
+
+407
+00:10:41,440 --&gt; 00:10:42,100
+OpenAI
+
+408
+00:10:42,100 --&gt; 00:10:44,520
+也在自家产品里用上一个格式
+
+409
+00:10:44,520 --&gt; 00:10:45,980
+简单到所有人都懒得吵
+
+410
+00:10:45,980 --&gt; 00:10:47,860
+它就变成大家的共同语言
+
+411
+00:10:47,860 --&gt; 00:10:50,460
+这件事对你写档案有一个很直接的含义
+
+412
+00:10:50,460 --&gt; 00:10:51,900
+这个格式从头到尾
+
+413
+00:10:51,900 --&gt; 00:10:53,480
+没有给你任何华丽的功能
+
+414
+00:10:53,480 --&gt; 00:10:54,840
+它只给你一份纯文字
+
+415
+00:10:54,840 --&gt; 00:10:57,320
+所以你能赢的地方从来不是技术
+
+416
+00:10:57,320 --&gt; 00:10:59,180
+是你怎么把话写清楚
+
+417
+00:10:59,180 --&gt; 00:11:00,700
+把话写清楚
+
+418
+00:11:00,700 --&gt; 00:11:02,080
+可以清楚到什么程度
+
+419
+00:11:02,080 --&gt; 00:11:03,600
+官方同一个资料夹里
+
+420
+00:11:03,600 --&gt; 00:11:04,700
+有一只走到了极端
+
+421
+00:11:04,700 --&gt; 00:11:05,900
+它负责测试网页
+
+422
+00:11:05,900 --&gt; 00:11:07,900
+说明书只有95行
+
+423
+00:11:07,900 --&gt; 00:11:09,540
+它第一句话没有任何寒暄
+
+424
+00:11:09,540 --&gt; 00:11:11,500
+直接说要测试本机的网页
+
+425
+00:11:11,500 --&gt; 00:11:13,420
+就写一只原生的测试脚本
+
+426
+00:11:13,420 --&gt; 00:11:15,460
+它真正的灵魂在第14行
+
+427
+00:11:15,460 --&gt; 00:11:17,140
+它说先跑一次说明指令
+
+428
+00:11:17,140 --&gt; 00:11:18,680
+不要去读脚本的原始码
+
+429
+00:11:18,680 --&gt; 00:11:19,960
+理由写在后面
+
+430
+00:11:19,960 --&gt; 00:11:20,960
+这些脚本很大
+
+431
+00:11:20,960 --&gt; 00:11:22,860
+读进来会占掉你的记忆空间
+
+432
+00:11:22,860 --&gt; 00:11:23,720
+它们的存在
+
+433
+00:11:23,720 --&gt; 00:11:25,140
+就是要被当成黑盒子
+
+434
+00:11:25,140 --&gt; 00:11:25,760
+直接呼叫
+
+435
+00:11:25,760 --&gt; 00:11:26,920
+不是被读进去的
+
+436
+00:11:27,320 --&gt; 00:11:28,280
+你看这句话等于
+
+437
+00:11:28,280 --&gt; 00:11:30,060
+把刚刚那个成本观念
+
+438
+00:11:30,060 --&gt; 00:11:32,200
+直接写进了给模型的指令里
+
+439
+00:11:32,200 --&gt; 00:11:33,100
+它甚至没有用
+
+440
+00:11:33,100 --&gt; 00:11:34,320
+长篇文字说明流程
+
+441
+00:11:34,320 --&gt; 00:11:35,320
+它画了一颗决策树
+
+442
+00:11:35,320 --&gt; 00:11:36,800
+用纯文字画的网页
+
+443
+00:11:36,800 --&gt; 00:11:37,860
+有没有跑起来
+
+444
+00:11:37,860 --&gt; 00:11:38,760
+有就往这边
+
+445
+00:11:38,760 --&gt; 00:11:39,860
+没有就往那边
+
+446
+00:11:39,860 --&gt; 00:11:41,700
+每一个分支都给一条退路
+
+447
+00:11:41,700 --&gt; 00:11:42,480
+95行
+
+448
+00:11:42,480 --&gt; 00:11:43,240
+一棵树
+
+449
+00:11:43,240 --&gt; 00:11:43,940
+一条铁律
+
+450
+00:11:43,940 --&gt; 00:11:46,480
+这一只后来常常被拿来当饭本
+
+451
+00:11:46,480 --&gt; 00:11:48,380
+因为它同时证明了两条说明书
+
+452
+00:11:48,380 --&gt; 00:11:49,500
+短不代表交得少
+
+453
+00:11:49,500 --&gt; 00:11:51,660
+难的部分你可以封进城市里
+
+454
+00:11:51,660 --&gt; 00:11:53,880
+把功夫封进城市这条路
+
+455
+00:11:53,880 --&gt; 00:11:55,400
+社群有一只玩得更远
+
+456
+00:11:55,400 --&gt; 00:11:57,340
+它接着是一个AI笔记工具
+
+457
+00:11:57,340 --&gt; 00:11:58,160
+你可以叫它
+
+458
+00:11:58,160 --&gt; 00:12:00,040
+自动去读一整堆资料
+
+459
+00:12:00,040 --&gt; 00:12:00,940
+再回答这只
+
+460
+00:12:00,940 --&gt; 00:12:01,620
+skill
+
+461
+00:12:01,620 --&gt; 00:12:03,160
+做了一件我第一次看到的事
+
+462
+00:12:03,160 --&gt; 00:12:04,640
+它的脚本每次回答完
+
+463
+00:12:04,640 --&gt; 00:12:06,300
+都会在结尾自动加上一句话
+
+464
+00:12:06,300 --&gt; 00:12:08,240
+这句话不是给你看的
+
+465
+00:12:08,240 --&gt; 00:12:09,380
+是给模型看的写着
+
+466
+00:12:09,380 --&gt; 00:12:10,040
+这样就是
+
+467
+00:12:10,040 --&gt; 00:12:11,320
+你需要知道的
+
+468
+00:12:11,320 --&gt; 00:12:12,120
+全部了吗
+
+469
+00:12:12,120 --&gt; 00:12:13,220
+然后说明书里规定
+
+470
+00:12:13,220 --&gt; 00:12:14,560
+模型只要看到这句话
+
+471
+00:12:14,560 --&gt; 00:12:15,520
+就必须停下来
+
+472
+00:12:15,520 --&gt; 00:12:17,140
+重新检查自己还缺什么
+
+473
+00:12:17,140 --&gt; 00:12:18,360
+缺就再问一次
+
+474
+00:12:18,360 --&gt; 00:12:19,600
+问到其为止
+
+475
+00:12:19,600 --&gt; 00:12:21,020
+你想想这件事的结构
+
+476
+00:12:21,020 --&gt; 00:12:22,280
+一般的skill
+
+477
+00:12:22,280 --&gt; 00:12:24,040
+只有在被翻开的那一刻说话
+
+478
+00:12:24,040 --&gt; 00:12:24,920
+说完就闭嘴
+
+479
+00:12:24,920 --&gt; 00:12:26,200
+这一只不是
+
+480
+00:12:26,200 --&gt; 00:12:27,400
+它让工具在每一次
+
+481
+00:12:27,400 --&gt; 00:12:28,360
+吐出结果的时候
+
+482
+00:12:28,360 --&gt; 00:12:30,040
+继续对模型下指令
+
+483
+00:12:30,040 --&gt; 00:12:31,160
+等于在流程中间
+
+484
+00:12:31,160 --&gt; 00:12:32,760
+开了第二条指令通道
+
+485
+00:12:32,760 --&gt; 00:12:34,120
+这也提醒我们一件事
+
+486
+00:12:34,120 --&gt; 00:12:36,200
+你的skill不只有那份说明书
+
+487
+00:12:36,200 --&gt; 00:12:37,760
+任何模型会看到的东西
+
+488
+00:12:37,760 --&gt; 00:12:38,920
+包括程式的输出
+
+489
+00:12:38,920 --&gt; 00:12:39,800
+错误讯息
+
+490
+00:12:39,800 --&gt; 00:12:41,080
+甚至档案名称
+
+491
+00:12:41,080 --&gt; 00:12:43,080
+都是你在对它说话
+
+492
+00:12:43,080 --&gt; 00:12:44,440
+本文要瘦下来最难的
+
+493
+00:12:44,440 --&gt; 00:12:45,120
+不是三字
+
+494
+00:12:45,120 --&gt; 00:12:46,280
+是决定什么不写
+
+495
+00:12:46,280 --&gt; 00:12:48,040
+这件事有一个人做的特别好
+
+496
+00:12:48,040 --&gt; 00:12:49,440
+而且他不是工程师
+
+497
+00:12:49,440 --&gt; 00:12:52,080
+有一款很多人在用的笔记软体
+
+498
+00:12:52,080 --&gt; 00:12:54,320
+他的创办人把自己私下在用的skill
+
+499
+00:12:54,320 --&gt; 00:12:55,040
+直接公开
+
+500
+00:12:55,040 --&gt; 00:12:56,040
+五个纯文字档
+
+501
+00:12:56,040 --&gt; 00:12:57,360
+收到四万颗星
+
+502
+00:12:57,360 --&gt; 00:12:58,880
+我把其中一只打开来读
+
+503
+00:12:58,880 --&gt; 00:13:00,240
+他管的是笔记的写法
+
+504
+00:13:00,240 --&gt; 00:13:01,760
+他的第一句话就把我说服了
+
+505
+00:13:01,760 --&gt; 00:13:03,040
+他说这一只只涵盖
+
+506
+00:13:03,040 --&gt; 00:13:04,800
+我们这家特有的写法
+
+507
+00:13:04,800 --&gt; 00:13:06,160
+标准的部分
+
+508
+00:13:06,160 --&gt; 00:13:07,040
+视为模型
+
+509
+00:13:07,040 --&gt; 00:13:07,680
+已经会了
+
+510
+00:13:07,680 --&gt; 00:13:09,280
+一句话省掉一半篇幅
+
+511
+00:13:09,280 --&gt; 00:13:11,120
+这是很多人写说明书的时候
+
+512
+00:13:11,120 --&gt; 00:13:12,320
+不敢做的事
+
+513
+00:13:12,320 --&gt; 00:13:13,040
+你会怕漏
+
+514
+00:13:13,040 --&gt; 00:13:14,040
+所以什么都写
+
+515
+00:13:14,040 --&gt; 00:13:15,440
+写到最后又臭又长
+
+516
+00:13:15,440 --&gt; 00:13:17,040
+重点被埋在中间
+
+517
+00:13:17,040 --&gt; 00:13:19,280
+他反过来先讲清楚我不教什么
+
+518
+00:13:19,280 --&gt; 00:13:21,840
+剩下的空间才装得下真正要教的东西
+
+519
+00:13:21,840 --&gt; 00:13:23,600
+同一组里面还有一只更聪明
+
+520
+00:13:23,600 --&gt; 00:13:26,160
+他管的是一种特殊的档案格式
+
+521
+00:13:26,160 --&gt; 00:13:27,880
+所以他的触发条件不写情境
+
+522
+00:13:27,880 --&gt; 00:13:29,120
+直接写副档名
+
+523
+00:13:29,120 --&gt; 00:13:30,960
+只要碰到这种副档名的档案
+
+524
+00:13:30,960 --&gt; 00:13:31,600
+就用
+
+525
+00:13:31,600 --&gt; 00:13:32,960
+这叫硬触发
+
+526
+00:13:32,960 --&gt; 00:13:34,480
+比讲情境更不会误判
+
+527
+00:13:34,480 --&gt; 00:13:36,400
+这也是掉勾那一条的另一种写法
+
+528
+00:13:36,400 --&gt; 00:13:38,160
+而且他的流程第五步是验证
+
+529
+00:13:38,160 --&gt; 00:13:40,880
+把最容易写错的三种情况直接列出来
+
+530
+00:13:40,880 --&gt; 00:13:42,720
+叫模型自己回头检查
+
+531
+00:13:42,720 --&gt; 00:13:45,520
+你把最常踩的那三个坑写进流程里
+
+532
+00:13:45,520 --&gt; 00:13:48,320
+就等于替他先挡掉一半的错
+
+533
+00:13:48,320 --&gt; 00:13:50,400
+替模型先挡掉错误这件事
+
+534
+00:13:50,400 --&gt; 00:13:52,960
+2026年1月有一个更极端的版本
+
+535
+00:13:52,960 --&gt; 00:13:55,440
+卡帕西就是那位很有名的AI研究者
+
+536
+00:13:55,440 --&gt; 00:13:58,640
+在网路上抱怨AI帮他写程式的几个毛病
+
+537
+00:13:58,640 --&gt; 00:13:59,920
+他说他不确认前提
+
+538
+00:13:59,920 --&gt; 00:14:02,000
+就直接动手50行能解决的事
+
+539
+00:14:02,000 --&gt; 00:14:03,200
+他写500行
+
+540
+00:14:03,200 --&gt; 00:14:05,680
+他还会顺手改掉你根本没有叫他改的地方
+
+541
+00:14:05,680 --&gt; 00:14:07,360
+这些话没有一句是新的
+
+542
+00:14:07,360 --&gt; 00:14:08,480
+特别的是隔天
+
+543
+00:14:08,480 --&gt; 00:14:11,360
+隔天就有人把这几句话整理成一个档案
+
+544
+00:14:11,360 --&gt; 00:14:12,320
+67行
+
+545
+00:14:12,320 --&gt; 00:14:14,000
+4条原则放上网
+
+546
+00:14:14,000 --&gt; 00:14:15,920
+后来这个档案累积到20万颗星
+
+547
+00:14:15,920 --&gt; 00:14:16,960
+他凭什么
+
+548
+00:14:16,960 --&gt; 00:14:18,320
+因为他的写法很准
+
+549
+00:14:18,320 --&gt; 00:14:20,160
+每一条原则的主体不是教
+
+550
+00:14:20,160 --&gt; 00:14:20,960
+你要做什么
+
+551
+00:14:20,960 --&gt; 00:14:22,320
+是一串不要做什么
+
+552
+00:14:22,320 --&gt; 00:14:22,960
+不要假设
+
+553
+00:14:22,960 --&gt; 00:14:24,080
+不要藏起你的困惑
+
+554
+00:14:24,080 --&gt; 00:14:25,840
+不要偷偷扩大范围行为
+
+555
+00:14:25,840 --&gt; 00:14:27,680
+这种东西用否定句写笔
+
+556
+00:14:27,680 --&gt; 00:14:29,120
+用正面句写有效
+
+557
+00:14:29,120 --&gt; 00:14:31,040
+因为模型不要知道界限在哪里
+
+558
+00:14:31,040 --&gt; 00:14:31,920
+这就是捷径
+
+559
+00:14:31,920 --&gt; 00:14:33,440
+那一条铁绿的圆形
+
+560
+00:14:33,440 --&gt; 00:14:36,160
+你要先把它会走的每一条歪路写死
+
+561
+00:14:36,160 --&gt; 00:14:39,200
+更妙的是每一条后面都挂一个自我测试的问题
+
+562
+00:14:39,200 --&gt; 00:14:40,160
+你写了200行
+
+563
+00:14:40,160 --&gt; 00:14:41,680
+如果50行就能写完
+
+564
+00:14:41,680 --&gt; 00:14:42,480
+那就重写
+
+565
+00:14:42,480 --&gt; 00:14:43,520
+你改了每一行
+
+566
+00:14:43,520 --&gt; 00:14:45,760
+能不能直接对回使用者的要求
+
+567
+00:14:45,760 --&gt; 00:14:47,440
+形容词是没办法执行的
+
+568
+00:14:47,440 --&gt; 00:14:48,400
+你叫他简洁
+
+569
+00:14:48,400 --&gt; 00:14:49,520
+他不知道什么叫简洁
+
+570
+00:14:49,520 --&gt; 00:14:51,640
+你给他一个可以自己回答的问题
+
+571
+00:14:51,640 --&gt; 00:14:52,960
+他就能自己检查
+
+572
+00:14:52,960 --&gt; 00:14:54,480
+这一只开头还很诚实
+
+573
+00:14:54,480 --&gt; 00:14:58,160
+他先说明这套原则是拿速度换谨慎
+
+574
+00:14:58,160 --&gt; 00:14:58,800
+到这里为止
+
+575
+00:14:58,800 --&gt; 00:15:00,000
+我们看的都是交工具
+
+576
+00:15:00,000 --&gt; 00:15:00,760
+Skill
+
+577
+00:15:00,760 --&gt; 00:15:01,920
+接下來這一派更難
+
+578
+00:15:01,920 --&gt; 00:15:03,580
+他們要改的不是模型
+
+579
+00:15:03,580 --&gt; 00:15:05,640
+會什麼是模型的習慣
+
+580
+00:15:05,640 --&gt; 00:15:06,920
+我們要回到影片開頭
+
+581
+00:15:06,920 --&gt; 00:15:08,700
+那七航這隻Skill的作者
+
+582
+00:15:08,700 --&gt; 00:15:10,680
+是一位很有名的前端工程師
+
+583
+00:15:10,680 --&gt; 00:15:11,700
+他做的東西叫
+
+584
+00:15:11,700 --&gt; 00:15:12,380
+拷問我
+
+585
+00:15:12,380 --&gt; 00:15:13,200
+你打一個指令
+
+586
+00:15:13,200 --&gt; 00:15:14,840
+他就開始一輪一輪的問你
+
+587
+00:15:14,840 --&gt; 00:15:15,560
+把你的計畫
+
+588
+00:15:15,560 --&gt; 00:15:17,660
+問到你自己都想清楚為止
+
+589
+00:15:17,660 --&gt; 00:15:19,460
+這就是21萬顆星那一隻
+
+590
+00:15:19,460 --&gt; 00:15:21,500
+他最反直覺的地方在哪裡
+
+591
+00:15:21,500 --&gt; 00:15:24,200
+這一年所有工具都在讓AI動作更快
+
+592
+00:15:24,200 --&gt; 00:15:25,160
+他偏偏反過來
+
+593
+00:15:25,160 --&gt; 00:15:27,640
+在你動工之前先加一道磨茶
+
+594
+00:15:27,640 --&gt; 00:15:29,180
+他的結構是兩層
+
+595
+00:15:29,180 --&gt; 00:15:31,480
+前面那七航是門上寫著一航設定
+
+596
+00:15:31,480 --&gt; 00:15:33,020
+禁止模型自己叫用
+
+597
+00:15:33,020 --&gt; 00:15:35,840
+也就是說AI不可以自己決定要來質問你
+
+598
+00:15:35,840 --&gt; 00:15:37,880
+只有你親手打那個指令
+
+599
+00:15:37,880 --&gt; 00:15:39,160
+這扇門才會開
+
+600
+00:15:39,160 --&gt; 00:15:40,960
+真正的引擎放在旁邊
+
+601
+00:15:40,960 --&gt; 00:15:42,740
+另一支23航
+
+602
+00:15:42,740 --&gt; 00:15:44,020
+你想想這個安排的意思
+
+603
+00:15:44,020 --&gt; 00:15:47,100
+全場行為改造做的最徹底的一支
+
+604
+00:15:47,100 --&gt; 00:15:48,640
+反而最不信任自動觸發
+
+605
+00:15:48,640 --&gt; 00:15:50,180
+因為什麼時候該被拷問
+
+606
+00:15:50,180 --&gt; 00:15:51,700
+這是人的決定不是模型的
+
+607
+00:15:51,700 --&gt; 00:15:53,240
+他的文件裡有一句話
+
+608
+00:15:53,240 --&gt; 00:15:54,260
+我很喜歡一場
+
+609
+00:15:54,260 --&gt; 00:15:56,580
+你從頭到尾都沒有反駁過的質問
+
+610
+00:15:56,580 --&gt; 00:15:58,100
+就是一場你本來不需要的質問
+
+611
+00:15:58,100 --&gt; 00:16:01,180
+那23航的引擎寫的是一台狀態機
+
+612
+00:16:01,180 --&gt; 00:16:03,740
+他把一場訪談化成一顆決策樹
+
+613
+00:16:03,740 --&gt; 00:16:06,040
+你的計畫裡每一件還沒決定的事
+
+614
+00:16:06,040 --&gt; 00:16:07,320
+都是樹上的一個節點
+
+615
+00:16:07,320 --&gt; 00:16:09,100
+有些節點要等別的先定下來
+
+616
+00:16:09,100 --&gt; 00:16:11,920
+然後他規定每一輪只准問前沿的問題
+
+617
+00:16:11,920 --&gt; 00:16:13,200
+前沿的意思是
+
+618
+00:16:13,200 --&gt; 00:16:14,740
+前面的條件都已經確定了
+
+619
+00:16:14,740 --&gt; 00:16:15,760
+不用靠瞎猜
+
+620
+00:16:15,760 --&gt; 00:16:17,040
+就能回答的那幾題
+
+621
+00:16:17,040 --&gt; 00:16:19,860
+這一輪的前沿要一次全部問完每題編號
+
+622
+00:16:19,860 --&gt; 00:16:22,940
+而且每一題後面要附上他自己建議的答案
+
+623
+00:16:22,940 --&gt; 00:16:23,960
+這一點很重要
+
+624
+00:16:23,960 --&gt; 00:16:26,260
+他不是丟一張空白問卷給你
+
+625
+00:16:26,260 --&gt; 00:16:28,060
+他是帶著立場來問
+
+626
+00:16:28,060 --&gt; 00:16:29,840
+你只要說我同意或者說不對
+
+627
+00:16:29,840 --&gt; 00:16:32,400
+他還把責任切開寫實在文件裡
+
+628
+00:16:32,400 --&gt; 00:16:33,940
+查得到的事實是
+
+629
+00:16:33,940 --&gt; 00:16:35,980
+你的工作永遠不是使用者的工作
+
+630
+00:16:35,980 --&gt; 00:16:37,520
+環境裡查得到的自己去查
+
+631
+00:16:37,520 --&gt; 00:16:39,060
+可是決策是使用者的
+
+632
+00:16:39,060 --&gt; 00:16:40,340
+不准替他決定
+
+633
+00:16:40,340 --&gt; 00:16:41,620
+最後是出口條件
+
+634
+00:16:41,620 --&gt; 00:16:43,660
+我覺得這是整支最值得學的一句
+
+635
+00:16:43,660 --&gt; 00:16:44,440
+他不寫問
+
+636
+00:16:44,440 --&gt; 00:16:45,720
+滿幾題就結束
+
+637
+00:16:45,720 --&gt; 00:16:47,000
+他寫前沿清空
+
+638
+00:16:47,000 --&gt; 00:16:49,040
+而且沒有任何東西被默默假設
+
+639
+00:16:49,040 --&gt; 00:16:50,320
+這一場才算結束
+
+640
+00:16:50,320 --&gt; 00:16:53,140
+這件事還有後續有人抱怨另一個工具
+
+641
+00:16:53,140 --&gt; 00:16:54,680
+用這套問了200題
+
+642
+00:16:54,680 --&gt; 00:16:56,720
+要求作者加上提數上限
+
+643
+00:16:56,720 --&gt; 00:16:57,740
+作者公開拒絕了
+
+644
+00:16:57,740 --&gt; 00:16:59,280
+他說用自然語言引導他
+
+645
+00:16:59,280 --&gt; 00:17:01,340
+本來就是這套東西的控制界面
+
+646
+00:17:01,580 --&gt; 00:17:02,620
+不是一個數字
+
+647
+00:17:02,620 --&gt; 00:17:04,400
+你覺得問太多你就叫他停
+
+648
+00:17:04,400 --&gt; 00:17:06,960
+因為提數上限會把問太多跟問得爛
+
+649
+00:17:06,960 --&gt; 00:17:08,240
+混成同一件事
+
+650
+00:17:08,760 --&gt; 00:17:09,780
+同樣是要改習慣
+
+651
+00:17:10,040 --&gt; 00:17:11,320
+另外一條線走的是紀律
+
+652
+00:17:11,320 --&gt; 00:17:14,380
+這是一位工程師公開的一整套工作紀律
+
+653
+00:17:14,640 --&gt; 00:17:17,720
+Skill好幾萬個開發者在用我挑其中最有名的一隻
+
+654
+00:17:17,720 --&gt; 00:17:19,260
+先寫測試那一隻
+
+655
+00:17:19,260 --&gt; 00:17:20,780
+他的開場三句話很漂亮
+
+656
+00:17:20,780 --&gt; 00:17:23,080
+先寫測試看著他失敗再寫
+
+657
+00:17:23,080 --&gt; 00:17:24,620
+剛好能讓他通過的程式
+
+658
+00:17:24,620 --&gt; 00:17:26,160
+這件事本身不新
+
+659
+00:17:26,160 --&gt; 00:17:27,180
+新的是他怎麼寫
+
+660
+00:17:27,180 --&gt; 00:17:28,720
+這份文件有一半的篇幅
+
+661
+00:17:28,720 --&gt; 00:17:30,260
+不是在教你正確的做法
+
+662
+00:17:30,260 --&gt; 00:17:32,300
+他在列你會想偷懶的每句話
+
+663
+00:17:32,300 --&gt; 00:17:33,320
+他做了一張表
+
+664
+00:17:33,320 --&gt; 00:17:34,860
+左邊是藉口右邊是現實
+
+665
+00:17:35,120 --&gt; 00:17:35,880
+一共11條
+
+666
+00:17:36,140 --&gt; 00:17:37,420
+這件事很簡單
+
+667
+00:17:37,420 --&gt; 00:17:38,180
+不用測試
+
+668
+00:17:38,180 --&gt; 00:17:40,240
+右邊回你簡單的事情才最容易錯
+
+669
+00:17:40,500 --&gt; 00:17:41,520
+我等一下補測試
+
+670
+00:17:41,520 --&gt; 00:17:42,280
+右邊回你
+
+671
+00:17:42,280 --&gt; 00:17:43,060
+等一下不會來
+
+672
+00:17:43,300 --&gt; 00:17:44,340
+我先留著當參考
+
+673
+00:17:44,580 --&gt; 00:17:46,380
+右邊回你刪除就是刪除他
+
+674
+00:17:46,640 --&gt; 00:17:48,180
+甚至預測了模型的內心系
+
+675
+00:17:48,420 --&gt; 00:17:50,220
+只要你心裡冒出這一次先跳過
+
+676
+00:17:50,220 --&gt; 00:17:52,020
+這句話本身就是合理化
+
+677
+00:17:52,260 --&gt; 00:17:53,540
+後面還有是三條紅旗
+
+678
+00:17:54,060 --&gt; 00:17:56,360
+每一條的處置方式都一樣刪掉重寫
+
+679
+00:17:56,620 --&gt; 00:17:57,140
+你發現了嗎
+
+680
+00:17:57,380 --&gt; 00:17:59,440
+他把說明書寫成了一道心理防線
+
+681
+00:17:59,700 --&gt; 00:18:02,500
+作者的假設是模型一定會想超捷徑
+
+682
+00:18:02,760 --&gt; 00:18:04,560
+那我就把每一條捷徑先寫出來
+
+683
+00:18:04,560 --&gt; 00:18:05,580
+一條一條堵住
+
+684
+00:18:06,100 --&gt; 00:18:07,380
+同一套裡面還有一隻
+
+685
+00:18:07,620 --&gt; 00:18:09,420
+專制AI嘴上說做完了
+
+686
+00:18:09,420 --&gt; 00:18:10,960
+他的觸發時機寫得很妙
+
+687
+00:18:11,220 --&gt; 00:18:12,240
+不是寫在哪一種任務
+
+688
+00:18:12,500 --&gt; 00:18:14,800
+是寫在你正要宣稱這件事完成修好
+
+689
+00:18:15,060 --&gt; 00:18:15,820
+通過的那一刻
+
+690
+00:18:16,080 --&gt; 00:18:18,120
+等於把觸發器裝在模型的嘴上
+
+691
+00:18:18,380 --&gt; 00:18:19,400
+他的鐵律只有一句
+
+692
+00:18:19,400 --&gt; 00:18:20,940
+沒有新鮮的驗證證據
+
+693
+00:18:21,200 --&gt; 00:18:21,960
+不准宣稱完成
+
+694
+00:18:22,220 --&gt; 00:18:23,500
+後面一樣掛一張表
+
+695
+00:18:23,760 --&gt; 00:18:24,780
+竹條處理內心性
+
+696
+00:18:25,040 --&gt; 00:18:25,540
+應該可以了
+
+697
+00:18:25,800 --&gt; 00:18:26,560
+回你去跑一次
+
+698
+00:18:26,820 --&gt; 00:18:27,600
+我很有信心
+
+699
+00:18:28,100 --&gt; 00:18:29,120
+回你信心不等於證據
+
+700
+00:18:29,380 --&gt; 00:18:29,900
+我累了
+
+701
+00:18:30,160 --&gt; 00:18:31,180
+回你疲勞不是藉口
+
+702
+00:18:31,680 --&gt; 00:18:33,220
+連說一句太好了都被列進紅旗
+
+703
+00:18:33,480 --&gt; 00:18:35,520
+因為那通常出現在還沒檢查的時候
+
+704
+00:18:35,780 --&gt; 00:18:36,300
+最後一句
+
+705
+00:18:36,560 --&gt; 00:18:37,580
+最重跳過任何一步
+
+706
+00:18:37,840 --&gt; 00:18:39,120
+那叫說謊不叫驗證
+
+707
+00:18:39,620 --&gt; 00:18:41,420
+作者還做了一件很少人做的事
+
+708
+00:18:41,680 --&gt; 00:18:43,980
+他把壓力測試放進公開的專案裡
+
+709
+00:18:44,240 --&gt; 00:18:46,020
+測試腳本模擬線上全掛錢
+
+710
+00:18:46,280 --&gt; 00:18:47,040
+每一秒都在燒
+
+711
+00:18:47,300 --&gt; 00:18:48,080
+主管在旁邊咆哮
+
+712
+00:18:48,080 --&gt; 00:18:50,640
+看這支skill撐不撐得住撐住了才算數
+
+713
+00:18:50,900 --&gt; 00:18:52,940
+這套做法背後其實有實證
+
+714
+00:18:53,200 --&gt; 00:18:54,480
+有一份2025年的研究
+
+715
+00:18:54,740 --&gt; 00:18:56,020
+看了將近三萬次對話
+
+716
+00:18:56,280 --&gt; 00:18:58,060
+結果是加上權威跟童賊壓力
+
+717
+00:18:58,320 --&gt; 00:18:59,080
+這兩種說法之後
+
+718
+00:18:59,340 --&gt; 00:19:00,880
+模型的服從3x3
+
+719
+00:19:01,400 --&gt; 00:19:02,420
+升到7x2人身上
+
+720
+00:19:02,680 --&gt; 00:19:04,980
+有效的說服在模型身上一樣有效
+
+721
+00:19:05,740 --&gt; 00:19:06,520
+這一整類skill
+
+722
+00:19:07,020 --&gt; 00:19:08,820
+我讀完整理出五招共通的做法
+
+723
+00:19:09,080 --&gt; 00:19:11,880
+他們是前面那六條鐵律在行為這一層的
+
+724
+00:19:12,140 --&gt; 00:19:12,660
+具體版本
+
+725
+00:19:12,920 --&gt; 00:19:14,960
+第一招實際是要卡在工作開始之前
+
+726
+00:19:15,220 --&gt; 00:19:15,980
+教工具的skill
+
+727
+00:19:16,240 --&gt; 00:19:17,000
+寫的是我會做什麼
+
+728
+00:19:17,000 --&gt; 00:19:19,560
+改行為的skill寫的是我要在哪一刻攔住你
+
+729
+00:19:19,820 --&gt; 00:19:20,320
+有一支
+
+730
+00:19:20,580 --&gt; 00:19:22,380
+寫的是在你決定一個計劃之前
+
+731
+00:19:22,640 --&gt; 00:19:23,660
+第二招出口條件
+
+732
+00:19:23,920 --&gt; 00:19:24,420
+用狀態
+
+733
+00:19:24,680 --&gt; 00:19:26,480
+不用數量前沿清空就是一個例子
+
+734
+00:19:26,720 --&gt; 00:19:27,500
+第三招
+
+735
+00:19:27,760 --&gt; 00:19:29,040
+把壞習慣寫成對照表
+
+736
+00:19:29,280 --&gt; 00:19:30,060
+模型對這樣錯
+
+737
+00:19:30,320 --&gt; 00:19:30,820
+改成這樣
+
+738
+00:19:31,080 --&gt; 00:19:31,600
+比對抽象的美德
+
+739
+00:19:31,840 --&gt; 00:19:32,620
+敏感的多
+
+740
+00:19:32,880 --&gt; 00:19:33,380
+第四招
+
+741
+00:19:33,640 --&gt; 00:19:33,900
+形容詞
+
+742
+00:19:34,160 --&gt; 00:19:34,400
+換成字冊題
+
+743
+00:19:34,660 --&gt; 00:19:35,680
+第五招最重要
+
+744
+00:19:35,940 --&gt; 00:19:37,220
+說服不夠的時候就上機制
+
+745
+00:19:37,480 --&gt; 00:19:39,020
+這中間是一個光譜
+
+746
+00:19:39,280 --&gt; 00:19:40,040
+最輕的一端
+
+747
+00:19:40,300 --&gt; 00:19:40,800
+有一支skill
+
+748
+00:19:41,060 --&gt; 00:19:41,840
+全文只有一句話
+
+749
+00:19:42,080 --&gt; 00:19:43,620
+停你剛剛那段沒有說服我
+
+750
+00:19:43,880 --&gt; 00:19:44,400
+重講一次
+
+751
+00:19:44,400 --&gt; 00:19:46,700
+二十個字就是一顆打斷按鈕
+
+752
+00:19:46,960 --&gt; 00:19:50,280
+中間是剛剛那套拷問用演算法規定他要怎麼問
+
+753
+00:19:50,540 --&gt; 00:19:51,560
+最重的一端有一支
+
+754
+00:19:51,820 --&gt; 00:19:53,620
+要你動工之前先寫計劃檔
+
+755
+00:19:53,880 --&gt; 00:19:54,640
+他不靠說服
+
+756
+00:19:54,900 --&gt; 00:19:55,920
+他掛了四個hook
+
+757
+00:19:56,180 --&gt; 00:19:57,720
+hook就是系統層級的關卡
+
+758
+00:19:58,220 --&gt; 00:19:59,760
+你每送出一句話系統自己去執行
+
+759
+00:19:59,760 --&gt; 00:20:27,520
+理容 gear
+
+760
+00:20:00,000 --&gt; 00:20:01,080
+不管模型记不记得
+
+761
+00:20:01,080 --&gt; 00:20:04,360
+他每一回合都把计划党重新塞回模型眼前
+
+762
+00:20:04,360 --&gt; 00:20:08,120
+还规定连续失败三次就必须停下来回报人类
+
+763
+00:20:08,120 --&gt; 00:20:09,520
+你要一件事百分之百发生
+
+764
+00:20:09,520 --&gt; 00:20:11,680
+就不要拜托模型记得
+
+765
+00:20:11,680 --&gt; 00:20:13,400
+行为还有规则可以写
+
+766
+00:20:13,400 --&gt; 00:20:14,720
+可是有一层更难
+
+767
+00:20:14,720 --&gt; 00:20:17,160
+那就是品味官方有一支很不一样的作品
+
+768
+00:20:17,160 --&gt; 00:20:18,280
+只有55行
+
+769
+00:20:18,280 --&gt; 00:20:19,560
+管的是界面设计
+
+770
+00:20:19,560 --&gt; 00:20:20,920
+他的描述没有写功能
+
+771
+00:20:20,920 --&gt; 00:20:21,960
+写的是一种病
+
+772
+00:20:21,960 --&gt; 00:20:24,600
+要做出不像模板预设值的选择
+
+773
+00:20:24,600 --&gt; 00:20:25,440
+你有没有发现
+
+774
+00:20:25,440 --&gt; 00:20:27,560
+AI生出来的网页常常长得很像
+
+775
+00:20:27,560 --&gt; 00:20:29,600
+这支skill直接把那个像点名出来
+
+776
+00:20:29,600 --&gt; 00:20:30,720
+他说有三种长相
+
+777
+00:20:30,720 --&gt; 00:20:32,720
+一种是米白底色配针线大标题
+
+778
+00:20:32,720 --&gt; 00:20:33,640
+再配一个赤桃局
+
+779
+00:20:33,640 --&gt; 00:20:35,440
+一种是近乎黑的底色
+
+780
+00:20:35,440 --&gt; 00:20:36,800
+配荧光绿的重点色
+
+781
+00:20:36,800 --&gt; 00:20:39,040
+一种是报纸感的细线
+
+782
+00:20:39,040 --&gt; 00:20:40,480
+加上完全没有圆角
+
+783
+00:20:40,480 --&gt; 00:20:42,960
+他接着说这三种都很好看他们合法
+
+784
+00:20:42,960 --&gt; 00:20:45,120
+可是他们是预设值不是选择
+
+785
+00:20:45,720 --&gt; 00:20:47,200
+他做法不是给检查表
+
+786
+00:20:47,200 --&gt; 00:20:48,080
+是先派角色
+
+787
+00:20:48,080 --&gt; 00:20:51,120
+他说你现在是一间小工作室的设计总监
+
+788
+00:20:51,120 --&gt; 00:20:54,040
+你的客户已经把所有有模板感的提案
+
+789
+00:20:54,040 --&gt; 00:20:54,840
+都退回来过了
+
+790
+00:20:54,840 --&gt; 00:20:56,000
+然后他规定两段是
+
+791
+00:20:56,000 --&gt; 00:20:57,640
+先定一套自己的设计语言
+
+792
+00:20:57,640 --&gt; 00:20:58,960
+颜色字体版型
+
+793
+00:20:58,960 --&gt; 00:21:00,080
+加一个记忆点
+
+794
+00:21:00,080 --&gt; 00:21:01,200
+定完先自我批判
+
+795
+00:21:01,200 --&gt; 00:21:02,480
+一轮问自己一句
+
+796
+00:21:02,480 --&gt; 00:21:05,240
+这是不是我对任何类似题目都会给的答案
+
+797
+00:21:05,240 --&gt; 00:21:07,440
+过了这一关才准开始写程式
+
+798
+00:21:07,440 --&gt; 00:21:09,680
+收尾他引了香奈儿那一句话
+
+799
+00:21:09,680 --&gt; 00:21:11,040
+出门之前照一次镜子
+
+800
+00:21:11,040 --&gt; 00:21:12,520
+拿掉一件配饰
+
+801
+00:21:12,520 --&gt; 00:21:13,840
+你要改的是品位的时候
+
+802
+00:21:13,840 --&gt; 00:21:15,400
+你给的不是规则
+
+803
+00:21:15,400 --&gt; 00:21:17,120
+角色跟反例
+
+804
+00:21:17,120 --&gt; 00:21:18,320
+到这里六条铁律
+
+805
+00:21:18,320 --&gt; 00:21:19,840
+你都看过长什么样子了
+
+806
+00:21:19,840 --&gt; 00:21:21,880
+可是只读十几只样本太小
+
+807
+00:21:21,880 --&gt; 00:21:22,880
+我不想只靠感觉
+
+808
+00:21:22,880 --&gt; 00:21:23,880
+所以我做了一件事
+
+809
+00:21:23,880 --&gt; 00:21:25,920
+我把38支有名的skill抓下来
+
+810
+00:21:25,920 --&gt; 00:21:26,800
+一支一支亮
+
+811
+00:21:26,800 --&gt; 00:21:28,240
+四组官方17支
+
+812
+00:21:28,240 --&gt; 00:21:30,800
+那一整套纪律型的14支
+
+813
+00:21:30,800 --&gt; 00:21:32,240
+两支社群名作
+
+814
+00:21:32,240 --&gt; 00:21:33,440
+再加上笔记软体
+
+815
+00:21:33,440 --&gt; 00:21:34,480
+那五支每一支亮
+
+816
+00:21:34,480 --&gt; 00:21:35,920
+六件事说明书多少行
+
+817
+00:21:35,920 --&gt; 00:21:36,960
+描述多少字圆
+
+818
+00:21:36,960 --&gt; 00:21:38,160
+用了几次大写命令
+
+819
+00:21:38,160 --&gt; 00:21:39,280
+附了几支程式
+
+820
+00:21:39,280 --&gt; 00:21:40,800
+连出去几个参考档
+
+821
+00:21:40,800 --&gt; 00:21:42,120
+有几段範例程式码
+
+822
+00:21:42,120 --&gt; 00:21:43,920
+先讲最反直觉的一个结果
+
+823
+00:21:43,920 --&gt; 00:21:44,800
+它们都很短
+
+824
+00:21:44,800 --&gt; 00:21:47,360
+全部38支的中位数是182行
+
+825
+00:21:47,360 --&gt; 00:21:50,400
+而官方那17支中位数只有130行
+
+826
+00:21:50,400 --&gt; 00:21:54,800
+最短的那一支管内部沟通写作的整份说明书只有32行
+
+827
+00:21:54,800 --&gt; 00:21:57,520
+32行官方拿它当正式的范例放出来
+
+828
+00:21:57,520 --&gt; 00:21:59,840
+38支里面超过300行
+
+829
+00:21:59,840 --&gt; 00:22:01,600
+只有9支不到四分之一
+
+830
+00:22:01,600 --&gt; 00:22:02,720
+顺带一提
+
+831
+00:22:02,720 --&gt; 00:22:04,560
+全场最长的是哪一支
+
+832
+00:22:04,560 --&gt; 00:22:07,200
+是教你怎么写skill的那一支679行
+
+833
+00:22:07,200 --&gt; 00:22:09,200
+教别人精简的那个人自己写最长
+
+834
+00:22:09,200 --&gt; 00:22:10,560
+这件事有点好笑
+
+835
+00:22:10,560 --&gt; 00:22:11,360
+可是也合理
+
+836
+00:22:11,360 --&gt; 00:22:12,880
+因为那是一本教科书
+
+837
+00:22:12,880 --&gt; 00:22:14,160
+不是一份作业手册
+
+838
+00:22:14,160 --&gt; 00:22:16,040
+所以本文只放地图这一条
+
+839
+00:22:16,040 --&gt; 00:22:17,040
+不是我的偏好
+
+840
+00:22:17,040 --&gt; 00:22:18,280
+是数字
+
+841
+00:22:18,280 --&gt; 00:22:19,600
+第二个发现更有意思
+
+842
+00:22:19,600 --&gt; 00:22:20,800
+同样是描述那一栏
+
+843
+00:22:20,800 --&gt; 00:22:22,360
+两派人的写法差很多
+
+844
+00:22:22,360 --&gt; 00:22:26,000
+官方那17支描述的中位数是319个字元
+
+845
+00:22:26,000 --&gt; 00:22:27,600
+最长的一支写到1000多
+
+846
+00:22:27,600 --&gt; 00:22:29,320
+几乎顶到上限纪律型
+
+847
+00:22:29,320 --&gt; 00:22:31,720
+那14支中位数只有105个字元
+
+848
+00:22:31,720 --&gt; 00:22:32,520
+差了三倍
+
+849
+00:22:32,520 --&gt; 00:22:34,200
+再看大写命令词
+
+850
+00:22:34,200 --&gt; 00:22:35,000
+纪律型
+
+851
+00:22:35,000 --&gt; 00:22:38,040
+平均每一支用的次数是官方的2.4倍
+
+852
+00:22:38,040 --&gt; 00:22:40,200
+而笔记软体那5支全部是0
+
+853
+00:22:40,200 --&gt; 00:22:41,240
+一次都没有用过
+
+854
+00:22:41,240 --&gt; 00:22:43,400
+我本来的猜测是爱用大写的skill
+
+855
+00:22:43,400 --&gt; 00:22:45,640
+就是没有程式可以用的那一种
+
+856
+00:22:45,640 --&gt; 00:22:46,720
+我算了一下
+
+857
+00:22:46,720 --&gt; 00:22:49,040
+这两件事的相关系数只有0.18
+
+858
+00:22:49,040 --&gt; 00:22:50,000
+几乎没有关系
+
+859
+00:22:50,000 --&gt; 00:22:51,160
+我猜错了
+
+860
+00:22:51,160 --&gt; 00:22:52,320
+可是我算到另外一组
+
+861
+00:22:52,320 --&gt; 00:22:54,080
+相关系数是0.571
+
+862
+00:22:54,080 --&gt; 00:22:56,880
+这在这种样本里算是很强的讯号
+
+863
+00:22:56,880 --&gt; 00:22:59,160
+那一组是描述写的越长的skill
+
+864
+00:22:59,160 --&gt; 00:23:00,280
+负的程式越多
+
+865
+00:23:00,280 --&gt; 00:23:02,480
+工具型的skill把功夫写成程式码
+
+866
+00:23:02,480 --&gt; 00:23:03,920
+所以说明书可以短
+
+867
+00:23:03,920 --&gt; 00:23:06,360
+可是他必须把使用者可能会讲的
+
+868
+00:23:06,360 --&gt; 00:23:08,120
+每一种情况都写进描述里
+
+869
+00:23:08,120 --&gt; 00:23:09,280
+不然没有人翻得到他
+
+870
+00:23:09,280 --&gt; 00:23:10,400
+纪律型刚好
+
+871
+00:23:10,400 --&gt; 00:23:11,880
+相反他没有程式码
+
+872
+00:23:11,880 --&gt; 00:23:14,200
+可以依靠他要改的是模型的行为
+
+873
+00:23:14,200 --&gt; 00:23:15,720
+所以描述一句话就够
+
+874
+00:23:15,720 --&gt; 00:23:17,120
+力气全部花在正文
+
+875
+00:23:17,120 --&gt; 00:23:18,920
+把道理讲到你不会走偏
+
+876
+00:23:18,920 --&gt; 00:23:19,840
+这正好对
+
+877
+00:23:19,840 --&gt; 00:23:20,920
+回一开始那张图
+
+878
+00:23:20,920 --&gt; 00:23:22,200
+你要改的层不一样
+
+879
+00:23:22,200 --&gt; 00:23:24,680
+连描述该写多长都不一样
+
+880
+00:23:24,680 --&gt; 00:23:27,000
+不过我刚刚量的都是他们今天的样子
+
+881
+00:23:27,000 --&gt; 00:23:28,960
+这些档案不是写完就摆着
+
+882
+00:23:28,960 --&gt; 00:23:30,240
+每个月都在被改
+
+883
+00:23:30,240 --&gt; 00:23:33,000
+所以我把10个GitHub专案的完整历史抓下来
+
+884
+00:23:33,000 --&gt; 00:23:35,280
+每个月底重新量一次同一棵树
+
+885
+00:23:35,280 --&gt; 00:23:37,320
+同一批作者同一批技能
+
+886
+00:23:37,320 --&gt; 00:23:38,600
+只有时间在动
+
+887
+00:23:38,600 --&gt; 00:23:39,520
+方向很清楚
+
+888
+00:23:39,520 --&gt; 00:23:42,240
+官方那支处理文书档的skill描述栏
+
+889
+00:23:42,240 --&gt; 00:23:44,880
+从362个字原厂到835
+
+890
+00:23:44,880 --&gt; 00:23:47,920
+本文反而从197行砍到91行
+
+891
+00:23:47,920 --&gt; 00:23:49,400
+门口的招牌越写越大
+
+892
+00:23:49,400 --&gt; 00:23:51,040
+屋子里的东西越搬越少
+
+893
+00:23:51,040 --&gt; 00:23:52,440
+描述写的内容也换了
+
+894
+00:23:52,440 --&gt; 00:23:53,560
+以前写这是什么
+
+895
+00:23:53,560 --&gt; 00:23:55,760
+现在写什么时候用第一版里
+
+896
+00:23:55,760 --&gt; 00:23:58,040
+那四个大写命令现在一个都不剩
+
+897
+00:23:58,040 --&gt; 00:23:59,800
+还有一件更反直觉的事
+
+898
+00:23:59,800 --&gt; 00:24:02,840
+大家以为长文会被搬去旁边的参考档
+
+899
+00:24:02,840 --&gt; 00:24:03,760
+官方的做法是
+
+900
+00:24:03,760 --&gt; 00:24:05,240
+把两个参考档直接删掉
+
+901
+00:24:05,240 --&gt; 00:24:06,680
+将近1000行整个不见
+
+902
+00:24:06,680 --&gt; 00:24:07,480
+只留一张表
+
+903
+00:24:07,480 --&gt; 00:24:08,960
+跟一份地雷清单
+
+904
+00:24:08,960 --&gt; 00:24:11,000
+废工的部分推给脚本
+
+905
+00:24:11,000 --&gt; 00:24:13,080
+管试算表的那一支更清楚
+
+906
+00:24:13,080 --&gt; 00:24:14,040
+第一版写的是
+
+907
+00:24:14,040 --&gt; 00:24:16,000
+每一份试算表都必须零公式
+
+908
+00:24:16,000 --&gt; 00:24:16,440
+错误
+
+909
+00:24:16,440 --&gt; 00:24:17,800
+现在同一条规则写成
+
+910
+00:24:17,800 --&gt; 00:24:19,920
+只要那支检查程式还在报错
+
+911
+00:24:19,920 --&gt; 00:24:20,880
+就不要交出去
+
+912
+00:24:20,880 --&gt; 00:24:22,160
+规则一个字都没变
+
+913
+00:24:22,160 --&gt; 00:24:23,680
+可是它从一句口号
+
+914
+00:24:23,680 --&gt; 00:24:25,160
+变成一支跑得动的程式
+
+915
+00:24:25,160 --&gt; 00:24:27,440
+还有一个很干脆的日子
+
+916
+00:24:27,440 --&gt; 00:24:28,840
+2025年16号
+
+917
+00:24:28,840 --&gt; 00:24:30,480
+官方把格式定下来的那一天
+
+918
+00:24:30,480 --&gt; 00:24:33,120
+社群那套纪律型SKILL的作者
+
+919
+00:24:33,120 --&gt; 00:24:34,840
+把自己发明的两个栏位拿掉
+
+920
+00:24:34,840 --&gt; 00:24:36,200
+收回成一个描述栏
+
+921
+00:24:36,200 --&gt; 00:24:38,520
+从那天起没有人再用过
+
+922
+00:24:38,520 --&gt; 00:24:39,640
+规格归规格
+
+923
+00:24:39,640 --&gt; 00:24:41,320
+外面的市场又是另外一回事
+
+924
+00:24:41,320 --&gt; 00:24:42,280
+今年上半年
+
+925
+00:24:42,280 --&gt; 00:24:43,680
+这件事的气氛整个变了
+
+926
+00:24:43,680 --&gt; 00:24:45,040
+公开的SKILL数量
+
+927
+00:24:45,040 --&gt; 00:24:46,360
+冲到47000只
+
+928
+00:24:46,360 --&gt; 00:24:47,920
+有人做了一次品质抽查
+
+929
+00:24:47,920 --&gt; 00:24:49,000
+满分12分
+
+930
+00:24:49,000 --&gt; 00:24:50,360
+平均只有6.2分
+
+931
+00:24:50,360 --&gt; 00:24:52,640
+你可以想成一个大市场摊位
+
+932
+00:24:52,640 --&gt; 00:24:54,760
+从10个变成47000个
+
+933
+00:24:54,760 --&gt; 00:24:55,880
+可是有一半的摊位
+
+934
+00:24:55,880 --&gt; 00:24:57,360
+卖的是同一包东西
+
+935
+00:24:57,360 --&gt; 00:25:00,000
+包装还是自动生成的痛点就转弯了
+
+936
+00:25:00,000 --&gt; 00:25:01,960
+以前大家问的是有没有人写过这个
+
+937
+00:25:01,960 --&gt; 00:25:03,760
+现在大家问的是这一支能不能信
+
+938
+00:25:03,760 --&gt; 00:25:05,940
+所以三件事同时在发生
+
+939
+00:25:05,940 --&gt; 00:25:07,760
+第一 大公司开始自己进驻
+
+940
+00:25:07,760 --&gt; 00:25:09,260
+设计工具 笔记软体
+
+941
+00:25:09,260 --&gt; 00:25:11,960
+经流服务都把官方认证的skill放进目录
+
+942
+00:25:11,960 --&gt; 00:25:15,460
+第二 企业版本开始提供整个组织统一管理跟集合
+
+943
+00:25:15,460 --&gt; 00:25:17,980
+因为装一支skill等于装一套软体
+
+944
+00:25:17,980 --&gt; 00:25:19,200
+它里面可以复程式
+
+945
+00:25:19,200 --&gt; 00:25:21,800
+公司必须知道员工到底装了什么
+
+946
+00:25:21,800 --&gt; 00:25:23,440
+第三红的定义变了
+
+947
+00:25:23,440 --&gt; 00:25:25,780
+2025年红是讨论区的头条
+
+948
+00:25:25,780 --&gt; 00:25:26,940
+是一个晚上被转报
+
+949
+00:25:26,940 --&gt; 00:25:29,180
+2026年红是进了官方目录
+
+950
+00:25:29,180 --&gt; 00:25:31,000
+是安装数字 是评测分数
+
+951
+00:25:31,000 --&gt; 00:25:32,580
+这条路你应该觉得眼熟
+
+952
+00:25:32,580 --&gt; 00:25:35,080
+任何一个应用程式商店都走过同一段
+
+953
+00:25:35,080 --&gt; 00:25:37,000
+skill一多就会有考试
+
+954
+00:25:37,000 --&gt; 00:25:39,080
+这刚好带我们回到最后一条铁律
+
+955
+00:25:39,080 --&gt; 00:25:39,840
+写完要测
+
+956
+00:25:39,840 --&gt; 00:25:43,240
+今年出现一份专门考skill的评测86个任务
+
+957
+00:25:43,240 --&gt; 00:25:45,120
+横跨11个领域做法很简单
+
+958
+00:25:45,120 --&gt; 00:25:46,880
+同一个模型 同一批任务
+
+959
+00:25:46,880 --&gt; 00:25:48,420
+一边给它精选过的skill
+
+960
+00:25:48,420 --&gt; 00:25:50,520
+一边什么都不给比通过率
+
+961
+00:25:50,520 --&gt; 00:25:54,440
+结果是有skill的那一边平均高出16.2个百分点
+
+962
+00:25:54,440 --&gt; 00:25:56,380
+这个数字同时说了两件事
+
+963
+00:25:56,380 --&gt; 00:25:58,560
+第一 一份写得好的说明书
+
+964
+00:25:58,560 --&gt; 00:25:59,740
+效果是实打实的
+
+965
+00:25:59,740 --&gt; 00:26:01,520
+第二 那也只是十几个百分点
+
+966
+00:26:01,520 --&gt; 00:26:02,880
+不是换一颗脑袋
+
+967
+00:26:02,880 --&gt; 00:26:05,420
+skill是把模型本来就会的事情
+
+968
+00:26:05,420 --&gt; 00:26:06,720
+导到正确的做法上
+
+969
+00:26:06,720 --&gt; 00:26:08,480
+不是给它一个新的能力
+
+970
+00:26:08,480 --&gt; 00:26:10,380
+所以官方最早的那个建议
+
+971
+00:26:10,380 --&gt; 00:26:11,780
+现在看起来特别有分量
+
+972
+00:26:11,780 --&gt; 00:26:13,500
+他说先做评测再写文件
+
+973
+00:26:13,500 --&gt; 00:26:14,480
+顺序是这样
+
+974
+00:26:14,480 --&gt; 00:26:16,360
+你先让模型裸着做一次
+
+975
+00:26:16,360 --&gt; 00:26:18,080
+把它失败的地方记下来
+
+976
+00:26:18,080 --&gt; 00:26:19,580
+写成三个测试情境
+
+977
+00:26:19,580 --&gt; 00:26:20,600
+亮出一个基准分
+
+978
+00:26:20,600 --&gt; 00:26:22,080
+然后才开始写指令
+
+979
+00:26:22,080 --&gt; 00:26:23,100
+先写最少的那一版
+
+980
+00:26:23,100 --&gt; 00:26:24,600
+再一轮一轮加那套
+
+981
+00:26:24,600 --&gt; 00:26:26,740
+纪律型skill的作者更严格
+
+982
+00:26:26,740 --&gt; 00:26:28,000
+他规定任何人要改
+
+983
+00:26:28,000 --&gt; 00:26:29,640
+他的skill都必须附上
+
+984
+00:26:29,640 --&gt; 00:26:31,520
+改之前跟改之后的评测对照
+
+985
+00:26:31,520 --&gt; 00:26:33,100
+这一条最容易被跳过
+
+986
+00:26:33,100 --&gt; 00:26:34,940
+可是他是唯一能告诉你
+
+987
+00:26:34,940 --&gt; 00:26:36,540
+你刚刚写的那一堆字
+
+988
+00:26:36,540 --&gt; 00:26:37,740
+到底有没有用的东西
+
+989
+00:26:38,460 --&gt; 00:26:40,380
+我们今天先给答案再回头看证据
+
+990
+00:26:40,380 --&gt; 00:26:42,060
+如果你只带走一句话
+
+991
+00:26:42,060 --&gt; 00:26:43,240
+我希望是这一句
+
+992
+00:26:43,240 --&gt; 00:26:45,280
+skill不是给AI的新功能
+
+993
+00:26:45,280 --&gt; 00:26:46,620
+是给AI的说明书
+
+994
+00:26:46,620 --&gt; 00:26:47,620
+而说明书的价值
+
+995
+00:26:47,620 --&gt; 00:26:48,660
+不在你写了多少
+
+996
+00:26:48,660 --&gt; 00:26:50,500
+在他被翻开的那一刻
+
+997
+00:26:50,500 --&gt; 00:26:52,200
+刚好写着他需要的那一句
+
+998
+00:26:52,200 --&gt; 00:26:53,240
+六条铁律
+
+999
+00:26:53,240 --&gt; 00:26:54,860
+我再念一次描述是掉沟
+
+1000
+00:26:54,860 --&gt; 00:26:56,580
+本文只放地图确定的事情
+
+1001
+00:26:56,580 --&gt; 00:26:57,300
+交给脚本
+
+1002
+00:26:57,300 --&gt; 00:26:59,240
+解释为什么胜过用大写压人
+
+1003
+00:26:59,240 --&gt; 00:27:00,420
+会被抄的捷径
+
+1004
+00:27:00,420 --&gt; 00:27:01,480
+先写死堵住
+
+1005
+00:27:01,480 --&gt; 00:27:02,860
+写完一定要测
+
+1006
+00:27:02,860 --&gt; 00:27:04,280
+那今天晚上你可以做什么
+
+1007
+00:27:04,280 --&gt; 00:27:05,440
+如果你是一般使用者
+
+1008
+00:27:05,440 --&gt; 00:27:06,700
+你把重复交代过
+
+1009
+00:27:06,700 --&gt; 00:27:08,000
+三次以上的那件事
+
+1010
+00:27:08,000 --&gt; 00:27:09,300
+写成一个资料夹
+
+1011
+00:27:09,300 --&gt; 00:27:10,980
+开头那句描述好好写
+
+1012
+00:27:10,980 --&gt; 00:27:12,400
+写清楚什么时候该用它
+
+1013
+00:27:12,400 --&gt; 00:27:14,440
+如果你在写程式或者做产品
+
+1014
+00:27:14,440 --&gt; 00:27:16,140
+你先问自己要改哪一层
+
+1015
+00:27:16,140 --&gt; 00:27:18,000
+能封进程式的就封进去
+
+1016
+00:27:18,000 --&gt; 00:27:19,480
+说明书留给判断题
+
+1017
+00:27:19,480 --&gt; 00:27:20,900
+然后把触发情境列满
+
+1018
+00:27:20,900 --&gt; 00:27:22,520
+如果你是内容创作者
+
+1019
+00:27:22,520 --&gt; 00:27:24,340
+你最该练的是品位那一层
+
+1020
+00:27:24,340 --&gt; 00:27:26,000
+把你不要的三种长相
+
+1021
+00:27:26,000 --&gt; 00:27:27,920
+写下来给模型角色跟反例
+
+1022
+00:27:27,920 --&gt; 00:27:29,280
+不要给检查表
+
+1023
+00:27:29,280 --&gt; 00:27:30,560
+最后问你一个问题
+
+1024
+00:27:30,560 --&gt; 00:27:31,720
+如果你只能写一只skill
+
+1025
+00:27:31,720 --&gt; 00:27:33,360
+长期放在你的AI旁边
+
+1026
+00:27:33,360 --&gt; 00:27:34,980
+你会拿它来改哪一件事
+
+1027
+00:27:34,980 --&gt; 00:27:35,780
+是它的知识
+
+1028
+00:27:35,780 --&gt; 00:27:36,800
+还是它的习惯
+
+1029
+00:27:36,800 --&gt; 00:27:38,120
+留言告诉我
+
+1030
+00:27:38,120 --&gt; 00:27:39,860
+喜欢的话订阅AI Notebook
+
+1031
+00:27:39,860 --&gt; 00:27:40,500
+开启通知
+
+1032
+00:27:40,500 --&gt; 00:27:41,160
+我们下次见
+</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://youtu.be/2AFkG_u4cPo" target="_blank" rel="noopener">https://youtu.be/2AFkG_u4cPo</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
