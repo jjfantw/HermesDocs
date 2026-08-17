@@ -1,5 +1,11 @@
 [
   {
+    "title": "Make Claude Code give you answers, not essays - Hermes Docs",
+    "url": "videos/MattPocock_ClaudeCode精簡回覆.html",
+    "date": "2026-08-17 22:36",
+    "content": "Make Claude Code give you answers, not essays - Hermes Docs 返回首頁 Make Claude Code give you answers, not essays 發布時間：2026-08-18 06:36 🌙 YouTube 影片重點整理 Make Claude Code give you answers, not essays 📺 Matt Pocock ⏱ 1:30 🗓 2025-10-08 🌐 en 🔗 https://www.youtube.com/watch?v=I12Mf8KBT1I 這支 Shorts 示範如何讓 Claude Code 或其他 AI agent 的回覆更容易閱讀：在全域 CLAUDE.md 加上一句要求它極度精簡，甚至為了精簡可以犧牲語法完整度。作者用同一個 debug 任務做對照：沒有這句指令時，Claude 仍會輸出可讀但偏段落化的說明；加入指令後，回覆變成更直接的短標題、短清單與重點摘要。作者強調，模型底層仍理解它做了什麼；只是第一眼收到的回報更快、更好掃讀。 01 把「極度精簡」寫進全域"
+  },
+  {
     "title": "90%的商業問題，都可以用兩條線解決 - Hermes Docs",
     "url": "videos/chen-xiuping-two-lines-business-problems.html",
     "date": "2026-08-17 22:16",
