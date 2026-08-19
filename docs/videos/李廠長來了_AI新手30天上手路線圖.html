@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>現在學AI，真的還不晚：30天從小白到上手！ - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>現在學AI，真的還不晚：30天從小白到上手！</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-08-19 12:51</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">現在學AI，真的還不晚：30天從小白到上手！</h1>
+    <div class="meta"><span data-field="channel">📺 李廠長來了</span><span data-field="duration">⏱ 17:57</span><span data-field="published_date">🗓 2026-05-30</span><span data-field="original_language">🌐 zh-Hant</span><a data-field="source_url" href="https://youtu.be/vWzKHp9yl3M" target="_blank" rel="noopener">🔗 https://youtu.be/vWzKHp9yl3M</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>這支影片主張，現在開始學 AI 不晚，因為多數人仍停留在錯誤或淺層使用；真正的差距來自能否把 AI 變成日常思考、工作執行、系統化流程與自動化基礎設施。影片提出一份 30 天、四週的入門路線圖：第一週先養成使用習慣，並把 AI 當成教練來練習提問與調試；第二週用 10-80-10 法則讓 AI 開始承擔執行工作，但人仍負責方向與最後把關；第三週建立提示詞庫、上下文管理與可重複工作流；第四週把 AI 嵌入現有工具與自動化平臺，讓它在後臺完成原本需要技術能力的任務。影片反覆強調，AI 不是單純替你打字，而是放大你的判斷力、提問能力、上下文整理能力與工作流設計能力。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">第一週先把 AI 變成日常工具，而不是偶爾打開的玩具</h2><span class="ts-badge" data-field="lesson_timestamp">00:56</span></div><div class="body" data-field="lesson_body"><p>影片把第一週拆成兩件事：先養成習慣，再學會和 AI 高效溝通。講者說，很多人以為學 AI 就是裝一個 App，但真正關鍵是讓 AI 成為預設的思考工具。</p><p>具體做法有四個底線：遇到問題先問 AI，把 AI 視窗常駐在瀏覽器，用語音輸入代替打字，並在手機上安裝 AI App。這些動作的共同目的，是降低啟動成本，讓 AI 像微信一樣隨時可用。</p><p>影片的判斷是：如果這些基本習慣沒有建立，後面再學提示詞、工具或自動化也容易白搭。</p><span class="tag" data-field="lesson_tag">習慣養成</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">把 AI 當教練：先讓它幫你想清楚，而不是立刻替你產出</h2><span class="ts-badge" data-field="lesson_timestamp">03:03</span></div><div class="body" data-field="lesson_body"><p>第一週的重頭戲是讓 AI 成為教練。影片提醒，不要一開始就要求 AI 寫文章或做簡報；這會跳過最重要的一步：讓 AI 幫你分析正在做的事情。</p><p>影片舉了自媒體、職場績效考覈、留學申請三類例子：把自己的背景、目標與限制告訴 AI，請它協助分析方向、提出問題、辨識高價值事項與短板。</p><p>講者也建議讓 AI 反過來採訪你，問你關於實際工作內容的問題，幫你辨識哪些事情有價值、哪些可能是在浪費時間。這裡的重點是提高做事品質，而不是隻讓 AI 代筆。</p><span class="tag" data-field="lesson_tag">AI教練</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">提示詞不是打字比賽，而是調試過程</h2><span class="ts-badge" data-field="lesson_timestamp">05:17</span></div><div class="body" data-field="lesson_body"><p>影片指出，當 AI 回答不理想時，問題往往不只在 AI，也可能是角色設定、背景資訊或目標描述不夠清楚。提示詞寫作應該被視為反覆迭代的調試過程。</p><p>講者提出三個技巧：一是思維鏈，要求 AI 一步步思考並展示推理；二是驗證者模式，先讓 AI 問你三個問題以釐清需求；三是細化模式，讓 AI 在回答前先幫你把問題改得更犀利，提供升級版問題再繼續。</p><p>影片另外提醒，如果問題太泛，AI 會給出平庸答案；可以指定專家、框架或研究方向，例如麥肯錫時間管理框架、Cal Newport 深度工作理念、最新認知科學研究，讓 AI 的回答更有深度。</p><span class="tag" data-field="lesson_tag">Prompt 調試</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">第二週用 10-80-10 法則：人當導演，AI 當高速實習生</h2><span class="ts-badge" data-field="lesson_timestamp">08:00</span></div><div class="body" data-field="lesson_body"><p>第二週開始讓 AI 幫你幹活，但影片反對直接丟一句「幫我寫篇文章」或「幫我做個方案」。講者提出 10-80-10 法則：前 10% 由人定方向、給素材、設標準；中間 80% 交給 AI 執行；最後 10% 由人用判斷力做品質檢查。</p><p>影片認為到 2026 年主流 AI 模型的能力差距正在縮小，成本也快速下降，因此不要一直在 ChatGPT、Claude、Gemini 之間橫跳。更有效的做法是選一個符合需求的工具，深入使用並建立默契。</p><p>以推廣方案為例，人先整理客戶背景、目標用戶、競品分析與品牌調性，再請 AI 生成多個創意方向，最後由人挑出最好的方案並提供反饋。核心分工是：AI 是速度快、知識面廣的執行者，但沒有人的判斷力。</p><span class="tag" data-field="lesson_tag">10-80-10</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">第三週升級成系統：提示詞庫、上下文與工作流</h2><span class="ts-badge" data-field="lesson_timestamp">11:09</span></div><div class="body" data-field="lesson_body"><p>第三週的目標是從單次聊天升級到系統化使用 AI。影片建議把反覆使用的指令打磨成模板庫：例如文案、週報、數據分析等高頻任務，都可以透過多輪修正變成效果穩定的 Prompt Library。</p><p>但影片也說，2026 年比提示詞更重要的是上下文。AI 雖然知道大量公開資訊，卻不知道你的項目進度、品牌調性、老闆郵件或公司文件。你餵給它的上下文越完整，它的回答就越精準。</p><p>因此講者提出兩個建議：好好管理文件，並盡量把資訊集中在同一平臺。接著要建立工作流思維，把複雜任務拆成固定步驟，每一步都有明確輸入與輸出，讓 AI 依序執行。影片用週報舉例：先提取本週進展，再生成固定格式初稿，最後由人審核。</p><span class="tag" data-field="lesson_tag">系統化使用</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">第四週進入自動化：不是學會所有工具，而是判斷什麼值得自動化</h2><span class="ts-badge" data-field="lesson_timestamp">14:27</span></div><div class="body" data-field="lesson_body"><p>第四週要讓 AI 從主動使用的工具，變成後臺自動運行的基礎設施。影片建議先從現有工具內建 AI 開始，例如 Notion 的 AI 總結與生成、飛書的智能助手與會議紀要、剪映的字幕轉錄與時間線整理。</p><p>影片接著提到，非技術崗位也開始用 AI 寫腳本、做自動化與搭內部工具。例子包括用 Claude Code 生成數據儀錶板，用 Zapier 或 Make.com 設定觸發條件與流程，或用 n8n 搭建更精細的工作流。</p><p>最後的重點不是把你變成技術專家，而是讓你意識到很多原本以為做不到的事情已經能做。進入自動化後，真正考驗的是判斷：哪些流程值得搭建、哪些手動做即可、哪些其實根本不需要做，應該直接刪掉。</p><span class="tag" data-field="lesson_tag">AI 自動化</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">每寫一個提示詞、每修改一次、每做一個判斷，你不僅是在訓練模型，更是在訓練你自己。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="00:00"><span class="ts">00:00</span><span class="text" data-field="key_point_text">影片開場說明：懂 AI 與不懂 AI 的差距正在快速拉大，因此要用一份四週路線圖，在 30 天內從新手走到能實際上手。</span></li><li data-field="key_point" data-timestamp="00:56"><span class="ts">00:56</span><span class="text" data-field="key_point_text">第一週的目標是先養成使用 AI 的習慣，再練習如何與 AI 高效溝通。</span></li><li data-field="key_point" data-timestamp="01:24"><span class="ts">01:24</span><span class="text" data-field="key_point_text">四個基礎習慣：把 AI 當搜尋入口、瀏覽器常駐 AI 視窗、用語音輸入降低使用阻力、手機安裝 AI App。</span></li><li data-field="key_point" data-timestamp="03:03"><span class="ts">03:03</span><span class="text" data-field="key_point_text">第一週的重點不是讓 AI 直接替你幹活，而是把 AI 當教練，透過提問、分析與拆解幫你想清楚方向。</span></li><li data-field="key_point" data-timestamp="05:51"><span class="ts">05:51</span><span class="text" data-field="key_point_text">提示詞要用調試思維反覆迭代；影片提出思維鏈、驗證者模式、細化模式三種調試技巧。</span></li><li data-field="key_point" data-timestamp="06:55"><span class="ts">06:55</span><span class="text" data-field="key_point_text">遇到泛泛問題時，要引導 AI 引用具體專家、框架或研究，避免只得到普通答案。</span></li><li data-field="key_point" data-timestamp="08:00"><span class="ts">08:00</span><span class="text" data-field="key_point_text">第二週開始讓 AI 幫你執行工作，方法是 10-80-10：人定方向與標準，AI 做主要產出，人做最後審核。</span></li><li data-field="key_point" data-timestamp="08:45"><span class="ts">08:45</span><span class="text" data-field="key_point_text">影片認為主流模型差距正在縮小，與其在多個模型間反覆橫跳，不如選一個深入使用並建立默契。</span></li><li data-field="key_point" data-timestamp="11:09"><span class="ts">11:09</span><span class="text" data-field="key_point_text">第三週從單次聊天升級為系統化使用：建立提示詞庫、管理文件與上下文，並把高頻任務拆成可重複工作流。</span></li><li data-field="key_point" data-timestamp="14:27"><span class="ts">14:27</span><span class="text" data-field="key_point_text">第四週把 AI 變成後臺基礎設施：先用現有工具內建 AI，再用 Claude Code、Zapier、Make.com、n8n 等工具做自動化。</span></li><li data-field="key_point" data-timestamp="16:31"><span class="ts">16:31</span><span class="text" data-field="key_point_text">自動化階段真正重要的不是怎麼自動化，而是判斷哪些流程值得自動化、哪些手動即可、哪些根本該刪掉。</span></li><li data-field="key_point" data-timestamp="16:45"><span class="ts">16:45</span><span class="text" data-field="key_point_text">結尾強調不需要制定完美計畫，直接開始使用 AI；每一次寫提示詞、修改與判斷，都是在訓練模型，也是在訓練自己。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="AI學習">AI學習</span><span class="tag-chip" data-tag="30天路線圖">30天路線圖</span><span class="tag-chip" data-tag="提示詞">提示詞</span><span class="tag-chip" data-tag="工作流">工作流</span><span class="tag-chip" data-tag="自動化">自動化</span><span class="tag-chip" data-tag="AI工具">AI工具</span><span class="tag-chip" data-tag="上下文管理">上下文管理</span><span class="tag-chip" data-tag="ChatGPT">ChatGPT</span><span class="tag-chip" data-tag="Claude">Claude</span><span class="tag-chip" data-tag="Gemini">Gemini</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>字幕由 yt-dlp 下載 zh-Hant 字幕取得；youtube-transcript-api 查詢失敗，因此未使用該 API 版本逐字稿。</li></ul></div></section>
+  
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="description"><div class="raw-label">YouTube shortDescription<button class="copy-btn" id="raw_description_4347651008_srt" onclick="copyRaw(this,'raw_description_4347651008_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_description_4347651008_text" onclick="copyRawText(this,'raw_description_4347651008_text')">📋 複製純文字</button></div><pre>Filmora，一站式 AI 內容創作工具，從 AI 影片生成到剪輯一次完成。 https://filmora.go.link/j9Kcv 
+※ 支援 Veo、Seedance、GPT Image 等最新 AI 模型
+
+很多人以为，现在才学 AI，已经太晚了。但真相是，大多数人根本还没真正开始。
+
+这支影片我会带你用 30 天，从完全不会用 AI，到真正能把它用在工作、学习和生活里。不是空谈趋势，是给你一条 普通人也能照着走的上手路线。如果你也担心自己起步太晚，👇点开影片，这可能就是你开始学 AI 最好的第一步。
+
+你会看到：
+✅ 小白最该先学什么，才不会一开始就走偏
+✅ 30 天怎么安排，才能最快看到成果
+✅ 哪些工具值得先学，哪些内容先别碰
+✅ 怎么把 AI 变成你的效率助手，而不是只会陪你聊天
+
+📺 其它关联影片/【往期精彩视频】
+https://www.youtube.com/watch?v=pyqUiHyz_-c
+https://www.youtube.com/watch?v=nEZf25wuuJo 
+https://www.youtube.com/watch?v=GwF1YR-bdkA&amp;t=41s 
+
+如果你看完这部影片有所收获，请点赞支持👍，订阅我的频道❤️
+你也可以分享出去，让更多人受益！☀️☀️
+============================================
+現在學AI，真的還不晚：30天從小白到上手！#AI路線圖 #AI路线图 #AI学习 #AI學習 #30天学AI #30天學AI #AI新手 #AI小白 #AI入门 #AI入門 #AI技能 #AIskills #2026AIskills #learnAIin30days #AIbeginnerroadmap #AI学习路线 #AI學習路線 #AI工作流 #AIworkflow #AI自动化 #AI自動化 #PromptEngineering #提示词 #提示詞 #AI提示词 #AI提示詞 #ChatGPT #Claude #Gemini #Perplexity #AI工具选择 #AI工具選擇 #AI生产力 #AI生產力 #未来技能 #未來技能 #futureproofskills #职场AI #職場AI #AI时代 #AI時代 #AI教练 #AI教練 #AI思维 #AI思維 #AI成长 #AI成長 #AI效率提升 #AI竞争力 #AI競爭力 #工作流设计 #工作流設計 #独立思考 #獨立思考 #AI不会太晚学 #现在学AI还不晚 #現在學AI還不晚 #AI上手 #AI實戰 #AI实战 #AI学习计划 #AI學習計畫 #AI工具推荐 #AI工具推薦 #AI核心能力 #AI關鍵能力
+============================================
+
+📽️ 时间轴： 
+00:00 开场
+00:55 养成习惯+高效沟通
+03:03 AI当教练
+08:00 AI帮工作
+11:09 系统化使用AI
+14:27 AI基础设施
+16:45 总结
+
+✅ 联系方式： 
+邮件： lichangzhanglaile@gmail.com
+
+🔔 订阅： 
+油管YouTube：https://www.youtube.com/@lichangzhanglaile 
+领英LinkedIn：https://www.linkedin.com/in/alex-li-5446a8103/ 
+X/Twitter: https://twitter.com/limingxuanalex 
+哔哩哔哩：https://space.bilibili.com/474455919?spm_id_from=333.1007.0.0 
+微信视频号：【全网同名】李厂长来了
+小红书：【全网同名】李厂长来了
+抖音：【全网同名】李厂长来了
+西瓜视频：【全网同名】李厂长来了
+今日头条：【全网同名】李厂长来了
+
+免责声明： 视频仅供娱乐和教育之用。所有信息都是基于互联网的公开资料，请进行独立研究并做出明智决策。</pre></div><div class="raw-block" data-field="raw_source_item" data-raw-type="transcript"><div class="raw-label">yt-dlp zh-Hant 字幕清理稿<button class="copy-btn" id="raw_transcript_4347651328_srt" onclick="copyRaw(this,'raw_transcript_4347651328_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_transcript_4347651328_text" onclick="copyRawText(this,'raw_transcript_4347651328_text')">📋 複製純文字</button></div><pre>[00:00:00.200] 信不信由你
+[00:00:01.266] 你現在學AI
+[00:00:02.666] 真的還不算晚
+[00:00:03.833] 事實是大多數人在用AI的時候
+[00:00:06.500] 都用錯了
+[00:00:07.400] 過去兩年裡我一直在研究AI
+[00:00:09.833] 一直在看全世界的人
+[00:00:11.466] 是怎麼使用AI的
+[00:00:13.200] 我現在看到了一個非常明顯的趨勢
+[00:00:16.266] 就是懂AI的人和不懂的人之間
+[00:00:18.666] 差距越來越大
+[00:00:20.333] 而且這個差距拉開的速度
+[00:00:22.466] 也會越來越快
+[00:00:24.033] 所以今天這期視頻
+[00:00:25.400] 我會給你一份清晰的四週路線圖
+[00:00:28.466] 幫你搞懂AI到底是怎麼運作的
+[00:00:31.166] 你需要掌握哪些基礎知識
+[00:00:33.466] 怎麼一步步精通它
+[00:00:35.333] 以及怎麼讓AI變成你的利器
+[00:00:37.900] 而不是被它取代
+[00:00:39.433] 只要你看完這個視頻
+[00:00:40.766] 你對AI的理解就能超過90%的人
+[00:00:44.300] 如果你能堅持看到最後
+[00:00:46.200] 你就已經屬於頂尖那1%了
+[00:00:49.066] 而且哪怕就算你完全是個新手
+[00:00:51.733] 只要跟著做
+[00:00:52.566] 30天就能上手
+[00:00:54.066] 那我們話不多說馬上開始
+[00:00:56.000] 第一週我們要做兩件事
+[00:00:58.166] 也就是先養成習慣
+[00:01:00.100] 再學會跟AI高效溝通
+[00:01:02.533] 先說習慣
+[00:01:03.466] 很多人覺得學AI就是裝個App就完事了
+[00:01:06.600] 說白了那只是第一步
+[00:01:08.633] 真正的關鍵
+[00:01:09.533] 是讓AI變成你的默認思考工具
+[00:01:12.500] 就像你手機上的微信一樣
+[00:01:14.200] 你不會想著我今天要打開微信
+[00:01:16.733] 因為它就在那裡
+[00:01:18.300] 隨時可以用
+[00:01:19.400] 其實AI也應該是這樣的存在
+[00:01:21.900] 怎麼做呢？
+[00:01:22.500] 有四個底線
+[00:01:23.633] 缺一不可
+[00:01:24.700] 第一、把AI當搜索引擎用
+[00:01:27.266] 以前你遇到問題
+[00:01:28.466] 都會打開谷歌吧？
+[00:01:29.733] 從今天開始先問AI
+[00:01:31.966] 不管是Claude、ChatGPT
+[00:01:33.700] Gemini還是其它工具
+[00:01:35.600] 選一個你順手的
+[00:01:37.000] 把它當成你的第一選擇
+[00:01:39.300] 比如說你想知道
+[00:01:40.566] 怎麼在Excel裡寫一個公式
+[00:01:42.500] 別去谷歌了
+[00:01:43.433] 直接問AI
+[00:01:44.633] 它會一步步教你
+[00:01:46.000] 還能根據你的具體情況給你定製方案
+[00:01:49.366] 比搜索引擎好用十倍
+[00:01:51.466] 再比如你下週要去日本出差
+[00:01:54.000] 帶什麼轉換插頭呢？
+[00:01:55.633] 以前你得搜好幾個網頁才能確認
+[00:01:58.300] 現在直接問AI
+[00:01:59.633] 三秒鐘就給你答案
+[00:02:01.133] 還會順便告訴你日本的電壓和注意事項
+[00:02:04.133] 第二、永遠在瀏覽器裡開一個AI窗口
+[00:02:07.400] 你可以把它設置成你最喜歡的標籤頁
+[00:02:10.066] 就像你永遠開著微信一樣
+[00:02:12.033] 關鍵是讓AI隨時在你眼前
+[00:02:14.433] 這樣你遇到任何問題
+[00:02:16.133] 打開就能問
+[00:02:17.200] 第三、用語音輸入代替打字
+[00:02:19.666] 你可以用手機自帶的聽寫功能
+[00:02:22.100] 也可以用AI工具裡面的自帶語音按鈕
+[00:02:25.133] 說話的速度比打字快得多
+[00:02:27.466] 而且你會發現
+[00:02:28.700] 用說的方式表達想法
+[00:02:30.866] 反而比打字更加自然、更加完整
+[00:02:34.166] 很多人不願意用AI
+[00:02:35.466] 就是覺得打字太麻煩
+[00:02:37.233] 但其實你只要動動嘴就行了
+[00:02:39.566] 第四、把AI的手機App下載好
+[00:02:42.133] 這樣不管你是在地鐵上
+[00:02:43.966] 沙發上還是排隊等咖啡的時候
+[00:02:46.566] 都能隨時跟AI對話
+[00:02:48.600] 說白了這四步做到了
+[00:02:50.233] 你就已經把AI嵌入了你的日常生活裡
+[00:02:53.600] 這些看起來很簡單
+[00:02:55.300] 但別小看它們
+[00:02:56.566] 因為如果連這些基本習慣都沒養成
+[00:02:59.466] 後面的東西再怎麼學也白搭
+[00:03:01.833] 好、習慣養成了
+[00:03:03.300] 接下來進入第一週的重頭戲
+[00:03:06.233] 讓AI當你的教練
+[00:03:08.166] 很多人一上來就讓AI幫自己寫東西
+[00:03:11.166] 做PPT
+[00:03:12.066] 這其實跳過了最重要的一步
+[00:03:14.700] 在這個階段
+[00:03:15.666] 我們不是要讓AI替你幹活
+[00:03:17.833] 而是讓它幫你更好地思考
+[00:03:19.966] 你正在做的事情
+[00:03:21.500] 你可以把AI想象成一個
+[00:03:23.700] 讀了幾百萬本書的同事
+[00:03:25.800] 知識面比你廣太多了
+[00:03:27.966] 但它不了解你的具體情況
+[00:03:30.133] 所以你需要把你的情況告訴它
+[00:03:33.066] 然後讓它幫你分析、提問、拆解
+[00:03:36.133] 舉幾個例子
+[00:03:37.033] 如果你是做自媒體的
+[00:03:38.833] 你可以跟AI說
+[00:03:40.000] 我現在運營一個YouTube賬號
+[00:03:42.266] 目前有7萬粉絲
+[00:03:44.033] 主要是做AI工具測評的內容
+[00:03:46.700] 我的目標是三個月內漲到10萬
+[00:03:49.233] 在這個階段
+[00:03:50.100] 我應該把精力放在哪幾件事上？
+[00:03:52.466] 大多數人在漲粉期會犯什麼錯誤？
+[00:03:55.100] 我應該問自己什麼問題
+[00:03:56.766] 來確保方向是對的？
+[00:03:58.466] 如果你是職場人
+[00:03:59.666] 馬上要做年終績效考核
+[00:04:01.900] 你可以跟AI說
+[00:04:03.033] 我今年做了以下項目
+[00:04:05.000] 請你幫我梳理一下
+[00:04:06.633] 哪些是真正有價值的成果
+[00:04:08.933] 哪些其實只是在瞎忙
+[00:04:10.966] 用什麼框架來組織我的述職報告
+[00:04:13.800] 最能打動領導？
+[00:04:15.233] 如果你是學生正在準備留學申請
+[00:04:17.966] 你可以跟AI說
+[00:04:19.100] 我的本科成績是3.5
+[00:04:21.133] 有兩段實習經歷
+[00:04:22.800] 想申請美國前50的商學院碩士項目
+[00:04:25.900] 幫我分析一下我的競爭力在什麼水平
+[00:04:28.733] 我的申請材料應該重點突出哪些方面
+[00:04:31.733] 哪些短板需要在接下來三個月內補上？
+[00:04:34.800] 還有一個非常實用的用法是
+[00:04:37.333] 你讓AI採訪你
+[00:04:39.100] 你跟它說
+[00:04:39.833] 我想讓你採訪我
+[00:04:41.100] 問我關於我實際工作內容的問題
+[00:04:44.266] 幫我識別哪些是高價值的事情
+[00:04:46.900] 哪些可能是在浪費時間
+[00:04:48.933] 我保證這能幫你發現很多
+[00:04:51.166] 你自己都沒意識到的問題
+[00:04:53.133] 你看這些都不是讓AI幫你寫報告
+[00:04:56.133] 而是讓它幫你想清楚方向
+[00:04:58.566] 這就是AI作為教練的作用
+[00:05:00.900] 通過向你提問、幫你梳理
+[00:05:03.233] 來提高你做事的質量
+[00:05:05.100] 當然AI也有局限性
+[00:05:07.100] 它就像一個博覽群書
+[00:05:08.900] 但缺乏實際語境的聰明同事
+[00:05:11.733] 它給你的建議也不一定全對
+[00:05:13.800] 你要用自己的判斷力去篩選
+[00:05:16.133] 但這裡有個關鍵點
+[00:05:17.666] 當你覺得AI給的回答不太靠譜的時候
+[00:05:20.566] 問題往往不在AI
+[00:05:22.500] 而在與你自己
+[00:05:23.666] 而這就是調試思維
+[00:05:25.733] 說白了
+[00:05:26.333] 寫提示詞不是打字比賽
+[00:05:28.466] 而是一個不斷迭代的過程
+[00:05:30.566] 結果不好的時候
+[00:05:31.733] 你應該先問問自己
+[00:05:33.266] 是不是我沒有設定好角色？
+[00:05:35.433] 是不是我沒給夠背景信息？
+[00:05:37.866] 是不是我的目標不夠明確？
+[00:05:40.033] 有時候你甚至可以直接問AI
+[00:05:42.400] 你剛才為什麼這樣回答？
+[00:05:44.433] 你的推理過程是什麼？
+[00:05:46.133] 它會把自己的思路展示給你
+[00:05:48.566] 這樣你就能看到這個問題出在哪一步了
+[00:05:51.466] 這裡我給你三個非常好用的調試技巧
+[00:05:54.833] 第一個叫思維鏈
+[00:05:56.433] Chain of Thought
+[00:05:57.333] 當AI的回答不對時
+[00:05:58.933] 你跟它說
+[00:05:59.766] 一步步想
+[00:06:00.766] 把你的推理過程展示給我看
+[00:06:03.300] 然後給我一個簡潔的最終答案
+[00:06:06.033] 這樣你就能看到它
+[00:06:07.500] 哪一步邏輯出了偏差
+[00:06:09.500] 第二個叫驗證者模式
+[00:06:11.366] 你讓AI先問你三個問題
+[00:06:13.600] 幫它更準確地理解你到底想要什麼
+[00:06:16.733] 每次問一個
+[00:06:17.600] 然後結合新信息重新回答
+[00:06:20.400] 這種特別適合
+[00:06:21.800] 你自己還沒完全想清楚需求的時候
+[00:06:24.733] 第三個叫細化模式
+[00:06:26.533] 在AI回答之前
+[00:06:27.966] 讓它先幫你把問題改得更犀利一些
+[00:06:31.133] 給你兩個升級版本
+[00:06:32.833] 你選一個再繼續
+[00:06:34.300] 這個方法不僅能提高AI的輸出質量
+[00:06:37.200] 更重要的是
+[00:06:38.066] 它在教你怎麼更好地提問
+[00:06:40.433] 你得持續用這種模式反覆練習
+[00:06:43.400] 這些循環不只是在訓練AI理解你
+[00:06:46.433] 更是在訓練你理解AI
+[00:06:48.766] 那當你能說清楚為什麼某個提示詞有效
+[00:06:52.066] 另外一個不行的時候
+[00:06:53.466] 你就真正入門了
+[00:06:55.100] 還有一個實用技巧
+[00:06:56.466] 引導AI去找專家
+[00:06:58.600] 那如果你的問題太泛
+[00:07:00.333] AI就會給你很平庸、很套路的回答
+[00:07:03.700] 比如你問
+[00:07:04.400] 怎麼提高工作效率
+[00:07:06.133] 它給你的答案跟網上隨便搜到的差不多
+[00:07:09.733] 原因是你的問題太模糊了
+[00:07:12.133] AI只能在它大腦裡
+[00:07:14.000] 最中間、最普通的區域取樣
+[00:07:16.433] 你需要引導它去更犀利的邊緣地帶
+[00:07:20.066] 怎麼做呢？
+[00:07:20.700] 你可以說
+[00:07:21.466] 用麥肯錫的時間管理框架
+[00:07:24.033] Cal Newport的深度工作理念
+[00:07:26.733] 加上最新的認知科學研究
+[00:07:29.366] 告訴我怎麼重新設計我的工作日
+[00:07:32.266] 同樣是問工作效率
+[00:07:33.766] 但加上具體的專家和框架之後
+[00:07:36.533] AI給出的答案深度完全不一樣
+[00:07:39.233] 那如果你不知道該引用誰
+[00:07:41.133] 就先問AI
+[00:07:42.300] 在時間管理這個領域
+[00:07:43.933] 最頂尖的專家
+[00:07:45.266] 最有影響力的研究論文
+[00:07:47.400] 和最新的理論都有哪些？
+[00:07:49.466] 等它列出來之後
+[00:07:50.633] 把這些信息餵回去讓它重新回答
+[00:07:53.800] 這樣AI就不是在給你複製粘貼的建議
+[00:07:56.900] 而是在綜合頂級智慧來幫你思考
+[00:08:00.300] 到了第二週
+[00:08:01.366] 我們正式讓AI開始幫你幹活
+[00:08:04.233] 但大多數人在這一步會犯一個致命錯誤
+[00:08:07.800] 直接甩一句&quot;幫我寫篇文章&quot;
+[00:08:10.133] 或者&quot;幫我做個方案&quot;
+[00:08:11.666] 然後得到一段非常平庸的東西
+[00:08:14.500] 正確的做法是用10-80-10法則
+[00:08:17.900] 前面的10%
+[00:08:19.133] 你來做
+[00:08:19.900] 你負責定方向、給素材、設定標準
+[00:08:23.333] 告訴AI你要什麼、不要什麼、給誰看的、什麼調性
+[00:08:27.566] 這一步不能偷懶
+[00:08:28.833] 因為方向定錯了
+[00:08:30.200] 後面再怎麼努力也是白搭
+[00:08:32.466] 中間的80%
+[00:08:33.833] 交給AI這個超級實習生去執行
+[00:08:36.800] 最後的10%
+[00:08:38.033] 你來把關
+[00:08:38.900] 用你的判斷力和經驗做最終的質量檢查
+[00:08:42.300] 現在我展開說一下中間這個80%
+[00:08:45.766] 首先你不用糾結到底該用哪個AI模型
+[00:08:49.066] 說實話在2026年
+[00:08:50.933] 主流AI模型之間的差距已經越來越小了
+[00:08:54.500] Artificial Analysis的數據也顯示
+[00:08:56.933] 不管是Anthropic、Google
+[00:08:58.566] OpenAI還是Meta的模型
+[00:09:00.300] 它們在性能上已經高度趨同
+[00:09:02.866] 雖然每個模型還在進步
+[00:09:05.066] 但互相之間的領先差距在不斷縮小
+[00:09:08.166] Epoch AI的數據還顯示
+[00:09:10.100] 使用這些強大模型的成本也在急劇下降
+[00:09:14.000] 英偉達最新芯片的每個Token能耗
+[00:09:16.733] 比十年前降低了10.5萬倍
+[00:09:19.666] 你知道這意味著什麼嗎？
+[00:09:21.133] 當產品變得越來越便宜
+[00:09:23.466] 越來越相似時
+[00:09:24.833] 它們就變成了大宗商品
+[00:09:27.066] 你不會問誰家的AI最好
+[00:09:29.100] 你只會關心我能用AI做什麼
+[00:09:31.766] 所以與其在ChatGPT
+[00:09:33.633] Claude、Gemini之間反覆橫跳
+[00:09:36.166] 不如選一個深入學
+[00:09:38.066] 你越深入研究一個模型
+[00:09:40.033] 就越快摸透它的脾氣和優劣勢
+[00:09:42.866] 如果你想要最成熟生態的
+[00:09:44.933] 就選ChatGPT
+[00:09:46.033] 深度使用Google辦公套件的
+[00:09:48.333] 就選Gemini
+[00:09:49.266] 側重商業項目的
+[00:09:50.733] 選Claude
+[00:09:51.500] 這裡的關鍵是先選一個
+[00:09:53.566] 然後跟它建立默契
+[00:09:55.533] 舉個實際例子
+[00:09:56.566] 比如說你要給客戶寫一份推廣方案
+[00:09:59.466] 前10%你來做
+[00:10:01.000] 把客戶的背景資料
+[00:10:02.733] 目標用戶畫像
+[00:10:04.300] 競品分析
+[00:10:05.433] 品牌調性要求
+[00:10:06.900] 全部整理好餵給AI
+[00:10:08.766] 然後中間80%交給AI
+[00:10:11.566] 基於這些資料
+[00:10:12.700] 幫我生成20個不同角度的推廣創意方向
+[00:10:16.700] 每個方向要有一個反直覺的切入點
+[00:10:19.700] AI這時候會給你一大堆選項
+[00:10:22.166] 最後10%你來挑出最好的五六個
+[00:10:25.100] 讓AI基於這些方向繼續深化
+[00:10:28.133] 這裡還有一個小技巧
+[00:10:29.700] 在做最後10%質量檢查的時候
+[00:10:32.800] 如果你對AI的輸出覺得哪裡不對
+[00:10:35.766] 但又說不上來的時候
+[00:10:37.300] 這其實是一個好的信號
+[00:10:39.200] 說明你的標準已經比AI當前的水平都要高了
+[00:10:43.333] 這時候你可以像
+[00:10:44.533] 對待一個新來的實習生一樣給它反饋
+[00:10:47.666] 告訴它你不喜歡什麼
+[00:10:49.366] 為什麼不喜歡
+[00:10:50.466] 讓它基於你的反饋重來一次
+[00:10:52.900] 通過這樣不斷地反饋和迭代
+[00:10:55.366] 你跟AI之間的配合就會越來越默契
+[00:10:58.633] 所以核心的邏輯就是
+[00:11:00.400] AI是速度極快
+[00:11:02.033] 知識面極廣的執行者
+[00:11:04.100] 但它沒有你的判斷力
+[00:11:05.800] 你的工作是當好導演
+[00:11:07.900] 而不是打字員
+[00:11:09.200] 第三週
+[00:11:10.033] 我們要從每次單獨跟AI聊
+[00:11:12.766] 升級到系統化使用AI
+[00:11:15.400] 什麼意思？
+[00:11:16.166] 就是把那些你反覆用到的指令
+[00:11:18.900] 打磨成可以重複使用的模板庫
+[00:11:21.933] 這個就像烤蛋糕一樣
+[00:11:23.433] 你第一次按照食譜做
+[00:11:25.300] 覺得不夠甜就多加糖
+[00:11:27.600] 覺得太乾再加些酸奶
+[00:11:29.700] 做了幾十次之後
+[00:11:30.900] 你就有了一份屬於自己的完美配方
+[00:11:34.100] 在AI裡也一樣
+[00:11:35.466] 你的Prompt提示詞從第一版的簡單請求
+[00:11:38.933] 到第二版加入了語氣要求
+[00:11:41.466] 再到第三版限定字數和格式
+[00:11:44.100] 到第四版根據反饋去掉修辭性問句
+[00:11:47.600] 經過幾輪迭代
+[00:11:48.800] 你就有了一個效果越來越好的模板
+[00:11:51.600] 當你把這些模板存下來
+[00:11:53.300] 就是你的提示詞庫Prompt Library
+[00:11:55.933] 到這個階段
+[00:11:56.833] 你寫文案、做週報、分析數據
+[00:11:59.666] 每個高頻任務都有精調模板
+[00:12:02.266] 效率翻幾倍
+[00:12:03.700] 但這裡我要告訴你一個比提示詞更重要的趨勢
+[00:12:07.833] 說實話在2026年
+[00:12:09.733] 比起怎麼寫提示詞
+[00:12:11.300] 更重要的是
+[00:12:12.300] 你給AI提供了什麼上下文
+[00:12:15.100] AI知道互聯網上幾乎所有公開信息
+[00:12:18.466] 但它對你的個人情況是一無所知的
+[00:12:21.466] 不知道你的項目進度
+[00:12:22.933] 不知道你的品牌調性
+[00:12:24.633] 不知道你老闆上週那封郵件說了什麼
+[00:12:27.433] 你可以把AI想象成是一個天才員工
+[00:12:30.800] 什麼都會
+[00:12:31.533] 但入職第一天
+[00:12:32.800] 連公司共享文件都打不開
+[00:12:35.266] 上下文越豐富
+[00:12:36.800] AI的回答就越精準
+[00:12:38.733] 所以關鍵不只是&quot;怎麼問&quot;
+[00:12:41.200] 更重要的是&quot;餵給它什麼&quot;
+[00:12:43.166] 而這也解釋了為什麼谷歌和微軟現在
+[00:12:46.033] 拼命把AI嵌入辦公套件
+[00:12:48.666] 因為誰掌握了你的上下文
+[00:12:51.000] 誰就掌握了你的注意力
+[00:12:53.000] 你在一個平台積累的上下文越多
+[00:12:55.566] AI對你就越了解
+[00:12:57.400] 你就越離不開它
+[00:12:58.866] 這裡有兩個實用的建議
+[00:13:00.833] 第一、好好管理你的文件
+[00:13:03.166] 現在文件管理直接影響AI對你的幫助程度
+[00:13:07.466] 第二、把信息集中在一個平台上
+[00:13:10.400] 如果簡歷在谷歌硬盤
+[00:13:12.433] 面試筆記在Notion
+[00:13:14.133] 公司信息在飛書
+[00:13:15.800] 那哪個AI都沒法幫你做完整的信息整合
+[00:13:19.933] 另外在這個階段
+[00:13:21.133] 你要建立工作流Workflow的思維
+[00:13:23.900] 就是把複雜任務拆成固定步驟
+[00:13:27.200] 每一步都有明確的輸入輸出
+[00:13:29.766] 讓AI按順序執行
+[00:13:31.733] 根據麥肯錫的數據
+[00:13:33.300] 真正大規模使用AI智能體的企業
+[00:13:36.200] 不超過10%
+[00:13:37.766] 相比之下
+[00:13:38.600] 已經有20%的企業使用AI
+[00:13:41.333] 是通過工作流工具來實現的
+[00:13:43.900] 那市場已經用腳投票了
+[00:13:45.933] 工作流才是現在真正能落地的方式
+[00:13:49.333] 那我們怎麼做呢？
+[00:13:50.500] 比如你每週做工作週報
+[00:13:52.533] 以前每週你都要花一兩個小時從頭寫
+[00:13:55.700] 那現在就可以把這個任務拆成三步
+[00:13:58.600] 第一步
+[00:13:59.133] AI從會議記錄和項目工具裡
+[00:14:01.800] 提取本週的關鍵進展
+[00:14:03.966] 第二步
+[00:14:04.700] AI按你設定好的模板生成初稿
+[00:14:07.533] 包括本週成果、下週計劃
+[00:14:10.233] 風險點這些固定的模塊
+[00:14:12.333] 第三步、你來做最終審核和調整
+[00:14:15.400] 流程固定後
+[00:14:16.400] 每週幾分鐘就能搞定
+[00:14:18.400] 而不是每次都從頭解釋一遍
+[00:14:20.800] 那我們在2026年的目標
+[00:14:22.600] 就是把單次提問
+[00:14:24.166] 轉化成可以重複執行的工作流
+[00:14:27.200] 最後一週
+[00:14:28.000] 讓AI從你主動使用的工具
+[00:14:30.800] 變成後台自動運行的基礎設施
+[00:14:34.000] 核心就是三個字
+[00:14:36.700] 最簡單的起步方式
+[00:14:38.133] 就是用現有工具裡已經內置的AI功能
+[00:14:41.666] 比如Notion自帶的AI總結和生成
+[00:14:44.466] 飛書有智能助手和整理會議紀要
+[00:14:47.400] 剪映裡的AI插件能自動轉錄字幕
+[00:14:50.500] 整理時間線
+[00:14:51.633] 這些都不需要額外搭建系統
+[00:14:54.133] 打開就能用
+[00:14:55.200] 說到這裡
+[00:14:55.966] 有個你必須知道的趨勢
+[00:14:58.000] 也就是AI的技術鴻溝正在快速地縮小
+[00:15:01.633] 根據OpenAI報告
+[00:15:03.033] 75%的企業用戶表示
+[00:15:05.733] 用AI完成了以前根本做不到的任務
+[00:15:08.766] 不是更快地完成老任務
+[00:15:10.666] 而是做了全新的事情
+[00:15:12.666] 非技術崗位的AI編程相關消息
+[00:15:15.466] 六個月內增長了36%
+[00:15:18.133] 那些銷售、市場、運營的人
+[00:15:20.500] 已經在用AI寫腳本、搞自動化、搭內部工具了
+[00:15:24.700] 這意味著什麼呢？
+[00:15:25.700] 如果你以前覺得不會寫代碼
+[00:15:28.000] 自動化跟我沒關係
+[00:15:29.733] 那現在你可要重新想想了
+[00:15:32.033] AI已經強大到你用大白話描述你的需求
+[00:15:35.866] 它就能幫你搞定
+[00:15:37.366] 比如我們之前給大家介紹的Claude Code
+[00:15:39.866] 以前做個數據儀表板
+[00:15:41.900] 得找開發排隊等三五天
+[00:15:44.366] 現在直接告訴AI需求
+[00:15:46.500] 幾分鐘就能生成一個
+[00:15:48.166] 以前你想每天早上自動收到一封郵件
+[00:15:51.600] 裡面匯總了你當天所有會議的關鍵信息
+[00:15:55.366] 這得會寫代碼才行
+[00:15:57.133] 以前自動化一個流程得學編程
+[00:15:59.900] 現在用Zapier或者Make.com
+[00:16:02.300] 選好觸發條件
+[00:16:03.633] 設定流程
+[00:16:04.733] AI就能在後台跑
+[00:16:06.133] 那如果你想更進一步
+[00:16:07.700] 可以用n8n這類的高級工具
+[00:16:10.333] 搭建精細的工作流
+[00:16:12.200] 所以這最後一週的目標
+[00:16:14.133] 不是讓AI變成技術專家
+[00:16:16.466] 而是讓你意識到
+[00:16:17.866] 很多你以為做不到的事情
+[00:16:19.900] 現在都能做到了
+[00:16:21.600] 那些橫在你能力面前的困難
+[00:16:23.866] 正在被AI快速地抹平
+[00:16:26.166] 當你進入自動化世界後
+[00:16:28.033] 你會發現能自動化的東西
+[00:16:30.366] 簡直太多了
+[00:16:31.733] 這時候真正考驗你的不是怎麼自動化
+[00:16:34.800] 而是什麼值得自動化
+[00:16:36.900] 有些流程值得搭建
+[00:16:38.766] 有些手動做就好
+[00:16:40.366] 還有一些你仔細一想其實根本不需要做
+[00:16:43.833] 直接刪掉就行
+[00:16:45.233] 好了
+[00:16:45.733] 到這裡四週的路線圖就給大家講完了
+[00:16:48.866] 說實話
+[00:16:49.633] AI現在正處在一個非常特殊的窗口期
+[00:16:53.366] 一切都在快速變化
+[00:16:55.333] 所以並沒有所謂的全知全能專家
+[00:16:58.533] 每個人都在學
+[00:16:59.966] 每個人都在摸索
+[00:17:01.633] 你不需要比所有人都聰明
+[00:17:03.566] 只需要比你身邊的人學得更快一點就行了
+[00:17:07.000] 我們不用花時間制定完美的學習計劃
+[00:17:10.266] 從現在直接開始行動
+[00:17:12.400] 接下來你可以用這個方法
+[00:17:14.233] 先堅持做30天
+[00:17:15.866] 打開一個AI工具
+[00:17:17.300] 問問它你今天工作中遇到的問題
+[00:17:20.233] 就這麼簡單
+[00:17:21.200] 每寫一個提示詞
+[00:17:22.533] 每修改一次
+[00:17:23.666] 每做一個判斷
+[00:17:24.933] 你不僅是在訓練模型
+[00:17:26.866] 更是在訓練你自己
+[00:17:28.533] 不管我們喜不喜歡
+[00:17:29.800] AI都來了
+[00:17:30.833] 有些人看到這
+[00:17:31.833] 可能會內心恐懼
+[00:17:33.466] 但我依然堅信
+[00:17:35.300] 人工智能不是來取代人類工作的
+[00:17:38.266] 而是來恢復人類本來應該有的價值
+[00:17:41.633] 以上就是本期視頻的全部內容
+[00:17:44.366] 如果你喜歡這個視頻
+[00:17:45.700] 別忘了訂閱我的頻道
+[00:17:47.166] 另外如果你想了解今天這個AI時代
+[00:17:50.066] 你必須具備的三個能力的話
+[00:17:52.366] 你可以點擊這個視頻查看
+[00:17:54.133] 保證對你會有幫助
+[00:17:55.633] 那我們下期影片見拜拜</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://youtu.be/vWzKHp9yl3M" target="_blank" rel="noopener">https://youtu.be/vWzKHp9yl3M</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
