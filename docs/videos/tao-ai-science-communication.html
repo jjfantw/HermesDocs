@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 能省 5 倍時間，但真正決定結果的那一步，還是他自己 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>AI 能省 5 倍時間，但真正決定結果的那一步，還是他自己</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-08-20 06:43</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">AI 能省 5 倍時間，但真正決定結果的那一步，還是他自己</h1>
+    <div class="meta"><span data-field="channel">📺 昌健胡說</span><span data-field="duration">⏱ 2:58</span><span data-field="published_date">🗓 2026-08-19</span><span data-field="original_language">🌐 zh-Hans</span><a data-field="source_url" href="https://www.youtube.com/watch?v=hxU5PjXuylU" target="_blank" rel="noopener">🔗 https://www.youtube.com/watch?v=hxU5PjXuylU</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>這支 Shorts 轉述陶哲軒談 AI 與科學研究的幾個判斷：AI 讓『產生點子』的成本大幅下降，但不等於讓人變聰明；真正決定成果的，仍是可靠資料、驗證能力、連續突破，以及把想法講清楚、說服他人的能力。影片用開普勒的行星研究說明，亂數般的大量猜測需要高品質觀測資料才能篩選；也提到 AI 在數學難題上已有成果，但隨機丟題的成功率仍很低。陶哲軒認為，AI 可以幫研究者查文獻、清理程式碼、畫圖，讓論文更豐富，但不一定更深刻；它像能跳牆的機器，跳得過去就過去，跳不過去就卡住。影片最後強調，說服力很難被量化，這也是 AI 目前仍學不會的關鍵能力。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">AI 降低的是『想點子』成本，不是自動產生洞見</h2><span class="ts-badge" data-field="lesson_timestamp">00:23</span></div><div class="body" data-field="lesson_body"><p>影片轉述陶哲軒的第一個判斷：AI 讓產生想法幾乎變得很便宜，但這不等於人因此變聰明。它更像把隨機性開到最大、不斷丟出猜測的工具。</p><p>開普勒的例子被拿來說明這點：他嘗試過許多幾何與音樂式的猜測，真正讓研究能前進的，不只是猜測本身，而是背後那份可用來驗證的天文觀測資料。</p><span class="tag" data-field="lesson_tag">AI 與研究流程</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">被展示出來的成功案例，不代表任意問題都有高成功率</h2><span class="ts-badge" data-field="lesson_timestamp">00:59</span></div><div class="body" data-field="lesson_body"><p>影片提到，數學界有 1100 多道知名難題，AI 已解出 50 多道；但如果任意丟一道題給 AI，真實成功率只有 1% 到 2%。</p><p>因此，社群媒體上看到的多半是被挑出來的成功樣本。報告中不把這解讀成 AI 無用，而是保留影片原意：AI 確實能命中一些問題，但命中率與可重複性仍是限制。</p><span class="tag" data-field="lesson_tag">倖存者偏差</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">AI 能讓論文更豐富，但不一定讓研究更深刻</h2><span class="ts-badge" data-field="lesson_timestamp">01:11</span></div><div class="body" data-field="lesson_body"><p>影片第二個判斷是，AI 可以幫忙查文獻、清理程式碼、畫圖，這些工作會讓論文內容看起來更豐富。</p><p>但陶哲軒同時提醒，豐富不等於深刻。影片用『會跳的機器人』比喻 AI：如果能跳過牆，它很快就過去；如果跳不過去，它不像人類那樣抓住線索、嘗試、修正，再一點一點往上突破。</p><span class="tag" data-field="lesson_tag">研究輔助</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">把話說清楚，是 AI 目前仍難以替代的部分</h2><span class="ts-badge" data-field="lesson_timestamp">01:46</span></div><div class="body" data-field="lesson_body"><p>第三個判斷是，AI 最學不會的可能是把話說明白。影片用牛頓與達爾文作比較：牛頓用拉丁文與新的數學體系表達，達爾文則用白話英文講述，不用方程式。</p><p>影片的重點不是誰比較偉大，而是指出：科學不只包含發現，也包含讓他人理解與相信。把話說清楚、把人說服，本來就是科學的一部分。</p><span class="tag" data-field="lesson_tag">科學溝通</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">真正要自己來的，是驗證、累積與說服</h2><span class="ts-badge" data-field="lesson_timestamp">02:24</span></div><div class="body" data-field="lesson_body"><p>影片最後把主題收回到人自己的責任：AI 能一次給出方案，但把話說進別人心裡、建立說服力，仍要由人完成。</p><p>陶哲軒稱我們正在經歷一場認知上的『哥白尼革命』：人類智能不再是宇宙中心，旁邊出現了一種完全不同的智能。這個時代令人害怕，也令人興奮。</p><span class="tag" data-field="lesson_tag">人類角色</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">AI 可以幫你擺出方案，但把話說清楚、把人說服，還是得你自己來。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="00:00"><span class="ts">00:00</span><span class="text" data-field="key_point_text">影片開場指出，陶哲軒說自己寫論文最難的一步 AI 幫不上忙，至今仍使用紙筆。</span></li><li data-field="key_point" data-timestamp="00:23"><span class="ts">00:23</span><span class="text" data-field="key_point_text">影片整理陶哲軒訪談中的三個判斷，第一個是 AI 改變的是產生點子的成本，而不是直接讓人變聰明。</span></li><li data-field="key_point" data-timestamp="00:31"><span class="ts">00:31</span><span class="text" data-field="key_point_text">以開普勒為例：大量猜測能否成功，關鍵不只是猜得多，而是手上有可驗證的高品質天文資料。</span></li><li data-field="key_point" data-timestamp="00:59"><span class="ts">00:59</span><span class="text" data-field="key_point_text">影片稱陶哲軒統計過數學界 1100 多道知名難題，AI 已解出 50 多道，但任意丟一題的真實成功率仍只有 1% 到 2%。</span></li><li data-field="key_point" data-timestamp="01:11"><span class="ts">01:11</span><span class="text" data-field="key_point_text">第二個判斷：AI 能查文獻、清理程式碼、畫圖，讓論文更豐富，但不一定更深刻。</span></li><li data-field="key_point" data-timestamp="01:26"><span class="ts">01:26</span><span class="text" data-field="key_point_text">陶哲軒把 AI 比成會跳的機器：能跳過牆就過去，跳不過去就停住；人類解難題則會沿著線索反覆修正、逐步突破。</span></li><li data-field="key_point" data-timestamp="01:46"><span class="ts">01:46</span><span class="text" data-field="key_point_text">第三個判斷：AI 目前最學不會的，可能是把話說明白、把人說服。</span></li><li data-field="key_point" data-timestamp="01:50"><span class="ts">01:50</span><span class="text" data-field="key_point_text">影片比較牛頓與達爾文：簡單且能用白話講清楚的理論，反而可能比複雜數學更晚被提出與傳播。</span></li><li data-field="key_point" data-timestamp="02:24"><span class="ts">02:24</span><span class="text" data-field="key_point_text">陶哲軒說，把話說清楚、把人說服，本來就是科學的一部分；說服力難以打分，因此 AI 很難學會。</span></li><li data-field="key_point" data-timestamp="02:38"><span class="ts">02:38</span><span class="text" data-field="key_point_text">結尾稱我們正在經歷認知上的『哥白尼革命』：人類智能不再是唯一中心，旁邊出現了另一種完全不同的智能。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="AI">AI</span><span class="tag-chip" data-tag="陶哲軒">陶哲軒</span><span class="tag-chip" data-tag="數學研究">數學研究</span><span class="tag-chip" data-tag="科學溝通">科學溝通</span><span class="tag-chip" data-tag="開普勒">開普勒</span><span class="tag-chip" data-tag="達爾文">達爾文</span><span class="tag-chip" data-tag="認知革命">認知革命</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>YouTube transcript API 回傳 transcripts disabled，報告主文依 Whisper STT 逐字稿整理；描述欄為空，未使用 OCR。</li><li>Whisper 對人名與專有名詞有明顯漂字，已在 ASR 漂字對照表標註主要修正。</li></ul></div></section>
+  <section class="glossary" data-field="asr_glossary"><h2>🎙️ ASR 漂字對照表</h2><div class="card"><table class="glossary"><tr data-field="asr_glossary_row"><td data-field="heard">陶澤軒 / 陶泽轩</td><td>→</td><td data-field="corrected">陶哲軒</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">開不樂</td><td>→</td><td data-field="corrected">開普勒</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">費爾茨獎</td><td>→</td><td data-field="corrected">菲爾茲獎 / Fields Medal</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">無序介紹</td><td>→</td><td data-field="corrected">無需介紹</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">結果了著了著</td><td>→</td><td data-field="corrected">聊著聊著</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">赫緒理</td><td>→</td><td data-field="corrected">赫胥黎</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">各拜尼革命</td><td>→</td><td data-field="corrected">哥白尼革命</td></tr></table></div></section>
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="whisper"><div class="raw-label">Whisper 原始輸出<button class="copy-btn" id="raw_whisper_4305745344_srt" onclick="copyRaw(this,'raw_whisper_4305745344_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_whisper_4305745344_text" onclick="copyRawText(this,'raw_whisper_4305745344_text')">📋 複製純文字</button></div><pre>1
+00:00:00,000 --&gt; 00:00:00,760
+朋友们
+
+2
+00:00:00,760 --&gt; 00:00:02,260
+全世界最强的数学家
+
+3
+00:00:02,260 --&gt; 00:00:03,600
+最近说了一件挺意外的事
+
+4
+00:00:03,600 --&gt; 00:00:05,040
+他说他自己写论文
+
+5
+00:00:05,040 --&gt; 00:00:05,900
+最难的那一步
+
+6
+00:00:05,900 --&gt; 00:00:07,080
+AI一点忙都帮不上
+
+7
+00:00:07,080 --&gt; 00:00:08,760
+到现在他还是用纸和笔
+
+8
+00:00:08,760 --&gt; 00:00:10,140
+说这话的人叫陶泽轩
+
+9
+00:00:10,140 --&gt; 00:00:12,460
+他是数学界最高奖费尔茨奖得主
+
+10
+00:00:12,460 --&gt; 00:00:13,720
+主持人介绍他的时候
+
+11
+00:00:13,720 --&gt; 00:00:14,600
+只说了四个字
+
+12
+00:00:14,600 --&gt; 00:00:15,340
+无序介绍
+
+13
+00:00:15,340 --&gt; 00:00:16,780
+本来他们只是想聊一聊
+
+14
+00:00:16,780 --&gt; 00:00:19,200
+开不乐当年是怎么发现行星运动规律的
+
+15
+00:00:19,200 --&gt; 00:00:20,160
+结果了着了着
+
+16
+00:00:20,160 --&gt; 00:00:21,740
+他把AI这件事情给说透了
+
+17
+00:00:21,740 --&gt; 00:00:23,260
+我刚把他的这场访谈看完
+
+18
+00:00:23,260 --&gt; 00:00:24,920
+跟你分享三个他最狠的判断
+
+19
+00:00:24,920 --&gt; 00:00:25,800
+先说第一个
+
+20
+00:00:25,800 --&gt; 00:00:26,920
+AI到底改变了什么
+
+21
+00:00:26,920 --&gt; 00:00:28,980
+他说AI不是让人变聪明了
+
+22
+00:00:28,980 --&gt; 00:00:31,020
+他想想点子几乎变得不要钱了
+
+23
+00:00:31,020 --&gt; 00:00:31,880
+他举了一个例子
+
+24
+00:00:31,880 --&gt; 00:00:32,580
+400年前
+
+25
+00:00:32,580 --&gt; 00:00:34,320
+开普勒手里有一堆的天文数据
+
+26
+00:00:34,320 --&gt; 00:00:35,840
+他拿各种的猜测网上套
+
+27
+00:00:35,840 --&gt; 00:00:37,020
+一会是几何图形
+
+28
+00:00:37,020 --&gt; 00:00:38,260
+一会是音乐里的音符
+
+29
+00:00:38,260 --&gt; 00:00:39,220
+他失了20年
+
+30
+00:00:39,220 --&gt; 00:00:40,360
+大部分都是错的
+
+31
+00:00:40,360 --&gt; 00:00:40,980
+陶泽轩说
+
+32
+00:00:40,980 --&gt; 00:00:42,120
+开普勒当年干的事
+
+33
+00:00:42,120 --&gt; 00:00:44,300
+就像是一个把随机性开到最大的AI
+
+34
+00:00:44,300 --&gt; 00:00:45,700
+他在那里不停地下猜
+
+35
+00:00:45,700 --&gt; 00:00:47,060
+而真正让他成功的
+
+36
+00:00:47,060 --&gt; 00:00:47,920
+不是他猜得准
+
+37
+00:00:47,920 --&gt; 00:00:49,540
+是他手里有一份数据
+
+38
+00:00:49,540 --&gt; 00:00:50,760
+是一个丹麦的天文学家
+
+39
+00:00:50,760 --&gt; 00:00:53,000
+他用肉眼盯了一辈子天的观测记录
+
+40
+00:00:53,000 --&gt; 00:00:54,400
+这才是他验证假的关键
+
+41
+00:00:54,400 --&gt; 00:00:55,380
+而现在的AI
+
+42
+00:00:55,380 --&gt; 00:00:57,200
+他干的也是开普勒当年的那件事情
+
+43
+00:00:57,200 --&gt; 00:00:58,580
+疯狂的深层猜测
+
+44
+00:00:58,580 --&gt; 00:00:59,900
+陶泽轩他还统计过
+
+45
+00:00:59,900 --&gt; 00:01:02,060
+数学界有1100多道出了名的难题
+
+46
+00:01:02,060 --&gt; 00:01:03,660
+AI已经解除了50多道了
+
+47
+00:01:03,660 --&gt; 00:01:04,820
+但他又紧接着说了一句
+
+48
+00:01:04,820 --&gt; 00:01:06,300
+如果你随便丢一道题给他
+
+49
+00:01:06,300 --&gt; 00:01:08,340
+他真实成功率只有1%到2%
+
+50
+00:01:08,340 --&gt; 00:01:10,020
+而我们在社交媒体上看到的
+
+51
+00:01:10,020 --&gt; 00:01:11,120
+全都是挑出来的赢家
+
+52
+00:01:11,120 --&gt; 00:01:11,600
+第二
+
+53
+00:01:11,600 --&gt; 00:01:13,320
+那AI到底帮他干了什么呢
+
+54
+00:01:13,320 --&gt; 00:01:13,580
+他说
+
+55
+00:01:13,580 --&gt; 00:01:15,060
+现在的AI能帮他查文献
+
+56
+00:01:15,060 --&gt; 00:01:15,760
+清理代码
+
+57
+00:01:15,760 --&gt; 00:01:16,540
+多画其张图
+
+58
+00:01:20,760 --&gt; 00:01:22,940
+他还说了一句大实话
+
+59
+00:01:22,940 --&gt; 00:01:24,280
+论文变得更加丰富了
+
+60
+00:01:24,280 --&gt; 00:01:25,460
+但是不一定会更深刻
+
+61
+00:01:25,460 --&gt; 00:01:26,380
+他还打了个比方
+
+62
+00:01:26,380 --&gt; 00:01:28,560
+现在的AI他就像是一个会跳的机器人
+
+63
+00:01:28,560 --&gt; 00:01:30,000
+他能一下子跳过一堵墙
+
+64
+00:01:30,000 --&gt; 00:01:31,160
+如果他能跳得过去
+
+65
+00:01:31,160 --&gt; 00:01:31,720
+他就过去了
+
+66
+00:01:31,720 --&gt; 00:01:32,860
+但如果跳不过去
+
+67
+00:01:32,860 --&gt; 00:01:33,700
+他就是过不去了
+
+68
+00:01:33,700 --&gt; 00:01:34,700
+而人类型难题
+
+69
+00:01:34,700 --&gt; 00:01:36,000
+是抓到一点线索试一下
+
+70
+00:01:36,000 --&gt; 00:01:36,800
+不行再改
+
+71
+00:01:36,800 --&gt; 00:01:37,940
+一点点的往上突破
+
+72
+00:01:37,940 --&gt; 00:01:38,840
+但现在的AI
+
+73
+00:01:38,840 --&gt; 00:01:40,560
+他还做不到这种连续的往上突破
+
+74
+00:01:40,560 --&gt; 00:01:41,560
+而更要命的是
+
+75
+00:01:41,560 --&gt; 00:01:42,800
+如果你开了一个新的对话
+
+76
+00:01:42,800 --&gt; 00:01:44,700
+他可能就会把刚才做的全都忘了
+
+77
+00:01:44,700 --&gt; 00:01:46,020
+而他的第三个反断最有意思
+
+78
+00:01:46,020 --&gt; 00:01:46,560
+他说
+
+79
+00:01:46,560 --&gt; 00:01:47,900
+现在的AI最学不会的
+
+80
+00:01:47,900 --&gt; 00:01:49,020
+可能就是把话说明白
+
+81
+00:01:49,020 --&gt; 00:01:50,040
+他还举了一个例子
+
+82
+00:01:50,040 --&gt; 00:01:52,040
+牛顿的本书是1687年出的
+
+83
+00:01:52,040 --&gt; 00:01:53,080
+而达尔文的物种起源
+
+84
+00:01:53,080 --&gt; 00:01:54,360
+他是1859年出的
+
+85
+00:01:54,360 --&gt; 00:01:55,720
+中间差了将近200年
+
+86
+00:01:55,720 --&gt; 00:01:56,980
+但达尔文的那套理论
+
+87
+00:01:56,980 --&gt; 00:01:57,960
+其实要简单得多
+
+88
+00:01:57,960 --&gt; 00:01:58,720
+在当时
+
+89
+00:01:58,720 --&gt; 00:02:00,000
+有个生物学家叫赫绪理
+
+90
+00:02:00,000 --&gt; 00:02:01,140
+他读完物种起源
+
+91
+00:02:01,140 --&gt; 00:02:01,820
+第一反应是
+
+92
+00:02:01,820 --&gt; 00:02:02,500
+我真傻
+
+93
+00:02:02,500 --&gt; 00:02:03,740
+之前这么没有想到
+
+94
+00:02:03,740 --&gt; 00:02:04,740
+那为什么简单的那个
+
+95
+00:02:04,740 --&gt; 00:02:05,920
+反而会晚了200年了
+
+96
+00:02:05,920 --&gt; 00:02:06,720
+陶泽轩说
+
+97
+00:02:06,720 --&gt; 00:02:08,240
+因为达尔文这个人特别会讲
+
+98
+00:02:08,240 --&gt; 00:02:09,640
+他用大白话的英文写
+
+99
+00:02:09,640 --&gt; 00:02:10,540
+一个方程都不用
+
+100
+00:02:10,540 --&gt; 00:02:12,220
+而牛顿他是用拉丁文写的
+
+101
+00:02:12,220 --&gt; 00:02:13,840
+他为了讲清楚自己在干嘛
+
+102
+00:02:13,840 --&gt; 00:02:15,420
+还顺手发明了一套新的数学
+
+103
+00:02:15,420 --&gt; 00:02:16,920
+而且牛顿还藏着噎着
+
+104
+00:02:16,920 --&gt; 00:02:18,540
+他最好的想法会留着不发
+
+105
+00:02:18,540 --&gt; 00:02:19,940
+怕对手占便宜
+
+106
+00:02:19,940 --&gt; 00:02:20,740
+而直到20年后
+
+107
+00:02:20,740 --&gt; 00:02:22,320
+有人用大白话重新讲了一遍
+
+108
+00:02:22,320 --&gt; 00:02:23,840
+这个理论才真正被传开
+
+109
+00:02:23,840 --&gt; 00:02:24,680
+陶泽轩说
+
+110
+00:02:24,680 --&gt; 00:02:25,600
+把话说清楚
+
+111
+00:02:25,600 --&gt; 00:02:26,420
+把人说服
+
+112
+00:02:26,420 --&gt; 00:02:27,600
+本来就是科学的一部分
+
+113
+00:02:27,600 --&gt; 00:02:28,580
+而这件事情
+
+114
+00:02:28,580 --&gt; 00:02:29,560
+AI现在还学不会
+
+115
+00:02:29,560 --&gt; 00:02:31,300
+因为你没有办法给说服力打分
+
+116
+00:02:31,300 --&gt; 00:02:32,040
+说白了
+
+117
+00:02:32,040 --&gt; 00:02:33,560
+AI他能一口气给你摆个方案
+
+118
+00:02:33,560 --&gt; 00:02:35,380
+但是把话说到别人心里去
+
+119
+00:02:35,380 --&gt; 00:02:36,800
+这个事情还是给你自己来
+
+120
+00:02:36,800 --&gt; 00:02:38,100
+他在访谈里面还说了一句
+
+121
+00:02:38,100 --&gt; 00:02:38,900
+我觉得很重要的话
+
+122
+00:02:38,900 --&gt; 00:02:41,180
+我们正在经历一场认知上的各拜尼革命
+
+123
+00:02:41,180 --&gt; 00:02:42,180
+以前我们以为
+
+124
+00:02:42,180 --&gt; 00:02:43,720
+人的智能就是宇宙的中心
+
+125
+00:02:43,720 --&gt; 00:02:44,780
+而现在才发现
+
+126
+00:02:44,780 --&gt; 00:02:46,900
+我们旁边还站着一种完全不一样的智能
+
+127
+00:02:46,900 --&gt; 00:02:47,720
+在访谈的最后
+
+128
+00:02:47,720 --&gt; 00:02:48,320
+组成人问他
+
+129
+00:02:48,320 --&gt; 00:02:50,360
+能不能给刚入行的年轻人预计建议
+
+130
+00:02:50,360 --&gt; 00:02:50,960
+陶泽轩说
+
+131
+00:02:50,960 --&gt; 00:02:52,380
+我们正处一个变革的时代
+
+132
+00:02:52,380 --&gt; 00:02:53,940
+很多以为理所当然的事情
+
+133
+00:02:53,940 --&gt; 00:02:54,940
+可能已经不成立了
+
+134
+00:02:54,940 --&gt; 00:02:56,320
+这是一个令人害怕的时代
+
+135
+00:02:56,320 --&gt; 00:02:57,600
+但也非常令人兴奋
+
+</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://www.youtube.com/watch?v=hxU5PjXuylU" target="_blank" rel="noopener">https://www.youtube.com/watch?v=hxU5PjXuylU</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
