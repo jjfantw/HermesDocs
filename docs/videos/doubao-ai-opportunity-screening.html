@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>用豆包 Agent 做 AI 機會排雷助手：快速評估專案風險與匹配度 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>用豆包 Agent 做 AI 機會排雷助手：快速評估專案風險與匹配度</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-08-20 06:46</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">用豆包 Agent 做 AI 機會排雷助手：快速評估專案風險與匹配度</h1>
+    <div class="meta"><span data-field="channel">📺 楊竹筠</span><span data-field="duration">⏱ 01:59</span><span data-field="published_date">🗓 2026-08-19</span><span data-field="original_language">🌐 zh-Hans</span><a data-field="source_url" href="https://www.youtube.com/watch?v=jZMsThUcfpk" target="_blank" rel="noopener">🔗 https://www.youtube.com/watch?v=jZMsThUcfpk</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>這支 Shorts 示範如何用豆包 PC 端的工作任務模式，快速做出一個「AI 機會排雷助手」網頁。影片先說明現在 AI 專案很多，過去要判斷機會通常得搜資料、看報告、找案例，耗費大量時間。作者接著在豆包中切到工作任務模式，選擇應用生成技能，用自然語言要求建立 AI 機會排雷的輕量網頁。第一版工具能讓使用者填入項目信息、個人經驗、資源與預算，並輸出項目現狀、風險與匹配度分析。作者又追加「保存生成報告、留作對比」的需求，讓工具新增歷史報告與兩份報告並排比較。最後，作者再用可視化技能把兩份報告做成直觀對比看板，強調這不是絕對答案，但能幫助初步看懂專案、看清利弊與潛在風險，把省下的時間留給人來判斷可信性。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">1. 先把機會判斷流程工具化</h2><span class="ts-badge" data-field="lesson_timestamp">00:00</span></div><div class="body" data-field="lesson_body"><p>影片把問題設定在「AI 專案很多、到處是機會」的情境：如果每次都靠人去搜資料、看報告、找案例，判斷一個機會的前置成本會很高。</p><p>作者的做法不是直接判定哪個專案值得做，而是先做一個<strong>AI 機會排雷助手</strong>，讓工具把項目摸清楚、把風險看明白。</p><span class="tag" data-field="lesson_tag">AI 專案評估</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">2. 用豆包工作任務模式生成第一版工具</h2><span class="ts-badge" data-field="lesson_timestamp">00:15</span></div><div class="body" data-field="lesson_body"><p>實作流程是打開豆包 PC 端，切換到工作任務模式，技能選擇應用生成，接著用白話輸入「做一個 AI 機會排雷輕量網頁」之類的需求。</p><p>第一版工具完成後，可填入項目信息、個人經驗、資源與預算，讓工具輸出項目現狀與潛在風險分析。</p><span class="tag" data-field="lesson_tag">豆包 Agent</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">3. 追加歷史報告與多專案對比</h2><span class="ts-badge" data-field="lesson_timestamp">00:34</span></div><div class="body" data-field="lesson_body"><p>作者發現第一版不能把多個項目放在一起比較，於是追加「保存生成報告，留作對比」的指令。影片中強調這是在原工具上直接修改，很快就完成。</p><p>改完後，工具多了歷史報告入口；可以查看以前看過的所有項目，也可以勾選兩個項目，把兩份報告左右放在一起比較。報告存在本地，刷新後也不會丟。</p><span class="tag" data-field="lesson_tag">迭代需求</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">4. 用 AI 短劇案例測試排雷報告</h2><span class="ts-badge" data-field="lesson_timestamp">00:56</span></div><div class="body" data-field="lesson_body"><p>工具調整好後，作者拿上半年爆火的 AI 短劇做測試，填入「想做 AI 短劇」與「十年營運經驗」等資料。</p><p>工具產出的結構化分析報告包含：項目現狀、主要風險清單、匹配度評估、入局路徑建議，以及六個待驗證事項。</p><span class="tag" data-field="lesson_tag">AI 短劇</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">5. 把兩份報告再做成可視化看板</h2><span class="ts-badge" data-field="lesson_timestamp">01:16</span></div><div class="body" data-field="lesson_body"><p>作者把 AI 短劇報告與歷史報告中的 AI 寫作助手 SaaS 專案做比較；影片提到，基於網頁資料，AI 寫作助手 SaaS 的匹配分數比短劇更高一些。</p><p>但兩份完整報告放在一起資訊量仍然很大，所以作者改用工作任務模式裡的可視化技能，要求把兩個報告做成直觀對比看板。</p><p>看板列出十個對比維度，並呈現高風險項對比、條件匹配度、核心邏輯、推薦路徑與成本，讓資訊更容易判讀。</p><span class="tag" data-field="lesson_tag">可視化比較</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">6. 工具是初步判斷輔助，不是絕對答案</h2><span class="ts-badge" data-field="lesson_timestamp">01:45</span></div><div class="body" data-field="lesson_body"><p>作者最後提醒，這類報告和比較不是絕對答案。它的價值在於協助初步看懂項目、瞭解匹配程度，並更快看清項目的利弊與潛在風險。</p><p>省下來的時間，仍然要留給人去結合自己的資源與認知，判斷項目的可信性。</p><span class="tag" data-field="lesson_tag">決策提醒</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">讓 AI 先幫你梳理資訊、看清利弊與風險；最後的可信性判斷，仍要回到自己的資源與認知。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="00:00"><span class="ts">00:00</span><span class="text" data-field="key_point_text">影片開頭指出 AI 專案機會很多，但傳統做法需要搜資料、看報告、找案例，時間與精力成本高。</span></li><li data-field="key_point" data-timestamp="00:15"><span class="ts">00:15</span><span class="text" data-field="key_point_text">作者示範打開豆包 PC 端，切換到工作任務模式，選擇應用生成技能，用白話指令生成 AI 機會排雷助手。</span></li><li data-field="key_point" data-timestamp="00:27"><span class="ts">00:27</span><span class="text" data-field="key_point_text">工具讓使用者填入項目信息、個人經驗、資源與預算，並分析項目現狀與潛在風險。</span></li><li data-field="key_point" data-timestamp="00:34"><span class="ts">00:34</span><span class="text" data-field="key_point_text">第一版缺少多專案對比，作者追加保存生成報告、留作對比的指令，讓工具新增歷史報告功能。</span></li><li data-field="key_point" data-timestamp="00:47"><span class="ts">00:47</span><span class="text" data-field="key_point_text">歷史報告可勾選兩個項目並排比較，且報告存在本地，刷新後不會遺失。</span></li><li data-field="key_point" data-timestamp="00:56"><span class="ts">00:56</span><span class="text" data-field="key_point_text">作者以 AI 短劇為例測試，填入想做 AI 短劇與十年營運經驗後，工具產出結構化分析報告。</span></li><li data-field="key_point" data-timestamp="01:09"><span class="ts">01:09</span><span class="text" data-field="key_point_text">報告包含項目現狀、主要風險清單、匹配度評估、入局路徑建議與六個待驗證事項。</span></li><li data-field="key_point" data-timestamp="01:16"><span class="ts">01:16</span><span class="text" data-field="key_point_text">作者把 AI 短劇報告與歷史報告中的 AI 寫作助手 SaaS 專案比較，看到兩者的匹配分數差異。</span></li><li data-field="key_point" data-timestamp="01:29"><span class="ts">01:29</span><span class="text" data-field="key_point_text">為了讓比較更直觀，作者使用可視化技能，把兩份報告做成對比看板。</span></li><li data-field="key_point" data-timestamp="01:39"><span class="ts">01:39</span><span class="text" data-field="key_point_text">看板列出十個對比維度，包含高風險項對比、條件匹配度、核心邏輯、推薦路徑與成本。</span></li><li data-field="key_point" data-timestamp="01:45"><span class="ts">01:45</span><span class="text" data-field="key_point_text">作者提醒報告與對比不是絕對答案，但能協助初步理解專案、評估匹配程度並看清利弊與風險。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="豆包 Agent">豆包 Agent</span><span class="tag-chip" data-tag="AI 專案評估">AI 專案評估</span><span class="tag-chip" data-tag="機會排雷">機會排雷</span><span class="tag-chip" data-tag="風險分析">風險分析</span><span class="tag-chip" data-tag="AI 短劇">AI 短劇</span><span class="tag-chip" data-tag="SaaS">SaaS</span><span class="tag-chip" data-tag="可視化看板">可視化看板</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>影片無 YouTube 字幕與描述內容，本報告主體依 Whisper 逐字稿整理。</li><li>Whisper 對部分詞彙有漂字，例如 SaaS、排雷、輕量、高風險項等；已在 ASR 漂字對照表標註。</li></ul></div></section>
+  <section class="glossary" data-field="asr_glossary"><h2>🎙️ ASR 漂字對照表</h2><div class="card"><table class="glossary"><tr data-field="asr_glossary_row"><td data-field="heard">AI短劇Agent算力出函</td><td>→</td><td data-field="corrected">AI 短劇、Agent、算力出海</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">AI機會排雷清量網頁</td><td>→</td><td data-field="corrected">AI 機會排雷輕量網頁</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">減載風險</td><td>→</td><td data-field="corrected">潛在風險</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">AI機會排列助手</td><td>→</td><td data-field="corrected">AI 機會排雷助手</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">AI寫作助手SARS項目</td><td>→</td><td data-field="corrected">AI 寫作助手 SaaS 專案</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">AI解讀做手SARS</td><td>→</td><td data-field="corrected">AI 寫作助手 SaaS</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">高峯顯向對比</td><td>→</td><td data-field="corrected">高風險項對比</td></tr></table></div></section>
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="whisper"><div class="raw-label">Whisper 原始輸出<button class="copy-btn" id="raw_whisper_4345911168_srt" onclick="copyRaw(this,'raw_whisper_4345911168_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_whisper_4345911168_text" onclick="copyRawText(this,'raw_whisper_4345911168_text')">📋 複製純文字</button></div><pre>1
+00:00:00,000 --&gt; 00:00:01,620
+现在AI项目还真的特别多
+
+2
+00:00:01,620 --&gt; 00:00:03,420
+AI短剧Agent算力出函
+
+3
+00:00:03,420 --&gt; 00:00:05,060
+之前我们想抓住这种机会
+
+4
+00:00:05,060 --&gt; 00:00:06,140
+少不了要搜资料
+
+5
+00:00:06,140 --&gt; 00:00:06,700
+看报告
+
+6
+00:00:06,700 --&gt; 00:00:07,240
+找案例
+
+7
+00:00:07,240 --&gt; 00:00:08,700
+需要花大量的时间精力
+
+8
+00:00:08,700 --&gt; 00:00:10,380
+但最近我换了一个方法
+
+9
+00:00:10,380 --&gt; 00:00:11,660
+用了一个AI小工具
+
+10
+00:00:11,660 --&gt; 00:00:13,340
+帮我把项目摸清楚
+
+11
+00:00:13,340 --&gt; 00:00:14,580
+把风险看明白
+
+12
+00:00:14,580 --&gt; 00:00:15,360
+方法很简单
+
+13
+00:00:15,360 --&gt; 00:00:16,840
+咱们打开豆包PC端
+
+14
+00:00:16,840 --&gt; 00:00:18,540
+切换到工作任务模式
+
+15
+00:00:18,540 --&gt; 00:00:20,420
+技能选择应用生成
+
+16
+00:00:20,420 --&gt; 00:00:22,080
+然后大白话输入指令
+
+17
+00:00:22,080 --&gt; 00:00:24,440
+记作AI机会排雷清量网页
+
+18
+00:00:24,440 --&gt; 00:00:25,600
+就一会功夫
+
+19
+00:00:25,600 --&gt; 00:00:27,360
+AI机会排雷助手就做好了
+
+20
+00:00:27,360 --&gt; 00:00:28,700
+填入项目信息
+
+21
+00:00:28,700 --&gt; 00:00:29,420
+个人经验
+
+22
+00:00:29,420 --&gt; 00:00:30,480
+资源和预算
+
+23
+00:00:30,480 --&gt; 00:00:32,360
+工具就能分析项目现状
+
+24
+00:00:32,360 --&gt; 00:00:33,040
+减载风险
+
+25
+00:00:33,040 --&gt; 00:00:34,300
+不过生成之后我发现
+
+26
+00:00:34,300 --&gt; 00:00:35,620
+多个项目不能放在一起
+
+27
+00:00:35,620 --&gt; 00:00:36,900
+于是我追加了
+
+28
+00:00:36,900 --&gt; 00:00:38,220
+保存生成报告
+
+29
+00:00:38,220 --&gt; 00:00:39,340
+留作对比的指令
+
+30
+00:00:39,340 --&gt; 00:00:39,960
+分析之后
+
+31
+00:00:39,960 --&gt; 00:00:41,220
+直接在原来的工具上改
+
+32
+00:00:41,220 --&gt; 00:00:42,320
+很快就改好了
+
+33
+00:00:42,320 --&gt; 00:00:44,040
+你看上面多了一个历史报告
+
+34
+00:00:44,040 --&gt; 00:00:45,040
+点进去就能看到
+
+35
+00:00:45,040 --&gt; 00:00:46,640
+以前看过的所有项目
+
+36
+00:00:46,640 --&gt; 00:00:47,340
+更实用的是
+
+37
+00:00:47,340 --&gt; 00:00:49,320
+我可以直接勾选两个项目做对比
+
+38
+00:00:49,320 --&gt; 00:00:51,020
+它会把两份报告左右放在一起
+
+39
+00:00:51,020 --&gt; 00:00:53,360
+而且这些报告是存在本地的
+
+40
+00:00:53,360 --&gt; 00:00:54,760
+刷新以后也不会丢
+
+41
+00:00:54,760 --&gt; 00:00:55,820
+那工具调整好之后
+
+42
+00:00:55,820 --&gt; 00:00:57,920
+我直接拿上半年爆火的AI短剧
+
+43
+00:00:57,920 --&gt; 00:00:58,860
+做了一次测试
+
+44
+00:00:58,860 --&gt; 00:01:00,900
+打开AI机会排列助手
+
+45
+00:01:00,900 --&gt; 00:01:02,100
+简单填一下数据
+
+46
+00:01:02,100 --&gt; 00:01:03,600
+想做AI短剧
+
+47
+00:01:03,600 --&gt; 00:01:05,280
+十年运营经验
+
+48
+00:01:05,280 --&gt; 00:01:06,000
+填完提交之后
+
+49
+00:01:06,000 --&gt; 00:01:07,300
+它很快就给我出了一份
+
+50
+00:01:07,300 --&gt; 00:01:08,540
+结构化的分析报告
+
+51
+00:01:08,540 --&gt; 00:01:09,580
+有项目现状
+
+52
+00:01:09,580 --&gt; 00:01:10,660
+主要风险清单
+
+53
+00:01:10,660 --&gt; 00:01:11,620
+匹配度评估
+
+54
+00:01:11,620 --&gt; 00:01:12,820
+入局路径建议
+
+55
+00:01:12,820 --&gt; 00:01:14,400
+和六个待验证事项
+
+56
+00:01:14,400 --&gt; 00:01:15,240
+挺完整的了
+
+57
+00:01:15,240 --&gt; 00:01:16,600
+那保存短剧项目的报告之后
+
+58
+00:01:16,600 --&gt; 00:01:17,840
+我们和历史报告里的
+
+59
+00:01:17,840 --&gt; 00:01:19,320
+AI写作助手SARS项目
+
+60
+00:01:19,320 --&gt; 00:01:19,920
+做个比较
+
+61
+00:01:19,920 --&gt; 00:01:21,000
+基于网页给到的数据
+
+62
+00:01:21,000 --&gt; 00:01:21,640
+我们可以看到
+
+63
+00:01:21,640 --&gt; 00:01:23,480
+AI解读做手SARS的匹配分数
+
+64
+00:01:23,480 --&gt; 00:01:24,840
+比短剧还要高一些
+
+65
+00:01:24,840 --&gt; 00:01:25,360
+但是呢
+
+66
+00:01:25,360 --&gt; 00:01:26,440
+两份完整报告放在一起
+
+67
+00:01:26,440 --&gt; 00:01:27,920
+其实信息还是挺多的
+
+68
+00:01:27,920 --&gt; 00:01:29,040
+那快速的做出判断
+
+69
+00:01:29,040 --&gt; 00:01:29,880
+还是有点费劲
+
+70
+00:01:29,880 --&gt; 00:01:31,600
+所以我就在工作任务模式里
+
+71
+00:01:31,600 --&gt; 00:01:33,120
+选择了可视化技能
+
+72
+00:01:33,120 --&gt; 00:01:34,280
+说出把两个报告
+
+73
+00:01:34,280 --&gt; 00:01:35,920
+做成直观对比看板的需求
+
+74
+00:01:35,920 --&gt; 00:01:36,300
+不一会儿
+
+75
+00:01:36,300 --&gt; 00:01:37,180
+它就给我做出了这个
+
+76
+00:01:37,180 --&gt; 00:01:38,520
+看着就信息多了
+
+77
+00:01:38,520 --&gt; 00:01:39,980
+它列出了十个对比维度
+
+78
+00:01:39,980 --&gt; 00:01:41,340
+还有高峰显向对比
+
+79
+00:01:41,340 --&gt; 00:01:42,360
+条件匹配度
+
+80
+00:01:42,360 --&gt; 00:01:43,220
+还有核心逻辑
+
+81
+00:01:43,220 --&gt; 00:01:44,700
+和推荐路径和成本
+
+82
+00:01:44,700 --&gt; 00:01:45,180
+那当然了
+
+83
+00:01:45,180 --&gt; 00:01:46,040
+这个报告和对比呢
+
+84
+00:01:46,040 --&gt; 00:01:47,000
+也不是绝对答案
+
+85
+00:01:47,000 --&gt; 00:01:48,720
+但是对于初步看懂项目
+
+86
+00:01:48,720 --&gt; 00:01:49,680
+了解匹配程度
+
+87
+00:01:49,680 --&gt; 00:01:50,740
+是真的方便
+
+88
+00:01:50,740 --&gt; 00:01:51,560
+有了AI工具
+
+89
+00:01:51,560 --&gt; 00:01:52,460
+帮忙梳理信息
+
+90
+00:01:52,460 --&gt; 00:01:53,500
+看清项目的利弊
+
+91
+00:01:53,500 --&gt; 00:01:54,380
+和潜在风险
+
+92
+00:01:54,380 --&gt; 00:01:55,220
+省下的时间
+
+93
+00:01:55,220 --&gt; 00:01:56,060
+就可以留给我们
+
+94
+00:01:56,060 --&gt; 00:01:57,620
+去结合自己的资源和认知
+
+95
+00:01:57,620 --&gt; 00:01:59,160
+判断项目的可信性
+
+</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://www.youtube.com/watch?v=jZMsThUcfpk" target="_blank" rel="noopener">https://www.youtube.com/watch?v=jZMsThUcfpk</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

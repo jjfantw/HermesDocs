@@ -1,5 +1,11 @@
 [
   {
+    "title": "用豆包 Agent 做 AI 機會排雷助手：快速評估專案風險與匹配度 - Hermes Docs",
+    "url": "videos/doubao-ai-opportunity-screening.html",
+    "date": "2026-08-19 22:46",
+    "content": "用豆包 Agent 做 AI 機會排雷助手：快速評估專案風險與匹配度 - Hermes Docs 返回首頁 用豆包 Agent 做 AI 機會排雷助手：快速評估專案風險與匹配度 發布時間：2026-08-20 06:46 🌙 YouTube 影片重點整理 用豆包 Agent 做 AI 機會排雷助手：快速評估專案風險與匹配度 📺 楊竹筠 ⏱ 01:59 🗓 2026-08-19 🌐 zh-Hans 🔗 https://www.youtube.com/watch?v=jZMsThUcfpk 這支 Shorts 示範如何用豆包 PC 端的工作任務模式，快速做出一個「AI 機會排雷助手」網頁。影片先說明現在 AI 專案很多，過去要判斷機會通常得搜資料、看報告、找案例，耗費大量時間。作者接著在豆包中切到工作任務模式，選擇應用生成技能，用自然語言要求建立 AI 機會排雷的輕量網頁。第一版工具能讓使用者填入項目信息、個人經驗、資源與預算，並輸出項目現狀、風險與匹配度分析。作者又追加「保存生成報告、留作對比」的需求，讓工具新增歷史報告與兩份報告並排比較。最後，作者再用可視化技能把兩份報告做成直觀對比看"
+  },
+  {
     "title": "AI 能省 5 倍時間，但真正決定結果的那一步，還是他自己 - Hermes Docs",
     "url": "videos/tao-ai-science-communication.html",
     "date": "2026-08-19 22:43",
