@@ -1,5 +1,11 @@
 [
   {
+    "title": "Graph Engineering 解析，AI 圈新名詞到底在紅什麼？ - Hermes Docs",
+    "url": "videos/graph-engineering-ai-workflow.html",
+    "date": "2026-08-22 13:23",
+    "content": "Graph Engineering 解析，AI 圈新名詞到底在紅什麼？ - Hermes Docs 返回首頁 Graph Engineering 解析，AI 圈新名詞到底在紅什麼？ 發布時間：2026-08-22 21:23 🌙 YouTube 影片重點整理 Graph Engineering 解析，AI 圈新名詞到底在紅什麼？ 📺 Gary Chen ⏱ 16:31 🗓 2026-08-22 🌐 zh-Hant 🔗 https://youtu.be/CKKJuFVMvXQ 這支影片把 Graph Engineering 定位成一種把分工、路由、context 與驗收機制畫出來並明確化的架構思維，而不是全新的 buzzword。講者先比較 Prompt、Context、Harness、Loop、Graph 五個概念：前幾層偏向讓單一執行者做好任務，Graph 則處理多個執行者、工具、傳統程式與人類之間如何分工協作。影片指出 Graph 的三個核心零件是 node、edge、state：node 負責獨立工作單元，edge 決定資料流與路由條件，state 則記錄最新資料、進度與審核結果"
+  },
+  {
     "title": "要怎麼擺脫日復一日的平庸生活？教你善用「WOOP」！ - Hermes Docs",
     "url": "videos/woop-escape-mediocrity.html",
     "date": "2026-08-22 12:35",

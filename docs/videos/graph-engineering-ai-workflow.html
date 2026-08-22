@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Graph Engineering 解析，AI 圈新名詞到底在紅什麼？ - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>Graph Engineering 解析，AI 圈新名詞到底在紅什麼？</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-08-22 21:23</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">Graph Engineering 解析，AI 圈新名詞到底在紅什麼？</h1>
+    <div class="meta"><span data-field="channel">📺 Gary Chen</span><span data-field="duration">⏱ 16:31</span><span data-field="published_date">🗓 2026-08-22</span><span data-field="original_language">🌐 zh-Hant</span><a data-field="source_url" href="https://youtu.be/CKKJuFVMvXQ" target="_blank" rel="noopener">🔗 https://youtu.be/CKKJuFVMvXQ</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>這支影片把 Graph Engineering 定位成一種把分工、路由、context 與驗收機制畫出來並明確化的架構思維，而不是全新的 buzzword。講者先比較 Prompt、Context、Harness、Loop、Graph 五個概念：前幾層偏向讓單一執行者做好任務，Graph 則處理多個執行者、工具、傳統程式與人類之間如何分工協作。影片指出 Graph 的三個核心零件是 node、edge、state：node 負責獨立工作單元，edge 決定資料流與路由條件，state 則記錄最新資料、進度與審核結果。講者用四人東京五天旅行規劃作為例子，說明需求規格化後可平行分派交通、住宿、景點 node，再 fan-in 到合併 node，交由 verifier 檢查時間、預算、來源與限制，最後由真人審核。Graph 的價值在於降低 context 污染、讓工具專業化、保留可觀測紀錄、支援局部重跑，並把「做完」與「做對」區分開來。影片最後建議新手先手動實踐：定義交付物與成功標準、拆出必要 node、用多個 AI 對話視窗分工，跑順後再考慮自動化，同時提醒不是每個簡單任務都需要硬套 Graph。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">Graph Engineering 是把腦中的流程變成可執行地圖</h2><span class="ts-badge" data-field="lesson_timestamp">0:00</span></div><div class="body" data-field="lesson_body"><p>講者一開始先降低新名詞焦慮：Graph Engineering 很像 agent orchestration，也與 n8n 或 workflow automation 裡的任務拆解、條件分支、平行處理、狀態管理、人工審核相近。</p><p>它真正有幫助的地方，是把原本存在腦中的分工、路由、context 與驗收機制畫出來並講清楚，避免 Agent 每走一步都回頭問人類下一步、資料放哪裡、結果能不能用。</p><p>因此 Graph Engineering 要解的不是「怎麼叫 AI 做事」，而是<strong>複雜工作要如何流動</strong>：誰做什麼、資料怎麼交接、哪裡要檢查、出錯要退回哪裡、什麼時候必須由真人決定。</p><span class="tag" data-field="lesson_tag">核心定義</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">五個概念不是互斥，而是不同層級的防護網</h2><span class="ts-badge" data-field="lesson_timestamp">2:45</span></div><div class="body" data-field="lesson_body"><p>影片把 Prompt Engineering 定義為交代任務、限制、成功標準與輸出格式；Context Engineering 則是在正確時間提供剛好足夠的資訊，而不是塞越多資料越好。</p><p>Harness Engineering 關注 Agent 的工作環境，例如能否讀檔、執行程式、有哪些權限、能否跑測試與讀 log；Loop Engineering 則讓 Agent 做完先檢查，不合格就修改重跑，直到通過。</p><p>Graph Engineering 站在更高層，處理整體工作如何分工、交接、驗收，包含哪些可以平行、哪些有依賴、每一步 output 要送到哪裡。講者強調 Graph 不代表 Prompt 或 Loop 過時；一張 Graph 裡可以包含多個 Loop，每個 node 也仍需要自己的 Prompt、Context 與 Harness。</p><span class="tag" data-field="lesson_tag">Prompt / Context / Harness / Loop / Graph</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">Graph 的三個零件：node、edge、state</h2><span class="ts-badge" data-field="lesson_timestamp">4:38</span></div><div class="body" data-field="lesson_body"><p>Node 是獨立工作單元，不一定是 AI：可以是 LLM 呼叫、Python 腳本、資料庫查詢、自帶 Loop 的小 Agent，甚至是需要真人按確認的人工審核。設計好的 node 要有清楚 input、嚴格 output 與明確完成條件。</p><p>Edge 是節點之間的連線，決定資料如何傳遞、下一步往哪裡走、哪些工作有依賴、哪些可以平行，以及檢查不通過時要退回哪個 node。</p><p>State 是標準化的共享紀錄，存放旅行日期、人數、預算、候選清單、查核問題、審批結果等最新狀態。它不像聊天紀錄那樣把需求、廢案、草稿、定案混在一起，而是像 Google Sheet 或資料庫，有欄位、有讀寫規則、可存檔、可比對版本，也能在出錯時倒帶。</p><span class="tag" data-field="lesson_tag">架構元件</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">東京旅行案例：fan-out、fan-in、verifier 與局部回溯</h2><span class="ts-badge" data-field="lesson_timestamp">8:07</span></div><div class="body" data-field="lesson_body"><p>影片用四個朋友去東京玩五天、每人預算三萬元、有人想逛街、有人想看美術館、有人吃素、有人膝蓋不好不能每天走超過兩萬步作為例子。</p><p>第一步是需求 node，把零散需求整理成標準旅行規格書並寫入 state。接著交通、住宿、景點三個 node 因為 context 不同且沒有先後依賴，可以從同一個需求節點 fan-out 平行執行。</p><p>三條路徑完成後 fan-in 到合併 node，組成五天行程；但合併不代表可行，所以 verifier 會檢查 check-in 日期、景點營業時間、轉乘時間、飲食與步行限制、總預算。若住宿太貴，只退回住宿 node；若景點公休，只退回景點 node；若轉機太趕，只退回交通 node。Graph 負責宏觀分工與資料流，Loop 則負責局部迭代修正。</p><span class="tag" data-field="lesson_tag">具體案例</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">Graph 解決三個痛點：失焦、不可觀測、做完不等於做對</h2><span class="ts-badge" data-field="lesson_timestamp">11:54</span></div><div class="body" data-field="lesson_body"><p>第一個痛點是 context 污染與工具失焦。把所有任務塞在同一個長對話裡，會讓模型分不清過期廢案與最新決定；把訂房、地圖、搜尋、算數學、串 API 都塞給同一個 Agent，也會讓工具選擇失焦。Graph 的解法是 context 隔離與工具專業化。</p><p>第二個痛點是缺乏可觀測性與無法局部重跑。Graph 會保留每個 node 的輸入、輸出、路由選擇與驗收紀錄，當 verifier 發現問題時，可以精準定位並只重跑相關分支。</p><p>第三個痛點是把做完當成做對。LLM 很擅長完成表面任務，例如生成看似合理的機票班表，但不代表真的可購買。Graph 可在關鍵節點加入 verifier 與人工審核，把藏在人腦中的驗收標準明確寫成規則並由系統執行。</p><span class="tag" data-field="lesson_tag">痛點與價值</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">新手先手動搭 Graph，跑順後再自動化</h2><span class="ts-badge" data-field="lesson_timestamp">13:54</span></div><div class="body" data-field="lesson_body"><p>講者建議新手先從純手動版本開始。第一步先定義最終交付物與成功驗收標準，例如旅行計畫要時程可行、符合預算、照顧同行者需求，且關鍵資訊能追溯來源。</p><p>第二步把工作拆成必要 node，為每個 node 寫清楚負責事項、input、output、完成後去哪裡，以及遇到什麼情況不能放行。第三步打開幾個獨立 AI 對話視窗，分別查交通、住宿、景點，再用第四個視窗合併與審核。</p><p>在這個版本裡，人類自己就是 routing system，state 可以是一張表格或幾份文件。先手動跑，才能看見工作流程真正如何運作；流程跑順後，再考慮自動化。</p><span class="tag" data-field="lesson_tag">實作建議</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">07</span><h2 data-field="lesson_title">不要為了新名詞把簡單任務變複雜</h2><span class="ts-badge" data-field="lesson_timestamp">15:36</span></div><div class="body" data-field="lesson_body"><p>影片最後提醒，Graph Engineering 是讓人與 AI 更好協作的架構思維，不是每項任務都要硬套 Graph。</p><p>如果是一次性的簡單任務，一個 prompt 就能完成，就不要硬拆成七個 node 自找麻煩。使用者應該先判斷眼前任務適合哪種工具，再決定要不要引入 Graph。</p><span class="tag" data-field="lesson_tag">適用邊界</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">Graph Engineering 的核心不是追新名詞，而是讓複雜工作清楚知道：現在在哪一站、手上有什麼資料、接下來該往哪裡去。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="0:00"><span class="ts">0:00</span><span class="text" data-field="key_point_text">Graph Engineering 不是全新技術名詞，而是把任務拆解、條件分支、平行處理、狀態管理與人工審核明確化的思考方式。</span></li><li data-field="key_point" data-timestamp="2:45"><span class="ts">2:45</span><span class="text" data-field="key_point_text">Prompt、Context、Harness、Loop、Graph 分別替 AI 的不確定性加上不同層次的防護；Graph 站在整體流程層處理分工、交接與驗收。</span></li><li data-field="key_point" data-timestamp="4:38"><span class="ts">4:38</span><span class="text" data-field="key_point_text">Graph 的三個核心零件是 node、edge、state；node 是工作單元，edge 是資料與流程路由，state 是標準化的進度與資料紀錄。</span></li><li data-field="key_point" data-timestamp="8:07"><span class="ts">8:07</span><span class="text" data-field="key_point_text">以東京旅行規劃為例，需求 node 先把零散需求規格化，再平行分派交通、住宿、景點 node，最後合併成行程。</span></li><li data-field="key_point" data-timestamp="10:05"><span class="ts">10:05</span><span class="text" data-field="key_point_text">Verifier 依照嚴格規則檢查日期、營業時間、移動時間、飲食限制、步行限制與預算；不合格時只退回出錯的分支重做。</span></li><li data-field="key_point" data-timestamp="11:54"><span class="ts">11:54</span><span class="text" data-field="key_point_text">Graph 主要解決三個問題：context 污染與工具失焦、缺乏可觀測性與無法局部重跑、把做完誤當成做對。</span></li><li data-field="key_point" data-timestamp="13:54"><span class="ts">13:54</span><span class="text" data-field="key_point_text">新手可先手動搭 Graph：定義交付物與驗收標準、拆解 node、用多個獨立 AI 對話視窗分工，自己扮演 routing system。</span></li><li data-field="key_point" data-timestamp="15:36"><span class="ts">15:36</span><span class="text" data-field="key_point_text">Graph Engineering 是協作架構思維，不代表每項任務都要變複雜；一次性簡單任務仍可用單一 prompt 完成。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="Graph Engineering">Graph Engineering</span><span class="tag-chip" data-tag="AI Agent">AI Agent</span><span class="tag-chip" data-tag="Context Engineering">Context Engineering</span><span class="tag-chip" data-tag="Loop Engineering">Loop Engineering</span><span class="tag-chip" data-tag="Workflow Automation">Workflow Automation</span><span class="tag-chip" data-tag="Verifier">Verifier</span><span class="tag-chip" data-tag="State Management">State Management</span><span class="tag-chip" data-tag="人機協作">人機協作</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>youtube-transcript-api 未抓到逐字稿；本報告內容改用 yt-dlp 取得的官方 zh-TW 字幕與影片 description。</li></ul></div></section>
+  
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="description"><div class="raw-label">YouTube description<button class="copy-btn" id="raw_description_4343059264_srt" onclick="copyRaw(this,'raw_description_4343059264_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_description_4343059264_text" onclick="copyRawText(this,'raw_description_4343059264_text')">📋 複製純文字</button></div><pre>加入我的 Patreon，查看完整文章還有提示詞模板：https://www.patreon.com/GaryChen/posts/graph-4-zhong-167012666
+--
+把一個 prompt 丟給 Agent 就想讓它全部搞定，結果每走一步都要回頭問你，最後你只是把自己變成了人肉 routing system。Graph Engineering 就是在解決這件事：把工作拆成一張地圖，講清楚誰做什麼、資料怎麼交接、哪裡要檢查、出錯退回哪裡。這支影片會先釐清 Prompt、Context、Harness、Loop、Graph 五個概念的差別，拆解 node、edge、state 三個核心零件，用一趟東京旅行規劃完整走一遍，最後告訴你不會寫程式要怎麼親手搭出第一張 Graph。
+
+📌 時間戳
+0:00 又一個 AI 新名詞？
+2:45 五個概念差在哪
+4:38 Graph 的三個零件
+8:07 旅行規劃走一遍
+11:54 Graph 解決三個問題
+13:54 不寫程式也能做
+
+📢 追蹤我的頻道
+👍 覺得有幫助請按讚、訂閱、開小鈴鐺！
+
+#GraphEngineering #AIAgent #ContextEngineering #AI工作流 #提示詞</pre></div><div class="raw-block" data-field="raw_source_item" data-raw-type="transcript"><div class="raw-label">yt-dlp zh-TW subtitles (cleaned)<button class="copy-btn" id="raw_transcript_4343059584_srt" onclick="copyRaw(this,'raw_transcript_4343059584_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_transcript_4343059584_text" onclick="copyRawText(this,'raw_transcript_4343059584_text')">📋 複製純文字</button></div><pre>[0:00] 上個月我們才聊完 Loop Engineering
+[0:01] 最近 Peter Steinberger 在 X 上面又發了一篇推文說
+[0:04] Are we still talking loops or did we shift to graphs yet?
+[0:07] 我們還在討論 Loop 嗎？還是大家已經轉向 Graph 了？
+[0:10] 怎麼又有新名詞了？但先別慌
+[0:12] 我不覺得 Graph Engineering 是什麼全新的東西
+[0:15] 它很像 agents orchestration
+[0:17] 或者你如果用過 n8n 也會覺得很眼熟
+[0:19] 任務拆解，條件分支，平行處理，狀態管理，人工審核
+[0:24] 這些東西早就在 workflow automation 和各種 agent framework 裡存在很久
+[0:28] 但它也不全然是一個 buzzword
+[0:29] 對我來說 Graph Engineering 更像一種思考方式
+[0:32] 把原本存在你腦袋裡的分工，路由， context 和驗收機制
+[0:36] 畫出來，講清楚
+[0:38] 它真正有幫助的地方在於
+[0:39] 幫我們想清楚該怎麼使用 AI ，或者指揮一群 agents
+[0:42] 很多人都希望把一個 prompt 丟給 Agent
+[0:44] 它就能自動把所有任務搞定
+[0:46] 但實際把 Agent 放進真實工作流之後
+[0:48] 你就會發現最難的根本不是叫它做事
+[0:51] 而是讓它搞清楚
+[0:52] 現在做到哪裡了？下一步要做什麼？
+[0:55] 哪裡需要先檢查？做錯了又該回到哪一步重來？
+[0:58] 如果沒有這些控制， Agent 看起來像自動駕駛
+[1:01] 實際上你整路都提心吊膽坐在旁邊幫它扶方向盤
+[1:04] 它每走一步就回頭問你
+[1:06] 下一步呢？這份資料要放哪裡？
+[1:08] 這個結果可以直接用嗎？錯了要全部重來嗎？
+[1:11] 你原本是想把工作交出去給 AI
+[1:13] 最後卻只是把自己變成了人肉 routing system
+[1:17] Graph Engineering 要處理的正是這個問題
+[1:19] 它把複雜的工作拆成一張清晰的工作地圖
+[1:22] 清清楚楚定義好
+[1:23] 誰負責什麼，資料怎麼交接，哪裡需要檢查
+[1:26] 出錯了退回哪裡
+[1:28] 以及什麼時候一定要由真人介入做決定
+[1:30] 所以關鍵在於
+[1:32] 當你拿到一個大任務的時候，一定要先停下來
+[1:35] 想清楚工作要怎麼流動
+[1:37] 今天這支影片
+[1:38] 我會先幫大家快速釐清
+[1:39] Prompt ， Context ， Harness ， Loop 和 Graph 這五個概念的差別
+[1:43] 接著聊聊 Graph Engineering 最核心的三個零件
+[1:46] 也就是 node ， edge 和 state
+[1:48] 然後我們會用一個旅行規劃的具體案例帶大家走一遍流程
+[1:53] 最後，就算你完全不寫程式
+[1:54] 我也會分享一般人要怎麼直接用幾個 AI 對話視窗
+[1:57] 親手搭出自己的第一張 Graph
+[2:00] AI 圈之所以一直冒出新名詞
+[2:02] 背後其實是因為同一個核心問題到現在都還沒被徹底解決
+[2:06] 到底要怎麼讓輸出不穩定的 AI
+[2:08] 可靠地把一整份複雜工作做完？
+[2:10] 傳統程式只要輸入跟規則不變
+[2:12] 執行路徑跟輸出就絕對穩定
+[2:14] 但 LLM 不一樣，同一個 prompt 你問兩次
+[2:16] 就可能拿到兩個完全不同的答案
+[2:19] 更麻煩的是， AI 講錯話的時候
+[2:21] 通常不會自己舉手說我這裡算錯了
+[2:24] 模型能回答，只代表它有能力產生文字
+[2:27] 不代表這個結果可以直接交付
+[2:29] 如果任務只有一步，你還可以一眼看出來
+[2:31] 但當任務拉長到十個步驟
+[2:33] 前面一個看似合理的小小錯誤
+[2:35] 就可能一路滾雪球傳到最後
+[2:37] 所以 Prompt ， Context ， Harness ， Loop ， Graph
+[2:40] 這些東西其實本質上都是想替 AI 的不確定性
+[2:43] 加上不同維度的防護網
+[2:45] Prompt Engineering 的重點在於怎麼交代
+[2:48] 你要做什麼，有哪些限制
+[2:50] 成功標準是什麼
+[2:51] 最後要用什麼格式交回來
+[2:53] 這些都是 Prompt 的範圍
+[2:55] Context Engineering 的重點在於
+[2:57] 你要在正確的時間給到 AI Agent 正確且剛好足夠的資訊
+[3:01] 不是資料越多越好，而是這一步真正需要什麼
+[3:04] 你叫 AI 寫一封客戶回信
+[3:06] 它需要看到客戶的問題，公司政策和語氣要求
+[3:09] 不需要順便讀整間公司三年來的會議紀錄
+[3:13] Harness Engineering 的重點則在於 Agent 的整個工作環境
+[3:16] Agent 能不能讀檔，能不能執行程式
+[3:18] 有哪些權限，做完之後能不能跑測試
+[3:20] 看到測試結果和 log
+[3:22] 而 Loop Engineering 的重點在於
+[3:24] 怎麼讓一個 Agent 反覆工作和停止
+[3:26] 做完先檢查結果，不合格就修改，再跑一次，直到通過
+[3:30] Graph Engineering 則是整體工作怎麼分工，交接和驗收
+[3:33] 哪些工作一定要先做，哪些可以同時開始
+[3:35] 還有這一步的 output 要送到哪裡
+[3:38] 這五個概念完全不是非此即彼的競爭關係
+[3:40] 一張 Graph 裡面可以包含好幾個 Loop
+[3:42] 而每一個 node 裡的 Agent
+[3:44] 也都需要自己的 Prompt ， Context 和 Harness
+[3:46] Graph 的出現絕對不代表 Prompt 沒用了
+[3:49] 更不代表 Loop 過時了
+[3:51] 每一層都在解決上一層管不到的盲點
+[3:53] 前面四層主要是在優化單一執行者要怎麼做好一件事
+[3:56] 而 Graph Engineering 則是站到制高點
+[3:58] 解決多個執行者，工具，傳統程式和人類之間
+[4:01] 要怎麼分工協作
+[4:03] 現在大家開始討論 Graph
+[4:04] 正是因為當任務變得越來越長，越來越複雜
+[4:07] 問題已經不只是某一個 Agent 聰不聰明
+[4:09] 而是整體流程該如何協同作戰
+[4:12] 要理解 Graph Engineering
+[4:13] 最簡單的方法就是想像那種我們常看的流程圖
+[4:16] 就是一個個方框用箭頭連在一起
+[4:18] 有些地方分岔，有些地方匯合
+[4:20] 但千萬別以為畫一張流程圖就叫 Graph Engineering
+[4:23] 畫圖只是給人看的
+[4:25] Graph Engineering 真正要設計的
+[4:26] 是這張圖背後一套真正能自動跑起來的系統結構
+[4:30] 它必須明確告訴系統
+[4:31] 每一步要做什麼，輸入什麼，輸出什麼
+[4:34] 下一步往哪走，什麼條件才算完成
+[4:36] 以及萬一失敗了該退回哪裡
+[4:38] 而一張 Graph 最核心的三個零件就是 node ， edge 和 state
+[4:42] 接下來我會用規劃一趟旅行的具體流程來帶大家理解
+[4:46] 我們先來看 node
+[4:47] Node 就是一個獨立的工作單元
+[4:49] 也就是流程圖裡的一個方框
+[4:52] 這個方框裡面執行的東西非常靈活
+[4:53] 不一定非得是 AI 不可
+[4:55] 它可以是一次簡單的 LLM 呼叫，一段 Python 腳本
+[4:58] 一個資料庫查詢
+[4:59] 也可以是一個自帶 Loop 的完整小 Agent
+[5:01] 在裡面自動搜尋，檢查，重試
+[5:04] 甚至連需要真人按確認的人工審核
+[5:08] 本身也是一個 node
+[5:08] 所以 Node 不等於 Agent
+[5:11] Graph Engineering 並不是要你把所有環節都換成 AI
+[5:13] 很多確定性的工作
+[5:15] 像是加總預算，檢查日期格式，驗證網址有沒有缺漏
+[5:19] 用傳統程式寫三行 code 就搞定了
+[5:22] 速度快，成本是零，而且百分之百精準
+[5:25] 硬要派一個大語言模型去幫你按計算機
+[5:27] 除了浪費 token 跟增加出錯機率，沒有任何好處
+[5:31] 一個設計良好的 node ，核心就是三件事
+[5:33] 清楚的 input （輸入），嚴格的 output （輸出）和明確的完成條件
+[5:37] 比方說負責找住宿的 node
+[5:39] 它的 input 就是日期，人數，地點和每晚預算
+[5:43] output 則固定是三個住宿方案
+[5:45] 而且每個方案都必須包含價格，地點
+[5:47] 取消條款和原始訂房連結
+[5:50] 第二個零件是 edge
+[5:51] Edge 就是節點之間的連線
+[5:53] 它決定了資料怎麼傳遞，下一步該往哪裡走
+[5:56] 代表的是工作之間的依賴關係與路由邏輯
+[5:58] 而不是單純拿一條線把兩個方框連起來
+[6:01] 比方說
+[6:02] 住宿跟交通方案還沒找齊之前
+[6:04] 行程合併 node 就絕對不能啟動
+[6:06] 這就是一種依賴限制
+[6:07] 而如果條件已經齊全
+[6:09] 交通，住宿和景點三個 node 就可以同時觸發，平行執行
+[6:13] 這也是由 edge 的路由規則來決定的
+[6:16] Edge 可以是單純的固定路徑，像是 A 做完直接交給 B
+[6:19] 但也可以是條件式分支
+[6:21] 比方說檢查通過，就送去給真人確認
+[6:24] 檢查不通過，就把錯誤訊息退回給原本的 node 要求重做
+[6:27] 如果執行到一半發現必要資訊不足
+[6:30] edge 還可以把流程暫停，跳去向人類提問
+[6:32] 拿到答案後再繼續往下走
+[6:34] 第三個零件叫 state
+[6:36] 最簡單的理解方式
+[6:37] 想像你在玩大地遊戲
+[6:38] 手上那張闖關卡就是 state
+[6:40] 上面記錄著你的隊伍資訊
+[6:42] 每一關收集到的結果，現在做到第幾關
+[6:45] 還有關主的批改紀錄
+[6:47] 每過一關，闖關卡上的內容就會更新一次
+[6:50] 以旅行規劃來說
+[6:51] state 裡面存放的就是
+[6:53] 旅行日期，人數，總預算
+[6:55] 交通候選名單，住宿候選名單，景點清單
+[6:58] 合併後的第一版行程，查核抓到的問題清單
+[7:01] 以及最後人類的審批結果
+[7:03] 每個 node 不需要，也不應該看到整個 state 的全部內容
+[7:07] 住宿 node 只需要讀取日期，人數，地點和住宿預算
+[7:10] 找完後把住宿結果寫回 state
+[7:12] 景點 node 只需要讀取同行者興趣和可用時段
+[7:16] 產出後再寫回 state
+[7:17] 這樣做可以讓每個 node 的 context 保持乾淨精準
+[7:20] 出問題時也立刻知道是哪筆資料被誰寫壞了
+[7:23] 很多人會問 state 跟一般的聊天紀錄有什麼差別？
+[7:26] 聊天紀錄就像是把所有文件，便利貼跟草稿
+[7:29] 一股腦全堆在同一張桌子上
+[7:31] 前面的需求，中間的廢案，最後的定案全都混在一起
+[7:34] AI 越讀越容易眼花
+[7:36] 但正式的 state 就像一張有標準欄位的 Google Sheet 或資料庫
+[7:40] 日期就是日期，預算數字就是預算數字
+[7:43] 審核狀態就是審核狀態
+[7:45] 它有嚴格的讀寫規則，可以隨時被存檔，版本比對
+[7:48] 甚至在出錯時直接倒帶恢復
+[7:51] 我們快速複習這三大要素
+[7:52] Node 負責把具體的事做好
+[7:54] Edge 決定資料與流程下一步往哪走
+[7:57] State 隨時記錄當前進度與最新資料
+[8:00] 這三者結合起來
+[8:01] 你的 AI 系統才會真正擁有方向感
+[8:03] 清楚知道自己在哪一站，手上有什麼資料
+[8:05] 接下來該往哪裡去
+[8:07] 我們直接用規劃一趟多人旅行作為案例
+[8:10] 假設四個朋友要去東京玩五天
+[8:12] 每個人預算三萬元
+[8:13] 有人想逛街買衣服，有人想看美術館
+[8:16] 其中一個人吃素
+[8:18] 還有一個人膝蓋不好，每天不能走超過兩萬步
+[8:21] 如果你只是把這些條件通通丟給一個 AI
+[8:24] 叫它幫我排一份東京五天四夜行程
+[8:27] 它當然排得出來
+[8:28] 但過程中或許會有很多規劃上的小瑕疵跟不細心
+[8:32] 那如果換成 Graph Engineering 的架構來處理
+[8:35] 整趟流程會長什麼樣呢？
+[8:37] 第一步，進入需求 node
+[8:39] 這個 node 先不急著排景點
+[8:40] 而是專心把零散的需求規格化
+[8:42] 整理出
+[8:43] 日期，出發地，目的地，人數，總預算
+[8:46] 每晚住宿預算
+[8:47] 以及每個人的飲食和行動限制
+[8:49] 還有哪些是絕對不能接受的雷點
+[8:51] Input 是大家七嘴八舌的需求
+[8:54] output 是一份標準結構的旅行規格書
+[8:56] 並直接寫入 state ，作為後續所有 node 的共通基準
+[9:00] 第二步，工作開始平行分流
+[9:02] 交通 node 負責搜尋來回航班
+[9:04] 整理機場到市區的交通路線並預估交通時間
+[9:07] 產出包含班次，票價，轉乘方式與購票連結的選項
+[9:11] 住宿 node 只拿日期，人數，預算和地點偏好
+[9:14] 專注找出符合條件的飯店
+[9:16] 產出價格，位置，取消條款以及到主要商圈的車程
+[9:20] 景點 node 則根據大家各自的興趣與空檔時段
+[9:23] 篩選出候選景點清單
+[9:25] 營業時間，建議停留時間和景點間的移動距離
+[9:29] 在第一輪蒐集時
+[9:30] 這三個任務需要的 context 截然不同
+[9:32] 彼此也沒有先後依賴，所以完全可以平行同時跑
+[9:35] 從同一個需求節點分流成多條平行路徑
+[9:38] 這在架構上就叫做 fan-out
+[9:40] 第三步
+[9:41] 當三條路徑都完成後，結果會匯流進合併 node
+[9:45] 這個 node 會綜合考量班機抵達時間
+[9:47] 飯店 check-in 位置，景點營業時間和每天的步行步數
+[9:51] 把三組原本各自獨立的資料
+[9:53] 組裝成一份完整的五天行程表
+[9:55] 多條平行路徑重新匯合到一個節點
+[9:57] 這就叫做 fan-in
+[9:59] 但排完行程還不能直接結束
+[10:00] 因為合併只代表資料排在一起了
+[10:02] 不代表這份行程是可行的
+[10:05] 所以第四步，會交給 verifier
+[10:06] Verifier 會依照嚴格的邏輯標準進行全面稽查
+[10:10] 交通跟住宿的 check-in 日期有沒有對上？
+[10:12] 景點當天到底有沒有開門？
+[10:14] 轉乘與移動時間算得合不合理？
+[10:16] 有沒有不小心踩到吃素或走太多路的地雷？
+[10:19] 最後把機票，住宿，門票和交通費全部精算加總
+[10:23] 確認總金額有沒有超支
+[10:25] 如果全部檢查合格
+[10:26] verifier 才會把行程推進到最後的 human approval node
+[10:29] 交給真人決定要不要採用
+[10:31] 但如果查核沒通過
+[10:33] 就會依據條件分支把任務退回
+[10:35] 例如發現總預算超支了五千塊
+[10:37] 而且問題出在住宿太貴
+[10:39] 系統不需要把整份行程全盤推翻
+[10:41] 它只需要把問題精準退回給住宿 node
+[10:44] 要求它在同一個區域找每晚便宜一千塊的替代方案
+[10:47] 住宿修改完畢後
+[10:48] 再回到合併 node 更新行程
+[10:51] 接著再讓 verifier 重驗一次
+[10:53] 如果是某個景點公休
+[10:54] 就只退回給景點 node
+[10:56] 如果是轉機時間太趕，就只退回給交通 node
+[10:58] 哪裡出錯，就退回哪裡修！
+[11:01] 從 verifier 發現問題
+[11:02] 退回前面的 node 修改，再重新驗收
+[11:05] 這條回溯路徑本身就是一個局部 Loop
+[11:07] 所以 Graph 和 Loop 不是二選一的關係
+[11:10] Graph 負責宏觀的架構分工，資料流動與全局驗收
+[11:13] 而 Loop 則負責微觀的迭代修正
+[11:15] 一張大 Graph 裡面
+[11:17] 隨時可以嵌入好幾個局部的 Loop
+[11:19] 最後一步，就是 human approval 人工審核
+[11:22] AI 可以幫你窮舉選項，找出時程衝突
+[11:25] 自動修正邏輯錯誤
+[11:26] 但最終的取捨
+[11:27] 像是要不要為了省三千塊住遠一點
+[11:30] 要不要因為朋友膝蓋痛拿掉這個景點
+[11:32] 要不要冒險買不能退改的特價票
+[11:34] 這些關鍵決定要留給自己
+[11:36] 整張工作地圖跑起來的邏輯非常清楚
+[11:38] 先規格化需求
+[11:39] 讓幾個 agent 去平行 research 交通，住宿以及景點
+[11:43] 最後彙整成行程
+[11:44] 嚴格查核時間，預算與來源
+[11:46] 哪裡有 bug 就局部退回重修
+[11:48] 最後由真人確認放行
+[11:50] 看完這個案例
+[11:51] 我們來總結一下 Graph 到底解決了哪三大難題
+[11:54] 第一個問題是 Context 污染與工具失焦
+[11:57] 當你把所有任務塞在同一個長對話裡
+[11:59] 前面是四個人的聊天需求
+[12:00] 中間是航班搜尋記錄
+[12:02] 後面又貼了一堆飯店跟景點連結
+[12:04] 中間再來回改了五六輪
+[12:05] 此時模型的 context 會變得又長又髒
+[12:07] 它根本分不清楚哪些是過期廢案
+[12:09] 哪些才是最新決定
+[12:11] 工具也是同樣道理
+[12:12] 如果你把訂房，地圖，搜尋，算數學，串 API
+[12:16] 全塞給同一個 Agent
+[12:17] 它每走一步都要在十幾個工具裡猶豫不決
+[12:20] 看似全能，注意力卻完全渙散
+[12:22] 而 Graph 的解法就是 Context 隔離與工具專業化
+[12:25] 每個 node 都有自己負責的任務
+[12:27] 只需要讀取自己需要的 state 資料
+[12:29] 只配備自己需要的工具
+[12:31] 住宿 node 專心找飯店
+[12:32] 不需要讀景點介紹
+[12:33] 也不用知道大家在群組裡吵了什麼
+[12:36] 第二個問題是缺乏可觀測性與無法局部重跑
+[12:40] 如果讓單一 Agent 一路蠻幹到底
+[12:42] 只要它一開始選錯了飯店位置
+[12:43] 後面排的景點順序跟移動時間就會全部連鎖崩盤
+[12:46] 最後你拿到一份爛行程
+[12:48] 你根本不知道到底該從哪裡改起
+[12:50] 是要改 prompt ，還是換飯店，還是乾脆整個重來？
+[12:53] 而在 Graph 架構中
+[12:55] 每個 node 的輸入，輸出，路由選擇和驗收紀錄
+[12:57] 都會被清楚保留在 state 裡
+[12:59] 當 verifier 發現移動時間過長
+[13:02] 你可以立刻倒回去看住宿 node 當時
+[13:04] 依據什麼條件挑了這家飯店
+[13:06] 然後只重跑住宿這個分支
+[13:08] 問題可以被精準定位
+[13:10] 除錯和修改的成本降到最低
+[13:13] 第三個問題是 把做完當成做對
+[13:16] LLM 最大的盲點就是特別擅長完成表面任務
+[13:18] 你叫它查最便宜的機票
+[13:20] 它能劈哩啪啦生出一張以假亂真的班表
+[13:22] 但實際上根本買不到那張票
+[13:24] Graph 讓你在關鍵節點設立驗證機制
+[13:26] 也就是前面說到的 verifier ，還有人工審核節點
+[13:29] 雖然驗證器無法百分之百消滅所有幻覺
+[13:31] 但它的價值在於
+[13:33] 把原本藏在你腦袋裡的驗收標準明確寫成規則
+[13:36] 由系統嚴格執行
+[13:38] 設計得好的 Graph
+[13:39] 能讓複雜任務井然有序，可追蹤，可修正
+[13:42] 影片到這邊
+[13:43] 我們已經聊完了 Graph 的本質
+[13:44] 它與其他概念的關聯，核心三大要素
+[13:47] 具體案例以及它解決的痛點
+[13:49] 接著我們聊聊普通人到底要如何親自動手
+[13:52] 搭建出屬於自己的第一張 Graph ？
+[13:54] 如果你是新手
+[13:55] 強烈建議你先從純手動版本開始跑起
+[13:58] 一共分三步
+[13:59] 第一步
+[13:59] 先定義清楚最終交付物與成功驗收標準
+[14:03] 以旅行計畫為例
+[14:04] 你的目標是產出一份時程可行，符合預算
+[14:07] 照顧到同行者需求
+[14:09] 而且關鍵資訊都能追溯到原始來源的行程表
+[14:12] 具體來說
+[14:12] 可行代表每天交通時間合理
+[14:14] 住宿沒有超支，景點營業時間對得上
+[14:17] 這就是你的 output 與 success criteria
+[14:19] 第二步
+[14:20] 把整份工作拆解成必要的 node
+[14:23] 再次強調， node 不一定等於 Agent
+[14:25] 它只是一個獨立的工作單元
+[14:27] 你只需要為每個 node 寫清楚五件事
+[14:29] 它負責什麼，需要什麼 input
+[14:30] 交出什麼 output ，完成後去哪裡
+[14:32] 以及遇到什麼情況絕對不能放行
+[14:35] 例如交通 node 必須交出航班選項
+[14:37] 票價，時間與連結
+[14:38] 如果少了來源網址或票價超支
+[14:41] 就判定為不合格，禁止放行
+[14:44] 第三步
+[14:44] 直接打開幾個獨立的 AI 對話視窗
+[14:47] 手動扮演這張 Graph
+[14:49] 開一個對話專門查交通
+[14:50] 一個對話專門查住宿，一個對話專門排景點
+[14:53] 把整理好的需求規格分別丟給它們
+[14:55] 每個對話只專注做好自己的任務
+[14:58] 絕對不要讓任何一個 AI 去包辦整份行程
+[15:00] 當三份結果都產出後
+[15:02] 再打開第四個對話視窗負責合併
+[15:05] 並依照時間，距離，預算和限制條件進行嚴格審核
+[15:09] 如果發現住宿超支
+[15:10] 就把問題丟回住宿對話要求重新推薦
+[15:13] 景點時間排不下
+[15:14] 就丟回景點對話重新調整
+[15:16] 修改後再重新合併檢查
+[15:18] 最後由你親自決定是否採用
+[15:20] 在這個版本裡
+[15:21] 你就是 routing system
+[15:22] 資料由你搬，下一步由你決定
+[15:24] state 可能只是一張表格或幾份文件
+[15:27] 但你已經在實踐 Graph Engineering
+[15:29] 先手動跑，才能看見這份工作到底怎麼運作
+[15:32] 流程跑順後，再考慮把它自動化
+[15:34] 不要想著一步登天
+[15:36] 最後也希望大家不要對各種新名詞產生焦慮
+[15:39] 看完這支影片之後
+[15:40] 你應該也能感受到 Graph Engineering
+[15:42] 其實就是一種讓我們跟 AI 更好協作的架構思維
+[15:45] 甚至很多人可能一年前就在使用了
+[15:47] 只是從未被 AI 圈大佬點名過
+[15:49] 另外，也絕對不是每一項任務都需要硬套 Graph
+[15:52] AI 系統絕對不是越複雜越好
+[15:54] 你要清楚知道眼前這項任務到底適合哪種工具
+[15:57] 如果是一次性的簡單任務
+[15:58] 一個 prompt 就能搞定的事
+[16:00] 就千萬別硬把它拆成七個 node 自找麻煩
+[16:02] 像我剛剛舉的旅行案例
+[16:04] 其實現在比較前沿的模型就能自己處理了
+[16:06] 沒必要拆得這麼複雜
+[16:07] 但各位還是可以拿一些簡單的任務練練手
+[16:09] 感受一下當流程圖架構師的樂趣
+[16:12] 如果你對 Graph Engineering 有興趣
+[16:14] 我在 Patreon 有放完整的文章教學
+[16:16] 包含更多細節
+[16:17] 能夠幫助你快速了解這個觀念
+[16:19] 有興趣的朋友可以在影片下方資訊欄找到連結
+[16:22] 那以上就是今天的內容，希望對你有所幫助
+[16:25] 各位喜歡的話記得幫我按讚追蹤加分享
+[16:28] 這是我持續創作下去的動力，我們下次見</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://youtu.be/CKKJuFVMvXQ" target="_blank" rel="noopener">https://youtu.be/CKKJuFVMvXQ</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
