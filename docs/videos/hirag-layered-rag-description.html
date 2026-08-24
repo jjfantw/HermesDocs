@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HiRAG 分層知識增強的檢索生成模型 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>HiRAG 分層知識增強的檢索生成模型</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-08-24 19:15</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">HiRAG 分層知識增強的檢索生成模型</h1>
+    <div class="meta"><span data-field="channel">📺 wow</span><span data-field="duration">⏱ 22:58</span><span data-field="published_date">🗓 2025-08-26</span><span data-field="original_language">🌐 zh-Hans</span><a data-field="source_url" href="https://www.youtube.com/watch?v=C3KjcAS2dXQ" target="_blank" rel="noopener">🔗 https://www.youtube.com/watch?v=C3KjcAS2dXQ</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>這部會員專屬影片的公開描述以大型語言模型的「幻覺」問題作為開場，指出模型有時會一本正經地胡說八道，而這會影響 LLM 在嚴肅、專業場景中的實際價值。描述接著介紹檢索增強生成（Retrieval-Augmented Generation, RAG），把它比喻為替 LLM 外掛可隨時查閱的外部知識庫。影片進一步把基於知識圖譜的 RAG 稱為「圖譜 RAG」，重點從零散文字檢索轉向利用知識圖譜中的實體與關係，協助 LLM 理解問題背後的邏輯結構。描述也指出，即使用上知識圖譜，既有圖譜 RAG 方法仍遇到兩個難以迴避的瓶頸。影片因此引出 HiRAG 這個方法，主題是說明為什麼需要新的分層知識增強方法，以及它的創新價值在哪裡。公開描述最後提供論文連結：https://arxiv.org/pdf/2503.10150。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">問題起點：LLM 幻覺影響專業場景可信度</h2><span class="ts-badge" data-field="lesson_timestamp">00:00</span></div><div class="body" data-field="lesson_body"><p>公開描述從「幻覺」切入：模型有時會一本正經地胡說八道。描述特別強調，這不只是技術上的小瑕疵，而是會直接影響 LLM 能否在嚴肅、專業場景中發揮價值。</p><span class="tag" data-field="lesson_tag">問題定義</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">RAG：替 LLM 外掛可查閱的外部知識庫</h2><span class="ts-badge" data-field="lesson_timestamp">00:00</span></div><div class="body" data-field="lesson_body"><p>描述把檢索增強生成（Retrieval-Augmented Generation, RAG）說成一種直觀方法：替原本可能「閉門造車」的 LLM 外掛一個超級大腦，或一個能隨時查閱的外部知識庫。</p><span class="tag" data-field="lesson_tag">Retrieval-Augmented Generation</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">圖譜 RAG：從零散文本轉向實體與關係</h2><span class="ts-badge" data-field="lesson_timestamp">00:00</span></div><div class="body" data-field="lesson_body"><p>公開描述進一步介紹基於知識圖譜的 RAG，也就是「圖譜 RAG」。它不只是檢索零散文本，而是利用知識圖譜中清晰的實體與關係，幫助 LLM 理解問題背後更深層的邏輯結構。</p><p>描述使用的比喻是：原本像翻一堆零散筆記卡片，升級後能看到一張標明概念與連結方式的思維導圖。</p><span class="tag" data-field="lesson_tag">Knowledge Graph RAG</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">HiRAG 的出場：為了解決既有圖譜 RAG 的瓶頸</h2><span class="ts-badge" data-field="lesson_timestamp">00:00</span></div><div class="body" data-field="lesson_body"><p>公開描述指出，即使用上知識圖譜，現有圖譜 RAG 方法仍碰到兩個難以迴避的瓶頸。影片主角 HiRAG 因此被引入，用來說明為什麼需要一種新的方法，以及它的創新價值在哪裡。</p><p>但描述沒有列出這兩個瓶頸的具體內容，也沒有展開 HiRAG 的完整方法細節；在無法播放影片與取得逐字稿的情況下，這些部分不應自行補寫。</p><span class="tag" data-field="lesson_tag">HiRAG</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">這份報告只根據 YouTube 公開描述整理；會員專屬影片本體無法播放，因此未補寫描述沒有明說的 HiRAG 細節。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="00:00"><span class="ts">00:00</span><span class="text" data-field="key_point_text">公開描述指出，LLM 的「幻覺」不是小瑕疵，而是直接影響模型能否在嚴肅、專業場景中發揮價值的核心問題。</span></li><li data-field="key_point" data-timestamp="00:00"><span class="ts">00:00</span><span class="text" data-field="key_point_text">影片描述將 RAG 解釋為替 LLM 外掛可查閱的外部知識庫，用來減少閉門造車式生成。</span></li><li data-field="key_point" data-timestamp="00:00"><span class="ts">00:00</span><span class="text" data-field="key_point_text">描述中的「圖譜 RAG」強調利用知識圖譜裡的實體與關係，而不只是檢索零散文本。</span></li><li data-field="key_point" data-timestamp="00:00"><span class="ts">00:00</span><span class="text" data-field="key_point_text">影片描述用「從零散筆記卡片升級成思維導圖」比喻圖譜 RAG 的結構化理解能力。</span></li><li data-field="key_point" data-timestamp="00:00"><span class="ts">00:00</span><span class="text" data-field="key_point_text">描述指出現有圖譜 RAG 方法仍有兩個瓶頸；HiRAG 被引入作為要解釋的新方法，但公開描述未列出這兩個瓶頸的具體內容。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="HiRAG">HiRAG</span><span class="tag-chip" data-tag="RAG">RAG</span><span class="tag-chip" data-tag="圖譜 RAG">圖譜 RAG</span><span class="tag-chip" data-tag="知識圖譜">知識圖譜</span><span class="tag-chip" data-tag="大型語言模型">大型語言模型</span><span class="tag-chip" data-tag="幻覺">幻覺</span><span class="tag-chip" data-tag="檢索增強生成">檢索增強生成</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>影片目前為 YouTube 頻道會員專屬，未登入會員帳號時無法播放；yt-dlp 與 youtube-transcript-api 均回報 members-only / unplayable。</li><li>沒有可用逐字稿、音訊或影格，因此本報告只整理 YouTube 公開 shortDescription 實際列出的內容。</li><li>公開描述提到既有圖譜 RAG 有兩個瓶頸，但沒有列出具體瓶頸；本報告未自行補寫。</li><li>公開描述引出 HiRAG 的創新價值，但沒有提供完整方法細節；本報告未引用論文內容來假裝影片有講到。</li></ul></div></section>
+  
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="description"><div class="raw-label">YouTube 公開 shortDescription（原文）<button class="copy-btn" id="raw_description_4311214784_srt" onclick="copyRaw(this,'raw_description_4311214784_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_description_4311214784_text" onclick="copyRawText(this,'raw_description_4311214784_text')">📋 複製純文字</button></div><pre>大家可能都听过一个词，叫“幻觉”吧？就是模型有时候会一本正经地胡说八道。这可不仅仅是个技术上的小瑕疵，它直接关系到LLM到底能不能在那些严肃、专业的场景里，真正地发挥价值。
+为了解决这个“幻觉”问题，研究人员们提出了一种非常聪明的技术，叫做检索增强生成，英文是 Retrieval-Augmented Generation，我们通常缩写为 RAG。这个名字听起来有点专业，但它的思路其实非常直观。你可以把它想象成，是给那个有点“闭门造车”的LLM，外挂了一个超级大脑，或者说一个能随时查阅的外部知识库。
+于是，基于知识图谱的RAG，我们可以称之为“图谱RAG”，应运而生。它的想法，就不再仅仅是检索零散的文本了，而是要利用知识图谱里这些清晰的实体和关系，来帮助LLM理解问题背后更深层的逻辑结构。这感觉就像，我们原来是在翻阅一堆零散的笔记卡片，现在，我们升级了，能直接看到一张绘制精美的思维导图，上面清晰地标明了所有概念，以及它们之间是如何连接在一起的。
+这无疑是一个巨大的进步。但是，故事到这里还没完。即便是用上了知识图谱这件利器，现有的图谱RAG方法，依然碰到了两个难以回避的瓶颈。如果我们能把这两个挑战搞清楚，就能真正明白，为什么我们需要像今天的主角——HiRAG——这样一种全新的方法，以及它的创新价值究竟在哪里。
+https://arxiv.org/pdf/2503.10150</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://www.youtube.com/watch?v=C3KjcAS2dXQ" target="_blank" rel="noopener">https://www.youtube.com/watch?v=C3KjcAS2dXQ</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

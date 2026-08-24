@@ -1,5 +1,11 @@
 [
   {
+    "title": "HiRAG 分層知識增強的檢索生成模型 - Hermes Docs",
+    "url": "videos/hirag-layered-rag-description.html",
+    "date": "2026-08-24 11:15",
+    "content": "HiRAG 分層知識增強的檢索生成模型 - Hermes Docs 返回首頁 HiRAG 分層知識增強的檢索生成模型 發布時間：2026-08-24 19:15 🌙 YouTube 影片重點整理 HiRAG 分層知識增強的檢索生成模型 📺 wow ⏱ 22:58 🗓 2025-08-26 🌐 zh-Hans 🔗 https://www.youtube.com/watch?v=C3KjcAS2dXQ 這部會員專屬影片的公開描述以大型語言模型的「幻覺」問題作為開場，指出模型有時會一本正經地胡說八道，而這會影響 LLM 在嚴肅、專業場景中的實際價值。描述接著介紹檢索增強生成（Retrieval-Augmented Generation, RAG），把它比喻為替 LLM 外掛可隨時查閱的外部知識庫。影片進一步把基於知識圖譜的 RAG 稱為「圖譜 RAG」，重點從零散文字檢索轉向利用知識圖譜中的實體與關係，協助 LLM 理解問題背後的邏輯結構。描述也指出，即使用上知識圖譜，既有圖譜 RAG 方法仍遇到兩個難以迴避的瓶頸。影片因此引出 HiRAG 這個方法，主題是說明為什麼需要新的分層知識增強方法"
+  },
+  {
     "title": "AI模型會過時，但這套AI個人檔案可以一直用！ - Hermes Docs",
     "url": "videos/ai-personal-profile-library.html",
     "date": "2026-08-24 10:13",
