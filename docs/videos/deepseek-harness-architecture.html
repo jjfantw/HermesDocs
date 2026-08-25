@@ -1,0 +1,2548 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DeepSeek Harness 框架怎麼設計的？一切皆插件｜架構解析 ｜ 連主迴圈都能換 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>DeepSeek Harness 框架怎麼設計的？一切皆插件｜架構解析 ｜ 連主迴圈都能換</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-08-25 08:13</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">DeepSeek Harness 框架怎麼設計的？一切皆插件｜架構解析 ｜ 連主迴圈都能換</h1>
+    <div class="meta"><span data-field="channel">📺 Jim AI Notebook</span><span data-field="duration">⏱ 16:08</span><span data-field="published_date">🗓 2026-08-18</span><span data-field="original_language">🌐 zh-Hant</span><a data-field="source_url" href="https://www.youtube.com/watch?v=i7ZWtyLzc1Q" target="_blank" rel="noopener">🔗 https://www.youtube.com/watch?v=i7ZWtyLzc1Q</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>這支影片把 DeepSeek Harness 當成一份架構文件來讀：它不是新模型，而是讓模型能呼叫工具、記錄工作、套用權限與沙箱、並在出事時留下可追溯證據的執行環境。影片先把 Harness 比喻成駕馭馬的裝備，說明開放權重如果沒有執行環境，就像有大腦但沒有神經系統。接著比較 Claude Code、Codex、OpenClaw、Hermes 與 Harness 的差異：核心問題不是誰比較強，而是你能改到哪一層。影片的重點是 Harness 站在「連主迴圈都能替換」的層級，透過 Cordis 的插件化、可回收註冊、設定層堆疊與服務命名，讓系統可以被拆、被換、被組合。後半段聚焦工具呼叫與工作記錄：工具執行前先記錄，經過權限與沙箱，執行後還能檢查結果，最後凍結成不可竄改的結果。影片也提醒 Harness 目前是開發者預覽版，內建沙箱不是完整安全邊界，本機介面不代表模型在本機跑，且 agent 成本高度取決於快取命中與尖離峰價格。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">1. Harness 的重點不是模型，而是執行環境</h2><span class="ts-badge" data-field="lesson_timestamp">00:00</span></div><div class="body" data-field="lesson_body"><p>影片開場指出，DeepSeek 這次公開的不是模型，而是讓模型真的能動手做事的執行環境。這件事重要，因為它代表模型公司開始在意模型跑在哪裡、被誰管理、出事時由誰喊停。</p><p>影片用 Harness 的原意「馬具」作比喻：模型是馬，Harness 是韁繩、馬鞍與腳蹬。這些裝備不會讓馬更快，但沒有它們，人根本無法上馬；同理，權重只是大腦參數，沒有執行環境就不能開資料夾、記錄過程、呼叫工具或在危險時停下。</p><span class="tag" data-field="lesson_tag">定位</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">2. 這類 agent 工具真正差在可改到哪一層</h2><span class="ts-badge" data-field="lesson_timestamp">01:52</span></div><div class="body" data-field="lesson_body"><p>影片先用「解決什麼、什麼時候動、碰得到什麼」比較 Claude Code、Codex、OpenClaw、Hermes 與 Harness。Claude Code / Codex 解決模型碰不到專案的問題；OpenClaw 強調資料在自己裝置上；Hermes 強調會跟著使用者一起長大；Harness 則處理想改系統卻改不動的問題。</p><p>接著影片把差異改用房子比喻：第一層像租屋，只能擺家具與掛畫；第二層像買下舊房子，原始碼可改但維護成本也歸你；第三層才是 Harness 的位置，牆本身是一片片可換的，甚至主迴圈本身也是插件。</p><span class="tag" data-field="lesson_tag">工具比較</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">3. Cordis 提供的核心是「所有東西都是插件」</h2><span class="ts-badge" data-field="lesson_timestamp">04:49</span></div><div class="body" data-field="lesson_body"><p>影片說 DeepSeek 沒有從零打造骨架，而是選擇 Cordis 這個做了四年的社群專案。Cordis 想解的是一個軟體工程難題：怎麼讓系統的每一塊都能被替換、疊加、拿掉，同時不弄壞其他部分。</p><p>Harness 文件的第一個設計哲學是「所有東西都是插件」。因此模型轉接、工具清單、驅動 AI 做事的主迴圈都不是特權核心；想要微調主迴圈時，不是去改原本的核心，而是寫一個自己的插件掛上去，再把原本那個拿掉。</p><span class="tag" data-field="lesson_tag">架構核心</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">4. 可卸載與可倒帶，才是真正的熱插拔</h2><span class="ts-badge" data-field="lesson_timestamp">06:40</span></div><div class="body" data-field="lesson_body"><p>影片特別解釋，插件註冊上去的東西在插件被移除時必須整個收回。這對應到日常經驗：很多軟體反安裝後仍留下設定、資料夾或背景影響，因為只做了安裝那半邊。</p><p>Harness 的規則是每一個註冊都要帶移除方法。你加提示詞、工具或監聽器，都透過同一套機制裝上去，也由同一套機制記住如何還原；插件卸載時，做過的事會照順序倒著收回。影片認為這是熱插拔真正可行的原因。</p><span class="tag" data-field="lesson_tag">生命週期</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">5. 設定層與服務命名讓底層實作可替換</h2><span class="ts-badge" data-field="lesson_timestamp">07:30</span></div><div class="body" data-field="lesson_body"><p>影片說 Harness 跑起來的東西是一疊設定層堆出來的：底層包含模型、轉接、工具、儲存、沙箱、權限；上層可以再疊網頁介面、無介面執行、個人設定檔與臨時參數。</p><p>另一個重要設計是服務用固定名字被引用，例如工具叫 Tools、模型叫 LM、工作階段叫 Sessions。其他插件找的是這些名字，而不是某份具體程式碼，因此底層可以換成完全不同實作，上層不必跟著改；啟動順序也能由系統依賴宣告自動計算。</p><span class="tag" data-field="lesson_tag">組態與依賴</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">6. 工具呼叫先記錄，再放行，最後凍結結果</h2><span class="ts-badge" data-field="lesson_timestamp">09:10</span></div><div class="body" data-field="lesson_body"><p>影片把工具呼叫拆成一條比想像更長的路：模型說要跑指令時，第一件事不是執行，而是先把呼叫寫進記錄。這讓系統即使當掉，也查得到當時想做什麼。</p><p>接著工具呼叫會經過權限與沙箱決定放行、阻擋或詢問人。影片強調，如果問不到人，例如沒有介面或沒人在電腦前，就算拒絕，不算通過。工具跑完後還有結果檢查，可以擋下、替換或補話，最後才凍結成不可再改的結果。</p><span class="tag" data-field="lesson_tag">安全與稽核</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">07</span><h2 data-field="lesson_title">7. 「模型看得到的，一定被記下來」是整套設計的支點</h2><span class="ts-badge" data-field="lesson_timestamp">10:00</span></div><div class="body" data-field="lesson_body"><p>影片認為工作階段記錄裡最漂亮的一句是：模型看得到的，一定被記下來。意思是只要某段文字進入送給模型的請求，它就必須能從記錄裡重新拼回來，而且系統會在執行時檢查這件事，做不到就報錯。</p><p>這讓許多功能都變成同一條記錄的衍生品：從某一步分岔出去重跑、關掉電腦明天接續、追查 AI 為什麼刪掉檔案，都可以回到當下的完整脈絡。影片把它比成法院逐字記錄，而不是事後補寫的會議紀要。</p><span class="tag" data-field="lesson_tag">工作階段記錄</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">08</span><h2 data-field="lesson_title">8. 能力接縫必須拆出定義、實作與使用者</h2><span class="ts-badge" data-field="lesson_timestamp">10:49</span></div><div class="body" data-field="lesson_body"><p>影片說能力接縫要有三個角色：定義能力長相的人、真正實作它的人、使用它的人。只有其中一個角色，不算真正的接縫。</p><p>影片用檔案系統與跑指令共用同一個執行環境作例子：當執行環境指向遠端沙箱機器，跑指令工具、終端機與程式碼補全會一起搬過去，不需要各自另外改。關鍵是中間的插座形狀被單獨定義出來。</p><span class="tag" data-field="lesson_tag">可替換性</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">09</span><h2 data-field="lesson_title">9. 防禦性模式把真實傷疤寫成規則</h2><span class="ts-badge" data-field="lesson_timestamp">12:18</span></div><div class="body" data-field="lesson_body"><p>影片介紹另一份文件「防禦性模式」，它不是在講理想設計，而是把真的發生過或差點發生的 bug 寫成規則，防止再犯。</p><p>影片挑了兩條：第一，結果可能同時包含多種狀態，例如程式超時又回報成功，所以超時訊號與結束碼要分開呈現，不能互相遮蔽。第二，關閉要等到真的安靜，不是發出停止指令就離開；要等子程式死透，且先關監聽再殺，避免晚回來的通知亂跑。</p><span class="tag" data-field="lesson_tag">可靠性</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">10</span><h2 data-field="lesson_title">10. 四種模式與實際限制：先玩，不要急著正式上線</h2><span class="ts-badge" data-field="lesson_timestamp">13:10</span></div><div class="body" data-field="lesson_body"><p>影片說安裝後有四種模式：完整版會開檔案、指令、搜尋、規劃與子代理；第二種把工具包成程式碼，讓 AI 用寫程式方式一次呼叫多個工具；第三種極簡，只給指令列與編輯器；第四種是創造者模式，能讓 AI 回頭改正在跑的系統本身，官方標示高度信任，影片建議先不要碰。</p><p>影片也列出限制：Harness 目前是開發者預覽版，之後一定會有不相容變更；內建沙箱網路不受限且其他程式看得到，不能當真正安全邊界；本機網頁介面只是控制台，模型仍在遠端，仍需金鑰與費用。</p><span class="tag" data-field="lesson_tag">風險提醒</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">11</span><h2 data-field="lesson_title">11. Agent 的帳單形狀取決於快取與尖離峰</h2><span class="ts-badge" data-field="lesson_timestamp">14:37</span></div><div class="body" data-field="lesson_body"><p>影片提醒，骨架免費不代表模型免費；agent 工作的成本結構與一般聊天不同，關鍵在快取命中。Agent 一輪一輪跑，每輪都會把前面做過的事重新送入背景，因此很像天天走同一條路的人。</p><p>影片引用官方價目表說，同樣一百萬個字，系統存過與沒存過的價格差 31 倍；也提到官方把一天切成尖峰與離峰，尖峰價格是離峰兩倍，而換算到台灣時間剛好落在上班時段。</p><span class="tag" data-field="lesson_tag">成本</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">12</span><h2 data-field="lesson_title">12. 結論：模型公司開始搶執行環境</h2><span class="ts-badge" data-field="lesson_timestamp">15:30</span></div><div class="body" data-field="lesson_body"><p>影片最後把整份文件收束成一句話：讓一個很複雜的東西，還能被一個人看懂，還敢動手去改。</p><p>如果只記一句，影片建議記「模型看得到的，就一定被記下來」，因為它支撐了倒帶、分岔與查證。對工程師，影片建議可以裝起來玩，但先不要用在正式事情；對看趨勢的人，重點不是框架本身，而是模型公司開始搶執行環境。</p><span class="tag" data-field="lesson_tag">趨勢</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">模型看得到的，就一定被記下來；這句話撐起了倒帶、分岔與查證。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="00:00"><span class="ts">00:00</span><span class="text" data-field="key_point_text">DeepSeek Harness 被定位為模型旁邊的執行環境，不是模型本身；值得看的原因是模型公司開始公開 agent 的骨架設計。</span></li><li data-field="key_point" data-timestamp="01:00"><span class="ts">01:00</span><span class="text" data-field="key_point_text">Harness 的比喻是馬具：模型像馬，Harness 是讓你真正能駕馭它做事的整套裝備。</span></li><li data-field="key_point" data-timestamp="01:52"><span class="ts">01:52</span><span class="text" data-field="key_point_text">影片用三個問題比較 Claude Code、Codex、OpenClaw、Hermes 與 Harness：解決什麼、什麼時候動、碰得到什麼。</span></li><li data-field="key_point" data-timestamp="03:12"><span class="ts">03:12</span><span class="text" data-field="key_point_text">真正的差異是「能改到哪一層」；Harness 站在連主迴圈都能當插件替換的第三層。</span></li><li data-field="key_point" data-timestamp="04:17"><span class="ts">04:17</span><span class="text" data-field="key_point_text">Harness 架構文件短但有態度，甚至建議用 agent 讀程式碼來理解架構，表示文件也寫給 AI 看。</span></li><li data-field="key_point" data-timestamp="04:49"><span class="ts">04:49</span><span class="text" data-field="key_point_text">DeepSeek 沒有從零造骨架，而是選用已存在四年的 Cordis；其核心問題是讓系統每一塊都能被替換、疊加、拿掉而不弄壞其他部分。</span></li><li data-field="key_point" data-timestamp="05:35"><span class="ts">05:35</span><span class="text" data-field="key_point_text">第一個設計哲學是所有東西都是插件，連模型轉接、工具清單與主迴圈本身都不是特權核心。</span></li><li data-field="key_point" data-timestamp="06:40"><span class="ts">06:40</span><span class="text" data-field="key_point_text">每個註冊都必須帶移除方法，所以插件卸載時能依序倒帶收回，這是熱插拔真正可行的原因。</span></li><li data-field="key_point" data-timestamp="07:30"><span class="ts">07:30</span><span class="text" data-field="key_point_text">執行出來的系統由多層設定堆疊而成，底層包含模型、工具、儲存、沙箱與權限，上層可由 UI、無介面模式、使用者設定與臨時參數覆蓋。</span></li><li data-field="key_point" data-timestamp="08:37"><span class="ts">08:37</span><span class="text" data-field="key_point_text">服務透過固定名字被引用，例如 Tools、LM、Sessions；上層依賴的是服務名稱，不是某份具體程式碼，因此底層實作可替換。</span></li><li data-field="key_point" data-timestamp="09:10"><span class="ts">09:10</span><span class="text" data-field="key_point_text">工具呼叫流程先記錄、再經權限與沙箱、再執行工具、再檢查結果，最後凍結成不可再改的結果。</span></li><li data-field="key_point" data-timestamp="10:00"><span class="ts">10:00</span><span class="text" data-field="key_point_text">工作階段記錄的核心句是「模型看得到的，一定被記下來」；這讓分岔重跑、續跑與事故追查都建立在同一條記錄上。</span></li><li data-field="key_point" data-timestamp="10:49"><span class="ts">10:49</span><span class="text" data-field="key_point_text">能力接縫必須分成定義者、實作者、使用者三個角色；只把某份實作硬綁給使用者，不算真正可替換。</span></li><li data-field="key_point" data-timestamp="11:41"><span class="ts">11:41</span><span class="text" data-field="key_point_text">架構文件提供「新行為該放哪裡」的對照表，並要求如果改主迴圈也要更新地圖，避免文件過期。</span></li><li data-field="key_point" data-timestamp="12:18"><span class="ts">12:18</span><span class="text" data-field="key_point_text">防禦性模式來自實際或差點發生的 bug，例如超時與結束碼要分開呈現、關閉流程要等子程式真的安靜。</span></li><li data-field="key_point" data-timestamp="13:10"><span class="ts">13:10</span><span class="text" data-field="key_point_text">Harness 有四種執行模式：完整版、把工具包成程式碼的模式、極簡模式，以及高度信任但危險的創造者模式。</span></li><li data-field="key_point" data-timestamp="14:00"><span class="ts">14:00</span><span class="text" data-field="key_point_text">限制包含開發者預覽版會有不相容變更、內建沙箱不是安全邊界、本機控制台不等於本機模型。</span></li><li data-field="key_point" data-timestamp="14:37"><span class="ts">14:37</span><span class="text" data-field="key_point_text">骨架免費但模型仍要錢；agent 成本受快取命中與尖離峰價格影響，影片提到快取與未快取價差可達 31 倍。</span></li><li data-field="key_point" data-timestamp="15:30"><span class="ts">15:30</span><span class="text" data-field="key_point_text">結論是這份文件其實在處理同一件事：讓複雜系統仍能被一個人看懂、敢動手改；趨勢上，模型公司開始搶執行環境。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="DeepSeek Harness">DeepSeek Harness</span><span class="tag-chip" data-tag="AI Agent">AI Agent</span><span class="tag-chip" data-tag="Cordis">Cordis</span><span class="tag-chip" data-tag="插件架構">插件架構</span><span class="tag-chip" data-tag="主迴圈">主迴圈</span><span class="tag-chip" data-tag="沙箱">沙箱</span><span class="tag-chip" data-tag="權限控制">權限控制</span><span class="tag-chip" data-tag="工作階段記錄">工作階段記錄</span><span class="tag-chip" data-tag="Hermes">Hermes</span><span class="tag-chip" data-tag="Claude Code">Claude Code</span><span class="tag-chip" data-tag="Codex">Codex</span><span class="tag-chip" data-tag="OpenClaw">OpenClaw</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>影片沒有可用 YouTube 字幕；主文依 Whisper STT 逐字稿與影片描述整理。</li><li>部分產品名與技術詞由 ASR 漂字還原，已列在對照表；未能從字幕原檔核對。</li><li>影片提到安裝後一行指令可啟動，但逐字稿沒有清楚保留實際命令，因此報告不補寫命令。</li></ul></div></section>
+  <section class="glossary" data-field="asr_glossary"><h2>🎙️ ASR 漂字對照表</h2><div class="card"><table class="glossary"><tr data-field="asr_glossary_row"><td data-field="heard">Cloudcode</td><td>→</td><td data-field="corrected">Claude Code</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">OpenCloud</td><td>→</td><td data-field="corrected">OpenClaw</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Hermis</td><td>→</td><td data-field="corrected">Hermes</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Longraph</td><td>→</td><td data-field="corrected">LangGraph</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">股價 / 股架</td><td>→</td><td data-field="corrected">骨架</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">殺香</td><td>→</td><td data-field="corrected">沙箱</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">主彎 / 組繪圈 / 組維圈</td><td>→</td><td data-field="corrected">主迴圈</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">BASS</td><td>→</td><td data-field="corrected">base / 基礎設定層</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">QLM</td><td>→</td><td data-field="corrected">LM</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">快取命中</td><td>→</td><td data-field="corrected">cache hit / 快取命中</td></tr></table></div></section>
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="transcript"><div class="raw-label">逐字稿全文<button class="copy-btn" id="raw_transcript_4352824128_srt" onclick="copyRaw(this,'raw_transcript_4352824128_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_transcript_4352824128_text" onclick="copyRawText(this,'raw_transcript_4352824128_text')">📋 複製純文字</button></div><pre>1
+00:00:00,000 --&gt; 00:00:04,320
+大家好我是Jim
+
+2
+00:00:04,320 --&gt; 00:00:05,320
+这里是AI Notebook
+
+3
+00:00:05,320 --&gt; 00:00:06,500
+三天12万颗星
+
+4
+00:00:06,500 --&gt; 00:00:07,600
+这是Deep Seek
+
+5
+00:00:07,600 --&gt; 00:00:09,140
+刚公开了一个工具
+
+6
+00:00:09,140 --&gt; 00:00:10,000
+叫Harness
+
+7
+00:00:10,000 --&gt; 00:00:12,020
+在GitHub上拿到了收藏数
+
+8
+00:00:12,020 --&gt; 00:00:13,300
+很多做得很好的专案
+
+9
+00:00:13,300 --&gt; 00:00:15,240
+做十年也到不了这个数字
+
+10
+00:00:15,240 --&gt; 00:00:16,740
+让我坐下来把它读完了
+
+11
+00:00:16,740 --&gt; 00:00:17,700
+不是这个数字
+
+12
+00:00:17,700 --&gt; 00:00:20,540
+Deep Seek一路走来出的都是模型
+
+13
+00:00:20,540 --&gt; 00:00:22,180
+这次公开的不是模型
+
+14
+00:00:22,180 --&gt; 00:00:24,440
+是模型旁边那一整套东西
+
+15
+00:00:24,440 --&gt; 00:00:27,880
+让模型真的能动手做事的那个执行环境
+
+16
+00:00:27,880 --&gt; 00:00:29,880
+你家做模型的公司
+
+17
+00:00:29,880 --&gt; 00:00:31,680
+开始在意模型跑在哪里
+
+18
+00:00:31,680 --&gt; 00:00:32,300
+被谁管
+
+19
+00:00:32,300 --&gt; 00:00:34,000
+出事的时候谁喊停
+
+20
+00:00:34,000 --&gt; 00:00:35,940
+这件事本身就值得看
+
+21
+00:00:35,940 --&gt; 00:00:39,000
+而且他们连整份架构文件都一起公开了
+
+22
+00:00:39,000 --&gt; 00:00:41,040
+129行八个章节
+
+23
+00:00:41,040 --&gt; 00:00:43,780
+里面写着一件你平常看不到的事
+
+24
+00:00:43,780 --&gt; 00:00:45,880
+一个会自己动手做事的AI
+
+25
+00:00:45,880 --&gt; 00:00:47,740
+它的骨架应该怎么设计
+
+26
+00:00:47,740 --&gt; 00:00:50,040
+这种东西通常锁在公司内部
+
+27
+00:00:50,040 --&gt; 00:00:51,380
+所以今天这支影片
+
+28
+00:00:51,380 --&gt; 00:00:54,560
+就是要把这份架构仔细研究一遍
+
+29
+00:00:54,560 --&gt; 00:00:55,840
+里面每一个设计
+
+30
+00:00:55,840 --&gt; 00:00:57,300
+我都会翻成白话讲给你听
+
+31
+00:00:57,300 --&gt; 00:00:59,840
+顺便看他跟你已经在用的那几个工具
+
+32
+00:00:59,840 --&gt; 00:01:00,420
+插在哪
+
+33
+00:01:00,420 --&gt; 00:01:00,980
+主弯
+
+34
+00:01:00,980 --&gt; 00:01:02,940
+你会发现这些设计
+
+35
+00:01:02,940 --&gt; 00:01:04,500
+其实都在回答同一个问题
+
+36
+00:01:04,500 --&gt; 00:01:06,020
+好先讲清楚
+
+37
+00:01:06,020 --&gt; 00:01:06,980
+Harness这个字
+
+38
+00:01:06,980 --&gt; 00:01:08,480
+它原本的意思是马具
+
+39
+00:01:08,480 --&gt; 00:01:09,740
+就是套在马身上
+
+40
+00:01:09,740 --&gt; 00:01:12,060
+让你能驾驭它的那套装备
+
+41
+00:01:12,060 --&gt; 00:01:13,820
+缰绳 马鞍 脚灯
+
+42
+00:01:13,820 --&gt; 00:01:15,980
+这些东西一个都不会让马跑得更快
+
+43
+00:01:15,980 --&gt; 00:01:17,020
+但没有它们
+
+44
+00:01:17,020 --&gt; 00:01:18,100
+你根本上不了马
+
+45
+00:01:18,100 --&gt; 00:01:19,480
+放到AI这里
+
+46
+00:01:19,480 --&gt; 00:01:20,520
+模型是那匹马
+
+47
+00:01:20,520 --&gt; 00:01:21,180
+Harness
+
+48
+00:01:21,180 --&gt; 00:01:23,780
+就是让你真的能用它做事的那一整套东西
+
+49
+00:01:23,780 --&gt; 00:01:24,380
+你可能会想
+
+50
+00:01:24,380 --&gt; 00:01:26,000
+模型不是已经很强了吗
+
+51
+00:01:26,000 --&gt; 00:01:27,600
+开放权重都放出来了
+
+52
+00:01:27,600 --&gt; 00:01:28,840
+直接拿来用不就好了
+
+53
+00:01:28,840 --&gt; 00:01:29,480
+问题是
+
+54
+00:01:29,480 --&gt; 00:01:31,800
+权重只是一颗大脑的参数档
+
+55
+00:01:31,800 --&gt; 00:01:33,600
+它不会自己开你的资料夹
+
+56
+00:01:33,600 --&gt; 00:01:35,080
+不会记得上一部做了什么
+
+57
+00:01:35,080 --&gt; 00:01:37,600
+也不会在跑坏的时候停下来问你
+
+58
+00:01:37,600 --&gt; 00:01:39,240
+有一位分析师讲得很好
+
+59
+00:01:39,240 --&gt; 00:01:40,680
+只有开放权重
+
+60
+00:01:40,680 --&gt; 00:01:41,760
+没有执行环境
+
+61
+00:01:41,760 --&gt; 00:01:42,680
+就像有身体
+
+62
+00:01:42,680 --&gt; 00:01:43,520
+没有神经系统
+
+63
+00:01:43,520 --&gt; 00:01:45,240
+Harness就是那套神经系统
+
+64
+00:01:45,240 --&gt; 00:01:47,120
+它管模型怎么收到你的话
+
+65
+00:01:47,120 --&gt; 00:01:48,560
+工具怎么被呼叫
+
+66
+00:01:48,560 --&gt; 00:01:50,240
+做过的事怎么被记下来
+
+67
+00:01:50,240 --&gt; 00:01:52,160
+还有出事的时候谁有权喊停
+
+68
+00:01:52,160 --&gt; 00:01:54,160
+在打开那份文件之前
+
+69
+00:01:54,160 --&gt; 00:01:56,440
+先花一分钟搞清楚谁是谁
+
+70
+00:01:56,440 --&gt; 00:01:59,160
+Cloudcode Codex OpenCloud Hermes
+
+71
+00:01:59,160 --&gt; 00:02:00,440
+它们全部都是Harness
+
+72
+00:02:00,440 --&gt; 00:02:02,560
+但差别不只是你在哪里跟它讲话
+
+73
+00:02:02,560 --&gt; 00:02:03,880
+我用三个问题来分
+
+74
+00:02:03,880 --&gt; 00:02:05,600
+第一个问题也是最根本的
+
+75
+00:02:05,600 --&gt; 00:02:06,640
+它想解决什么
+
+76
+00:02:06,640 --&gt; 00:02:07,600
+这不用猜
+
+77
+00:02:07,600 --&gt; 00:02:09,920
+每一个专案自己那句介绍就是答案
+
+78
+00:02:09,920 --&gt; 00:02:12,160
+Cloudcode跟Codex解决的是
+
+79
+00:02:12,160 --&gt; 00:02:14,240
+模型很强却碰不到你的专案
+
+80
+00:02:14,240 --&gt; 00:02:16,280
+所以把模型接近你的终端机
+
+81
+00:02:16,280 --&gt; 00:02:17,560
+直接读你的程式码
+
+82
+00:02:17,560 --&gt; 00:02:19,000
+OpenCloud解决的是
+
+83
+00:02:19,000 --&gt; 00:02:20,280
+助理是别人
+
+84
+00:02:20,280 --&gt; 00:02:21,640
+资料也在别人那里
+
+85
+00:02:21,640 --&gt; 00:02:23,400
+所以它跑在你自己的装置上
+
+86
+00:02:23,400 --&gt; 00:02:25,000
+专案标签直接挂着一句
+
+87
+00:02:25,000 --&gt; 00:02:26,400
+你的资料你自己拥有
+
+88
+00:02:26,400 --&gt; 00:02:28,520
+Harness解决的是Agent
+
+89
+00:02:28,520 --&gt; 00:02:29,760
+每次都从零开始
+
+90
+00:02:29,760 --&gt; 00:02:30,880
+什么都不记得
+
+91
+00:02:30,880 --&gt; 00:02:32,320
+所以它介绍只有一句
+
+92
+00:02:32,320 --&gt; 00:02:33,800
+会跟着你一起长大
+
+93
+00:02:33,800 --&gt; 00:02:35,240
+那Harness解决的是
+
+94
+00:02:35,240 --&gt; 00:02:36,720
+你想改它却改不动
+
+95
+00:02:36,720 --&gt; 00:02:37,880
+第二个问题
+
+96
+00:02:37,880 --&gt; 00:02:38,760
+它什么时候动
+
+97
+00:02:38,760 --&gt; 00:02:40,760
+前面两个要你叫它才动
+
+98
+00:02:40,760 --&gt; 00:02:41,680
+做完就结束
+
+99
+00:02:41,680 --&gt; 00:02:43,520
+后面两个是一直在线的Harness
+
+100
+00:02:43,520 --&gt; 00:02:44,920
+甚至会自己按表操课
+
+101
+00:02:44,920 --&gt; 00:02:45,600
+你不用开口
+
+102
+00:02:45,600 --&gt; 00:02:46,480
+第三个问题
+
+103
+00:02:46,480 --&gt; 00:02:48,240
+也是我觉得最该问的
+
+104
+00:02:48,240 --&gt; 00:02:49,520
+它碰得到什么
+
+105
+00:02:49,520 --&gt; 00:02:50,880
+OpenCloud的说明档
+
+106
+00:02:50,880 --&gt; 00:02:51,760
+自己写着
+
+107
+00:02:51,760 --&gt; 00:02:54,240
+工具预设是直接跑在你的主机上的
+
+108
+00:02:54,240 --&gt; 00:02:56,160
+除非你自己去设定沙香
+
+109
+00:02:56,160 --&gt; 00:02:58,400
+Harness可以整个丢到云端的机器上跑
+
+110
+00:02:58,400 --&gt; 00:02:59,600
+不用碰你的笔电
+
+111
+00:02:59,600 --&gt; 00:03:00,960
+那Harness呢
+
+112
+00:03:00,960 --&gt; 00:03:02,880
+他把这件事做成一道关卡
+
+113
+00:03:02,880 --&gt; 00:03:04,000
+等一下你会看到
+
+114
+00:03:04,000 --&gt; 00:03:05,360
+每一次工具呼叫
+
+115
+00:03:05,360 --&gt; 00:03:07,440
+都要先过权限跟沙香
+
+116
+00:03:07,440 --&gt; 00:03:08,720
+它们差多少呢
+
+117
+00:03:08,720 --&gt; 00:03:10,560
+你看一下收藏数就知道了
+
+118
+00:03:10,560 --&gt; 00:03:11,520
+知道形状之后
+
+119
+00:03:11,520 --&gt; 00:03:12,680
+还有一个更重要的差别
+
+120
+00:03:12,680 --&gt; 00:03:13,600
+你能改到哪一层
+
+121
+00:03:13,600 --&gt; 00:03:14,400
+刚刚说了
+
+122
+00:03:14,400 --&gt; 00:03:15,840
+这几个其实是同一种东西
+
+123
+00:03:15,840 --&gt; 00:03:18,080
+所以真正该问的不是谁比较强
+
+124
+00:03:18,080 --&gt; 00:03:19,280
+是你能改到多深
+
+125
+00:03:19,280 --&gt; 00:03:20,640
+我用房子来比
+
+126
+00:03:20,640 --&gt; 00:03:22,080
+第一层像租来的房子
+
+127
+00:03:22,080 --&gt; 00:03:22,840
+你可以摆家具
+
+128
+00:03:22,840 --&gt; 00:03:23,680
+可以挂画
+
+129
+00:03:23,680 --&gt; 00:03:25,040
+但你不能打掉墙
+
+130
+00:03:25,040 --&gt; 00:03:26,320
+换成工具就是
+
+131
+00:03:26,320 --&gt; 00:03:27,120
+可以加工具
+
+132
+00:03:27,120 --&gt; 00:03:28,240
+可以加提示词
+
+133
+00:03:28,240 --&gt; 00:03:29,520
+但那个一步一步驱动
+
+134
+00:03:29,520 --&gt; 00:03:30,800
+AI做事的主回圈
+
+135
+00:03:30,800 --&gt; 00:03:31,760
+是它的
+
+136
+00:03:31,760 --&gt; 00:03:32,880
+你只能设定第二层
+
+137
+00:03:32,880 --&gt; 00:03:34,880
+像把整栋旧房子买下来自己改
+
+138
+00:03:34,880 --&gt; 00:03:35,920
+原始码都给你
+
+139
+00:03:35,920 --&gt; 00:03:37,200
+Codex就是这种
+
+140
+00:03:37,200 --&gt; 00:03:38,880
+你想打掉哪一面墙都行
+
+141
+00:03:38,880 --&gt; 00:03:39,760
+代价是
+
+142
+00:03:39,760 --&gt; 00:03:40,520
+从那天起
+
+143
+00:03:40,520 --&gt; 00:03:42,800
+这栋房子的保养就变你的事了
+
+144
+00:03:42,800 --&gt; 00:03:44,880
+第三层才是Harness站的地方
+
+145
+00:03:44,880 --&gt; 00:03:47,840
+这栋房子的墙本身就是一片一片可以换的
+
+146
+00:03:47,840 --&gt; 00:03:49,200
+换墙不用动骨架
+
+147
+00:03:49,200 --&gt; 00:03:50,320
+文件里写的很白
+
+148
+00:03:50,320 --&gt; 00:03:52,640
+连那个主回圈本身都是外挂
+
+149
+00:03:52,640 --&gt; 00:03:54,960
+至于Longraph那一类的开发套件
+
+150
+00:03:54,960 --&gt; 00:03:56,400
+它根本不在这个梯子上
+
+151
+00:03:56,400 --&gt; 00:03:57,760
+它连房子都不是
+
+152
+00:03:57,760 --&gt; 00:03:58,720
+而是建材
+
+153
+00:03:58,720 --&gt; 00:03:59,840
+有意思的是
+
+154
+00:03:59,840 --&gt; 00:04:02,240
+Hermis跟Harness压的宝不一样
+
+155
+00:04:02,240 --&gt; 00:04:03,280
+Hermis堵
+
+156
+00:04:03,280 --&gt; 00:04:04,320
+它会自己变墙
+
+157
+00:04:04,320 --&gt; 00:04:07,600
+做完一件事会把经验写成一份技能档存起来
+
+158
+00:04:07,600 --&gt; 00:04:09,720
+Harness堵的是你可以自己动手改
+
+159
+00:04:09,720 --&gt; 00:04:11,520
+一个把赌注压在时间
+
+160
+00:04:11,520 --&gt; 00:04:12,800
+一个压在你手上
+
+161
+00:04:12,800 --&gt; 00:04:13,760
+一直讲完了
+
+162
+00:04:13,760 --&gt; 00:04:15,520
+我们回去读那份文件
+
+163
+00:04:15,520 --&gt; 00:04:17,400
+看它怎么做到第三层
+
+164
+00:04:17,400 --&gt; 00:04:19,320
+这本文件叫架构说明
+
+165
+00:04:19,320 --&gt; 00:04:20,400
+129行
+
+166
+00:04:20,400 --&gt; 00:04:21,240
+8个章节
+
+167
+00:04:21,240 --&gt; 00:04:21,720
+不长
+
+168
+00:04:21,720 --&gt; 00:04:23,280
+你午休就读得完
+
+169
+00:04:23,280 --&gt; 00:04:24,840
+但他第一句话就很有态度
+
+170
+00:04:24,840 --&gt; 00:04:25,320
+他说
+
+171
+00:04:25,320 --&gt; 00:04:27,000
+在你动任何程式之前
+
+172
+00:04:27,000 --&gt; 00:04:27,960
+先读这个
+
+173
+00:04:27,960 --&gt; 00:04:30,200
+他预设你已经懂底下那个框架
+
+174
+00:04:30,200 --&gt; 00:04:30,840
+如果不懂
+
+175
+00:04:30,840 --&gt; 00:04:32,640
+他把入门的连结放在那里
+
+176
+00:04:32,640 --&gt; 00:04:34,440
+然后第7行有一句话
+
+177
+00:04:34,440 --&gt; 00:04:36,760
+我觉得是整份文件最有意思的地方
+
+178
+00:04:36,760 --&gt; 00:04:38,680
+他说我们建议你用一个agent
+
+179
+00:04:38,680 --&gt; 00:04:40,160
+去读这份程式吗
+
+180
+00:04:40,160 --&gt; 00:04:41,440
+理解它的架构
+
+181
+00:04:41,440 --&gt; 00:04:42,240
+你发现了吗
+
+182
+00:04:42,240 --&gt; 00:04:44,440
+这份文件不只是写给人看的
+
+183
+00:04:44,440 --&gt; 00:04:46,440
+也是写给AI看的
+
+184
+00:04:46,440 --&gt; 00:04:47,920
+接下来我就一个一个带你看
+
+185
+00:04:47,920 --&gt; 00:04:49,520
+全部翻成白话
+
+186
+00:04:49,520 --&gt; 00:04:50,680
+有意思的是
+
+187
+00:04:50,680 --&gt; 00:04:53,640
+Deepseek没有自己从零造这套股价
+
+188
+00:04:53,640 --&gt; 00:04:56,080
+他们挑了一个已经存在4年的社群专案
+
+189
+00:04:56,080 --&gt; 00:04:57,000
+叫Cordis
+
+190
+00:04:57,000 --&gt; 00:04:59,000
+这个专案在被选中之前
+
+191
+00:04:59,000 --&gt; 00:05:00,000
+收藏数是4000
+
+192
+00:05:00,000 --&gt; 00:05:03,600
+200多 4200多在开放原始码的世界里不算小
+
+193
+00:05:03,600 --&gt; 00:05:05,300
+但也绝对称不上有名
+
+194
+00:05:05,600 --&gt; 00:05:06,700
+很多人根本没听过
+
+195
+00:05:07,200 --&gt; 00:05:09,300
+就是一个安静做了4年的小专案
+
+196
+00:05:09,300 --&gt; 00:05:10,400
+结果他一息之间
+
+197
+00:05:10,700 --&gt; 00:05:12,600
+变成一个12万星专案的地基
+
+198
+00:05:12,800 --&gt; 00:05:14,600
+Cordis自己的介绍只有一句话
+
+199
+00:05:14,900 --&gt; 00:05:16,900
+时空可组合性的原框架
+
+200
+00:05:17,500 --&gt; 00:05:18,800
+这句话听起来很悬
+
+201
+00:05:19,100 --&gt; 00:05:20,700
+但他想解决的事情很具体
+
+202
+00:05:21,100 --&gt; 00:05:23,700
+怎么让一个系统的每一块都能被换掉
+
+203
+00:05:23,700 --&gt; 00:05:25,000
+被叠加被拿掉
+
+204
+00:05:25,000 --&gt; 00:05:26,400
+而不会把其他部分弄坏
+
+205
+00:05:26,800 --&gt; 00:05:27,900
+这件事听起来简单
+
+206
+00:05:27,900 --&gt; 00:05:30,300
+实际上是软体工程里最难的问题之一
+
+207
+00:05:30,700 --&gt; 00:05:32,100
+Lipsic看上的就是这个
+
+208
+00:05:32,500 --&gt; 00:05:34,700
+所以Harness的第一句设计哲学是
+
+209
+00:05:35,000 --&gt; 00:05:36,200
+所有东西都是外挂
+
+210
+00:05:36,200 --&gt; 00:05:38,800
+外挂白话讲就是可以自由装上
+
+211
+00:05:39,100 --&gt; 00:05:40,000
+拔掉的零件
+
+212
+00:05:40,500 --&gt; 00:05:43,100
+文件一开头就在讲Cordis带来什么
+
+213
+00:05:43,400 --&gt; 00:05:46,400
+要听懂他得先看一般的软体长什么样
+
+214
+00:05:46,600 --&gt; 00:05:47,800
+中间有一个核心
+
+215
+00:05:48,000 --&gt; 00:05:49,300
+旁边挂一些扩充点
+
+216
+00:05:49,300 --&gt; 00:05:51,300
+你想加功能可以挂在扩充点上
+
+217
+00:05:51,300 --&gt; 00:05:52,100
+这没问题
+
+218
+00:05:52,700 --&gt; 00:05:55,100
+但只要你要改的事情核心没有预留位置
+
+219
+00:05:55,100 --&gt; 00:05:56,400
+你就得动核心
+
+220
+00:05:56,400 --&gt; 00:05:57,700
+动核心的代价很大
+
+221
+00:05:57,900 --&gt; 00:05:59,200
+因为所有人都靠他活
+
+222
+00:05:59,600 --&gt; 00:06:01,700
+你改坏一个地方全部一起坏
+
+223
+00:06:02,100 --&gt; 00:06:04,200
+而且久了之后会出现一个现象
+
+224
+00:06:04,400 --&gt; 00:06:06,300
+核心变成没人敢碰的东西
+
+225
+00:06:06,600 --&gt; 00:06:09,200
+大家宁可绕路绕出一堆奇怪的补丁
+
+226
+00:06:09,400 --&gt; 00:06:11,100
+Harness的文件里有一句话
+
+227
+00:06:11,400 --&gt; 00:06:12,300
+讲的很直接
+
+228
+00:06:12,500 --&gt; 00:06:15,300
+这里没有一个有特权的核心让你去修
+
+229
+00:06:15,600 --&gt; 00:06:19,000
+扩充他的方式是把你的外挂挂在其他外挂旁边
+
+230
+00:06:19,000 --&gt; 00:06:19,900
+这是什么意思呢
+
+231
+00:06:20,100 --&gt; 00:06:24,900
+就是连模型转接连工具清单连那个一步一步驱动
+
+232
+00:06:24,900 --&gt; 00:06:26,300
+AI做事的组绘圈
+
+233
+00:06:26,300 --&gt; 00:06:27,300
+本身都是外挂
+
+234
+00:06:27,500 --&gt; 00:06:28,800
+所以你想宽调组维圈
+
+235
+00:06:28,800 --&gt; 00:06:29,700
+你不是去改他
+
+236
+00:06:29,900 --&gt; 00:06:32,300
+你是写一个自己的挂上去把原本那个拿掉
+
+237
+00:06:32,500 --&gt; 00:06:33,100
+像乐高
+
+238
+00:06:33,500 --&gt; 00:06:34,700
+像一体成型的家具
+
+239
+00:06:35,200 --&gt; 00:06:36,000
+刚刚那句话
+
+240
+00:06:36,200 --&gt; 00:06:40,600
+还有后半段注册上去的东西在外挂被拿掉的时候要整个收回来
+
+241
+00:06:40,800 --&gt; 00:06:41,600
+这是什么意思呢
+
+242
+00:06:42,000 --&gt; 00:06:43,100
+你有沒有装过那种软体
+
+243
+00:06:43,100 --&gt; 00:06:45,600
+反安装之后电脑里还留一堆垃圾
+
+244
+00:06:45,800 --&gt; 00:06:47,600
+设定被改过的地方没还原
+
+245
+00:06:47,900 --&gt; 00:06:50,000
+资料夹里留着一些你不敢删的档案
+
+246
+00:06:50,400 --&gt; 00:06:51,600
+开机还是比以前慢
+
+247
+00:06:51,900 --&gt; 00:06:54,300
+就是装的时候没有留下海的方法
+
+248
+00:06:54,400 --&gt; 00:06:56,200
+软体世界里这种事非常普遍
+
+249
+00:06:56,200 --&gt; 00:06:57,400
+因为装很简单
+
+250
+00:06:57,400 --&gt; 00:06:58,600
+移除很麻烦
+
+251
+00:06:58,900 --&gt; 00:07:00,600
+大部分人只做前面那一半
+
+252
+00:07:00,800 --&gt; 00:07:04,100
+Harness的规则是每一个注册都必须带一个移除的方法
+
+253
+00:07:04,300 --&gt; 00:07:05,500
+你加一段提示词
+
+254
+00:07:05,700 --&gt; 00:07:06,600
+加一个工具
+
+255
+00:07:06,700 --&gt; 00:07:07,600
+加一个监听器
+
+256
+00:07:07,600 --&gt; 00:07:09,500
+都是透过同一个机制装上去
+
+257
+00:07:09,700 --&gt; 00:07:11,700
+每个机制会记住怎么还原
+
+258
+00:07:11,700 --&gt; 00:07:13,300
+所以外挂被拿掉的时候
+
+259
+00:07:13,300 --&gt; 00:07:16,000
+他做过的每件事会照顺序倒着收回来
+
+260
+00:07:16,300 --&gt; 00:07:17,100
+像倒带一样
+
+261
+00:07:17,100 --&gt; 00:07:18,300
+这条看起来很无聊
+
+262
+00:07:18,300 --&gt; 00:07:20,200
+但他是热插把的真正原因
+
+263
+00:07:20,500 --&gt; 00:07:21,800
+你会看到很多框架
+
+264
+00:07:22,300 --&gt; 00:07:23,600
+宣称可以热插把
+
+265
+00:07:23,600 --&gt; 00:07:25,500
+结果把玩要重新启动才正常
+
+266
+00:07:25,500 --&gt; 00:07:27,000
+那就是这一条没做到
+
+267
+00:07:27,400 --&gt; 00:07:28,400
+下一张讲的是
+
+268
+00:07:28,600 --&gt; 00:07:30,800
+你跑起来的那个东西到底怎么被组出来的
+
+269
+00:07:30,900 --&gt; 00:07:31,500
+答案是
+
+270
+00:07:31,600 --&gt; 00:07:33,700
+他是一叠设定层堆出来的
+
+271
+00:07:33,800 --&gt; 00:07:35,400
+最底下那一层叫BASS
+
+272
+00:07:35,400 --&gt; 00:07:36,000
+模型
+
+273
+00:07:36,200 --&gt; 00:07:36,800
+转接
+
+274
+00:07:36,900 --&gt; 00:07:37,500
+工具
+
+275
+00:07:37,600 --&gt; 00:07:38,300
+储存
+
+276
+00:07:38,300 --&gt; 00:07:38,900
+杀箱
+
+277
+00:07:38,900 --&gt; 00:07:39,600
+权限
+
+278
+00:07:39,600 --&gt; 00:07:40,500
+全部在里面
+
+279
+00:07:40,800 --&gt; 00:07:42,800
+每一种组合都从这一层开始
+
+280
+00:07:43,300 --&gt; 00:07:44,400
+上面可以再叠
+
+281
+00:07:44,500 --&gt; 00:07:46,600
+你要网页界面就叠网页那一层
+
+282
+00:07:46,900 --&gt; 00:07:48,800
+你只要跑完一次就收工
+
+283
+00:07:48,900 --&gt; 00:07:50,200
+就叠无界面那一层
+
+284
+00:07:50,300 --&gt; 00:07:52,000
+再上面是你自己的设定档
+
+285
+00:07:52,200 --&gt; 00:07:54,400
+最上面是你临时加的那一行参数
+
+286
+00:07:54,400 --&gt; 00:07:55,800
+这里有一个指令我很喜欢
+
+287
+00:07:56,000 --&gt; 00:07:56,800
+你可以叫他
+
+288
+00:07:56,900 --&gt; 00:07:59,300
+把组好的整颗树印出来文件讲的很白
+
+289
+00:07:59,300 --&gt; 00:08:00,500
+印出来任何一行
+
+290
+00:08:00,700 --&gt; 00:08:02,600
+你都可以用自己的设定盖掉
+
+291
+00:08:02,700 --&gt; 00:08:04,100
+这就像一份摊开合约
+
+292
+00:08:04,100 --&gt; 00:08:05,400
+每一条你都看得到
+
+293
+00:08:05,500 --&gt; 00:08:07,300
+每一条你都可以划掉重写
+
+294
+00:08:07,600 --&gt; 00:08:09,000
+堵出来的那棵树上
+
+295
+00:08:09,500 --&gt; 00:08:11,100
+每一块都站住一个名字
+
+296
+00:08:11,200 --&gt; 00:08:13,000
+上面的人要用下面那一块
+
+297
+00:08:13,100 --&gt; 00:08:14,300
+靠的就是这个名字
+
+298
+00:08:14,500 --&gt; 00:08:15,600
+这听起来很技术
+
+299
+00:08:15,700 --&gt; 00:08:17,000
+但它其实就是电话簿
+
+300
+00:08:17,500 --&gt; 00:08:19,300
+想像你家水管漏水
+
+301
+00:08:19,500 --&gt; 00:08:21,500
+一种做法是你认识一个师傅
+
+302
+00:08:21,700 --&gt; 00:08:22,900
+有他的电话你打给他
+
+303
+00:08:23,100 --&gt; 00:08:24,400
+他很好很可靠
+
+304
+00:08:24,700 --&gt; 00:08:26,400
+直到有一天他搬家了或者退休了
+
+305
+00:08:26,400 --&gt; 00:08:27,100
+你就完蛋了
+
+306
+00:08:27,300 --&gt; 00:08:28,600
+你得重新认识一个人
+
+307
+00:08:28,700 --&gt; 00:08:30,800
+另一种做法是你翻电话簿
+
+308
+00:08:30,900 --&gt; 00:08:32,400
+找到水电这个分类
+
+309
+00:08:32,600 --&gt; 00:08:33,800
+打上面的号码
+
+310
+00:08:33,900 --&gt; 00:08:34,800
+谁接不重要
+
+311
+00:08:34,800 --&gt; 00:08:37,300
+重要的是水电这个分类永远在
+
+312
+00:08:37,500 --&gt; 00:08:39,100
+Harness就是后面这种
+
+313
+00:08:39,600 --&gt; 00:08:40,300
+每个服务
+
+314
+00:08:40,400 --&gt; 00:08:42,000
+站住一个固定的名字
+
+315
+00:08:42,100 --&gt; 00:08:43,100
+工具叫Tools
+
+316
+00:08:43,200 --&gt; 00:08:44,500
+模型叫LM
+
+317
+00:08:44,600 --&gt; 00:08:45,700
+地图叫Sessions
+
+318
+00:08:45,900 --&gt; 00:08:48,200
+别的外挂用工具是去找Tools
+
+319
+00:08:48,300 --&gt; 00:08:48,900
+这个名字
+
+320
+00:08:49,300 --&gt; 00:08:51,400
+而不是去引用某一份具体的程式码
+
+321
+00:08:51,600 --&gt; 00:08:52,600
+好处是什么呢
+
+322
+00:08:52,700 --&gt; 00:08:54,900
+你把它底下换成完全不同的实作
+
+323
+00:08:55,000 --&gt; 00:08:55,500
+上面
+
+324
+00:08:55,600 --&gt; 00:08:56,600
+所有人都不用改
+
+325
+00:08:56,800 --&gt; 00:08:58,000
+而且还有一个附带好处
+
+326
+00:08:58,100 --&gt; 00:08:59,200
+开机顺序不用你排
+
+327
+00:08:59,400 --&gt; 00:09:00,600
+每个外挂只要宣告
+
+328
+00:09:00,700 --&gt; 00:09:01,700
+我需要哪些服务
+
+329
+00:09:01,700 --&gt; 00:09:03,800
+系统就会自己算出谁该先启动
+
+330
+00:09:03,800 --&gt; 00:09:04,700
+谁该后启动
+
+331
+00:09:05,200 --&gt; 00:09:06,300
+想完五条抽象的
+
+332
+00:09:06,400 --&gt; 00:09:07,600
+我们看一个具体的东西
+
+333
+00:09:07,600 --&gt; 00:09:08,400
+一个工具
+
+334
+00:09:08,500 --&gt; 00:09:09,300
+被呼叫的时候
+
+335
+00:09:09,300 --&gt; 00:09:10,400
+到底发生什么事
+
+336
+00:09:10,600 --&gt; 00:09:12,200
+一条路比你想的长很多
+
+337
+00:09:12,400 --&gt; 00:09:14,300
+模型说我要跑这个指令
+
+338
+00:09:14,400 --&gt; 00:09:15,600
+第一件事不是去跑
+
+339
+00:09:15,900 --&gt; 00:09:18,000
+是先把这个呼叫写进记录
+
+340
+00:09:18,100 --&gt; 00:09:19,000
+注意顺序
+
+341
+00:09:19,100 --&gt; 00:09:20,500
+是执行之前就写
+
+342
+00:09:20,500 --&gt; 00:09:22,000
+所以就算等一下整个当掉
+
+343
+00:09:22,300 --&gt; 00:09:23,900
+还是查得到当时想做什么
+
+344
+00:09:24,000 --&gt; 00:09:25,300
+接着进到第一道关卡
+
+345
+00:09:25,400 --&gt; 00:09:27,500
+权限跟杀香在这里决定放行
+
+346
+00:09:27,600 --&gt; 00:09:28,200
+挡一下
+
+347
+00:09:28,400 --&gt; 00:09:29,200
+还是问人
+
+348
+00:09:29,200 --&gt; 00:09:31,800
+要问人的话会跳出一个一次性的确认
+
+349
+00:09:31,900 --&gt; 00:09:33,400
+这里有一个设计我很喜欢
+
+350
+00:09:33,500 --&gt; 00:09:34,500
+如果问不到人
+
+351
+00:09:34,900 --&gt; 00:09:35,400
+比如说
+
+352
+00:09:35,600 --&gt; 00:09:36,600
+没有界面可以问
+
+353
+00:09:36,600 --&gt; 00:09:38,100
+或者根本没人在电脑前面
+
+354
+00:09:38,200 --&gt; 00:09:39,100
+那就是算拒绝
+
+355
+00:09:39,100 --&gt; 00:09:40,000
+而不是算通过
+
+356
+00:09:40,300 --&gt; 00:09:41,500
+这个选择看起来很小
+
+357
+00:09:41,800 --&gt; 00:09:42,900
+但他决定了一件事
+
+358
+00:09:43,200 --&gt; 00:09:44,300
+没人看的时候
+
+359
+00:09:44,400 --&gt; 00:09:45,800
+这个系统是保守的
+
+360
+00:09:45,800 --&gt; 00:09:46,600
+还是放纵的
+
+361
+00:09:46,900 --&gt; 00:09:49,200
+然后才轮到工具本体真的跑
+
+362
+00:09:49,300 --&gt; 00:09:50,400
+跑完还没结束
+
+363
+00:09:50,500 --&gt; 00:09:52,100
+还有一关可以检查结果
+
+364
+00:09:52,200 --&gt; 00:09:52,900
+可以挡下
+
+365
+00:09:53,000 --&gt; 00:09:53,700
+可以换掉
+
+366
+00:09:53,900 --&gt; 00:09:55,100
+可以补一段话进去
+
+367
+00:09:55,300 --&gt; 00:09:56,400
+最后才冻结成一个
+
+368
+00:09:56,400 --&gt; 00:09:57,700
+谁都不能再改的结果
+
+369
+00:09:57,700 --&gt; 00:10:00,100
+再往下一张叫工作阶段记录
+
+370
+00:10:00,000 --&gt; 00:10:02,600
+里面有我觉得整份文件最漂亮的一句话
+
+371
+00:10:02,600 --&gt; 00:10:03,900
+模型看得到的
+
+372
+00:10:03,900 --&gt; 00:10:05,200
+一定被记下来
+
+373
+00:10:05,200 --&gt; 00:10:06,740
+意思是任何一个字
+
+374
+00:10:06,740 --&gt; 00:10:09,340
+只要他进到了送给模型的那个请求礼
+
+375
+00:10:09,340 --&gt; 00:10:12,080
+他就必须能从记录里重新拼回来
+
+376
+00:10:12,080 --&gt; 00:10:13,880
+而且他们不是写在文件上就算了
+
+377
+00:10:13,880 --&gt; 00:10:14,960
+他们写了一个检查
+
+378
+00:10:14,960 --&gt; 00:10:16,560
+在跑的时候盯着这件事
+
+379
+00:10:16,560 --&gt; 00:10:17,940
+做不到就直接报错
+
+380
+00:10:17,940 --&gt; 00:10:19,080
+为什么要做到这么硬呢
+
+381
+00:10:19,080 --&gt; 00:10:19,840
+因为这样一来
+
+382
+00:10:19,840 --&gt; 00:10:20,580
+很多
+
+383
+00:10:20,580 --&gt; 00:10:22,760
+你以为要各自开发的功能
+
+384
+00:10:22,760 --&gt; 00:10:24,620
+其实都是同一条记录的衍生品
+
+385
+00:10:24,620 --&gt; 00:10:27,020
+你想从某一步分岔出去重跑
+
+386
+00:10:27,020 --&gt; 00:10:28,680
+可以想关掉电脑
+
+387
+00:10:28,680 --&gt; 00:10:29,520
+明天接着做
+
+388
+00:10:29,520 --&gt; 00:10:29,820
+可以
+
+389
+00:10:29,820 --&gt; 00:10:31,700
+你想知道昨天那个AI
+
+390
+00:10:31,700 --&gt; 00:10:32,860
+为什么会删掉你的档案
+
+391
+00:10:32,860 --&gt; 00:10:34,260
+把记录拉出来
+
+392
+00:10:34,260 --&gt; 00:10:36,140
+那一刻他眼前有什么
+
+393
+00:10:36,140 --&gt; 00:10:37,280
+你一个字都不会漏
+
+394
+00:10:37,280 --&gt; 00:10:39,180
+这就像法院的逐字记录
+
+395
+00:10:39,180 --&gt; 00:10:40,900
+我是散毁之后补写的会议纪要
+
+396
+00:10:40,900 --&gt; 00:10:42,260
+是当下就留了底
+
+397
+00:10:42,260 --&gt; 00:10:43,400
+差别在哪里呢
+
+398
+00:10:43,400 --&gt; 00:10:45,520
+补写的东西你只能选择相信
+
+399
+00:10:45,520 --&gt; 00:10:46,580
+当下留了底
+
+400
+00:10:46,580 --&gt; 00:10:47,120
+你可以查
+
+401
+00:10:47,120 --&gt; 00:10:49,640
+这两件事在出事的时候差很多
+
+402
+00:10:49,640 --&gt; 00:10:51,860
+下一张叫能力接缝
+
+403
+00:10:51,860 --&gt; 00:10:53,980
+文件给了接缝一个很严格的定义
+
+404
+00:10:53,980 --&gt; 00:10:55,600
+要有三个角色才算数
+
+405
+00:10:55,600 --&gt; 00:10:56,600
+哪三个呢
+
+406
+00:10:56,600 --&gt; 00:10:58,960
+一个负责定义这个能力长什么样
+
+407
+00:10:58,960 --&gt; 00:11:00,360
+一个负责真的把它做出来
+
+408
+00:11:00,360 --&gt; 00:11:01,480
+一个负责使用它
+
+409
+00:11:01,480 --&gt; 00:11:03,400
+文件里特别强调一句话
+
+410
+00:11:03,400 --&gt; 00:11:05,080
+只有其中一个角色不算数
+
+411
+00:11:05,080 --&gt; 00:11:06,160
+这是在讲什么
+
+412
+00:11:06,160 --&gt; 00:11:08,340
+很多系统会说这里可以换
+
+413
+00:11:08,340 --&gt; 00:11:09,680
+结果你真的去换的时候
+
+414
+00:11:09,680 --&gt; 00:11:11,800
+才发现界面根本没有被单独定义出来
+
+415
+00:11:11,800 --&gt; 00:11:14,840
+使用的人其实直接绑死在某一份实作上
+
+416
+00:11:14,840 --&gt; 00:11:15,760
+那就不是能换
+
+417
+00:11:15,760 --&gt; 00:11:17,200
+那只是还没有人去换过而已
+
+418
+00:11:17,200 --&gt; 00:11:18,440
+做对了会怎样呢
+
+419
+00:11:18,440 --&gt; 00:11:19,720
+文件里举了一个例子
+
+420
+00:11:19,720 --&gt; 00:11:21,440
+档案系统跟跑指令
+
+421
+00:11:21,440 --&gt; 00:11:23,680
+这两件事共用同一个执行环境
+
+422
+00:11:23,680 --&gt; 00:11:26,800
+所以当你把它指向一台远端的杀箱机器
+
+423
+00:11:26,800 --&gt; 00:11:28,640
+那些跑指令的工具
+
+424
+00:11:28,640 --&gt; 00:11:29,840
+那个终端机
+
+425
+00:11:29,840 --&gt; 00:11:32,000
+连程式码补全都一起搬过去了
+
+426
+00:11:32,000 --&gt; 00:11:33,440
+没有任何一个要另外改
+
+427
+00:11:33,440 --&gt; 00:11:35,200
+这样插座规格发电厂
+
+428
+00:11:35,200 --&gt; 00:11:36,600
+从烧煤换成太阳能
+
+429
+00:11:36,600 --&gt; 00:11:38,280
+你家的电器一台都不用换
+
+430
+00:11:38,280 --&gt; 00:11:39,920
+因为中间那个插座的形状
+
+431
+00:11:39,920 --&gt; 00:11:41,600
+早就被单独定义出来了
+
+432
+00:11:41,600 --&gt; 00:11:45,160
+文件里我觉得最实用的一段叫做
+
+433
+00:11:45,160 --&gt; 00:11:46,960
+新的行为该放哪里
+
+434
+00:11:46,960 --&gt; 00:11:48,640
+这一张就是一张对照表
+
+435
+00:11:48,640 --&gt; 00:11:50,120
+左边是你想做的事
+
+436
+00:11:50,120 --&gt; 00:11:51,400
+右边是你该挂在哪里
+
+437
+00:11:51,400 --&gt; 00:11:53,040
+你想加一个模型供应商
+
+438
+00:11:53,040 --&gt; 00:11:55,760
+QLM那个名字上注册一个转接器
+
+439
+00:11:55,760 --&gt; 00:11:57,560
+你想给AI一个新工具
+
+440
+00:11:57,560 --&gt; 00:11:58,880
+去Tool上注册
+
+441
+00:11:58,880 --&gt; 00:12:01,320
+它的说明会自动被放进给模型的提示里
+
+442
+00:12:01,320 --&gt; 00:12:02,880
+你想拦截每一次请求
+
+443
+00:12:02,880 --&gt; 00:12:03,760
+用事件
+
+444
+00:12:03,760 --&gt; 00:12:06,080
+你想加一个关掉电脑还在的状态
+
+445
+00:12:06,080 --&gt; 00:12:07,720
+去扩充事件的行别
+
+446
+00:12:07,720 --&gt; 00:12:09,160
+这一张开头还有一句话
+
+447
+00:12:09,160 --&gt; 00:12:11,560
+他说如果你改的是主回圈本身
+
+448
+00:12:11,560 --&gt; 00:12:13,440
+你要顺手更新这张表
+
+449
+00:12:13,440 --&gt; 00:12:14,400
+你听出来了吗
+
+450
+00:12:14,400 --&gt; 00:12:16,600
+这张表就是这个专案的地图
+
+451
+00:12:16,600 --&gt; 00:12:18,800
+而他规定地图不准过期
+
+452
+00:12:18,800 --&gt; 00:12:20,960
+架构文件旁边还有一份
+
+453
+00:12:20,960 --&gt; 00:12:22,320
+不讲怎么设计
+
+454
+00:12:22,320 --&gt; 00:12:23,400
+讲怎么不出事
+
+455
+00:12:23,400 --&gt; 00:12:25,360
+标题叫防御性模式
+
+456
+00:12:25,360 --&gt; 00:12:26,400
+开头就说
+
+457
+00:12:26,400 --&gt; 00:12:29,440
+好下面每一条都是真的发生过
+
+458
+00:12:29,440 --&gt; 00:12:30,960
+或者差一点就发生的bug
+
+459
+00:12:30,960 --&gt; 00:12:32,960
+写成规则来防止它再来一次
+
+460
+00:12:32,960 --&gt; 00:12:34,360
+我很喜欢这种文件
+
+461
+00:12:34,360 --&gt; 00:12:35,680
+因为他不是在讲理想
+
+462
+00:12:35,680 --&gt; 00:12:36,720
+是在讲伤疤
+
+463
+00:12:36,720 --&gt; 00:12:38,000
+我挑两条给你
+
+464
+00:12:38,000 --&gt; 00:12:38,640
+第一条
+
+465
+00:12:38,640 --&gt; 00:12:40,800
+结果可能同时是好几件事
+
+466
+00:12:40,800 --&gt; 00:12:42,640
+一个程式可以同时于时
+
+467
+00:12:42,640 --&gt; 00:12:44,040
+又回报执行成功
+
+468
+00:12:44,040 --&gt; 00:12:46,680
+因为他自己把中断的讯号拦下来了
+
+469
+00:12:46,680 --&gt; 00:12:49,040
+所以于时讯号结束代码要各报各的
+
+470
+00:12:49,040 --&gt; 00:12:50,800
+不可以把一个藏在另一个底下
+
+471
+00:12:50,800 --&gt; 00:12:52,840
+不然呼叫的人会把一个被砍断的执行
+
+472
+00:12:52,840 --&gt; 00:12:54,240
+读成一次干净的成功
+
+473
+00:12:54,240 --&gt; 00:12:55,840
+第二条更严格关闭
+
+474
+00:12:55,840 --&gt; 00:12:57,560
+要关到真的静下来
+
+475
+00:12:57,560 --&gt; 00:12:58,520
+不是喊一声就走
+
+476
+00:12:58,520 --&gt; 00:13:00,080
+你送出一个结束的指令
+
+477
+00:13:00,080 --&gt; 00:13:00,920
+然后就回传
+
+478
+00:13:00,920 --&gt; 00:13:02,880
+那些子程式可能还活着
+
+479
+00:13:02,880 --&gt; 00:13:04,000
+正确做法是
+
+480
+00:13:04,000 --&gt; 00:13:05,320
+等他们真的死透
+
+481
+00:13:05,320 --&gt; 00:13:07,040
+而且要先把监听关掉再杀
+
+482
+00:13:07,040 --&gt; 00:13:08,880
+这样晚一步才回来的通知
+
+483
+00:13:08,880 --&gt; 00:13:10,000
+才不会到处乱跑
+
+484
+00:13:10,000 --&gt; 00:13:11,160
+所以讲完了
+
+485
+00:13:11,160 --&gt; 00:13:12,920
+我们看它实际跑起来是什么样子
+
+486
+00:13:12,920 --&gt; 00:13:14,840
+装好之后你可以选四种模式
+
+487
+00:13:14,840 --&gt; 00:13:16,000
+第一种是完整版
+
+488
+00:13:16,000 --&gt; 00:13:16,680
+档案
+
+489
+00:13:16,680 --&gt; 00:13:17,740
+指定搜寻规划
+
+490
+00:13:17,740 --&gt; 00:13:18,840
+还有直代理全开
+
+491
+00:13:18,840 --&gt; 00:13:20,240
+就是你预期一个agent
+
+492
+00:13:20,240 --&gt; 00:13:21,160
+该有的样子
+
+493
+00:13:21,160 --&gt; 00:13:22,480
+第二种比较特别
+
+494
+00:13:22,480 --&gt; 00:13:24,040
+它把工具包成程式码
+
+495
+00:13:24,040 --&gt; 00:13:25,800
+让AI用写程式的方式
+
+496
+00:13:25,800 --&gt; 00:13:27,280
+一次呼叫好几个工具
+
+497
+00:13:27,280 --&gt; 00:13:28,560
+我不是一轮一轮问
+
+498
+00:13:28,560 --&gt; 00:13:29,840
+这样省很多来回
+
+499
+00:13:29,840 --&gt; 00:13:31,380
+第三种是极简
+
+500
+00:13:31,380 --&gt; 00:13:33,280
+只给指令列跟编辑器
+
+501
+00:13:33,280 --&gt; 00:13:35,040
+适合你想看清楚
+
+502
+00:13:35,040 --&gt; 00:13:36,560
+模型自己到底有多少能耐
+
+503
+00:13:36,560 --&gt; 00:13:38,400
+第四种叫创造者模式
+
+504
+00:13:38,400 --&gt; 00:13:39,160
+这个要小心
+
+505
+00:13:39,160 --&gt; 00:13:41,280
+它给AI的工具是
+
+506
+00:13:41,280 --&gt; 00:13:43,100
+可以回头改这个系统自己的
+
+507
+00:13:43,100 --&gt; 00:13:43,780
+也就是说
+
+508
+00:13:43,780 --&gt; 00:13:45,680
+AI当场写出来的程式码
+
+509
+00:13:45,680 --&gt; 00:13:47,880
+会直接在正在跑的系统上执行
+
+510
+00:13:47,880 --&gt; 00:13:49,340
+官方自己在文件上
+
+511
+00:13:49,340 --&gt; 00:13:50,820
+标了高度信任的警告
+
+512
+00:13:50,820 --&gt; 00:13:52,720
+这是很大胆的设计
+
+513
+00:13:52,720 --&gt; 00:13:53,880
+也是很危险的设计
+
+514
+00:13:53,880 --&gt; 00:13:55,200
+我建议你先不要碰
+
+515
+00:13:55,200 --&gt; 00:13:56,080
+好
+
+516
+00:13:56,080 --&gt; 00:13:57,260
+讲到这里都很漂亮
+
+517
+00:13:57,260 --&gt; 00:13:59,120
+但我要老实跟你说几件事
+
+518
+00:13:59,120 --&gt; 00:14:00,960
+不然这支影片就变成广告了
+
+519
+00:14:00,960 --&gt; 00:14:01,360
+第一
+
+520
+00:14:01,360 --&gt; 00:14:03,100
+它现在是开发者预览版
+
+521
+00:14:03,100 --&gt; 00:14:04,960
+说明档用全大写写着
+
+522
+00:14:04,960 --&gt; 00:14:06,360
+一定会有不相容的改动
+
+523
+00:14:06,360 --&gt; 00:14:07,580
+你今天写的外挂
+
+524
+00:14:07,580 --&gt; 00:14:09,280
+下个月可能就跑不起来
+
+525
+00:14:09,280 --&gt; 00:14:10,440
+所以你要锁住版本
+
+526
+00:14:10,440 --&gt; 00:14:10,960
+第二
+
+527
+00:14:10,960 --&gt; 00:14:12,600
+它内建的那个沙箱
+
+528
+00:14:12,600 --&gt; 00:14:14,100
+文件上自己写着
+
+529
+00:14:14,100 --&gt; 00:14:14,880
+网络不受限
+
+530
+00:14:14,880 --&gt; 00:14:16,300
+其他程式看得到
+
+531
+00:14:16,300 --&gt; 00:14:17,940
+所以那不是真正的隔离
+
+532
+00:14:17,940 --&gt; 00:14:19,860
+你不能把它当成安全边界
+
+533
+00:14:19,860 --&gt; 00:14:22,320
+该关的还是要用真的虚拟机关
+
+534
+00:14:22,320 --&gt; 00:14:22,900
+第三
+
+535
+00:14:22,900 --&gt; 00:14:24,500
+它跑起来会开一个
+
+536
+00:14:24,500 --&gt; 00:14:25,640
+本机的网页界面
+
+537
+00:14:25,640 --&gt; 00:14:27,480
+很多人看到本机两个字会误会
+
+538
+00:14:27,480 --&gt; 00:14:29,280
+以为模型在自己电脑上跑
+
+539
+00:14:29,280 --&gt; 00:14:30,060
+不是的
+
+540
+00:14:30,060 --&gt; 00:14:32,600
+那只是控制台模型还是在远端
+
+541
+00:14:32,600 --&gt; 00:14:33,600
+还是要填金钥
+
+542
+00:14:33,600 --&gt; 00:14:34,440
+还是要付钱
+
+543
+00:14:34,440 --&gt; 00:14:37,400
+然后付钱就要讲另一半起了
+
+544
+00:14:37,400 --&gt; 00:14:38,560
+股价免费送你
+
+545
+00:14:38,560 --&gt; 00:14:39,740
+但模型还是要钱
+
+546
+00:14:39,740 --&gt; 00:14:42,080
+而且agent这种工作的账单形状
+
+547
+00:14:42,080 --&gt; 00:14:43,580
+跟你平常聊天完全不一样
+
+548
+00:14:43,580 --&gt; 00:14:46,160
+完全在一个叫快取命中的东西
+
+549
+00:14:46,160 --&gt; 00:14:47,880
+你跟AI讲话的时候
+
+550
+00:14:47,880 --&gt; 00:14:49,560
+前面那大段背景
+
+551
+00:14:49,560 --&gt; 00:14:50,460
+通常每次都一样
+
+552
+00:14:50,460 --&gt; 00:14:51,740
+系统会把它存起来
+
+553
+00:14:51,740 --&gt; 00:14:52,820
+第二次就不用重算
+
+554
+00:14:52,820 --&gt; 00:14:54,240
+所以算你比较便宜
+
+555
+00:14:54,240 --&gt; 00:14:56,780
+你可以想成搭同一条路线的月票
+
+556
+00:14:56,780 --&gt; 00:14:58,440
+走越多次越划算
+
+557
+00:14:58,440 --&gt; 00:14:59,660
+便宜多少呢
+
+558
+00:15:00,000 --&gt; 00:15:01,180
+官方的价目表
+
+559
+00:15:01,180 --&gt; 00:15:02,560
+同样是100万个字
+
+560
+00:15:02,560 --&gt; 00:15:05,140
+系统存过的跟没存过的差31倍
+
+561
+00:15:05,140 --&gt; 00:15:08,040
+而Agent刚好就是最靠这个活的工作
+
+562
+00:15:08,040 --&gt; 00:15:08,960
+因为他一轮一轮跑
+
+563
+00:15:08,960 --&gt; 00:15:11,800
+每一轮都要把前面做过的事重新送一遍
+
+564
+00:15:11,800 --&gt; 00:15:13,640
+他就是那个天天走同一条路的人
+
+565
+00:15:13,640 --&gt; 00:15:15,600
+所以真正决定你账单的
+
+566
+00:15:15,600 --&gt; 00:15:17,100
+不是他都会写程式
+
+567
+00:15:17,100 --&gt; 00:15:18,840
+是你又没有让他一直走同一条路
+
+568
+00:15:18,840 --&gt; 00:15:20,160
+还有一件事你要知道
+
+569
+00:15:20,160 --&gt; 00:15:23,120
+官方把一天切成尖峰跟离峰
+
+570
+00:15:23,120 --&gt; 00:15:25,200
+尖峰的单价是离峰的两倍
+
+571
+00:15:25,200 --&gt; 00:15:28,380
+而那个尖峰时段换算成台湾时间
+
+572
+00:15:28,380 --&gt; 00:15:30,480
+刚好就是我们上班的那几个小时
+
+573
+00:15:30,480 --&gt; 00:15:32,600
+对那同一个问题是什么呢
+
+574
+00:15:32,600 --&gt; 00:15:34,140
+这份文件从头到尾讲的
+
+575
+00:15:34,140 --&gt; 00:15:35,200
+其实都是同一件事
+
+576
+00:15:35,200 --&gt; 00:15:37,000
+让一个很复杂的东西
+
+577
+00:15:37,000 --&gt; 00:15:38,280
+还能被一个人看懂
+
+578
+00:15:38,280 --&gt; 00:15:39,320
+还敢动手去改
+
+579
+00:15:39,320 --&gt; 00:15:40,440
+如果你只记得一句
+
+580
+00:15:40,440 --&gt; 00:15:42,360
+我建议这句模型看得到的
+
+581
+00:15:42,360 --&gt; 00:15:43,100
+就一定被记下来
+
+582
+00:15:43,100 --&gt; 00:15:44,740
+因为他一句话就撑起了
+
+583
+00:15:44,740 --&gt; 00:15:45,980
+可以倒带可以分岔
+
+584
+00:15:45,980 --&gt; 00:15:47,660
+可以查这样这三件事
+
+585
+00:15:47,660 --&gt; 00:15:49,940
+其他的设计都是在保护他
+
+586
+00:15:49,940 --&gt; 00:15:51,040
+如果你是工程师
+
+587
+00:15:51,040 --&gt; 00:15:52,940
+我建议你今天就把它装起来
+
+588
+00:15:52,940 --&gt; 00:15:54,700
+玩意行指令就开得起来
+
+589
+00:15:54,700 --&gt; 00:15:56,620
+但先不要拿去做正式的东西
+
+590
+00:15:56,620 --&gt; 00:15:58,120
+如果你是在看趋势的人
+
+591
+00:15:58,120 --&gt; 00:16:00,040
+你要看的不是这个框架本身
+
+592
+00:16:00,040 --&gt; 00:16:00,840
+是这件事
+
+593
+00:16:00,840 --&gt; 00:16:03,240
+模型公司开始抢执行环境了
+
+594
+00:16:03,240 --&gt; 00:16:04,360
+欢迎订阅追踪
+
+595
+00:16:04,360 --&gt; 00:16:05,240
+后续下次见
+</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://www.youtube.com/watch?v=i7ZWtyLzc1Q" target="_blank" rel="noopener">https://www.youtube.com/watch?v=i7ZWtyLzc1Q</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

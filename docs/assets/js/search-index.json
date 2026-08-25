@@ -1,5 +1,11 @@
 [
   {
+    "title": "DeepSeek Harness 框架怎麼設計的？一切皆插件｜架構解析 ｜ 連主迴圈都能換 - Hermes Docs",
+    "url": "videos/deepseek-harness-architecture.html",
+    "date": "2026-08-25 00:13",
+    "content": "DeepSeek Harness 框架怎麼設計的？一切皆插件｜架構解析 ｜ 連主迴圈都能換 - Hermes Docs 返回首頁 DeepSeek Harness 框架怎麼設計的？一切皆插件｜架構解析 ｜ 連主迴圈都能換 發布時間：2026-08-25 08:13 🌙 YouTube 影片重點整理 DeepSeek Harness 框架怎麼設計的？一切皆插件｜架構解析 ｜ 連主迴圈都能換 📺 Jim AI Notebook ⏱ 16:08 🗓 2026-08-18 🌐 zh-Hant 🔗 https://www.youtube.com/watch?v=i7ZWtyLzc1Q 這支影片把 DeepSeek Harness 當成一份架構文件來讀：它不是新模型，而是讓模型能呼叫工具、記錄工作、套用權限與沙箱、並在出事時留下可追溯證據的執行環境。影片先把 Harness 比喻成駕馭馬的裝備，說明開放權重如果沒有執行環境，就像有大腦但沒有神經系統。接著比較 Claude Code、Codex、OpenClaw、Hermes 與 Harness 的差異：核心問題不是誰比較強，而是你能改到哪一層。影"
+  },
+  {
     "title": "HiRAG 分層知識增強的檢索生成模型 - Hermes Docs",
     "url": "videos/hirag-layered-rag-description.html",
     "date": "2026-08-24 11:15",
