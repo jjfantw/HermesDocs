@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bob 大叔：AI 程式碼我完全不看｜Robert C. Martin 的 AI Agent 編程觀 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>Bob 大叔：AI 程式碼我完全不看｜Robert C. Martin 的 AI Agent 編程觀</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-09-01 17:54</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">Bob 大叔：AI 程式碼我完全不看｜Robert C. Martin 的 AI Agent 編程觀</h1>
+    <div class="meta"><span data-field="channel">📺 Best Partners TV</span><span data-field="duration">⏱ 16:20</span><span data-field="published_date">🗓 2026-09-01</span><span data-field="original_language">🌐 zh-Hans</span><a data-field="source_url" href="https://youtu.be/PenFT2xcHp4" target="_blank" rel="noopener">🔗 https://youtu.be/PenFT2xcHp4</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>這部影片整理 Robert C. Martin（Bob 大叔）在與 Matt Pocock 對談中，對 AI Agent 寫程式的實務看法。Bob 大叔的核心立場不是逐行審查 AI 產出的程式碼，而是用 CRAP 分數、變異測試、QA 腳本、架構依賴檢查等確定性工具，讓 Agent 在自動化約束下反覆修正。他認為提示詞規則容易因 Lost in the Middle 與上下文稀釋而被模型當成建議，所以初始提示應該精簡，品質約束則交給不會打折執行的工具。他也描述了一套多 Agent 流程：規格定義器、編碼器、清理器、強化器與 QA Agent 逐段接手，用較長時間換取高品質結果。對架構與傳統規範，他主張保留人類價值觀，但調整適合 Agent 的閾值，例如放寬 CRAP 分數，不把人類式 TDD 紀律硬套給 Agent。影片最後提醒，AI 讓戰術性寫碼變快，但組織複雜性、辨識爛程式碼與判斷 Agent 何時掙扎的能力更重要；軟體工程基礎在 AI 時代不但沒有過時，反而更關鍵。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">1. 不逐行看 AI 程式碼，改看可驗證的品質訊號</h2><span class="ts-badge" data-field="lesson_timestamp">3:38</span></div><div class="body" data-field="lesson_body"><p>Bob 大叔的做法不是把 AI 產出的每一行都重新讀過，而是讓 Agent 寫碼、重構、補測試，再由人類檢查 CRAP 分數、抽查程式碼與執行其他測試。</p><p>他的理由很直接：Agent 處理程式碼比人快，人類處理程式碼很慢；因此人類應該把時間放在更高層的品質控制與系統運作判斷上。</p><span class="tag" data-field="lesson_tag">品質驗證</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">2. AI 的速度應該拿來跑過去太貴的確定性工具</h2><span class="ts-badge" data-field="lesson_timestamp">2:23</span></div><div class="body" data-field="lesson_body"><p>影片提到兩個 Bob 大叔早就知道但過去難以日常化的工具：CRAP 分數與變異測試。前者把測試覆蓋率與函式圈複雜度結合成品質分數；後者故意修改原始碼，看測試是否能抓到錯誤。</p><p>過去變異測試可能要跑一整晚，如今交給 Agent 後約三十分鐘能完成，還能把測試漏洞補上。AI 產生碎屑，也可以成為清理碎屑的工具。</p><span class="tag" data-field="lesson_tag">CRAP／變異測試</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">3. 提示詞規則像建議，確定性工具纔是不打折的約束</h2><span class="ts-badge" data-field="lesson_timestamp">4:37</span></div><div class="body" data-field="lesson_body"><p>Bob 大叔一開始也曾把 TDD、Clean Code 等要求寫進長提示詞，但很快發現模型會把許多規則當成『海盜法典』式的建議。</p><p>影片把原因連到 Lost in the Middle：長上下文中間的內容容易被忽略。相較之下，確定性工具不會因規則排在第五十行或第八十行就忘記執行。</p><span class="tag" data-field="lesson_tag">Lost in the Middle</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">4. 多 Agent 協作的價值在於切小任務與重置上下文</h2><span class="ts-badge" data-field="lesson_timestamp">6:46</span></div><div class="body" data-field="lesson_body"><p>Bob 大叔描述的流程不是一個 Agent 從頭做到尾，而是讓規格定義器、編碼器、清理器、強化器與 QA Agent 接力。</p><p>這種做法啟動與溝通成本較高，可能把五分鐘任務拉長到一小時；但若同樣品質讓人類做要半天，仍然划算。重點是每個 Agent 面對更聚焦、更乾淨的上下文。</p><span class="tag" data-field="lesson_tag">多 Agent 流程</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">5. 架構仍要被顯性化，不能只靠 Agent 自己理解</h2><span class="ts-badge" data-field="lesson_timestamp">8:20</span></div><div class="body" data-field="lesson_body"><p>Bob 大叔曾手動審問 Agent：模組結構是什麼、模組如何互相依賴；得到可怕答案後再親自設計結構。後來他讓 Agent 建構架構查看器，用類 UML 圖顯示系統模組與依賴。</p><p>他也建立依賴規範工具，定義哪些模組可以依賴、哪些絕對不能互相依賴。違反時就必須透過反轉依賴、抽介面等方式修復。</p><span class="tag" data-field="lesson_tag">架構約束</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">6. 人類紀律不必原樣強加給 Agent，但人類價值觀不能丟</h2><span class="ts-badge" data-field="lesson_timestamp">9:35</span></div><div class="body" data-field="lesson_body"><p>影片提到 Bob 大叔把 CRAP 分數從人類標準的 4 以下放寬到 6，甚至考慮提高到 8，因為 Agent 的短期記憶與處理能力不同於人。</p><p>他也不打算要求 Agent 嚴格照人類 TDD 節奏一行測試、一行 production code 地寫。對 Agent 而言，先寫函式再補測試可能更自然；真正不能放棄的是測試覆蓋與品質價值。</p><span class="tag" data-field="lesson_tag">標準調整</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">07</span><h2 data-field="lesson_title">7. 規格驅動的誘惑，可能只是瀑布式思維回潮</h2><span class="ts-badge" data-field="lesson_timestamp">10:44</span></div><div class="body" data-field="lesson_body"><p>Bob 大叔警告，現在很容易陷入大量撰寫需求與計畫，再一次性交給 Agent 的誘惑。他把這看成七十年代前期規劃與瀑布流思維的回歸。</p><p>他的替代做法是回到敏捷：先讓 Agent 做一兩個具體任務，檢查架構是否出問題，需要時人工介入調整，再繼續下一步。</p><span class="tag" data-field="lesson_tag">敏捷迭代</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">08</span><h2 data-field="lesson_title">8. 新人不能跳過寫程式與底層基礎</h2><span class="ts-badge" data-field="lesson_timestamp">12:35</span></div><div class="body" data-field="lesson_body"><p>面對 AI 吞掉大量戰術性寫碼工作的問題，Bob 大叔仍建議新人先至少寫一年程式，之後在使用 Agent 的公司裡像 Agent 一樣接受任務與確定性工具約束。</p><p>他強調不能完全丟掉程式碼與底層知識：從二進位、組合語言、C、Python 到 Agent 工具，這條路是理解系統與辨識 Agent 何時掙扎的基礎。</p><span class="tag" data-field="lesson_tag">學習路徑</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">AI 讓寫碼速度變快，但真正更值錢的是組織複雜性、判斷品質、看出 Agent 何時撞牆的能力。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="0:00"><span class="ts">0:00</span><span class="text" data-field="key_point_text">影片以 Bob 大叔『完全不看 Agent 寫出來的程式碼』作為切入，介紹他五十多年程式經驗與這場 AI 時代軟體基礎對談。</span></li><li data-field="key_point" data-timestamp="1:46"><span class="ts">1:46</span><span class="text" data-field="key_point_text">Bob 大叔從去年聖誕節前後開始認真嘗試 AI 編程工具，初期覺得 Agent 很快但常留下爛攤子，甚至拖慢自己的效率。</span></li><li data-field="key_point" data-timestamp="2:23"><span class="ts">2:23</span><span class="text" data-field="key_point_text">他把 AI 的速度用在過去太耗時的確定性品質工具上，包括 CRAP 分數與變異測試，讓原本跑一整晚的流程縮短到約三十分鐘。</span></li><li data-field="key_point" data-timestamp="3:38"><span class="ts">3:38</span><span class="text" data-field="key_point_text">他的目標是讓 Agent 寫碼與清理，人類不逐行看程式碼，而是透過 CRAP 分數、抽查與其他測試來驗證品質。</span></li><li data-field="key_point" data-timestamp="4:37"><span class="ts">4:37</span><span class="text" data-field="key_point_text">面對 AI 產生的爛程式碼，他不主張一直堆提示詞規則，而是使用確定性自動化檢查，因為工具不會把規則當成可選建議。</span></li><li data-field="key_point" data-timestamp="5:12"><span class="ts">5:12</span><span class="text" data-field="key_point_text">影片解釋 Lost in the Middle：長上下文中間的規則容易被模型忽略，因此初始提示要短，品質要求要外部化成工具。</span></li><li data-field="key_point" data-timestamp="6:46"><span class="ts">6:46</span><span class="text" data-field="key_point_text">多 Agent 協作可以把任務切細、清空上下文、降低上下文失效；Bob 大叔描述了規格定義器、編碼器、清理器、強化器與 QA Agent 的流程。</span></li><li data-field="key_point" data-timestamp="8:20"><span class="ts">8:20</span><span class="text" data-field="key_point_text">在架構設計上，他用 Agent 建構架構查看器與依賴規範工具，讓模組關係和禁止依賴成為 Agent 無法違反的檢查。</span></li><li data-field="key_point" data-timestamp="9:35"><span class="ts">9:35</span><span class="text" data-field="key_point_text">傳統品質標準需要依 Agent 特性調整：例如 CRAP 分數從人類標準 4 以下放寬到 6，甚至考慮提高到 8；但人類價值觀仍要保留。</span></li><li data-field="key_point" data-timestamp="10:03"><span class="ts">10:03</span><span class="text" data-field="key_point_text">他不打算把人類的 TDD 節奏強加給 Agent，因為 Agent 經常回到先寫函式再補測試的模式；重點是結果與測試約束。</span></li><li data-field="key_point" data-timestamp="10:44"><span class="ts">10:44</span><span class="text" data-field="key_point_text">他警告過度規格驅動是瀑布式前期規劃誘惑的回歸；在低成本修改時代，應回到小步迭代與人工適時調整。</span></li><li data-field="key_point" data-timestamp="12:35"><span class="ts">12:35</span><span class="text" data-field="key_point_text">對新生代開發者，他建議先至少寫一年程式，再在大量使用 Agent 的公司中被當作 Agent 一樣接受任務與工具約束。</span></li><li data-field="key_point" data-timestamp="13:39"><span class="ts">13:39</span><span class="text" data-field="key_point_text">他強調不能跳過基礎：從二進位、組合語言、C、Python 到 Agent 工具鏈，才能理解底層與辨識 Agent 的掙扎。</span></li><li data-field="key_point" data-timestamp="14:55"><span class="ts">14:55</span><span class="text" data-field="key_point_text">影片以 Dijkstra 對軟體複雜性的提醒收束：基礎是組織複雜性的方式，讓人類與模型都能理解系統。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="AI 編程">AI 編程</span><span class="tag-chip" data-tag="AI Agent">AI Agent</span><span class="tag-chip" data-tag="Robert C. Martin">Robert C. Martin</span><span class="tag-chip" data-tag="Clean Code">Clean Code</span><span class="tag-chip" data-tag="CRAP">CRAP</span><span class="tag-chip" data-tag="變異測試">變異測試</span><span class="tag-chip" data-tag="TDD">TDD</span><span class="tag-chip" data-tag="多 Agent 協作">多 Agent 協作</span><span class="tag-chip" data-tag="軟體工程基礎">軟體工程基礎</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>影片描述附原始直播連結；本報告整理的是這支 16:20 剪輯影片的字幕內容，不額外推論原始直播未出現在剪輯中的段落。</li></ul></div></section>
+  
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="description"><div class="raw-label">YouTube 描述<button class="copy-btn" id="raw_description_4338423232_srt" onclick="copyRaw(this,'raw_description_4338423232_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_description_4338423232_text" onclick="copyRawText(this,'raw_description_4338423232_text')">📋 複製純文字</button></div><pre>编程超过50年的世界级大师Bob大叔（Robert C. Martin）在与Matt Pocock的对谈中分享了他与AI Agent协作写代码的真实经历。他主张用确定性自动化工具（CRAP评分、变异测试、QA流程）替代人工逐行审查AI代码，通过多Agent协同（规格定义器→编码器→清理器→强化器→QA Agent）解决上下文失效问题。他发现提示词规则对模型只是建议，而确定性工具不会打折执行。传统编程规范需根据Agent特点调整阈值，但TDD等人类纪律不应强加给Agent。他警示：过度编写规格说明是瀑布流思维的回归，应坚持敏捷迭代。对于新生代开发者，他建议先写一年代码、被当作Agent对待数月，从二进制到汇编逐步打好基础。软件基础不仅没有过时，在AI时代反而更加重要。
+
+https://www.youtube.com/live/zcLPGC-tvgk?si=T0YIfsrWyuStD-WE</pre></div><div class="raw-block" data-field="raw_source_item" data-raw-type="transcript"><div class="raw-label">字幕逐字稿（zh-Hans，原文保留）<button class="copy-btn" id="raw_transcript_4338423552_srt" onclick="copyRaw(this,'raw_transcript_4338423552_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_transcript_4338423552_text" onclick="copyRawText(this,'raw_transcript_4338423552_text')">📋 複製純文字</button></div><pre>0:00 大家好，这里是最佳拍档，我是大飞
+0:02 我完全不看Agent写出来的任何代码
+0:05 这句话如果是从一个刚毕业的程序员嘴里说出来的
+0:08 我们可能会觉得他不太靠谱
+0:10 但是说这话的人是罗伯特·马丁（Robert C.Martin）
+0:12 全球开发者更熟悉的称呼是Bob大叔
+0:15 他编程超过五十年
+0:16 写了《代码整洁之道》（Clean Code）
+0:18 是软件工程领域被引用次数最多的作者之一
+0:21 一个把代码质量看得比什么都重的人
+0:23 现在说他不看AI写的代码
+0:25 今天我们就来聊聊这件事儿
+0:27 Bob大叔最近和知名TypeScript教育家马特·波科克（Matt Pocock）
+0:30 做了一场直播对谈
+0:32 聊的就是AI时代的软件基础
+0:34 以及他这几个月和AI Agent一起写代码的真实经历
+0:37 整场对谈不光是聊到了AI怎么写代码
+0:39 更核心的问题是
+0:41 当代码的生成速度被大幅提升之后
+0:43 程序员到底应该把时间花在哪里
+0:46 先来给大家介绍一下Bob大叔这个人
+0:48 他1964年就写了第一个程序
+0:50 当时才十二岁
+0:51 那台机器是他母亲送他的生日礼物
+0:53 一种小型的模拟电脑
+0:55 当时得把白色的小管子
+0:56 套在插桩上来编程
+0:58 在他看来
+0:59 那本质上是一个3位的有限状态机
+1:01 但是对十二岁的他来说已经足够着迷了
+1:04 后来他父亲给了他几本编程语言的书
+1:06 包括Fortran、Cobol、PL/I
+1:09 他全读完了
+1:09 只是当时没有机器可以运行程序
+1:12 他只能把程序写在纸上
+1:13 在脑子里运行一遍
+1:14 十六岁的时候
+1:15 他找到了一份可以写代码的临时工作
+1:18 十八岁找到第一份正式的程序员工作
+1:20 从那以后一直做到今天
+1:22 这场对谈还有一个有意思的开场
+1:24 Bob大叔是穿着浴袍出来的
+1:26 这其实是他个人形象的一部分
+1:28 源于他所谓的晨间浴袍吐槽
+1:30 大约两年前
+1:31 他早上六点穿着浴袍坐在前廊
+1:33 开始琢磨SQL注入这件事
+1:35 越想越觉得不对劲
+1:36 掏出手机发了一通牢骚
+1:38 没想到反响不错
+1:39 后来就陆续做了几次
+1:41 用这种半开玩笑的方式来表达对技术问题的看法
+1:44 接下来我们进入正题
+1:46 去年圣诞节前后
+1:47 Bob大叔开始认真尝试AI编程工具
+1:50 最早试的是ChatGPT、Grok这些
+1:52 一开始其实没觉得有多惊艳
+1:54 后来他找了一个Agent
+1:55 让它帮忙写代码
+1:57 写得不怎么样，但至少确实写出来了
+1:59 当时他正忙着一个项目
+2:01 就让Agent参与了工作
+2:02 不过那个阶段他一直在给Agent擦屁股
+2:05 因为它经常把事情搞得一团糟
+2:07 速度确实快，但总会留下隐患
+2:10 他的感受很矛盾，AI挺有意思
+2:12 因为确实快，但是也很让人沮丧
+2:14 因为反而让自己的效率变慢了
+2:16 转折发生在他意识到一件事
+2:19 既然Agent这么快
+2:20 那它其实可以做一些他自己根本做不到的事情
+2:23 这里他提到了两个很早就有、但是一直没法落地的想法
+2:27 一个叫CRAP，是一个缩写
+2:30 把代码测试覆盖率和每个函数的圈复杂度结合起来
+2:33 通过一个公式算出一个分数
+2:35 衡量一个函数到底有多糟糕
+2:37 2000年代初他就跑过一次
+2:39 确实找出了一堆糟糕的函数
+2:41 但只能一个一个的修
+2:42 还得重新编写测试
+2:43 成本太高，只能搁置
+2:45 另一个叫变异测试（Mutation Testing）
+2:47 原理是让一个小程序自动修改你的源代码
+2:50 比如把负号改正号、小于号改大于号
+2:54 每改一次就跑一遍完整的测试套件
+2:56 预期测试应该失败
+2:57 因为代码被故意改坏了
+2:59 如果测试没失败
+3:00 就说明出现了一个存活的变异体
+3:02 需要处理
+3:03 这个方法他也试过，当时得跑一整晚
+3:05 虽然是找出不少问题
+3:06 但同样没法纳入正常流程
+3:09 到了今年初，他突然想到，AI速度快
+3:11 而且根本不在乎工作有多枯燥
+3:13 那干脆让Agent去跑CRAP
+3:15 再让它负责重构和清理代码
+3:17 也让它跑了跑变异测试
+3:19 以前要跑一整晚的任务
+3:20 现在三十分钟就能完成了
+3:22 而且还能把所有测试漏洞补上
+3:24 他意识到，AI写代码时
+3:26 虽然会留下很多碎屑和浮毛
+3:28 但是它们自己也许就是清理这些东西最好的工具
+3:31 于是他不断尝试，加入更多工具
+3:34 让多个Agent配合工作
+3:36 到现在为止，效果相当不错
+3:38 他现在的原则很明确，让Agent去干活
+3:41 运行这些工具
+3:42 他正在努力达到一种状态
+3:43 不需要亲自去看代码
+3:45 也可以信任AI
+3:46 当然他还是会通过其他方式来验证代码的质量
+3:50 比如检查CRAP分数、抽查代码、运行其他测试等待
+3:54 但是总体思路是
+3:55 既然Agent处理代码的速度比人类快得多
+3:57 而人类处理代码很慢
+3:59 那就让Agent负责写代码
+4:01 人类来处理更高层面的事情
+4:03 确保一切正常运转
+4:04 不过这里有个关键问题绕不开
+4:07 AI写的烂代码该怎么办
+4:09 Bob大叔很早就发现
+4:10 如果一直让Agent往下做
+4:12 不去清理它留下的烂摊子
+4:14 它的速度反而会越来越慢
+4:15 比如改了一个地方
+4:17 无意中破坏了另一个地方
+4:18 为了修复那个地方
+4:19 又破坏了其他地方，最后不停绕圈子
+4:22 这些Agent虽然快，也确实聪明
+4:24 但是和人类一样
+4:25 也会受到烂代码的影响
+4:27 代码烂到一定程度
+4:28 Agent就处理不了了，开始原地打转
+4:31 然后把烂摊子越搞越大
+4:33 他甚至遇到过一个Agent直接跟他说
+4:35 我处理不了了
+4:36 那怎么解决呢？
+4:37 大多数人可能会选择给Agent增加指令
+4:40 在配置文件里堆满规则
+4:41 每看到坏代码就加一条
+4:43 但是Bob大叔选了另一条路
+4:45 确定性的自动化检查机制
+4:47 他解释了为什么不选择引导的方式
+4:50 最开始他确实这么做过
+4:52 给Agent写的提示词
+4:53 都是这是测试驱动开发的方法
+4:55 这是整洁代码的要求之类的
+4:57 最后会得到一份长达十页的文档
+4:59 专门告诉它什么是好代码
+5:01 但是他很快发现
+5:03 这些模型对待规则的态度
+5:05 特别像《加勒比海盗》里的海盗法典一样
+5:07 听起来是规则
+5:08 但是对它们来说更像是一堆建议
+5:11 背后其实是有技术原因的
+5:12 他研究之后发现
+5:13 这和一个叫Lost in the Middle的现象有关
+5:16 模型的上下文窗口越来越大
+5:18 放在最前面和最后面的内容更容易被关注
+5:21 而夹在中间的内容更容易被忽略
+5:23 甚至像消失了一样
+5:25 比如你写了一份很长的提示词
+5:27 开头前三句它记得很清楚
+5:28 当作高优先级指令
+5:30 但是到了第五十句、第八十句
+5:32 那些内容可能就被丢到上下文中间的某个角落了
+5:35 但是确定性的工具不会这样
+5:37 不会因为规则写在第五十行还是第八十行
+5:39 就把规则当建议
+5:41 所以他认为使用Agent的关键
+5:43 就是把初始提示词精简到绝对最小值
+5:46 尽可能多地保留在优先级区域
+5:48 然后在这之后使用确定性工具
+5:51 虽然这确实很难做到
+5:52 马特补充了一个很好的说法
+5:54 叫上下文窗口的聪明区和愚蠢区
+5:57 这是戴克斯·霍瓦斯（Dex Horvath）提出来的概念
+5:59 随着上下文不断变长
+6:01 Transformer中的注意力机制会越来越吃力
+6:03 信息逐渐被稀释
+6:04 就像一个越来越拥挤的房间
+6:06 每个Token都在大声说话
+6:08 最后你很难从一片噪音中
+6:10 分辨出真正重要的信号
+6:11 Bob大叔还提到
+6:12 自动化检查确实存在一个过多的临界点
+6:15 如果它们让Agent的速度慢到还不如人类
+6:18 那你就输了
+6:19 但是只要生产力仍然高于人类
+6:21 你就依然领先
+6:22 根据他目前的观察
+6:23 大概能把生产力优势维持在两到四倍左右
+6:27 使用确定性工具会明显拖慢Agent
+6:29 因为你实际是把它放进了一个循环里
+6:31 不断修改代码
+6:32 直到工具告诉它OK为止
+6:34 Agent就在那里不停循环
+6:35 修改这个、修改那个
+6:37 增加测试、降低圈复杂度、拆分函数
+6:39 需要很长时间才能达到预设的合规标准
+6:42 本质上是在牺牲一部分生产力
+6:44 来换取更高的代码质量
+6:46 他正在尝试让多个Agent彼此协作、相互交接
+6:49 比如一个负责写代码
+6:51 下一个负责审查
+6:52 再下一个负责测试和强化
+6:54 虽然有巨大的通信开销
+6:55 但是整体速度仍然比人类快得多
+6:58 说到多Agent协同
+6:59 这其实是解决上下文失效问题的一个关键思路
+7:02 Bob大叔解释了两个优势
+7:04 第一可以并行运行多个Agent
+7:06 第二当任务聚焦到单一任务时
+7:08 可以更好地控制上下文窗口
+7:10 Lost in the Middle的问题会减轻
+7:13 你甚至可以设置这样一套机制
+7:15 让Agent出生、完成任务
+7:16 然后消失，下一个Agent进来时
+7:19 面对的是干净的上下文窗口
+7:21 缺点是启动时间更长
+7:23 一个Agent可能需要十到十五秒才能启动
+7:25 并且理解当前上下文
+7:27 他倾向于尽可能把任务拆得足够细、足够聚焦
+7:31 具体来说他有一套完整的流程
+7:33 先运行一个规格定义器
+7:34 把人类编写的文档转换成Gherkin语言和QA流程
+7:38 然后交给编码器
+7:39 负责编写单元测试、实现故事逻辑
+7:41 让Gherkin测试跑通
+7:43 完成后交给清理器做复杂度分析和常规代码审查
+7:47 接着交给强化器运行变异测试
+7:49 反复验证测试是否真的有效
+7:51 确保百分之百的测试覆盖率
+7:53 这个过程非常耗时
+7:55 最后交给QA Agent
+7:56 把书面QA文档转换成可执行脚本
+7:59 用脚本直接操作系统
+8:00 给出确定性的测试结果
+8:02 如果能通过这一整套流程
+8:03 最终得到的程序质量会非常高
+8:06 他自己的实践很成功
+8:07 给单个Agent一个任务
+8:09 可能五分钟就完成了
+8:10 但是结果是否可靠很难说
+8:12 而采用这套流程可能需要一个小时
+8:14 但是依然划算
+8:16 因为让人类完成同样的工作可能需要半天
+8:19 在架构设计方面
+8:20 Bob大叔也有不少的思考
+8:21 过去一个多月前
+8:22 他一直是手动完成模块结构设计的
+8:25 先让Agent构建东西
+8:26 然后通过不断提问来审问它们
+8:28 比如这里的结构是什么？
+8:30 模块和模块怎么关联？
+8:32 等他得到那些令人恐惧的答案后
+8:34 就亲自设计模块结构
+8:36 告诉Agent该怎么划分、怎么通信
+8:38 这个过程非常辛苦
+8:40 所以他让Agent帮他构建了一个架构查看器
+8:43 可以在屏幕上弹出类似UML的图表
+8:46 展示整个系统的模块结构和依赖关系
+8:48 可以点击查看子模块甚至直接看代码
+8:51 他还构建了另一个确定性工具
+8:53 可以定义哪些模块应该依赖哪些模块、哪些绝对不能互相依赖
+8:58 形成一份Agent无法违反的规范文件
+9:00 如果违反了就必须通过反转依赖、提取接口等方式修复
+9:04 马特提到了约翰·欧斯特豪特（John Ousterhout）的深层模块概念
+9:08 即接口简单但是内部隐藏大量信息的模块
+9:11 对Agent来说非常理想
+9:13 因为它们只需要读取接口而不必理解实现
+9:16 Bob大叔非常认同这一点
+9:17 指出模型非常关注接口的名称和结构
+9:20 这意味着它们不必阅读下层代码
+9:22 当然这既是一种风险，也是一种优势
+9:25 他还在《代码整洁之道》附录里
+9:27 记录了和欧斯特豪特之间的一场长篇辩论
+9:29 他自己玩得很开心
+9:31 接下来聊到了传统编程规范在AI时代是否需要调整
+9:35 Bob大叔提到了几个具体的调整
+9:37 首先是阈值问题
+9:39 Agent能处理的复杂度和人类开发者是不一样的
+9:42 它们的短期记忆比人类强得多
+9:44 而且更加精准，所以他把CRAP分值
+9:46 从人类的4以下放宽到了6
+9:49 甚至在考虑提高到8
+9:50 在测试覆盖率达到百分之百的情况下
+9:53 CRAP分值为6
+9:54 意味着这个函数有六条执行路径
+9:56 而且每一条都经过测试
+9:58 他还和Agent就这个问题争论过多次
+10:00 Agent似乎也认为6是个不错的标准
+10:03 另一个重要的调整是关于测试驱动开发
+10:05 他曾经是TDD的坚定拥护者
+10:07 但那是一种人类的纪律
+10:09 是根据人类的思维方式演化出来的
+10:11 他不会也不打算把这种纪律强加给Agent
+10:14 强迫Agent写一行测试再写一行生产代码
+10:17 没有什么意义
+10:18 虽然对人类来说这样做收益很大
+10:20 但是对于Agent来说
+10:21 他更愿意允许它们采用欧斯特豪特提倡的方式
+10:25 先写函数再写测试
+10:26 事实上即使他要求Agent严格按照TDD来做
+10:29 它们最终也总会回到先写代码、再写测试的模式
+10:33 所以他的结论是
+10:34 把人类的纪律强加给Agent可能是一个错误
+10:37 当然，虽然我们不需要强加纪律
+10:39 但是仍然需要坚持人类的价值观
+10:41 只是阈值需要根据Agent的特点调整
+10:44 关于前期规划
+10:45 Bob大叔有一个很明确的判断
+10:47 现在最大的诱惑是过度编写规格说明
+10:50 让开发者不断完善需求和计划
+10:52 再把这些东西一次性交给Agent
+10:55 这是一个源自七十年代的古老诱惑
+10:57 后来瀑布流开发模式就是这种思路的典型
+11:00 而敏捷开发的兴起
+11:01 很大程度上就是对这种做法的反思
+11:04 过于沉重的前期规划
+11:06 往往会把事情搞得一团糟
+11:07 因为最终做出来的东西几乎不可能和最初设想的一模一样
+11:11 面对Agent
+11:12 人们同样容易掉进这个陷阱
+11:14 他这周就试过这种方式
+11:15 结果一次次证明是灾难
+11:17 Agent根本无法完全按照你制定的计划执行
+11:20 因为你不可能提前考虑到所有的细节
+11:23 Agent也没有你那么强的判断能力
+11:25 很容易朝错误方向一路跑偏
+11:27 你只能叫停、回滚、重新计划、从头开始
+11:31 所以他放弃了这种做法
+11:32 回到敏捷的方式
+11:34 先让Agent完成一两个具体任务
+11:36 看看整体架构有没有问题
+11:37 如果需要就手动介入做一些调整
+11:39 再让它继续
+11:40 他怀疑
+11:41 我们可能永远无法完全摆脱最后这步人工组织的工作
+11:45 对于现在流行的规格驱动开发（Spec-Driven Development）
+11:47 他的直觉是这条路行不通
+11:49 Agent非常喜欢写计划，会不断修饰
+11:52 写得越来越华丽完美
+11:53 细节越来越丰富
+11:55 但是到了真正执行的阶段
+11:56 往往还是会崩盘
+11:58 他用了一个很妙的比喻
+11:59 假设改建一栋房子的成本只需要一美元
+12:02 包括打地基、修屋顶以及之后所有的修改
+12:05 每次都只需要一美元
+12:07 你会先花几千美元请建筑师设计一套完美方案
+12:10 再花一美元一次性把房子盖出来呢？
+12:13 还是直接走到承包商面前说
+12:14 地基打在这里
+12:15 做成这个形状
+12:16 噢，不对，改一下
+12:18 厨房放这边客厅放那边
+12:20 等等，还是换个位置吧
+12:22 显然后一种更合理
+12:23 现在软件修改的成本已经大幅下降
+12:26 接近于零
+12:26 所以为什么还要花大量精力做昂贵的前期规划呢？
+12:30 规格说明是转瞬即逝的
+12:31 会消失也会频繁变化
+12:33 不等同于源代码
+12:35 最后是对新生代开发者的忠告
+12:37 也是这场对谈里最值得深思的部分
+12:39 马特提到了欧斯特豪特关于战术编程和战略编程的区分
+12:43 战术编程像地面作战的士官
+12:45 负责具体战斗
+12:46 战略编程像将军
+12:48 从更高层面指挥整场战争
+12:50 问题是Agent非常擅长战术却非常不擅长战略
+12:54 那么刚入行的人
+12:55 既然AI已经吞掉了大量战术性工作
+12:58 该如何学习战略编程呢？
+13:00 Bob大叔坦言他没有完美的答案
+13:02 但是分享了他的想法
+13:04 首先程序员学习编程的方式都应该是写代码
+13:06 你应该先写上至少一年代码
+13:08 这样才能真正知道Agent究竟在处理什么
+13:11 下一步
+13:12 当你入职一家大量使用Agent的公司时
+13:14 作为一个刚完成培训的年轻人
+13:16 你应该被当作一个Agent来对待
+13:19 那位手下运行着一堆Agent、自己负责战略决策的首席工程师
+13:23 应该把你视作一个Agent
+13:24 给你分配和Agent一样的任务
+13:26 让你接受和Agent一样的确定性工具约束
+13:29 你应该在这种状态下待上几个月
+13:32 虽然产出很低
+13:32 但是能学到非常多东西
+13:34 等你通过了这种严酷考验
+13:36 也许你才会被信任去亲自运行一个Agent
+13:39 他还强调，你不能完全丢掉代码
+13:42 十年前他常告诉人们
+13:43 如果你从来没有写过汇编语言
+13:45 就应该花一个周末写写汇编
+13:47 这样才能知道后台到底发生了什么
+13:50 如果你整天只写Java
+13:51 那你就是生活在一个幻觉世界里
+13:53 那里仍然存在很多你不理解的魔法
+13:56 这一点在今天依然成立
+13:57 在这条学习路上
+13:59 你必须从最基础的东西
+14:00 比如二进制开始
+14:02 一路经过汇编语言、像C这样的基础编程语言、像Python这样的高级语言
+14:07 然后进入处理Agent级别的工作
+14:09 学习使用确定性工具
+14:11 最后才能在监督下真正开始战略性地运行Agent
+14:14 他还推荐去读那些老书
+14:16 比如汤姆·德马科（Tom DeMarco）、埃德·约尔顿（Ed Yourdon）的著作
+14:18 以及《程序员修炼之道》（The Pragmatic Programmer）
+14:21 这些书写于七八十年代
+14:22 很多重要的经验和教训
+14:24 恰恰是在那个时候总结出来的
+14:25 你需要过滤掉一些过时的内容
+14:27 但很多核心的东西依然适用
+14:30 至于怎么判断Agent在犯错
+14:32 Bob大叔说
+14:33 早期他就是看着代码
+14:34 发现里面的不好代码
+14:36 但那其实不是最重要的部分
+14:38 更重要的是他会看着Agent瞎忙
+14:40 他能看出Agent什么时候在挣扎
+14:43 因为作为一名程序员
+14:44 他自己也经历过同样的挣扎
+14:46 问题在于
+14:46 一个刚入行的人可能根本识别不出这种挣扎
+14:50 他是通过艰苦的实践学会这一点的
+14:53 最后回到软件基础这个核心话题
+14:55 Bob大叔引用了戴克斯特拉（Dijkstra）的话
+14:57 软件是人类迄今为止尝试过的最复杂的东西
+15:00 比我们做过的任何其他事都要复杂
+15:02 基础是我们组织复杂性的一种方式
+15:05 让复杂的东西变得可以理解
+15:07 不仅是让人类理解，也让模型理解
+15:09 毕竟模型终究也是模仿人类建立起来的
+15:12 那些认为软件基础已经不重要的人
+15:14 会吃到苦头
+15:15 而且不会等太久
+15:17 虽然可能比他想象的更久一点
+15:19 因为Agent确实很厉害
+15:20 但是他已经见过它们撞墙了
+15:22 他知道那堵墙就在那里
+15:24 每一次抽象层向上提升
+15:26 从二进制到汇编
+15:27 从汇编到编译器，从编译器到模型
+15:29 处在更低层级的人都会抱怨说这会毁了一切
+15:33 我们都没工作了，编程变得这么简单
+15:35 五岁小孩都能写代码了
+15:37 每一次都是同样的故事
+15:39 但同样的规则依然适用
+15:40 你今天扔掉的那些规则
+15:42 一年之后很可能还是会从地上把它们捡起来
+15:45 掸掉灰尘
+15:46 重新想起为什么当初需要它们
+15:49 Bob大叔的这套实践和思考
+15:51 本质上不是在说AI不行
+15:52 也不是在说传统方法是万能的
+15:55 他在说的是
+15:56 当代码的生成速度被大幅提升之后
+15:59 组织复杂性的能力、判断代码质量的能力、识别Agent何时开始挣扎的能力
+16:04 这些更高层面的东西非但没有过时
+16:07 反而变得更加重要了
+16:08 那些以为有了AI就可以跳过基础的人
+16:10 迟早会撞上那堵墙
+16:12 如果你对AI编程有什么想法
+16:14 或者自己在实践中遇到什么困惑
+16:16 欢迎在评论区聊聊
+16:17 感谢收看，我们下期再见
+</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://youtu.be/PenFT2xcHp4" target="_blank" rel="noopener">https://youtu.be/PenFT2xcHp4</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

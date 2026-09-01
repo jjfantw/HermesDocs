@@ -1,5 +1,11 @@
 [
   {
+    "title": "Bob 大叔：AI 程式碼我完全不看｜Robert C. Martin 的 AI Agent 編程觀 - Hermes Docs",
+    "url": "videos/bob-martin-ai-agent-code-quality.html",
+    "date": "2026-09-01 09:54",
+    "content": "Bob 大叔：AI 程式碼我完全不看｜Robert C. Martin 的 AI Agent 編程觀 - Hermes Docs 返回首頁 Bob 大叔：AI 程式碼我完全不看｜Robert C. Martin 的 AI Agent 編程觀 發布時間：2026-09-01 17:54 🌙 YouTube 影片重點整理 Bob 大叔：AI 程式碼我完全不看｜Robert C. Martin 的 AI Agent 編程觀 📺 Best Partners TV ⏱ 16:20 🗓 2026-09-01 🌐 zh-Hans 🔗 https://youtu.be/PenFT2xcHp4 這部影片整理 Robert C. Martin（Bob 大叔）在與 Matt Pocock 對談中，對 AI Agent 寫程式的實務看法。Bob 大叔的核心立場不是逐行審查 AI 產出的程式碼，而是用 CRAP 分數、變異測試、QA 腳本、架構依賴檢查等確定性工具，讓 Agent 在自動化約束下反覆修正。他認為提示詞規則容易因 Lost in the Middle 與上下文稀釋而被模型當成建議，所以初始提示應該"
+  },
+  {
     "title": "別再一打開 Claude 就點最強模型！額度兩小時見底，Anthropic 教學頁自己都說這是白燒 - Hermes Docs",
     "url": "videos/claude-model-selection-rules.html",
     "date": "2026-09-01 00:43",
