@@ -1,0 +1,2404 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10 個行為經濟學原理教你更高效地做出決策 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>10 個行為經濟學原理教你更高效地做出決策</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-09-01 18:15</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">10 個行為經濟學原理教你更高效地做出決策</h1>
+    <div class="meta"><span data-field="channel">📺 沉醉的小五狼</span><span data-field="duration">⏱ 11:41</span><span data-field="published_date">🗓 2026-09-01</span><span data-field="original_language">🌐 zh-Hans</span><a data-field="source_url" href="https://www.youtube.com/watch?v=JGK49x9jV8o" target="_blank" rel="noopener">🔗 https://www.youtube.com/watch?v=JGK49x9jV8o</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>這支影片用 10 個行為經濟學概念，說明人在工作、消費、關係與時間管理中為什麼常常不是理性決策。講者逐一解釋贏者詛咒、誘餌效應、參照效應、決策疲勞、現狀偏見、宜家效應、帕金森定律、可識別受害者效應、狹隘視野，以及與即時滿足相關的現時偏誤。核心提醒是：不要在競爭過熱的地方用力硬搶、不要被商家或關係中的比較框架帶著走，也不要在疲憊或夜晚情緒化決定。工作上則要小心 deadline 讓任務自動膨脹、也要避免因為自己投入製作而高估作品價值。最後，講者把決策效率歸結到兩件事：看清自己被什麼偏誤牽動，並在需要時用更具體的場景、更短的期限、更清楚的原則來校正判斷。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">1. 贏者詛咒：贏下競爭，不代表得到好交易</h2><span class="ts-badge" data-field="lesson_timestamp">00:15</span></div><div class="body" data-field="lesson_body"><p>講者把贏者詛咒定義為：在拍賣或競技場上，出價最高的人往往也是最嚴重高估物品真實價值的人，所以「贏」本身可能就是虧。</p><p>生活與工作上的啟發是<strong>回避過度競爭</strong>：大家都擠進去的寬門，會因為人太多而變成窄門。無論是選商業賽道，還是追求關係中被很多人競爭的對象，都可能最後付出過高代價。</p><p>講者的結論是：應該選擇對自己而言不需要過度用力、能發揮自然優勢的事，讓競爭在別人眼中很殘酷，但對自己更像是玩。</p><span class="tag" data-field="lesson_tag">競爭與估值</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">2. 誘餌效應：第三選項會改變你對目標選項的感覺</h2><span class="ts-badge" data-field="lesson_timestamp">01:45</span></div><div class="body" data-field="lesson_body"><p>誘餌效應是透過一個幾乎沒有競爭力的第三選項，引導人選擇設計者真正想推的目標選項。講者舉星巴克賣水的例子：昂貴的水未必是要讓你買，而是讓咖啡價格顯得合理。</p><p>他也把這點延伸到乙方報價：當甲方覺得價格貴時，讓甲方去比較其他團隊，反而能凸顯自己的服務品質與誠意。</p><p>關係中也有類似心理：原本不覺得某個人特別值得追，一旦出現競爭者，人可能突然覺得對方更有價值。</p><span class="tag" data-field="lesson_tag">選項設計</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">3. 參照效應：橫向比較會製造不必要的不滿</h2><span class="ts-badge" data-field="lesson_timestamp">02:54</span></div><div class="body" data-field="lesson_body"><p>講者說，人很難完全理性評估自己的生活、收入或處境，往往需要參照物；同一個降薪 10%，如果別人降 50% 或 60%，感受就會變成「自己其實算幸運」。</p><p>因此他建議不要過度橫向對比，而要更多跟自己做縱向比較。尤其在親密關係中，若一直拿伴侶跟朋友的伴侶比較，容易提出原本自己並不需要的要求。</p><p>這種比較會把原本可以用來經營家庭或工作成果的時間，轉成內耗。</p><span class="tag" data-field="lesson_tag">比較心理</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">4. 決策疲勞：晚上不要做重大決定</h2><span class="ts-badge" data-field="lesson_timestamp">04:24</span></div><div class="body" data-field="lesson_body"><p>講者認為，太陽下山後人更容易感性與衝動，因為白天已經做了太多理性決定，負責理性的前額葉像是下班了。</p><p>他用線上購物舉例：購物高峰常出現在晚上到凌晨，這時人更追求即時滿足。</p><p>實務建議是：<strong>重大決定不要在晚上做</strong>。如果隔天理性還在線時仍然想買，才更可能是真的想要且需要；分手、消費、重大選擇都應避開情緒疲憊時段。</p><span class="tag" data-field="lesson_tag">情緒與衝動</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">5. 現狀偏見：熟悉不代表值得繼續忍受</h2><span class="ts-badge" data-field="lesson_timestamp">05:23</span></div><div class="body" data-field="lesson_body"><p>現狀偏見指人更傾向不改變，並把目前狀態合理化。講者用賣場陳列說明：產品放在視線高度，人甚至懶得彎腰或踮腳去看其他選項。</p><p>放在感情或婚姻中，很多人即使知道繼續下去會更糟，仍因為現狀是已知的、未來是未知的，而選擇不處理。</p><p>講者不是否定安於現狀，而是提醒：如果已知現狀已經太糟，就不能只因為害怕未知而繼續待在裡面。</p><span class="tag" data-field="lesson_tag">改變成本</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">6. 宜家效應：投入越多，越容易高估自己的作品</h2><span class="ts-badge" data-field="lesson_timestamp">06:44</span></div><div class="body" data-field="lesson_body"><p>宜家效應是指人會對自己投入勞動、參與製作或共同創造的物品，賦予不成比例的高價值。講者用宜家空間規劃與沉浸式展示來說明。</p><p>在關係中，這可以被善用：兩個人一起具體規劃未來，會讓關係更有目標感，也更像共同作戰的隊友。</p><p>但在工作中要反過來警惕：自己剪的片、自己做的案子，可能因為投入過多而覺得每一段都好。講者說自己也會大量刪內容，用來規避這種自嗨。</p><span class="tag" data-field="lesson_tag">投入與估值</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">07</span><h2 data-field="lesson_title">7. 帕金森定律：工作會膨脹到填滿所有時間</h2><span class="ts-badge" data-field="lesson_timestamp">07:45</span></div><div class="body" data-field="lesson_body"><p>帕金森定律指的是：只要還有時間，工作就會自動膨脹，直到填滿所有可用時間。若說一週完成一支片，它就會拖滿一週；若說今天完成，它就會在今天結束前完成。</p><p>講者的建議是，不要把 deadline 設得太長，因為人通常會在截止日前才完成。</p><p>他還補充一個工作場景：緊急任務反而應交給忙的人，因為忙的人通常正在狀態中，也會在 deadline 前把事情做完。</p><span class="tag" data-field="lesson_tag">期限管理</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">08</span><h2 data-field="lesson_title">8. 可識別受害者效應：具體故事比抽象數字更能打動人</h2><span class="ts-badge" data-field="lesson_timestamp">08:36</span></div><div class="body" data-field="lesson_body"><p>講者用加沙地區傷亡報導舉例：一篇文章只寫多少人死亡、受傷、流離失所，讀者未必有強烈感受；但若把其中一個人的照片、生活現狀與故事寫得很具體，讀者就更容易被打動。</p><p>這個效應提醒我們，在表達與說服時要更具象、更場景化，讓對方能感同身受。</p><p>放到關係中，是細節式換位思考；放到工作中，是把甲方或客戶代入你要提供的服務或產品裡，而不是只給冷冰冰的數字。</p><span class="tag" data-field="lesson_tag">溝通與說服</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">09</span><h2 data-field="lesson_title">9. 狹隘視野：不要把單筆決策孤立看待</h2><span class="ts-badge" data-field="lesson_timestamp">09:38</span></div><div class="body" data-field="lesson_body"><p>講者說，人做單筆經濟決策時，常把它孤立看待，忽略它在整體資產組合中的實際占比。</p><p>他舉買車例子：買 30 萬的車時，多加 5000 元升級真皮座椅好像沒感覺；但如果在一般生活中，要花 5000 元把沙發變真皮，就未必願意。</p><p>他也延伸到關係中的談判：如果一開始門檻拉得太高，後面可能一步步妥協，最後忘了自己原本的原則。</p><span class="tag" data-field="lesson_tag">金錢與原則</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">10</span><h2 data-field="lesson_title">10. 現時偏誤：今天的小確定，常勝過明天的大不確定</h2><span class="ts-badge" data-field="lesson_timestamp">10:27</span></div><div class="body" data-field="lesson_body"><p>講者用今天 100 元、明天 120 元，以及今年 100 萬、明年 120 萬的例子，說明人容易選擇眼前可拿到的確定結果。</p><p>他一方面承認延遲滿足能帶來更大結果，說真正厲害的人有獵人般的耐心；另一方面也提醒要看確定性，因為生活本身充滿無常。</p><p>因此這一點不是單純叫人永遠延遲滿足，而是要分辨：未來的大結果是否足夠確定，值得放棄今天的小結果。</p><span class="tag" data-field="lesson_tag">即時滿足</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">先看清楚自己被哪一種偏誤牽著走，再決定要競爭、等待、比較，還是換一個框架。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="00:15"><span class="ts">00:15</span><span class="text" data-field="key_point_text">贏者詛咒：在拍賣或競爭場景中，最後贏的人可能只是最高估價值的人，因此應避開過度擁擠的賽道或追逐。</span></li><li data-field="key_point" data-timestamp="01:45"><span class="ts">01:45</span><span class="text" data-field="key_point_text">誘餌效應：毫無競爭力的第三選項會讓目標選項看起來更合理，商業報價與關係比較都可能被這種框架影響。</span></li><li data-field="key_point" data-timestamp="02:54"><span class="ts">02:54</span><span class="text" data-field="key_point_text">參照效應：人會透過他人狀況評估自己，橫向比較容易製造不滿；講者建議多做縱向比較。</span></li><li data-field="key_point" data-timestamp="04:24"><span class="ts">04:24</span><span class="text" data-field="key_point_text">決策疲勞：白天理性資源耗盡後，晚上更容易感性、衝動消費或做重大關係決定，因此重大決策不宜放在夜晚。</span></li><li data-field="key_point" data-timestamp="05:23"><span class="ts">05:23</span><span class="text" data-field="key_point_text">現狀偏見：人會傾向合理化既有狀態、害怕未知改變；若現狀已明顯糟糕，就不能只因熟悉而繼續忍受。</span></li><li data-field="key_point" data-timestamp="06:44"><span class="ts">06:44</span><span class="text" data-field="key_point_text">宜家效應：人會高估自己投入勞動或參與創造的事物；感情中可用來共同規劃未來，工作中則要避免自嗨。</span></li><li data-field="key_point" data-timestamp="07:45"><span class="ts">07:45</span><span class="text" data-field="key_point_text">帕金森定律：工作會膨脹到填滿可用時間；deadline 不宜拉太長，緊急任務反而可交給狀態正忙的人。</span></li><li data-field="key_point" data-timestamp="08:36"><span class="ts">08:36</span><span class="text" data-field="key_point_text">可識別受害者效應：具體個案比抽象數字更能打動人；溝通、銷售與關係換位思考都要更場景化。</span></li><li data-field="key_point" data-timestamp="09:38"><span class="ts">09:38</span><span class="text" data-field="key_point_text">狹隘視野：人做單筆支出時容易孤立看待，忽略它在整體資產或原則中的比例；交易與感情都要避免一步步妥協。</span></li><li data-field="key_point" data-timestamp="10:27"><span class="ts">10:27</span><span class="text" data-field="key_point_text">現時偏誤／即時滿足：人傾向要今天的小確定，而不是明天較大的不確定；講者同時提醒要考慮確定性與延遲滿足。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="行為經濟學">行為經濟學</span><span class="tag-chip" data-tag="決策">決策</span><span class="tag-chip" data-tag="認知偏誤">認知偏誤</span><span class="tag-chip" data-tag="時間管理">時間管理</span><span class="tag-chip" data-tag="消費心理">消費心理</span><span class="tag-chip" data-tag="溝通">溝通</span><span class="tag-chip" data-tag="兩性關係">兩性關係</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>YouTube 內建字幕與 description 皆不可用；本報告主要依 Whisper STT 逐字稿整理。</li><li>片頭第十項 ASR 聽到「前景效應」，但正文時間 10:27 說「現實偏差」，例子是今天 100 元與明天 120 元、今年 100 萬與明年 120 萬，報告依正文整理為「現時偏誤／即時滿足」，原詞需人工核對。</li><li>第九項 ASR 聽作「狹隘事業」，但定義是把單筆決策孤立看待、忽略整體資產組合占比，報告依內容整理為「狹隘視野」。</li></ul></div></section>
+  <section class="glossary" data-field="asr_glossary"><h2>🎙️ ASR 漂字對照表</h2><div class="card"><table class="glossary"><tr data-field="asr_glossary_row"><td data-field="heard">狹隘事業</td><td>→</td><td data-field="corrected">狹隘視野（依正文定義判斷）</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">現實偏差</td><td>→</td><td data-field="corrected">現時偏誤／即時滿足（依正文例子判斷）</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">兩線關係</td><td>→</td><td data-field="corrected">兩性關係</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">嚴實滿足</td><td>→</td><td data-field="corrected">延遲滿足</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">恨你有顧名</td><td>→</td><td data-field="corrected">和你有共鳴（依語境判斷）</td></tr></table></div></section>
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="whisper"><div class="raw-label">Whisper 原始輸出<button class="copy-btn" id="raw_whisper_4378462400_srt" onclick="copyRaw(this,'raw_whisper_4378462400_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_whisper_4378462400_text" onclick="copyRawText(this,'raw_whisper_4378462400_text')">📋 複製純文字</button></div><pre>1
+00:00:00,000 --&gt; 00:00:02,200
+今天来分享10个行为经济学的原理
+
+2
+00:00:02,200 --&gt; 00:00:03,400
+学习经济学的原理
+
+3
+00:00:03,400 --&gt; 00:00:05,640
+可以帮助我们在生活工作和两性关系中
+
+4
+00:00:05,640 --&gt; 00:00:07,480
+更高效更理性地做出决策
+
+5
+00:00:07,480 --&gt; 00:00:08,500
+这10个原理分别是
+
+6
+00:00:08,500 --&gt; 00:00:09,700
+赢者诅咒 诱饵效应
+
+7
+00:00:09,700 --&gt; 00:00:11,020
+参照依赖 现状偏见
+
+8
+00:00:11,020 --&gt; 00:00:12,300
+决策疲劳 宜家效应
+
+9
+00:00:12,300 --&gt; 00:00:14,200
+帕金森定律 可识别受害者效应
+
+10
+00:00:14,200 --&gt; 00:00:15,560
+狭隘事业和前景效应
+
+11
+00:00:15,560 --&gt; 00:00:17,780
+首先我们先来讲第一个点叫做赢者诅咒
+
+12
+00:00:17,780 --&gt; 00:00:20,120
+它的定义是在拍卖或者是竞技场上
+
+13
+00:00:20,120 --&gt; 00:00:22,300
+出价最高的人往往是最严重的
+
+14
+00:00:22,300 --&gt; 00:00:24,000
+高估了物品真实价值的人
+
+15
+00:00:24,000 --&gt; 00:00:25,880
+所以这个赢的人其实是亏了
+
+16
+00:00:25,880 --&gt; 00:00:26,920
+大家其实可以想象嘛
+
+17
+00:00:26,920 --&gt; 00:00:27,940
+就是在拍卖的过程中
+
+18
+00:00:27,940 --&gt; 00:00:29,120
+大家不断的在叫价
+
+19
+00:00:29,120 --&gt; 00:00:29,960
+不断的在叫价
+
+20
+00:00:29,960 --&gt; 00:00:31,320
+只要你的竞争者越多
+
+21
+00:00:31,320 --&gt; 00:00:32,420
+你就要叫价越高
+
+22
+00:00:32,420 --&gt; 00:00:34,600
+最终这个竞品被你拍到手里
+
+23
+00:00:34,600 --&gt; 00:00:36,700
+其实某种程度上是砸你手里
+
+24
+00:00:36,700 --&gt; 00:00:38,260
+那这个对我们的生活有什么启发呢
+
+25
+00:00:38,260 --&gt; 00:00:39,420
+我觉得起码有两点启发
+
+26
+00:00:39,420 --&gt; 00:00:40,820
+第一点在我看来叫回避竞争
+
+27
+00:00:40,820 --&gt; 00:00:41,360
+什么意思呢
+
+28
+00:00:41,360 --&gt; 00:00:43,460
+就是说宽门走的人多了也变成了窄
+
+29
+00:00:43,460 --&gt; 00:00:44,960
+这个东西看起来非常好
+
+30
+00:00:44,960 --&gt; 00:00:47,000
+大家都去用力去争抢的过程中
+
+31
+00:00:47,000 --&gt; 00:00:48,040
+其实你往往不要走
+
+32
+00:00:48,040 --&gt; 00:00:48,680
+因为你争不出来
+
+33
+00:00:48,680 --&gt; 00:00:49,460
+你争不到第一
+
+34
+00:00:49,460 --&gt; 00:00:50,600
+因为要争第一的话
+
+35
+00:00:50,600 --&gt; 00:00:52,200
+其实需要很多运气成分
+
+36
+00:00:52,200 --&gt; 00:00:53,740
+需要很多随机成分
+
+37
+00:00:53,740 --&gt; 00:00:54,860
+也就是说是你不可控的
+
+38
+00:00:54,860 --&gt; 00:00:56,200
+无论是你在做商业的过程中
+
+39
+00:00:56,200 --&gt; 00:00:56,780
+选一个赛道
+
+40
+00:00:56,780 --&gt; 00:00:58,340
+你不要找那个竞价太高的
+
+41
+00:00:58,340 --&gt; 00:00:59,320
+还是你在爱情中
+
+42
+00:00:59,320 --&gt; 00:01:00,760
+你不要找那个追求者太多的
+
+43
+00:01:00,760 --&gt; 00:01:02,000
+往往呢你会败掐阵来
+
+44
+00:01:02,000 --&gt; 00:01:03,920
+即便竞争到手了
+
+45
+00:01:03,920 --&gt; 00:01:05,240
+也是高价竞争到手
+
+46
+00:01:05,240 --&gt; 00:01:06,220
+其实你是亏了
+
+47
+00:01:06,220 --&gt; 00:01:07,440
+你比如说在这个现实生活中
+
+48
+00:01:07,440 --&gt; 00:01:09,220
+有很多人打败了很多竞争对手
+
+49
+00:01:09,220 --&gt; 00:01:11,300
+最终追到了自己喜欢的另一半
+
+50
+00:01:11,300 --&gt; 00:01:12,280
+那你就要做填勾了
+
+51
+00:01:12,280 --&gt; 00:01:14,340
+因为你严重高估了对方的价值
+
+52
+00:01:14,340 --&gt; 00:01:15,660
+所以除了宽门
+
+53
+00:01:15,660 --&gt; 00:01:17,060
+走的人多了变成了宽门
+
+54
+00:01:17,060 --&gt; 00:01:17,700
+还有下一句话
+
+55
+00:01:17,700 --&gt; 00:01:19,620
+就是宽门没有人走也成了坎门
+
+56
+00:01:19,620 --&gt; 00:01:20,220
+我觉得这个点
+
+57
+00:01:20,220 --&gt; 00:01:22,280
+还让我联想到了苏氏说的一句话
+
+58
+00:01:22,280 --&gt; 00:01:23,140
+叫着力几场
+
+59
+00:01:23,140 --&gt; 00:01:24,360
+所以我得到的结论是什么
+
+60
+00:01:24,360 --&gt; 00:01:25,880
+就是人无论是追求爱情
+
+61
+00:01:25,880 --&gt; 00:01:27,180
+还是追求事业的过程中
+
+62
+00:01:27,180 --&gt; 00:01:28,220
+一定要做那个
+
+63
+00:01:28,220 --&gt; 00:01:29,380
+让自己毫不费力的事
+
+64
+00:01:29,380 --&gt; 00:01:30,460
+就是在别人看来
+
+65
+00:01:30,460 --&gt; 00:01:32,020
+它是一个残酷竞争的事情
+
+66
+00:01:32,020 --&gt; 00:01:33,680
+但对于你来说是一种玩儿
+
+67
+00:01:33,680 --&gt; 00:01:34,640
+你不要太用力
+
+68
+00:01:34,640 --&gt; 00:01:36,060
+你不需要太多的竞争
+
+69
+00:01:36,060 --&gt; 00:01:37,020
+你就可以把它做好
+
+70
+00:01:37,020 --&gt; 00:01:38,100
+你在选人的过程中
+
+71
+00:01:38,100 --&gt; 00:01:40,400
+你不需要大量的修改自己
+
+72
+00:01:40,400 --&gt; 00:01:41,600
+和对方进行磨合
+
+73
+00:01:41,600 --&gt; 00:01:43,360
+你们就非常和谐的在一起
+
+74
+00:01:43,360 --&gt; 00:01:44,480
+可以做到一加一大约二
+
+75
+00:01:44,480 --&gt; 00:01:45,400
+那么这就是对的人
+
+76
+00:01:45,400 --&gt; 00:01:46,980
+第二个点叫做诱饵效应
+
+77
+00:01:46,980 --&gt; 00:01:48,000
+它的概念是说
+
+78
+00:01:48,000 --&gt; 00:01:50,860
+通过一个毫无竞争力的第三选项
+
+79
+00:01:50,860 --&gt; 00:01:53,400
+引导消费者选择特定的目标
+
+80
+00:01:53,400 --&gt; 00:01:54,480
+我给大家举一个实际的例子
+
+81
+00:01:54,480 --&gt; 00:01:55,500
+比方星巴克里面
+
+82
+00:01:55,500 --&gt; 00:01:56,180
+是不是有卖水的
+
+83
+00:01:56,180 --&gt; 00:01:57,000
+你会买那个水吗
+
+84
+00:01:57,000 --&gt; 00:01:59,360
+你完全不会买星巴克那个水吗
+
+85
+00:01:59,360 --&gt; 00:02:00,300
+那个水超级贵
+
+86
+00:02:00,300 --&gt; 00:02:02,620
+但是就是因为你不会买那个水
+
+87
+00:02:02,620 --&gt; 00:02:04,820
+你且看到了那个水超级贵
+
+88
+00:02:04,820 --&gt; 00:02:06,220
+所以你觉得它的咖啡
+
+89
+00:02:06,220 --&gt; 00:02:08,120
+是20多块钱30块钱很合理
+
+90
+00:02:08,120 --&gt; 00:02:09,780
+就是完全没有竞争力的第三选项
+
+91
+00:02:09,780 --&gt; 00:02:11,740
+其实放在事业和生活中是一样的
+
+92
+00:02:11,740 --&gt; 00:02:13,000
+我给大家举一个我真实的案例
+
+93
+00:02:13,000 --&gt; 00:02:15,020
+就以前我们做乙方做服务的时候
+
+94
+00:02:15,020 --&gt; 00:02:16,080
+我们会报一个价钱
+
+95
+00:02:16,080 --&gt; 00:02:18,000
+甲方会说你这个价钱稍微有点贵
+
+96
+00:02:18,000 --&gt; 00:02:18,540
+我说没关系
+
+97
+00:02:18,540 --&gt; 00:02:20,780
+你一定要多找几个团队去问
+
+98
+00:02:20,780 --&gt; 00:02:22,260
+多跟其他的乙方交流
+
+99
+00:02:22,260 --&gt; 00:02:23,980
+完了以后您再做理性的抉择
+
+100
+00:02:23,980 --&gt; 00:02:24,920
+你知道为什么这么做吗
+
+101
+00:02:24,920 --&gt; 00:02:26,640
+因为我在服务甲方的时候
+
+102
+00:02:26,640 --&gt; 00:02:28,360
+我把我们服务的宗旨
+
+103
+00:02:28,360 --&gt; 00:02:31,140
+或者是把我们的诚意说得清清楚楚
+
+104
+00:02:31,140 --&gt; 00:02:33,100
+如果没有第三方团队
+
+105
+00:02:33,100 --&gt; 00:02:34,740
+跟他沟通进行对比
+
+106
+00:02:34,740 --&gt; 00:02:36,080
+显示不出来我的好码
+
+107
+00:02:36,080 --&gt; 00:02:38,640
+如果说没有毫无竞争力的第三方介入的话
+
+108
+00:02:38,640 --&gt; 00:02:40,060
+我们还是能拿下这个项目的
+
+109
+00:02:40,060 --&gt; 00:02:42,100
+但是甲方永远会觉得我贵了
+
+110
+00:02:42,100 --&gt; 00:02:43,040
+只有有了第三方
+
+111
+00:02:43,040 --&gt; 00:02:44,080
+他才会觉得OK
+
+112
+00:02:44,080 --&gt; 00:02:45,020
+他贵有贵的道理
+
+113
+00:02:45,020 --&gt; 00:02:46,700
+因为其他的乙方太半调子了
+
+114
+00:02:46,700 --&gt; 00:02:47,820
+其实在爱情中也是一样的
+
+115
+00:02:47,820 --&gt; 00:02:49,040
+你本来不喜欢那个人
+
+116
+00:02:49,040 --&gt; 00:02:50,220
+结果突然有个人追他
+
+117
+00:02:50,220 --&gt; 00:02:51,320
+你就来劲了
+
+118
+00:02:51,320 --&gt; 00:02:52,160
+你就来劲了
+
+119
+00:02:52,160 --&gt; 00:02:53,340
+我没来劲了
+
+120
+00:02:53,340 --&gt; 00:02:54,520
+我是说大部分人
+
+121
+00:02:54,520 --&gt; 00:02:56,500
+第三个点叫参照效应
+
+122
+00:02:56,500 --&gt; 00:02:57,520
+参照效应是什么意思
+
+123
+00:02:57,520 --&gt; 00:03:00,480
+就是说人其实不太会理性的
+
+124
+00:03:00,480 --&gt; 00:03:02,040
+对待自己的人生境况
+
+125
+00:03:02,040 --&gt; 00:03:03,420
+人都是需要参照物的
+
+126
+00:03:03,420 --&gt; 00:03:05,200
+简单来说叫人比人气死人
+
+127
+00:03:05,200 --&gt; 00:03:06,920
+或者说叫不换寡而换不均
+
+128
+00:03:06,920 --&gt; 00:03:07,860
+举个简单的例子
+
+129
+00:03:07,860 --&gt; 00:03:08,780
+比方说我告诉你们
+
+130
+00:03:08,780 --&gt; 00:03:10,640
+现在我们公司每个人的工资
+
+131
+00:03:10,640 --&gt; 00:03:11,520
+降低10%
+
+132
+00:03:11,520 --&gt; 00:03:12,360
+大家会高兴吗
+
+133
+00:03:12,360 --&gt; 00:03:12,660
+可以
+
+134
+00:03:12,660 --&gt; 00:03:14,680
+但是我换一个说法
+
+135
+00:03:14,680 --&gt; 00:03:16,140
+我给公司每一个人的工资
+
+136
+00:03:16,140 --&gt; 00:03:17,020
+降低50%
+
+137
+00:03:17,020 --&gt; 00:03:18,920
+只有给你降低10%
+
+138
+00:03:18,920 --&gt; 00:03:20,220
+因为公司业绩不好
+
+139
+00:03:20,220 --&gt; 00:03:20,860
+你就会觉得
+
+140
+00:03:20,860 --&gt; 00:03:22,720
+其实还是挺幸运的
+
+141
+00:03:22,720 --&gt; 00:03:24,440
+你就觉得公司怎么这么看重
+
+142
+00:03:24,440 --&gt; 00:03:25,540
+我才给我降10%
+
+143
+00:03:25,540 --&gt; 00:03:25,960
+就是这样
+
+144
+00:03:25,960 --&gt; 00:03:26,720
+这个其实是内准
+
+145
+00:03:26,720 --&gt; 00:03:28,420
+但是他的点在什么地方
+
+146
+00:03:28,420 --&gt; 00:03:29,200
+你有了参照
+
+147
+00:03:29,200 --&gt; 00:03:29,920
+你一问他
+
+148
+00:03:29,920 --&gt; 00:03:31,080
+他降了50%
+
+149
+00:03:31,080 --&gt; 00:03:32,740
+他还在那夯吃夯吃干呢
+
+150
+00:03:32,740 --&gt; 00:03:34,360
+另外一个人降了60%
+
+151
+00:03:34,360 --&gt; 00:03:36,000
+他还甘之如頤呢
+
+152
+00:03:36,000 --&gt; 00:03:36,480
+你说卧槽
+
+153
+00:03:36,480 --&gt; 00:03:37,660
+我才降10%
+
+154
+00:03:37,660 --&gt; 00:03:38,960
+幸运儿
+
+155
+00:03:38,960 --&gt; 00:03:39,640
+但是如果说
+
+156
+00:03:39,640 --&gt; 00:03:41,160
+就是你没有这些参考系的时候
+
+157
+00:03:41,160 --&gt; 00:03:41,860
+跟你降10%
+
+158
+00:03:41,860 --&gt; 00:03:42,500
+你就会不高兴
+
+159
+00:03:42,500 --&gt; 00:03:44,360
+所以人没有办法理性的去
+
+160
+00:03:44,360 --&gt; 00:03:45,620
+评判自己的生活
+
+161
+00:03:45,620 --&gt; 00:03:46,740
+或者是自己的收入
+
+162
+00:03:46,740 --&gt; 00:03:47,820
+或者是自己的方方面面
+
+163
+00:03:47,820 --&gt; 00:03:49,220
+那这个在生活和工作中
+
+164
+00:03:49,220 --&gt; 00:03:49,820
+怎么应用呢
+
+165
+00:03:49,820 --&gt; 00:03:50,340
+其实啊
+
+166
+00:03:50,340 --&gt; 00:03:51,360
+他教导我们
+
+167
+00:03:51,360 --&gt; 00:03:52,460
+不要横向对比
+
+168
+00:03:52,460 --&gt; 00:03:53,060
+要纵向对比
+
+169
+00:03:53,060 --&gt; 00:03:54,000
+你还是跟自己比
+
+170
+00:03:54,000 --&gt; 00:03:55,200
+如果说你已经结婚了
+
+171
+00:03:55,200 --&gt; 00:03:56,160
+如果说你有男女朋友
+
+172
+00:03:56,160 --&gt; 00:03:58,040
+尽量不要跟这个闺蜜
+
+173
+00:03:58,040 --&gt; 00:03:58,820
+或者是兄弟
+
+174
+00:03:58,820 --&gt; 00:03:59,780
+分享你们之间的事情
+
+175
+00:03:59,780 --&gt; 00:04:00,980
+因为会有一个横向的对比
+
+176
+00:04:00,980 --&gt; 00:04:01,980
+它会导致你
+
+177
+00:04:01,980 --&gt; 00:04:03,040
+像你的另一半
+
+178
+00:04:03,040 --&gt; 00:04:04,660
+提出很多不合理的要求
+
+179
+00:04:04,660 --&gt; 00:04:05,860
+你本来只是希望他做饭
+
+180
+00:04:05,860 --&gt; 00:04:07,040
+结果你跟你闺蜜一聊天
+
+181
+00:04:07,040 --&gt; 00:04:07,920
+他不光会做饭
+
+182
+00:04:07,920 --&gt; 00:04:08,900
+他还会车接车送
+
+183
+00:04:08,900 --&gt; 00:04:10,340
+你就会要求你的另一半
+
+184
+00:04:10,340 --&gt; 00:04:10,960
+也车接车送
+
+185
+00:04:10,960 --&gt; 00:04:12,380
+其实你本来没那个需求
+
+186
+00:04:12,380 --&gt; 00:04:13,600
+你家离公司就五分钟
+
+187
+00:04:13,600 --&gt; 00:04:14,300
+非得做个车
+
+188
+00:04:14,300 --&gt; 00:04:15,400
+你看这是横向对比
+
+189
+00:04:15,400 --&gt; 00:04:16,700
+带来的很多这种
+
+190
+00:04:16,700 --&gt; 00:04:17,840
+生产资料的浪费
+
+191
+00:04:17,840 --&gt; 00:04:18,600
+你们两个本来
+
+192
+00:04:18,600 --&gt; 00:04:19,660
+可以花同等的时间
+
+193
+00:04:19,660 --&gt; 00:04:21,760
+做更多有意义于这个家庭
+
+194
+00:04:21,760 --&gt; 00:04:22,740
+这个集体的事情
+
+195
+00:04:22,740 --&gt; 00:04:24,200
+但是却选择了内耗
+
+196
+00:04:24,200 --&gt; 00:04:25,600
+第四个点叫做决策疲劳
+
+197
+00:04:25,600 --&gt; 00:04:27,120
+其实我觉得用决策疲劳
+
+198
+00:04:27,120 --&gt; 00:04:28,180
+很难概括这个现象
+
+199
+00:04:28,180 --&gt; 00:04:29,020
+一句话说明白
+
+200
+00:04:29,020 --&gt; 00:04:29,960
+全地球的人
+
+201
+00:04:29,960 --&gt; 00:04:30,920
+只要太阳一下山
+
+202
+00:04:30,920 --&gt; 00:04:31,460
+就开始阴梦
+
+203
+00:04:31,460 --&gt; 00:04:32,780
+太阳一下山就开始感性
+
+204
+00:04:32,780 --&gt; 00:04:33,940
+你想想你购物的时候
+
+205
+00:04:33,940 --&gt; 00:04:34,920
+往往是太阳下山以后
+
+206
+00:04:34,920 --&gt; 00:04:35,920
+尤其线上购物
+
+207
+00:04:35,920 --&gt; 00:04:37,460
+我以前在国外卖那个衣服
+
+208
+00:04:37,460 --&gt; 00:04:38,760
+我就发现就是购物
+
+209
+00:04:38,760 --&gt; 00:04:39,720
+比较频发的时候
+
+210
+00:04:39,720 --&gt; 00:04:41,040
+你知道是几点到几点吗
+
+211
+00:04:41,040 --&gt; 00:04:42,460
+是晚上八点到凌晨三点
+
+212
+00:04:42,460 --&gt; 00:04:43,180
+就是下午
+
+213
+00:04:43,180 --&gt; 00:04:44,680
+你再跟他聊再多都没有
+
+214
+00:04:44,680 --&gt; 00:04:45,920
+因为人负责理性的部分
+
+215
+00:04:45,920 --&gt; 00:04:46,600
+是你的前额页
+
+216
+00:04:46,600 --&gt; 00:04:47,760
+一到晚上的时候
+
+217
+00:04:47,760 --&gt; 00:04:49,020
+因为你白天
+
+218
+00:04:49,020 --&gt; 00:04:50,740
+已经做了太多的理性决定了
+
+219
+00:04:50,740 --&gt; 00:04:51,700
+这个太阳一下山
+
+220
+00:04:51,700 --&gt; 00:04:53,480
+人类仿佛就开启了一个机制
+
+221
+00:04:53,480 --&gt; 00:04:54,400
+这前额页就下下
+
+222
+00:04:54,400 --&gt; 00:04:55,140
+就我不干活了
+
+223
+00:04:55,140 --&gt; 00:04:55,840
+我就不理性了
+
+224
+00:04:55,840 --&gt; 00:04:56,100
+所以呢
+
+225
+00:04:56,100 --&gt; 00:04:57,880
+你的情绪会掌控一切
+
+226
+00:04:57,880 --&gt; 00:04:59,940
+人就会特别想要及时满足
+
+227
+00:05:00,000 --&gt; 00:05:01,180
+人就会特别感性
+
+228
+00:05:01,180 --&gt; 00:05:02,720
+这个感性体现在情感中
+
+229
+00:05:02,720 --&gt; 00:05:03,980
+就是会变得特别阴谋
+
+230
+00:05:03,980 --&gt; 00:05:05,660
+体现在经济学
+
+231
+00:05:05,660 --&gt; 00:05:06,960
+体现在购物的过程中
+
+232
+00:05:06,960 --&gt; 00:05:07,900
+就会特别的出动
+
+233
+00:05:07,900 --&gt; 00:05:08,840
+他给我们什么启发呢
+
+234
+00:05:08,840 --&gt; 00:05:09,660
+就是晚上不要做决定
+
+235
+00:05:09,660 --&gt; 00:05:10,480
+就是说如果说
+
+236
+00:05:10,480 --&gt; 00:05:12,060
+你理性还在线的情况下
+
+237
+00:05:12,060 --&gt; 00:05:13,380
+你还是想买这个东西
+
+238
+00:05:13,380 --&gt; 00:05:14,080
+证明什么
+
+239
+00:05:14,080 --&gt; 00:05:15,060
+这个东西真的是
+
+240
+00:05:15,060 --&gt; 00:05:16,420
+你想要且需要的
+
+241
+00:05:16,420 --&gt; 00:05:17,500
+想要和需要是两回事
+
+242
+00:05:17,500 --&gt; 00:05:18,700
+想要且需要
+
+243
+00:05:18,700 --&gt; 00:05:19,660
+你晚上也不要说分手
+
+244
+00:05:19,660 --&gt; 00:05:20,820
+分了手第二天后悔
+
+245
+00:05:20,820 --&gt; 00:05:22,340
+所以要做任何重大决定
+
+246
+00:05:22,340 --&gt; 00:05:23,120
+不要在晚上做
+
+247
+00:05:23,120 --&gt; 00:05:24,560
+第五个点叫做现状偏见
+
+248
+00:05:24,560 --&gt; 00:05:25,420
+什么叫现状偏见
+
+249
+00:05:25,420 --&gt; 00:05:27,200
+就是人更趋于不做改变
+
+250
+00:05:27,200 --&gt; 00:05:28,300
+人更趋于
+
+251
+00:05:28,300 --&gt; 00:05:29,460
+把自己的现状合理化
+
+252
+00:05:29,460 --&gt; 00:05:30,220
+就是说我现状
+
+253
+00:05:30,220 --&gt; 00:05:31,200
+其实就挺好的
+
+254
+00:05:31,200 --&gt; 00:05:33,580
+你知道这个微妙到什么程度呢
+
+255
+00:05:33,580 --&gt; 00:05:34,880
+就是说有些这个品牌方
+
+256
+00:05:34,880 --&gt; 00:05:35,880
+贿赂这个卖场的人
+
+257
+00:05:35,880 --&gt; 00:05:37,220
+或者说是和这个卖场
+
+258
+00:05:37,220 --&gt; 00:05:37,980
+什么协议的情况下
+
+259
+00:05:37,980 --&gt; 00:05:39,680
+他们的产品会放到你身高的位置
+
+260
+00:05:39,680 --&gt; 00:05:41,060
+人就这么喜欢趋于现状
+
+261
+00:05:41,060 --&gt; 00:05:42,200
+就我甚至懒得弯腰
+
+262
+00:05:42,200 --&gt; 00:05:43,300
+我甚至懒得点脚
+
+263
+00:05:43,300 --&gt; 00:05:44,300
+就是我就觉得可能
+
+264
+00:05:44,300 --&gt; 00:05:45,780
+目之所及的能看到的
+
+265
+00:05:45,780 --&gt; 00:05:46,560
+最让我舒服的
+
+266
+00:05:46,560 --&gt; 00:05:47,240
+那个就是最好
+
+267
+00:05:47,240 --&gt; 00:05:48,600
+那放在生活中也是一样的
+
+268
+00:05:48,600 --&gt; 00:05:50,120
+就是说很多人在这个感情里面
+
+269
+00:05:50,120 --&gt; 00:05:51,240
+或者是在婚姻里面
+
+270
+00:05:51,240 --&gt; 00:05:53,040
+明明已经知道再过下去
+
+271
+00:05:53,040 --&gt; 00:05:53,820
+会越过越糟
+
+272
+00:05:53,820 --&gt; 00:05:55,120
+但是选择不理会
+
+273
+00:05:58,300 --&gt; 00:05:58,920
+虽然糟糕
+
+274
+00:05:58,920 --&gt; 00:06:00,440
+但是是已知的
+
+275
+00:06:00,440 --&gt; 00:06:02,580
+人恐惧的是那个未知的未来
+
+276
+00:06:02,580 --&gt; 00:06:03,600
+所以他提醒我们什么呢
+
+277
+00:06:03,600 --&gt; 00:06:05,340
+就是说如果说已知的现状
+
+278
+00:06:05,340 --&gt; 00:06:06,640
+实在是太糟糕了
+
+279
+00:06:06,640 --&gt; 00:06:07,700
+你就不要安于现状
+
+280
+00:06:07,700 --&gt; 00:06:08,920
+未来的那个未知感
+
+281
+00:06:08,920 --&gt; 00:06:09,760
+确实是恐惧的
+
+282
+00:06:09,760 --&gt; 00:06:10,860
+它确实充满了风险
+
+283
+00:06:10,860 --&gt; 00:06:11,700
+这是没问题的
+
+284
+00:06:11,700 --&gt; 00:06:12,480
+我觉得安于现状
+
+285
+00:06:12,480 --&gt; 00:06:14,200
+是一个好的精神状况
+
+286
+00:06:14,200 --&gt; 00:06:16,460
+但是如果说太糟糕了
+
+287
+00:06:16,460 --&gt; 00:06:17,900
+那咱是不是稍微玩玩腰
+
+288
+00:06:17,900 --&gt; 00:06:18,720
+稍微一点点脚
+
+289
+00:06:18,720 --&gt; 00:06:19,660
+看看其他的商品
+
+290
+00:06:19,660 --&gt; 00:06:20,720
+你包括有很多人就是
+
+291
+00:06:20,720 --&gt; 00:06:21,440
+私信我说
+
+292
+00:06:21,440 --&gt; 00:06:23,540
+他跟他这个老公或老婆关系不好
+
+293
+00:06:23,540 --&gt; 00:06:24,300
+问我怎么办
+
+294
+00:06:24,300 --&gt; 00:06:25,020
+那有多不好
+
+295
+00:06:25,020 --&gt; 00:06:26,700
+我得知道啊
+
+296
+00:06:26,700 --&gt; 00:06:26,880
+对吧
+
+297
+00:06:26,880 --&gt; 00:06:27,760
+他都家暴了
+
+298
+00:06:27,760 --&gt; 00:06:28,520
+那你不能说
+
+299
+00:06:28,520 --&gt; 00:06:29,660
+他今天敢打我
+
+300
+00:06:29,660 --&gt; 00:06:30,660
+明天就敢打天下了吧
+
+301
+00:06:30,660 --&gt; 00:06:31,060
+是吧
+
+302
+00:06:31,060 --&gt; 00:06:33,120
+跟上他一定能过好日子
+
+303
+00:06:33,120 --&gt; 00:06:34,620
+这也太安于现状了吧
+
+304
+00:06:34,620 --&gt; 00:06:35,880
+这也太合理化了吧
+
+305
+00:06:35,880 --&gt; 00:06:36,580
+这就不太行了
+
+306
+00:06:36,580 --&gt; 00:06:36,920
+是吧
+
+307
+00:06:36,920 --&gt; 00:06:38,680
+那你就应该分手了
+
+308
+00:06:38,680 --&gt; 00:06:39,800
+你就应该离婚了
+
+309
+00:06:39,800 --&gt; 00:06:41,720
+即便离婚是一个非常复杂的过程
+
+310
+00:06:41,720 --&gt; 00:06:43,160
+即便这个分手是一个
+
+311
+00:06:43,160 --&gt; 00:06:44,500
+非常未知的一个结果
+
+312
+00:06:44,500 --&gt; 00:06:45,940
+第六个点叫做宜家效应
+
+313
+00:06:45,940 --&gt; 00:06:47,340
+有一些宜家有那个规划师
+
+314
+00:06:47,340 --&gt; 00:06:47,980
+他会告诉你
+
+315
+00:06:47,980 --&gt; 00:06:49,080
+你把这个东西
+
+316
+00:06:49,080 --&gt; 00:06:50,260
+放到你家什么地方
+
+317
+00:06:50,260 --&gt; 00:06:51,760
+你把这个东西放到你家什么地方
+
+318
+00:06:51,760 --&gt; 00:06:52,880
+他甚至会帮你免费的
+
+319
+00:06:52,880 --&gt; 00:06:53,760
+做一些小的设计
+
+320
+00:06:53,760 --&gt; 00:06:53,980
+对吧
+
+321
+00:06:53,980 --&gt; 00:06:55,120
+或者你去到那个空间以后
+
+322
+00:06:55,120 --&gt; 00:06:56,940
+你立刻会有一种沉浸式的感觉
+
+323
+00:06:56,940 --&gt; 00:06:57,440
+你会觉得有
+
+324
+00:06:57,440 --&gt; 00:06:58,540
+这要是我的厨房多好
+
+325
+00:06:58,540 --&gt; 00:06:59,660
+这要是我的厨房多好
+
+326
+00:06:59,660 --&gt; 00:07:00,460
+这就叫宜家效应
+
+327
+00:07:00,460 --&gt; 00:07:02,100
+宜家效应其实是一种认知偏差
+
+328
+00:07:02,100 --&gt; 00:07:03,420
+是指人们会对
+
+329
+00:07:03,420 --&gt; 00:07:05,180
+由自己投入劳动
+
+330
+00:07:05,180 --&gt; 00:07:07,300
+参与制作或创造的物品
+
+331
+00:07:07,300 --&gt; 00:07:08,980
+赋予不成比例的高价值
+
+332
+00:07:08,980 --&gt; 00:07:10,180
+我觉得在工作和生活中
+
+333
+00:07:10,180 --&gt; 00:07:11,020
+都给我们很多启示
+
+334
+00:07:11,020 --&gt; 00:07:11,720
+你比方说
+
+335
+00:07:11,720 --&gt; 00:07:13,280
+你要是想让两线关系好
+
+336
+00:07:13,280 --&gt; 00:07:14,100
+一起规划未来
+
+337
+00:07:14,100 --&gt; 00:07:15,600
+这个未来规划的越具体
+
+338
+00:07:15,600 --&gt; 00:07:16,540
+越有目标感
+
+339
+00:07:16,540 --&gt; 00:07:17,500
+你俩关系越紧密
+
+340
+00:07:17,500 --&gt; 00:07:18,440
+除了情侣之外
+
+341
+00:07:18,440 --&gt; 00:07:19,440
+你俩更像对于
+
+342
+00:07:19,440 --&gt; 00:07:20,940
+除了爱情还得讲个义气
+
+343
+00:07:20,940 --&gt; 00:07:21,600
+然后你们就会觉得
+
+344
+00:07:21,600 --&gt; 00:07:22,580
+未来特别美好
+
+345
+00:07:22,580 --&gt; 00:07:23,640
+两人关系会越来越好
+
+346
+00:07:23,640 --&gt; 00:07:24,540
+我觉得在工作中
+
+347
+00:07:24,540 --&gt; 00:07:25,900
+这个其实反而是
+
+348
+00:07:25,900 --&gt; 00:07:26,880
+需要规避的一个点
+
+349
+00:07:26,880 --&gt; 00:07:27,620
+就是你有没有发现
+
+350
+00:07:27,620 --&gt; 00:07:28,380
+我们有的时候
+
+351
+00:07:28,380 --&gt; 00:07:29,400
+剪出一个片子
+
+352
+00:07:29,400 --&gt; 00:07:30,340
+包括我自己
+
+353
+00:07:30,340 --&gt; 00:07:31,580
+有时候剪出来的东西
+
+354
+00:07:31,580 --&gt; 00:07:32,480
+我都会大量的善
+
+355
+00:07:32,480 --&gt; 00:07:33,260
+其实就是在
+
+356
+00:07:33,260 --&gt; 00:07:34,220
+规避这个宜家效应
+
+357
+00:07:34,220 --&gt; 00:07:34,880
+因为宜家效应
+
+358
+00:07:34,880 --&gt; 00:07:35,380
+会让我觉得
+
+359
+00:07:35,380 --&gt; 00:07:36,940
+我自己剪出来的东西
+
+360
+00:07:36,940 --&gt; 00:07:38,020
+当然是最好的了
+
+361
+00:07:38,020 --&gt; 00:07:40,440
+就是因为你自己参与了制作
+
+362
+00:07:40,440 --&gt; 00:07:41,640
+所以你给予了它
+
+363
+00:07:41,640 --&gt; 00:07:43,040
+高于它本身的价值
+
+364
+00:07:43,040 --&gt; 00:07:44,100
+它就强调什么呢
+
+365
+00:07:44,100 --&gt; 00:07:45,040
+工作中不要自害
+
+366
+00:07:45,040 --&gt; 00:07:45,700
+第七个点
+
+367
+00:07:45,700 --&gt; 00:07:46,540
+叫帕金森定律
+
+368
+00:07:46,540 --&gt; 00:07:47,700
+就是说只要还有时间
+
+369
+00:07:47,700 --&gt; 00:07:48,840
+工作就会自动膨胀
+
+370
+00:07:48,840 --&gt; 00:07:50,540
+直到填满你所有的可用时间
+
+371
+00:07:50,540 --&gt; 00:07:51,060
+什么意思呢
+
+372
+00:07:51,060 --&gt; 00:07:51,540
+比方说我说
+
+373
+00:07:51,540 --&gt; 00:07:53,160
+咱这个礼拜剪一个片子
+
+374
+00:07:53,160 --&gt; 00:07:53,720
+好这个片子
+
+375
+00:07:53,720 --&gt; 00:07:54,520
+就是一个礼拜做完
+
+376
+00:07:54,520 --&gt; 00:07:55,580
+今天咱剪一个片子
+
+377
+00:07:55,580 --&gt; 00:07:56,820
+这个片子就是今天做完
+
+378
+00:07:56,820 --&gt; 00:07:57,740
+你说咱这个礼拜
+
+379
+00:07:57,740 --&gt; 00:07:58,900
+一定要把房子收拾一遍
+
+380
+00:07:58,900 --&gt; 00:08:00,280
+好那就是这个礼拜的周五
+
+381
+00:08:00,280 --&gt; 00:08:01,680
+或者是周日才收拾房子
+
+382
+00:08:01,680 --&gt; 00:08:03,220
+如果说今天咱把房子收拾了
+
+383
+00:08:03,220 --&gt; 00:08:04,380
+那就是今天晚上11点
+
+384
+00:08:04,380 --&gt; 00:08:05,320
+收拾房子
+
+385
+00:08:05,320 --&gt; 00:08:06,260
+就是说你只要给它
+
+386
+00:08:06,260 --&gt; 00:08:06,860
+定一个deadline
+
+387
+00:08:06,860 --&gt; 00:08:08,640
+往往这个事情就膨胀了
+
+388
+00:08:08,640 --&gt; 00:08:09,840
+就充斥了整个一周
+
+389
+00:08:09,840 --&gt; 00:08:11,180
+或者是这个deadline之前的
+
+390
+00:08:11,180 --&gt; 00:08:11,600
+所有时间
+
+391
+00:08:11,600 --&gt; 00:08:12,600
+其实给我们一个什么启发
+
+392
+00:08:12,600 --&gt; 00:08:13,240
+就是有的时候
+
+393
+00:08:13,240 --&gt; 00:08:14,380
+你不用把这个deadline
+
+394
+00:08:14,380 --&gt; 00:08:15,000
+设得太长
+
+395
+00:08:15,000 --&gt; 00:08:16,420
+因为大家都会在截止日期
+
+396
+00:08:16,420 --&gt; 00:08:17,200
+之前把它做完
+
+397
+00:08:17,200 --&gt; 00:08:18,600
+我这还可以再附赠一个
+
+398
+00:08:18,600 --&gt; 00:08:20,000
+在一个工作环境里面
+
+399
+00:08:20,000 --&gt; 00:08:21,080
+有些人是忙的
+
+400
+00:08:21,080 --&gt; 00:08:22,040
+有些人是闲的
+
+401
+00:08:22,040 --&gt; 00:08:23,200
+你有一个紧急事情的时候
+
+402
+00:08:23,200 --&gt; 00:08:24,300
+你把这个紧急的事情
+
+403
+00:08:24,300 --&gt; 00:08:25,320
+交给忙的还是闲的
+
+404
+00:08:25,320 --&gt; 00:08:27,600
+其实是应该交给忙的
+
+405
+00:08:27,600 --&gt; 00:08:28,340
+因为你交给忙的
+
+406
+00:08:28,340 --&gt; 00:08:29,400
+他会在deadline之前做
+
+407
+00:08:29,400 --&gt; 00:08:31,160
+而且由于他正在忙
+
+408
+00:08:31,160 --&gt; 00:08:32,580
+所以他状态特别好
+
+409
+00:08:32,580 --&gt; 00:08:33,320
+很抽象吧
+
+410
+00:08:33,320 --&gt; 00:08:33,640
+对不对
+
+411
+00:08:33,640 --&gt; 00:08:35,020
+所以就是说这个帕金森定律
+
+412
+00:08:35,020 --&gt; 00:08:36,000
+适用于很多地方
+
+413
+00:08:36,000 --&gt; 00:08:36,520
+第八个点
+
+414
+00:08:36,520 --&gt; 00:08:37,940
+叫可识别受害者效应
+
+415
+00:08:37,940 --&gt; 00:08:39,000
+我给大家举个简单例子
+
+416
+00:08:39,000 --&gt; 00:08:39,920
+比方说有一篇文章
+
+417
+00:08:39,920 --&gt; 00:08:40,300
+告诉你
+
+418
+00:08:40,300 --&gt; 00:08:41,580
+加沙地区死了多少人
+
+419
+00:08:41,580 --&gt; 00:08:42,000
+对吧
+
+420
+00:08:42,000 --&gt; 00:08:42,760
+有多少人受伤
+
+421
+00:08:42,760 --&gt; 00:08:43,740
+有多少人流利失所
+
+422
+00:08:43,740 --&gt; 00:08:44,720
+你看完这篇文章
+
+423
+00:08:44,720 --&gt; 00:08:45,360
+你有感觉吗
+
+424
+00:08:45,360 --&gt; 00:08:46,200
+你不一定有感觉
+
+425
+00:08:46,200 --&gt; 00:08:46,900
+或者你有感觉
+
+426
+00:08:46,900 --&gt; 00:08:47,500
+但感觉不是
+
+427
+00:08:47,500 --&gt; 00:08:48,560
+如果说他只写
+
+428
+00:08:48,560 --&gt; 00:08:50,500
+受伤了一万人里面的一个人
+
+429
+00:08:50,500 --&gt; 00:08:51,680
+把这个人写得特别详尽
+
+430
+00:08:51,680 --&gt; 00:08:52,800
+给你附一张他的照片
+
+431
+00:08:52,800 --&gt; 00:08:53,620
+和他的生活现状
+
+432
+00:08:53,620 --&gt; 00:08:54,540
+你会非常感动
+
+433
+00:08:54,540 --&gt; 00:08:55,580
+你可能就想捐钱了
+
+434
+00:08:55,580 --&gt; 00:08:56,220
+换一言之
+
+435
+00:08:56,220 --&gt; 00:08:57,840
+就是说我们在沟通的过程中
+
+436
+00:08:57,840 --&gt; 00:08:59,520
+或者说是我们在表达的过程中
+
+437
+00:08:59,520 --&gt; 00:09:00,760
+在说服对方的过程中
+
+438
+00:09:00,760 --&gt; 00:09:02,100
+你一定要更加具象化
+
+439
+00:09:02,100 --&gt; 00:09:03,060
+更加场景化
+
+440
+00:09:03,060 --&gt; 00:09:05,300
+一定要把这个东西刻画的特别具体
+
+441
+00:09:05,300 --&gt; 00:09:07,120
+让别人特别能感同身受
+
+442
+00:09:07,120 --&gt; 00:09:08,800
+别人才可以恨你有顾名
+
+443
+00:09:08,800 --&gt; 00:09:10,200
+别人才会被感动
+
+444
+00:09:10,200 --&gt; 00:09:11,200
+当他被感动以后
+
+445
+00:09:11,200 --&gt; 00:09:12,140
+他才会做出决策
+
+446
+00:09:12,140 --&gt; 00:09:13,140
+所以一句话这么说的
+
+447
+00:09:13,140 --&gt; 00:09:15,000
+就是说你说什么固然很重要
+
+448
+00:09:15,000 --&gt; 00:09:16,180
+但是怎么说更重要
+
+449
+00:09:16,180 --&gt; 00:09:17,020
+同样一个笑话
+
+450
+00:09:17,020 --&gt; 00:09:18,240
+不一样的讲述方式
+
+451
+00:09:18,240 --&gt; 00:09:19,540
+有些人就会哈哈大笑
+
+452
+00:09:19,540 --&gt; 00:09:20,600
+有些人就会觉得很担当
+
+453
+00:09:20,600 --&gt; 00:09:21,660
+你看两线关系中
+
+454
+00:09:21,660 --&gt; 00:09:24,340
+你就要尝试细节的去换位思考
+
+455
+00:09:24,340 --&gt; 00:09:24,680
+这样的话
+
+456
+00:09:24,680 --&gt; 00:09:25,920
+你们沟通就会很顺畅
+
+457
+00:09:25,920 --&gt; 00:09:27,160
+你就会理解彼此
+
+458
+00:09:27,160 --&gt; 00:09:27,920
+在工作中
+
+459
+00:09:27,920 --&gt; 00:09:29,920
+你要非常场景化的把你的甲方
+
+460
+00:09:29,920 --&gt; 00:09:30,760
+或者是你的客户
+
+461
+00:09:30,760 --&gt; 00:09:33,920
+代入到你想要向他兜售的服务或产品之中
+
+462
+00:09:33,920 --&gt; 00:09:34,780
+那么他就会被打动
+
+463
+00:09:34,780 --&gt; 00:09:36,740
+而不是说这个冷冰冰的数字
+
+464
+00:09:36,740 --&gt; 00:09:38,140
+实际上典型的其实雷军嘛
+
+465
+00:09:38,140 --&gt; 00:09:38,880
+他做的非常好
+
+466
+00:09:38,880 --&gt; 00:09:39,640
+第九个点呢
+
+467
+00:09:39,640 --&gt; 00:09:40,420
+叫狭隘事业
+
+468
+00:09:40,420 --&gt; 00:09:42,940
+就是说人们在做单笔经济决策时
+
+469
+00:09:42,940 --&gt; 00:09:44,760
+习惯把它孤立看待
+
+470
+00:09:44,760 --&gt; 00:09:47,840
+而忽略了整体资产组合中的实际占比
+
+471
+00:09:47,840 --&gt; 00:09:48,720
+举个简单的例子
+
+472
+00:09:48,720 --&gt; 00:09:50,160
+比方说你买了一个30万的车
+
+473
+00:09:50,160 --&gt; 00:09:51,520
+这30万挺疼的吧
+
+474
+00:09:51,520 --&gt; 00:09:52,060
+他说好
+
+475
+00:09:52,060 --&gt; 00:09:53,140
+你再加5000块钱
+
+476
+00:09:53,140 --&gt; 00:09:54,840
+我给你升级成真皮座椅
+
+477
+00:09:54,840 --&gt; 00:09:55,340
+你就加了
+
+478
+00:09:55,340 --&gt; 00:09:56,660
+你加这5000你是没感觉的
+
+479
+00:09:56,660 --&gt; 00:09:58,080
+30万加5000还是30万
+
+480
+00:09:58,080 --&gt; 00:09:59,960
+但是如果放到实际生活中
+
+481
+00:10:00,000 --&gt; 00:10:01,960
+你是不会花5000块钱
+
+482
+00:10:01,960 --&gt; 00:10:03,200
+把你家沙发变成真皮的
+
+483
+00:10:03,200 --&gt; 00:10:03,880
+没必要嘛
+
+484
+00:10:03,880 --&gt; 00:10:04,640
+我花5000块钱
+
+485
+00:10:04,640 --&gt; 00:10:05,960
+我花5000块钱给买沙发了
+
+486
+00:10:05,960 --&gt; 00:10:07,280
+咱就从两线关系的角度
+
+487
+00:10:07,280 --&gt; 00:10:08,160
+给大家延伸一下
+
+488
+00:10:08,160 --&gt; 00:10:10,200
+如果刚开始起得太高
+
+489
+00:10:10,200 --&gt; 00:10:11,560
+后面让你干啥你都会妥协的
+
+490
+00:10:11,560 --&gt; 00:10:12,240
+比方说刚开始
+
+491
+00:10:12,240 --&gt; 00:10:13,480
+结婚说100万彩礼
+
+492
+00:10:13,480 --&gt; 00:10:14,600
+或者是100万嫁妆
+
+493
+00:10:14,600 --&gt; 00:10:16,760
+那后面让你干啥你都会干的
+
+494
+00:10:16,760 --&gt; 00:10:18,440
+怎么想不做偏差事
+
+495
+00:10:18,440 --&gt; 00:10:19,520
+有点这意思吧
+
+496
+00:10:19,520 --&gt; 00:10:20,480
+就是你忽略了
+
+497
+00:10:20,480 --&gt; 00:10:21,960
+其实你是有自己的原则的
+
+498
+00:10:21,960 --&gt; 00:10:24,320
+它还是提醒人们要理性谨慎的
+
+499
+00:10:24,320 --&gt; 00:10:27,080
+去面对生活中的交易以及感情
+
+500
+00:10:27,080 --&gt; 00:10:27,840
+第十个点啊
+
+501
+00:10:27,840 --&gt; 00:10:28,880
+叫现实偏差
+
+502
+00:10:28,880 --&gt; 00:10:30,200
+我说你等今天晚上
+
+503
+00:10:30,200 --&gt; 00:10:31,240
+我给你100块钱
+
+504
+00:10:31,240 --&gt; 00:10:31,720
+你说可以
+
+505
+00:10:31,720 --&gt; 00:10:33,440
+我说但是如果你愿意等到明天早上
+
+506
+00:10:33,440 --&gt; 00:10:34,120
+我给你120
+
+507
+00:10:34,120 --&gt; 00:10:34,840
+你说算了吧
+
+508
+00:10:34,840 --&gt; 00:10:35,800
+别等了
+
+509
+00:10:35,800 --&gt; 00:10:36,600
+就今天吧
+
+510
+00:10:36,600 --&gt; 00:10:37,840
+我说我今年给你100万
+
+511
+00:10:37,840 --&gt; 00:10:39,020
+但是如果你愿意多等一年
+
+512
+00:10:39,020 --&gt; 00:10:39,680
+我给你120万
+
+513
+00:10:39,680 --&gt; 00:10:40,320
+你肯定说别别别
+
+514
+00:10:40,320 --&gt; 00:10:40,920
+就今年吧
+
+515
+00:10:40,920 --&gt; 00:10:41,800
+就今年得了
+
+516
+00:10:41,800 --&gt; 00:10:43,180
+所以有一句话是怎么说的
+
+517
+00:10:43,180 --&gt; 00:10:44,080
+叫今天晚上的同比
+
+518
+00:10:44,080 --&gt; 00:10:45,240
+明天早上的金字还贵
+
+519
+00:10:45,240 --&gt; 00:10:47,480
+就是人类有一个认知偏差是什么呢
+
+520
+00:10:47,480 --&gt; 00:10:48,820
+就是说明天都是假的
+
+521
+00:10:48,820 --&gt; 00:10:49,800
+但是我某种程度上
+
+522
+00:10:49,800 --&gt; 00:10:51,120
+不认为它是认知偏差
+
+523
+00:10:51,120 --&gt; 00:10:52,760
+它其实想告诉人们一个什么事情
+
+524
+00:10:52,760 --&gt; 00:10:54,960
+就是说我们要看的是确定性
+
+525
+00:10:54,960 --&gt; 00:10:56,100
+就只要它确定明天
+
+526
+00:10:56,100 --&gt; 00:10:58,020
+真的是能给我120的话是没问题的嘛
+
+527
+00:10:58,020 --&gt; 00:11:00,300
+我们应该有一些严实满足的耐心
+
+528
+00:11:00,300 --&gt; 00:11:01,380
+但是我说实在的
+
+529
+00:11:01,380 --&gt; 00:11:02,240
+这个点不成立
+
+530
+00:11:02,240 --&gt; 00:11:03,420
+因为生活太无常了
+
+531
+00:11:03,420 --&gt; 00:11:04,300
+阿甘说的嘛
+
+532
+00:11:04,300 --&gt; 00:11:06,180
+Life is like a box of chocolate
+
+533
+00:11:06,180 --&gt; 00:11:06,560
+是吧
+
+534
+00:11:06,560 --&gt; 00:11:07,680
+You never know what you&#x27;re gonna get
+
+535
+00:11:07,680 --&gt; 00:11:08,700
+那万一我明天
+
+536
+00:11:08,700 --&gt; 00:11:09,820
+骨折了咋吧
+
+537
+00:11:09,820 --&gt; 00:11:11,140
+我干不了这活了咋吧
+
+538
+00:11:11,140 --&gt; 00:11:13,060
+所以我并不觉得这个点怎么样
+
+539
+00:11:13,060 --&gt; 00:11:14,260
+这当然是我的局限性
+
+540
+00:11:14,260 --&gt; 00:11:15,340
+往往那些成大的人
+
+541
+00:11:15,340 --&gt; 00:11:16,560
+都是一炮憋个大的
+
+542
+00:11:16,560 --&gt; 00:11:17,260
+话操理不操
+
+543
+00:11:17,260 --&gt; 00:11:20,320
+就是他们往往是有猎人般的耐心
+
+544
+00:11:20,320 --&gt; 00:11:22,920
+愿意严实满足以得到大结果
+
+545
+00:11:22,920 --&gt; 00:11:26,020
+而不是及时的拿到今天的一个小结果
+
+546
+00:11:26,020 --&gt; 00:11:27,400
+往往一个大结果
+
+547
+00:11:27,400 --&gt; 00:11:28,320
+并十个小结果
+
+548
+00:11:28,320 --&gt; 00:11:29,600
+所以那个那玩不是说了吗
+
+549
+00:11:29,600 --&gt; 00:11:30,640
+他说这个真正牛的人
+
+550
+00:11:30,640 --&gt; 00:11:31,660
+要像狮子一样
+
+551
+00:11:31,660 --&gt; 00:11:32,660
+不是天天去工作
+
+552
+00:11:32,660 --&gt; 00:11:33,580
+而是工作一把
+
+553
+00:11:33,580 --&gt; 00:11:34,300
+休息十年
+
+554
+00:11:34,300 --&gt; 00:11:35,080
+再工作一把
+
+555
+00:11:35,080 --&gt; 00:11:36,000
+再休息十年
+
+556
+00:11:36,000 --&gt; 00:11:36,520
+好
+
+557
+00:11:36,520 --&gt; 00:11:38,020
+那今天我们内容就讲到这里
+
+558
+00:11:38,020 --&gt; 00:11:39,980
+希望今天的内容会大家有所帮助
+
+559
+00:11:39,980 --&gt; 00:11:40,680
+好下课
+</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://www.youtube.com/watch?v=JGK49x9jV8o" target="_blank" rel="noopener">https://www.youtube.com/watch?v=JGK49x9jV8o</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
