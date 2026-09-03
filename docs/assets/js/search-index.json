@@ -1,5 +1,11 @@
 [
   {
+    "title": "電腦如何理解人類語言？ 從 Embedding 說起 - Hermes Docs",
+    "url": "videos/embedding-semantics-map.html",
+    "date": "2026-09-03 02:38",
+    "content": "電腦如何理解人類語言？ 從 Embedding 說起 - Hermes Docs 返回首頁 電腦如何理解人類語言？ 從 Embedding 說起 發布時間：2026-09-03 10:38 🌙 YouTube 影片重點整理 電腦如何理解人類語言？ 從 Embedding 說起 📺 Jim AI Notebook ⏱ 20:12 🗓 2026-09-02 🌐 zh-Hant 🔗 https://youtu.be/ata4dmLP5IU 這支影片用手機相簿搜尋「海邊的日落」作為入口，說明 embedding 如何把文字、圖片或文件轉成可計算的向量座標，讓機器不用只靠字面比對，也能用距離判斷語意相近。影片先對比 one-hot、bag of words 與 TF-IDF 這些早期方法的限制，再回到分布假說，說明「看一個詞跟誰在一起」如何被翻成數學。接著串起 LSA、Bengio 2003 神經語言模型、Mikolov 的 word2vec，以及向量減法如 King - Man + Woman 的經典展示，同時補上 2020 年研究對這個展示的修正。後半段說明固定詞向量無法處理一詞多義，因此轉"
+  },
+  {
     "title": "10 個行為經濟學原理教你更高效地做出決策 - Hermes Docs",
     "url": "videos/behavior-economic-decision-principles.html",
     "date": "2026-09-01 10:15",

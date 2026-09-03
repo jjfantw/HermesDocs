@@ -1,0 +1,2949 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>電腦如何理解人類語言？ 從 Embedding 說起 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>電腦如何理解人類語言？ 從 Embedding 說起</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-09-03 10:38</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">電腦如何理解人類語言？ 從 Embedding 說起</h1>
+    <div class="meta"><span data-field="channel">📺 Jim AI Notebook</span><span data-field="duration">⏱ 20:12</span><span data-field="published_date">🗓 2026-09-02</span><span data-field="original_language">🌐 zh-Hant</span><a data-field="source_url" href="https://youtu.be/ata4dmLP5IU" target="_blank" rel="noopener">🔗 https://youtu.be/ata4dmLP5IU</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>這支影片用手機相簿搜尋「海邊的日落」作為入口，說明 embedding 如何把文字、圖片或文件轉成可計算的向量座標，讓機器不用只靠字面比對，也能用距離判斷語意相近。影片先對比 one-hot、bag of words 與 TF-IDF 這些早期方法的限制，再回到分布假說，說明「看一個詞跟誰在一起」如何被翻成數學。接著串起 LSA、Bengio 2003 神經語言模型、Mikolov 的 word2vec，以及向量減法如 King - Man + Woman 的經典展示，同時補上 2020 年研究對這個展示的修正。後半段說明固定詞向量無法處理一詞多義，因此轉向 ELMo、BERT 與 Sentence-BERT 這類依上下文現場計算的 embedding。最後，影片把 embedding 放回今天的應用：RAG、向量資料庫、ANN 近似最近鄰搜尋、rerank、Spotify 推薦、OpenAI embedding 價格，以及 Matryoshka embedding 讓維度可縮放的趨勢。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">Embedding 的直覺：把意思放到同一張地圖</h2><span class="ts-badge" data-field="lesson_timestamp">00:00</span></div><div class="body" data-field="lesson_body"><p>影片用手機相簿搜尋作為例子：照片沒有被手動標籤成「海邊的日落」，但手機仍能找出來。關鍵不是機器真的讀懂中文，而是文字與照片都被轉成同一張語意地圖上的座標。</p><p>在這張地圖上，<strong>意思越接近的位置越靠近</strong>。所以搜尋、推薦、AI 查資料，都可以被改寫成一個工程問題：不要問『這句話你懂不懂』，而是問『這兩個點離得近不近』。</p><span class="tag" data-field="lesson_tag">語意向量</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">早期方法能數字面，卻看不見語意距離</h2><span class="ts-badge" data-field="lesson_timestamp">02:56</span></div><div class="body" data-field="lesson_body"><p>one-hot 把每個詞編成一根只有一格是 1 的長向量，問題是任何兩個詞之間的距離都一樣：貓和狗、貓和星期三、貓和美金在數學上沒有差別。</p><p>bag of words 和 TF-IDF 讓工程系統能處理垃圾郵件與搜尋，但影片強調它們仍然是在<strong>數詞頻、比字面</strong>，不是在理解詞與詞之間的意義關係。</p><span class="tag" data-field="lesson_tag">one-hot / TF-IDF</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">分布假說：看一個詞和誰一起出現</h2><span class="ts-badge" data-field="lesson_timestamp">04:29</span></div><div class="body" data-field="lesson_body"><p>影片把 embedding 的思想源頭追到 Firth 與 Harris：要認識一個詞，就看它都跟哪些詞待在一起。即使沒聽過某個新詞，只要它常和『喝』『一整杯』一起出現，人也能猜它大概是飲料。</p><p>後來 AI 領域做的事，就是把這句語言學直覺翻成數學：讓模型從大量上下文中學出詞與詞的相對位置。</p><span class="tag" data-field="lesson_tag">Distributional Hypothesis</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">從 LSA 到神經語言模型：語意座標開始成形</h2><span class="ts-badge" data-field="lesson_timestamp">05:14</span></div><div class="body" data-field="lesson_body"><p>1990 年的 LSA 用線性代數壓縮巨大的詞—文件矩陣，把原本稀疏的表格壓到約 100 個主題維度。影片舉例，car 與 automobile 這類字面不同但語意接近的詞，第一次能在數學上靠近。</p><p>2003 年 Bengio 的神經語言模型則改用『看前文猜下一個詞』的訓練任務；詞的座標不是直接手工設計，而是在模型為了猜得準的過程中長出來。不過當時算力不足，想法先於時代。</p><span class="tag" data-field="lesson_tag">LSA / Neural LM</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">word2vec 的突破：把分布假說變成可大規模訓練的工具</h2><span class="ts-badge" data-field="lesson_timestamp">06:48</span></div><div class="body" data-field="lesson_body"><p>Mikolov 在 Google 將詞向量訓練簡化到一台桌機也能跑：用 skip-gram / CBOW 類似的任務，反覆從上下文猜中心詞，或從中心詞猜周邊詞。</p><p>影片強調，word2vec 的貢獻不只是效果好，而是把計算量壓到夠低；它能在不到一天內從 16 億詞中學出高品質詞向量，開源後快速成為 NLP 標準配備。</p><span class="tag" data-field="lesson_tag">word2vec</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">語意有了幾何，但經典神話也要查證</h2><span class="ts-badge" data-field="lesson_timestamp">09:31</span></div><div class="body" data-field="lesson_body"><p>詞向量最迷人的展示，是 King - Man + Woman 會靠近 Queen，巴黎 - 法國 + 義大利會靠近羅馬。影片用這點說明：當意思變成座標，語意關係也能變成方向。</p><p>但影片也補上 2020 年研究的修正：King - Man + Woman 最近的點其實可能是 King 本身，Queen 成為答案，是因為標準工具會把輸入過的詞排除。方向存在、關係被學到是真的；但傳播時漂亮的示範中間隔著一行沒被提起的程式碼。</p><span class="tag" data-field="lesson_tag">vector arithmetic</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">07</span><h2 data-field="lesson_title">固定詞向量的終點：上下文才決定這一次的意思</h2><span class="ts-badge" data-field="lesson_timestamp">11:17</span></div><div class="body" data-field="lesson_body"><p>word2vec 給每個詞一個固定座標，但語言不是這樣運作的。bank 在 riverbank 與 bank account 中不是同一個意思；蘋果在發表會與削皮的語境也不同。</p><p>ELMo 與 BERT 的轉折，是不再查固定表，而是把整句話丟進模型，從上下文現場算出該詞這一次的座標。這讓 embedding 從靜態詞表走向上下文語意。</p><span class="tag" data-field="lesson_tag">ELMo / BERT</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">08</span><h2 data-field="lesson_title">Sentence-BERT：把慢速比對改成先做摘要卡片</h2><span class="ts-badge" data-field="lesson_timestamp">12:46</span></div><div class="body" data-field="lesson_body"><p>BERT 要比較兩句話時，需要把兩句一起讀完再打分數；若 1 萬句兩兩比較，影片引用的估算約要 65 小時。</p><p>Sentence-BERT 改成先讓每句話各自產生一個座標，之後只要算座標距離。同樣規模的任務可降到約 5 秒，讓 embedding 從詞的技術變成整段文字的技術。</p><span class="tag" data-field="lesson_tag">句向量</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">09</span><h2 data-field="lesson_title">圖片、文字與文件都能住進同一張地圖</h2><span class="ts-badge" data-field="lesson_timestamp">13:45</span></div><div class="body" data-field="lesson_body"><p>CLIP 同時訓練讀圖片與讀文字的網路，讓成對的圖片與說明文字在地圖上靠近，不成對的被推開。影片指出，這讓以文找圖、以圖找文、相簿搜尋都變成『算距離』。</p><p>後面談到 RAG：文件先切成 chunk，每段轉成 embedding 存進向量資料庫；使用者問題也用同一模型轉成座標，再找最近的段落，最後用 rerank 做精排。</p><span class="tag" data-field="lesson_tag">CLIP / multimodal</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">10</span><h2 data-field="lesson_title">今天的爆發：便宜、可搜尋、但換模型要重畫地圖</h2><span class="ts-badge" data-field="lesson_timestamp">16:37</span></div><div class="body" data-field="lesson_body"><p>影片指出，Spotify 早在 2013 年就用 Annoy 做大規模最近鄰搜尋，把歌曲與使用者都放進向量地圖中，推薦清單背後就是找最近的點。</p><p>近年 embedding 全面爆發，一部分是因為價格變得非常低，企業可以把多年文件、郵件、會議記錄都轉成座標。代價是：<strong>換一代 embedding 模型，舊座標就全部作廢</strong>，因為新舊地圖的座標系不相通。</p><span class="tag" data-field="lesson_tag">RAG / Vector DB</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">11</span><h2 data-field="lesson_title">Matryoshka embedding：不是越大越好，而是可伸縮才好</h2><span class="ts-badge" data-field="lesson_timestamp">18:22</span></div><div class="body" data-field="lesson_body"><p>影片最後提到維度數的趨勢：從 LSA 約 100 維、word2vec 300 維，到現代商用模型動輒 3000 多維，看似一路變大。</p><p>但 Matryoshka embedding 的想法是訓練時讓重要資訊集中在前幾個維度，需要省成本時可以直接截掉後面維度。影片給出的結論是：這個領域最後學到的不是越大越好，而是可以依成本與效果伸縮才好。</p><span class="tag" data-field="lesson_tag">Matryoshka</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">六十幾年來，人類其實只做了一件事：把意思這個看不見的東西，一點一點搬到一張可以計算的地圖上。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="00:00"><span class="ts">00:00</span><span class="text" data-field="key_point_text">從手機相簿能找出未標籤的「海邊日落」切入：embedding 的核心是把意思變成數字座標。</span></li><li data-field="key_point" data-timestamp="01:14"><span class="ts">01:14</span><span class="text" data-field="key_point_text">embedding 把文字變成向量；意思接近的詞或句子，在同一張高維地圖上的位置也會接近。</span></li><li data-field="key_point" data-timestamp="02:56"><span class="ts">02:56</span><span class="text" data-field="key_point_text">one-hot 編碼讓每個詞都只佔一格，無法表達貓與狗比貓與星期三更接近。</span></li><li data-field="key_point" data-timestamp="03:41"><span class="ts">03:41</span><span class="text" data-field="key_point_text">bag of words 與 TF-IDF 能用在垃圾郵件、搜尋等任務，但本質上仍是在數詞頻，而不是理解詞義。</span></li><li data-field="key_point" data-timestamp="04:29"><span class="ts">04:29</span><span class="text" data-field="key_point_text">Firth / Harris 的分布假說指出，認識一個詞要看它與哪些詞一起出現，後來成為 embedding 的語言學基礎。</span></li><li data-field="key_point" data-timestamp="05:14"><span class="ts">05:14</span><span class="text" data-field="key_point_text">LSA 透過壓縮詞—文件矩陣，第一次讓 car 與 automobile 這類語意相近但字面不同的詞在數學上靠近。</span></li><li data-field="key_point" data-timestamp="06:04"><span class="ts">06:04</span><span class="text" data-field="key_point_text">Bengio 2003 的神經語言模型透過預測下一個詞，在模型內部長出詞的座標，但當時算力不足。</span></li><li data-field="key_point" data-timestamp="06:48"><span class="ts">06:48</span><span class="text" data-field="key_point_text">Mikolov 在 Google 將 word2vec 做到又快又好，用桌機在不到一天內從 16 億詞語料學出高品質詞向量。</span></li><li data-field="key_point" data-timestamp="08:36"><span class="ts">08:36</span><span class="text" data-field="key_point_text">word2vec 早期論文曾被 ICLR 拒絕，之後開源快速擴散，續作十年後獲 NeurIPS Test of Time Award。</span></li><li data-field="key_point" data-timestamp="09:31"><span class="ts">09:31</span><span class="text" data-field="key_point_text">詞向量的減法展示讓語意關係變成幾何方向，但 2020 年研究指出經典 King-Man+Woman→Queen 示範其實排除了輸入詞。</span></li><li data-field="key_point" data-timestamp="11:17"><span class="ts">11:17</span><span class="text" data-field="key_point_text">固定詞向量無法處理 bank、蘋果這類一詞多義，因為一個詞在不同句子中應該有不同座標。</span></li><li data-field="key_point" data-timestamp="11:55"><span class="ts">11:55</span><span class="text" data-field="key_point_text">ELMo 與 BERT 改成依整句上下文現場計算座標，讓同一個詞在不同語境中得到不同向量。</span></li><li data-field="key_point" data-timestamp="12:46"><span class="ts">12:46</span><span class="text" data-field="key_point_text">BERT 類模型精準但慢；Sentence-BERT 先為每句話產生座標，使 1 萬句相似度比較從約 65 小時降到約 5 秒。</span></li><li data-field="key_point" data-timestamp="13:45"><span class="ts">13:45</span><span class="text" data-field="key_point_text">CLIP 把圖片與文字放進同一張地圖，讓以文找圖、以圖找文、手機相簿搜尋都變成算距離。</span></li><li data-field="key_point" data-timestamp="14:45"><span class="ts">14:45</span><span class="text" data-field="key_point_text">RAG 的流程是切 chunk、產生 embedding、存入向量資料庫、用同模型嵌入問題、做 ANN 搜尋，再用 rerank 精排。</span></li><li data-field="key_point" data-timestamp="16:37"><span class="ts">16:37</span><span class="text" data-field="key_point_text">Spotify 早在 word2vec 同年就用 Annoy 做大規模最近鄰搜尋，推薦系統背後也是把歌曲與使用者放到向量地圖。</span></li><li data-field="key_point" data-timestamp="17:28"><span class="ts">17:28</span><span class="text" data-field="key_point_text">近年爆發的一個原因是 embedding 價格極低，企業能把多年文件轉成座標；但換模型就要重建整張地圖。</span></li><li data-field="key_point" data-timestamp="18:22"><span class="ts">18:22</span><span class="text" data-field="key_point_text">Matryoshka embedding 讓重要資訊集中在前幾個維度，可把向量截短以降低儲存成本，同時維持效果。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="Embedding">Embedding</span><span class="tag-chip" data-tag="向量資料庫">向量資料庫</span><span class="tag-chip" data-tag="RAG">RAG</span><span class="tag-chip" data-tag="word2vec">word2vec</span><span class="tag-chip" data-tag="BERT">BERT</span><span class="tag-chip" data-tag="Sentence-BERT">Sentence-BERT</span><span class="tag-chip" data-tag="CLIP">CLIP</span><span class="tag-chip" data-tag="ANN">ANN</span><span class="tag-chip" data-tag="TF-IDF">TF-IDF</span><span class="tag-chip" data-tag="LSA">LSA</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>YouTube transcript API 回傳 transcripts disabled；主內容改用 Whisper STT，並以影片描述的參考資料清單輔助專有名詞校正。</li><li>片尾 20:03 之後 Whisper 出現疑似其他頻道樣板句（明鏡與點點欄目），未納入主文重點。</li></ul></div></section>
+  <section class="glossary" data-field="asr_glossary"><h2>🎙️ ASR 漂字對照表</h2><div class="card"><table class="glossary"><tr data-field="asr_glossary_row"><td data-field="heard">Jam</td><td>→</td><td data-field="corrected">Jim</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">懂意識</td><td>→</td><td data-field="corrected">懂意思</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">John Lupert First / Faird</td><td>→</td><td data-field="corrected">John Rupert Firth</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Zellick Harris</td><td>→</td><td data-field="corrected">Zellig Harris</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Yoshi Benjo</td><td>→</td><td data-field="corrected">Yoshua Bengio</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Word to Vector / Word2vector / World2Factor</td><td>→</td><td data-field="corrected">word2vec</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Mikodov</td><td>→</td><td data-field="corrected">Mikolov</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Near IPS</td><td>→</td><td data-field="corrected">NeurIPS</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Bird</td><td>→</td><td data-field="corrected">BERT</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Sentence Bird</td><td>→</td><td data-field="corrected">Sentence-BERT</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Ilya Saskivar</td><td>→</td><td data-field="corrected">Ilya Sutskever</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">vojager</td><td>→</td><td data-field="corrected">Voyager</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Metrochka</td><td>→</td><td data-field="corrected">Matryoshka</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Icon</td><td>→</td><td data-field="corrected">Pinecone（依向量資料庫獨角獸語境判讀）</td></tr></table></div></section>
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="whisper"><div class="raw-label">Whisper 原始輸出<button class="copy-btn" id="raw_whisper_4372609152_srt" onclick="copyRaw(this,'raw_whisper_4372609152_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_whisper_4372609152_text" onclick="copyRawText(this,'raw_whisper_4372609152_text')">📋 複製純文字</button></div><pre>1
+00:00:00,000 --&gt; 00:00:06,000
+大家好我是Jam
+
+2
+00:00:06,000 --&gt; 00:00:07,000
+这里是AI Notebook
+
+3
+00:00:07,000 --&gt; 00:00:09,000
+你拿起手机打开相簿
+
+4
+00:00:09,000 --&gt; 00:00:11,000
+在搜寻框里打海边的日落
+
+5
+00:00:11,000 --&gt; 00:00:12,000
+几张照片就跳了出来
+
+6
+00:00:12,000 --&gt; 00:00:15,000
+可是你从来没有帮这些照片打过任何标签
+
+7
+00:00:15,000 --&gt; 00:00:16,000
+也没有写过一个字
+
+8
+00:00:16,000 --&gt; 00:00:18,000
+手机凭什么知道
+
+9
+00:00:18,000 --&gt; 00:00:20,000
+那几张就是海边的日落
+
+10
+00:00:20,000 --&gt; 00:00:23,000
+今天我要带你看懂背后那个负责懂意识的零件
+
+11
+00:00:23,000 --&gt; 00:00:24,000
+它叫embedding
+
+12
+00:00:24,000 --&gt; 00:00:25,000
+你每一次搜寻
+
+13
+00:00:25,000 --&gt; 00:00:26,000
+每一次收到推荐
+
+14
+00:00:26,000 --&gt; 00:00:28,000
+每一次AI帮你查资料
+
+15
+00:00:28,000 --&gt; 00:00:29,000
+它都在里面
+
+16
+00:00:29,000 --&gt; 00:00:31,000
+而这整件事的起点
+
+17
+00:00:31,000 --&gt; 00:00:34,000
+是一位语言学家在1957年写下的一句话
+
+18
+00:00:34,000 --&gt; 00:00:36,000
+我们先把这件事讲清楚
+
+19
+00:00:36,000 --&gt; 00:00:38,000
+你的相簿里可能有2万张照片
+
+20
+00:00:38,000 --&gt; 00:00:40,000
+你没有帮任何一张写过说明
+
+21
+00:00:40,000 --&gt; 00:00:41,000
+没有分过类
+
+22
+00:00:41,000 --&gt; 00:00:43,000
+甚至有一半你早就忘记自己拍过
+
+23
+00:00:43,000 --&gt; 00:00:45,000
+可是你在搜寻框打几个字
+
+24
+00:00:45,000 --&gt; 00:00:47,000
+机器就能撈出对的那几张
+
+25
+00:00:47,000 --&gt; 00:00:49,000
+这件事在十几年前是做不到的
+
+26
+00:00:49,000 --&gt; 00:00:51,000
+那时候的搜寻靠的是比对字面
+
+27
+00:00:51,000 --&gt; 00:00:53,000
+你的档案名称里有没有这几个字
+
+28
+00:00:53,000 --&gt; 00:00:55,000
+有就找得到没有就找不到
+
+29
+00:00:55,000 --&gt; 00:00:58,000
+而你那张照片的档名叫IMG4527
+
+30
+00:00:58,000 --&gt; 00:01:00,000
+所以它跟海边的日落一个字都没有重叠
+
+31
+00:01:00,000 --&gt; 00:01:03,000
+所以真正奇怪的地方不是搜寻变快了
+
+32
+00:01:03,000 --&gt; 00:01:05,000
+而是机器不知道从哪一天开始
+
+33
+00:01:05,000 --&gt; 00:01:07,000
+好像真的知道海边的日落是什么意思了
+
+34
+00:01:07,000 --&gt; 00:01:08,000
+它到底怎么知道的
+
+35
+00:01:08,000 --&gt; 00:01:10,000
+答案不是它读懂的中文
+
+36
+00:01:10,000 --&gt; 00:01:12,000
+而是有人想到一个很怪的办法
+
+37
+00:01:12,000 --&gt; 00:01:14,000
+把意思这件事变成了数字
+
+38
+00:01:14,000 --&gt; 00:01:16,000
+这个办法叫Embedding
+
+39
+00:01:16,000 --&gt; 00:01:18,000
+中文常常翻成嵌入
+
+40
+00:01:18,000 --&gt; 00:01:19,000
+不过你先不用管这个名字
+
+41
+00:01:19,000 --&gt; 00:01:20,000
+你只要记住它做的事情
+
+42
+00:01:20,000 --&gt; 00:01:22,000
+就是把一段文字变成一串数字
+
+43
+00:01:22,000 --&gt; 00:01:23,000
+举个例子
+
+44
+00:01:23,000 --&gt; 00:01:24,000
+你给它猫这个字
+
+45
+00:01:24,000 --&gt; 00:01:25,000
+它吐回来的是一排小数
+
+46
+00:01:25,000 --&gt; 00:01:27,000
+可能是300个数字排成一列
+
+47
+00:01:27,000 --&gt; 00:01:29,000
+这排数字有一个更好懂的讲法
+
+48
+00:01:29,000 --&gt; 00:01:31,000
+它就是这个词在一张地图上的坐标
+
+49
+00:01:31,000 --&gt; 00:01:33,000
+你想想我们平常怎么描述一个地点
+
+50
+00:01:33,000 --&gt; 00:01:35,000
+精度多少维度多少
+
+51
+00:01:35,000 --&gt; 00:01:38,000
+两个数字就把一座城市盯在地图上了
+
+52
+00:01:38,000 --&gt; 00:01:40,000
+Embedding做的是同一件事
+
+53
+00:01:40,000 --&gt; 00:01:42,000
+只是它的地图不是两个方向
+
+54
+00:01:42,000 --&gt; 00:01:43,000
+而是300个方向
+
+55
+00:01:43,000 --&gt; 00:01:45,000
+我们把这些方向叫做维度
+
+56
+00:01:45,000 --&gt; 00:01:47,000
+维度你想成地图上的坐标轴
+
+57
+00:01:47,000 --&gt; 00:01:48,000
+两个轴画出平面地图
+
+58
+00:01:48,000 --&gt; 00:01:50,000
+300个轴画出来的
+
+59
+00:01:50,000 --&gt; 00:01:51,000
+是一张我们看不到
+
+60
+00:01:51,000 --&gt; 00:01:52,000
+但电脑算得动的地图
+
+61
+00:01:52,000 --&gt; 00:01:54,000
+这张地图只有一条规矩
+
+62
+00:01:54,000 --&gt; 00:01:55,000
+意思越接近的东西
+
+63
+00:01:55,000 --&gt; 00:01:56,000
+位置就排得越近
+
+64
+00:01:56,000 --&gt; 00:01:58,000
+猫跟狗会住在隔壁
+
+65
+00:01:58,000 --&gt; 00:02:01,000
+猫跟没积分会住在地图的两端
+
+66
+00:02:01,000 --&gt; 00:02:03,000
+这排数字在工程上的名字叫向量
+
+67
+00:02:03,000 --&gt; 00:02:05,000
+你把它当成一个坐标就好
+
+68
+00:02:05,000 --&gt; 00:02:08,000
+你可能会想把字变成数字有什么了不起
+
+69
+00:02:08,000 --&gt; 00:02:10,000
+了不起的地方在于
+
+70
+00:02:10,000 --&gt; 00:02:12,000
+电脑本来就只会算数
+
+71
+00:02:12,000 --&gt; 00:02:13,000
+他不会读书
+
+72
+00:02:13,000 --&gt; 00:02:15,000
+你只要判断怎么退货跟翻评流程
+
+73
+00:02:15,000 --&gt; 00:02:16,000
+是不是同一件事
+
+74
+00:02:16,000 --&gt; 00:02:17,000
+他做不到
+
+75
+00:02:17,000 --&gt; 00:02:19,000
+因为这两句话一个字都对不上
+
+76
+00:02:19,000 --&gt; 00:02:20,000
+可是如果这两句话都变成了坐标
+
+77
+00:02:20,000 --&gt; 00:02:21,000
+问题就换了一个样子
+
+78
+00:02:21,000 --&gt; 00:02:23,000
+要问的是这两句话意思一样吗
+
+79
+00:02:23,000 --&gt; 00:02:24,000
+现在只要问这两个点
+
+80
+00:02:24,000 --&gt; 00:02:25,000
+离得近不近
+
+81
+00:02:25,000 --&gt; 00:02:27,000
+前面那个问题需要理解力
+
+82
+00:02:27,000 --&gt; 00:02:28,000
+后面那个问题只需要减法
+
+83
+00:02:28,000 --&gt; 00:02:30,000
+这就是embedding真正解决的事情
+
+84
+00:02:30,000 --&gt; 00:02:32,000
+他把一个机器做不到的问题
+
+85
+00:02:32,000 --&gt; 00:02:34,000
+换成一个机器做得飞快的问题
+
+86
+00:02:34,000 --&gt; 00:02:36,000
+从此以后搜寻不再是找字
+
+87
+00:02:36,000 --&gt; 00:02:37,000
+是找最近的邻居
+
+88
+00:02:37,000 --&gt; 00:02:39,000
+推荐也不再是猜你喜欢什么
+
+89
+00:02:39,000 --&gt; 00:02:42,000
+是找出跟你位置最近的那些人在听什么格
+
+90
+00:02:42,000 --&gt; 00:02:43,000
+你手机相簿那次搜寻
+
+91
+00:02:43,000 --&gt; 00:02:44,000
+答案也在这里
+
+92
+00:02:44,000 --&gt; 00:02:45,000
+照片跟你打的那几个字
+
+93
+00:02:45,000 --&gt; 00:02:47,000
+被放进了同一张地图
+
+94
+00:02:47,000 --&gt; 00:02:49,000
+机器只是算了一下谁离谁最近
+
+95
+00:02:49,000 --&gt; 00:02:50,000
+这张地图
+
+96
+00:02:50,000 --&gt; 00:02:52,000
+就是这支影片接下来要讲的全部
+
+97
+00:02:52,000 --&gt; 00:02:54,000
+我们要理解这张地图有多不容易
+
+98
+00:02:54,000 --&gt; 00:02:56,000
+就得先回到还没有地图的年代
+
+99
+00:02:56,000 --&gt; 00:02:58,000
+最早的做法简单到有点好笑
+
+100
+00:02:58,000 --&gt; 00:02:59,000
+工程师先做一本字典
+
+101
+00:02:59,000 --&gt; 00:03:00,000
+把出现过的词全部编号
+
+102
+00:03:00,000 --&gt; 00:03:02,000
+第一个词编1号
+
+103
+00:03:02,000 --&gt; 00:03:03,000
+第二个词编2号
+
+104
+00:03:03,000 --&gt; 00:03:04,000
+一路编到5万
+
+105
+00:03:04,000 --&gt; 00:03:06,000
+然后每个词用一根很长的柱子表示
+
+106
+00:03:06,000 --&gt; 00:03:09,000
+柱子上有5万格只有属于自己的那一格
+
+107
+00:03:09,000 --&gt; 00:03:10,000
+填上1
+
+108
+00:03:10,000 --&gt; 00:03:13,000
+其他49999格全部是0
+
+109
+00:03:13,000 --&gt; 00:03:14,000
+这个做法有个名字叫one hot
+
+110
+00:03:14,000 --&gt; 00:03:16,000
+意思是只有一格是热的
+
+111
+00:03:16,000 --&gt; 00:03:17,000
+它有一个致命的问题
+
+112
+00:03:17,000 --&gt; 00:03:20,000
+你去量任何两个词之间的距离
+
+113
+00:03:20,000 --&gt; 00:03:21,000
+答案永远一样
+
+114
+00:03:21,000 --&gt; 00:03:22,000
+猫跟狗的距离
+
+115
+00:03:22,000 --&gt; 00:03:24,000
+等于猫跟没积分的距离
+
+116
+00:03:24,000 --&gt; 00:03:26,000
+也等于猫跟星期三的距离
+
+117
+00:03:26,000 --&gt; 00:03:27,000
+在这个世界里
+
+118
+00:03:27,000 --&gt; 00:03:30,000
+每一个词都孤零零站在自己那一格上
+
+119
+00:03:30,000 --&gt; 00:03:32,000
+跟其他所有词的远近完全相同
+
+120
+00:03:32,000 --&gt; 00:03:33,000
+这不是一张地图
+
+121
+00:03:33,000 --&gt; 00:03:34,000
+这是一片沙漠
+
+122
+00:03:34,000 --&gt; 00:03:36,000
+每一个点跟每个点都等句
+
+123
+00:03:36,000 --&gt; 00:03:38,000
+你走到哪里都没有方向感
+
+124
+00:03:38,000 --&gt; 00:03:39,000
+在这片沙漠里
+
+125
+00:03:39,000 --&gt; 00:03:41,000
+人们还是做出了能用的东西
+
+126
+00:03:41,000 --&gt; 00:03:43,000
+最有名的一招叫磁带
+
+127
+00:03:43,000 --&gt; 00:03:44,000
+英文是bag of words
+
+128
+00:03:44,000 --&gt; 00:03:45,000
+做法就像把一整篇文章
+
+129
+00:03:45,000 --&gt; 00:03:46,000
+倒进一个袋子摇一摇
+
+130
+00:03:46,000 --&gt; 00:03:47,000
+不管顺序
+
+131
+00:03:47,000 --&gt; 00:03:49,000
+只数每个词出现几次
+
+132
+00:03:49,000 --&gt; 00:03:50,000
+拿着邮件过滤
+
+133
+00:03:50,000 --&gt; 00:03:51,000
+就靠这招活了很多年
+
+134
+00:03:51,000 --&gt; 00:03:54,000
+一封信里中奖跟汇款出现太多词
+
+135
+00:03:54,000 --&gt; 00:03:56,000
+集齐根本不用懂意思
+
+136
+00:03:56,000 --&gt; 00:03:57,000
+数数字就能染下来
+
+137
+00:03:57,000 --&gt; 00:03:59,000
+后来有人再加一层聪明
+
+138
+00:03:59,000 --&gt; 00:04:01,000
+1972年
+
+139
+00:04:01,000 --&gt; 00:04:02,000
+剑桥大学一位叫
+
+140
+00:04:02,000 --&gt; 00:04:05,000
+Karen Spock Jones 的研究者提出一个想法
+
+141
+00:04:05,000 --&gt; 00:04:06,000
+一个词越少见
+
+142
+00:04:06,000 --&gt; 00:04:08,000
+他越能代表这篇文章在讲什么
+
+143
+00:04:08,000 --&gt; 00:04:09,000
+这个字到处都有
+
+144
+00:04:09,000 --&gt; 00:04:10,000
+所以他什么都没说
+
+145
+00:04:10,000 --&gt; 00:04:11,000
+那现在也很少出现
+
+146
+00:04:11,000 --&gt; 00:04:13,000
+一出现就几乎决定的主题
+
+147
+00:04:13,000 --&gt; 00:04:15,000
+这一招叫TF-IDF
+
+148
+00:04:15,000 --&gt; 00:04:16,000
+到今天的搜寻引擎
+
+149
+00:04:16,000 --&gt; 00:04:17,000
+你都还在用
+
+150
+00:04:17,000 --&gt; 00:04:18,000
+但你有沒有发现
+
+151
+00:04:18,000 --&gt; 00:04:20,000
+这些方法从头到尾都在做同一件事
+
+152
+00:04:20,000 --&gt; 00:04:21,000
+他们在数字
+
+153
+00:04:21,000 --&gt; 00:04:22,000
+不是在懂词
+
+154
+00:04:22,000 --&gt; 00:04:24,000
+沙漠里的小聪明再多
+
+155
+00:04:24,000 --&gt; 00:04:25,000
+沙漠还是沙漠
+
+156
+00:04:25,000 --&gt; 00:04:27,000
+转机不是来自工程师
+
+157
+00:04:27,000 --&gt; 00:04:29,000
+而是来自一位从来没碰过电脑的语言学家
+
+158
+00:04:29,000 --&gt; 00:04:31,000
+1957年
+
+159
+00:04:31,000 --&gt; 00:04:32,000
+英国人John Lupert First
+
+160
+00:04:32,000 --&gt; 00:04:34,000
+在一篇论文里写下一句话
+
+161
+00:04:34,000 --&gt; 00:04:36,000
+后来被引用了无数次
+
+162
+00:04:36,000 --&gt; 00:04:37,000
+他说你要认识一个词
+
+163
+00:04:37,000 --&gt; 00:04:39,000
+就看他都跟哪些词待在一起
+
+164
+00:04:39,000 --&gt; 00:04:41,000
+这句话白话一点讲就是
+
+165
+00:04:41,000 --&gt; 00:04:44,000
+你不用查字典也能猜出一个生字的意思
+
+166
+00:04:44,000 --&gt; 00:04:46,000
+只要看他前后都跟谁出现
+
+167
+00:04:46,000 --&gt; 00:04:49,000
+有人跟你说他昨天喝了一整杯马带茶
+
+168
+00:04:49,000 --&gt; 00:04:50,000
+你就算没听过这个东西
+
+169
+00:04:50,000 --&gt; 00:04:52,000
+也知道他大概是一种饮料
+
+170
+00:04:52,000 --&gt; 00:04:54,000
+因为喝跟一整杯这两个邻居
+
+171
+00:04:54,000 --&gt; 00:04:55,000
+已经把答案写出来了
+
+172
+00:04:55,000 --&gt; 00:04:57,000
+这个想法在语言学里叫做分布假说
+
+173
+00:04:57,000 --&gt; 00:04:59,000
+1954年的Zellick Harris
+
+174
+00:04:59,000 --&gt; 00:05:01,000
+也写过更正式的版本
+
+175
+00:05:01,000 --&gt; 00:05:03,000
+你注意一下时间
+
+176
+00:05:03,000 --&gt; 00:05:04,000
+这句话比第一台
+
+177
+00:05:04,000 --&gt; 00:05:06,000
+跑得动神经网路的电脑还要老
+
+178
+00:05:06,000 --&gt; 00:05:08,000
+而接下来六十几年
+
+179
+00:05:08,000 --&gt; 00:05:09,000
+整个AI领域做的事情
+
+180
+00:05:09,000 --&gt; 00:05:10,000
+某种程度上就是
+
+181
+00:05:10,000 --&gt; 00:05:11,000
+把这句话翻译成数学
+
+182
+00:05:11,000 --&gt; 00:05:14,000
+把那句话变成数学的第一次认真尝试
+
+183
+00:05:14,000 --&gt; 00:05:16,000
+发生在1990年
+
+184
+00:05:16,000 --&gt; 00:05:18,000
+一群研究者做了一张巨大的表格
+
+185
+00:05:18,000 --&gt; 00:05:19,000
+买的是每一个词
+
+186
+00:05:19,000 --&gt; 00:05:20,000
+指的是每一份文件
+
+187
+00:05:20,000 --&gt; 00:05:22,000
+格子里填的是这个词
+
+188
+00:05:22,000 --&gt; 00:05:23,000
+在这份文件出现几次
+
+189
+00:05:23,000 --&gt; 00:05:25,000
+这张表格大得离谱
+
+190
+00:05:25,000 --&gt; 00:05:26,000
+而且几乎全是空的
+
+191
+00:05:26,000 --&gt; 00:05:28,000
+他们用一套线性怠数的手法
+
+192
+00:05:28,000 --&gt; 00:05:30,000
+把这张几万蓝的表格
+
+193
+00:05:30,000 --&gt; 00:05:31,000
+硬压成100蓝左右
+
+194
+00:05:31,000 --&gt; 00:05:34,000
+你可以想成把一间堆满杂物的仓库
+
+195
+00:05:34,000 --&gt; 00:05:35,000
+重新整理
+
+196
+00:05:35,000 --&gt; 00:05:36,000
+只留下100个抽屉
+
+197
+00:05:36,000 --&gt; 00:05:38,000
+每个抽屉代表一个大主题
+
+198
+00:05:38,000 --&gt; 00:05:40,000
+然后把每个词丢进最像他的那几个抽屉里
+
+199
+00:05:40,000 --&gt; 00:05:42,000
+这个方法叫做潜在语意分析
+
+200
+00:05:42,000 --&gt; 00:05:44,000
+英文简称LSA
+
+201
+00:05:44,000 --&gt; 00:05:46,000
+压完之后发生了一件事
+
+202
+00:05:46,000 --&gt; 00:05:47,000
+Car跟Automobile
+
+203
+00:05:47,000 --&gt; 00:05:50,000
+这两个几乎不会同时出现在一句话里的词
+
+204
+00:05:50,000 --&gt; 00:05:52,000
+第一次在数学上靠在一起了
+
+205
+00:05:52,000 --&gt; 00:05:54,000
+这是人类第一次真的画出语意的坐标
+
+206
+00:05:54,000 --&gt; 00:05:58,000
+比后面引爆全世界的方法还少了23年
+
+207
+00:05:58,000 --&gt; 00:06:00,000
+1990年那张表格有个先天的毛病
+
+208
+00:06:00,000 --&gt; 00:06:01,000
+他是静态的
+
+209
+00:06:01,000 --&gt; 00:06:03,000
+语料一变就得整个重算
+
+210
+00:06:03,000 --&gt; 00:06:04,000
+也学不会新的词
+
+211
+00:06:04,000 --&gt; 00:06:06,000
+真正指出他爱条路的人
+
+212
+00:06:06,000 --&gt; 00:06:08,000
+是Yoshi Benjo
+
+213
+00:06:08,000 --&gt; 00:06:10,000
+2003年他跟同事发表了一篇论文
+
+214
+00:06:10,000 --&gt; 00:06:12,000
+做法完全不一样
+
+215
+00:06:12,000 --&gt; 00:06:14,000
+他们让一个神经网路去做一件很无聊的事
+
+216
+00:06:14,000 --&gt; 00:06:16,000
+看前面几个词
+
+217
+00:06:16,000 --&gt; 00:06:17,000
+猜下一个词是什么
+
+218
+00:06:17,000 --&gt; 00:06:18,000
+重点在于
+
+219
+00:06:18,000 --&gt; 00:06:20,000
+这个网路为了猜得准
+
+220
+00:06:20,000 --&gt; 00:06:22,000
+必须自己在内部长出一套
+
+221
+00:06:22,000 --&gt; 00:06:23,000
+对每个词的理解
+
+222
+00:06:23,000 --&gt; 00:06:25,000
+那套理解就是一组坐标
+
+223
+00:06:25,000 --&gt; 00:06:27,000
+词的坐标不是他们本来要的东西
+
+224
+00:06:27,000 --&gt; 00:06:30,000
+是这个训练过程顺手长出来的副产品
+
+225
+00:06:30,000 --&gt; 00:06:32,000
+这就像一个学生为了应付考试拼命读书
+
+226
+00:06:32,000 --&gt; 00:06:34,000
+考完之后你会发现
+
+227
+00:06:34,000 --&gt; 00:06:36,000
+他脑子里多出来的不是那几道题目的答案
+
+228
+00:06:36,000 --&gt; 00:06:38,000
+是一整张学科的地图
+
+229
+00:06:38,000 --&gt; 00:06:39,000
+这个想法完全正确
+
+230
+00:06:39,000 --&gt; 00:06:41,000
+问题出在2003年
+
+231
+00:06:41,000 --&gt; 00:06:43,000
+那时候的电脑跑纵模型慢得让人绝望
+
+232
+00:06:43,000 --&gt; 00:06:45,000
+词汇表只能开几万个
+
+233
+00:06:45,000 --&gt; 00:06:46,000
+语料只能用一小块
+
+234
+00:06:46,000 --&gt; 00:06:47,000
+正确的想法有了
+
+235
+00:06:47,000 --&gt; 00:06:48,000
+算力还没到
+
+236
+00:06:48,000 --&gt; 00:06:50,000
+十年之后
+
+237
+00:06:50,000 --&gt; 00:06:51,000
+补上那块算力的人
+
+238
+00:06:51,000 --&gt; 00:06:54,000
+是一个没什么人听他说话的年轻研究员
+
+239
+00:06:54,000 --&gt; 00:06:55,000
+Thomas Mikolov
+
+240
+00:06:55,000 --&gt; 00:06:56,000
+捷克人
+
+241
+00:06:56,000 --&gt; 00:06:58,000
+2012年在布伦诺拿到博士
+
+242
+00:06:58,000 --&gt; 00:07:01,000
+论文题目就是用神经网路做语言模型
+
+243
+00:07:01,000 --&gt; 00:07:03,000
+他进了Google之后跟同事说
+
+244
+00:07:03,000 --&gt; 00:07:05,000
+池向量这件事可以做得又快又好
+
+245
+00:07:05,000 --&gt; 00:07:06,000
+根据他自己后来的回忆
+
+246
+00:07:06,000 --&gt; 00:07:07,000
+当时没有人认真听
+
+247
+00:07:07,000 --&gt; 00:07:09,000
+实验室的注意力全都在另一篇
+
+248
+00:07:09,000 --&gt; 00:07:11,000
+他觉得又复杂又多余的论文上
+
+249
+00:07:11,000 --&gt; 00:07:13,000
+他决定不再说服任何人
+
+250
+00:07:13,000 --&gt; 00:07:14,000
+自己动手写
+
+251
+00:07:14,000 --&gt; 00:07:15,000
+他没有申请重集
+
+252
+00:07:15,000 --&gt; 00:07:16,000
+也没有排队等机器
+
+253
+00:07:16,000 --&gt; 00:07:18,000
+就用一台普通的桌上型电脑
+
+254
+00:07:18,000 --&gt; 00:07:20,000
+几个星期之后结果出来了
+
+255
+00:07:20,000 --&gt; 00:07:21,000
+他写的那套程式
+
+256
+00:07:21,000 --&gt; 00:07:23,000
+从16亿个词的语料里
+
+257
+00:07:23,000 --&gt; 00:07:25,000
+学出高品质的词向量
+
+258
+00:07:25,000 --&gt; 00:07:27,000
+花了时间不到一天
+
+259
+00:07:27,000 --&gt; 00:07:28,000
+而Google
+
+260
+00:07:28,000 --&gt; 00:07:29,000
+内部用好几台机器
+
+261
+00:07:29,000 --&gt; 00:07:31,000
+训练好几个星期的模型
+
+262
+00:07:31,000 --&gt; 00:07:32,000
+被他一台桌机的
+
+263
+00:07:32,000 --&gt; 00:07:34,000
+结果拉开了一整截
+
+264
+00:07:34,000 --&gt; 00:07:36,000
+这件事的重点不是他多聪明
+
+265
+00:07:36,000 --&gt; 00:07:37,000
+他证明的是
+
+266
+00:07:37,000 --&gt; 00:07:38,000
+这条路之所以走不通
+
+267
+00:07:38,000 --&gt; 00:07:39,000
+不是想法错了
+
+268
+00:07:39,000 --&gt; 00:07:41,000
+是大家一直把它做得太复杂
+
+269
+00:07:41,000 --&gt; 00:07:43,000
+他把那套程式命名为
+
+270
+00:07:43,000 --&gt; 00:07:44,000
+Word to Vector
+
+271
+00:07:44,000 --&gt; 00:07:46,000
+字面意思就是把词变成向量
+
+272
+00:07:46,000 --&gt; 00:07:47,000
+他到底怎么学的
+
+273
+00:07:47,000 --&gt; 00:07:49,000
+做法简单到你会怀疑它为什么有效
+
+274
+00:07:49,000 --&gt; 00:07:51,000
+你拿一句话出来
+
+275
+00:07:51,000 --&gt; 00:07:53,000
+今天早上我喝了一杯热咖啡
+
+276
+00:07:53,000 --&gt; 00:07:54,000
+他把中间那个词遮起来
+
+277
+00:07:54,000 --&gt; 00:07:55,000
+问模型
+
+278
+00:07:55,000 --&gt; 00:07:56,000
+前后这几个字
+
+279
+00:07:56,000 --&gt; 00:07:58,000
+围着的空格应该填什么
+
+280
+00:07:58,000 --&gt; 00:07:59,000
+或者反过来
+
+281
+00:07:59,000 --&gt; 00:08:00,000
+给模型一个咖啡
+
+282
+00:08:00,000 --&gt; 00:08:01,000
+要他猜咖啡旁边
+
+283
+00:08:01,000 --&gt; 00:08:03,000
+通常会出现哪些词
+
+284
+00:08:03,000 --&gt; 00:08:05,000
+整份语料就这样一句一句滑过去
+
+285
+00:08:05,000 --&gt; 00:08:07,000
+猜错了就每条一只坐标
+
+286
+00:08:07,000 --&gt; 00:08:08,000
+猜对就把坐标留着
+
+287
+00:08:08,000 --&gt; 00:08:10,000
+滑过几十一个词之后
+
+288
+00:08:10,000 --&gt; 00:08:13,000
+那些常常被同样的邻居围着的词
+
+289
+00:08:13,000 --&gt; 00:08:15,000
+位置自然就被拉到一起了
+
+290
+00:08:15,000 --&gt; 00:08:16,000
+你发现了吗
+
+291
+00:08:16,000 --&gt; 00:08:18,000
+正是FIRST那句话的机器版本
+
+292
+00:08:18,000 --&gt; 00:08:20,000
+看一个词跟谁带在一起
+
+293
+00:08:20,000 --&gt; 00:08:21,000
+就知道它是什么意思
+
+294
+00:08:21,000 --&gt; 00:08:22,000
+FIRST用嘴巴讲的
+
+295
+00:08:22,000 --&gt; 00:08:24,000
+Word2vector是用几十亿次猜测
+
+296
+00:08:24,000 --&gt; 00:08:26,000
+把同一件事做成的坐标
+
+297
+00:08:26,000 --&gt; 00:08:28,000
+Mikodov真正的功劳
+
+298
+00:08:28,000 --&gt; 00:08:30,000
+是这个猜测的计算量压到几滴
+
+299
+00:08:30,000 --&gt; 00:08:33,000
+低到一台桌机一天就能跑完
+
+300
+00:08:33,000 --&gt; 00:08:34,000
+结果这么好
+
+301
+00:08:34,000 --&gt; 00:08:35,000
+论文应该一路顺风吧
+
+302
+00:08:35,000 --&gt; 00:08:36,000
+并没有
+
+303
+00:08:36,000 --&gt; 00:08:38,000
+2013年1月
+
+304
+00:08:38,000 --&gt; 00:08:40,000
+他把第一篇Word2vector论文
+
+305
+00:08:40,000 --&gt; 00:08:42,000
+投到一个叫ICLR的机器学习会议
+
+306
+00:08:42,000 --&gt; 00:08:43,000
+被拒绝了
+
+307
+00:08:43,000 --&gt; 00:08:45,000
+这件事最尴尬的地方在于
+
+308
+00:08:45,000 --&gt; 00:08:49,000
+那一年会议的接收率大约是七成
+
+309
+00:08:49,000 --&gt; 00:08:51,000
+也就是说十篇里面收七篇
+
+310
+00:08:51,000 --&gt; 00:08:53,000
+而后来改变整个领域的那一篇
+
+311
+00:08:53,000 --&gt; 00:08:56,000
+刚好落在被退回来的那三篇里
+
+312
+00:08:56,000 --&gt; 00:09:00,000
+Mikodov自己在2023年公开讲过这一段
+
+313
+00:09:00,000 --&gt; 00:09:01,000
+他也提到
+
+314
+00:09:01,000 --&gt; 00:09:03,000
+Google大约在那年八月批准
+
+315
+00:09:03,000 --&gt; 00:09:05,000
+把程式码开放出来等审批的那段时间
+
+316
+00:09:05,000 --&gt; 00:09:08,000
+他还顺手把程式改得更短更快
+
+317
+00:09:08,000 --&gt; 00:09:09,000
+程式一放出来
+
+318
+00:09:09,000 --&gt; 00:09:11,000
+事情就不受任何人控制了
+
+319
+00:09:11,000 --&gt; 00:09:13,000
+全世界的工程师下载训练
+
+320
+00:09:13,000 --&gt; 00:09:14,000
+接近自己的系统
+
+321
+00:09:14,000 --&gt; 00:09:15,000
+持像量在两三年之内
+
+322
+00:09:15,000 --&gt; 00:09:17,000
+变成了自然语言处理的标准配备
+
+323
+00:09:17,000 --&gt; 00:09:19,000
+至于那篇被拒绝的研究
+
+324
+00:09:19,000 --&gt; 00:09:22,000
+他的续作在十年后拿下了Near IPS
+
+325
+00:09:22,000 --&gt; 00:09:24,000
+2023年的时间考验奖
+
+326
+00:09:24,000 --&gt; 00:09:27,000
+这个奖专门颁给当年没被看懂
+
+327
+00:09:27,000 --&gt; 00:09:29,000
+但是经得起时间检验的论文
+
+328
+00:09:29,000 --&gt; 00:09:31,000
+真正让所有人坐直起来的是另外一件事
+
+329
+00:09:31,000 --&gt; 00:09:33,000
+既然每个词都变成了坐标
+
+330
+00:09:33,000 --&gt; 00:09:35,000
+那坐标之间的减法
+
+331
+00:09:35,000 --&gt; 00:09:36,000
+又代表什么
+
+332
+00:09:36,000 --&gt; 00:09:37,000
+研究团队做的一个实验
+
+333
+00:09:37,000 --&gt; 00:09:40,000
+他们拿King这个词的坐标
+
+334
+00:09:40,000 --&gt; 00:09:41,000
+剪掉Man的坐标
+
+335
+00:09:41,000 --&gt; 00:09:43,000
+再加上Woman的坐标
+
+336
+00:09:43,000 --&gt; 00:09:44,000
+然后去看落点附近站着谁
+
+337
+00:09:44,000 --&gt; 00:09:46,000
+K and that&#x27;s Queen
+
+338
+00:09:46,000 --&gt; 00:09:48,000
+你把这件事想清楚会有点发毛
+
+339
+00:09:48,000 --&gt; 00:09:50,000
+没有人教过这个模型什么叫性别
+
+340
+00:09:50,000 --&gt; 00:09:52,000
+他从头到尾只是在拆下一个词而已
+
+341
+00:09:52,000 --&gt; 00:09:54,000
+可是意思一旦变成坐标
+
+342
+00:09:54,000 --&gt; 00:09:56,000
+意识之间的关系就变成了方向
+
+343
+00:09:56,000 --&gt; 00:09:58,000
+从Man走到Woman的那个方向
+
+344
+00:09:58,000 --&gt; 00:10:00,000
+跟从King走到Queen的方向
+
+345
+00:10:00,000 --&gt; 00:10:02,000
+几乎是同一个
+
+346
+00:10:02,000 --&gt; 00:10:03,000
+同样的道理
+
+347
+00:10:03,000 --&gt; 00:10:04,000
+巴黎剪掉法国
+
+348
+00:10:04,000 --&gt; 00:10:05,000
+再加上意大利
+
+349
+00:10:05,000 --&gt; 00:10:06,000
+落点是罗马
+
+350
+00:10:06,000 --&gt; 00:10:08,000
+首都这个关系
+
+351
+00:10:08,000 --&gt; 00:10:09,000
+在地图上也是一个方向
+
+352
+00:10:09,000 --&gt; 00:10:10,000
+这一刻
+
+353
+00:10:10,000 --&gt; 00:10:12,000
+语意不再只是谁跟谁比较近
+
+354
+00:10:12,000 --&gt; 00:10:13,000
+他有了几何
+
+355
+00:10:13,000 --&gt; 00:10:15,000
+这也是整段历史里最漂亮的画面
+
+356
+00:10:15,000 --&gt; 00:10:17,000
+一个从来没有人名说过的规则
+
+357
+00:10:17,000 --&gt; 00:10:19,000
+自己从资料里长得出来
+
+358
+00:10:19,000 --&gt; 00:10:21,000
+我必须跟你讲一件很少被提起的事
+
+359
+00:10:21,000 --&gt; 00:10:23,000
+因为它才是这个故事诚实的部分
+
+360
+00:10:23,000 --&gt; 00:10:27,000
+2020年一组研究者在计算语言学期刊上
+
+361
+00:10:27,000 --&gt; 00:10:29,000
+发表了一篇论文
+
+362
+00:10:29,000 --&gt; 00:10:30,000
+标题直接写着
+
+363
+00:10:30,000 --&gt; 00:10:31,000
+公平比聪动更好
+
+364
+00:10:31,000 --&gt; 00:10:33,000
+他们回头去验那个著名的等式
+
+365
+00:10:33,000 --&gt; 00:10:35,000
+发现了一个细节
+
+366
+00:10:35,000 --&gt; 00:10:37,000
+King Jamman加woman说
+
+367
+00:10:37,000 --&gt; 00:10:39,000
+离落点最近的那个坐标
+
+368
+00:10:39,000 --&gt; 00:10:40,000
+其实是King自己
+
+369
+00:10:40,000 --&gt; 00:10:41,000
+Queen只是第二名
+
+370
+00:10:41,000 --&gt; 00:10:43,000
+而所有教科书上会给你Queen
+
+371
+00:10:43,000 --&gt; 00:10:45,000
+是因为标准的工具程式
+
+372
+00:10:45,000 --&gt; 00:10:47,000
+包含word factor自己附的那一支
+
+373
+00:10:47,000 --&gt; 00:10:50,000
+预设就会把输入用过的那几个词
+
+374
+00:10:50,000 --&gt; 00:10:51,000
+从答案里排除掉
+
+375
+00:10:51,000 --&gt; 00:10:53,000
+你可以说这是合理的工程处理
+
+376
+00:10:53,000 --&gt; 00:10:55,000
+因为问题本来就不是要他回答King
+
+377
+00:10:55,000 --&gt; 00:10:56,000
+但你也必须承认
+
+378
+00:10:56,000 --&gt; 00:10:58,000
+那个让全世界惊呼的示范
+
+379
+00:10:58,000 --&gt; 00:10:59,000
+是修过图的
+
+380
+00:10:59,000 --&gt; 00:11:01,000
+方向确实存在
+
+381
+00:11:01,000 --&gt; 00:11:02,000
+关系确实被学到了
+
+382
+00:11:02,000 --&gt; 00:11:03,000
+这些都是真的
+
+383
+00:11:03,000 --&gt; 00:11:04,000
+可是展示出来的那个干净结果
+
+384
+00:11:04,000 --&gt; 00:11:05,000
+中间隔着一行
+
+385
+00:11:05,000 --&gt; 00:11:06,000
+没有人提起的程式吗
+
+386
+00:11:06,000 --&gt; 00:11:08,000
+科学传播最难的地方就在这里
+
+387
+00:11:08,000 --&gt; 00:11:10,000
+连自己这边的神话
+
+388
+00:11:10,000 --&gt; 00:11:11,000
+也得拿去查证
+
+389
+00:11:11,000 --&gt; 00:11:12,000
+魔法之外
+
+390
+00:11:12,000 --&gt; 00:11:14,000
+word to vector 还有一个更根本的限制
+
+391
+00:11:14,000 --&gt; 00:11:15,000
+而这个限制
+
+392
+00:11:15,000 --&gt; 00:11:17,000
+后来把整个领域推向下一个阶段
+
+393
+00:11:17,000 --&gt; 00:11:19,000
+他给每一个词一个固定的坐标
+
+394
+00:11:19,000 --&gt; 00:11:20,000
+一辈子就那一个
+
+395
+00:11:20,000 --&gt; 00:11:22,000
+可是语言不是这样运作的
+
+396
+00:11:22,000 --&gt; 00:11:23,000
+英文的bank
+
+397
+00:11:23,000 --&gt; 00:11:24,000
+在riverbank也是河岸
+
+398
+00:11:24,000 --&gt; 00:11:26,000
+bank account也是银行
+
+399
+00:11:26,000 --&gt; 00:11:27,000
+中文更明显
+
+400
+00:11:27,000 --&gt; 00:11:28,000
+苹果发表会的苹果
+
+401
+00:11:28,000 --&gt; 00:11:30,000
+跟苹果削皮的苹果
+
+402
+00:11:30,000 --&gt; 00:11:31,000
+是两件完全不同的东西
+
+403
+00:11:31,000 --&gt; 00:11:33,000
+一个固定坐标要同时代表这两个意思
+
+404
+00:11:33,000 --&gt; 00:11:35,000
+结果就是他哪一个都不像
+
+405
+00:11:35,000 --&gt; 00:11:38,000
+只能卡在中间某个很尴尬的位置
+
+406
+00:11:38,000 --&gt; 00:11:41,000
+就像你在地图上只能给一家连锁店标一个点
+
+407
+00:11:41,000 --&gt; 00:11:44,000
+可是他在城市的东边跟西边各有一间分店
+
+408
+00:11:44,000 --&gt; 00:11:45,000
+你标在中间
+
+409
+00:11:45,000 --&gt; 00:11:46,000
+两边的人都找不到
+
+410
+00:11:46,000 --&gt; 00:11:48,000
+问题到这里已经很清楚了
+
+411
+00:11:48,000 --&gt; 00:11:50,000
+一个词的意思不是他自己决定的
+
+412
+00:11:50,000 --&gt; 00:11:53,000
+是他这一次出现在哪一句话里决定的
+
+413
+00:11:53,000 --&gt; 00:11:55,000
+查表这个做法走到头了
+
+414
+00:11:55,000 --&gt; 00:11:57,000
+假法在2018年出现
+
+415
+00:11:57,000 --&gt; 00:12:01,000
+一群来自艾伦人工智慧研究院跟华盛顿大学的研究者
+
+416
+00:12:01,000 --&gt; 00:12:03,000
+做了一个模型
+
+417
+00:12:03,000 --&gt; 00:12:05,000
+名字取字芝麻街的角色
+
+418
+00:12:05,000 --&gt; 00:12:06,000
+他的想法很干脆
+
+419
+00:12:06,000 --&gt; 00:12:07,000
+不要再查表了
+
+420
+00:12:07,000 --&gt; 00:12:09,000
+你要一个词的坐标
+
+421
+00:12:09,000 --&gt; 00:12:10,000
+就把整句话丢进模型
+
+422
+00:12:10,000 --&gt; 00:12:12,000
+那模型从头到尾读一遍
+
+423
+00:12:12,000 --&gt; 00:12:13,000
+再从他的内部状态
+
+424
+00:12:13,000 --&gt; 00:12:14,000
+把这个词的坐标取出来
+
+425
+00:12:14,000 --&gt; 00:12:16,000
+同一个bank在两句不同话里
+
+426
+00:12:16,000 --&gt; 00:12:18,000
+就会拿到两个不同的坐标
+
+427
+00:12:18,000 --&gt; 00:12:19,000
+这件事的意义很大
+
+428
+00:12:19,000 --&gt; 00:12:20,000
+坐标从一张固定的表
+
+429
+00:12:20,000 --&gt; 00:12:22,000
+变成一个现场计算的结果
+
+430
+00:12:22,000 --&gt; 00:12:24,000
+同一年10月
+
+431
+00:12:24,000 --&gt; 00:12:25,000
+Google发表了Bird
+
+432
+00:12:25,000 --&gt; 00:12:26,000
+走的是同一条路
+
+433
+00:12:26,000 --&gt; 00:12:27,000
+但是更彻底
+
+434
+00:12:27,000 --&gt; 00:12:30,000
+它让模型在读句子的时候随机遮掉一些词
+
+435
+00:12:30,000 --&gt; 00:12:33,000
+逼他从左右两边的上下文把答案还原回来
+
+436
+00:12:33,000 --&gt; 00:12:38,000
+这两篇论文分别拿下了NAACL 2018 年跟 2019 年的最佳论文
+
+437
+00:12:38,000 --&gt; 00:12:41,000
+NAACL 是自然语言处理最主要的学术会议之一
+
+438
+00:12:41,000 --&gt; 00:12:44,000
+同一个研究方向连续两年拿下最佳论文
+
+439
+00:12:44,000 --&gt; 00:12:45,000
+这在学界等于一句话
+
+440
+00:12:45,000 --&gt; 00:12:46,000
+转折点就在这里
+
+441
+00:12:46,000 --&gt; 00:12:49,000
+不过Bird 这种做法有一个很现实的问题
+
+442
+00:12:49,000 --&gt; 00:12:50,000
+他太慢了
+
+443
+00:12:50,000 --&gt; 00:12:52,000
+Bird 判断两句话像不像
+
+444
+00:12:52,000 --&gt; 00:12:54,000
+必须把两句话一起胃进去读一遍
+
+445
+00:12:54,000 --&gt; 00:12:55,000
+读完才给你一个分数
+
+446
+00:12:55,000 --&gt; 00:12:57,000
+你手上有1万个句子
+
+447
+00:12:57,000 --&gt; 00:12:59,000
+想找出最相似的那一对
+
+448
+00:12:59,000 --&gt; 00:13:01,000
+就得把1万个句子两两配对
+
+449
+00:13:01,000 --&gt; 00:13:02,000
+跑几千万次
+
+450
+00:13:02,000 --&gt; 00:13:04,000
+2019 年那篇论文算过这个数字
+
+451
+00:13:04,000 --&gt; 00:13:06,000
+用当时的显示卡
+
+452
+00:13:06,000 --&gt; 00:13:08,000
+这件事要花大约65个小时
+
+453
+00:13:08,000 --&gt; 00:13:10,000
+我也在德国的研究者提出了一个改法
+
+454
+00:13:10,000 --&gt; 00:13:12,000
+叫Sentence Bird
+
+455
+00:13:12,000 --&gt; 00:13:14,000
+他们改成先让模型单独读每一句话
+
+456
+00:13:14,000 --&gt; 00:13:16,000
+各自产生一只坐标
+
+457
+00:13:16,000 --&gt; 00:13:17,000
+之后要比较的时候
+
+458
+00:13:17,000 --&gt; 00:13:19,000
+只要算坐标之间的距离就好
+
+459
+00:13:19,000 --&gt; 00:13:20,000
+同样1万句话
+
+460
+00:13:20,000 --&gt; 00:13:21,000
+同样的准确度
+
+461
+00:13:21,000 --&gt; 00:13:24,000
+时间从65个小时掉到大约5秒
+
+462
+00:13:24,000 --&gt; 00:13:25,000
+大约5秒
+
+463
+00:13:25,000 --&gt; 00:13:26,000
+这个改动的精神
+
+464
+00:13:26,000 --&gt; 00:13:27,000
+你在生活里见过
+
+465
+00:13:27,000 --&gt; 00:13:30,000
+一个审稿人如果每次都要把两份文件并排
+
+466
+00:13:30,000 --&gt; 00:13:31,000
+从头读一遍
+
+467
+00:13:31,000 --&gt; 00:13:32,000
+他一天读不完几组
+
+468
+00:13:32,000 --&gt; 00:13:35,000
+但如果他先帮每份文件写一张摘要卡片
+
+469
+00:13:35,000 --&gt; 00:13:36,000
+只有纸笔卡片
+
+470
+00:13:36,000 --&gt; 00:13:38,000
+下午就能把整项文件排完
+
+471
+00:13:38,000 --&gt; 00:13:39,000
+从这一刻起
+
+472
+00:13:39,000 --&gt; 00:13:40,000
+Embedding 从一个词的技术
+
+473
+00:13:40,000 --&gt; 00:13:42,000
+变成一整段文字的技术
+
+474
+00:13:42,000 --&gt; 00:13:45,000
+地图上的居民很快就不只有文字了
+
+475
+00:13:45,000 --&gt; 00:13:49,000
+2021年OpenAI发表了一个模型叫CLIP
+
+476
+00:13:49,000 --&gt; 00:13:50,000
+他同时训练两个网路
+
+477
+00:13:50,000 --&gt; 00:13:51,000
+一个读图片
+
+478
+00:13:51,000 --&gt; 00:13:52,000
+一个读文字
+
+479
+00:13:52,000 --&gt; 00:13:54,000
+然后要求他们把真的配在一起的图片跟说明
+
+480
+00:13:54,000 --&gt; 00:13:56,000
+放到地图上几乎同一个位置
+
+481
+00:13:56,000 --&gt; 00:13:58,000
+把不成对的推开
+
+482
+00:13:58,000 --&gt; 00:14:02,000
+他用了网路上四亿组图片跟说明文字来做这件事
+
+483
+00:14:02,000 --&gt; 00:14:03,000
+训练完之后
+
+484
+00:14:03,000 --&gt; 00:14:05,000
+一张狗的照片
+
+485
+00:14:05,000 --&gt; 00:14:06,000
+跟A photo of a dog
+
+486
+00:14:06,000 --&gt; 00:14:07,000
+这句英文
+
+487
+00:14:07,000 --&gt; 00:14:08,000
+位置靠得非常近
+
+488
+00:14:08,000 --&gt; 00:14:10,000
+你想想这代表什么
+
+489
+00:14:10,000 --&gt; 00:14:11,000
+以图找字
+
+490
+00:14:11,000 --&gt; 00:14:12,000
+以制造图
+
+491
+00:14:12,000 --&gt; 00:14:13,000
+全部变成同一件事
+
+492
+00:14:13,000 --&gt; 00:14:14,000
+算距离
+
+493
+00:14:14,000 --&gt; 00:14:16,000
+你手机相簿那次搜寻
+
+494
+00:14:16,000 --&gt; 00:14:18,000
+用的就是这一类技术
+
+495
+00:14:18,000 --&gt; 00:14:19,000
+你打的那几个字
+
+496
+00:14:19,000 --&gt; 00:14:21,000
+跟你的照片被放进同一张地图
+
+497
+00:14:21,000 --&gt; 00:14:23,000
+机器只是找了一下谁离你最近
+
+498
+00:14:23,000 --&gt; 00:14:25,000
+顺带一提
+
+499
+00:14:25,000 --&gt; 00:14:27,000
+这篇论文的作者名单里有Ilya Saskivar
+
+500
+00:14:27,000 --&gt; 00:14:30,000
+2013年World2Factor的第二篇论文
+
+501
+00:14:30,000 --&gt; 00:14:32,000
+作者名单里也有他
+
+502
+00:14:32,000 --&gt; 00:14:34,000
+同一个人
+
+503
+00:14:34,000 --&gt; 00:14:36,000
+横跨了这张地图的两个时代
+
+504
+00:14:36,000 --&gt; 00:14:38,000
+我们的历史线讲到这里就走完了
+
+505
+00:14:38,000 --&gt; 00:14:39,000
+接下来我想带你看
+
+506
+00:14:39,000 --&gt; 00:14:41,000
+这张地图今天长在哪些地方
+
+507
+00:14:41,000 --&gt; 00:14:43,000
+而最常见的那个地方
+
+508
+00:14:43,000 --&gt; 00:14:44,000
+你每天都在用
+
+509
+00:14:44,000 --&gt; 00:14:45,000
+它叫RAG
+
+510
+00:14:45,000 --&gt; 00:14:46,000
+RAG的意思是
+
+511
+00:14:46,000 --&gt; 00:14:48,000
+先去查资料
+
+512
+00:14:48,000 --&gt; 00:14:50,000
+再让AI根据查到的东西回答
+
+513
+00:14:50,000 --&gt; 00:14:52,000
+所有那些跟你的PDF对话
+
+514
+00:14:52,000 --&gt; 00:14:54,000
+公司内部知识库问答的产品
+
+515
+00:14:54,000 --&gt; 00:14:56,000
+底下都是这一条管线
+
+516
+00:14:56,000 --&gt; 00:14:57,000
+我们一步一步走一遍
+
+517
+00:14:57,000 --&gt; 00:14:58,000
+第一步
+
+518
+00:14:58,000 --&gt; 00:14:59,000
+把文件切成一块一块
+
+519
+00:14:59,000 --&gt; 00:15:01,000
+这个动作叫chunking
+
+520
+00:15:01,000 --&gt; 00:15:02,000
+一份三把页的手册
+
+521
+00:15:02,000 --&gt; 00:15:03,000
+不能整份丢进去
+
+522
+00:15:03,000 --&gt; 00:15:05,000
+工程师会把它切成一段一段
+
+523
+00:15:05,000 --&gt; 00:15:07,000
+像把一本书做成一张一张索引卡
+
+524
+00:15:07,000 --&gt; 00:15:09,000
+这里有个要拿捏的地方
+
+525
+00:15:09,000 --&gt; 00:15:10,000
+卡片切得太小
+
+526
+00:15:10,000 --&gt; 00:15:11,000
+每一张都眉头眉尾
+
+527
+00:15:11,000 --&gt; 00:15:12,000
+读的不知道在讲什么
+
+528
+00:15:12,000 --&gt; 00:15:13,000
+切得太大
+
+529
+00:15:13,000 --&gt; 00:15:15,000
+一张卡上写了五个主题
+
+530
+00:15:15,000 --&gt; 00:15:17,000
+那张卡的坐标就会变得很模糊
+
+531
+00:15:17,000 --&gt; 00:15:18,000
+什么都像一点
+
+532
+00:15:18,000 --&gt; 00:15:19,000
+什么都不够像
+
+533
+00:15:19,000 --&gt; 00:15:20,000
+第二步
+
+534
+00:15:20,000 --&gt; 00:15:22,000
+每一张卡片各自过一次
+
+535
+00:15:22,000 --&gt; 00:15:23,000
+embedding模型
+
+536
+00:15:23,000 --&gt; 00:15:24,000
+变成一支坐标
+
+537
+00:15:24,000 --&gt; 00:15:26,000
+然后全部存进一个专门存坐标的地方
+
+538
+00:15:26,000 --&gt; 00:15:28,000
+这种资料库叫向量资料库
+
+539
+00:15:28,000 --&gt; 00:15:30,000
+使用者问问题的时候第三步开始
+
+540
+00:15:30,000 --&gt; 00:15:32,000
+他打的那一句问题
+
+541
+00:15:32,000 --&gt; 00:15:35,000
+也要用同一个模型转成一支坐标
+
+542
+00:15:35,000 --&gt; 00:15:36,000
+这里有一条铁律
+
+543
+00:15:36,000 --&gt; 00:15:37,000
+一定要是同一个模型
+
+544
+00:15:37,000 --&gt; 00:15:39,000
+不同模型画出来的地图
+
+545
+00:15:39,000 --&gt; 00:15:41,000
+坐标系是不通用的
+
+546
+00:15:41,000 --&gt; 00:15:43,000
+就像两张用不同投影法画的世界地图
+
+547
+00:15:43,000 --&gt; 00:15:45,000
+经纬都不能混着看
+
+548
+00:15:45,000 --&gt; 00:15:46,000
+第四步
+
+549
+00:15:46,000 --&gt; 00:15:47,000
+在几百万只坐标里
+
+550
+00:15:47,000 --&gt; 00:15:49,000
+找出问题最近的那几只
+
+551
+00:15:49,000 --&gt; 00:15:51,000
+这件事如果老老实实一个一个比
+
+552
+00:15:51,000 --&gt; 00:15:52,000
+会慢到不能用
+
+553
+00:15:52,000 --&gt; 00:15:55,000
+所以实物上用的是近似最近零搜寻
+
+554
+00:15:55,000 --&gt; 00:15:57,000
+英文简称ANN
+
+555
+00:15:57,000 --&gt; 00:15:59,000
+他的精神不是问遍全程每一个人
+
+556
+00:15:59,000 --&gt; 00:16:01,000
+而是先问各区的里长
+
+557
+00:16:01,000 --&gt; 00:16:02,000
+所定对的社区
+
+558
+00:16:02,000 --&gt; 00:16:03,000
+再往里面转
+
+559
+00:16:03,000 --&gt; 00:16:04,000
+牺牲一点点准确度
+
+560
+00:16:04,000 --&gt; 00:16:06,000
+换来毫秒级的速度
+
+561
+00:16:06,000 --&gt; 00:16:08,000
+至于怎么判断两支坐标近不近
+
+562
+00:16:08,000 --&gt; 00:16:11,000
+最常用的方法叫cos 相似度
+
+563
+00:16:11,000 --&gt; 00:16:12,000
+你把两支坐标想成
+
+564
+00:16:12,000 --&gt; 00:16:14,000
+从原点射出去的两支箭头
+
+565
+00:16:14,000 --&gt; 00:16:15,000
+只看他们的夹角
+
+566
+00:16:15,000 --&gt; 00:16:16,000
+不管谁比较长
+
+567
+00:16:16,000 --&gt; 00:16:18,000
+同方向就是最像
+
+568
+00:16:18,000 --&gt; 00:16:19,000
+垂直就是温泉无关
+
+569
+00:16:19,000 --&gt; 00:16:20,000
+最后一步
+
+570
+00:16:20,000 --&gt; 00:16:22,000
+捞回来的那几十段还要再塞一次
+
+571
+00:16:22,000 --&gt; 00:16:24,000
+这个动作叫rerank
+
+572
+00:16:24,000 --&gt; 00:16:26,000
+他会用另一个比较慢
+
+573
+00:16:26,000 --&gt; 00:16:27,000
+但是比较准的模型
+
+574
+00:16:27,000 --&gt; 00:16:29,000
+把问题跟每一段
+
+575
+00:16:29,000 --&gt; 00:16:31,000
+并排精度一次再打分数
+
+576
+00:16:31,000 --&gt; 00:16:33,000
+整条线就是海选加面试
+
+577
+00:16:33,000 --&gt; 00:16:34,000
+embedding负责海选
+
+578
+00:16:34,000 --&gt; 00:16:35,000
+rank负责面试
+
+579
+00:16:35,000 --&gt; 00:16:37,000
+这条管线听起来很新
+
+580
+00:16:37,000 --&gt; 00:16:39,000
+但他其实已经默默运转很多年了
+
+581
+00:16:39,000 --&gt; 00:16:41,000
+最好的例子是spotify
+
+582
+00:16:41,000 --&gt; 00:16:42,000
+早在2013年
+
+583
+00:16:42,000 --&gt; 00:16:43,000
+也就是word to vector
+
+584
+00:16:43,000 --&gt; 00:16:44,000
+出来的同一年
+
+585
+00:16:44,000 --&gt; 00:16:46,000
+spotify就开放了一套
+
+586
+00:16:46,000 --&gt; 00:16:47,000
+自己写的程式库叫annoy
+
+587
+00:16:47,000 --&gt; 00:16:49,000
+做的正式在几百万支坐标里
+
+588
+00:16:49,000 --&gt; 00:16:50,000
+快速找出最近的邻居
+
+589
+00:16:50,000 --&gt; 00:16:53,000
+他们把每一首歌每一个使用者
+
+590
+00:16:53,000 --&gt; 00:16:55,000
+都变成这张地图上的一个点
+
+591
+00:16:55,000 --&gt; 00:16:57,000
+你每个星期一收到的那份
+
+592
+00:16:57,000 --&gt; 00:16:59,000
+Discover Weekly 播放清单
+
+593
+00:16:59,000 --&gt; 00:17:01,000
+还有你打开首页看到的推荐
+
+594
+00:17:01,000 --&gt; 00:17:02,000
+背后就是这个动作
+
+595
+00:17:02,000 --&gt; 00:17:04,000
+找出离你最近的那些点
+
+596
+00:17:04,000 --&gt; 00:17:05,000
+再看看他们在听什么
+
+597
+00:17:05,000 --&gt; 00:17:07,000
+这套东西撑了整整十年
+
+598
+00:17:07,000 --&gt; 00:17:09,000
+2023年
+
+599
+00:17:09,000 --&gt; 00:17:11,000
+Spotify官方发表了
+
+600
+00:17:11,000 --&gt; 00:17:13,000
+新一代的程式库叫vojager
+
+601
+00:17:13,000 --&gt; 00:17:14,000
+换上更新的索引结构
+
+602
+00:17:14,000 --&gt; 00:17:17,000
+我官方的说法是速度比旧的快了一个量级
+
+603
+00:17:17,000 --&gt; 00:17:19,000
+我觉得这件事很值得记一下
+
+604
+00:17:19,000 --&gt; 00:17:20,000
+你以为Embedding是
+
+605
+00:17:20,000 --&gt; 00:17:22,000
+ChartGPT 红了之后才冒出来的东西
+
+606
+00:17:22,000 --&gt; 00:17:24,000
+但你的播放清单
+
+607
+00:17:24,000 --&gt; 00:17:26,000
+早就用它帮你挑了十年的歌
+
+608
+00:17:26,000 --&gt; 00:17:28,000
+那为什么是这几年才全面爆发
+
+609
+00:17:28,000 --&gt; 00:17:29,000
+很大一部分原因是价格
+
+610
+00:17:29,000 --&gt; 00:17:31,000
+今天你叫OpenAI的入门款Embedding模型
+
+611
+00:17:31,000 --&gt; 00:17:33,000
+帮你处理100万个Token
+
+612
+00:17:33,000 --&gt; 00:17:36,000
+Token 你就想成模型眼中的一小段文字
+
+613
+00:17:36,000 --&gt; 00:17:38,000
+大概是一个字到几个字
+
+614
+00:17:38,000 --&gt; 00:17:40,000
+价格是0.02美元
+
+615
+00:17:40,000 --&gt; 00:17:43,000
+100万个Token大概是几十本小说的量
+
+616
+00:17:43,000 --&gt; 00:17:45,000
+花了钱连一块台币都不到
+
+617
+00:17:45,000 --&gt; 00:17:48,000
+这个价格比较同一家公司的模型生成文字
+
+618
+00:17:48,000 --&gt; 00:17:50,000
+便宜了好几个数量级
+
+619
+00:17:50,000 --&gt; 00:17:51,000
+便宜到什么程度呢
+
+620
+00:17:51,000 --&gt; 00:17:53,000
+一间公司可以把过去十几年
+
+621
+00:17:53,000 --&gt; 00:17:56,000
+所有的文件邮件会议记录全部跑一遍变成坐标
+
+622
+00:17:56,000 --&gt; 00:17:58,000
+成本只是一顿午餐
+
+623
+00:17:58,000 --&gt; 00:18:02,000
+这是为什么向量资料库在2023年突然变成一整个创投赛道
+
+624
+00:18:02,000 --&gt; 00:18:04,000
+Icon这样的公司
+
+625
+00:18:04,000 --&gt; 00:18:06,000
+一年之内就拿到了独角兽等级的估值
+
+626
+00:18:06,000 --&gt; 00:18:08,000
+不过这里有一个很真实的代价要讲
+
+627
+00:18:08,000 --&gt; 00:18:10,000
+你换一代Embedding模型
+
+628
+00:18:10,000 --&gt; 00:18:12,000
+旧的坐标就全部作废
+
+629
+00:18:12,000 --&gt; 00:18:13,000
+因为地图重画了
+
+630
+00:18:13,000 --&gt; 00:18:14,000
+经纬度对不上
+
+631
+00:18:14,000 --&gt; 00:18:16,000
+几千万份文件重新跑一次
+
+632
+00:18:16,000 --&gt; 00:18:20,000
+这是每一间公司换模型的时候都要吞下去的账单
+
+633
+00:18:20,000 --&gt; 00:18:22,000
+最后我想给你看一条线
+
+634
+00:18:22,000 --&gt; 00:18:23,000
+它的走向跟直觉相反
+
+635
+00:18:23,000 --&gt; 00:18:25,000
+1990年那张硬压出来的地图
+
+636
+00:18:25,000 --&gt; 00:18:27,000
+就摆个坐标轴
+
+637
+00:18:27,000 --&gt; 00:18:29,000
+Word to Vector用了300个
+
+638
+00:18:29,000 --&gt; 00:18:30,000
+Paz用到700多个
+
+639
+00:18:30,000 --&gt; 00:18:31,000
+到了今天
+
+640
+00:18:31,000 --&gt; 00:18:34,000
+主流的商用模型动辄3000多个坐标轴
+
+641
+00:18:34,000 --&gt; 00:18:36,000
+看起来就是一路往上涨
+
+642
+00:18:36,000 --&gt; 00:18:37,000
+越大越好
+
+643
+00:18:37,000 --&gt; 00:18:38,000
+对吧
+
+644
+00:18:38,000 --&gt; 00:18:40,000
+结果2022年之后风向变了
+
+645
+00:18:40,000 --&gt; 00:18:41,000
+有人提出一种训练方法
+
+646
+00:18:41,000 --&gt; 00:18:43,000
+名字叫Metrochka
+
+647
+00:18:43,000 --&gt; 00:18:44,000
+就是俄罗斯娃娃
+
+648
+00:18:44,000 --&gt; 00:18:46,000
+它在训练的时候就规定
+
+649
+00:18:46,000 --&gt; 00:18:49,000
+坐标前面几个维度要装最重要的资讯
+
+650
+00:18:49,000 --&gt; 00:18:50,000
+越往后越吃药
+
+651
+00:18:50,000 --&gt; 00:18:53,000
+你要省钱的时候直接把后面那一节砍掉就好
+
+652
+00:18:53,000 --&gt; 00:18:55,000
+今天OpenAI的模型让你自己指定要几围
+
+653
+00:18:55,000 --&gt; 00:18:57,000
+3000多围砍到256围
+
+654
+00:18:57,000 --&gt; 00:18:59,000
+儲存成本掉了十几倍
+
+655
+00:18:59,000 --&gt; 00:19:01,000
+效果还是赢过上一代的完整版
+
+656
+00:19:01,000 --&gt; 00:19:03,000
+所以这个领域最后学到的不是越大越好
+
+657
+00:19:03,000 --&gt; 00:19:05,000
+是可以伸缩才好
+
+658
+00:19:05,000 --&gt; 00:19:08,000
+回头看1957年Faird写下那句话的时候
+
+659
+00:19:08,000 --&gt; 00:19:10,000
+他手上连一台电脑都没有
+
+660
+00:19:10,000 --&gt; 00:19:11,000
+他说你要认识一个词
+
+661
+00:19:11,000 --&gt; 00:19:13,000
+就看他都跟哪些词待在一起
+
+662
+00:19:13,000 --&gt; 00:19:15,000
+六十几年后
+
+663
+00:19:15,000 --&gt; 00:19:17,000
+这句话变成了一组坐标
+
+664
+00:19:17,000 --&gt; 00:19:19,000
+藏在你每一次搜寻每一份推荐
+
+665
+00:19:19,000 --&gt; 00:19:23,000
+还有你相簿里那张没有标签的海边日落背后
+
+666
+00:19:23,000 --&gt; 00:19:25,000
+我自己整理完这条线最深的感觉是
+
+667
+00:19:25,000 --&gt; 00:19:27,000
+六十几年来
+
+668
+00:19:27,000 --&gt; 00:19:29,000
+人类其实只做了一件事
+
+669
+00:19:29,000 --&gt; 00:19:31,000
+就是把意思这个看不见的东西
+
+670
+00:19:31,000 --&gt; 00:19:33,000
+一点一点搬到一张可以计算的地图上
+
+671
+00:19:33,000 --&gt; 00:19:35,000
+从一片谁跟谁都一样远的沙漠
+
+672
+00:19:35,000 --&gt; 00:19:37,000
+走到你手机里那是不用标签的搜寻
+
+673
+00:19:37,000 --&gt; 00:19:39,000
+中间隔着一句话
+
+674
+00:19:39,000 --&gt; 00:19:41,000
+一台桌上型电脑
+
+675
+00:19:41,000 --&gt; 00:19:43,000
+还有一封巨稿信
+
+676
+00:19:43,000 --&gt; 00:19:44,000
+最后问你一个问题
+
+677
+00:19:44,000 --&gt; 00:19:46,000
+如果你手上所有的笔记
+
+678
+00:19:46,000 --&gt; 00:19:47,000
+照片
+
+679
+00:19:47,000 --&gt; 00:19:48,000
+聊天记录
+
+680
+00:19:48,000 --&gt; 00:19:49,000
+全部都变成这张地图上的坐标
+
+681
+00:19:49,000 --&gt; 00:19:50,000
+你最想拿它来找什么
+
+682
+00:19:50,000 --&gt; 00:19:51,000
+留言告诉我
+
+683
+00:19:51,000 --&gt; 00:19:52,000
+喜欢的话订阅AI Notebook
+
+684
+00:19:52,000 --&gt; 00:19:53,000
+开启通知
+
+685
+00:19:53,000 --&gt; 00:19:54,000
+我们下次见
+
+686
+00:20:03,000 --&gt; 00:20:05,000
+请不吝点赞 订阅
+
+687
+00:20:05,000 --&gt; 00:20:06,000
+转发 打赏支持明镜与点点栏目
+
+688
+00:20:06,000 --&gt; 00:20:07,000
+请不吝点赞 订阅
+
+689
+00:20:07,000 --&gt; 00:20:09,000
+请不吝点赞 订阅
+
+690
+00:20:09,000 --&gt; 00:20:10,000
+转发 打赏支持明镜与点点栏目
+
+691
+00:20:10,000 --&gt; 00:20:11,000
+请不吝点赞 订阅
+
+692
+00:20:11,000 --&gt; 00:20:13,000
+请不吝点赞 订阅
+
+693
+00:20:13,000 --&gt; 00:20:14,000
+转发 打赏支持明镜与点点栏目
+
+694
+00:20:14,000 --&gt; 00:20:15,000
+请不吝点赞 订阅
+
+695
+00:20:15,000 --&gt; 00:20:16,000
+转发 打赏支持明镜与点点栏目
+
+</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://youtu.be/ata4dmLP5IU" target="_blank" rel="noopener">https://youtu.be/ata4dmLP5IU</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
