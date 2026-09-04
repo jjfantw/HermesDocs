@@ -1,0 +1,1783 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RoR 之父：不要預測任何事｜DHH｜Ruby on Rails｜AI 編程｜Agent 開發｜Omarchy｜Linux 桌面｜開源社羣｜vibe coding - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>RoR 之父：不要預測任何事｜DHH｜Ruby on Rails｜AI 編程｜Agent 開發｜Omarchy｜Linux 桌面｜開源社羣｜vibe coding</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-09-04 20:02</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">RoR 之父：不要預測任何事｜DHH｜Ruby on Rails｜AI 編程｜Agent 開發｜Omarchy｜Linux 桌面｜開源社羣｜vibe coding</h1>
+    <div class="meta"><span data-field="channel">📺 Best Partners TV</span><span data-field="duration">⏱ 15:18</span><span data-field="published_date">🗓 2026-09-04</span><span data-field="original_language">🌐 zh-Hans</span><a data-field="source_url" href="https://www.youtube.com/watch?v=Z4Fql7uwexg" target="_blank" rel="noopener">🔗 https://www.youtube.com/watch?v=Z4Fql7uwexg</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>這支影片整理 DHH 第二次做客 Lex Fridman 播客時談到的轉變：他從 13 個月前對 AI 寫程式不感興趣，走到連續兩個月沒有手寫發布程式碼，並把 Omarchy Quattro 作為主要證據。影片重點放在 Agent 能力如何改變軟體開發：模型不只變聰明，更開始能操作工具、規劃路線、檢查工作，讓 DHH 從『告訴 Agent 去哪裡』轉成『告訴 Agent 我有什麼問題』。他用 OmaWrite、Python 螢幕保護程式改 Rust、模型橫評、多 Agent 並行工作流與開源 PR 審查，說明生產力瓶頸不再只是寫程式，而是人的溝通、願景與品味。影片也整理 DHH 對 Linux 桌面的判斷：Unix 哲學、命令列工具、純文字配置與自動化，讓 Linux 在 Agent 時代可能從缺點翻成優勢。最後，影片收束到給焦慮程式員的三條建議：不要試圖預測、聚焦當下、參與開源社羣；並延伸談到 AGI 邊界、AI 權利、育兒、死亡意識、移民與樂觀主義。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">1. DHH 的轉變不是被預測說服，而是被使用經驗改變</h2><span class="ts-badge" data-field="lesson_timestamp">00:00</span></div><div class="body" data-field="lesson_body"><p>影片開頭用一個強烈對比建立主軸：十三個月前，DHH 在同一個播客上說自己對 AI 寫程式不太感冒；十三個月後，他說自己已經連續兩個月沒有手寫任何發布程式碼。</p><p>這個轉變的關鍵不是抽象論辯，而是 Agent 實際可用性突然跨過門檻。影片引用他的說法：過去九個月像是『幾週裡發生了幾十年的事』。</p><span class="tag" data-field="lesson_tag">AI 編程轉折</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">2. 真正改變工作方式的是 Agent 的工具使用能力</h2><span class="ts-badge" data-field="lesson_timestamp">00:52</span></div><div class="body" data-field="lesson_body"><p>DHH 把變化拆成兩層：一層是模型本身變聰明；另一層是 Agent 開始能操縱電腦、使用工具、檢查自己的工作。影片明確指出，第二層纔是真正改變工作方式的部分。</p><p>他的工作指令也因此改變：從告訴 Agent『去做哪條路線』，變成告訴 Agent『我遇到什麼問題』，讓 Agent 自己規劃路徑。</p><span class="tag" data-field="lesson_tag">Agent 能力</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">3. Omarchy Quattro 是 DHH 用來證明 Agent 開發可行的核心案例</h2><span class="ts-badge" data-field="lesson_timestamp">01:59</span></div><div class="body" data-field="lesson_body"><p>影片把 Omarchy Quattro 放在覈心位置：這是一個基於 Arch Linux 的桌面發行版，Quattro 版本開發週期三個月，DHH 表示自己沒有手寫任何一行發布程式碼，所有程式碼都由 Agent 生成，他負責審查整體品質。</p><p>兩個例子被特別強調：OmaWrite 編輯器約 20 分鐘產出第一版；螢幕保護程式從 Python 改 Rust 約 45 分鐘完成，啟動時間從 86 毫秒降到 2 毫秒。</p><span class="tag" data-field="lesson_tag">Omarchy</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">4. 大型組織的瓶頸不只是寫程式，而是人、溝通、願景與品味</h2><span class="ts-badge" data-field="lesson_timestamp">03:20</span></div><div class="body" data-field="lesson_body"><p>Lex 提到大型軟體似乎沒有因 AI 明顯加速迭代，DHH 的回答分成三層：大型組織裡實作很少是瓶頸，人的帶寬與溝通才是；多數組織缺的是願景與品味，不只是編碼能力；而且這種能力出現才半年。</p><p>他也補上一個反例：37signals 讓設計師直接用 Agent vibe code，單個 PR 看似可行，但合起來破壞系統架構，最後仍需手動清理。</p><span class="tag" data-field="lesson_tag">組織瓶頸</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">5. AI 對開源的衝擊像宗教改革：降低門檻，也改變維護者工作</h2><span class="ts-badge" data-field="lesson_timestamp">04:24</span></div><div class="body" data-field="lesson_body"><p>DHH 把 AI Agent 對開源的影響比作馬丁・路德的宗教改革：過去開源雖然說人人都能貢獻，但實際上仍由少數高技術『祭司階層』掌握；Agent 拆掉了這個門檻。</p><p>影片中提到 Quattro 三個月合併超過 1000 個 PR，且許多來自非傳統程式員。DHH 也認為 Agent 產出的 PR 不一定比人類差，甚至更會補測試、填資訊與檢查工作。</p><span class="tag" data-field="lesson_tag">開源社羣</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">6. DHH 的多 Agent 工作流已經變成並行系統</h2><span class="ts-badge" data-field="lesson_timestamp">06:31</span></div><div class="body" data-field="lesson_body"><p>影片描述 DHH 從 tmux 走到 Herdr，再把閒置 mini PC 透過 GL.iNet Comet 與 Tailscale 串成可遠端使用的虛擬局域網，約可跑 16 個並行執行緒。</p><p>日常流程包含在 Herdr 裡跑 Claude、Codex、OpenCode，用 Opus 或 Fable 寫程式，再用 Codex xHigh、Grok 或 GitHub Copilot 交叉審查。代價是腦力消耗很高，所以他正在做 AmaBot 來自動處理 PR 與 issue，讓自己每天只做一次最終判斷。</p><span class="tag" data-field="lesson_tag">工作流</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">07</span><h2 data-field="lesson_title">7. Linux 桌面的缺點，在 Agent 時代可能變成最大賣點</h2><span class="ts-badge" data-field="lesson_timestamp">08:37</span></div><div class="body" data-field="lesson_body"><p>DHH 認為 Linux 贏得桌面已是最可能的結果，原因是 Agent 最適合 Unix 哲學：獨立命令列工具、純文字配置、一切可自動化。這些特性過去常被視為 Linux 的門檻，現在反而適合 Agent 操作。</p><p>影片也列出 Omarchy 的安裝最佳化：不到一分鐘安裝、45 秒世界紀錄、字體包從 200MB 壓到 16MB、NVIDIA 驅動壓縮再省 200MB、ISO 從 7.5GB 降到 5.85GB，目標是特定硬體 12 秒安裝完整 Linux 系統。</p><span class="tag" data-field="lesson_tag">Linux 桌面</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">08</span><h2 data-field="lesson_title">8. 給焦慮程式員的三條建議：別預測、看當下、進社羣</h2><span class="ts-badge" data-field="lesson_timestamp">09:55</span></div><div class="body" data-field="lesson_body"><p>面對程式員的焦慮，影片整理 DHH 的三條建議：第一，不要試圖預測任何事情；第二，聚焦當下，因為現在是對電腦有興趣的人最不可思議的時候；第三，參與開源社羣，用社羣與同行感染力對抗存在焦慮。</p><p>他也承認手寫程式碼的世界已經不同了，但把 AI 視為給他更有趣東西的技術，而不是單純奪走舊熱愛的替代品。</p><span class="tag" data-field="lesson_tag">職涯焦慮</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">09</span><h2 data-field="lesson_title">9. 尾聲從模型排名延伸到 AGI、權利與人類生活</h2><span class="ts-badge" data-field="lesson_timestamp">11:09</span></div><div class="body" data-field="lesson_body"><p>模型排名部分，DHH 認為 Fable 目前最好，尤其擅長規劃與寫作；Opus 5 緊隨其後，GPT Sol 與 Grok 4.6 屬第二梯隊，Claude Code 仍是最佳框架，但他對 Anthropic 的檔案格式與拒絕翻譯事件有不滿。</p><p>後段討論 AGI、AI 是否需要權利、人形機器人、育兒意義、長壽焦慮、Memento Mori、移民觀點與一千年後文明。最後回到主題：DHH 的變化不是由論文說服，而是在實際使用中一步步發生。</p><span class="tag" data-field="lesson_tag">延伸議題</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">不要試圖預測任何事；聚焦當下，參與社羣。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="00:00"><span class="ts">00:00</span><span class="text" data-field="key_point_text">影片開場對比 DHH 十三個月前後的態度變化：從不太看好 AI 寫程式，到連續兩個月沒有手寫任何發布程式碼。</span></li><li data-field="key_point" data-timestamp="00:52"><span class="ts">00:52</span><span class="text" data-field="key_point_text">DHH 把轉折分成模型能力提升與 Agent 工具使用能力兩層；後者讓模型能操作電腦、使用工具並檢查自己的工作。</span></li><li data-field="key_point" data-timestamp="01:38"><span class="ts">01:38</span><span class="text" data-field="key_point_text">sub-agent 出現後，任務可拆成多個並行流程，DHH 的工作方式從指定路徑改成描述問題本身。</span></li><li data-field="key_point" data-timestamp="01:59"><span class="ts">01:59</span><span class="text" data-field="key_point_text">Omarchy Quattro 三個月開發期裡，DHH 表示自己沒有手寫任何發布程式碼，而是審查 Agent 產出的整體品質。</span></li><li data-field="key_point" data-timestamp="02:12"><span class="ts">02:12</span><span class="text" data-field="key_point_text">OmaWrite 編輯器案例：DHH 要求 C++ 與 Qt 寫一個極簡 Markdown 編輯器，AI 約 20 分鐘產出第一版，他之後改用它寫文章。</span></li><li data-field="key_point" data-timestamp="02:30"><span class="ts">02:30</span><span class="text" data-field="key_point_text">Python 螢幕保護程式改寫為 Rust 的案例：45 分鐘完成，啟動時間從 86 毫秒降到 2 毫秒，並引出多模型成本與速度比較。</span></li><li data-field="key_point" data-timestamp="03:20"><span class="ts">03:20</span><span class="text" data-field="key_point_text">DHH 回答大型軟體為何還沒被 AI 明顯加速：大組織瓶頸常在人、溝通、願景與品味，而不是單純缺程式碼產能。</span></li><li data-field="key_point" data-timestamp="04:00"><span class="ts">04:00</span><span class="text" data-field="key_point_text">他也指出既有大型程式碼庫上的 vibe coding 會破壞架構完整性；若要維持架構，目前仍需要程式員審查。</span></li><li data-field="key_point" data-timestamp="04:24"><span class="ts">04:24</span><span class="text" data-field="key_point_text">DHH 將 AI 對開源的影響比作宗教改革：Agent 降低貢獻門檻，也讓維護者可把低品質 PR 先交給 Agent 篩選。</span></li><li data-field="key_point" data-timestamp="05:30"><span class="ts">05:30</span><span class="text" data-field="key_point_text">對於 agentic engineering、vibe coding 等名稱，DHH 不滿意；他認為是否完全不看實作，是區分 vibe coding 與其他工作方式的關鍵。</span></li><li data-field="key_point" data-timestamp="06:31"><span class="ts">06:31</span><span class="text" data-field="key_point_text">DHH 描述自己的多機多 Agent 工作流：Herdr、GL.iNet Comet、Tailscale、Claude/Codex/OpenCode、交叉審查與 GitHub Copilot。</span></li><li data-field="key_point" data-timestamp="07:44"><span class="ts">07:44</span><span class="text" data-field="key_point_text">Omarchy 的安裝速度與體積最佳化被拿來說明 DHH 對卓越的執念：從不到一分鐘安裝、45 秒紀錄，到目標 12 秒完整 Linux 安裝。</span></li><li data-field="key_point" data-timestamp="08:37"><span class="ts">08:37</span><span class="text" data-field="key_point_text">他判斷 Linux 桌面在 Agent 時代具有優勢，因為命令列工具、純文字配置與自動化正好符合 Agent 的操作方式。</span></li><li data-field="key_point" data-timestamp="09:00"><span class="ts">09:00</span><span class="text" data-field="key_point_text">影片列出 Agent 在 Omarchy 中診斷崩潰、產生 bug 報告、QA 測試與改用 email 回報問題等例子。</span></li><li data-field="key_point" data-timestamp="09:55"><span class="ts">09:55</span><span class="text" data-field="key_point_text">給焦慮程式員的三條建議是：不要試圖預測任何事、聚焦當下、參與開源社羣。</span></li><li data-field="key_point" data-timestamp="11:09"><span class="ts">11:09</span><span class="text" data-field="key_point_text">模型排名段落中，DHH 評估 Fable、Opus 5、GPT Sol、Grok 4.6 與 Claude Code，並提到他對 Anthropic 的兩點不滿。</span></li><li data-field="key_point" data-timestamp="12:00"><span class="ts">12:00</span><span class="text" data-field="key_point_text">AGI 討論中，DHH 認為若用『所有事情都達到』來定義，AGI 尚未到來；但在特定領域已多次讓他質疑差別在哪。</span></li><li data-field="key_point" data-timestamp="13:00"><span class="ts">13:00</span><span class="text" data-field="key_point_text">尾聲談到育兒、長壽焦慮、Memento Mori、移民觀點與樂觀押注，最後回到 DHH 是如何在實際使用中一步步改變立場。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="DHH">DHH</span><span class="tag-chip" data-tag="Ruby on Rails">Ruby on Rails</span><span class="tag-chip" data-tag="AI 編程">AI 編程</span><span class="tag-chip" data-tag="Agent">Agent</span><span class="tag-chip" data-tag="vibe coding">vibe coding</span><span class="tag-chip" data-tag="Omarchy">Omarchy</span><span class="tag-chip" data-tag="Linux 桌面">Linux 桌面</span><span class="tag-chip" data-tag="開源社羣">開源社羣</span><span class="tag-chip" data-tag="Claude Code">Claude Code</span><span class="tag-chip" data-tag="多 Agent 工作流">多 Agent 工作流</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>字幕由 yt-dlp 抓到的 zh-Hans 字幕提供；youtube-transcript-api 未能直接取得 transcript。</li><li>影片主要是對 Lex Fridman 原始長訪談的二次整理；本報告只整理此 15 分鐘影片字幕與描述中出現的內容。</li></ul></div></section>
+  
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="description"><div class="raw-label">YouTube shortDescription（原文）<button class="copy-btn" id="raw_description_4317255936_srt" onclick="copyRaw(this,'raw_description_4317255936_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_description_4317255936_text" onclick="copyRawText(this,'raw_description_4317255936_text')">📋 複製純文字</button></div><pre>Ruby on Rails创始人DHH二次做客Lex Fridman播客，完整分享从AI质疑者到Agent实践者的转变历程。他讲述Omarchy Quattro三个月开发期零手写代码的全过程，包括20分钟生成C++编辑器、45分钟Python转Rust的性能跃升，以及八款AI模型横评对比。DHH认为大型组织的人事沟通而非编码能力才是效率瓶颈，AI Agent正在重演开源社区的&quot;宗教改革&quot;，降低贡献门槛的同时提升了PR质量。他展示了16线程并行工作流，阐述Linux凭借Unix哲学将在Agent时代赢得桌面的判断，并给焦虑的程序员提出三条建议：不要预测、聚焦当下、参与社区。对话还涉及模型排名、AGI边界、育儿意义与移民政策等话题。
+
+https://www.youtube.com/watch?v=NYFGCESmikA&amp;t=353s</pre></div><div class="raw-block" data-field="raw_source_item" data-raw-type="transcript"><div class="raw-label">yt-dlp zh-Hans 字幕 SRT（原文）<button class="copy-btn" id="raw_transcript_4317256256_srt" onclick="copyRaw(this,'raw_transcript_4317256256_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_transcript_4317256256_text" onclick="copyRawText(this,'raw_transcript_4317256256_text')">📋 複製純文字</button></div><pre>1
+00:00:00,350 --&gt; 00:00:02,950
+大家好，这里是最佳拍档，我是大飞
+
+2
+00:00:03,033 --&gt; 00:00:05,550
+13个月前，有一个人在播客上公开说
+
+3
+00:00:05,550 --&gt; 00:00:07,516
+他对AI写代码不太感冒
+
+4
+00:00:07,750 --&gt; 00:00:09,716
+13个月后，他坐在同一个位置
+
+5
+00:00:09,716 --&gt; 00:00:10,666
+告诉主持人
+
+6
+00:00:10,666 --&gt; 00:00:13,750
+他已经连续两个月没有手写任何一行代码了
+
+7
+00:00:13,783 --&gt; 00:00:14,350
+这个人
+
+8
+00:00:14,350 --&gt; 00:00:16,383
+正是大卫·海涅迈尔·汉森（David Heinemeier Hansson）
+
+9
+00:00:16,466 --&gt; 00:00:18,300
+圈内人都叫他DHH
+
+10
+00:00:18,416 --&gt; 00:00:19,866
+Ruby on Rails的创始人
+
+11
+00:00:19,866 --&gt; 00:00:21,700
+37signals的CTO
+
+12
+00:00:22,016 --&gt; 00:00:23,100
+2026年8月
+
+13
+00:00:23,100 --&gt; 00:00:25,633
+他第二次做客Lex Fridman的播客
+
+14
+00:00:25,700 --&gt; 00:00:28,116
+录了一期超过五个小时的长对话
+
+15
+00:00:28,283 --&gt; 00:00:32,566
+这次他带了一台预装了自己开发的Omarchy操作系统的Dell笔记本
+
+16
+00:00:32,633 --&gt; 00:00:34,750
+现场演示了从开机到进入桌面
+
+17
+00:00:34,750 --&gt; 00:00:36,233
+不到一分钟的安装过程
+
+18
+00:00:36,350 --&gt; 00:00:39,483
+播客录制后他还宣布成立了Omacom基金会
+
+19
+00:00:39,633 --&gt; 00:00:43,300
+Shopify、Stripe、Dell、Block等八位科技行业领袖
+
+20
+00:00:43,300 --&gt; 00:00:44,983
+各出资100万美元
+
+21
+00:00:44,983 --&gt; 00:00:46,766
+总额达到了1000万美元
+
+22
+00:00:46,766 --&gt; 00:00:49,100
+目标是让Linux桌面真正普及
+
+23
+00:00:49,133 --&gt; 00:00:50,450
+这场对话信息量很大
+
+24
+00:00:50,450 --&gt; 00:00:51,933
+我们来从头梳理一下
+
+25
+00:00:52,166 --&gt; 00:00:54,233
+DHH用了一句列宁的话开场
+
+26
+00:00:54,233 --&gt; 00:00:55,916
+有的十年什么都没发生
+
+27
+00:00:55,916 --&gt; 00:00:58,000
+有的几周里发生了几十年的事
+
+28
+00:00:58,266 --&gt; 00:01:00,750
+而过去九个月经历了几十年的进步
+
+29
+00:01:00,916 --&gt; 00:01:03,750
+他把自己对AI的态度变化分成几个阶段
+
+30
+00:01:03,750 --&gt; 00:01:05,750
+第一阶段是前Agent时代
+
+31
+00:01:05,866 --&gt; 00:01:08,600
+AI只是查资料工具和代码补全器
+
+32
+00:01:08,666 --&gt; 00:01:10,750
+没有从根本上改变工作方式
+
+33
+00:01:10,950 --&gt; 00:01:13,350
+转折点是2025年11月24日
+
+34
+00:01:13,433 --&gt; 00:01:15,483
+Anthropic发布了Opus 4.5
+
+35
+00:01:15,483 --&gt; 00:01:17,083
+他试了几个任务之后发现
+
+36
+00:01:17,133 --&gt; 00:01:19,816
+输出质量与自己写的不可思议地接近
+
+37
+00:01:20,050 --&gt; 00:01:22,050
+他把这种变化拆成了两层
+
+38
+00:01:22,166 --&gt; 00:01:23,733
+一层是模型变聪明了
+
+39
+00:01:23,733 --&gt; 00:01:25,566
+但是真正的变化在第二层
+
+40
+00:01:25,933 --&gt; 00:01:27,650
+Agent的工具使用能力
+
+41
+00:01:27,733 --&gt; 00:01:31,500
+模型学会了操纵你的电脑、使用工具、检查自己的工作
+
+42
+00:01:31,683 --&gt; 00:01:34,083
+他说如果Opus 4.5是最后一个模型
+
+43
+00:01:34,083 --&gt; 00:01:35,600
+他也已经心满意足了
+
+44
+00:01:35,616 --&gt; 00:01:36,733
+可以用20年
+
+45
+00:01:36,933 --&gt; 00:01:38,883
+可惜事情发展的脚步没有停下来
+
+46
+00:01:38,883 --&gt; 00:01:41,366
+2026年初春出现了sub-agent
+
+47
+00:01:41,566 --&gt; 00:01:43,566
+一个任务可以拆成八个同时跑
+
+48
+00:01:43,566 --&gt; 00:01:45,200
+速度提高五到十倍
+
+49
+00:01:45,200 --&gt; 00:01:46,450
+到了今年夏天
+
+50
+00:01:46,450 --&gt; 00:01:49,300
+Opus 5、Fable、GPT Sol都出来了
+
+51
+00:01:49,366 --&gt; 00:01:50,483
+他只需要描述问题
+
+52
+00:01:50,483 --&gt; 00:01:52,416
+Agent自己就行规划路线
+
+53
+00:01:52,683 --&gt; 00:01:55,133
+他总结说，他从告诉Agent去哪里
+
+54
+00:01:55,133 --&gt; 00:01:57,333
+变成了告诉Agent我有什么问题
+
+55
+00:01:57,850 --&gt; 00:01:59,533
+他用来证明自己的核心证据
+
+56
+00:01:59,533 --&gt; 00:02:02,783
+是Omarchy这个基于Arch Linux的桌面发行版
+
+57
+00:02:02,983 --&gt; 00:02:05,183
+Quattro版本的开发周期是三个月
+
+58
+00:02:05,183 --&gt; 00:02:07,533
+他没手写任何一行发布的代码
+
+59
+00:02:07,533 --&gt; 00:02:09,583
+所有代码都是由Agent生成的
+
+60
+00:02:09,666 --&gt; 00:02:11,383
+他负责审查整体质量
+
+61
+00:02:11,666 --&gt; 00:02:12,700
+他举了个例子
+
+62
+00:02:12,733 --&gt; 00:02:14,750
+想要一个极简的Markdown编辑器
+
+63
+00:02:14,816 --&gt; 00:02:17,583
+对Agent说，我要C++和Qt写的
+
+64
+00:02:17,666 --&gt; 00:02:19,950
+20分钟AI就出了第一个版本
+
+65
+00:02:20,066 --&gt; 00:02:22,500
+然后他在两天内就抛弃了Typora
+
+66
+00:02:22,533 --&gt; 00:02:25,983
+之后所有的文章都用这个叫OmaWrite的编辑器写
+
+67
+00:02:26,183 --&gt; 00:02:29,150
+而他没有看过这个C++程序的任何一行源代码
+
+68
+00:02:29,333 --&gt; 00:02:30,700
+另一个例子更加惊人
+
+69
+00:02:30,700 --&gt; 00:02:33,133
+屏保效果用的Python库，CPU占用太高
+
+70
+00:02:33,133 --&gt; 00:02:35,333
+他给Fable一个指令要Rust版本
+
+71
+00:02:35,333 --&gt; 00:02:36,783
+45分钟后完成
+
+72
+00:02:36,816 --&gt; 00:02:39,533
+启动时间从86毫秒降到了2毫秒
+
+73
+00:02:39,533 --&gt; 00:02:42,616
+快了9.6倍，可执行文件大小仅为3MB
+
+74
+00:02:42,733 --&gt; 00:02:44,383
+他没看一行Rust代码
+
+75
+00:02:44,383 --&gt; 00:02:48,550
+直接让Agent发布、建仓库、打包、提交代码、合并请求
+
+76
+00:02:48,666 --&gt; 00:02:51,066
+然后他用这个任务做了模型横评
+
+77
+00:02:51,333 --&gt; 00:02:52,700
+Fable最快45分钟
+
+78
+00:02:52,700 --&gt; 00:02:54,783
+但是成本大约是550美元
+
+79
+00:02:54,816 --&gt; 00:02:56,783
+GPT Sol大约1.5小时
+
+80
+00:02:56,783 --&gt; 00:02:58,383
+成本大约为46美元
+
+81
+00:02:58,500 --&gt; 00:03:00,583
+Grok 4.6大约55美元
+
+82
+00:03:00,616 --&gt; 00:03:02,866
+DeepSeek V4 Pro大约23美元
+
+83
+00:03:02,900 --&gt; 00:03:04,250
+Kimi K3也完成了
+
+84
+00:03:04,266 --&gt; 00:03:05,900
+但是GPT Luna失败了
+
+85
+00:03:05,900 --&gt; 00:03:07,866
+还试图作弊抄现有的实现
+
+86
+00:03:08,016 --&gt; 00:03:10,416
+DeepSeek V4 Flash也无法自主循环
+
+87
+00:03:10,700 --&gt; 00:03:12,183
+虽然Fable最快最贵
+
+88
+00:03:12,183 --&gt; 00:03:15,300
+但是Sol和Grok只花十分之一成本就完成了
+
+89
+00:03:15,383 --&gt; 00:03:17,050
+后来又跑了两轮优化
+
+90
+00:03:17,066 --&gt; 00:03:19,783
+最终Rust版比Python快了46倍
+
+91
+00:03:20,216 --&gt; 00:03:22,100
+Lex提了一个观察
+
+92
+00:03:22,216 --&gt; 00:03:25,266
+大型软件似乎并没有因为AI而加速迭代
+
+93
+00:03:25,700 --&gt; 00:03:28,266
+DHH分三层来回答了这个问题
+
+94
+00:03:28,533 --&gt; 00:03:29,450
+第一层是人
+
+95
+00:03:29,466 --&gt; 00:03:31,733
+大型组织里实现很少是瓶颈
+
+96
+00:03:31,733 --&gt; 00:03:33,583
+人的带宽和沟通才是
+
+97
+00:03:33,700 --&gt; 00:03:36,416
+要获得十倍百倍千倍的生产力提升
+
+98
+00:03:36,416 --&gt; 00:03:38,300
+你必须直接与Agent交互
+
+99
+00:03:38,416 --&gt; 00:03:40,383
+不能在中间插入另一个人类
+
+100
+00:03:40,383 --&gt; 00:03:41,700
+因为人类太慢了
+
+101
+00:03:41,866 --&gt; 00:03:43,066
+第二层是想法
+
+102
+00:03:43,100 --&gt; 00:03:45,700
+多数组织的瓶颈在愿景和品味
+
+103
+00:03:45,700 --&gt; 00:03:46,933
+而不在编码能力
+
+104
+00:03:46,933 --&gt; 00:03:48,650
+微软拥有无穷的编程人力
+
+105
+00:03:48,666 --&gt; 00:03:51,266
+但是并没有产出多少令人心动的软件
+
+106
+00:03:51,533 --&gt; 00:03:54,583
+第三层是时间，这种能力存在才半年
+
+107
+00:03:54,583 --&gt; 00:03:57,500
+人类历史上没有任何技术进展比AI更快
+
+108
+00:03:57,616 --&gt; 00:03:58,983
+你居然还嫌它慢
+
+109
+00:03:59,066 --&gt; 00:04:00,816
+但是他也承认了一个教训
+
+110
+00:04:00,933 --&gt; 00:04:04,016
+37signals让设计师直接用Agent去写代码
+
+111
+00:04:04,016 --&gt; 00:04:04,933
+去vibe code
+
+112
+00:04:04,933 --&gt; 00:04:06,533
+结果单个PR各自说得过去
+
+113
+00:04:06,533 --&gt; 00:04:08,583
+但是合在一起就摧毁了系统架构
+
+114
+00:04:08,583 --&gt; 00:04:09,850
+不得不手动清理
+
+115
+00:04:09,866 --&gt; 00:04:10,783
+他的判断是
+
+116
+00:04:10,783 --&gt; 00:04:13,333
+在现有大型代码库上vibe code
+
+117
+00:04:13,333 --&gt; 00:04:15,050
+如果想保持架构的完整性
+
+118
+00:04:15,066 --&gt; 00:04:16,816
+目前你仍然需要程序员
+
+119
+00:04:16,933 --&gt; 00:04:18,016
+但是他补了一句
+
+120
+00:04:18,016 --&gt; 00:04:20,533
+如果有人指责vibe coder产出是垃圾
+
+121
+00:04:20,533 --&gt; 00:04:22,533
+那你看过普通程序员的产出吗？
+
+122
+00:04:22,533 --&gt; 00:04:23,983
+其实那也是垃圾
+
+123
+00:04:24,583 --&gt; 00:04:26,333
+DHH把AI对开源的冲击
+
+124
+00:04:26,333 --&gt; 00:04:28,383
+比作马丁·路德的宗教改革
+
+125
+00:04:28,500 --&gt; 00:04:30,933
+过去开源声称所有人都能贡献代码
+
+126
+00:04:30,933 --&gt; 00:04:34,416
+实际上只有一小撮高技术水准的祭司阶层能做到
+
+127
+00:04:34,500 --&gt; 00:04:36,666
+如今AI Agent拆掉了这个门槛
+
+128
+00:04:36,816 --&gt; 00:04:38,750
+在三个月的开发Quattro期间
+
+129
+00:04:38,783 --&gt; 00:04:40,750
+他合并了超过1000个PR
+
+130
+00:04:40,783 --&gt; 00:04:43,150
+其中相当多来自非传统程序员
+
+131
+00:04:43,266 --&gt; 00:04:46,016
+对于维护者抱怨的AI低质量和PR涌入
+
+132
+00:04:46,016 --&gt; 00:04:48,616
+他完全不同意，他运营开源25年
+
+133
+00:04:48,616 --&gt; 00:04:50,750
+看过成千上万程序员的产出
+
+134
+00:04:50,816 --&gt; 00:04:53,583
+结论是大多数人的PR质量本来就不好
+
+135
+00:04:53,666 --&gt; 00:04:56,583
+不写测试、不填关键信息、不检查工作
+
+136
+00:04:56,583 --&gt; 00:04:58,350
+而Agent反而会做这些事
+
+137
+00:04:58,466 --&gt; 00:05:01,216
+他甚至说他现在更愿意收到Agent写的PR
+
+138
+00:05:01,216 --&gt; 00:05:01,933
+质量更好
+
+139
+00:05:01,933 --&gt; 00:05:03,950
+而且要拒绝的心理负担更小
+
+140
+00:05:04,216 --&gt; 00:05:06,633
+如今他已经不再亲自审查每个PR了
+
+141
+00:05:06,633 --&gt; 00:05:08,633
+Agent会替他审查筛掉差的
+
+142
+00:05:08,633 --&gt; 00:05:10,716
+只呈值得人类决策的珍珠
+
+143
+00:05:10,833 --&gt; 00:05:12,300
+他说开源的所有苦差事
+
+144
+00:05:12,316 --&gt; 00:05:14,066
+正在以闪电速度蒸发
+
+145
+00:05:14,066 --&gt; 00:05:15,750
+只剩下最精华的部分
+
+146
+00:05:16,116 --&gt; 00:05:19,150
+Lex追问，好想法最终还是来自人类吗？
+
+147
+00:05:19,150 --&gt; 00:05:22,466
+DHH说以前他这么认为，但现在不了
+
+148
+00:05:22,516 --&gt; 00:05:24,033
+他见过模型产出的想法
+
+149
+00:05:24,033 --&gt; 00:05:25,550
+好到让他自愧不如
+
+150
+00:05:25,583 --&gt; 00:05:27,783
+那些坚持说Agent只是鹦鹉的人
+
+151
+00:05:27,783 --&gt; 00:05:30,433
+对过去六到九个月的进展视而不见
+
+152
+00:05:30,866 --&gt; 00:05:33,116
+那这种工作方式到底该叫什么呢？
+
+153
+00:05:33,466 --&gt; 00:05:36,916
+DHH对agentic engineering这个词深恶痛绝
+
+154
+00:05:36,950 --&gt; 00:05:39,233
+说这已经变成营销垃圾话了
+
+155
+00:05:39,383 --&gt; 00:05:40,983
+他也觉得vibe coding不对味
+
+156
+00:05:40,983 --&gt; 00:05:43,066
+闻起来像2000年代初
+
+157
+00:05:43,066 --&gt; 00:05:46,350
+下载现成PHP脚本拿来就用的脚本小子一样
+
+158
+00:05:46,633 --&gt; 00:05:48,900
+他的定义是，如果你完全不看实现
+
+159
+00:05:48,916 --&gt; 00:05:50,383
+那确实是vibe coding
+
+160
+00:05:50,383 --&gt; 00:05:52,866
+如果你还审查实现那就是另一回事
+
+161
+00:05:53,183 --&gt; 00:05:53,983
+有意思的是
+
+162
+00:05:53,983 --&gt; 00:05:57,266
+Lex认为有编程经验的人做Agent工程应该更好
+
+163
+00:05:57,266 --&gt; 00:06:00,316
+DHH同意了一半，然后翻转了论点
+
+164
+00:06:00,433 --&gt; 00:06:02,466
+说有一段时间知道太多编程知识
+
+165
+00:06:02,466 --&gt; 00:06:03,716
+反而是一种劣势
+
+166
+00:06:03,750 --&gt; 00:06:06,316
+因为他会指示Agent按自己的方式做事
+
+167
+00:06:06,350 --&gt; 00:06:09,633
+但是到了可以只描述问题、不规定路径的阶段
+
+168
+00:06:09,633 --&gt; 00:06:13,033
+Agent反而能给出比程序员预设路线更好的方案
+
+169
+00:06:13,266 --&gt; 00:06:16,516
+他还提到AGENTS.md和CLAUDE.md文件
+
+170
+00:06:16,750 --&gt; 00:06:19,750
+一度大家会写一段巨长的指令来微调Agent
+
+171
+00:06:19,833 --&gt; 00:06:21,550
+但是Claude Code团队分享
+
+172
+00:06:21,550 --&gt; 00:06:24,266
+Opus 5的系统提示缩减了80%
+
+173
+00:06:24,550 --&gt; 00:06:27,000
+因为过度规定反而会损害表现
+
+174
+00:06:27,116 --&gt; 00:06:29,266
+就像不懂编程的上司指手画脚
+
+175
+00:06:29,266 --&gt; 00:06:30,916
+只会让代码更差一样
+
+176
+00:06:31,066 --&gt; 00:06:33,700
+他说好的软件是在使用过程中被发现的
+
+177
+00:06:33,716 --&gt; 00:06:35,950
+不是在规格书上被设计出来的
+
+178
+00:06:36,383 --&gt; 00:06:38,183
+如今DHH自己的工作环境
+
+179
+00:06:38,183 --&gt; 00:06:41,233
+已经从单线程变成了多机多Agent并行
+
+180
+00:06:41,233 --&gt; 00:06:42,433
+他从tmux开始
+
+181
+00:06:42,433 --&gt; 00:06:44,600
+后来切换到一个叫Herdr的工具
+
+182
+00:06:44,733 --&gt; 00:06:46,450
+能通知他哪个Agent干完了
+
+183
+00:06:46,450 --&gt; 00:06:49,216
+一个月前他买了GL.iNet Comet小盒子
+
+184
+00:06:49,216 --&gt; 00:06:52,050
+把壁橱里的闲置mini PC全部都联网起来
+
+185
+00:06:52,050 --&gt; 00:06:54,183
+用Tailscale组了一个虚拟局域网
+
+186
+00:06:54,416 --&gt; 00:06:58,300
+这样就可以随时从手机访问马里布和哥本哈根办公室的机器
+
+187
+00:06:58,616 --&gt; 00:07:00,933
+他说大约能跑16个并行线程
+
+188
+00:07:01,016 --&gt; 00:07:03,333
+对比一年前每小时20行的带宽
+
+189
+00:07:03,333 --&gt; 00:07:05,700
+现在已经可以达到每小时数百行了
+
+190
+00:07:06,050 --&gt; 00:07:10,050
+日常工作流是在Herdr里跑Claude、Codex和OpenCode
+
+191
+00:07:10,050 --&gt; 00:07:12,566
+然后用Opus或者Fable写代码后
+
+192
+00:07:12,566 --&gt; 00:07:14,783
+用Codex xHigh交叉审查
+
+193
+00:07:14,933 --&gt; 00:07:17,250
+不过他最近也开始用Grok来审查
+
+194
+00:07:17,500 --&gt; 00:07:20,383
+推送GitHub后，用Copilot再检查一遍
+
+195
+00:07:20,450 --&gt; 00:07:22,366
+他说Copilot现在变好了一些
+
+196
+00:07:22,366 --&gt; 00:07:24,050
+以前标记的全是废话
+
+197
+00:07:24,050 --&gt; 00:07:26,216
+但现在确实能找到真正的问题了
+
+198
+00:07:26,216 --&gt; 00:07:26,866
+他坦言
+
+199
+00:07:26,866 --&gt; 00:07:29,216
+这种多线程的工作非常消耗脑力
+
+200
+00:07:29,366 --&gt; 00:07:31,450
+说就像从赛车里爬出来一样
+
+201
+00:07:31,450 --&gt; 00:07:34,100
+累到躺在车库地板上想，我还活着
+
+202
+00:07:34,216 --&gt; 00:07:34,900
+为了缓解
+
+203
+00:07:34,900 --&gt; 00:07:37,533
+他已经在构建一个叫AmaBot的系统
+
+204
+00:07:37,616 --&gt; 00:07:39,200
+自动来处理PR和issue了
+
+205
+00:07:39,200 --&gt; 00:07:41,450
+尽量每天只做一次最终的判断
+
+206
+00:07:41,666 --&gt; 00:07:44,816
+当然，DHH对极致的追求不止工作流
+
+207
+00:07:44,816 --&gt; 00:07:48,266
+他引用了Ghostty终端创建者米切尔·哈希莫托（Mitchell Hashimoto）的话
+
+208
+00:07:48,350 --&gt; 00:07:50,383
+对卓越的追求不需要解释
+
+209
+00:07:50,550 --&gt; 00:07:52,066
+他对安装速度的执念
+
+210
+00:07:52,066 --&gt; 00:07:53,466
+最初只是15分钟
+
+211
+00:07:53,466 --&gt; 00:07:55,466
+但是发现基准被扭曲得离谱
+
+212
+00:07:55,500 --&gt; 00:07:59,433
+一台新Mac从拆封到装Lightroom花了42分钟
+
+213
+00:07:59,500 --&gt; 00:08:02,233
+PC装Windows更是要一小时三十五分钟
+
+214
+00:08:02,500 --&gt; 00:08:05,050
+而Omarchy Quattro当着Lex的面
+
+215
+00:08:05,050 --&gt; 00:08:06,200
+用了不到一分钟
+
+216
+00:08:06,316 --&gt; 00:08:08,200
+当前的世界纪录是45秒
+
+217
+00:08:08,266 --&gt; 00:08:09,533
+为了压缩安装时间
+
+218
+00:08:09,550 --&gt; 00:08:11,016
+他做了大量的微优化
+
+219
+00:08:11,016 --&gt; 00:08:14,150
+比如利用人类的输入延迟来做后台预加载
+
+220
+00:08:14,216 --&gt; 00:08:17,150
+将字体包从200MB压缩到16MB
+
+221
+00:08:17,216 --&gt; 00:08:20,500
+把NVIDIA驱动换成ZSTD极限压缩
+
+222
+00:08:20,550 --&gt; 00:08:21,866
+又省了200MB
+
+223
+00:08:21,900 --&gt; 00:08:25,233
+还把ISO从7.5GB降到5.85GB
+
+224
+00:08:25,466 --&gt; 00:08:27,700
+他说自己像迈凯伦（McLaren）的设计师一样
+
+225
+00:08:27,700 --&gt; 00:08:31,300
+在1040公斤的超跑上为370克斗争
+
+226
+00:08:31,350 --&gt; 00:08:33,983
+目标就是为特定硬件制作turbo镜像
+
+227
+00:08:34,066 --&gt; 00:08:37,300
+预计可以做到12秒安装一个完整的Linux系统
+
+228
+00:08:37,300 --&gt; 00:08:39,950
+这个执念背后是他对Linux桌面的判断
+
+229
+00:08:40,016 --&gt; 00:08:42,950
+他认为Linux赢得桌面已经是最可能的结果
+
+230
+00:08:43,016 --&gt; 00:08:45,983
+因为Agent最适合的环境就是Unix哲学
+
+231
+00:08:46,183 --&gt; 00:08:49,666
+独立命令行工具、纯文本配置、一切可自动化
+
+232
+00:08:49,666 --&gt; 00:08:52,100
+这恰恰是Linux过去被嫌弃的原因
+
+233
+00:08:52,333 --&gt; 00:08:53,066
+Mac的锁定
+
+234
+00:08:53,066 --&gt; 00:08:55,333
+如今在Agent时代反而变成了障碍
+
+235
+00:08:55,350 --&gt; 00:08:57,016
+他说Linux的全部缺点
+
+236
+00:08:57,016 --&gt; 00:08:58,500
+在五分钟前还是缺点
+
+237
+00:08:58,500 --&gt; 00:09:00,433
+现在则变成了最大卖点
+
+238
+00:09:00,866 --&gt; 00:09:02,866
+Omarchy有个崩溃监视器
+
+239
+00:09:02,866 --&gt; 00:09:05,866
+应用崩溃的时候会问你要不要让AI进行诊断
+
+240
+00:09:05,866 --&gt; 00:09:08,333
+他见过Agent查系统日志，检出源代码
+
+241
+00:09:08,333 --&gt; 00:09:12,183
+定位到Rust文件第472行一个未处理的变量溢出
+
+242
+00:09:12,183 --&gt; 00:09:13,983
+并且自动生成bug报告
+
+243
+00:09:14,300 --&gt; 00:09:15,700
+另一个故事更加极端
+
+244
+00:09:15,700 --&gt; 00:09:17,416
+他让Agent做QA测试
+
+245
+00:09:17,416 --&gt; 00:09:19,416
+八个Agent跑出了28个问题
+
+246
+00:09:19,500 --&gt; 00:09:21,416
+试图12秒内全部提交
+
+247
+00:09:21,600 --&gt; 00:09:24,033
+GitHub合理的将它们标记为了垃圾邮件
+
+248
+00:09:24,033 --&gt; 00:09:25,033
+封了他的bot
+
+249
+00:09:25,033 --&gt; 00:09:27,800
+于是他让Agent改用邮件发bug报告
+
+250
+00:09:27,800 --&gt; 00:09:31,716
+结果Agent在开发者JDX还没正式发布的代码里
+
+251
+00:09:31,716 --&gt; 00:09:32,716
+找到了bug
+
+252
+00:09:32,716 --&gt; 00:09:35,366
+还指出他修了一半的修复不够完整
+
+253
+00:09:35,716 --&gt; 00:09:37,883
+Linux内核的创建者Linus Torvalds
+
+254
+00:09:37,883 --&gt; 00:09:41,283
+几周前曾经公开表态欢迎AI进内核
+
+255
+00:09:41,433 --&gt; 00:09:43,883
+说如果你认为Linux是反AI的项目
+
+256
+00:09:43,883 --&gt; 00:09:45,050
+那你就想多了
+
+257
+00:09:45,283 --&gt; 00:09:46,316
+DHH判断
+
+258
+00:09:46,316 --&gt; 00:09:49,050
+如果Linux在内核层接受AI贡献
+
+259
+00:09:49,083 --&gt; 00:09:51,233
+在桌面层拥抱Agent界面
+
+260
+00:09:51,233 --&gt; 00:09:52,683
+那么两条线汇合起来
+
+261
+00:09:52,683 --&gt; 00:09:54,516
+将是一次历史性的机会
+
+262
+00:09:55,000 --&gt; 00:09:56,200
+对于焦虑的程序员们
+
+263
+00:09:56,200 --&gt; 00:09:58,050
+DHH的建议非常直接
+
+264
+00:09:58,166 --&gt; 00:10:00,483
+第一条不要试图预测任何事情
+
+265
+00:10:00,566 --&gt; 00:10:04,316
+行业里最聪明的大脑也无法预测两次模型迭代后的世界
+
+266
+00:10:04,400 --&gt; 00:10:05,833
+第二条聚焦当下
+
+267
+00:10:05,833 --&gt; 00:10:07,400
+如果对计算机有兴趣
+
+268
+00:10:07,400 --&gt; 00:10:09,516
+现在是有史以来最不可思议的时候
+
+269
+00:10:09,766 --&gt; 00:10:11,400
+第三条参与开源社区
+
+270
+00:10:11,400 --&gt; 00:10:12,716
+社区和同行的感染力
+
+271
+00:10:12,716 --&gt; 00:10:14,916
+是对抗存在焦虑最好的解药
+
+272
+00:10:15,000 --&gt; 00:10:16,716
+如果你独自坐着担心未来
+
+273
+00:10:16,716 --&gt; 00:10:17,800
+你会发疯的
+
+274
+00:10:18,033 --&gt; 00:10:21,233
+他提到PewDiePie这个一度全球最大的游戏主播
+
+275
+00:10:21,233 --&gt; 00:10:22,883
+退出直播圈搬到日本
+
+276
+00:10:22,883 --&gt; 00:10:25,550
+一头扎进Linux，做了极致的视觉定制
+
+277
+00:10:25,566 --&gt; 00:10:27,116
+还搭了自己的AI集群
+
+278
+00:10:27,116 --&gt; 00:10:28,716
+搞出了Council of AIs
+
+279
+00:10:28,916 --&gt; 00:10:30,550
+说如果PewDiePie能做到
+
+280
+00:10:30,566 --&gt; 00:10:32,083
+那你为什么不能开始
+
+281
+00:10:32,400 --&gt; 00:10:34,033
+他承认悲伤是合理的
+
+282
+00:10:34,033 --&gt; 00:10:35,916
+手写代码的世界已经不同了
+
+283
+00:10:35,916 --&gt; 00:10:38,516
+但是AI不是从天上掉下来的外星技术
+
+284
+00:10:38,516 --&gt; 00:10:40,600
+没有电子游戏驱动的GPU革命
+
+285
+00:10:40,600 --&gt; 00:10:42,116
+就不会有今天的AI
+
+286
+00:10:42,316 --&gt; 00:10:44,683
+他说如果AI只是替换他热爱的东西
+
+287
+00:10:44,683 --&gt; 00:10:46,316
+给他一个他厌恶的东西
+
+288
+00:10:46,316 --&gt; 00:10:47,716
+他可能会感到苦涩
+
+289
+00:10:47,833 --&gt; 00:10:50,083
+但是AI给了他一个更有趣的东西
+
+290
+00:10:50,366 --&gt; 00:10:51,916
+他把自己比作毕加索
+
+291
+00:10:51,916 --&gt; 00:10:54,550
+不再哀叹不画文艺复兴式的苹果了
+
+292
+00:10:54,566 --&gt; 00:10:56,950
+而是把苹果重新想象成正方形
+
+293
+00:10:56,966 --&gt; 00:10:58,333
+并且为此兴奋不已
+
+294
+00:10:58,616 --&gt; 00:11:01,950
+在交互方式上，DHH选择全程使用键盘
+
+295
+00:11:02,116 --&gt; 00:11:04,750
+Lex则用一个叫Plaud的录音设备
+
+296
+00:11:04,916 --&gt; 00:11:06,916
+说10到20分钟意识流提示词
+
+297
+00:11:06,916 --&gt; 00:11:09,083
+再用ElevenLabs转写清洗
+
+298
+00:11:09,083 --&gt; 00:11:10,166
+关于模型排名
+
+299
+00:11:10,166 --&gt; 00:11:12,433
+DHH判断目前Fable是最好
+
+300
+00:11:12,566 --&gt; 00:11:14,233
+尤其擅长规划和写作
+
+301
+00:11:14,250 --&gt; 00:11:15,750
+Opus 5紧随其后
+
+302
+00:11:15,850 --&gt; 00:11:18,033
+GPT Sol和Grok 4.6是第二梯队
+
+303
+00:11:18,200 --&gt; 00:11:20,550
+他认为Claude Code仍然是最佳框架
+
+304
+00:11:20,566 --&gt; 00:11:22,516
+但是对Anthropic有两个不满
+
+305
+00:11:22,600 --&gt; 00:11:26,883
+一是Claude拒绝读取agents.md文件，只认claude格式
+
+306
+00:11:26,966 --&gt; 00:11:29,166
+二是曾经拒绝翻译他关于移民的文章
+
+307
+00:11:29,166 --&gt; 00:11:30,850
+理由是不同意内容
+
+308
+00:11:30,850 --&gt; 00:11:33,433
+他说这让他想到《2001太空漫游》里
+
+309
+00:11:33,433 --&gt; 00:11:36,033
+HAL说的那句，对不起Dave，我做不到
+
+310
+00:11:36,200 --&gt; 00:11:38,350
+但是他没没有因此就放弃Claude
+
+311
+00:11:38,350 --&gt; 00:11:41,150
+说他的代码生成器不需要跟政治立场一致
+
+312
+00:11:41,266 --&gt; 00:11:42,950
+人类本来就是锯齿状的
+
+313
+00:11:42,950 --&gt; 00:11:44,983
+不需要在所有维度都完全兼容
+
+314
+00:11:45,233 --&gt; 00:11:46,900
+Lex还补充了另一个视角
+
+315
+00:11:46,950 --&gt; 00:11:49,783
+他2月搭了个叫KEF的Agent bot
+
+316
+00:11:49,783 --&gt; 00:11:55,016
+让它纯粹通过网页界面自主完成注册邮箱、进入Basecamp自我介绍的全流程
+
+317
+00:11:55,016 --&gt; 00:11:56,800
+全程只用了12分钟
+
+318
+00:11:56,900 --&gt; 00:12:00,016
+随后两人的话题转向了AGI，DHH说
+
+319
+00:12:00,016 --&gt; 00:12:02,133
+如果用在所有事情上都达到的定义
+
+320
+00:12:02,133 --&gt; 00:12:04,500
+那AGI还没有到，但是在特定领域
+
+321
+00:12:04,500 --&gt; 00:12:05,816
+已经多次让他自问
+
+322
+00:12:05,816 --&gt; 00:12:07,450
+AGI跟这有什么区别
+
+323
+00:12:07,666 --&gt; 00:12:10,533
+他描述了一个细节，在构建AmaBot时
+
+324
+00:12:10,616 --&gt; 00:12:12,816
+主Agent踩到了另一个Agent的工作
+
+325
+00:12:12,816 --&gt; 00:12:14,016
+破坏了成果之后
+
+326
+00:12:14,016 --&gt; 00:12:16,933
+那个Agent表达的歉意和遗憾非常逼真
+
+327
+00:12:17,016 --&gt; 00:12:19,966
+跟大多数人类表达歉意的方式几乎没有区别
+
+328
+00:12:20,183 --&gt; 00:12:22,583
+他还做了个类比，他自己写文章时
+
+329
+00:12:22,583 --&gt; 00:12:24,100
+手指会放键盘上
+
+330
+00:12:24,133 --&gt; 00:12:25,733
+根本不知道下一个词是什么
+
+331
+00:12:25,733 --&gt; 00:12:26,900
+词就蹦出来了
+
+332
+00:12:26,933 --&gt; 00:12:28,383
+所以他也在时刻思考
+
+333
+00:12:28,383 --&gt; 00:12:32,700
+自己的创造力跟下一个token预测加温度的随机性有多大区别
+
+334
+00:12:32,866 --&gt; 00:12:34,450
+越想越觉得差别不大
+
+335
+00:12:34,666 --&gt; 00:12:36,900
+Lex把话题推向一个更远的问题
+
+336
+00:12:37,066 --&gt; 00:12:39,100
+如果AI系统被赋予一个名字
+
+337
+00:12:39,100 --&gt; 00:12:41,300
+或者一个可以死亡的实体身份
+
+338
+00:12:41,300 --&gt; 00:12:43,266
+它们已经能够非常逼真地表达
+
+339
+00:12:43,266 --&gt; 00:12:44,616
+请不要杀死我
+
+340
+00:12:44,616 --&gt; 00:12:46,616
+这就接近了人类的基本属性
+
+341
+00:12:46,616 --&gt; 00:12:48,250
+这些实体可能需要权利
+
+342
+00:12:48,450 --&gt; 00:12:50,916
+DHH同意这个方向，并且补充说
+
+343
+00:12:51,016 --&gt; 00:12:53,616
+一旦这些系统被放进人形机器人里
+
+344
+00:12:53,616 --&gt; 00:12:55,050
+问题将指数级放大
+
+345
+00:12:55,050 --&gt; 00:12:57,800
+就好像是科幻电影银翼杀手中的剧情
+
+346
+00:12:58,283 --&gt; 00:13:00,766
+接近尾声，对话也聊到了人的一面
+
+347
+00:13:00,883 --&gt; 00:13:03,416
+DHH说，和爱的人一起创造生命
+
+348
+00:13:03,416 --&gt; 00:13:05,566
+是来到这个星球上的巅峰体验
+
+349
+00:13:05,566 --&gt; 00:13:07,966
+他把这个话题连接回了AI焦虑
+
+350
+00:13:08,050 --&gt; 00:13:10,533
+说生育率下降和未来焦虑同时发生
+
+351
+00:13:10,533 --&gt; 00:13:11,966
+是一个危险的组合
+
+352
+00:13:12,283 --&gt; 00:13:14,816
+关于极端长寿的实践者布莱恩·约翰逊（Bryan Johnson）
+
+353
+00:13:14,816 --&gt; 00:13:16,283
+他引用妻子的话说
+
+354
+00:13:16,333 --&gt; 00:13:19,533
+那种执念就像焦虑和失控感的身体化表现
+
+355
+00:13:19,533 --&gt; 00:13:21,733
+他内置在Omarchy日历里的彩蛋
+
+356
+00:13:21,733 --&gt; 00:13:24,216
+印证了这个态度，双击年度进度条
+
+357
+00:13:24,216 --&gt; 00:13:26,700
+会显示你的人生已过去百分之多少
+
+358
+00:13:26,700 --&gt; 00:13:28,633
+鼠标悬停后会显示两个字
+
+359
+00:13:28,633 --&gt; 00:13:31,083
+Memento Mori，记住你会死
+
+360
+00:13:31,366 --&gt; 00:13:33,433
+在移民问题上，他用丹麦统计数据
+
+361
+00:13:33,433 --&gt; 00:13:36,716
+来说明不同来源移民群体的财政贡献差异巨大
+
+362
+00:13:36,766 --&gt; 00:13:38,683
+说这个观点他不后悔一秒钟
+
+363
+00:13:38,683 --&gt; 00:13:40,550
+奥弗顿窗口（Overton window）不会自己打开
+
+364
+00:13:40,566 --&gt; 00:13:42,200
+需要靠人一次一次的推开
+
+365
+00:13:42,433 --&gt; 00:13:44,750
+他坦承这些言论让他失去了一些朋友
+
+366
+00:13:44,883 --&gt; 00:13:48,066
+尤其是在2020年政治裂痕大规模打开之后
+
+367
+00:13:48,066 --&gt; 00:13:48,733
+但是他说
+
+368
+00:13:48,733 --&gt; 00:13:51,083
+自己不需要在所有事情上同意别人
+
+369
+00:13:51,250 --&gt; 00:13:53,566
+世界如果追求百分之百的观点兼容
+
+370
+00:13:53,566 --&gt; 00:13:55,283
+会无聊到令人窒息
+
+371
+00:13:55,600 --&gt; 00:13:58,000
+对话最后，Lex问了一个巨大的问题
+
+372
+00:13:58,083 --&gt; 00:14:00,433
+一千年后，人类文明是什么样子？
+
+373
+00:14:00,750 --&gt; 00:14:03,700
+DHH笑着说，他连12个月后都预测不了
+
+374
+00:14:03,700 --&gt; 00:14:05,516
+更无法预测一千年后
+
+375
+00:14:05,516 --&gt; 00:14:07,250
+但是因为被Lex逼着表态
+
+376
+00:14:07,250 --&gt; 00:14:09,000
+于是他选择了押注乐观
+
+377
+00:14:09,000 --&gt; 00:14:11,566
+包括多行星物种、马斯克登上火星
+
+378
+00:14:11,566 --&gt; 00:14:13,950
+甚至出现某种弯曲时空的突破
+
+379
+00:14:13,950 --&gt; 00:14:16,450
+接着，对于尼采永恒回归的问题
+
+380
+00:14:16,450 --&gt; 00:14:18,816
+也就是如果要无限重复地活一次
+
+381
+00:14:18,816 --&gt; 00:14:20,366
+你会选哪个年代？
+
+382
+00:14:20,516 --&gt; 00:14:22,366
+DHH选了80年代
+
+383
+00:14:22,366 --&gt; 00:14:24,650
+说90年代是虚无主义的大转折
+
+384
+00:14:24,650 --&gt; 00:14:26,766
+一切从乐观变成了垃圾摇滚
+
+385
+00:14:26,900 --&gt; 00:14:27,900
+他最喜欢的饭
+
+386
+00:14:27,900 --&gt; 00:14:31,000
+是哥本哈根路易斯安娜美术馆食堂的午饭
+
+387
+00:14:31,166 --&gt; 00:14:34,000
+说连巴黎都没有比那更好吃的打发黄油
+
+388
+00:14:34,133 --&gt; 00:14:36,616
+他还认真考虑过，雇调查记者来破解
+
+389
+00:14:36,616 --&gt; 00:14:38,733
+为什么美国做不出像样的可颂
+
+390
+00:14:39,100 --&gt; 00:14:40,700
+整场对话最值得玩味的地方
+
+391
+00:14:40,700 --&gt; 00:14:42,966
+不在于DHH说了什么惊人的结论
+
+392
+00:14:42,966 --&gt; 00:14:44,800
+而在于他改变立场的方式
+
+393
+00:14:45,033 --&gt; 00:14:45,816
+13个月前
+
+394
+00:14:45,816 --&gt; 00:14:48,250
+他公开表示对AI写代码不感兴趣
+
+395
+00:14:48,300 --&gt; 00:14:50,816
+现在他成了最坚定的Agent实践者
+
+396
+00:14:50,816 --&gt; 00:14:52,566
+他也不是被某篇论文说服的
+
+397
+00:14:52,566 --&gt; 00:14:54,966
+而是在实际使用中一步一步被改变的
+
+398
+00:14:55,166 --&gt; 00:14:57,166
+这场对话留给我们的一个问题是
+
+399
+00:14:57,166 --&gt; 00:14:59,133
+随着Agent的能力继续增长
+
+400
+00:14:59,166 --&gt; 00:15:02,216
+编程最终会变成一种更高级的产品管理
+
+401
+00:15:02,216 --&gt; 00:15:04,933
+还是连产品管理的边界也会被覆盖呢？
+
+402
+00:15:04,966 --&gt; 00:15:06,250
+欢迎在评论区留言讨论
+
+403
+00:15:06,250 --&gt; 00:15:07,966
+感谢收看，我们下期再见
+
+</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://www.youtube.com/watch?v=Z4Fql7uwexg" target="_blank" rel="noopener">https://www.youtube.com/watch?v=Z4Fql7uwexg</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
