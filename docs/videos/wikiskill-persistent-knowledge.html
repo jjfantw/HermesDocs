@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google WikiSkill：為什麼 Agent 有了 Skill，還是會重複踩同一個坑？ - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>Google WikiSkill：為什麼 Agent 有了 Skill，還是會重複踩同一個坑？</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-09-06 08:08</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">Google WikiSkill：為什麼 Agent 有了 Skill，還是會重複踩同一個坑？</h1>
+    <div class="meta"><span data-field="channel">📺 wow</span><span data-field="duration">⏱ 22:01</span><span data-field="published_date">🗓 2026-09-05</span><span data-field="original_language">🌐 zh-Hans</span><a data-field="source_url" href="https://www.youtube.com/watch?v=E2HTVNuvmOk" target="_blank" rel="noopener">🔗 https://www.youtube.com/watch?v=E2HTVNuvmOk</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>這支影片是 wow 對 Google Research 與 Virginia Tech 論文《WikiSkill: Compiling Agent Experience into Persistent Knowledge for Skill Evolution》的解讀。影片目前是 YouTube 會員專屬內容，無法取得可播放影像或逐字稿；本報告的影片部分只採用 YouTube metadata / shortDescription，並用 KL 補充的原論文連結交叉核對。核心主題是：WikiSkill 不只是讓 Agent 自動生成 Skill，而是在 raw execution traces 與 executable skills 中間加入可持續累積的 wiki knowledge layer。這讓失敗的 skill 更新可以被 rollback，但失敗留下的經驗仍保留在 wiki，供後續 skill proposer 使用。論文聲稱 WikiSkill 在五項 benchmark 與五種模型上，多數設定優於 no-skill baseline 與既有 skill-evolution 方法；其中 Qwen-3.5-9B + WikiSkill 的平均表現為 47.4%，高於 Qwen-3.6-27B without skills 的 39.4%。原論文連結：https://arxiv.org/html/2608.27454v1</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">1. WikiSkill 的重點不是『自動寫 Skill』，而是讓經驗可累積</h2></div><div class="body" data-field="lesson_body"><p>影片描述指出，WikiSkill 真正有意思的地方不是單純讓 Agent 自動生成 Skill，而是在執行軌跡與 Skill 之間加入一層可持續積累的知識。</p><p>這個設計解決的是 skill evolution 常見問題：一次失敗的 skill update 可能需要 rollback，但這次失敗暴露出的模式、錯誤原因、環境限制不應該一起消失。WikiSkill 把這些經驗整理到 wiki，讓下一輪 skill proposer 可以接著用。</p><p>原論文： https://arxiv.org/html/2608.27454v1</p><span class="tag" data-field="lesson_tag">Persistent Knowledge</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">2. Raw → Wiki → Skill：三層知識架構</h2></div><div class="body" data-field="lesson_body"><p>論文將 agent workspace 分成三層：<strong>Raw layer</strong> 保存不可變 execution traces；<strong>Wiki layer</strong> 維護結構化、可累積的 knowledge；<strong>Skills layer</strong> 則保存演化中的 procedural knowledge。</p><p>這樣分層後，raw traces 不會被直接塞進 skill；wiki 也不是直接交給 inference agent 無限制使用，而是讓 skill proposer 在更新 skill 時能讀到更穩定、整合過的經驗。</p><p>影片描述中的『Raw → Wiki → Skill 三層架構如何讓經驗真正累積』對應的就是這個方法核心。</p><span class="tag" data-field="lesson_tag">Architecture</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">3. Wiki 不應該直接塞給執行 Agent</h2></div><div class="body" data-field="lesson_body"><p>影片描述特別列出『為什麼 Wiki 不應該直接塞給執行 Agent』。論文的 ablation 也支持這點：預設配置是 Skill Proposer 有 wiki access，但 Inference Agent 沒有。</p><p>論文 Table 3 指出，在 Gemini-3.5-Flash 的 ablation 中，給 Skill Proposer persistent wiki access 可把平均表現從 48.7% 提到 63.7%；但讓 Inference Agent 在 evolution rollout 時也直接讀 wiki，反而會降低最終 skill quality。</p><p>可讀成：wiki 適合用來整理與產生 skill，不一定適合在執行任務時直接塞進上下文，否則可能增加干擾。</p><span class="tag" data-field="lesson_tag">Ablation</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">4. Skill Discovery 與 Skill Execution 可能是不同能力</h2></div><div class="body" data-field="lesson_body"><p>論文 cross-model transfer 的觀察是：其他模型演化出的 skill，有時比模型自己演化出的 skill 更有效。影片描述也把這點列為重點之一。</p><p>具體數字上，論文提到 ALFWorld 中，Qwen-3.5-9B 使用 Qwen-3.6-27B 演化出的 skill 可達 70.2%，高於使用自己演化出的 skill 的 63.4%。</p><p>這表示『找出好程序』與『照著好程序執行』可能不是同一種模型能力；較強模型可能比較會發現泛化程序，較小模型仍可能能執行那些程序。</p><span class="tag" data-field="lesson_tag">Cross-model Transfer</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">5. 9B + WikiSkill 超過 27B without skills，代表 Skill 可以補部分模型規模差距</h2></div><div class="body" data-field="lesson_body"><p>影片描述強調的反直覺結果是：Qwen-3.5-9B + WikiSkill 達到 47.4%，超過沒有 Skill 的 Qwen-3.6-27B 的 39.4%。</p><p>論文同時指出，在 Qwen family 中，WikiSkill 對 4B、9B、27B 平均表現的提升分別是 12.3%、17.5%、23.9%，代表 skill evolution 並不是只替小模型補洞，也會隨模型能力變強而取得更大增益。</p><p>比較保守的解讀是：這不是說 9B 全面勝過 27B，而是在這些 benchmark 與這套 skill evolution 設定下，可累積的 procedural knowledge 足以補上部分模型規模差距。</p><span class="tag" data-field="lesson_tag">Scaling</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">6. 距離真實生產仍有問題：驗證集、上下文干擾、skill 品質控制</h2></div><div class="body" data-field="lesson_body"><p>影片描述最後列出『這套經驗複利機制距離真實生產還有哪些問題』。從論文內容看，至少有三個實務問題：skill update 需要 validation gate、wiki 內容不適合無限制塞給執行 agent、不同資料集上提升幅度不均。</p><p>論文也把 accepted skill updates 的分佈、small validation sets 的 robustness、optimizer API call complexity 放在 appendix 裡討論，表示這套方法不是免費午餐，而是一個需要嚴格評估與治理的 skill-evolution pipeline。</p><p>因此 WikiSkill 最有價值的訊息不是『自動生成更多 skill』，而是把失敗經驗、模式整理、skill 更新、回滾驗證拆成可審計的流程。</p><span class="tag" data-field="lesson_tag">Production Risks</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">Skill 可以回滾，但經驗不該跟著消失；WikiSkill 的核心是把 Agent 的失敗編譯成下一輪可用的知識。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="00:00"><span class="ts">00:00</span><span class="text" data-field="key_point_text">影片描述把 WikiSkill 的關鍵差異放在『失敗經驗如何留下來』：skill 可以回滾，但 wiki 中累積的經驗不會跟著消失。</span></li><li data-field="key_point" data-timestamp="00:00"><span class="ts">00:00</span><span class="text" data-field="key_point_text">WikiSkill 採三層架構：Raw layer 保存不可變的 execution traces，Wiki layer 整理可累積知識，Skill layer 保存可執行程序。</span></li><li data-field="key_point" data-timestamp="00:00"><span class="ts">00:00</span><span class="text" data-field="key_point_text">每輪 evolution 包含 inference agent、wiki maintainer、skill proposer、gating/rollback；skill update 要通過 validation 才保留。</span></li><li data-field="key_point" data-timestamp="00:00"><span class="ts">00:00</span><span class="text" data-field="key_point_text">論文結果指出 WikiSkill 在五項 benchmark、五種模型上取得一致提升，且 skill evolution 與模型 scaling 互補。</span></li><li data-field="key_point" data-timestamp="00:00"><span class="ts">00:00</span><span class="text" data-field="key_point_text">Qwen-3.5-9B + WikiSkill 達 47.4%，高於沒有 skill 的 Qwen-3.6-27B 39.4%；這是影片描述特別標出的反直覺結果。</span></li><li data-field="key_point" data-timestamp="00:00"><span class="ts">00:00</span><span class="text" data-field="key_point_text">論文的 cross-model transfer 結果顯示，skill discovery 與 skill execution 可能是不同能力：別的模型演化出的 skill 有時比自己演化的 skill 更好用。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="WikiSkill">WikiSkill</span><span class="tag-chip" data-tag="Agent Skills">Agent Skills</span><span class="tag-chip" data-tag="Skill Evolution">Skill Evolution</span><span class="tag-chip" data-tag="Persistent Knowledge">Persistent Knowledge</span><span class="tag-chip" data-tag="Google Research">Google Research</span><span class="tag-chip" data-tag="Qwen">Qwen</span><span class="tag-chip" data-tag="AI Agent">AI Agent</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>YouTube playabilityStatus 顯示會員專屬內容，無法播放；yt-dlp 與 youtube-transcript-api 都回報 members-only / unplayable，因此沒有影片逐字稿可核對。</li><li>影片沒有公開章節時間戳；key_points 的 00:00 只代表來源為影片描述與論文，而非實際段落時間。</li><li>主文中超出影片描述的技術細節，均來自 KL 提供的原論文 arXiv HTML，而非影片逐字稿。</li></ul></div></section>
+  
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="description"><div class="raw-label">YouTube shortDescription（原文）<button class="copy-btn" id="raw_description_4347539776_srt" onclick="copyRaw(this,'raw_description_4347539776_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_description_4347539776_text" onclick="copyRawText(this,'raw_description_4347539776_text')">📋 複製純文字</button></div><pre>Google Research 与 Virginia Tech 提出的 WikiSkill，真正有意思的地方并不是“让 Agent 自动生成 Skill”，而是在执行轨迹与 Skill 之间加入了一层可以持续积累的知识：失败的 Skill 可以回滚，但这次失败留下的经验不会跟着消失。
+
+更反直觉的是，在论文的五项基准平均成绩中，Qwen 3.5 9B + WikiSkill 达到 47.4%，超过没有 Skill 的 Qwen 3.6 27B 的 39.4%。
+
+这期视频我们重点拆解：
+
+• WikiSkill 和普通 Skill / Skill Evolution 到底有什么区别  
+• Raw → Wiki → Skill 三层架构如何让经验真正积累  
+• 为什么 Wiki 不应该直接塞给执行 Agent  
+• 为什么 Skill Discovery 和 Skill Execution 可能由不同模型完成  
+• 9B + WikiSkill 超过 27B，真正说明了什么  
+• 这套“经验复利”机制距离真实生产还有哪些问题
+
+论文：
+请点击会员贴 https://www.youtube.com/post/UgkxGdvwKI_GC9cGrtc_unuO50xTcaLxe13G
+
+#AI #AIAgent #WikiSkill #AgentSkills #LLM #GoogleResearch</pre></div><div class="raw-block" data-field="raw_source_item" data-raw-type="description"><div class="raw-label">arXiv 論文摘要與關鍵段落（節錄）<button class="copy-btn" id="raw_description_4347540032_srt" onclick="copyRaw(this,'raw_description_4347540032_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_description_4347540032_text" onclick="copyRawText(this,'raw_description_4347540032_text')">📋 複製純文字</button></div><pre>Title: WikiSkill: Compiling Agent Experience into Persistent Knowledge for Skill Evolution
+Authors: Liyan Tang, Cyrus Rashtchian, Chun-Sung Ferng, Andrew Tomkins, Da-Cheng Juan, Tu Vu. Google Research / Virginia Tech. arXiv:2608.27454v1, 27 Aug 2026. URL: https://arxiv.org/html/2608.27454v1
+
+Abstract excerpt: Agent skills package specialized knowledge and workflows into reusable resources that extend AI agent capabilities. WikiSkill co-evolves agent skills with a persistent knowledge base, separating raw execution experience, accumulated knowledge, and executable skills. Across diverse benchmarks and models, WikiSkill outperforms state-of-the-art skill-evolution methods and improves over no-skill baselines in most settings.
+
+Key paper excerpt: WikiSkill organizes the agent workspace into three layers: a Raw Layer that stores immutable execution traces, a Wiki Layer that maintains structured knowledge, and a Skill Layer that contains evolving procedural knowledge. Each iteration involves an Inference Agent, a Wiki Maintainer, a Skill Proposer, and a Gating and Rollback mechanism.
+
+Key result excerpt: Qwen-3.5-9B with WikiSkill outperforms Qwen-3.6-27B without skills (47.4% vs. 39.4%). On ALFWorld, Qwen-3.5-9B reaches 70.2% with a Qwen-3.6-27B-evolved skill, compared with 63.4% using its own skill. Table 3 ablation: with Inference Agent wiki access disabled, giving the Skill Proposer persistent wiki access increases average benchmark performance from 48.7% to 63.7%.</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://www.youtube.com/watch?v=E2HTVNuvmOk" target="_blank" rel="noopener">https://www.youtube.com/watch?v=E2HTVNuvmOk</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
