@@ -1,5 +1,11 @@
 [
   {
+    "title": "4 字公式，搞定 ChatGPT 完美提示詞（只用 8 分鐘） - Hermes Docs",
+    "url": "videos/crew-prompt-formula.html",
+    "date": "2026-09-13 08:03",
+    "content": "4 字公式，搞定 ChatGPT 完美提示詞（只用 8 分鐘） - Hermes Docs 返回首頁 4 字公式，搞定 ChatGPT 完美提示詞（只用 8 分鐘） 發布時間：2026-09-13 16:03 🌙 YouTube 影片重點整理 4 字公式，搞定 ChatGPT 完美提示詞（只用 8 分鐘） 📺 DSH ⏱ 7:12 🗓 2025-05-09 🌐 zh-Hans 🔗 https://www.youtube.com/watch?v=1uGMZSZFLHA 這支影片介紹一套用來改善 ChatGPT 提示詞品質的 CREW 公式。講者先說明，AI 回答答非所問通常不是因為 AI 不聰明，而是提示詞沒有把需求交代清楚。CREW 分別代表 Context（背景）、Role（角色）、Expectation（期望輸出）與 Workflow（執行步驟）。影片用「出海指揮船員」與「請 AI 列計畫表」作比喻，說明只給一句模糊指令會讓 AI 不知道任務、身分、成功標準與做法。接著逐一拆解四個要素：背景要說明正在解決的問題、自己的身分與限制條件；角色要設定使用者與 AI 各自的立場；期望要交代"
+  },
+  {
     "title": "Google WikiSkill：為什麼 Agent 有了 Skill，還是會重複踩同一個坑？ - Hermes Docs",
     "url": "videos/wikiskill-persistent-knowledge.html",
     "date": "2026-09-06 00:08",
