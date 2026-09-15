@@ -1,0 +1,1722 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 時代成為超級個體：從超級終端開始 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>AI 時代成為超級個體：從超級終端開始</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-09-15 14:20</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">AI 時代成為超級個體：從超級終端開始</h1>
+    <div class="meta"><span data-field="channel">📺 安楓的葉</span><span data-field="duration">⏱ 14:28</span><span data-field="published_date">🗓 2026-05-23</span><span data-field="original_language">🌐 zh-Hans</span><a data-field="source_url" href="https://www.youtube.com/watch?v=soesYA1gNmo" target="_blank" rel="noopener">🔗 https://www.youtube.com/watch?v=soesYA1gNmo</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>這支影片示範作者的「超級終端」配置：在 AI Agent 時代，終端被視為駕馭 AI 與工具鏈的控制中樞。影片從四個維度拆解：視覺交互、導航搜尋、文件管理、開發工具；並提供 GitHub 倉庫，讓 AI Agent 協助一鍵部署。核心思路不是炫技，而是把 CLI、tmux、搜尋工具、檔案管理器與開發環境整合成可長時間使用、可恢復、可協作的工作站。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">CLI 重新成為 AI Agent 的控制中樞</h2><span class="ts-badge" data-field="lesson_timestamp">00:00</span></div><div class="body" data-field="lesson_body"><p>影片開場把 AI Agent 與命令列的結合稱為一場「文藝復興」：頂級模型正在回到純文字終端，因為大語言模型能以較原生的方式嵌入 CLI，並調度龐大的終端工具鏈。</p><p>作者的結論是：在 Agent 時代，終端不只是老派工程師的工具，而是駕馭 AI、管理工具鏈與執行任務的控制中樞。想把 AI 變成日常工作能力，第一步是配置一個強大、高效的終端環境。</p><span class="tag" data-field="lesson_tag">核心觀點</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">整套超級終端被拆成六個工作區</h2><span class="ts-badge" data-field="lesson_timestamp">00:49</span></div><div class="body" data-field="lesson_body"><p>作者展示的環境分成六個獨立工作區，透過 <strong>Alt + 數字鍵</strong>快速切換。核心主開發區採用四宮格布局，整合程式碼編輯、命令執行、版本控制與文件管理四個面板。</p><p>AI Agent 協作區採雙智能體並行：作者舉例偏好用 Codex CLI 專注程式碼實作，Gemini CLI 負責邏輯問答。其他工作區包含 SSH 遠端部署 / 模型訓練、log 檢查、btop 資源監控，以及 Manual 手冊區用來搜尋自訂快捷指令。</p><span class="tag" data-field="lesson_tag">架構</span></div><div class="lesson-cmds" data-field="lesson_commands"><h3 class="cmds-heading">📋 本節指令一覽</h3><ol class="cmds-list"><li><code>Alt + 數字鍵</code></li><li><code>Ctrl + B → 方向鍵</code></li></ol></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">視覺交互：讓終端可長時間使用</h2><span class="ts-badge" data-field="lesson_timestamp">02:10</span></div><div class="body" data-field="lesson_body"><p>視覺層以 Ghostty 作為終端模擬器，作者提到可用主題列表命令挑選皮膚，並用自訂別名快速切換主題。tmux 的面板放大 / 還原則透過 <strong>Ctrl + B → Z</strong> 完成。</p><p>Ghostty 之外，作者使用 Nerd Font 讓終端能顯示圖示，使用 zsh 語法高亮做防呆：有效命令顯示為綠色，無效命令顯示紅色。Starship 則提供雙行提示符與環境感知，讓第一行顯示上下文資訊，第二行保留輸入空間，降低長時間閱讀疲勞。</p><p>tmux 在此不只負責面板布局，也提供面板切換、放大、還原等空間操作；後面開發工具章節再延伸到 session 持久化。</p><span class="tag" data-field="lesson_tag">視覺與操作</span></div><div class="lesson-cmds" data-field="lesson_commands"><h3 class="cmds-heading">📋 本節指令一覽</h3><ol class="cmds-list"><li><code>Ctrl + B → Z</code></li><li><code>Ghostty 主題列表命令（ASR 聽寫不確定）</code></li></ol></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">導航搜尋：zoxide、fd、ripgrep、fzf 組成高速導航儀</h2><span class="ts-badge" data-field="lesson_timestamp">03:46</span></div><div class="body" data-field="lesson_body"><p>zoxide 取代傳統 cd：它會記錄目錄存取頻率，依分數排序並支援模糊匹配。作者示範用簡短關鍵字快速跳到高頻專案，也把查詢分數的命令包成別名。</p><p>fd 用來取代 find，處理檔案查找；它支援副檔名篩選、正則、智慧大小寫，也會自動跳過隱藏檔與 .gitignore 內容。作者最常用的是按時間回溯近期改動檔案，並包成 fchange 之類的別名。</p><p>ripgrep 用來找內容，特別是 Markdown、程式碼與 TODO。作者強調 `-C` context 上下文輸出：搜尋命中時同時印出上下幾行，能判斷 TODO 所在業務邏輯。fzf 則把歷史命令、Git 分支等靜態輸出變成可互動選單。</p><span class="tag" data-field="lesson_tag">搜尋</span></div><div class="lesson-cmds" data-field="lesson_commands"><h3 class="cmds-heading">📋 本節指令一覽</h3><ol class="cmds-list"><li><code>z cpp</code></li><li><code>z my</code></li><li><code>zoxide query -s -l</code></li><li><code>fd -e</code></li><li><code>fd --changed-within</code></li><li><code>rg -t md</code></li><li><code>rg -C 2 TODO</code></li><li><code>Ctrl + R</code></li><li><code>GSW（作者的 Git 分支切換別名）</code></li></ol></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">文件管理：eza、bat、yazi 分別處理列表、預覽與全局管理</h2><span class="ts-badge" data-field="lesson_timestamp">08:04</span></div><div class="body" data-field="lesson_body"><p>eza 被作者用來接管 ls 別名，提供資料夾優先、Nerd Font 圖示、Git 狀態與 hyperlink。影片也提到 Ghostty 與 tmux 同時使用時，滑鼠點擊檔案的組合鍵會不同：純 Ghostty 用 Command + 左鍵，開啟 tmux 後改用 Shift + Command + 左鍵。</p><p>bat 負責快速預覽檔案內容，提供類似 IDE 的語法高亮與行號，也能顯示 Git 狀態：修改、刪除、新增以不同符號呈現。</p><p>yazi 被用作沉浸式終端文件管理器。影片示範建立多個 C++ 檔案、用副檔名過濾、視覺模式批量選取、剪切並貼到 test 資料夾，也展示多標籤頁與圖片預覽。</p><span class="tag" data-field="lesson_tag">文件管理</span></div><div class="lesson-cmds" data-field="lesson_commands"><h3 class="cmds-heading">📋 本節指令一覽</h3><ol class="cmds-list"><li><code>ls（由 eza 接管）</code></li><li><code>ll</code></li><li><code>lt</code></li><li><code>Command + 左鍵</code></li><li><code>Shift + Command + 左鍵</code></li><li><code>Touch</code></li><li><code>f</code></li><li><code>v</code></li><li><code>x</code></li><li><code>Esc</code></li><li><code>p</code></li><li><code>t</code></li><li><code>1 / 2 / 3</code></li><li><code>q</code></li><li><code>Q</code></li></ol></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">開發工具：tmux session、lazygit、LazyVim 串成同一條工作流</h2><span class="ts-badge" data-field="lesson_timestamp">11:01</span></div><div class="body" data-field="lesson_body"><p>tmux 真正核心的能力是 session 管理與後台托管。作者示範用自訂快捷啟動命令建立 workplace，預設集成六個 windows；即使終端關閉或 SSH 斷線，session 內的進程與狀態仍會保留，之後可重新 attach 恢復現場。</p><p>lazygit 接管 Git 操作：在 TUI 中切換 files、branches、commits、stash 等面板，對改動檔案用空格暫存或撤銷，按 C 填寫 commit 訊息，提交後再用大寫 P push。作者也提到 merge、rebase 這類複雜操作在可視化介面中更容易處理。</p><p>LazyVim 提供接近現代 IDE 的開發體驗。影片以 C++ / CMake 專案為例，說明 LazyVim 可讀取 CMakeLists.txt 並完成編譯與執行；同時可用 `Space gg` 在編輯環境中叫出 lazygit，讓編碼與版本控制在同一終端裡銜接。</p><span class="tag" data-field="lesson_tag">開發</span></div><div class="lesson-cmds" data-field="lesson_commands"><h3 class="cmds-heading">📋 本節指令一覽</h3><ol class="cmds-list"><li><code>workplace</code></li><li><code>tls</code></li><li><code>tmux ls</code></li><li><code>td</code></li><li><code>tmux detach</code></li><li><code>tmux attach</code></li><li><code>tmux kill-session</code></li><li><code>Ctrl + B → Z</code></li><li><code>Space</code></li><li><code>C</code></li><li><code>P</code></li><li><code>CMake QuickRun</code></li><li><code>Space gg</code></li></ol></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">07</span><h2 data-field="lesson_title">結尾：把倉庫作為底座，自由改成自己的工作站</h2><span class="ts-badge" data-field="lesson_timestamp">13:46</span></div><div class="body" data-field="lesson_body"><p>作者最後提醒，影片中的 UI 與視覺配置帶有很強的個人審美偏好；如果使用者有自己的審美或工作流需求，可以把專案倉庫當作底座，自由修改成自己的終端外觀與操作方式。</p><p>影片描述提供專案地址：`https://github.com/AnnFengDeYe/my-terminal`。作者也說如果使用時遇到 bug，可留言回報；後續若有呼聲高的功能或插件，也可能另做深度解析。</p><span class="tag" data-field="lesson_tag">結論</span></div><div class="lesson-cmds" data-field="lesson_commands"><h3 class="cmds-heading">📋 本節指令一覽</h3><ol class="cmds-list"><li><code>https://github.com/AnnFengDeYe/my-terminal</code></li></ol></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">在 Agent 時代，終端從工具列升級為控制中樞；重點不是記住更多命令，而是把搜尋、檔案、版本控制與 AI 協作接成一條可恢復的工作流。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="00:00"><span class="ts">00:00</span><span class="text" data-field="key_point_text">影片開場指出：AI Agent 讓命令列重新變重要，純文字 CLI 是大模型較容易原生嵌入與調度工具鏈的介面。</span></li><li data-field="key_point" data-timestamp="00:49"><span class="ts">00:49</span><span class="text" data-field="key_point_text">作者先展示整套終端配置：六個獨立工作區、Alt+數字快速切換、主開發區四宮格整合編輯、命令、版本控制與文件管理。</span></li><li data-field="key_point" data-timestamp="02:10"><span class="ts">02:10</span><span class="text" data-field="key_point_text">視覺交互部分介紹 Ghostty、Nerd Font、zsh 語法高亮、Starship 與 tmux，用來提升終端的可讀性、提示資訊與面板操作。</span></li><li data-field="key_point" data-timestamp="03:46"><span class="ts">03:46</span><span class="text" data-field="key_point_text">導航搜尋部分介紹 zoxide、fd、ripgrep、fzf：分別處理目錄跳轉、文件查找、內容檢索與互動式篩選。</span></li><li data-field="key_point" data-timestamp="08:04"><span class="ts">08:04</span><span class="text" data-field="key_point_text">文件管理部分介紹 eza、bat、yazi：用現代化列表、語法高亮預覽與全鍵盤檔案管理來取代傳統零散操作。</span></li><li data-field="key_point" data-timestamp="11:01"><span class="ts">11:01</span><span class="text" data-field="key_point_text">開發工具部分強調 tmux session 的持久化、lazygit 的 Git TUI、LazyVim 的開發環境，以及它們如何在同一終端工作流中協作。</span></li><li data-field="key_point" data-timestamp="13:46"><span class="ts">13:46</span><span class="text" data-field="key_point_text">結尾提醒這套配置帶有作者個人審美，可把倉庫作為底座自由修改；也邀請使用者回報 bug 或提出希望深度解析的功能。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="AI Agent">AI Agent</span><span class="tag-chip" data-tag="CLI">CLI</span><span class="tag-chip" data-tag="終端配置">終端配置</span><span class="tag-chip" data-tag="tmux">tmux</span><span class="tag-chip" data-tag="Ghostty">Ghostty</span><span class="tag-chip" data-tag="zoxide">zoxide</span><span class="tag-chip" data-tag="fd">fd</span><span class="tag-chip" data-tag="ripgrep">ripgrep</span><span class="tag-chip" data-tag="fzf">fzf</span><span class="tag-chip" data-tag="eza">eza</span><span class="tag-chip" data-tag="bat">bat</span><span class="tag-chip" data-tag="yazi">yazi</span><span class="tag-chip" data-tag="lazygit">lazygit</span><span class="tag-chip" data-tag="LazyVim">LazyVim</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>Whisper 逐字稿對部分工具命令有漂字；主文已依上下文還原常見工具名，但 Ghostty 主題列表命令的精確拼寫未從語音中完全確認。</li><li>影片無 YouTube 字幕且 transcript disabled；內容依 yt-dlp metadata、影片描述章節與 Whisper STT 逐字稿整理。</li></ul></div></section>
+  <section class="glossary" data-field="asr_glossary"><h2>🎙️ ASR 漂字對照表</h2><div class="card"><table class="glossary"><tr data-field="asr_glossary_row"><td data-field="heard">命令喊交互</td><td>→</td><td data-field="corrected">命令行交互</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Ghosty</td><td>→</td><td data-field="corrected">Ghostty</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Gymni CLI</td><td>→</td><td data-field="corrected">Gemini CLI</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Lox 工作區</td><td>→</td><td data-field="corrected">logs 工作區</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Aza</td><td>→</td><td data-field="corrected">eza</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">ZShare Syntax Highlighting</td><td>→</td><td data-field="corrected">zsh syntax highlighting</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Tmax / Tmarks</td><td>→</td><td data-field="corrected">tmux</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Z-OXIDE</td><td>→</td><td data-field="corrected">zoxide</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">FT</td><td>→</td><td data-field="corrected">fd</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">RIPGREAD</td><td>→</td><td data-field="corrected">ripgrep</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">getignal</td><td>→</td><td data-field="corrected">.gitignore</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">鴨子</td><td>→</td><td data-field="corrected">yazi</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">lazywim</td><td>→</td><td data-field="corrected">LazyVim</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">CMIC / CMIClist-txt</td><td>→</td><td data-field="corrected">CMake / CMakeLists.txt</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">CR加 / CIA加</td><td>→</td><td data-field="corrected">C++（依上下文判斷）</td></tr></table></div></section>
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="transcript"><div class="raw-label">逐字稿全文<button class="copy-btn" id="raw_transcript_4384130112_srt" onclick="copyRaw(this,'raw_transcript_4384130112_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_transcript_4384130112_text" onclick="copyRawText(this,'raw_transcript_4384130112_text')">📋 複製純文字</button></div><pre>1
+00:00:00,000 --&gt; 00:00:03,060
+在图形界面统治数字世界的几十年后
+
+2
+00:00:03,060 --&gt; 00:00:06,580
+一场由AI agent 引发的文艺复兴正在悄然发生
+
+3
+00:00:06,580 --&gt; 00:00:08,880
+最前沿的AI正在大规模回归
+
+4
+00:00:08,880 --&gt; 00:00:09,900
+命令喊交互
+
+5
+00:00:09,900 --&gt; 00:00:11,840
+从OpenAI的横空出世
+
+6
+00:00:11,840 --&gt; 00:00:13,420
+到玉三家的三组鼎立
+
+7
+00:00:13,420 --&gt; 00:00:16,500
+顶级大模型都在退去花哨的视觉外衣
+
+8
+00:00:16,500 --&gt; 00:00:17,880
+回归极简的终端
+
+9
+00:00:17,880 --&gt; 00:00:21,380
+正如前特斯拉AI总监卡帕西所评价的那样
+
+10
+00:00:21,380 --&gt; 00:00:23,200
+CLI之所以令人兴奋
+
+11
+00:00:23,200 --&gt; 00:00:26,080
+恰恰因为它是上古遗留的纯文本形态
+
+12
+00:00:26,080 --&gt; 00:00:29,500
+这意味着大语言模型能以最原生的姿态嵌入其中
+
+13
+00:00:29,500 --&gt; 00:00:31,740
+随意调遣庞大的终端工具链
+
+14
+00:00:31,740 --&gt; 00:00:33,220
+AI和终端的结合
+
+15
+00:00:33,220 --&gt; 00:00:35,240
+这恰恰结实了一个有趣的错位
+
+16
+00:00:35,240 --&gt; 00:00:37,420
+人类偏爱图文并茂的GUI
+
+17
+00:00:37,420 --&gt; 00:00:39,780
+而纯文本的命令行才是大模型的母语
+
+18
+00:00:39,780 --&gt; 00:00:40,780
+在Agent时代
+
+19
+00:00:40,780 --&gt; 00:00:43,020
+终端成为了驾驭AI的控制中枢
+
+20
+00:00:43,020 --&gt; 00:00:45,760
+想要精准驾驭AI进化为超级个体
+
+21
+00:00:45,760 --&gt; 00:00:48,740
+第一步就是配置一个强大高效的超级终端
+
+22
+00:00:48,740 --&gt; 00:00:49,540
+本期视频
+
+23
+00:00:49,540 --&gt; 00:00:51,020
+我将从视觉交互
+
+24
+00:00:51,020 --&gt; 00:00:51,900
+导航搜索
+
+25
+00:00:51,900 --&gt; 00:00:52,740
+文件管理
+
+26
+00:00:52,740 --&gt; 00:00:54,220
+与开发工具四个维度
+
+27
+00:00:54,220 --&gt; 00:00:56,360
+分享我个人的终端配置方案
+
+28
+00:00:56,360 --&gt; 00:00:59,180
+并提供Github仓库供大家一键部署
+
+29
+00:00:59,180 --&gt; 00:01:02,000
+这套环境被划分为六大独立工作区
+
+30
+00:01:02,000 --&gt; 00:01:04,640
+通过Alt加数字键即可快速切换
+
+31
+00:01:04,640 --&gt; 00:01:07,540
+核心的主开发区采用四工格布局
+
+32
+00:01:07,540 --&gt; 00:01:08,740
+集成代码编辑
+
+33
+00:01:08,740 --&gt; 00:01:09,600
+命令执行
+
+34
+00:01:09,600 --&gt; 00:01:10,400
+版本控制
+
+35
+00:01:10,400 --&gt; 00:01:11,880
+与文件管理四个面板
+
+36
+00:01:11,880 --&gt; 00:01:14,540
+支持通过Ctrl加B配合方向键
+
+37
+00:01:14,540 --&gt; 00:01:16,180
+实现面板间切换
+
+38
+00:01:16,180 --&gt; 00:01:19,080
+Agent的协作区采用双智能体并行架构
+
+39
+00:01:19,080 --&gt; 00:01:22,740
+比如我个人偏好Codex CLI专注代码实现
+
+40
+00:01:22,740 --&gt; 00:01:24,800
+Gymni CLI负责逻辑问答
+
+41
+00:01:24,800 --&gt; 00:01:29,840
+SSH工作区专用于开发版部署与远端服务器模型训练
+
+42
+00:01:29,840 --&gt; 00:01:33,020
+Lox工作区则用于独立审查核心错误日志
+
+43
+00:01:33,020 --&gt; 00:01:37,540
+最后服以Btop监控区进行全局硬件资源与进程管理
+
+44
+00:01:37,540 --&gt; 00:01:42,040
+以及Manual手册区来实现对自定义快捷指令的即时搜查
+
+45
+00:01:42,040 --&gt; 00:01:43,840
+指令支持模糊搜索
+
+46
+00:01:43,840 --&gt; 00:01:45,260
+比如Aza命令相关
+
+47
+00:01:45,260 --&gt; 00:01:47,480
+无论你是理工背景还是文科出身
+
+48
+00:01:47,480 --&gt; 00:01:48,960
+不必被这些术语劝退
+
+49
+00:01:48,960 --&gt; 00:01:51,560
+接下来我会详细拆解这套布局的理念
+
+50
+00:01:51,560 --&gt; 00:01:53,980
+回归终端绝不是为了即刻式的炫技
+
+51
+00:01:53,980 --&gt; 00:01:55,660
+而是为了顺应大语言模型
+
+52
+00:01:55,660 --&gt; 00:01:57,120
+是原生的文本处理优势
+
+53
+00:01:57,120 --&gt; 00:01:58,580
+这套方案唯一的门槛
+
+54
+00:01:58,580 --&gt; 00:02:01,100
+只在于你是否拥有最前沿的大模型
+
+55
+00:02:01,100 --&gt; 00:02:02,760
+你完全可以像指挥官一样
+
+56
+00:02:02,760 --&gt; 00:02:04,100
+只需一句提示词
+
+57
+00:02:04,100 --&gt; 00:02:06,480
+帮我一键部署这个Github仓库这本地
+
+58
+00:02:06,480 --&gt; 00:02:08,600
+AI agent就会自动跑完流程
+
+59
+00:02:08,600 --&gt; 00:02:10,580
+替你完成所有的配置与部署
+
+60
+00:02:10,580 --&gt; 00:02:12,300
+Ghosty终端模拟器
+
+61
+00:02:12,300 --&gt; 00:02:14,840
+是我的个人终端视觉美学的基础
+
+62
+00:02:14,840 --&gt; 00:02:19,160
+你可以利用Ghosty List Zims命令来挑选自己喜欢的皮肤
+
+63
+00:02:19,160 --&gt; 00:02:20,300
+为了更直观的演示
+
+64
+00:02:20,300 --&gt; 00:02:21,520
+按下Ctrl加B
+
+65
+00:02:21,520 --&gt; 00:02:24,920
+松开后再按Z当前面板就会瞬间平铺放大
+
+66
+00:02:24,920 --&gt; 00:02:26,480
+进入全屏专注模式
+
+67
+00:02:26,480 --&gt; 00:02:29,500
+这里我提前配置了Gzims这个快捷别名
+
+68
+00:02:29,500 --&gt; 00:02:31,180
+方便快速切换主题
+
+69
+00:02:31,180 --&gt; 00:02:33,960
+修改完成后再次按下CtrlB加Z
+
+70
+00:02:33,960 --&gt; 00:02:36,420
+它又会还原至刚才的司工格布局
+
+71
+00:02:36,420 --&gt; 00:02:38,700
+在Ghosty这个渲染容器之上
+
+72
+00:02:38,700 --&gt; 00:02:40,280
+需要两个辅助基建
+
+73
+00:02:40,280 --&gt; 00:02:43,100
+NerdFont和ZShare Syntax Highlighting
+
+74
+00:02:43,100 --&gt; 00:02:46,060
+NerdFont为终端注入了图形渲染能力
+
+75
+00:02:46,060 --&gt; 00:02:47,760
+如你看到的红苹果标志
+
+76
+00:02:47,760 --&gt; 00:02:49,620
+以及面前面的Git分支图标
+
+77
+00:02:49,620 --&gt; 00:02:51,900
+其次是ZShare的语法高亮
+
+78
+00:02:51,900 --&gt; 00:02:53,420
+它提供了防呆机制
+
+79
+00:02:53,420 --&gt; 00:02:56,020
+只有输入系统认可的证券命令时
+
+80
+00:02:56,020 --&gt; 00:02:57,560
+文本才会显示绿色
+
+81
+00:02:57,560 --&gt; 00:02:59,100
+否则就是红色预警
+
+82
+00:02:59,100 --&gt; 00:03:02,500
+此外这个色彩层级分明的双行命令行提示符
+
+83
+00:03:02,500 --&gt; 00:03:03,820
+则归功于Starship
+
+84
+00:03:03,820 --&gt; 00:03:05,540
+它拥有强大的环境感知力
+
+85
+00:03:05,540 --&gt; 00:03:08,140
+比如我的主力开发员是Cr加和Python
+
+86
+00:03:08,140 --&gt; 00:03:10,580
+当我的目录切换到C或Cr加项目时
+
+87
+00:03:10,580 --&gt; 00:03:12,740
+它会自动浮现当前的编译器版本
+
+88
+00:03:12,740 --&gt; 00:03:14,100
+一旦进入Python项目
+
+89
+00:03:14,100 --&gt; 00:03:16,100
+它又会立刻显示Python的版本号
+
+90
+00:03:16,100 --&gt; 00:03:18,060
+同时Starship的双行布局
+
+91
+00:03:18,060 --&gt; 00:03:20,100
+第一行只显示上下文信息
+
+92
+00:03:20,100 --&gt; 00:03:22,260
+第二行也就是绿色的箭头符号
+
+93
+00:03:22,260 --&gt; 00:03:23,740
+专门留白用于输入
+
+94
+00:03:23,740 --&gt; 00:03:29,340
+这种信息与输入分离的排版能显著降低我们长时间面对代码和文本的视觉疲劳
+
+95
+00:03:29,340 --&gt; 00:03:31,380
+至于刚才演示的面板放大
+
+96
+00:03:31,380 --&gt; 00:03:31,940
+还原
+
+97
+00:03:31,940 --&gt; 00:03:34,100
+以及各个面板之间的快速切换
+
+98
+00:03:34,100 --&gt; 00:03:36,300
+这些空间魔法都源自Tmax
+
+99
+00:03:36,300 --&gt; 00:03:40,060
+当然Tmax的强大远不仅限于视觉层面的交互
+
+100
+00:03:40,060 --&gt; 00:03:41,620
+在后续的开发工具中
+
+101
+00:03:41,620 --&gt; 00:03:45,640
+我还会介绍Tmax是如何深度嵌入整个开发环境的
+
+102
+00:03:45,640 --&gt; 00:03:49,060
+如果说视觉交互决定了我们面对命令航式的舒适度
+
+103
+00:03:49,060 --&gt; 00:03:51,980
+那么导航与搜索就决定了穿梭系统的速度
+
+104
+00:03:51,980 --&gt; 00:03:54,620
+首先是负责目录跳转的Z-OXIDE
+
+105
+00:03:54,620 --&gt; 00:03:57,040
+作为传统CD命令的智能替代品
+
+106
+00:03:57,040 --&gt; 00:04:00,000
+Z-OXIDE告别了手翘融长路径的繁琐
+
+107
+00:04:00,000 --&gt; 00:04:02,720
+它的工作逻辑非常像大模型的注意力机制
+
+108
+00:04:02,720 --&gt; 00:04:05,780
+它会在后台记录你反问各个目录的频率与习惯
+
+109
+00:04:05,780 --&gt; 00:04:07,880
+根据分数大小来决定优先级
+
+110
+00:04:07,880 --&gt; 00:04:09,160
+并进行模糊匹配
+
+111
+00:04:09,160 --&gt; 00:04:11,680
+比如我目前正在高频维护的两个项目
+
+112
+00:04:11,680 --&gt; 00:04:13,280
+一个是CPP Mental Models
+
+113
+00:04:13,280 --&gt; 00:04:15,440
+另一个是本期视频对应的配置方案
+
+114
+00:04:15,440 --&gt; 00:04:16,140
+My Terminal
+
+115
+00:04:16,140 --&gt; 00:04:17,540
+由于多次高频切换
+
+116
+00:04:17,540 --&gt; 00:04:20,740
+Z-OXIDE将这两个仓库的优先级提升到了顶部
+
+117
+00:04:20,740 --&gt; 00:04:22,740
+现在我只需要进行模糊查找
+
+118
+00:04:22,740 --&gt; 00:04:24,260
+比如敲下Z-CPP
+
+119
+00:04:24,260 --&gt; 00:04:26,740
+就会自动进入CPP Mental Models项目
+
+120
+00:04:26,740 --&gt; 00:04:27,860
+敲下Z-MY
+
+121
+00:04:27,860 --&gt; 00:04:29,680
+就会瞬间跳入终端项目
+
+122
+00:04:29,680 --&gt; 00:04:32,860
+刚刚演示的命令Z-OXIDE QUERY-S-L
+
+123
+00:04:32,860 --&gt; 00:04:34,640
+可以查看所有的优先级得分
+
+124
+00:04:34,640 --&gt; 00:04:37,100
+我将这串命令设置了别名Z-QUERY
+
+125
+00:04:37,100 --&gt; 00:04:39,340
+也可以在Z-QUERY后面接上关键字
+
+126
+00:04:39,340 --&gt; 00:04:40,940
+比如输入Z-QUERY-CPP
+
+127
+00:04:40,940 --&gt; 00:04:43,760
+就能模糊查找对应目录的具体得分
+
+128
+00:04:43,760 --&gt; 00:04:45,140
+到达目标目录后
+
+129
+00:04:45,140 --&gt; 00:04:47,160
+一般也需要快速定位文件
+
+130
+00:04:47,160 --&gt; 00:04:50,840
+这套配置引入了两个基于RUST的语言成构的速度神器
+
+131
+00:04:50,840 --&gt; 00:04:52,140
+FT和RIPGREAD
+
+132
+00:04:52,140 --&gt; 00:04:54,880
+FT是系统自带FIND命令的完美替代品
+
+133
+00:04:54,880 --&gt; 00:04:56,960
+原生FIND语法极其冗长
+
+134
+00:04:56,960 --&gt; 00:04:58,780
+几乎全靠死机硬背
+
+135
+00:04:58,780 --&gt; 00:05:00,020
+比如当你想查找
+
+136
+00:05:00,000 --&gt; 00:05:01,720
+所有的CIA加相关文件时
+
+137
+00:05:01,720 --&gt; 00:05:03,580
+你需要敲出这样一长串咒语
+
+138
+00:05:03,580 --&gt; 00:05:04,740
+但如果用FD
+
+139
+00:05:04,740 --&gt; 00:05:06,300
+命令就会变得优雅很多
+
+140
+00:05:06,300 --&gt; 00:05:07,840
+-e表示扩展名
+
+141
+00:05:07,840 --&gt; 00:05:08,560
+extension
+
+142
+00:05:08,560 --&gt; 00:05:10,080
+并且可以无限叠加
+
+143
+00:05:10,080 --&gt; 00:05:12,640
+FD还默认支持正泽表达式
+
+144
+00:05:12,640 --&gt; 00:05:14,720
+并且内置了智能大小写模式
+
+145
+00:05:14,720 --&gt; 00:05:16,580
+如果你输入全小写config
+
+146
+00:05:16,580 --&gt; 00:05:18,000
+它会不区分大小写
+
+147
+00:05:18,000 --&gt; 00:05:20,060
+找出所有包含该字母的文件
+
+148
+00:05:20,060 --&gt; 00:05:22,220
+但如果你输入包含大写的config
+
+149
+00:05:22,220 --&gt; 00:05:24,260
+它会瞬间切换为精准匹配
+
+150
+00:05:24,260 --&gt; 00:05:25,920
+至少带有大写c的文件
+
+151
+00:05:25,920 --&gt; 00:05:27,800
+这些搜索结果会自动跳过
+
+152
+00:05:27,800 --&gt; 00:05:30,200
+隐藏文件和getignal名单里的内容
+
+153
+00:05:30,200 --&gt; 00:05:32,080
+返回的结果不仅极其干净
+
+154
+00:05:32,080 --&gt; 00:05:33,720
+还会根据不同的文件类型
+
+155
+00:05:33,720 --&gt; 00:05:34,780
+自动渲染颜色
+
+156
+00:05:34,780 --&gt; 00:05:37,420
+我最常用的FD功能是时间追溯
+
+157
+00:05:37,420 --&gt; 00:05:39,120
+也就是FDChange的Vzin
+
+158
+00:05:39,120 --&gt; 00:05:41,400
+有时候我们手滑误改了某个配置
+
+159
+00:05:41,400 --&gt; 00:05:43,580
+或者忘记刚写过的代码叫什么名字
+
+160
+00:05:43,580 --&gt; 00:05:45,020
+只需加上时间参数
+
+161
+00:05:45,020 --&gt; 00:05:47,160
+比如EH代表一小时内
+
+162
+00:05:47,160 --&gt; 00:05:49,400
+它就能立刻把近期改动过的文件
+
+163
+00:05:49,400 --&gt; 00:05:50,320
+全部揪出来
+
+164
+00:05:50,320 --&gt; 00:05:52,520
+我把这床命令设置了别名FChange
+
+165
+00:05:52,520 --&gt; 00:05:54,380
+只需输入FChange的加时间
+
+166
+00:05:54,380 --&gt; 00:05:56,280
+丢失的记忆就能瞬间回溯
+
+167
+00:05:56,280 --&gt; 00:05:58,600
+如果说FD解决的是找文件的问题
+
+168
+00:05:58,600 --&gt; 00:06:01,600
+那么Rip Grip就是专门用来解决找内容的问题
+
+169
+00:06:01,600 --&gt; 00:06:03,660
+比如当我想要翻阅项目中
+
+170
+00:06:03,660 --&gt; 00:06:06,380
+所有Markdown笔记里关于CR加的内容时
+
+171
+00:06:06,380 --&gt; 00:06:08,760
+输入RG-TMDCR加
+
+172
+00:06:08,760 --&gt; 00:06:11,780
+它就能瞬间将所有相关的文本行提取出来
+
+173
+00:06:11,780 --&gt; 00:06:13,780
+但RG有我最喜欢的功能
+
+174
+00:06:13,780 --&gt; 00:06:15,420
+其实是它的上下文展示
+
+175
+00:06:15,420 --&gt; 00:06:16,240
+作为开发者
+
+176
+00:06:16,240 --&gt; 00:06:18,420
+我经常会在代码里留下大量的To Do
+
+177
+00:06:18,420 --&gt; 00:06:21,100
+来标记带修复的bug或带时间的需求
+
+178
+00:06:21,100 --&gt; 00:06:22,620
+如果只是普通搜索
+
+179
+00:06:22,620 --&gt; 00:06:23,600
+比如Grip To Do
+
+180
+00:06:23,600 --&gt; 00:06:25,920
+终端里只会出现一堆孤零零的To Do
+
+181
+00:06:25,920 --&gt; 00:06:27,940
+你很难明确它所在的代码上下文
+
+182
+00:06:27,940 --&gt; 00:06:30,340
+而命令RG-C2To Do
+
+183
+00:06:30,340 --&gt; 00:06:31,480
+这里是大写的C
+
+184
+00:06:31,480 --&gt; 00:06:32,980
+代表Context上下文
+
+185
+00:06:32,980 --&gt; 00:06:34,460
+它会在命中结果的同时
+
+186
+00:06:34,460 --&gt; 00:06:36,640
+连带打印出上下各两行的代码
+
+187
+00:06:36,640 --&gt; 00:06:38,420
+这多出来的两行背景信息
+
+188
+00:06:38,420 --&gt; 00:06:40,680
+足以知晓这个To Do所处的业务逻辑
+
+189
+00:06:40,680 --&gt; 00:06:42,820
+从而判断它是否需要优先处理
+
+190
+00:06:42,820 --&gt; 00:06:45,560
+为此我特意设置了一个快捷函数RG-C
+
+191
+00:06:45,560 --&gt; 00:06:48,760
+自定义你所需要的上下文函数和搜索内容
+
+192
+00:06:48,760 --&gt; 00:06:50,840
+搞定了文件和内容检索后
+
+193
+00:06:50,840 --&gt; 00:06:52,900
+面对动辄上百条的命令输出
+
+194
+00:06:52,900 --&gt; 00:06:54,740
+我们可以直接交给FZF
+
+195
+00:06:54,740 --&gt; 00:06:56,720
+它是一个交互式列表处理器
+
+196
+00:06:56,720 --&gt; 00:06:58,740
+FZF能够接收任何列表
+
+197
+00:06:58,740 --&gt; 00:07:01,140
+快速完成模糊搜索与实时筛选
+
+198
+00:07:01,140 --&gt; 00:07:04,720
+FZF的常用操作是替代传统的历史命令查找
+
+199
+00:07:04,720 --&gt; 00:07:06,360
+在终端里找历史命令
+
+200
+00:07:06,360 --&gt; 00:07:08,040
+通常要不停按方向键
+
+201
+00:07:08,040 --&gt; 00:07:09,220
+一条一条往上翻
+
+202
+00:07:09,220 --&gt; 00:07:10,580
+而有了FZF之后
+
+203
+00:07:10,580 --&gt; 00:07:12,360
+只需要按Ctrl加R键
+
+204
+00:07:12,360 --&gt; 00:07:15,380
+终端就会弹出一个交互式的历史命令搜索面板
+
+205
+00:07:15,380 --&gt; 00:07:16,860
+你可以直接输入关键字
+
+206
+00:07:16,860 --&gt; 00:07:17,400
+比如Git
+
+207
+00:07:17,400 --&gt; 00:07:19,540
+它会实时筛选出所有相关命令
+
+208
+00:07:19,540 --&gt; 00:07:21,260
+相比蠻木翻历史记录
+
+209
+00:07:21,260 --&gt; 00:07:24,220
+这种方式更像是在给终端加了一个搜索引擎
+
+210
+00:07:24,220 --&gt; 00:07:26,320
+但FZF真正强大的地方
+
+211
+00:07:26,320 --&gt; 00:07:27,960
+在于预览和管道的结合
+
+212
+00:07:27,960 --&gt; 00:07:29,540
+把原本静态的命令输出
+
+213
+00:07:29,540 --&gt; 00:07:31,260
+变成可交互的选择界面
+
+214
+00:07:31,260 --&gt; 00:07:33,000
+比如我在管理Git分支时
+
+215
+00:07:33,000 --&gt; 00:07:34,960
+就可以用这道命令预览所有分支
+
+216
+00:07:34,960 --&gt; 00:07:36,560
+并在选择后直接切换
+
+217
+00:07:36,560 --&gt; 00:07:39,140
+你可以在左侧预览中通过上下方向键
+
+218
+00:07:39,140 --&gt; 00:07:40,320
+选择分支切换
+
+219
+00:07:40,320 --&gt; 00:07:43,120
+在右侧视图中通过Shift加上向发向键
+
+220
+00:07:43,120 --&gt; 00:07:44,640
+查看分支所有的提交
+
+221
+00:07:44,640 --&gt; 00:07:47,220
+当然手动输入这种常命令并不友好
+
+222
+00:07:47,220 --&gt; 00:07:49,260
+我将其设置为别名GSW
+
+223
+00:07:49,260 --&gt; 00:07:49,940
+总结一下
+
+224
+00:07:49,940 --&gt; 00:07:52,000
+ZOXIDE负责快速跳转目录
+
+225
+00:07:52,000 --&gt; 00:07:53,680
+FD负责快速定位文件
+
+226
+00:07:53,680 --&gt; 00:07:55,600
+RG负责快速检索内容
+
+227
+00:07:55,600 --&gt; 00:07:57,900
+而FZF则负责把这些搜索结果
+
+228
+00:07:57,900 --&gt; 00:08:00,120
+变成可预览可交互的操作入口
+
+229
+00:08:00,120 --&gt; 00:08:01,580
+这四个工具组合在一起
+
+230
+00:08:01,580 --&gt; 00:08:04,220
+就是一套在系统中可以高速穿梭的导航仪
+
+231
+00:08:04,220 --&gt; 00:08:05,600
+搞定了导航与搜索
+
+232
+00:08:05,600 --&gt; 00:08:07,320
+接下来就是项目管理环节
+
+233
+00:08:07,320 --&gt; 00:08:08,360
+对于中单来说
+
+234
+00:08:08,360 --&gt; 00:08:10,340
+不管是整理资料还是同筹AI
+
+235
+00:08:10,340 --&gt; 00:08:12,460
+项目管理的本质就是文件管理
+
+236
+00:08:12,460 --&gt; 00:08:13,240
+首先是AZA
+
+237
+00:08:13,240 --&gt; 00:08:15,980
+它是用来替代LS的现代方案
+
+238
+00:08:15,980 --&gt; 00:08:17,780
+为了让体验无缝衔接
+
+239
+00:08:17,780 --&gt; 00:08:20,940
+我直接在配置中用AZA接管了LS的别名
+
+240
+00:08:20,940 --&gt; 00:08:21,520
+此时
+
+241
+00:08:21,520 --&gt; 00:08:24,880
+你的文件不仅会根据文件夹优先的规则自动分组
+
+242
+00:08:24,880 --&gt; 00:08:27,060
+还会显示我们在视觉交互章节中
+
+243
+00:08:27,060 --&gt; 00:08:29,140
+配置了NerdFond各种可爱的图标
+
+244
+00:08:29,140 --&gt; 00:08:30,600
+但AZA最吸引我的一点
+
+245
+00:08:30,600 --&gt; 00:08:33,280
+是它赋予了终端Hyperlink超链接的能力
+
+246
+00:08:33,280 --&gt; 00:08:36,220
+Hyperlink可以直接用鼠标点击终端你的文件名
+
+247
+00:08:36,220 --&gt; 00:08:38,280
+调用本机的默认程序来打开它
+
+248
+00:08:38,280 --&gt; 00:08:40,040
+比如点击某个Markdown文档
+
+249
+00:08:40,040 --&gt; 00:08:42,780
+它会按照系统默认自动调用Typerl打开
+
+250
+00:08:42,780 --&gt; 00:08:44,160
+由于我的这套配置方案中
+
+251
+00:08:44,160 --&gt; 00:08:46,340
+同时使用了Ghosty和Tmarks
+
+252
+00:08:46,340 --&gt; 00:08:50,040
+它两对鼠标交互时间的解析存在一些交互冲突
+
+253
+00:08:50,040 --&gt; 00:08:51,440
+在纯Ghosty环境下
+
+254
+00:08:51,440 --&gt; 00:08:54,620
+你需要按住Command配合鼠标左键用于打开链接
+
+255
+00:08:54,620 --&gt; 00:08:55,980
+而在开启Tmarks后
+
+256
+00:08:55,980 --&gt; 00:08:59,120
+则是按住Shift加Command加鼠标左键来进行点击
+
+257
+00:08:59,120 --&gt; 00:09:00,680
+除了基础的LS覆盖
+
+258
+00:09:00,680 --&gt; 00:09:03,080
+我还配置了其他进阶功能的AZA别名
+
+259
+00:09:03,080 --&gt; 00:09:04,640
+比如查看详情的LL
+
+260
+00:09:04,640 --&gt; 00:09:07,000
+它不仅会列出更加直观的数字权限
+
+261
+00:09:07,000 --&gt; 00:09:09,680
+还会直接在列表旁边展示文件的Git状态
+
+262
+00:09:09,680 --&gt; 00:09:12,900
+LT则是当前目录下三层的竖型结构图
+
+263
+00:09:12,900 --&gt; 00:09:14,040
+它也会自动读取
+
+264
+00:09:14,040 --&gt; 00:09:16,040
+并忽略Gitignore你的冗余文件
+
+265
+00:09:16,040 --&gt; 00:09:17,680
+给你一个清爽的目录脉络
+
+266
+00:09:17,680 --&gt; 00:09:19,600
+用AZA理清了目录脉络
+
+267
+00:09:19,600 --&gt; 00:09:22,300
+下一步则是用BAT快速预览内容
+
+268
+00:09:22,300 --&gt; 00:09:24,560
+BAT是一款轻量级阅读器
+
+269
+00:09:24,560 --&gt; 00:09:28,120
+能瞬间呈现媲美主流IDE的语法高量语航号
+
+270
+00:09:28,120 --&gt; 00:09:29,620
+它自带Git状态集成
+
+271
+00:09:29,620 --&gt; 00:09:31,320
+黄色波浪号代表修改
+
+272
+00:09:31,320 --&gt; 00:09:32,860
+红色减号代表删除
+
+273
+00:09:32,860 --&gt; 00:09:34,440
+绿色加号代表新增
+
+274
+00:09:34,440 --&gt; 00:09:37,320
+只需一眼就能快速定位修改操作和内容
+
+275
+00:09:37,320 --&gt; 00:09:41,820
+如果说AZA和BAT都是专注于解决局部痛点的轻量级组件
+
+276
+00:09:41,820 --&gt; 00:09:46,260
+那么鸭子绝对是追求沉浸式的全局文件管理的终端神器
+
+277
+00:09:46,260 --&gt; 00:09:48,980
+鸭子复刻了WAME的全键盘操作美学
+
+278
+00:09:48,980 --&gt; 00:09:50,680
+按下分号激活Share
+
+279
+00:09:50,680 --&gt; 00:09:53,360
+比如使用Touch命令创建名称为A到Z
+
+280
+00:09:53,360 --&gt; 00:09:55,000
+一共26个CBB文件
+
+281
+00:09:55,000 --&gt; 00:09:56,980
+按下A可以单独创建文件
+
+282
+00:09:56,980 --&gt; 00:09:58,440
+结果如果带上鞋杠
+
+283
+00:09:58,440 --&gt; 00:09:59,720
+就会创建文件夹
+
+284
+00:09:59,720 --&gt; 00:10:00,180
+这帖妹
+
+285
+00:10:00,000 --&gt; 00:10:01,800
+这里我创建了test的文件夹
+
+286
+00:10:01,800 --&gt; 00:10:05,120
+现在我需要选中刚刚创建的26个cpp文件
+
+287
+00:10:05,120 --&gt; 00:10:06,140
+移入到test中
+
+288
+00:10:06,140 --&gt; 00:10:08,440
+为了避免列表中的其他无关文件
+
+289
+00:10:08,440 --&gt; 00:10:10,760
+先按下f 输入点cpp过滤
+
+290
+00:10:10,760 --&gt; 00:10:13,560
+此时列表中将只剩下26个cpp文件
+
+291
+00:10:13,560 --&gt; 00:10:15,360
+按下v进入视觉模式
+
+292
+00:10:15,360 --&gt; 00:10:18,040
+长按向下或直接按大计一键到底
+
+293
+00:10:18,040 --&gt; 00:10:19,960
+将这26个文件全部选中
+
+294
+00:10:19,960 --&gt; 00:10:21,680
+此时再按下x剪切
+
+295
+00:10:21,680 --&gt; 00:10:25,340
+选中的26个文件会呈现浅红色的带剪切状态
+
+296
+00:10:25,340 --&gt; 00:10:27,480
+按下esc退出过滤状态
+
+297
+00:10:27,480 --&gt; 00:10:31,140
+以让刚才被过滤掉的test文件夹重新显示在列表中
+
+298
+00:10:31,140 --&gt; 00:10:33,660
+然后移动光标停留在test文件夹上
+
+299
+00:10:33,660 --&gt; 00:10:36,140
+按下右方向键或l进入目录
+
+300
+00:10:36,140 --&gt; 00:10:40,620
+按下p即可瞬间完成这26个文件的p量粘贴转移
+
+301
+00:10:40,620 --&gt; 00:10:41,940
+除了这些基础操作
+
+302
+00:10:41,940 --&gt; 00:10:44,080
+它还能像浏览器一样并行多开
+
+303
+00:10:44,080 --&gt; 00:10:46,860
+按下t可以瞬间新建多个type标签页
+
+304
+00:10:46,860 --&gt; 00:10:48,340
+让你同时管理多个项目
+
+305
+00:10:48,340 --&gt; 00:10:52,160
+配合数字键123就能在不同工作区之间关速切换
+
+306
+00:10:52,160 --&gt; 00:10:54,540
+我单独配置了小q关闭单前标签
+
+307
+00:10:54,540 --&gt; 00:10:56,400
+大q强制退出整个鸭子
+
+308
+00:10:56,400 --&gt; 00:10:58,340
+鸭子还支持高清的图片预览
+
+309
+00:10:58,340 --&gt; 00:11:01,400
+按下回车也可以单独调用系统默认工具打开
+
+310
+00:11:01,400 --&gt; 00:11:04,660
+前面介绍了tmux在空间布局上的妙用
+
+311
+00:11:04,660 --&gt; 00:11:06,620
+当作为真正的终端多路复用器
+
+312
+00:11:06,620 --&gt; 00:11:07,960
+terminal multiplexer
+
+313
+00:11:07,960 --&gt; 00:11:11,200
+其最核心的能力在于绘画管理和后台托管
+
+314
+00:11:11,200 --&gt; 00:11:13,940
+你可以使用本项目的快捷启动命令
+
+315
+00:11:13,940 --&gt; 00:11:17,280
+workplace创建并初始化一个tmux绘画
+
+316
+00:11:17,280 --&gt; 00:11:19,980
+该绘画默认集成了6个windows
+
+317
+00:11:19,980 --&gt; 00:11:22,600
+得益于tmux绘画持久性特性
+
+318
+00:11:22,600 --&gt; 00:11:28,000
+进入workplace后输入tls及tmuxls的自定义别名
+
+319
+00:11:28,000 --&gt; 00:11:30,400
+你就可以看到所有的正在运行的session
+
+320
+00:11:30,400 --&gt; 00:11:34,200
+这里的myterminalworkplace绘画就是workplace命令所创建的
+
+321
+00:11:34,200 --&gt; 00:11:37,800
+也可以随时通过td命令及tmuxdetach的别名
+
+322
+00:11:37,800 --&gt; 00:11:39,900
+主动将绘画挂齐到后台
+
+323
+00:11:39,900 --&gt; 00:11:41,700
+这一机制的最大优势在于
+
+324
+00:11:41,700 --&gt; 00:11:44,200
+即使本地终端宿主被意外关闭
+
+325
+00:11:44,200 --&gt; 00:11:47,200
+或者是网络抖动导致ssh断线
+
+326
+00:11:47,200 --&gt; 00:11:50,600
+绘画内部的所有进程和状态也都会被完整保留
+
+327
+00:11:50,600 --&gt; 00:11:53,100
+后续只需要执行tmuxattach
+
+328
+00:11:53,100 --&gt; 00:11:56,200
+即可无缝重新接入并恢复工作现场
+
+329
+00:11:56,200 --&gt; 00:11:58,400
+这在执行长号时的agent开发
+
+330
+00:11:58,400 --&gt; 00:12:01,400
+模型训练或维持远程任务时极为有用
+
+331
+00:12:01,400 --&gt; 00:12:05,200
+除非显示执行tmuxkeyer session销毁绘画
+
+332
+00:12:05,200 --&gt; 00:12:08,400
+否则该绘画将持续在后台安全运行
+
+333
+00:12:08,400 --&gt; 00:12:10,600
+配合持久化运行的tmux
+
+334
+00:12:10,600 --&gt; 00:12:13,900
+lazygit则是接管版本控制的可视化神器
+
+335
+00:12:13,900 --&gt; 00:12:15,700
+切换到lazygit面板
+
+336
+00:12:15,700 --&gt; 00:12:18,100
+Ctrl加B后按Z频扑放大
+
+337
+00:12:18,100 --&gt; 00:12:20,900
+可以看到lazygit将繁琐的git命令行
+
+338
+00:12:20,900 --&gt; 00:12:22,700
+化作直光的终端UI
+
+339
+00:12:22,700 --&gt; 00:12:28,200
+你可以直接通过数字键在fires,branches,commits, and stash等面板间
+
+340
+00:12:28,200 --&gt; 00:12:29,200
+急速穿梭
+
+341
+00:12:29,200 --&gt; 00:12:30,400
+面对改动的文件
+
+342
+00:12:30,400 --&gt; 00:12:34,000
+轻敲空格键即可快速完成暂存或撤销
+
+343
+00:12:34,000 --&gt; 00:12:35,000
+确认无误后
+
+344
+00:12:35,000 --&gt; 00:12:39,100
+按下C键便能直接换出弹窗贴写commit提交信息
+
+345
+00:12:39,100 --&gt; 00:12:40,000
+提交完成后
+
+346
+00:12:40,000 --&gt; 00:12:43,300
+界面会呈现本地与远端分支的拓扑差异
+
+347
+00:12:43,300 --&gt; 00:12:47,100
+例如数字脚标会显示你领先或落后多少个commit
+
+348
+00:12:47,100 --&gt; 00:12:50,400
+此时只需一键按下大P即可push退送
+
+349
+00:12:50,400 --&gt; 00:12:53,100
+当然lazygit的高阶玩法原不止如此
+
+350
+00:12:53,100 --&gt; 00:12:56,200
+像merch和rebase这类相对复杂的git操作
+
+351
+00:12:56,200 --&gt; 00:12:59,100
+在可视化界面的加持下也会变得优雅从容
+
+352
+00:12:59,100 --&gt; 00:13:00,800
+大家可以自行尝试一下
+
+353
+00:13:00,800 --&gt; 00:13:06,500
+在代码编写层面lazywim提供了一套面向各类编程开发者的高效编辑环境
+
+354
+00:13:06,500 --&gt; 00:13:09,700
+它既保留了前文介绍过的所有快捷键体系
+
+355
+00:13:09,700 --&gt; 00:13:13,600
+又通过丰富的插件生态提供了接近现代ID的开发体验
+
+356
+00:13:13,600 --&gt; 00:13:15,600
+以我自己的CR加开发场景为例
+
+357
+00:13:15,600 --&gt; 00:13:19,100
+当打开向cppmantlemodels这里基于CMIC构建的项目时
+
+358
+00:13:19,100 --&gt; 00:13:23,600
+lazywim可以借助lazyextras读取根目录中的CMIClist-txt
+
+359
+00:13:23,600 --&gt; 00:13:25,400
+完成编译和运行的流程
+
+360
+00:13:25,400 --&gt; 00:13:28,400
+例如在运行执行体metricsbenchrelease时
+
+361
+00:13:28,400 --&gt; 00:13:30,300
+可以直接执行CMIC QuickRun
+
+362
+00:13:30,300 --&gt; 00:13:34,100
+让lazywim自动完成必要的构建并启动对应可执行文件
+
+363
+00:13:34,100 --&gt; 00:13:37,300
+与此同时lazywim也具备良好的工具联动能力
+
+364
+00:13:37,300 --&gt; 00:13:40,100
+在装注编码时只需按下space gg
+
+365
+00:13:40,100 --&gt; 00:13:43,000
+就可以在当前编辑环境中快速换出lazygit
+
+366
+00:13:43,000 --&gt; 00:13:46,400
+让代码编写版本控制在同一个终端内一气呵成
+
+367
+00:13:46,400 --&gt; 00:13:49,200
+视频里展示的这套视觉交互与UI布局
+
+368
+00:13:49,200 --&gt; 00:13:51,000
+带有很强的个人审美偏好
+
+369
+00:13:51,000 --&gt; 00:13:52,400
+如果你有自己的审美诉求
+
+370
+00:13:52,400 --&gt; 00:13:55,400
+完全可以将此项目仓库中的配置文件作为底座
+
+371
+00:13:55,400 --&gt; 00:13:56,300
+自由模改
+
+372
+00:13:56,300 --&gt; 00:13:58,400
+定制出专属于自己的酷炫外观
+
+373
+00:13:58,400 --&gt; 00:13:59,300
+受限于篇幅
+
+374
+00:13:59,300 --&gt; 00:14:00,400
+更多进阶操作
+
+375
+00:14:00,400 --&gt; 00:14:01,500
+没法逐一展开
+
+376
+00:14:01,500 --&gt; 00:14:03,600
+我的这套环境中还有很多隐藏彩蛋
+
+377
+00:14:03,600 --&gt; 00:14:05,300
+就留给大家亲自去探索了
+
+378
+00:14:05,300 --&gt; 00:14:07,300
+如果你在使用的过程中遇到任何bug
+
+379
+00:14:10,100 --&gt; 00:14:12,300
+去留言我会第一时间跟进排查
+
+380
+00:14:12,300 --&gt; 00:14:13,800
+护身高的功能或者插件
+
+381
+00:14:13,800 --&gt; 00:14:16,900
+我也会单独考虑出一期视频做深度解析
+
+382
+00:14:16,900 --&gt; 00:14:19,500
+以上就是本期视频的所有内容啦
+
+383
+00:14:19,500 --&gt; 00:14:21,500
+如果你觉得本期视频内容还不错
+
+384
+00:14:21,500 --&gt; 00:14:23,000
+记得给一个一键三连哦
+
+385
+00:14:23,000 --&gt; 00:14:26,700
+大家的支持就是我持续更新优质内容的不屑动力
+
+386
+00:14:26,700 --&gt; 00:14:28,000
+我们下期再见
+</pre></div><div class="raw-block" data-field="raw_source_item" data-raw-type="description"><div class="raw-label">YouTube description<button class="copy-btn" id="raw_description_4384130432_srt" onclick="copyRaw(this,'raw_description_4384130432_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_description_4384130432_text" onclick="copyRawText(this,'raw_description_4384130432_text')">📋 複製純文字</button></div><pre>本期视频的终端项目地址：https://github.com/AnnFengDeYe/my-terminal
+可以先在视频章节「超级终端速览 00:49」中了解这套配置的大概框架和内容
+让AI agent帮你部署完成后 遇到使用相关的问题 可以看跳转到指定章节查看如何使用
+
+00:00 命令行的复兴
+00:49 超级终端速览
+02:10 视觉交互
+03:46 导航搜索
+08:04 文件管理
+11:01 开发工具
+13:46 总结</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://www.youtube.com/watch?v=soesYA1gNmo" target="_blank" rel="noopener">https://www.youtube.com/watch?v=soesYA1gNmo</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
