@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>吳恩達談 AI 就業：不是取代職位，而是重分配任務價值 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>吳恩達談 AI 就業：不是取代職位，而是重分配任務價值</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-09-17 06:32</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">吳恩達談 AI 就業：不是取代職位，而是重分配任務價值</h1>
+    <div class="meta"><span data-field="channel">📺 Best Partners TV</span><span data-field="duration">⏱ 21:38</span><span data-field="published_date">🗓 2026-09-15</span><span data-field="original_language">🌐 zh-Hans</span><a data-field="source_url" href="https://youtu.be/orYp8SWDhHs?si=3fCzBM0MH2b6zsqL" target="_blank" rel="noopener">🔗 https://youtu.be/orYp8SWDhHs?si=3fCzBM0MH2b6zsqL</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>這支影片整理吳恩達在 Silicon Valley Girl 訪談中的主要觀點：AI 不是直接消滅整個職位，而是自動化職位中的一部分任務，讓剩下需要判斷力、情境理解、跨領域能力與主動性的工作更有價值。影片也談到大學課程更新太慢、AI 對學習可能造成認知卸載、職位邊界會變寬、招聘更看重 agency，以及在 AI 讓執行成本下降後，真正的瓶頸會轉向產品判斷、客戶理解與負責任地快速構建。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">職位不會被整體替換，任務會先被重分配</h2><span class="ts-badge" data-field="lesson_timestamp">1:58</span></div><div class="body" data-field="lesson_body"><p>吳恩達反對把 AI 的能力直接推演成「就業末日」。他的分析單位不是整個職業，而是職業內部的一項項任務。</p><p>影片中的核心說法是：AI 也許能完成許多工作中 <strong>30% 到 40% 的任務</strong>，但這不等於整個職位消失；相反地，剩下那 <strong>60% 到 70%</strong> 需要人類完成的工作，會因互補關係變得更有價值。</p><p>這也改變了個人的升級方向：不要繼續死守已經商品化的執行任務，而是把 AI 能做的部分交給 AI，自己移向需要專業知識、業務理解、溝通、取捨與責任承擔的部分。</p><span class="tag" data-field="lesson_tag">就業判斷</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">年輕人的壓力來自教育更新慢與初級任務被壓價</h2><span class="ts-badge" data-field="lesson_timestamp">3:37</span></div><div class="body" data-field="lesson_body"><p>影片指出，剛畢業的年輕人特別脆弱，原因不是單純「經驗不足」，而是初級職位常承擔標準化、可重複、容易被 AI 接手的基礎任務。</p><p>吳恩達同時批評大學課程迭代太慢：新技能出現後，教師要先掌握，再設計課程，還要經過課程委員會與院系流程；等進入課堂時，AI 工具可能已經迭代好幾輪。</p><p>他的建議不是放棄大學，而是不要把大學課程當成全部能力來源；學生仍要認真上課，同時透過 Coursera、DeepLearning.AI、Udemy 等平台補上前沿 AI 技能。</p><span class="tag" data-field="lesson_tag">教育與入門職位</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">AI 原生能力不是會問問題，而是能用 AI 構建工具</h2><span class="ts-badge" data-field="lesson_timestamp">5:19</span></div><div class="body" data-field="lesson_body"><p>吳恩達把「用 AI 進行構建」視為技能版圖中最大的變化之一。當一件事變容易，更多人就應該去做；這不只適用於軟體工程師，也適用於行銷、招聘、HR、營運等角色。</p><p>影片舉例說，主持人的團隊已經為不同社群平台建立 AI 專案，用來分析嘉賓資料、評分候選嘉賓、建議訪談問題，並透過聊天記錄收集回饋。人仍做戰略決策，AI 則協助整理、分析與形成回饋循環。</p><p>這裡的重點不是建立一個統一的 AI KPI，而是把 KPI 放回業務：可能是客戶增長、留存、服務速度或任務準確率。AI 的價值要用業務結果衡量。</p><span class="tag" data-field="lesson_tag">AI 原生工作</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">人類的長期優勢是情境知識與品味判斷</h2><span class="ts-badge" data-field="lesson_timestamp">7:00</span></div><div class="body" data-field="lesson_body"><p>吳恩達說，AI 當資料科學家或腦力激盪夥伴時，往往會提出一兩個好點子、兩三個平庸點子，以及四個很糟的點子。人一眼就能判斷哪些很糟，AI 卻未必知道。</p><p>原因是人長期累積了大量情境資訊：客戶談話時的表情、主管特別在意的事、過去經驗中的細節與品味。這些資訊目前沒有完整輸送給 AI 的基礎設施，可預見未來也不容易解決。</p><p>因此，影片把人類判斷力的底層原因定位為「情境優勢」：不是人有神秘直覺，而是人掌握了 AI 沒被餵進去、也很難被完整形式化的脈絡。</p><span class="tag" data-field="lesson_tag">判斷力</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">AI 對工作有幫助，但對學習可能造成認知卸載</h2><span class="ts-badge" data-field="lesson_timestamp">8:16</span></div><div class="body" data-field="lesson_body"><p>吳恩達在影片中明確說，以今天最常見的使用方式來看，大語言模型不是好的學習工具。問題不只是 AI 可能答錯，而是它太擅長替人完成任務。</p><p>對工作而言，認知卸載可以提升生產力；但對學習而言，學習者真正需要的是讓自己的大腦經歷困難推理。如果 AI 直接替你完成，你可能完成了作業，卻沒有真正保留知識。</p><p>他也用自己的經驗說明：做專案時遇到前後端問題，讓 AI 直接給答案可以很快推進，但六個月後再遇到類似問題，自己並沒有記住，只能再問一次。</p><span class="tag" data-field="lesson_tag">學習風險</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">職位邊界會變寬，混合型角色會變多</h2><span class="ts-badge" data-field="lesson_timestamp">10:10</span></div><div class="body" data-field="lesson_body"><p>AI 不只是讓人做得更快，也會重新劃分職位邊界。影片先用軟體工程說明：AI 輔助編程降低跨前端與後端工作的門檻，更多人可以覆蓋較完整的開發流程。</p><p>同樣變化也會擴散到行銷、招聘、HR 與營運。過去只負責流程協調的人，未來可能覆蓋更完整的週期；但這要求人既學 AI，也保留原本領域的專業能力。</p><p>影片中吳恩達提到財務團隊自行建立自動化腳本、行銷同事做文章選題工具、招聘團隊有招聘工程師，並預測未來會出現更多行銷工程師、HR 工程師等混合角色。</p><span class="tag" data-field="lesson_tag">組織變化</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">07</span><h2 data-field="lesson_title">Agency 會變成比提示詞更重要的招聘標準</h2><span class="ts-badge" data-field="lesson_timestamp">11:46</span></div><div class="body" data-field="lesson_body"><p>當 AI 把第一次嘗試的成本壓低，組織更需要能自己發現問題、調用工具、找外部資源、判斷選題是否值得繼續的人。影片把這種能力稱為 agency。</p><p>吳恩達說，他們正在離開「坐著等老闆告訴你要做什麼」的時代。AI 讓人更容易負責任地越過原本的泳道，先探索、做出東西，再證明它有沒有價值。</p><p>因此，熟練使用 AI 不等於會寫提示詞。影片中提到，面試行銷職位時會直接問候選人做過什麼；如果從來沒有構建過任何軟體，會形成明顯能力差異。</p><span class="tag" data-field="lesson_tag">人才標準</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">08</span><h2 data-field="lesson_title">執行變便宜後，真正瓶頸轉向產品判斷與客戶理解</h2><span class="ts-badge" data-field="lesson_timestamp">17:40</span></div><div class="body" data-field="lesson_body"><p>談到 2026 年普通人圍繞 AI 做產品的機會時，吳恩達沒有列熱門賽道，而是給出很樸素的建議：學 AI、快速構建、與客戶交流。</p><p>影片指出，當構建成本大幅下降，最昂貴的環節不再是做出第一版，而是決定要構建什麼。吳恩達稱之為產品管理瓶頸。</p><p>他也提醒，週末做一個小應用已經變容易，但建立一家真正有意義的公司仍很難；通常仍需要深技術能力，或深客戶洞察與客戶集成。AI 沒有讓深度失去價值，只是讓淺層執行變便宜後，深度更醒目。</p><span class="tag" data-field="lesson_tag">產品機會</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">09</span><h2 data-field="lesson_title">AGI 爭議常來自定義不同</h2><span class="ts-badge" data-field="lesson_timestamp">19:21</span></div><div class="body" data-field="lesson_body"><p>影片最後談到 AGI。吳恩達先提醒，不同人宣稱 AGI 已到來或仍很遠，常常只是因為定義不同。</p><p>他較熟悉的定義是：AI 能完成任何人類能完成的智力任務。按照這個標準，AI 不只要能做長期原創研究，也要能像人一樣在陌生複雜環境中快速適應。</p><p>因此，吳恩達判斷距離仍可能是數十年；但他也指出，若把 AGI 門檻降得足夠低，人們甚至可以聲稱很早以前就已達成某種 AGI。</p><span class="tag" data-field="lesson_tag">AGI</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">AI 越強，那些機器做不了的東西，反而越容易被看見。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="0:54"><span class="ts">0:54</span><span class="text" data-field="key_point_text">吳恩達認為近年 AI 風險敘事中有大量誤導資訊，部分頭部公司可能藉恐懼推動有利於既有巨頭的監管。</span></li><li data-field="key_point" data-timestamp="1:58"><span class="ts">1:58</span><span class="text" data-field="key_point_text">分析 AI 就業衝擊時，不應先問 AI 會不會取代職業，而應把職業拆成任務；若 AI 自動化 30% 到 40% 任務，剩餘人類工作的價值反而會被放大。</span></li><li data-field="key_point" data-timestamp="2:47"><span class="ts">2:47</span><span class="text" data-field="key_point_text">軟體工程是受 AI 影響最明顯的例子，但吳恩達觀察到優秀工程師更忙，真正危險的是仍以 ChatGPT 出現前方式工作的人。</span></li><li data-field="key_point" data-timestamp="3:37"><span class="ts">3:37</span><span class="text" data-field="key_point_text">年輕人之所以脆弱，是因為初級工作常包含標準化、可重複、容易被 AI 接手的任務；教育體系的更新速度也跟不上 AI 工具變化。</span></li><li data-field="key_point" data-timestamp="5:19"><span class="ts">5:19</span><span class="text" data-field="key_point_text">AI 讓構建工具變容易，因此不只工程師，行銷、招聘、HR、營運等角色也應學會用 AI 做出工具。</span></li><li data-field="key_point" data-timestamp="7:00"><span class="ts">7:00</span><span class="text" data-field="key_point_text">AI 作為腦力激盪或資料科學助手會提出好點子、平庸點子與很糟的點子；人類的長期優勢來自情境知識、客戶互動與品味判斷。</span></li><li data-field="key_point" data-timestamp="8:16"><span class="ts">8:16</span><span class="text" data-field="key_point_text">吳恩達指出，今天常見的 AI 使用方式並不是好的學習工具，因為它太擅長替人完成任務，可能造成認知卸載並削弱長期留存。</span></li><li data-field="key_point" data-timestamp="10:10"><span class="ts">10:10</span><span class="text" data-field="key_point_text">AI 也在重劃職位邊界，讓前後端、行銷週期、招聘流程等過去分工明確的工作更可能由同一人跨域完成。</span></li><li data-field="key_point" data-timestamp="11:46"><span class="ts">11:46</span><span class="text" data-field="key_point_text">他建議無論主修什麼，都要學 AI、學會用 AI 構建東西；招聘要求中越來越常出現 agency，也就是主動推動事情的能力。</span></li><li data-field="key_point" data-timestamp="13:17"><span class="ts">13:17</span><span class="text" data-field="key_point_text">吳恩達提到他的行銷、財務、招聘團隊都在自行構建軟體或自動化工具，未來會出現更多行銷工程師、HR 工程師等混合角色。</span></li><li data-field="key_point" data-timestamp="14:47"><span class="ts">14:47</span><span class="text" data-field="key_point_text">談到資料隱私時，他建議敏感資訊要看服務條款與部署方式；大型企業可用 VPC 或本地模型，個人面對高度敏感資訊時也可考慮本地模型。</span></li><li data-field="key_point" data-timestamp="17:40"><span class="ts">17:40</span><span class="text" data-field="key_point_text">對想做 AI 產品的人，吳恩達的建議不是追熱門賽道，而是學 AI、快速構建、與客戶交流；執行變便宜後，產品管理與判斷力成為瓶頸。</span></li><li data-field="key_point" data-timestamp="19:21"><span class="ts">19:21</span><span class="text" data-field="key_point_text">關於 AGI，他認為不同說法常源於定義不同；若以完成任何人類智力任務為標準，距離仍可能是數十年。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="吳恩達">吳恩達</span><span class="tag-chip" data-tag="AI 就業">AI 就業</span><span class="tag-chip" data-tag="AI 教育">AI 教育</span><span class="tag-chip" data-tag="認知卸載">認知卸載</span><span class="tag-chip" data-tag="agency">agency</span><span class="tag-chip" data-tag="AI 原生工作">AI 原生工作</span><span class="tag-chip" data-tag="產品管理">產品管理</span><span class="tag-chip" data-tag="AGI">AGI</span><span class="tag-chip" data-tag="資料隱私">資料隱私</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>本報告依據 YouTube zh-Hans 字幕與影片描述整理；未進行影格 OCR，因本片主要內容已由字幕覆蓋。</li></ul></div></section>
+  
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="description"><div class="raw-label">YouTube description<button class="copy-btn" id="raw_description_4309210496_srt" onclick="copyRaw(this,'raw_description_4309210496_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_description_4309210496_text" onclick="copyRawText(this,'raw_description_4309210496_text')">📋 複製純文字</button></div><pre>吴恩达在Silicon Valley Girl播客访谈中系统回应AI就业恐慌。他认为AI不是取代岗位而是自动化其中30%-40%的任务，剩余人类工作因互补效应更有价值。大学课程迭代缓慢，年轻人需通过在线平台补充AI技能。AI虽擅长完成任务却不利于学习，认知卸载现象削弱知识留存。AI正在拓宽岗位边界，催生营销工程师等混合角色，招聘中最看重的已是主动性与构建能力。数据隐私方面建议敏感信息使用本地模型。黄仁勋称已实现AGI，但按&quot;完成任何人类智力任务&quot;定义，吴恩达判断仍需数十年。核心建议是学习AI、快速构建、与客户交流，在执行变便宜的时代，判断力和主动性才是人的新价值。
+
+https://www.youtube.com/watch?v=o-wv_szZ0V0</pre></div><div class="raw-block" data-field="raw_source_item" data-raw-type="transcript"><div class="raw-label">YouTube zh-Hans subtitle with timestamps<button class="copy-btn" id="raw_transcript_4309210816_srt" onclick="copyRaw(this,'raw_transcript_4309210816_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_transcript_4309210816_text" onclick="copyRawText(this,'raw_transcript_4309210816_text')">📋 複製純文字</button></div><pre>0:00 大家好，这里是最佳拍档，我是大飞
+0:03 如果只看过去一年关于AI的标题
+0:05 你很容易得出一个悲观结论
+0:08 模型越来越强
+0:09 年轻人的第一份工作越来越难找
+0:11 程序员首当其冲
+0:13 大学课程还没教完就已经过时
+0:15 于是有一个问题开始反复出现
+0:17 当机器能够接手越来越多知识工作
+0:20 人还剩下什么？
+0:22 吴恩达（Andrew Ng）在最近与 Silicon Valley Girl 主持人玛丽娜·莫吉尔科（Marina Mogilko）的长谈里
+0:26 给出的答案
+0:27 并不是AI不会影响就业
+0:29 相反
+0:29 他承认AI正在快速改变岗位内部的任务结构
+0:33 软件工程尤其明显
+0:34 但他反对把这种变化
+0:36 直接推演成就业末日
+0:38 吴恩达一路从就业谈到大学
+0:40 从学习谈到招聘，再谈到创业和AGI
+0:44 背后其实贯穿着同一个判断
+0:46 AI正在降低执行的价格
+0:48 却同时抬高了判断、主动性、跨领域能力
+0:52 以及对真实问题的理解
+0:54 访谈一开始
+0:54 主持人先提到今年夏天出现的一个越来越明显的AI悲观情绪
+0:59 数据中心、就业、失控风险
+1:01 几乎每一个话题都能迅速滑向恐惧
+1:04 吴恩达对此并不认同
+1:06 他的观点很鲜明
+1:07 过去两三年AI领域存在大量误导性信息
+1:11 一些领先AI公司不断强化风险叙事
+1:14 并且试图借助监管
+1:15 建立一个更有利于既有巨头的竞争环境
+1:18 他的逻辑是这样的
+1:20 如果你花了数十亿美元训练模型
+1:22 另一支团队却训练出模型
+1:24 并免费提供给全世界使用
+1:26 这对你会非常不利
+1:28 所以少数头部AI公司一直高声渲染恐惧
+1:31 希望推动监管
+1:32 制造一个偏袒既有公司的竞争环境
+1:35 有人说AI像核武器
+1:36 还有人声称AI数据中心的用水量远高于实际水平
+1:40 这种不断重复的恐惧信息
+1:42 正在拖慢美国采用AI的步伐
+1:45 让美国的竞争力下降
+1:46 这个判断带有吴恩达明确的个人立场
+1:49 但是它解释了为什么他对AI就业末日的言论尤其警惕
+1:53 当主持人问到失业和不平等时
+1:55 吴恩达没有否认自动化
+1:57 而是换了一个分析单位
+1:58 他说，不要问AI能不能取代一个职业
+2:01 而要把职业拆成任务
+2:03 也许AI可以完成很多工作中30%到40%的任务
+2:07 那意味着
+2:08 人类完成的那60%会变得更加有价值
+2:11 这是他整场访谈最重要的逻辑之一
+2:14 因为当30%到40%的任务被自动化
+2:17 成本下降
+2:18 它们与剩余的人类工作形成了经济上的互补关系
+2:22 岗位内部的价值分配也会随之改变
+2:25 过去大量时间消耗在执行环节
+2:27 现在执行更便宜了
+2:29 真正稀缺的部分会被放大
+2:31 斯坦福的经济学家埃里克·布林约尔松（Erik Brynjolfsson）
+2:33 和MIT的安迪·麦卡菲（Andy McAfee）等人做过类似的研究
+2:37 把岗位拆成单项任务来分析
+2:39 吴恩达说了一句很关键的话
+2:41 使用AI的人可能会取代不使用AI的人
+2:44 但是对绝大多数岗位来说
+2:46 AI还无法取代人
+2:47 软件工程是他拿来说明这一点的第一个例子
+2:50 他承认AI写代码已经非常强
+2:52 也是目前受AI影响最明显的职业之一
+2:55 但他观察到的
+2:56 并不是优秀软件工程师突然无事可做
+2:59 而是他们比过去更忙
+3:01 软件工程职位的空缺数量反而在上升
+3:04 真正陷入危险的
+3:05 是仍然按照ChatGPT出现之前的方式工作的程序员
+3:09 吴恩达说得很直接
+3:10 不要再做那30%到40%可以被AI自动化的事情
+3:14 让AI去做，然后提升自己的技能
+3:16 去做AI做不了的另外60%到70%
+3:20 这句话比学会使用AI更加具体
+3:22 它要求每个人重新拆解自己的工作
+3:25 哪些部分已经迅速商品化
+3:27 哪些部分仍然需要专业知识、业务理解、沟通、取舍和责任承担
+3:33 在当前能力边界下
+3:34 人的工作重心必须跟着机器能力一起移动
+3:37 主持人随后把问题推向最焦虑的一群人
+3:40 刚毕业的年轻人
+3:41 她提到此前与埃里克·布林约尔松的对话
+3:44 AI对总体就业的冲击也许还没有想象中那么大
+3:48 但是年轻劳动者已经显得更加脆弱
+3:50 原因很直观，新人最先承担的
+3:52 往往正是那些标准化、可重复、容易被AI接手的基础任务
+3:57 吴恩达没有把答案归结为年轻人经验不足
+3:59 而是把矛头指向教育体系的更新速度
+4:02 他仍然强调自己支持大学和学术体系
+4:05 但是大学课程的迭代机制天然缓慢
+4:08 一个新技能出现，教师要先掌握
+4:10 再设计课程
+4:11 再经过课程委员会和院系程序
+4:14 等它真正进入课堂
+4:16 AI工具可能已经迭代了好几轮
+4:18 他说
+4:19 很多大学仍然在让学生为2022年的工作做准备
+4:23 我们甚至应该让他们为2028年及以后的工作做准备
+4:27 这不是一句大学没用的判断
+4:29 恰恰相反
+4:30 吴恩达建议学生继续认真上课、拿好成绩、向老师学习
+4:35 区别只在于
+4:36 不能再假设学校提供的课程
+4:38 就是你进入就业市场所需要的全部能力
+4:41 他建议通过Coursera、DeepLearning.AI、Udemy等平台
+4:44 掌握大学课程还没纳入的前沿技能
+4:47 尤其是AI技能
+4:49 他拿自己办公室里的实习生举例
+4:51 团队里既有在校大学生、刚毕业的年轻人
+4:53 也曾经有高中生实习生
+4:55 他们可以非常高效
+4:57 关键是已经很AI原生
+4:59 让AI承担AI能做的部分
+5:00 同时主动投入到AI还做不了的部分
+5:03 这改变了年轻人的竞争逻辑
+5:05 过去，初级岗位的价值往往来自于
+5:07 我愿意做繁琐的基础工作，而现在
+5:10 这些工作恰恰最容易被机器压价
+5:13 年轻人需要更早进入理解问题、调用工具、跨越职能边界的环节
+5:17 并且对结果负责
+5:18 紧接着这个话题
+5:19 吴恩达做了一个很重要的延伸
+5:21 他说，技能版图里最大的变化之一
+5:24 是用AI进行构建，比过去容易得多
+5:26 当一件事变得容易了
+5:28 更多人就应该去做
+5:29 不仅专业软件工程师应该借助AI构建软件
+5:32 每个人用AI构建东西都会变得更容易
+5:35 愿意拥抱它的人会更有生产力、完成更多事情
+5:39 所以他明确提到
+5:40 营销人员、招聘人员、HR和运营人员
+5:43 如果学会用AI构建工具
+5:45 无论原本承担什么岗位
+5:47 都能完成更多工作
+5:49 主持人顺着这个话题问了一个很实际的问题
+5:52 部署AI后
+5:53 怎么衡量生产力的提升呢？
+5:55 公司有统一的KPI吗？
+5:57 吴恩达的回答也很务实
+5:58 他说AI带来的业务结果更多取决于业务本身
+6:01 而不是AI
+6:03 对有些企业
+6:04 指标可能是客户增长和留存
+6:06 对另一些企业
+6:07 可能是服务客户的速度提高
+6:09 或者某项任务的准确率提升
+6:11 KPI通常与业务相关
+6:13 而不是与AI本身相关
+6:16 主持人随后分享了她自己团队的做法
+6:18 她为每个社交媒体平台建立了单独的AI项目
+6:21 系统能够掌握历期嘉宾的全部分析数据
+6:24 按照若干标准给每位候选嘉宾评分
+6:27 包括是否被广泛引用、是否对AI持有明确观点等等
+6:31 不同条件有不同权重，最终满分40分
+6:34 40分代表第一档，30分代表第三档
+6:37 还有一个项目会分析每一期播客
+6:39 建议她应该怎样提问
+6:41 系统了解她的表达语气、个人档案和商业战略
+6:44 每个平台仍由一位员工负责
+6:46 由人作出战略决定
+6:48 团队还有一个机器人扫描所有的聊天记录来收集反馈
+6:52 她正在努力闭合反馈循环
+6:54 让AI持续从反馈中学习
+6:56 越来越了解她的品味
+6:58 吴恩达对此做了一个很精妙的补充
+7:00 他说
+7:00 AI作为数据科学家或者头脑风暴伙伴时
+7:04 通常会提出一两个好点子、两三个平庸点子
+7:07 以及四个糟糕透顶的点子
+7:10 你有时会想
+7:11 AI怎么可能认为那是一个合理方案呢？
+7:13 但这恰恰跟就业末日问题是直接相关的
+7:17 在很长时间内
+7:18 每一个人都会比AI拥有巨大的情境优势
+7:21 许多事情对你而言显而易见
+7:23 你一眼就知道某个点子很糟
+7:25 但是AI并不知道
+7:26 因为多年经验让你积累了大量知识
+7:29 与客户交谈时看到一个细微表情
+7:31 就知道对方不喜欢
+7:33 经理说过自己特别在意某件事
+7:35 你也会记住
+7:36 人类知道大量的信息
+7:38 但是把这些信息完整输送给AI的基础设施并不存在
+7:42 而且在可预见的未来，也不会存在
+7:44 人们常说，人类判断力或品味很重要
+7:48 对吴恩达而言
+7:49 人类判断和品味优于AI的底层技术原因
+7:52 就是这种情境优势
+7:53 它是一项长期优势
+7:55 几年内不会被解决
+7:57 聊完情境优势
+7:58 主持人把话题引向一个看似顺理成章的方向
+8:01 这是否意味着教育反而更加重要呢？
+8:03 因为教育和多年的知识积累才是情境优势的来源
+8:07 她提到另一种常见说法
+8:08 有了AI就不再需要教育
+8:10 所有信息都唾手可得
+8:12 直接问ChatGPT就行
+8:14 吴恩达的回答出乎很多人意料
+8:16 一个长期做AI教育、创办了Coursera和DeepLearning
+8:19 AI的人，却公开说
+8:21 以今天最常见的使用方式来看
+8:23 大语言模型并不是好的学习工具
+8:26 他的理由不是AI会给错答案
+8:28 而是AI太擅长替人把任务完成了
+8:31 越来越多的研究显示，学生使用AI后
+8:34 作业表现会提高
+8:35 但是长期保持和后续表现反而更差
+8:38 因为在完成任务的同时
+8:40 一部分本该由学习者自己承担的认知过程被外包了
+8:44 他把这种现象称为认知卸载（cognitive offloading）
+8:46 对工作来说
+8:47 认知卸载往往正是生产力提升的来源
+8:50 但是对学习来说，问题恰好相反
+8:53 你真正需要的不是把答案交出去
+8:55 而是让自己的大脑经历那段困难的推理
+8:58 他说维基百科和网络搜索都是很好的工具
+9:00 提供了大量的事实
+9:02 但是当你让AI代替自己工作时
+9:04 你是在把认知任务外包出去
+9:06 吴恩达也承认自己会掉进同样的陷阱
+9:09 他做项目时遇到前后端组件问题
+9:11 会直接让AI给出答案
+9:13 项目很快推进
+9:14 但六个月后再次碰到类似问题
+9:16 他发现自己没有记住
+9:17 只能重新问一次
+9:19 他说
+9:20 至少以今天绝大多数人使用AI模型的方式来看
+9:23 它对学习非常糟糕
+9:25 他随即补上了边界
+9:26 这并不是说AI不存在好的教育用法
+9:29 而是直接替学习者完成任务
+9:31 并不是一种好的学习机制
+9:33 这也是他现在领导新教育机构LearnVector的背景
+9:36 这个项目获得了Coursera 1亿美元投入
+9:39 吴恩达希望下一代在线教育从过去一对多的统一课程
+9:42 转向更个性化的一对一体验
+9:44 十五年前他参与在线课程运动
+9:47 改变了很多人学习方式
+9:48 但是那种体验仍主要是一对多
+9:51 所有人观看同样的视频
+9:53 如今技术已经能创造更加个性化的一对一体验
+9:56 真正困难的地方
+9:57 不是让AI回答更多问题
+9:59 而是设计一种机制
+10:01 让AI知道什么时候应该给答案
+10:03 什么时候应该逼学习者自己想
+10:06 团队预计明年年初会展示更多的成果
+10:09 从教育回到职场
+10:10 吴恩达提出了另一个容易被忽略的变化
+10:12 AI不仅让人做得更快
+10:14 也在重新划分岗位边界
+10:16 软件工程已经给出了一个预演
+10:18 前端和后端
+10:19 过去可以是相对独立的专业分工
+10:22 而AI辅助编程降低了跨栈工作的门槛
+10:25 越来越多人可以覆盖更完整的软件开发流程
+10:28 吴恩达认为这种变化会扩散到营销、招聘、HR和运营
+10:33 一个过去只负责营销流程协调的人
+10:35 未来可能覆盖更完整的营销周期
+10:38 过去只负责寻找候选人的寻访人员
+10:40 也可能承担端到端招聘
+10:43 承担这些更宽广的岗位
+10:44 需要学AI技能，但又不能只学AI
+10:47 还要掌握营销、招聘或其他专业技能
+10:51 这会产生强烈的再学习需求
+10:53 不过掌握之后，人就能完成更多事情
+10:56 承担更有趣的项目
+10:57 也可能获得更高收入
+10:59 吴恩达还提到一封让他印象很深的来信
+11:01 一个即将上大学的学生正在学习在线课程
+11:04 却很难决定大学专业
+11:06 因为担心四年后AI会完成所有的工作
+11:09 自己所学的一切都会过时
+11:11 吴恩达说，答案当然是否定的
+11:13 不会所有知识都过时
+11:14 但他担心的是，如果持续传播恐惧
+11:17 就会让人怀疑自己未来是否仍然有价值
+11:20 也让人不愿主动学习那些能够改善自身处境的技能
+11:24 他说
+11:24 在这个愿意投入的人将蓬勃发展的时代
+11:28 让人们放弃
+11:28 是我们能做的最糟糕的事情之一
+11:31 主持人也问到
+11:32 在AI时代最值得学习的专业是什么
+11:35 吴恩达说他不知道哪个专业最好
+11:37 优秀的专业有很多
+11:38 就像问世界上最好的工作是什么
+11:41 他的女儿想成为宇航员
+11:43 他甚至不知道大学是否有成为宇航员这个专业
+11:46 但他说，一定要学习AI
+11:48 也一定要学习用AI构建东西
+11:50 吴恩达团队最近在做一份AI工程技能地图
+11:53 让他有些意外的是
+11:54 数据里越来越频繁出现的招聘要求
+11:57 并不是某个模型、某种编程语言
+12:00 而是agency
+12:01 这个英文很难用一个中文词完全覆盖
+12:04 它既包括主动性
+12:06 也包括自驱力和把事情真正推进下去的能力
+12:09 他说，我们正在加速离开那个
+12:12 人们坐在那里等老板告诉自己该做什么的时代
+12:15 为什么AI反而会提高对主动性的要求呢？
+12:18 因为过去一个普通员工即使发现问题
+12:21 也可能缺预算、缺工程资源、缺跨部门支持
+12:24 只能等待组织安排
+12:26 现在，AI把第一次尝试的成本压低了
+12:29 主持人说
+12:29 她越来越希望员工像自己领域里的创业者
+12:32 可以调用工具，可以找外部资源
+12:35 可以判断一个选题值不值得继续
+12:37 吴恩达认同这种方向
+12:38 并且谈到大公司里常见的待在泳道里的文化
+12:42 指的是管理者要求员工只做自己职责范围内的事
+12:45 坦率讲
+12:46 这往往是因为经理自己的职业发展过于依赖那件事
+12:50 在他看来
+12:51 AI让人第一次更容易越过这条边界
+12:54 你看到一个问题
+12:54 可以先负责任地探索、做出东西
+12:57 再证明它有没有价值
+12:58 他说
+12:59 未来那些鼓励人们学习AI、快速构建、负责任地行动并与客户交流的公司
+13:04 会比更等级化、更孤立的组织创造更多价值
+13:09 这就引出一个很实际的问题
+13:10 怎样才算真正熟练使用AI？
+13:13 吴恩达给出的招聘标准
+13:15 比会不会写提示词高得多
+13:17 他说，他所有的营销人员都会写代码
+13:20 面试营销岗位时
+13:21 团队会直接问候选人做过什么
+13:23 如果一个人从来没有构建过任何软件
+13:26 这会成为非常明显的能力差异
+13:28 他举了几个具体的例子
+13:30 他的财务团队里
+13:31 首席财务官发现团队每周要花好几个小时在文档之间点击、打开文件、把数字复制粘贴到其他地方
+13:38 于是她开始构建定期运行的自动化脚本
+13:41 自动打开文件、检查内容和一致性
+13:44 如果出现异常或新增文档
+13:46 系统就会主动提醒团队
+13:48 团队不再等待工程师替他们完成
+13:50 而是能够自行构建仪表盘和数据管理基础设施
+13:54 还有一位营销同事
+13:55 为文章选题开发了一套工具
+13:57 它会抓取网络、寻找相关研究
+13:59 并在电脑上运行一个定制桌面应用
+14:01 突出显示相关文章
+14:03 他还可以与整个系统对话
+14:05 在自己正在撰写的内容和相关资料之间导航
+14:08 招聘团队则拥有招聘工程师
+14:10 也就是真正坐在招聘团队里的专业工程师
+14:13 专门开发复杂的招聘工具
+14:15 吴恩达由此推演
+14:16 未来还会出现更多营销工程师、HR工程师等混合型角色
+14:21 这也是他为什么不担心工程工作会做完
+14:24 AI让写代码更便宜
+14:26 并不意味着世界对软件的需求已经满足；
+14:28 相反
+14:29 过去因为太小、太碎而不值得开发的软件需求
+14:32 现在第一次有可能被大量满足
+14:35 技术能力因此开始从独立部门向业务一线渗透
+14:38 真正发生的不所有人都变成工程师
+14:41 而是越来越多岗位开始拥有一点过去只有工程师才具备的杠杆
+14:47 访谈还触及了一个很多人关心的话题
+14:49 数据隐私
+14:50 主持人提到自己授权Perplexity扫描投资账户
+14:53 让AI跟踪投资组合并提醒再平衡
+14:56 吴恩达的回答很谨慎
+14:58 说这很大程度取决于你把数据交给哪家公司
+15:01 他相信大型云服务商会完全遵守服务条款
+15:04 违背承诺不符合它们的文化
+15:06 也会严重破坏长期商业模式
+15:08 但至少有一家AI公司似乎会不时修改服务条款
+15:12 突然弹出提示说可以保留你的数据或用它训练模型
+15:16 没仔细阅读就点错按钮
+15:17 就等于授权对方以你不舒服的方式访问数据
+15:21 他提到自己的团队AI Aspire与大型企业合作
+15:24 其中包括拥有高度敏感金融数据的银行
+15:27 他们绝不会把重大非公开信息交给前沿模型实验室
+15:31 必须先认真设计护栏和隐私保护
+15:33 许多银行会把模型部署在虚拟私有云或本地环境
+15:37 数据从不离开自己的控制范围
+15:39 对个人而言，遇到高度敏感信息时
+15:42 他有时也会运行本地模型
+15:44 他提到Meta最近的模型不错
+15:46 最新版本的千问也很好
+15:47 但模型几乎每隔一周就会变化
+15:50 最佳实践是持续尝试新模型
+15:53 主持人还问到AI失控风险
+15:55 她提到曾采访过约书亚·本吉奥（Yoshua Bengio）
+15:57 后者反对在没有监管的情况下自由开放AI
+16:01 描绘了一些可怕场景
+16:02 基本逻辑是
+16:03 我们无法控制比自己更聪明的东西
+16:06 吴恩达用了飞机的类比
+16:07 他说没有人能造出一架可以被完美控制的飞机
+16:11 风会使它颠簸
+16:12 早期开发飞机时
+16:13 确实有飞机坠毁并造成人员死亡的案例
+16:16 那非常悲惨
+16:17 但我们从早期教训中不断学习
+16:20 越来越好地控制飞机
+16:22 今天大多数人登上飞机时
+16:24 不必过度担心生命安全
+16:26 AI也是如此
+16:27 运行过程中已出现过少量事故
+16:29 其中一些也造成了真实损害
+16:32 但无论飞机、电路还是AI
+16:34 工程方法都是谨慎提高系统能力
+16:37 在受控环境中测量哪里出了问题
+16:39 再不断调整
+16:40 我们永远无法完美控制AI
+16:42 但已能把它控制到足够好的程度
+16:45 他还谈到了深度伪造和儿童
+16:48 他说未经本人同意制作的私密深度伪造影像
+16:51 是他见过最令人厌恶的事情之一
+16:53 美国国会正在采取行动立法禁止并施以严厉处罚
+16:57 关于孩子
+16:58 主持人说她五岁的女儿每当答不上来就会说问ChatGPT
+17:02 吴恩达自己也有一个五岁和一个七岁的孩子
+17:05 他说孩子们拥有光明的未来
+17:07 在这个时代长大令人兴奋
+17:09 但AI损害学习的问题令他担忧
+17:12 教孩子数学时
+17:13 他可以不让他们用计算器
+17:14 而是要求亲自计算乘法
+17:16 但等孩子再大一些
+17:18 他很担心认知外包损害长期学习和知识留存
+17:22 他自己还因为不喜欢现有的打字学习工具
+17:25 给孩子构建了一个应用
+17:26 帮助女儿学打字
+17:28 七岁的孩子已经可以输入所有小写字母
+17:30 只是大写字母还不太熟练
+17:33 他说成人在监督下使用数字工具对孩子很有价值
+17:36 但设计正确的激励机制非常重要
+17:39 到访谈最后几分钟
+17:40 主持人才问出那个核心问题
+17:42 2026年
+17:43 一个普通人如果想围绕AI做产品
+17:45 最大的机会在哪里？
+17:47 吴恩达没有报出热门赛道
+17:49 也没说Agent、机器人或者医疗
+17:51 他的答案反而非常朴素
+17:53 他说，因为构建成本已经大幅下降
+17:56 我鼓励大家学习AI、快速构建
+17:58 并和客户交流
+18:00 他说自己现在几乎每周、每个周末都在做东西
+18:03 前一个周末
+18:04 他需要分析大量脱敏后的关键业务指标
+18:06 没有时间自己处理
+18:08 也没有时间先找数据科学家排期
+18:10 于是在确认数据保留政策符合要求后
+18:13 直接调用前沿模型做分析
+18:15 这类例子真正重要的不是吴恩达也在用AI写代码
+18:18 而是它揭示了软件经济学正在发生的变化
+18:21 当构建成本大幅下降
+18:24 过去最昂贵的环节不再是把第一版做出来
+18:27 挑战正在转移到决定要构建什么
+18:29 吴恩达把它称为产品管理瓶颈
+18:32 创始人、工程师和产品经理如果能够与客户交谈
+18:35 形成判断该构建什么的品味
+18:37 再借助AI快速构建和迭代
+18:40 就会拥有大量令人兴奋的机会
+18:42 但吴恩达紧接着给这股人人都能创业的乐观降了温
+18:46 周末做一个简单应用已经很容易
+18:48 建立一家真正有意义的公司仍然非常难
+18:51 真正的公司往往需要两类东西中的至少一种
+18:54 足够深的技术能力
+18:55 或者足够深的客户洞察与客户集成
+18:58 复杂软件仍然可能需要数月甚至数年
+19:01 理解客户同样需要长期交流、观察反馈、反复验证
+19:06 他还提到
+19:06 虽然可以同时尝试多个想法
+19:09 但单线程领导
+19:10 也就是一个人全身心专注一件事
+19:12 仍然很有价值
+19:14 所以AI没有让深度失去价值
+19:16 它只是把浅层执行变便宜之后
+19:18 让深度变得更醒目
+19:21 访谈最后，主持人问到AGI
+19:23 她提到黄仁勋（Jensen Huang）曾说我们已经实现了AGI
+19:25 而吴恩达认为还需要数十年
+19:28 吴恩达也首先强调
+19:29 不同人宣布AGI已经到来
+19:31 或者AGI还很远
+19:33 很多时候只是因为定义不同
+19:35 他最熟悉的定义是
+19:36 AI能够完成任何人类能够完成的智力任务
+19:39 他给了两个尺度完全不同的例子
+19:41 一个人可以用五年时间学习并完成博士论文
+19:45 另一方面
+19:45 一个人也可以经过几十分钟练习
+19:48 就学会在陌生而复杂的环境里驾驶卡车穿过茂密雨林
+19:52 AI什么时候既能完成前一种长期原创研究
+19:56 又能像人一样快速适应后一种全新环境？
+19:59 在他看来
+20:00 类似尚未解决的能力还有很长一张清单
+20:03 所以他判断时间尺度仍可能是几十年
+20:06 希望只需要数十年，也可能更久
+20:08 但他同时提醒
+20:09 AGI的门槛可以被人为调整
+20:12 标准降得足够低
+20:13 人们甚至可以声称几十年前就已经实现某种AGI
+20:17 而企业的经济激励也可能影响它们何时愿意宣布某个里程碑
+20:21 比如OpenAI和微软过去曾有一项协议
+20:24 虽然目前似乎已经重新谈判
+20:26 但OpenAI曾经存在较早宣布达到AGI的经济动机
+20:30 吴恩达在这场访谈里反复说一个词
+20:33 build
+20:34 去学，去做
+20:35 去和真实的客户交流
+20:36 发现问题之后先动手试一试
+20:38 这个词背后的意味
+20:40 不是在要求每一个普通人都变成AI专家
+20:43 也不是告诉我们必须拼命追上每一次技术更新
+20:46 恰恰相反，它是在提醒我们
+20:48 不要因为未来变化得太快
+20:49 就提前放弃对自己生活的主动权
+20:52 你可以不会训练模型
+20:54 可以看不懂最新的论文
+20:55 甚至不需要知道AGI究竟会在五年、二十年还是五十年后到来
+21:00 但你可以从今天开始
+21:02 少做一点机器已经很擅长的事情
+21:04 多花一点时间去理解自己的行业、身边的人和真正的问题；
+21:08 可以试着用AI解决一个以前解决不了的小麻烦
+21:11 也可以认真学会一件你不愿意永远交给AI替你完成的事情
+21:15 AI越强，那些机器做不了的东西
+21:17 反而越容易被看见
+21:19 感谢收看，我们下期再见</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://youtu.be/orYp8SWDhHs?si=3fCzBM0MH2b6zsqL" target="_blank" rel="noopener">https://youtu.be/orYp8SWDhHs?si=3fCzBM0MH2b6zsqL</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
