@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 做到 90%，為什麼你還是放不下心？Grok Bot 如何成為能接手工作的 AI 同事 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>AI 做到 90%，為什麼你還是放不下心？Grok Bot 如何成為能接手工作的 AI 同事</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-09-17 06:34</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">AI 做到 90%，為什麼你還是放不下心？Grok Bot 如何成為能接手工作的 AI 同事</h1>
+    <div class="meta"><span data-field="channel">📺 Nana Chen Studio</span><span data-field="duration">⏱ 13:44</span><span data-field="published_date">🗓 2026-09-16</span><span data-field="original_language">🌐 zh-Hans</span><a data-field="source_url" href="https://youtu.be/VHQWXlcb50c" target="_blank" rel="noopener">🔗 https://youtu.be/VHQWXlcb50c</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>這支影片整理 Nana Chen Studio 對 Grok Bot 產品負責人 Roman Ugarte 訪談內容的轉述，核心問題是：AI 如果只能把工作推進到 90%，人仍然無法真正放心放手。影片以招聘、銷售、軟體測試、資訊整理等例子說明，能被委派的 AI 需要雲端持續執行、自己的電腦環境、長期記憶、多智能體協作，以及把成果放到人真正會使用的位置。Grok Bot 團隊把「像同事一樣工作」拆成許多具體產品決策，包括是否顯示底層執行過程、哪些功能要在發布前刪掉、怎樣讓普通使用者不必理解技能或斜線命令也能建立自動化。影片也描述產品早期從內部原型到公開發布的密集迭代：核心團隊親自帶幾百位早期使用者上手，從雲端電腦啟動、Shopify 整合、商品文案等真實卡點中調整產品。Roman 的判斷是，AI 同事的價值不在漂亮分析本身，而在於能否連續推進、合理回報、必要時打斷人、最後把結果交到合適地方。給新使用者的建議則是先提供工作背景，讓機器人提出可接手任務，從兩項具體工作開始觀察交付，再逐步擴大範圍。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">一、真正的委派不是 90% 初稿，而是讓人能放下心</h2><span class="ts-badge" data-field="lesson_timestamp">0:00</span></div><div class="body" data-field="lesson_body"><p>影片一開始把問題切在使用者感受：AI 如果只是寫出一份還要反覆修改的初稿，人仍然要記得整件事、判斷卡在哪裡、繼續往前推。Roman Ugarte 的判斷是，能把工作完整接過去的 AI，和只把工作推到 90% 的 AI，屬於不同類別。</p><p>這個差異不只是模型能力，而是工作責任的轉移。當任務交出去後，使用者是否能真正把注意力轉向另一件事，是影片反覆檢驗 AI 同事價值的核心標準。</p><span class="tag" data-field="lesson_tag">委派體驗</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">二、招聘案例揭示完整工作流需要跨工具、跨時間、跨人脈</h2><span class="ts-badge" data-field="lesson_timestamp">1:01</span></div><div class="body" data-field="lesson_body"><p>招聘案例不是單純找資料。AI 需要每天查看學術會議網站、下載新論文、找出尚未追蹤的作者、補進表格、研究背景，再查公司內是否有人認識候選人，必要時透過 Slack 請同事引薦。</p><p>這個例子說明 AI 同事必須處理時間上的連續性：今天追蹤過誰、明天新增誰、哪些候選人值得進一步溝通，都要被記住與銜接。若只完成前段搜尋，後續查重、整理、聯絡仍交還給人，注意力負擔就沒有真正消失。</p><span class="tag" data-field="lesson_tag">招聘流程</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">三、雲端執行與自己的電腦，是 AI 同事能持續工作的基礎</h2><span class="ts-badge" data-field="lesson_timestamp">2:06</span></div><div class="body" data-field="lesson_body"><p>Grok Bot 很早就把執行環境放在雲端，因為使用者不該反覆擔心合上筆電後任務是否還會跑、從手機發起的工作是否還綁著家裡電腦。機器人獨立於使用者裝置存在，才有「等我回來看結果」的前提。</p><p>影片也強調機器人需要自己的電腦使用環境。許多銷售軟體沒有完善 API 或 MCP，但人仍能靠打開網頁、點按鈕、填表格完成工作；機器人也需要同樣能力。Roman 用新同事會配電腦的比喻說明，共用使用者筆電和憑證會讓協作變得彆扭。</p><span class="tag" data-field="lesson_tag">雲端智能體</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">四、可靠交付包含底層操作能力與合理回饋，而不只是漂亮分析</h2><span class="ts-badge" data-field="lesson_timestamp">3:06</span></div><div class="body" data-field="lesson_body"><p>影片提到早期機器人操作 Salesforce 儀表板時，因滑鼠控制不夠精細而點不到特定區域，整個流程卡住。團隊把這類明確失敗交給基礎設施逐項修復；當過去連續 7 天失敗的流程終於跑通，使用者第二天就能感受到差異。</p><p>這也讓「AI 同事」有了具體標準：模型能否分析只是其中一部分，能不能點對位置、把該推進的部分推完、在需要人判斷時再回來詢問，同樣決定最終交付。</p><span class="tag" data-field="lesson_tag">可靠性</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">五、長期記憶與角色分工，讓多個機器人變成一支 AI 團隊</h2><span class="ts-badge" data-field="lesson_timestamp">4:00</span></div><div class="body" data-field="lesson_body"><p>Roman 不滿意每個任務都新開一個聊天視窗，因為使用者會不斷在不同窗口間複製背景。Grok Bot 因此按工作角色組織智能體，讓負責某類事務的機器人保留過去互動記憶，持續累積對使用者的了解。</p><p>內部試用常見做法是一個人設 5 到 10 個機器人，分別負責不同領域。到第二週，有人開始把表現突出的機器人設為「幕僚長」，主要與它溝通，再由它分派任務給其他機器人。團隊沒有一開始就把這寫成標準答案，而是先觀察外部使用者是否也自然走向類似模式。</p><span class="tag" data-field="lesson_tag">多智能體協作</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">六、資訊處理要形成閉環：收集、測試、整理、放到對的位置</h2><span class="ts-badge" data-field="lesson_timestamp">4:58</span></div><div class="body" data-field="lesson_body"><p>Roman 的深入用法是讓機器人長期處理資訊：接入 Email 與 Slack，告訴它自己的職責、關心項目、哪些情況需要立即提醒、哪些只需放進每日簡報。進一步配置中，機器人也會關注 X 上提到 Grok Bot 的內容，並把故障回饋交給測試機器人嘗試復現。</p><p>測試機器人在自己的環境裡安裝 Grok Bot，測桌面應用新版本，跑指定 10 個工作流，把結果寫入 Notion，並與舊版本測試紀錄對比。影片特別指出，完成任務還包括把成果交到合適位置；若結果散落在不同對話裡，人仍要每天整理，負擔又回到自己身上。</p><span class="tag" data-field="lesson_tag">資訊工作流</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">07</span><h2 data-field="lesson_title">七、主動性需要邊界：該打斷才打斷，其他資訊安靜整理</h2><span class="ts-badge" data-field="lesson_timestamp">6:04</span></div><div class="body" data-field="lesson_body"><p>當流程長期運行，AI 就可能主動找人。影片說有些使用者已讓機器人在特別緊急時呼叫自己，但這能否成立，取決於使用者是否相信它能辨別緊急情況，而不是不斷誤報。</p><p>所以主動性不是通知越多越好。合理的工作要求是：該打斷時及時打斷，其餘資訊安靜整理好。否則全天候助手會變成全天候製造通知的來源。</p><span class="tag" data-field="lesson_tag">通知與信任</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">08</span><h2 data-field="lesson_title">八、產品早期靠密集上手指導，看見抽象待辦背後的真實卡點</h2><span class="ts-badge" data-field="lesson_timestamp">6:31</span></div><div class="body" data-field="lesson_body"><p>Grok Bot 的時間線很緊湊：從第一行程式到內部原型約一個月，內部測試到公開發布又約三週。核心團隊在獨立辦公區與私有 Slack 頻道快速決策，目標是探索通用知識工作的體驗。</p><p>真正讓問題變具體的，是約兩週內親自帶幾百名早期使用者上手。有時雲端電腦啟動不了，或使用者不知道下一步該做什麼，團隊成員就在通話中一起等 20 分鐘。咖啡店老板也提供了 Shopify 集成不穩、商品文案不合需求等非技術公司內部試用看不到的回饋。</p><span class="tag" data-field="lesson_tag">產品迭代</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">09</span><h2 data-field="lesson_title">九、發布前不是加更多功能，而是刪掉不需要使用者處理的資訊</h2><span class="ts-badge" data-field="lesson_timestamp">8:14</span></div><div class="body" data-field="lesson_body"><p>Roman 提到發布前的一個關鍵詞是「下線功能」。早期原型放了很多實驗設計，也把方便研發調試的模型內部過程、具體記憶等內容塞進使用者介面。面向真正使用者時，團隊重新判斷哪些資訊需要使用者處理，哪些應藏到後台。</p><p>使用者需要知道機器人正在工作、在合適時間收到進展；有些人也想看待辦清單、任務優先級與狀態。但這不同於閱讀底層執行日誌。前者幫助人協調工作，後者不一定幫助決策。</p><span class="tag" data-field="lesson_tag">產品設計</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">10</span><h2 data-field="lesson_title">十、把能力講成一句可執行的話，並讓系統承擔複雜性</h2><span class="ts-badge" data-field="lesson_timestamp">9:00</span></div><div class="body" data-field="lesson_body"><p>團隊用「Grok Bot 現在可以……」來檢查新增能力是否清楚。例子是使用者直接說每天早上 8 點提醒自己做某事，機器人就把定期任務設好；Roman 說當時平台上 99% 的自動化任務都是這樣建立的。</p><p>影片說這套思路受 OpenClaw 啟發：讓模型接觸更充分工具，並把 AI 當成持續協作夥伴。Grok Bot 進一步追求降低搭建環境與學習操作方式的負擔，讓普通使用者不需要知道什麼是技能，也不必記住斜線命令。</p><span class="tag" data-field="lesson_tag">自動化建立</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">11</span><h2 data-field="lesson_title">十一、團隊決策回到「真實隊友會怎麼做」</h2><span class="ts-badge" data-field="lesson_timestamp">10:26</span></div><div class="body" data-field="lesson_body"><p>當兩個產品方案各有道理、難以取捨時，Roman 說團隊會退後一步，想想同樣情境下希望真實隊友怎麼做。這個問題讓討論落到合作體驗：人需要什麼回饋、什麼時候需要參與、哪些事能放心交給對方。</p><p>執行文化上，他常說「直接去做」：發現問題的人要主動調動資源推動解決。影片也指出這種快速、帶有混亂感的環境不一定適合所有人，但團隊互信、執行能力與共同方向，是保持速度的關鍵。</p><span class="tag" data-field="lesson_tag">團隊文化</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">12</span><h2 data-field="lesson_title">十二、商業上的護城河，是持續把未來提前變成今天可用</h2><span class="ts-badge" data-field="lesson_timestamp">11:36</span></div><div class="body" data-field="lesson_body"><p>面對模型能力不斷變強、他人也能取得類似能力的問題，Roman 的回答是反覆把未來幾個月可能做到的事，盡量提前變成今天可用的產品。模型暫時做不好的地方，先靠工程與產品設計補上；模型追上後，再拆掉那些臨時結構，繼續解下一批問題。</p><p>影片把這個策略接回銷售和招聘案例：有時未來提前落地，是一個很小但真實的改進，例如過去點不到的按鈕終於點到了，原本中斷的流程終於完成，使用者少一次接管，才開始願意交出更多任務。</p><span class="tag" data-field="lesson_tag">產品策略</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">13</span><h2 data-field="lesson_title">十三、從兩項具體工作開始，比一開始打造萬能數位團隊更容易落地</h2><span class="ts-badge" data-field="lesson_timestamp">12:43</span></div><div class="body" data-field="lesson_body"><p>影片最後把 AI 同事的標準收斂為四個問題：是否獲得必要背景與工具、能否連續推進、遇到問題是否合理回饋、最後是否把結果放到人能使用的地方。每一項都需要真實工作來檢驗。</p><p>Roman 給新使用者的建議很樸素：提供必要工作背景，再讓機器人建議幾件可接手的事。他自己曾讓機器人閱讀 Email 與 Slack，提出 5 項建議，其中 2 項確實有用，於是就建立兩個機器人去做。先從兩項具體工作開始，觀察交付，再逐步擴大範圍。</p><span class="tag" data-field="lesson_tag">使用建議</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">當任務交出去以後，你能不能把注意力真正轉向另一件事？如果這種放心能在越來越多工作裡重複發生，AI 作為伙伴的價值才會一點點建立起來。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="0:00"><span class="ts">0:00</span><span class="text" data-field="key_point_text">開場提出差異：AI 寫初稿仍需人反覆修改，和 AI 真正把工作完整辦完，是兩種不同體驗；關鍵在委派後人能不能放心轉去做別的事。</span></li><li data-field="key_point" data-timestamp="1:01"><span class="ts">1:01</span><span class="text" data-field="key_point_text">招聘案例說明完整委派：AI 需要定期查看學術會議、下載新論文、追蹤作者、補表格、查背景、找內部引薦，並跨日期銜接狀態。</span></li><li data-field="key_point" data-timestamp="2:06"><span class="ts">2:06</span><span class="text" data-field="key_point_text">Grok Bot 把執行環境放在雲端，讓任務不依賴使用者眼前的裝置，使用者從不同地方聯絡它時仍保有一致工作狀態。</span></li><li data-field="key_point" data-timestamp="2:30"><span class="ts">2:30</span><span class="text" data-field="key_point_text">機器人需要自己的電腦環境，因為很多銷售或內部工具沒有好用 API / MCP；像新同事一樣配電腦，可以減少與使用者共用裝置與憑證的干擾。</span></li><li data-field="key_point" data-timestamp="3:06"><span class="ts">3:06</span><span class="text" data-field="key_point_text">實際交付取決於底層動作能否成功，例如 Salesforce 儀表板點不到目標區域會卡住；團隊把這類明確失敗交給基礎設施逐項修復。</span></li><li data-field="key_point" data-timestamp="4:00"><span class="ts">4:00</span><span class="text" data-field="key_point_text">Grok Bot 嘗試按工作角色組織智能體，保留特定角色的長期記憶；內部常見做法是一人設 5 到 10 個機器人，後來有人把表現突出的機器人設為「幕僚長」。</span></li><li data-field="key_point" data-timestamp="4:58"><span class="ts">4:58</span><span class="text" data-field="key_point_text">Roman 的深入用法是讓機器人長期處理大量資訊：讀 Email、Slack、X 上提到 Grok Bot 的內容，並把故障回饋交給測試機器人嘗試復現。</span></li><li data-field="key_point" data-timestamp="5:26"><span class="ts">5:26</span><span class="text" data-field="key_point_text">測試機器人在自己的環境裡安裝 Grok Bot、測桌面應用新版本、跑 10 個工作流、寫入 Notion，並與舊版本測試紀錄對比。</span></li><li data-field="key_point" data-timestamp="5:43"><span class="ts">5:43</span><span class="text" data-field="key_point_text">完成任務還包括成果交付位置：每天摘要要統一寫進資料庫，否則結果散落不同對話，人仍需每天整理。</span></li><li data-field="key_point" data-timestamp="6:04"><span class="ts">6:04</span><span class="text" data-field="key_point_text">AI 主動找人必須有邊界：緊急時打斷，其餘資訊安靜整理；如果無法辨別緊急程度，全天候助手會變成全天候通知來源。</span></li><li data-field="key_point" data-timestamp="6:31"><span class="ts">6:31</span><span class="text" data-field="key_point_text">產品從第一行程式到內部原型約一個月，內測到公開發布約三週；核心團隊用私有 Slack 與獨立辦公區快速決策。</span></li><li data-field="key_point" data-timestamp="7:17"><span class="ts">7:17</span><span class="text" data-field="key_point_text">真正暴露問題的是人工帶幾百位早期使用者上手，包括等待雲端電腦啟動、使用者不知道下一步，以及咖啡店老板回報 Shopify 與商品文案問題。</span></li><li data-field="key_point" data-timestamp="8:14"><span class="ts">8:14</span><span class="text" data-field="key_point_text">發布前的重要工作是刪除功能：把模型內部過程、具體記憶等不需要使用者處理的內容藏到後台，只保留有助協調的待辦、優先級與狀態。</span></li><li data-field="key_point" data-timestamp="9:00"><span class="ts">9:00</span><span class="text" data-field="key_point_text">團隊用「Grok Bot 現在可以……」檢查新增能力是否說清楚；Roman 說當時平台 99% 自動化任務都可用一句話建立。</span></li><li data-field="key_point" data-timestamp="9:23"><span class="ts">9:23</span><span class="text" data-field="key_point_text">產品受 OpenClaw 啟發，重點是讓模型接觸更充分工具、把 AI 當持續協作夥伴；Grok Bot 進一步降低環境搭建與操作學習負擔。</span></li><li data-field="key_point" data-timestamp="10:26"><span class="ts">10:26</span><span class="text" data-field="key_point_text">團隊決策會回到一個問題：在同樣情境下，希望真實隊友怎麼做；這讓產品討論落到合作體驗、回饋時機與可放心交付的邊界。</span></li><li data-field="key_point" data-timestamp="11:36"><span class="ts">11:36</span><span class="text" data-field="key_point_text">商業問題的回答是把未來幾個月可能做到的事提前變成今天可用的產品；模型暫時不會的地方先用工程與產品補上，模型追上後再刪掉臨時結構。</span></li><li data-field="key_point" data-timestamp="12:43"><span class="ts">12:43</span><span class="text" data-field="key_point_text">AI 同事的可觀察標準包括：是否有必要背景與工具、能否連續推進、遇到問題是否合理回饋、最後是否把結果放到人可使用的地方。</span></li><li data-field="key_point" data-timestamp="12:56"><span class="ts">12:56</span><span class="text" data-field="key_point_text">給新使用者的建議是提供必要工作背景，讓機器人建議能接手的事，先從兩項具體工作開始，觀察交付後再擴大範圍。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="Grok Bot">Grok Bot</span><span class="tag-chip" data-tag="AI 同事">AI 同事</span><span class="tag-chip" data-tag="雲端智能體">雲端智能體</span><span class="tag-chip" data-tag="長期記憶">長期記憶</span><span class="tag-chip" data-tag="多智能體協作">多智能體協作</span><span class="tag-chip" data-tag="工作自動化">工作自動化</span><span class="tag-chip" data-tag="AI 產品設計">AI 產品設計</span><span class="tag-chip" data-tag="Cursor">Cursor</span><span class="tag-chip" data-tag="Roman Ugarte">Roman Ugarte</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>本報告依 YouTube 字幕逐字稿與影片描述整理，未使用畫面 OCR；原始逐字稿為簡中，主文已依 KL 偏好轉為繁中。</li><li>影片提到的 OpenClaw、Grok Bot 等英文名稱依逐字稿保留；若原訪談產品名另有官方拼寫，需以來源訪談頁面核對。</li></ul></div></section>
+  
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="transcript"><div class="raw-label">逐字稿全文<button class="copy-btn" id="raw_transcript_4336405696_srt" onclick="copyRaw(this,'raw_transcript_4336405696_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_transcript_4336405696_text" onclick="copyRawText(this,'raw_transcript_4336405696_text')">📋 複製純文字</button></div><pre>0:00 大家好，我是娜娜。
+0:01 你把一项工作交给 AI
+0:03 然后关掉电脑去做别的事，
+0:05 等你回来，
+0:06 它已经把事情办完。
+0:07 这种体验和 AI
+0:09 帮你写了一份还需要反复修改的初稿。
+0:11 到底差在哪里？
+0:12 GrokBot
+0:13 的产品负责人罗曼乌加特有一个判断，
+0:16 能把工作完整接过去的 AI
+0:18 与只能帮你推进到 90% 的 AI
+0:20 带来的感受属于不同的类别。
+0:22 在他描述的委派体验里，
+0:24 关键是任务交出去以后，
+0:26 人能不能真正放下心，
+0:27 不再一直惦记着。
+0:29 在 2026 年 9 月 8 日发布
+0:31 的 Lenny&#x27;s Podcast 访谈中，
+0:32 罗曼讲了这款产品的诞生过程。
+0:35 他曾负责 Cursor 的增长，
+0:36 也是 GrokBot
+0:37 从早期原型走到发布的核心成员。
+0:40 他们想解决的问题很具体，
+0:42 编程之外，
+0:43 那些每天处理邮件、
+0:44 招聘、销售和信息整理的人。
+0:47 怎样才能拥有一个真正替
+0:48 自己干活的 AI 伙伴？
+0:50 这件事最值得看的地方在于，
+0:52 他们把像同事一样工作落实成了一连串产品决定，
+0:56 而这些决定既涉及 AI 在哪里运行，
+0:58 也涉及用户究竟需要看见多少东西。
+1:01 先说一个招聘案例。
+1:02 按照罗曼介绍的内部招聘思路，
+1:05 找人的起点是公司有一个具体问题需要谁来解决。
+1:08 合适的人可能根本没有投简历，
+1:10 甚至没有找工作的打算。
+1:12 因此，他们希望 AI 持续做这样一套工作。
+1:15 每天早上访问某个学术会议网站，
+1:17 下载新出现的论文 PDF
+1:19 找出尚未追踪过的作者，
+1:21 把名字补进表格，
+1:23 研究这些人的背景。
+1:24 再看看公司里有没有人认识他们。
+1:27 如果存在直接联系，
+1:28 就通过 Slack 请求同事引荐。
+1:30 这里面跨过了网站、
+1:32 文件、表格和内部沟通工具。
+1:35 它还有时间上的连续性，
+1:36 今天看过哪些人，
+1:38 明天出现了哪些新名字。
+1:40 都需要衔接。
+1:41 招聘团队希望接到的是值得进一步沟通的人选，
+1:45 然后把精力放到交流和争取候选人上。
+1:48 这个例子也解释了为什么罗曼那么
+1:50 强调最后一段路。
+1:52 如果 AI 只找到了论文，
+1:53 剩下的下载、
+1:54 查重、整理和联系都等人接手，
+1:57 那么人仍然需要记住整件事，
+1:59 判断它卡在哪里，
+2:00 再把流程往前推。
+2:01 哪怕前面生成了很多内容，
+2:03 这项工作依然占着人的注意力。
+2:06 为了让 AI 继续往下做，
+2:07 GrokBot
+2:08 团队很早就确定运行环境放在云端。
+2:11 用户不应该反复研究合上笔记本以后任务
+2:14 还会不会执行，
+2:15 从手机发起的工作是不是还要连着家里的电脑。
+2:18 罗曼希望机器人独立于用户设备存在。
+2:20 你从不同地方联系它，
+2:22 它都保留一致的工作状态。
+2:24 这个决定让等我回来再看结果有了基础，
+2:27 因为任务的持续执行不再系在你眼前这台设备上。
+2:30 他们还给机器人提供自己的计算机使用环境，
+2:33 理由同样来自具体工作。
+2:35 销售团队用到的一些软件并没有
+2:37 完善的 API 或者 MCP 支持。
+2:40 你可以把这些接口理解成软件留给
+2:42 程序的办事通道。
+2:43 通道不好用的时候，
+2:44 人依然能打开网页、
+2:46 点击按钮、
+2:47 在输入框里填写内容。
+2:49 机器人也需要这套能力。
+2:51 罗曼用了一个很容易理解的比喻，
+2:53 你招来一位新同事，
+2:54 会给他配电脑。
+2:56 如果让他永远坐在你旁边，
+2:57 两个人轮流抢同一台笔记本，
+2:59 还互相碰到对方的登录凭证，
+3:01 协作会非常别扭。
+3:03 让 AI 有自己的工作环境，
+3:04 就是在减少这种互相干扰。
+3:06 不过有了环境，
+3:08 具体动作仍然可能失败。
+3:10 他提到早期机器人
+3:11 操作 Salesforce 仪表盘时，
+3:13 鼠标控制不够精细，
+3:14 点不到某个区域，
+3:15 整个工作流就卡住了。
+3:17 团队把这种明确的失败交给底层基础设施团队，
+3:20 一项项解决。
+3:21 当一个过去连续 7 天失败的
+3:23 销售流程终于跑通，
+3:24 使用者第二天就能感受到变化。
+3:26 这样的改进在界面上未必多出一个按钮，
+3:29 但它让一整块工作变得可以交出去。
+3:32 对这款产品而言，
+3:33 能不能点击正确的位置和模型能不能给
+3:37 出漂亮的分析，
+3:38 同样影响最终交付。
+3:40 罗曼描述的交付也包括先带回一份结果，
+3:43 等用户反馈，
+3:44 再进入下一轮工作。
+3:45 关键在于机器人能把该自己推进的部分接过去，
+3:49 在需要人判断的时候再把问题交回来。
+3:51 这样人的参与有了明确的位置，
+3:54 不必始终守着整个执行过程。
+3:56 而有自己电脑的同事还应该记得之前
+3:58 一起做过什么。
+4:00 罗曼对每项任务都新建一个聊天窗口的
+4:02 方式不太满意，
+4:03 他发现自己总在不同窗口之间复制粘贴背景。
+4:07 GrokBot 尝试按工作角色来组织智能体，
+4:10 让负责某类事务的机器人保留过去的交互记忆，
+4:13 持续积累对用户的了解。
+4:15 内部试用时，
+4:16 常见的方式是一个人设置 5~10 个机器人。
+4:19 分别负责不同领域。
+4:21 大约到第二周结束，
+4:22 有人开始把其中表现突出的一个设为幕僚长，
+4:26 用户主要跟它沟通，
+4:27 再由它分派任务给其他机器人。
+4:30 有意思的是，
+4:31 团队没有立刻把这个用法写成所有人的标准答案。
+4:34 他们在外部用户上手时，
+4:35 刻意不先教大家搭建幕僚长，
+4:37 而是观察用户会不会自己走到这个方向。
+4:40 看到不少人独立形成了类似用法之后，
+4:43 团队才开始适度鼓励这种模式，
+4:45 同时保留其他组织方式。
+4:47 这段经历说明他们也在学习用户怎样
+4:50 管理一支 AI 团队。
+4:51 角色划分和长期记忆提供了基础。
+4:54 具体要设几个角色，
+4:55 是否需要统一协调者，
+4:57 则需要在工作里摸索。
+4:58 罗曼自己更深入的用法是让机器人持续
+5:01 处理大量信息。
+5:03 基础版本接入邮箱和 Slack，
+5:05 再告诉它自己在公司的职责、
+5:07 关心什么，
+5:08 哪些情况需要立即提醒，
+5:09 哪些内容放进每日简报就够了。
+5:12 在他的进一步配置里，
+5:13 机器人还会关注 X 上
+5:15 提到 GrokBot 的内容，
+5:16 结合内部信息，
+5:17 把收到的故障反馈交给测试机器人尝试复现。
+5:20 并通过消息服务推进后续处理。
+5:23 这样，收集信息和处理信息之间就有了连接。
+5:26 测试机器人也有一个很具体的任务，
+5:28 在自己的环境里安装 GrokBot。
+5:31 测试桌面应用的新版本，
+5:32 跑指定的 10 个工作流，
+5:34 把结果写入 Notion 文档，
+5:36 再与旧版本的测试记录对比。
+5:38 一个机器人操作另一个 AI 产品，
+5:40 在这里承担的是实际的软件测试工作。
+5:43 罗曼还提到一个容易被忽略的细节。
+5:45 机器人越来越多，
+5:46 产出的内容也会越来越多。
+5:48 他会规定这些成果存放的位置，
+5:50 让每天要读的摘要统一写进一个数据库。
+5:53 方便自己查看。
+5:55 对使用者来说，
+5:56 完成任务还包括把成果交到合适的地方。
+5:58 假如结果散落在不同对话里，
+6:00 人每天仍要挨个寻找，
+6:02 整理负担就会重新回到自己身上。
+6:04 当这些流程长期运行，
+6:06 AI 就开始有条件主动找人。
+6:08 罗曼说，
+6:09 有些用户已经让机器人在特别紧急时呼叫自己。
+6:12 他在访谈时还没有这样设置。
+6:14 这个用法能否成立，
+6:16 取决于用户相信它能辨别紧急情况，
+6:19 不会不断误报。
+6:20 所以，主动性也有明确的工作要求。
+6:23 该打断时及时打断，
+6:24 其余信息安静地整理好。
+6:26 否则，
+6:27 一个全天候运行的助手也可能变成全天候
+6:30 制造通知的来源。
+6:31 再回头看，
+6:32 这样一款产品是怎么做出来的？
+6:34 时间线很紧凑，
+6:35 从第一行代码到内部原型大约一个月，
+6:38 从内部测试到公开发布又过了大约三周。
+6:41 录制访谈时距离公开发布也只有大约三周。
+6:45 罗曼强调，
+6:46 最初只有几个人，
+6:47 他们坐在独立的办公区域，
+6:49 用私有 Slack 频道沟通，
+6:51 每天快速决定大量细节。
+6:53 团队的任务是探索通用知识工作的体验。
+6:56 因此选择从零构建独立产品。
+6:58 这并非一开始就毫无争议，
+7:00 Cursor 已经有人拿来处理非编程任务，
+7:03 沿用现成产品有它的吸引力。
+7:05 但罗曼担心开发者熟悉的界面会让非技术
+7:08 用户望而却步。
+7:09 不同产品思路不断塞进新标签页，
+7:12 也容易让整个体验失去一致性。
+7:14 重新开始给了他们重新安排交互的自由。
+7:17 不过这种自由没有自动带来可用性。
+7:20 真正让团队看见问题的，
+7:22 是接下来那些很费时间的人工上手指导。
+7:25 罗曼说，在大约两周里，
+7:27 核心团队亲自带着几百名早期用户使用产品。
+7:30 有时云端电脑迟迟启动不了，
+7:32 或者用户完全不明白接下来该干什么，
+7:35 团队成员就在通话里一起等上 20 分钟。
+7:38 亲眼看着用户卡住，
+7:39 会让一个抽象的待办事项变得非常具体。
+7:42 明天还有新用户要来，
+7:43 同样的问题必须尽快解决。
+7:46 研发者熟悉系统，
+7:47 会下意识绕过的障碍，
+7:48 在这些通话里被重新看见。
+7:51 他们邀请的也包括公司不熟悉的用户。
+7:53 一位通过朋友认识的咖啡店老板，
+7:55 后来成了重度用户。
+7:56 他反馈， Shopify 集成不稳定，
+7:58 也会指出商品文案没有按需要的方式写。
+8:01 这些问题与技术公司内部试用得到的
+8:04 反馈很不一样。
+8:05 这让团队看见了通用产品的另一面。
+8:07 你希望服务普通经营者，
+8:09 就要理解对方怎样经营生意。
+8:11 开发团队内部觉得顺手，
+8:12 还不足以回答这个问题。
+8:14 在这段发布前的迭代里，
+8:15 罗曼给出的一个关键词是下线功能。
+8:18 早期原型里放了很多实验性设计，
+8:21 也把方便研发调试的内容塞进了用户界面，
+8:24 包括模型的内部过程、
+8:25 存储的具体记忆等。
+8:27 到了真正面向用户的时候，
+8:29 团队重新判断哪些信息需要用户主动处理，
+8:32 哪些应该藏到后台。
+8:34 他们希望用户交代任务后看到机器人正在工作，
+8:37 并在合适的时候收到进展，
+8:39 而不必逐次围观它调用工具、
+8:41 点击网页。
+8:42 用户反馈也提供了更细的边界。
+8:45 有些人想看机器人的待办清单，
+8:47 了解任务优先级和当前状态。
+8:49 这和阅读一长串底层执行日志
+8:51 是两种不同的信息需求。
+8:53 前者帮助人协调工作，
+8:55 后者未必能帮助人做决定。
+8:57 罗曼把这套取舍浓缩成一个发布文案的练习。
+9:00 团队应该试着补完 GrokBot
+9:02 现在可以这句话，
+9:03 把新增能力说清楚。
+9:05 例如
+9:05 用户直接说每天早上 8 点提醒自己做某件事，
+9:09 机器人就把定期任务设好。
+9:11 设置流程中的触发条件和动作仍然需要被
+9:14 系统正确处理，
+9:15 但用户可以通过一句话交代。
+9:17 按照罗曼在访谈中的说法，
+9:19 当时平台上 99% 的自动化任务
+9:22 都是这样建立的。
+9:23 这套产品思路
+9:24 受到了 OpenClaw 的启发。
+9:25 罗曼认可它展示的两点，
+9:27 让模型接触更充分的工具，
+9:29 以及把 AI 当成持续协作的伙伴。
+9:31 GrokBot
+9:33 进一步追求的是减少搭建环境和学习
+9:35 操作方式的负担。
+9:37 让更多人能够用起来。
+9:38 他甚至希望普通用户不需要知道什么是技能，
+9:41 也不必记住斜杠命令。
+9:43 那些能力可以在后台存在，
+9:44 产品负责在需要时用上它们。
+9:47 界面变简单以后，
+9:48 系统承担的责任反而更多，
+9:50 因为它必须把用户的意图转成可靠的执行。
+9:53 当然，这支团队的目标还在向前延伸。
+9:56 罗曼希望人与机器人有时能像同事一样，
+9:58 开一个 5 分钟短会，
+10:00 分享屏幕，
+10:01 把问题说清楚，
+10:02 然后回到各自异步工作的状态。
+10:04 这是他想构建的体验。
+10:06 进入企业以后，
+10:07 还有更多问题需要回答。
+10:08 机器人怎样在多人团队里协作？
+10:11 怎样理解公司系统里积累的历史？
+10:13 组织层面的记忆又该如何安排？
+10:15 罗曼承认，
+10:16 这些问题中还有很多没有答案。
+10:18 个人生活和工作也可能需要不同的机器人组合，
+10:21 保持边界，
+10:22 同时采用相近的协作方式。
+10:24 要沿着这个方向快速推进。
+10:26 团队内部也需要一套共同的判断方法。
+10:29 罗曼说，当两个产品方案各有道理，
+10:31 很难取舍时，
+10:33 他们会退后一步，
+10:34 想想在同样的情境下，
+10:35 希望一个真实队友怎样做。
+10:37 这个问题帮助团队形成一致方向，
+10:40 再去解决实现上的困难。
+10:42 它把讨论落到了合作体验上。
+10:44 人需要得到什么反馈？
+10:45 什么时候需要参与？
+10:47 哪些事情可以放心交给对方？
+10:49 执行上，他经常重复的另一句话是，
+10:52 直接去做。
+10:53 在他描述的文化里，
+10:54 发现问题的人要主动调动资源推动解决。
+10:58 他加入 Cursor
+10:59 时团队大约 15 人，
+11:00 后来发展到 1000 多人，
+11:01 又成为 SpaceX AI 的一部分。
+11:03 他认为保持快速行动的关键在于团队互相信任、
+11:07 执行能力，
+11:08 也清楚共同的方向。
+11:10 与此同时，
+11:11 他承认这种争分夺秒、
+11:12 带有混乱感的环境并不让所有人都觉得舒服。
+11:16 速度也包括愿意重审已有方向。
+11:18 罗曼认为，
+11:19 随着模型能力变化，
+11:20 公司的优先级、
+11:22 核心产品和用户体验都需要持续更新。
+11:25 两年前合适的产品未必适合今天。
+11:28 这种压力解释了为什么他们会投入一款独立的
+11:31 知识工作产品，
+11:32 也解释了为什么发布前还能大幅删减
+11:34 原型中的设计。
+11:36 这就带出了访谈后段的商业问题。
+11:38 如果模型不断变强，
+11:40 别人也能获得类似能力，
+11:41 一家 AI 产品公司靠什么持续赢得用户？
+11:45 罗曼的回答是反复把未来几个月可能做到的事
+11:48 尽量提前变成今天可以使用的产品。
+11:51 模型暂时做不好的地方，
+11:53 先通过工程和产品设计补上。
+11:55 等模型能力追上来，
+11:56 再拆掉那些临时结构，
+11:58 继续解决下一批问题。
+12:00 这也是他所说的删除产品。
+12:02 过去为了弥补模型不足而增加的操作和功能，
+12:05 可能随着能力进步失去必要性。
+12:07 团队需要愿意放下自己已经做出来的东西，
+12:10 让产品继续变得简单、
+12:12 强大。
+12:13 按照他的理解，
+12:14 用户信任来自这一轮轮持续交付。
+12:16 他们愿意投入时间，
+12:17 是因为产品不断带来新的实际用途、
+12:20 分发优势和数据优势，
+12:22 可以在这个过程中积累。
+12:23 护城河的讨论需要接到当下具体
+12:26 解决了什么问题上。
+12:27 我觉得把这段回答放回前面的销售和招聘
+12:30 案例就很清楚了。
+12:32 所谓把未来提前带来，
+12:33 有时候落实为一个很小的改进。
+12:36 过去点不到的按钮终于点到了，
+12:38 原本中断的流程终于完成了，
+12:40 用户少了一次接管，
+12:41 才开始愿意把更多任务交出来。
+12:43 这也让 AI
+12:44 同事这个说法有了可以观察的标准。
+12:46 它有没有获得必要的背景和工具？
+12:48 能不能连续推进？
+12:50 遇到问题是否合理反馈？
+12:51 最后有没有把结果放到人能使用的地方？
+12:54 每一项都需要真实工作来检验。
+12:56 罗曼给新用户的建议也很朴素。
+12:59 提供必要的工作背景，
+13:00 再让机器人建议几件能够接手的事情。
+13:03 他自己曾让它阅读邮箱和 Slack，
+13:05 提出 5 项建议，
+13:06 其中两项确实有用，
+13:08 于是就创建了两个机器人去做。
+13:10 从两项具体工作开始，
+13:11 交代清楚、
+13:12 观察交付，
+13:13 再逐步扩大范围，
+13:15 这比一开始设想一支无所不能的数字
+13:17 团队更容易落地。
+13:18 GrokBot
+13:19 分享的这些早期经验最终都回到同一个问题。
+13:22 当任务交出去以后，
+13:24 你能不能把注意力真正转向另一件事？
+13:27 如果这种放心能够在越来越多的工作里重复发生，
+13:29 AI 作为伙伴的价值才会一点点建立起来。
+13:33 好了，以上就是本期视频的所有内容。
+13:35 如果你喜欢本期视频，
+13:36 不要忘记订阅、
+13:38 点赞、分享，
+13:39 这样就不会错过每一期的精彩内容。
+13:41 感谢收看，
+13:42 我们下期再见！</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://youtu.be/VHQWXlcb50c" target="_blank" rel="noopener">https://youtu.be/VHQWXlcb50c</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
