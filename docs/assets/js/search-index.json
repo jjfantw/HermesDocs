@@ -1,5 +1,11 @@
 [
   {
+    "title": "給非技術人員的部署教學，Vibe Coding 上線前必看 - Hermes Docs",
+    "url": "videos/vibe-coding-deployment-guide.html",
+    "date": "2026-09-16 22:30",
+    "content": "給非技術人員的部署教學，Vibe Coding 上線前必看 - Hermes Docs 返回首頁 給非技術人員的部署教學，Vibe Coding 上線前必看 發布時間：2026-09-17 06:30 🌙 YouTube 影片重點整理 給非技術人員的部署教學，Vibe Coding 上線前必看 📺 Gary Chen ⏱ 20:13 🗓 2026-09-16 🌐 zh-Hant 🔗 https://www.youtube.com/watch?v=6bvEcpm72W0 這支影片用一個用 Claude Code 做出記帳軟體的 Gary 當例子，說明為什麼 localhost:3000 不能直接傳給朋友使用。影片把部署比喻成開餐廳：租一間不打烊的店面、把廚房與食材搬過去、再掛上固定招牌，分別對應雲端伺服器、程式碼與執行環境、公開網址。接著影片比較三條部署路線：自己在家養機器、租 VPS、使用現代託管部署平台，並明確建議非技術人員優先選託管平台。選平台時，影片提出三個判斷問題：網站是否需要後端、專案是全端框架還是前後端分離、以及是否需要 24 小時常駐伺服器。最後影片用 Cloudflar"
+  },
+  {
     "title": "極客流 Mac 生產力工作流：效率、文本、媒體工具配置 - Hermes Docs",
     "url": "videos/geek-mac-productivity-workflow.html",
     "date": "2026-09-15 22:09",

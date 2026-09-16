@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>給非技術人員的部署教學，Vibe Coding 上線前必看 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>給非技術人員的部署教學，Vibe Coding 上線前必看</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-09-17 06:30</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">給非技術人員的部署教學，Vibe Coding 上線前必看</h1>
+    <div class="meta"><span data-field="channel">📺 Gary Chen</span><span data-field="duration">⏱ 20:13</span><span data-field="published_date">🗓 2026-09-16</span><span data-field="original_language">🌐 zh-Hant</span><a data-field="source_url" href="https://www.youtube.com/watch?v=6bvEcpm72W0" target="_blank" rel="noopener">🔗 https://www.youtube.com/watch?v=6bvEcpm72W0</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>這支影片用一個用 Claude Code 做出記帳軟體的 Gary 當例子，說明為什麼 localhost:3000 不能直接傳給朋友使用。影片把部署比喻成開餐廳：租一間不打烊的店面、把廚房與食材搬過去、再掛上固定招牌，分別對應雲端伺服器、程式碼與執行環境、公開網址。接著影片比較三條部署路線：自己在家養機器、租 VPS、使用現代託管部署平台，並明確建議非技術人員優先選託管平台。選平台時，影片提出三個判斷問題：網站是否需要後端、專案是全端框架還是前後端分離、以及是否需要 24 小時常駐伺服器。最後影片用 Cloudflare Pages、Netlify、Vercel、Railway、Render、AWS / Google Cloud / Azure 等例子分類平台，並提醒部署成功不等於網站安全或功能一定正常，仍要看環境變數、網域、Logs 與資安風險。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">localhost 不是公開網址：它只是在問自己的設備</h2><span class="ts-badge" data-field="lesson_timestamp">0:00</span></div><div class="body" data-field="lesson_body"><p>影片先用 Gary 做記帳軟體的故事說明新手第一個常見誤會：把 <strong>localhost:3000</strong> 傳給朋友，朋友點開卻打不開。原因不是程式壞掉，而是 localhost 的意思是「本機」；誰點這個網址，瀏覽器就會回頭問誰自己的設備。</p><p>Gary 的電腦上有 Claude Code 跑起來的記帳程式，所以他的 localhost 可以開；朋友的手機裡沒有那個程式，也沒有在 3000 號窗口營業的服務，自然只會看到無法連線。</p><p>因此，把專案資料夾寄給對方雖然是工程師做法，但不符合影片設定的目標：讓完全不懂技術的人只要點一下連結，不裝環境、不拿 API 金鑰，也能立刻使用。</p><span class="tag" data-field="lesson_tag">部署入門</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">部署的三件事：租店面、搬廚房、掛招牌</h2><span class="ts-badge" data-field="lesson_timestamp">2:45</span></div><div class="body" data-field="lesson_body"><p>影片把部署比喻成從家裡廚房搬到街上開正式餐廳。程式只跑在自己電腦上，就像私房菜留在家裡，除了自己以外沒有人吃得到。</p><p>第一件事是租一間二十四小時不打烊的店面，對應到雲端上一台永遠開著、可以被網路連到的伺服器；第二件事是把廚具、醬料、食材搬進店裡，對應到把程式碼、執行環境與 API 金鑰搬到遠端伺服器；第三件事是掛上好記的招牌，對應到綁定固定公開網址。</p><p>租店面、搬廚房、掛招牌合在一起，就是影片定義的部署：把原本只能在自己電腦上使用的程式，搬到公開網路上讓其他人可以連進來。</p><span class="tag" data-field="lesson_tag">核心比喻</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">三條部署路線：自架、VPS、託管平台</h2><span class="ts-badge" data-field="lesson_timestamp">4:13</span></div><div class="body" data-field="lesson_body"><p>影片列出三種取得雲端店面的方式。第一種是在家裡養機器，例如筆電或迷你主機 24 小時不關機；影片說技術上可行，但家裡停電、斷網就會掛掉，而且把私人設備暴露到公開網路上，對非技術人員既麻煩又危險。</p><p>第二種是租 VPS，例如 DigitalOcean、Linode、AWS Lightsail。影片把 VPS 形容成雲端公司機房裡切出來的虛擬電腦，但租下來之後像全空的毛胚屋：作業系統、防火牆、執行環境、背景常駐都要自己處理。</p><p>第三種是現代託管部署平台，例如 Vercel、Netlify、Railway、Cloudflare。影片說這類平台把伺服器設定與維護包成現成服務，只要授權 GitHub 專案，平台就能下載程式、配置環境與公開網址；對只想專注做產品的 Vibe Coder，這是省時省力的首選。</p><span class="tag" data-field="lesson_tag">部署選項</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">選平台前先問三個問題</h2><span class="ts-badge" data-field="lesson_timestamp">6:21</span></div><div class="body" data-field="lesson_body"><p>影片提醒，不要一開始就研究各平台規格，因為平台只是工具；應該先問自己的專案需要什麼。第一個問題是網站是否需要後端：純作品集、部落格、活動頁、小遊戲等通常可視為純前端靜態網站；需要登入、存資料或呼叫 AI 的專案，則屬於需要後端的動態網站。</p><p>第二個問題是專案是全端框架還是前後端分離。影片用 Next.js 當全端框架例子：前端畫面與後端邏輯在同一個專案裡，部署時整包交給平台最省事。若必須分別開後端與前端兩個終端機，則是前後端分離，部署時也要分開放在不同平台再串接。</p><p>第三個問題是雲端電腦是否必須 24 小時開著。常駐伺服器適合長時間任務，例如影片轉檔、網路爬蟲、多人即時聊天室；Serverless 則適合短暫觸發式動作，例如登入驗證、記帳、呼叫一次 AI，沒人用時通常不開機、按實際運算計費。</p><span class="tag" data-field="lesson_tag">平台判斷框架</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">影片給的平台分類與推薦</h2><span class="ts-badge" data-field="lesson_timestamp">12:00</span></div><div class="body" data-field="lesson_body"><p>對純靜態網站，影片提到 Cloudflare Pages、Vercel、Netlify、GitHub Pages 都可以，但若專案確定是純靜態，影片最推薦 Cloudflare Pages，理由是 Cloudflare 有大量全球節點，且個人開發者免費流量很大。若是行銷活動頁並希望收集 Email，又不想寫後端，影片推薦 Netlify，因為它內建表單收集功能。</p><p>對 Serverless 全端託管平台，影片把 Vercel 當代表，並說若使用 Next.js，全端框架的首選是 Vercel，因為 Next.js 由 Vercel 開發維護，整合度最好，也提供個人開發者免費額度。</p><p>對需要常駐伺服器或容器的平台，影片提到 Railway、Render、Zeabur 等，適合 24 小時爬蟲、多人即時聊天室、前後端分離的獨立後端。影片也提醒 AWS、Google Cloud、Azure 服務太多，對只想用 AI 快速做產品的人通常是拿牛刀殺雞。</p><span class="tag" data-field="lesson_tag">平台地圖</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">部署交給 AI，但後台四件事仍要看懂</h2><span class="ts-badge" data-field="lesson_timestamp">14:47</span></div><div class="body" data-field="lesson_body"><p>影片說，選定平台後要先註冊帳號，接著可以找對應平台的 MCP，例如 Vercel MCP 或 Netlify MCP，讓 AI Agent 直接操作平台、協助上傳與部署。</p><p>但影片強調，並不是全部丟給 MCP 就沒事。以 Vercel 後台為例，新手至少要看懂四個區塊：Deployments 用來確認每次發布是否成功；Environment Variables 用來補上本機 .env 裡不能推上 GitHub 的 OpenAI API Key 或資料庫密碼；Domains 用來綁定正式網域；Logs 用來追查朋友試用時的錯誤與活動紀錄。</p><p>影片最後提醒，把網站部署上線不等於產品安全。公開網站往往才是資安風險開始；這支影片只是把流程簡化，讓非技術人員能享受部署成果，不代表 production level 軟體就能忽略資安。</p><span class="tag" data-field="lesson_tag">上線後檢查</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">部署不是把 localhost 傳出去，而是把程式搬到一個其他人真的連得到、能穩定營業的地方。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="0:00"><span class="ts">0:00</span><span class="text" data-field="key_point_text">影片從 localhost 分享失敗的情境切入：本機網址只會指向使用者自己的設備，不是公開網址。</span></li><li data-field="key_point" data-timestamp="2:45"><span class="ts">2:45</span><span class="text" data-field="key_point_text">部署被比喻成開餐廳：租雲端店面、搬程式與環境、掛公開網址。</span></li><li data-field="key_point" data-timestamp="4:13"><span class="ts">4:13</span><span class="text" data-field="key_point_text">部署路線分成家裡自架、VPS、現代託管平台；影片建議 Vibe Coder 優先選託管平台。</span></li><li data-field="key_point" data-timestamp="6:21"><span class="ts">6:21</span><span class="text" data-field="key_point_text">選平台前先問三個問題：是否需要後端、是全端還是前後端分離、是否需要 24 小時常駐。</span></li><li data-field="key_point" data-timestamp="12:00"><span class="ts">12:00</span><span class="text" data-field="key_point_text">平台分類：靜態網站可用 Cloudflare Pages / Netlify；Next.js 全端 Serverless 首推 Vercel；常駐任務可考慮 Railway 或 Render。</span></li><li data-field="key_point" data-timestamp="14:47"><span class="ts">14:47</span><span class="text" data-field="key_point_text">實作上可讓 AI Agent 透過平台 MCP 協助部署，但人仍要看懂後台的部署狀態、環境變數、網域與 Logs。</span></li><li data-field="key_point" data-timestamp="18:47"><span class="ts">18:47</span><span class="text" data-field="key_point_text">結尾提醒：部署上線不等於產品安全，公開網站之後才會開始面對資安風險。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="部署">部署</span><span class="tag-chip" data-tag="Vibe Coding">Vibe Coding</span><span class="tag-chip" data-tag="Vercel">Vercel</span><span class="tag-chip" data-tag="Cloudflare Pages">Cloudflare Pages</span><span class="tag-chip" data-tag="Netlify">Netlify</span><span class="tag-chip" data-tag="Railway">Railway</span><span class="tag-chip" data-tag="Serverless">Serverless</span><span class="tag-chip" data-tag="VPS">VPS</span><span class="tag-chip" data-tag="MCP">MCP</span><span class="tag-chip" data-tag="環境變數">環境變數</span></div>
+  </section>
+
+  
+  
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="transcript"><div class="raw-label">逐字稿全文<button class="copy-btn" id="raw_transcript_4376196160_srt" onclick="copyRaw(this,'raw_transcript_4376196160_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_transcript_4376196160_text" onclick="copyRawText(this,'raw_transcript_4376196160_text')">📋 複製純文字</button></div><pre>0:00 如果你最近剛好在用 Claude Code 寫程式
+0:02 好不容易做出了一個小工具或是小遊戲
+0:04 畫面會動，功能也都很正常
+0:06 這時候，你一定會想把做好的東西傳給朋友玩玩看
+0:10 或是丟到社群上跟大家分享
+0:12 但只要你想把程式給別人用
+0:14 就會碰到一個可能很常聽到
+0:16 但又似懂非懂的詞，叫做部署
+0:18 一聽到部署這兩個字，很多人會覺得
+0:21 這應該是專業工程師才能碰的高深技術吧？
+0:23 但其實，它完全沒有你想像的那麼複雜
+0:26 今天這支影片，我會用最白話的方式
+0:29 帶你搞懂部署到底在做什麼
+0:31 怎麼讓 AI 幫你搞定部署
+0:32 還有該怎麼挑選適合的部署平台
+0:35 看完之後，你就能靠自己
+0:37 把電腦裡寫好的小程式
+0:38 變成任何人點開連結就能玩的線上產品
+0:41 那我們直接開始
+0:43 我們先來看看今天的主角 Gary
+0:45 在 Git 介紹的那部影片中
+0:47 他用 Claude Code 做了一個記帳軟體
+0:50 也順利把程式碼推上 GitHub 了
+0:52 這幾個禮拜下來，他又加了不少新功能
+0:54 現在可以登入，可以記帳
+0:56 按個按鈕還能叫 AI 幫忙分析這個月的錢都花去哪了
+0:59 每次寫完， Claude Code 都會在他的電腦裡把程式跑起來
+1:02 接著瀏覽器會彈出一個新分頁
+1:04 上面網址列寫著 localhost:3000
+1:07 Gary 看著覺得很滿意
+1:08 想拿給朋友用用看
+1:09 於是就把這串網址複製起來傳了過去
+1:12 結果朋友用手機一點開
+1:13 畫面上只跳出無法連線
+1:15 朋友回他 欸，你傳的這個根本打不開啊！
+1:19 其實，這是很多用 AI 寫程式的新手
+1:21 第一個最容易犯的錯
+1:23 我們平常習慣了複製網址就能分享
+1:25 但 localhost:3000 跟一般的 google.com
+1:28 完全是兩碼子事
+1:30 localhost 翻成中文就是本機
+1:31 也就是你現在正坐在前面的這台電腦
+1:34 所以，當你在網址列打上這串字的時候
+1:36 瀏覽器根本就沒有連上網
+1:38 它只是轉過頭去問你自己的電腦說
+1:41 欸，你身上有沒有東西在 3000 號窗口營業啊？
+1:43 而那個在營業的東西
+1:45 就是剛剛 Claude Code 在終端機裡
+1:47 幫 Gary 跑起來的記帳程式
+1:49 只要你把終端機關掉，它就不見了
+1:52 現在，我們把同一件事套到 Gary 的朋友身上
+1:55 當朋友點開這串網址
+1:56 他的瀏覽器也是照做同一件事
+1:58 轉過頭去問他自己的手機
+2:00 有沒有東西在 3000 號窗口營業
+2:02 但他的手機裡根本沒有 Gary 寫好的程式
+2:04 理所當然也就打不開了
+2:07 所以說， localhost 根本不是你 App 的公開地址
+2:10 它更像是一句對設備自己說的暗號
+2:12 意思是去問我現在手上的這台設備
+2:15 誰點開這個連結
+2:16 誰的瀏覽器就會轉頭去問誰的手機
+2:19 聽到這裡你可能會想
+2:20 那既然不能直接傳網址
+2:22 我乾脆把整個專案資料夾打包寄給他
+2:24 總行了吧？
+2:25 確實在 Git 那一集
+2:26 Gary 的朋友就是把程式碼下載到自己的電腦裡跑起來
+2:30 但那是工程師的做法
+2:31 對方必須自己裝環境，裝套件
+2:33 還得跑來找 Gary 拿 API 金鑰
+2:35 可是 Gary 這次真正想要的
+2:37 是讓任何完全不懂技術的人
+2:39 只要隨手點一下連結，什麼都不用裝
+2:41 就能立刻開始用
+2:43 想要做到這件事，中間到底差在哪裡？
+2:45 你可以把在自己電腦上寫程式
+2:47 想像成你在家裡的廚房
+2:49 試煮了一道非常厲害的私房菜
+2:51 你自己吃覺得超級棒
+2:52 但只要這道菜還留在你家的廚房裡
+2:54 全世界除了你之外，誰也吃不到
+2:57 而所謂的部署
+2:58 其實就是你決定走出家門
+3:00 到熱鬧的街上去開一家正式的餐廳
+3:03 要開這家餐廳，你只需要搞定三件事
+3:07 第一，你要在街上租一間
+3:08 二十四小時不打烊的店面
+3:10 這就相當於去雲端租一台永遠開著
+3:12 絕對不會關機的伺服器
+3:14 畢竟，你的筆電會闔上，會帶出門
+3:16 但想用你產品的人
+3:17 可能會在半夜，或者從地球的另一端連進來
+3:20 所以這台電腦必須永遠醒著
+3:21 隨時替你招待客人
+3:23 第二，你要把家裡的廚具
+3:25 醬料跟食材全部搬進這家店裡
+3:27 並且確認在店裡
+3:29 也能煮出跟家裡完全一樣的味道
+3:31 這在程式裡，也就是把你的程式碼
+3:33 執行環境，還有 API 金鑰
+3:35 通通完整搬到這台遠端伺服器上
+3:37 讓程式能在上面順利的跑起來
+3:40 第三，你要在店門口掛上一個明亮又好記的招牌
+3:43 讓所有的顧客只要看到這個招牌
+3:45 就能隨時推門走進來點餐
+3:47 這也就是幫這台伺服器
+3:49 綁定一個固定的公開網址
+3:50 比方說 gary.com
+3:51 讓全世界的瀏覽器都能順著這串網址
+3:54 找到 Gary 的記帳程式
+3:56 把這三件事加在一起
+3:57 租店面，搬廚房，掛招牌
+3:59 在軟體的世界裡
+4:00 我們就把它叫做部署
+4:02 現在 Gary 手上已經有寫好的程式碼了
+4:05 他唯一缺的，就是找一台永遠開著
+4:07 在網路上隨時連得到的雲端電腦
+4:09 來當他的正式店面
+4:11 那 Gary 該去哪裡弄到這台電腦呢？
+4:13 通常，他有三條路可以選
+4:15 第一條路，是自己在家裡養機器
+4:18 很多人的第一個念頭通常會是
+4:20 那我就把家裡的筆電開著不讓它睡覺
+4:22 或者乾脆買一台迷你小主機
+4:24 插著網路線二十四小時不關機
+4:26 這樣總行了吧？
+4:27 技術上來說，這當然行得通
+4:29 但問題是，只要家裡一停電
+4:31 或是網路稍微斷線
+4:32 你的網站就會立刻掛掉
+4:34 而且還得自己手動去修復
+4:35 更麻煩的其實是資安問題
+4:37 因為你要讓外面的人連進你的電腦
+4:39 這就等於是把你的私人設備和家用網路
+4:42 直接暴露在公開網路上
+4:44 對沒有技術背景的人來說是既麻煩又危險
+4:46 第二條路，是去租一台雲端虛擬主機
+4:50 也就是大家常聽到的 VPS
+4:51 像是 DigitalOcean ， Linode
+4:53 或是 AWS 的 Lightsail 這些服務
+4:56 什麼是雲端虛擬主機呢？
+4:57 簡單來說，就是有專門的雲端公司
+4:59 在他們永遠不斷電，不斷網的專業大型機房裡
+5:03 切出一台虛擬電腦租給你
+5:04 每個月大概只要花幾塊美金
+5:06 但當你租下來之後，你會發現
+5:09 它基本上就是一間全空的毛胚屋
+5:11 裡面只有黑底白字的終端機
+5:13 連個視窗桌面都沒有
+5:15 從作業系統，防火牆設定，安裝執行環境
+5:18 到最後讓程式在背後穩定地跑起來
+5:21 全部都要你自己一行一行打指令去組裝
+5:24 這其實是專業的後端跟維運工程師在做的事
+5:27 雖然現在 AI 已經可以幫你搞定大部分的設定
+5:29 但對於只想用 AI 快速做出產品的人來說
+5:32 後續要去理解和維護的成本還是太高了
+5:34 所以我們來到第三條路
+5:35 那就是使用現代的託管部署平台
+5:38 也就是你最近可能常聽大家在討論的
+5:41 Vercel ， Netlify ， Railway
+5:42 或是 Cloudflare 這些平台
+5:44 什麼是託管平台呢？
+5:46 說穿了，它就是幫你把第二條路裡
+5:48 那些繁瑣的伺服器設定跟維護
+5:51 通通打包成現成的服務
+5:53 在底層，平台一樣是幫你準備好雲端伺服器
+5:56 裝好環境，配好網址
+5:57 但它會把所有複雜的指令
+5:59 全部隱藏在背後
+6:01 你只要把 GitHub 上的程式碼授權給它
+6:03 之後每一次你在本機修改完，推上 GitHub
+6:06 平台就會自動幫你下載最新版
+6:07 然後配上公開網址，直接幫你上線
+6:10 對於現在用 AI 寫程式
+6:11 只想把精力集中在做好產品
+6:13 完全不想管伺服器複雜設定的人來說
+6:16 第三條路絕對是省時又省力的唯一首選
+6:19 所以， Gary 毫不猶豫的選了這條路
+6:21 可是這些託管部署平台
+6:23 每一家都標榜自己是一鍵部署
+6:25 選項五花八門
+6:26 根本搞不懂它們彼此之間到底差在哪裡
+6:29 很多人的第一反應
+6:30 是跑去仔細研究各家平台的規格跟功能
+6:34 但老實說，你這樣看只會越看越混亂
+6:36 因為平台就只是工具
+6:37 你必須先回頭搞清楚
+6:39 自己的專案到底需要什麼
+6:41 只要你搞懂接下來要說的這三個層次的判斷
+6:43 你就能輕鬆選出最適合你的平台
+6:46 第一層判斷
+6:47 你的網站，到底需不需要有後端來替你運算？
+6:50 我們一般人在瀏覽器裡看到的網站
+6:52 不管畫面再怎麼複雜
+6:53 本質上都是由兩個角色組成的
+6:56 第一個角色叫前端，也就是這家店的外場
+6:59 所有你在螢幕上看到的漂亮按鈕
+7:01 輸入框，顏色排版還有動畫
+7:03 這些訪客看得見，摸得著的互動介面
+7:05 全部都屬於前端
+7:07 第二個角色叫後端，也就是這家店的內場
+7:10 像是替使用者記帳算錢
+7:12 保護機密的密碼
+7:13 或是拿著 API 金鑰去呼叫 AI
+7:15 這些訪客看不見
+7:16 也絕對不能讓外人看見的敏感運算
+7:18 全都屬於後端
+7:19 前後端不是這支影片的重點
+7:21 但卻是軟體開發非常關鍵也很基本的觀念
+7:24 感興趣的朋友歡迎在底下留言
+7:25 我會再專門出一期影片說明
+7:28 不過，並不是所有的店
+7:30 都需要開一間廚房
+7:31 很多時候，你做的專案根本不需要內場開伙
+7:34 只要有一個漂亮的外場展示櫃檯就夠了
+7:36 這就是大家常說的純前端靜態網站
+7:39 比如說，你的個人作品集
+7:41 部落格文章，活動介紹頁面
+7:43 或是那種純粹在瀏覽器裡跑的小遊戲
+7:45 這種網站的內容
+7:46 通常在你寫程式的時候就已經定稿了
+7:49 訪客點進來只是單純瀏覽
+7:50 完全不需要後端伺服器在雲端耗電做計算
+7:53 對這種網站來說
+7:55 它在乎的只有兩件事
+7:57 載入速度要夠快，全球連線要夠穩
+8:00 這時候，你就會需要 CDN
+8:01 也就是所謂的全球內容分發網路
+8:04 CDN 會把你的網頁檔案
+8:05 自動複製到全球幾百個機房裡
+8:08 台灣的訪客點開
+8:09 就由台灣機房就近送出
+8:11 美國的訪客點開
+8:12 就由美國機房送出
+8:13 讓網頁幾乎能達到瞬間秒開
+8:16 如果你不確定自己的專案到底算不算靜態網站
+8:18 最簡單的方法
+8:19 就是直接去問你的 AI
+8:21 請問我這個專案，是純靜態網站
+8:23 還是有包含後端運算啊？
+8:25 或者你也可以自己檢查
+8:26 只要你的網站不需要登入
+8:27 不存私密資料
+8:28 也沒有敏感的金鑰需要藏在後端
+8:30 那它就是純靜態網站
+8:32 如果你的網站需要讓使用者登入
+8:34 需要存取資料，或者是需要呼叫 AI 來幫忙
+8:37 那它就屬於需要後端運算的動態網站了
+8:40 當你確認專案需要後端之後
+8:41 接著就要問第二個問題
+8:43 你的程式，是全端框架還是前後端分離？
+8:46 這兩種架構的概念跟寫法
+8:48 可以說是完全不同的
+8:50 第一種，叫做全端框架
+8:53 什麼是全端呢？
+8:54 簡單來說，就是把外場畫面跟內場運算
+8:58 全部寫在同一個專案裡
+8:59 就像一家小餐館
+9:00 點餐櫃檯跟廚房都在同一個空間
+9:03 現在最主流的做法
+9:04 就是用像 Next.js 這樣的全端框架
+9:08 你在同一個專案裡面
+9:09 可以一邊寫前端的按鈕與畫面
+9:11 一邊直接寫連接資料庫的後端邏輯
+9:14 這種架構在部署的時候最省事
+9:15 只要整包丟給平台
+9:17 平台就會自動把前端跟後端一次幫你架好
+9:20 第二種，叫做前後端分離
+9:22 顧名思義，就是把外場畫面跟內場運算
+9:25 徹底拆開來
+9:26 外場只負責呈現介面
+9:28 內場則是獨立在背後處理運算
+9:30 外場需要資料的時候
+9:32 才透過呼叫 API 去向內場要資料
+9:35 具體在寫程式的時候
+9:37 你的電腦裡會出現兩個分開的專案
+9:39 前端可能是用 React 寫介面
+9:41 後端則是另外用 Python 或是 Node.js 寫運算邏輯
+9:45 因為這是兩套獨立的系統
+9:46 在部署的時候
+9:47 你就必須把它們分開放在兩個不同的平台
+9:50 最後再把兩邊串接起來
+9:52 那要怎麼判斷自己是哪一種呢？
+9:54 最簡單的方法
+9:55 就是看你平常在電腦上是怎麼跑程式的
+9:58 如果你只要開一個終端機視窗
+10:00 打一行指令，整個網站就能動
+10:02 那你就是全端專案
+10:03 但如果你必須先開一個視窗跑後端
+10:05 接著再開第二個視窗跑前端
+10:07 兩邊都得開著網站才能運作
+10:08 那你就是前後端分離
+10:10 確認完架構之後
+10:11 最後一個問題就是
+10:12 這台雲端電腦
+10:13 到底需不需要 24 小時都一直開著？
+10:16 在現代的雲端世界裡
+10:18 主要就分為兩種模式
+10:19 第一種是常駐伺服器
+10:21 它的運作方式
+10:22 就是雲端機房裡真的有一台電腦
+10:25 24 小時一直開著不關機
+10:27 它很適合需要長時間持續運作的任務
+10:29 像是跑個十幾分鐘的影片轉檔
+10:31 背後定時抓資料的網路爬蟲
+10:33 或者是多人的即時連線聊天室
+10:35 但因為機器永遠開著待命
+10:36 就算半夜完全沒有人在用
+10:38 它也一樣在耗電
+10:39 所以使用這種服務
+10:40 每個月通常都要付固定的機器月租費
+10:44 第二種是 Serverless
+10:45 也就是所謂的無伺服器運算
+10:47 它的運作方式很有趣
+10:48 平常根本沒有電腦在開機
+10:50 只有當訪客按一下按鈕的瞬間
+10:52 雲端才會在幾毫秒之內
+10:53 啟動一段程式幫他做計算
+10:55 算完之後幾秒鐘內又立刻關閉
+10:58 它非常適合短暫，觸發式的動作
+11:00 比如登入驗證，記一筆帳
+11:01 或是呼叫一次 AI 拿回結果
+11:04 因為沒人用的時候機器完全不開
+11:05 它是按實際運算的次數來計費的
+11:08 沒人用就完全零成本
+11:09 所以這類平台
+11:10 通常都會提供非常大方的免費額度
+11:13 講完了這三個判斷標準
+11:15 我們現在回過頭來看看 Gary 的記帳軟體
+11:18 第一，他的軟體需要使用者登入
+11:20 還要呼叫 AI 分析帳目
+11:22 所以它是一個有後端的動態網站
+11:24 第二，他回頭看了一眼自己的終端機
+11:26 發現自己只開了一個視窗
+11:28 確認是用 Next.js 寫的全端專案
+11:30 第三，他程式裡的功能
+11:31 不管是記帳還是請 AI 分析
+11:33 都是按一下按鈕，三五秒內就能算完的短動作
+11:36 所以綜合下來
+11:37 選擇 Serverless 對他來說最省錢，也最合適
+11:41 現在， Gary 終於徹底搞清楚自己的需求了
+11:44 他的記帳軟體是全端專案
+11:45 而且只需要短暫的即時運算
+11:48 但回到剛才搜尋引擎跳出來的那一大堆平台
+11:51 我們到底該怎麼選呢？
+11:53 既然我們剛剛已經搞懂了三個關鍵判斷
+11:55 接下來，我們就可以拿著這張地圖
+11:56 把市面上大家常聽到的這些廠商
+11:58 一間一間抓出來分類了
+12:00 第一類
+12:01 是專門放純靜態網站的託管平台
+12:04 其實市面上常見的 Cloudflare Pages
+12:05 Vercel ， Netlify
+12:07 甚至是 GitHub Pages
+12:08 通通都可以用來放靜態網站
+12:10 但如果你的專案確定是純靜態
+12:12 那我最推薦的絕對是 Cloudflare Pages
+12:14 為什麼呢？
+12:15 因為 Cloudflare 本身就是全世界最大的網路加速巨頭
+12:18 它的全球節點最多
+12:19 而且給個人開發者的免費流量基本上是無上限的
+12:22 網站開起來速度真的是快到飛起
+12:24 另外，如果你做的是行銷活動頁面
+12:26 希望訪客可以留個 Email 報名
+12:28 但你又完全不想寫後端程式
+12:29 這時候我就會推薦 Netlify
+12:31 因為它內建了表單收集的功能
+12:33 可以自動幫你把客戶資料收集起來
+12:36 第二類
+12:36 是主打 Serverless 的全端託管平台
+12:39 這類代表廠商最知名的就是 Vercel
+12:41 當然 Netlify 現在也有支援
+12:43 但只要你寫的是全端框架
+12:45 特別是像 Next.js
+12:46 我的首推一定會是 Vercel
+12:48 原因其實很簡單
+12:49 因為 Next.js 本身就是由 Vercel 這家公司
+12:51 自己開發跟維護的
+12:53 自家做的框架自己一定最懂
+12:54 所以它對 Next.js 的支援度跟整合度
+12:57 絕對是市面上最好的
+12:58 你只要把 GitHub 專案授權給它
+13:00 前端畫面跟後端邏輯按一下就全部幫你架好
+13:03 而且它給個人開發者的免費額度也給得非常大方
+13:07 第三類
+13:07 是常駐伺服器與容器平台
+13:10 這就是我們剛才說的
+13:12 雲端機房裡真的有一台電腦
+13:13 24 小時替你開著
+13:15 大家最常聽到的廠商
+13:16 包括了 Railway ， Render
+13:18 像之前出過事情的 Zeabur
+13:19 其實也算是屬於這一類
+13:21 這類平台專門收留那些需要長時間在背後跑的任務
+13:25 比如 24 小時不斷線的網路爬蟲
+13:27 多人即時聊天室
+13:28 或是前後端分離裡的那個獨立後端
+13:31 因為機房是真的替你留著運算資源
+13:33 所以每個月通常會有五到七塊美金的最低月租費
+13:36 如果你的專案剛好需要一台不關機的機器
+13:39 目前我會推薦選 Railway 或 Render
+13:41 介面簡單好懂
+13:42 每個月花這幾塊美金
+13:43 買的其實是你不用自己維護伺服器的省心
+13:47 最後還有一種
+13:48 就是大家常常聽到的雲端巨頭
+13:50 像是 AWS ， Google Cloud 或者是 Azure
+13:54 如果你一聽到要部署
+13:55 就跑去開一個 AWS 帳號
+13:56 我敢保證
+13:57 你一進後台一定會直接被裡面
+13:59 上百種的服務嚇傻
+14:01 老實說
+14:01 對我們這些只想用 AI 快速做出產品的人來說
+14:04 直接去操作 AWS
+14:06 就是在拿牛刀殺雞
+14:07 其實我們剛剛提到的 Vercel ， Railway 這些平台
+14:10 它們的底層幾乎全都是租用 AWS 的機房
+14:13 只是它們幫你把最痛苦的伺服器維護
+14:15 包裝成了一顆簡單的按鈕
+14:17 我們多付一點點錢
+14:18 買到的其實是不用自己半夜爬起來修機房的寶貴時間
+14:22 所以，回到 Gary 的記帳軟體
+14:24 他做的是 Next.js 全端專案
+14:26 裡面的功能又都是點一下
+14:28 幾秒鐘就能跑完的短運算
+14:30 所以他的唯一首選
+14:31 絕對就是對 Next.js 支援度最好的 Vercel
+14:34 我在 Patreon 那邊針對這幾家平台
+14:36 寫了更深入的分析
+14:37 我也配了一支 prompt
+14:39 你只要把它貼進你的 agent
+14:40 它會去理解你的專案
+14:41 然後跟你說你應該部署在哪裡
+14:44 有需要的朋友可以去看看
+14:45 連結我放在資訊欄
+14:47 選定好平台之後
+14:48 第一件要做的事就是先去那個平台註冊一個帳號
+14:51 這也是整個流程裡
+14:53 為數不多真的需要你親自動手做的事
+14:56 帳號註冊好之後
+14:57 很多人心裡可能就開始慌了，想說
+14:59 天啊，我接下來是不是要進後台
+15:00 去點一堆繁瑣的設定？
+15:01 但我根本看不懂怎麼辦？
+15:03 別擔心
+15:04 在現在這個 Vibe Coding 的時代
+15:06 你根本不需要自己去後台手動點點點
+15:09 你下一步要做的事
+15:10 其實是去找到對應平台的 MCP
+15:12 比如說你用 Vercel
+15:13 就去找 Vercel 的 MCP
+15:15 用 Netlify
+15:16 就找 Netlify 的 MCP
+15:18 這個 MCP 簡單來說
+15:19 就是讓你的 AI Agent 擁有直接操作平台的能力
+15:22 替你一鍵搞定上傳跟部署
+15:24 不過，這也不代表所有東西都丟給 MCP 就沒事了
+15:28 當你打開後台的時候
+15:29 你還是要知道自己到底在看什麼
+15:31 這些數據代表什麼意思
+15:32 現在主流的託管平台
+15:34 基本上都有這幾個核心功能
+15:35 這不是業配影片
+15:36 但我們就先拿 Vercel 來為大家做個示範
+15:39 沿用剛才 Gary 的案例
+15:41 當他剛用 MCP 上傳
+15:42 部署並且完成驗證之後，走進後台
+15:45 新手最需要知道的
+15:46 其實就是這四個關鍵區塊
+15:48 第一個區塊
+15:49 在後台叫做 Deployments
+15:50 也就是你的部署狀態
+15:52 當 AI 透過 MCP 幫你把程式碼推上去之後
+15:55 你進後台第一個要看的
+15:57 就是這個頁面
+15:58 它就像是專案的即時看板
+15:59 你可以清楚看到每一次的發布紀錄
+16:01 到底是亮起綠燈顯示成功
+16:03 還是冒出紅字跟你報錯
+16:05 只要看到綠燈
+16:06 就代表你的程式碼已經順利被雲端接收
+16:09 而且打包完成了
+16:10 但這裡要特別提醒大家一個
+16:12 新手最常踩到的坑
+16:13 看到部署成功
+16:14 可不代表你的網站點開來就一定能正常跑喔！
+16:17 很多人興沖沖地點開網址
+16:18 結果發現按鈕按了沒反應
+16:20 或是畫面直接跳出錯誤
+16:22 心裡就覺得納悶
+16:23 奇怪，後台明明就說成功了啊？
+16:25 其實這是因為
+16:26 你的專案通常還牽涉到下一個最關鍵的區塊
+16:29 也就是環境變數
+16:31 第二個區塊
+16:31 在後台叫做 Environment Variables
+16:33 也就是環境變數
+16:35 剛才不是提到
+16:37 為什麼明明部署成功了
+16:38 網站點開卻可能動不了嗎？
+16:40 原因常常就是出在這裡
+16:42 我們在自己電腦寫程式的時候
+16:43 很多敏感的金鑰
+16:44 像是你的 OpenAI API Key 或是資料庫密碼
+16:47 通常都是放在本地一個叫做 .env 的檔案裡
+16:50 這個檔案
+16:51 是絕對不能跟著程式碼一起推上 GitHub 的
+16:54 不然全世界的人就把你的密碼看光光了
+16:57 但這樣一來
+16:57 雲端的 Vercel 就拿不到這組金鑰啦
+16:59 當訪客點了網站上的功能
+17:01 程式一呼叫卻發現找不到鑰匙
+17:03 後端自然就直接當機給你看了
+17:05 所以，你就必須來到這個
+17:07 Environment Variables 的頁面
+17:08 把你在本地 .env 裡設定的金鑰名稱跟內容貼進去
+17:12 這樣一來，雲端伺服器在執行的時候
+17:14 才能安全地把鑰匙交給你的程式跑起來
+17:17 到了這一步
+17:18 剛才那個動不了的記帳軟體
+17:20 才算真正活了過來
+17:21 第三個區塊
+17:22 在後台叫做 Domains
+17:23 也就是網域
+17:25 專案剛部署好的時候
+17:26 Vercel 通常會自動配發一串免費的預設網址給你
+17:29 但那串網址往往長得很奇怪
+17:32 後面還拖著一長串亂數的英文字母
+17:34 拿去傳給朋友或客戶
+17:36 看起來總覺得少了一點專業感
+17:38 如果你不想用這種預設網址
+17:40 想換成自己專屬的正式門牌
+17:42 像是 gary.com 這種乾淨又好記的網址
+17:44 你就可以在這個 Domains 頁面
+17:46 把你買好的網域給綁定上去
+17:48 至於要去哪裡買網域
+17:49 新手又該怎麼挑選才不會買貴
+17:51 這件事我們就留給下一支影片再來詳細聊
+17:54 如果大家對買網域感興趣
+17:55 記得在留言區跟我說一聲
+17:57 敲碗的人多的話我就盡快做出來
+17:59 第四個區塊
+18:00 在後台叫做 Logs
+18:02 也就是日誌
+18:03 簡單來說
+18:04 日誌就是網站的即時活動紀錄簿
+18:06 專門記錄你的程式在雲端執行時
+18:09 每分每秒背後到底發生了什麼事
+18:11 跑了哪些動作
+18:12 那這個日誌平常該怎麼看呢？
+18:14 當你把網站連結傳給朋友試用的時候
+18:16 只要朋友開始在上面點按鈕，輸入資料
+18:18 你就可以打開後台的 Runtime Logs
+18:21 在這裡
+18:21 你會看到一筆一筆即時跳出來的活動紀錄
+18:24 比如有人在幾點幾分打開了首頁
+18:26 或是新增了一筆記帳資料
+18:28 後台都會幫你記下來
+18:30 而且更重要的是
+18:31 萬一朋友在試用時突然遇到問題
+18:33 你完全不需要自己瞎猜到底是哪裡壞掉
+18:35 因為出事的當下
+18:37 Runtime Logs 裡就會直接跳出紅色的錯誤訊息
+18:39 你只要把這段錯誤紀錄複製下來貼給 AI
+18:42 或者直接讓 AI 透過 MCP 去讀取日誌
+18:44 AI 就能根據 logs 所提供的證據抓出原因
+18:46 並且替你修復好
+18:47 到了這裡
+18:48 確認了部署狀態亮起綠燈
+18:50 環境變數都填好了
+18:51 也綁上了自己的專屬網域
+18:53 最後看著 Logs 裡的活動紀錄也都順暢跳動著
+18:56 這時候， Gary 終於可以放心地
+18:58 把記帳軟體的連結傳給身邊的朋友試用了
+19:02 所以部署說穿了就是把原本只跑在你電腦上的程式
+19:04 搬到雲端去
+19:05 讓任何人只要點開網址就能使用
+19:08 如果你現在也想部署自己的產品
+19:10 你可以回到影片前面提到的判斷框架
+19:12 先看懂自己的軟體只需要短暫運算
+19:15 所以挑了最省心的 Serverless 平台 Vercel
+19:17 接著替 AI 裝上對應的 MCP
+19:19 把部署的工作全交給 AI 來代勞
+19:22 最後進到後台
+19:23 知道該去哪裡確認部署狀態
+19:25 補上 API 金鑰
+19:26 以及出錯時怎麼跟 AI 回報並聯手一起修復
+19:30 如果你只是做個簡單的小工具想分享給朋友
+19:32 你確實不需要成為部署專家
+19:34 只要懂這幾個核心觀念就夠了
+19:36 在關鍵時刻自己做決策
+19:38 剩下的繁瑣雜事通通交給 AI
+19:40 不過在影片最後
+19:41 我還是要特別提醒大家
+19:43 把網站部署上線
+19:44 並不等於你的產品就是安全的
+19:46 網站一旦公開，往往才是資安風險的開始
+19:49 這支影片雖然幫大家把流程簡化
+19:51 讓技術小白也能享受部署的成就感
+19:54 但這絕對不代表真正的 production level 軟體就這麼簡單
+19:58 資安本身是一個需要嚴肅對待的專業領域
+20:01 如果你對這方面感興趣
+20:02 可以去看我上週推出的資安影片
+20:04 在這邊就不多做贅述
+20:06 那以上就是今天的內容
+20:08 希望對你有所幫助
+20:09 影片創作不易
+20:10 希望可以幫我按讚留言加分享
+20:11 那我們下次見</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://www.youtube.com/watch?v=6bvEcpm72W0" target="_blank" rel="noopener">https://www.youtube.com/watch?v=6bvEcpm72W0</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
