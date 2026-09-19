@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MIT 溫斯頓《如何表達》：讓思想被聽見、被記住的演講方法 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>MIT 溫斯頓《如何表達》：讓思想被聽見、被記住的演講方法</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-09-19 12:45</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">MIT 溫斯頓《如何表達》：讓思想被聽見、被記住的演講方法</h1>
+    <div class="meta"><span data-field="channel">📺 Best Partners TV</span><span data-field="duration">⏱ 16:22</span><span data-field="published_date">🗓 2026-09-18</span><span data-field="original_language">🌐 zh-Hans</span><a data-field="source_url" href="https://youtu.be/u9wjz5RJ_bY" target="_blank" rel="noopener">🔗 https://youtu.be/u9wjz5RJ_bY</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>這支影片解讀 MIT 傳奇教授 Patrick Winston 的經典講座《如何表達》。核心主張是：表達不是天賦，而是可以靠知識與練習訓練的手藝；一個人的想法若無法被清楚呈現，就很難真正產生影響。影片依序整理了開場、注意力維持、場地與工具、投影片、啟發聽眾、口試與求職演講、讓工作被記住，以及收尾方式等重點。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">表達是一門可訓練的手藝，不是少數人的天賦</h2><span class="ts-badge" data-field="lesson_timestamp">0:54</span></div><div class="body" data-field="lesson_body"><p>影片開場用 Winston 的觀點建立整支影片的基調：一個人成功很大程度取決於<strong>口頭表達能力、書面表達能力，以及思想品質</strong>，而且影片特別指出這個順序值得注意。不是思想不重要，而是思想若無法傳出去，就很難被理解、採納與記住。</p><p>Winston 用「溝通效果 = 知識 × 練習 × 天賦」來說明，天賦的作用其實很小。影片中的滑雪故事說明：即使是奧運級體操選手，到了沒有訓練的新領域，也可能輸給一個有知識、有練習的人。因此，表達不是神祕才華，而是可以拆解、練習與改進的技術。</p><span class="tag" data-field="lesson_tag">核心觀念</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">開場的任務不是暖場，而是給聽眾留下來的理由</h2><span class="ts-badge" data-field="lesson_timestamp">2:33</span></div><div class="body" data-field="lesson_body"><p>Winston 明確反對用笑話開場。影片指出，演講剛開始時，聽眾還在適應講者的聲音、語速與節奏，還沒有準備好接收笑話；冷笑話很容易直接掉在地上。</p><p>更好的做法是提出<strong>賦能承諾（Empowerment Promise）</strong>：直接告訴聽眾，在接下來的時間裡，他們會得到什麼原本不具備的認知與價值。例如「六十分鐘後，你會知道一些關於演講的東西，其中至少一條會改變你的人生」。開場要回答的不是「我有多有趣」，而是「你為什麼值得留下來聽」。</p><span class="tag" data-field="lesson_tag">開場</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">四個讓資訊真正落地的演講技巧</h2><span class="ts-badge" data-field="lesson_timestamp">3:13</span></div><div class="body" data-field="lesson_body"><p>第一是<strong>循環闡述（Cycling）</strong>。影片說，任何時刻大約都有百分之二十的聽眾走神，所以重要訊息要從不同角度重複三次。這不是把聽眾當傻子，而是尊重注意力本身的限制。</p><p>第二是<strong>建立邊界（Building a Fence）</strong>。你要把自己的新概念和相似舊概念劃清界線，像影片中的例子：某個演算法看起來像別人的做法，但別人是指數複雜度，而自己的是線性。邊界能讓聽眾知道你的貢獻到底差在哪裡。</p><p>第三是<strong>語言標點（Verbal Punctuation）</strong>，也就是在講述中持續給出「第一、第二、總結」這類結構標記，讓走神的人有機會重新上車。第四是提出難度適中的問題後，保持七秒靜默。這段靜默在臺上很長，但能把注意力拉回現場。</p><span class="tag" data-field="lesson_tag">技巧</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">時間、燈光與場地不是雜事，而是注意力設計的一部分</h2><span class="ts-badge" data-field="lesson_timestamp">4:32</span></div><div class="body" data-field="lesson_body"><p>影片整理 Winston 對演講環境的幾個具體偏好：最佳時間是上午十一點，因為大多數人已經醒了，又還沒喫完飯犯睏；燈一定要亮，因為燈光一暗，人就容易進入想睡的生理狀態。</p><p>他也強調要提前踩場，像銀行劫匪作案前踩點一樣，先確認場地是否有奇怪狀況。場地大小也要合適：十個人坐在兩百人的大廳裡，聽眾會覺得是不是走錯地方。演講的成敗不只在內容，也在環境是否幫助聽眾保持注意力。</p><span class="tag" data-field="lesson_tag">場地</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">板書、道具與投影片各自適合不同任務</h2><span class="ts-badge" data-field="lesson_timestamp">5:35</span></div><div class="body" data-field="lesson_body"><p>影片中 Winston 對工具的分工很清楚：<strong>板書適合教學與傳遞深度資訊，投影片適合在會議與求職演講中展示想法</strong>。板書的優勢包括能自由畫圖、書寫速度接近人腦吸收想法的速度，也讓講者的手有事可做。</p><p>道具的力量來自實物張力與記憶點。影片提到易卜生戲劇中的火爐、自行車輪實驗、鋼球擺實驗，都是用實物讓抽象概念變成可感知的經驗。Winston 甚至提出「共情鏡像」的說法：觀眾看見講者書寫或操作物體時，會更容易在腦中跟著動作與理解。</p><p>相對地，投影片的任務不是教學，而是展示想法。影片指出，投影片字太多會迫使聽眾閱讀，而不是聽講者說話；人只有一個語言處理器，要嘛讀、要嘛聽，很難同時處理兩件事。</p><span class="tag" data-field="lesson_tag">工具</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">好的投影片要刪掉雜訊，而不是塞滿資訊</h2><span class="ts-badge" data-field="lesson_timestamp">8:13</span></div><div class="body" data-field="lesson_body"><p>影片列出 Winston 對投影片的批評：太多張、每張字太多，幾乎永遠是問題。若投影片上滿是文字，聽眾記住的會是投影片上的字，而不是講者口頭補充的內容。</p><p>他的建議是盡量去掉背景雜訊、多餘文字、Logo，甚至標題；字號建議四十到五十，不只是因為小字看不清，更因為小字通常代表你想塞進太多內容。影片也提到激光筆會讓講者轉頭看螢幕，切斷和觀眾的目光接觸；更好的做法是在圖上直接標箭頭。</p><span class="tag" data-field="lesson_tag">簡報</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">07</span><h2 data-field="lesson_title">啟發聽眾靠的是熱情，以及新的看問題方式</h2><span class="ts-badge" data-field="lesson_timestamp">9:57</span></div><div class="body" data-field="lesson_body"><p>影片區分了「傳遞資訊」與「啟發人」。Winston 做過調研：新生常被高中老師的一句「你能行」啟發；資深教授則是被某種新的看問題方式啟發。共同點是，他們都會被展現熱情的人啟發。</p><p>Winston 以自己的 AI 課為例：先展示一個用笨方法會慢到太陽爆炸的問題，再說只要稍微調整演算法，五十分鐘後你們就會懂，並且秒級出結果。這種真實熱情與清楚對比，讓聽眾覺得「這很酷」，也願意跟著進入問題。</p><span class="tag" data-field="lesson_tag">啟發</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">08</span><h2 data-field="lesson_title">研究報告與口試要先交代脈絡，否則聽眾不知道為何重要</h2><span class="ts-badge" data-field="lesson_timestamp">11:15</span></div><div class="body" data-field="lesson_body"><p>影片提到口試失敗的常見原因，是沒有把自己的研究放到背景中：沒有說清楚這個問題全世界都在攻關、過去三十年沒有突破，或是一旦解決會對很多領域有重大影響。這種定位能讓聽眾知道你的工作不是孤立的小題目。</p><p>另一個失敗原因是練習不足，而且不能只練給同辦公室的人或導師看，因為他們已經知道你在做什麼，會自動腦補投影片缺少的內容。影片建議找不瞭解你工作的朋友來聽，才能測出真正的表達缺口。</p><span class="tag" data-field="lesson_tag">研究表達</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">09</span><h2 data-field="lesson_title">求職演講前五分鐘要證明：你有願景，也做出了東西</h2><span class="ts-badge" data-field="lesson_timestamp">11:49</span></div><div class="body" data-field="lesson_body"><p>Winston 問兩位海軍科學委員會同事，招教職候選人看什麼；答案是看候選人有沒有願景，以及是否做出了東西。更關鍵的是，影片說聽眾只給你五分鐘來建立這兩件事。</p><p>要展示願景，就要提出有人在乎的問題，以及一個新的切入角度；要展示成果，就要列出解決方案所需步驟，說明哪些已經完成，並且實際演示。最後再用貢獻列表收尾，和開頭的步驟列舉形成鏡像。</p><span class="tag" data-field="lesson_tag">求職演講</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">10</span><h2 data-field="lesson_title">讓工作被記住：Winston&#x27;s Star 的五個 S</h2><span class="ts-badge" data-field="lesson_timestamp">12:52</span></div><div class="body" data-field="lesson_body"><p>影片整理 Winston&#x27;s Star：第一是<strong>符號（Symbol）</strong>，例如拱門圖案作為視覺錨點；第二是<strong>口號（Slogan）</strong>，例如 one-shot learning 這種精煉說法；第三是<strong>驚喜（Surprise）</strong>，打破聽眾以為需要大量例子的常識。</p><p>第四是<strong>凸顯概念（Salient Idea）</strong>，也就是能從內容中突出的概念；第五是<strong>故事（Story）</strong>，完整說明你如何探索問題、如何解決、為什麼重要。影片的結論是，這五顆星若能湊齊，工作就更容易被記住。</p><span class="tag" data-field="lesson_tag">記憶點</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">11</span><h2 data-field="lesson_title">收尾要留下貢獻，而不是只留下『謝謝』</h2><span class="ts-badge" data-field="lesson_timestamp">14:23</span></div><div class="body" data-field="lesson_body"><p>Winston 不建議把最後一頁做成合作者列表、問答或『謝謝』。影片指出，最後一頁往往會在問答與觀眾離場時停留二十分鐘，這是很寶貴的視覺焦點；如果只放『謝謝』，就浪費了呈現自己貢獻的機會。</p><p>更好的做法是把最後一頁做成貢獻總結頁，讓它在問答期間持續提醒聽眾：這場演講到底留下了什麼。最後一句話也要有明確收束，可以是祝福、致敬觀眾，或其他告訴聽眾活動結束的信號，但不必用『謝謝』作為唯一結尾。</p><span class="tag" data-field="lesson_tag">收尾</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">真正能被記住的，不是資訊量最大的內容，而是被最清楚呈現、被最深刻理解的內容。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="0:54"><span class="ts">0:54</span><span class="text" data-field="key_point_text">Winston 把溝通能力放在成功因素的前面：口頭表達、書面表達、思想品質；思想若傳不出去，就難以發揮價值。</span></li><li data-field="key_point" data-timestamp="1:32"><span class="ts">1:32</span><span class="text" data-field="key_point_text">溝通效果可視為知識、練習與天賦的乘積；影片強調天賦變數很小，表達主要靠方法與訓練。</span></li><li data-field="key_point" data-timestamp="2:33"><span class="ts">2:33</span><span class="text" data-field="key_point_text">演講開場不要先講笑話，而要提出「賦能承諾」，明確告訴聽眾接下來會獲得什麼價值。</span></li><li data-field="key_point" data-timestamp="3:13"><span class="ts">3:13</span><span class="text" data-field="key_point_text">四個基本技巧：循環闡述、建立邊界、語言標點，以及提出適中問題後靜默七秒。</span></li><li data-field="key_point" data-timestamp="4:32"><span class="ts">4:32</span><span class="text" data-field="key_point_text">時間與場地會影響效果：Winston 偏好上午十一點、明亮燈光、提前踩場，以及大小合適的場地。</span></li><li data-field="key_point" data-timestamp="5:35"><span class="ts">5:35</span><span class="text" data-field="key_point_text">板書與道具適合教學，因為它們有節奏、動作與實物感；幻燈片則更適合展示想法，而不是教授想法。</span></li><li data-field="key_point" data-timestamp="8:13"><span class="ts">8:13</span><span class="text" data-field="key_point_text">投影片最常見錯誤是字太多；聽眾只有一個語言處理器，讀投影片就難以同時聽講者說話。</span></li><li data-field="key_point" data-timestamp="9:57"><span class="ts">9:57</span><span class="text" data-field="key_point_text">要啟發聽眾，不只是傳遞資訊；真正能啟發人的，往往是講者對內容展現出的熱情與新看問題的方式。</span></li><li data-field="key_point" data-timestamp="11:15"><span class="ts">11:15</span><span class="text" data-field="key_point_text">口試與研究報告要把自己的工作放回脈絡：說清楚問題為何重要、過去卡在哪裡、解決後會影響什麼。</span></li><li data-field="key_point" data-timestamp="11:49"><span class="ts">11:49</span><span class="text" data-field="key_point_text">求職演講前五分鐘必須建立兩件事：你有願景，而且你已經做出了東西。</span></li><li data-field="key_point" data-timestamp="12:52"><span class="ts">12:52</span><span class="text" data-field="key_point_text">Winston&#x27;s Star 五要素：符號、口號、驚喜、凸顯概念、故事；五者齊備，工作更容易被記住。</span></li><li data-field="key_point" data-timestamp="14:23"><span class="ts">14:23</span><span class="text" data-field="key_point_text">收尾不要把最後一頁浪費在『謝謝』或問答，而應留下貢獻總結頁，讓它在問答期間持續成為視覺焦點。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="演講技巧">演講技巧</span><span class="tag-chip" data-tag="Patrick Winston">Patrick Winston</span><span class="tag-chip" data-tag="MIT">MIT</span><span class="tag-chip" data-tag="溝通方法">溝通方法</span><span class="tag-chip" data-tag="口頭表達">口頭表達</span><span class="tag-chip" data-tag="簡報設計">簡報設計</span><span class="tag-chip" data-tag="求職演講">求職演講</span><span class="tag-chip" data-tag="教學方法">教學方法</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>本報告依 YouTube 提供的 zh-Hans 字幕與影片描述整理；未使用 OCR。原始字幕為簡體中文，主文已轉寫為繁體中文。</li></ul></div></section>
+  
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="transcript"><div class="raw-label">逐字稿全文<button class="copy-btn" id="raw_transcript_4336625408_srt" onclick="copyRaw(this,'raw_transcript_4336625408_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_transcript_4336625408_text" onclick="copyRawText(this,'raw_transcript_4336625408_text')">📋 複製純文字</button></div><pre>0:00 大家好，这里是最佳拍档，我是大飞
+0:03 今天这期视频我们不聊AI
+0:05 而是想跟大家分享一门在MIT讲了快五十年的课
+0:09 这门课既不是什么前沿技术
+0:11 也不是什么商业方法论
+0:13 它讲的是一件看似简单到不值一提的事
+0:16 怎么说话
+0:17 帕特里克·温斯顿（Patrick Winston）教授
+0:19 MIT人工智能实验室的前主任
+0:21 师从人工智能之父马文·明斯基（Marvin Minsky）
+0:24 从1972年起担任了长达二十五年的AI实验室主任
+0:28 他在学术生涯的后半程
+0:30 致力于一个叫做创世纪计划（Genesis Group）的研究方向
+0:33 核心是探索人类如何通过讲述故事、理解语言来实现高级智能
+0:38 所以他对演讲和沟通的研究
+0:41 本质上是对人类认知与心理机制的延伸
+0:44 这门叫《如何表达》的讲座
+0:46 是MIT开放课程里观看量超过两千万次的经典
+0:51 他每年一月亲自授课，数十年如一日
+0:54 温斯顿在开场就抛出了一个很重的类比
+0:57 他说
+0:58 《统一军事司法法典（Uniform Code of Military Justice）》里有一条
+1:01 军官如果把没有武器的士兵送上战场
+1:03 要上军事法庭
+1:05 那对于学生呢？
+1:06 如果学校把没有沟通能力的学生送入社会
+1:09 是不是也该有类似的保护呢？
+1:12 因为他认为，一个人在人生中的成功
+1:14 很大程度上取决于三样东西
+1:17 口头表达能力、书面表达能力
+1:19 以及思想质量，而且就是这个顺序
+1:22 这个排序其实挺值得琢磨的
+1:24 把思想质量排在最后面
+1:26 不是说思想不重要
+1:28 而是说如果你的表达能力不行
+1:30 你的思想再好也传不出去
+1:32 温斯顿用了一个公式来概括这件事
+1:35 沟通效果等于知识乘以练习乘以天赋
+1:39 关键点在于
+1:40 天赋这个变量的作用极小
+1:42 他自己讲了一个故事
+1:44 几十年前他在太阳谷滑雪
+1:46 赶上明星周末
+1:47 其中一位是奥运体操金牌得主玛丽·卢·雷顿（Mary Lou Retton）
+1:51 她在跳马项目上拿过完美的十分
+1:54 温斯顿听说她是滑雪新手
+1:55 就专门跑到初学者坡道上去看
+1:58 果然看到一个年轻女人失去平衡时
+2:00 身体姿态特别漂亮
+2:02 他断定那就是那个体操运动员
+2:05 但紧接着他意识到一件事
+2:07 自己滑雪比她好多了
+2:09 一个奥运级别的运动员
+2:10 在滑雪这件事上还不如他
+2:13 原因很简单，那就是他有知识和练习
+2:16 而玛丽只有天赋
+2:18 温斯顿用这个故事想说明一件事
+2:20 就是你完全可以通过方法和练习
+2:23 大幅超越那些有天赋但是没经过训练的人
+2:27 这个判断对于做内容的人来说其实特别有共鸣
+2:30 表达是一门手艺
+2:31 不是一种才华
+2:33 那么一场好的演讲应该怎么开始呢？
+2:36 温斯顿明确反对一个做法
+2:38 就是用笑话开场
+2:40 很多新手觉得讲个冷笑话能暖场
+2:42 但问题在于
+2:43 演讲刚开始的几分钟
+2:45 听众还在适应你的声音参数、你的语速节奏
+2:48 他们还没准备好接收笑话
+2:51 所以笑话往往会掉在地上
+2:53 正确的做法是做赋能承诺（Empowerment Promise）
+2:55 就是直接、明确地告诉听众
+2:58 在接下来的若干分钟里
+3:00 他们将获得什么之前不具备的认知和价值
+3:03 比如你可以说
+3:04 六十分钟后你会知道一些关于演讲的东西
+3:07 其中至少有一条会改变你的人生
+3:09 这就是赋能承诺
+3:11 它给听众一个留下的理由
+3:13 温斯顿接着分享了四条他每次演讲都会用到的启发式技巧
+3:18 第一条叫循环阐述（Cycling）
+3:20 核心逻辑是
+3:21 在任何给定的时刻
+3:23 现场大约有百分之二十的听众处于走神状态
+3:26 不管你讲的是什么
+3:27 所以重要的话
+3:28 你需要从不同角度重复三次
+3:31 才能确保信息落地
+3:33 有人觉得这是把听众当傻子
+3:35 但其实是对注意力规律的尊重
+3:37 第二条叫建立边界（Building a Fence）
+3:40 就是把你的新理念和旧理念划清界限
+3:44 温斯顿用拱门来举例，他说这是拱门
+3:47 那些不是拱门
+3:48 他在自己的概念周围建了一圈篱笆
+3:51 让别人不会把它和相似的概念搞混
+3:53 放到技术语境里就是
+3:55 我的算法看起来和某某的算法类似
+3:58 但是他是指数复杂度，我是线性的
+4:01 一句话就把你的工作跟别人的区分开了
+4:04 第三条叫语言标点（Verbal Punctuation）
+4:06 就是在演讲过程中不断抛出结构性的标志
+4:10 比如第一、第二、总结
+4:12 给那些走神的听众提供一个重新上车的节点
+4:15 第四条是抛出一个难度适中的问题之后
+4:18 保持七秒静默
+4:20 七秒钟在台上感觉像过了一辈子
+4:22 但是它能强力地激发听众思考
+4:25 把注意力拉回现场
+4:26 当然，问题的选择要有讲究
+4:28 太简单了大家不好意思回答
+4:30 太难了没人接话
+4:32 讲完了开场和基本技巧
+4:34 温斯顿转向了一个经常被忽略的话题
+4:36 时间和场地
+4:38 他说最佳的演讲时间是上午十一点
+4:41 因为到那个点大多数MIT的人已经醒了
+4:43 也不太可能再回去睡觉
+4:45 而且不是刚吃完饭，人不会犯困
+4:48 至于场地
+4:49 最重要的一条是灯一定要亮
+4:51 温斯顿说每次去外面演讲
+4:53 他跟负责音响视觉的人员说的第一句话就是
+4:56 灯全开
+4:57 对方经常说关灯看幻灯片更清楚
+5:00 他的回应是
+5:01 闭着眼皮你什么也看不到
+5:02 因为人的生理机制就是这样
+5:04 灯光一暗就犯困
+5:05 这是写在基因里的
+5:07 另外他还强调要提前踩场
+5:09 就像银行劫匪作案前踩点一样
+5:11 确保没有意外
+5:13 他每次都会让主办方提前带他去演讲的地方
+5:16 看看有没有什么奇怪的状况
+5:18 他今天来讲这堂课之前就做了一个练习
+5:21 想象所有座位上坐满了不感兴趣的农场动物
+5:24 这样不管实际情况多差
+5:25 都不会比那个更糟
+5:27 还有就是场地大小要合适
+5:29 十个人坐在能坐两百人的大厅里
+5:32 大家会想是不是走错地方了
+5:34 接下来
+5:35 温斯顿花了很大的篇幅讲演讲工具
+5:38 板书、道具和幻灯片
+5:40 他自己的偏好非常明确
+5:41 板书适合教学和传递深度信息
+5:44 幻灯片适合在会议和求职演讲中展示想法
+5:47 板书有四个独特优势
+5:49 第一是图形质量
+5:51 你可以在黑板上自由地画图辅助讲解
+5:54 第二是速度，你在黑板上写字的速度
+5:56 大约就是人脑吸收想法的速度
+5:58 翻幻灯片没人能跟上那个节奏
+6:01 第三，这一点很妙
+6:02 板书给了你一双手的着落
+6:05 很多新手演讲时突然意识到自己有手
+6:07 不知道往哪放
+6:09 插口袋在某些文化里是不礼貌的
+6:11 背在身后
+6:12 在塞尔维亚的修道院里甚至被认为是藏武器的暗示
+6:16 所以，有了板书你就有事可做
+6:18 可以边指着内容边讲
+6:20 温斯顿提到他看过西摩·派普特（Seymour Papert）的讲座
+6:22 连续看了两次
+6:23 第一次吸收内容，第二次研究风格
+6:25 发现派普特全程不断指向板书
+6:28 后来他仔细一想
+6:29 那些指的东西跟正在说的内容根本没关系
+6:32 但是这个技巧就是有效
+6:34 关于道具
+6:35 温斯顿说真正掌握道具运用的是剧作家
+6:38 他举了亨利克·易卜生（Henrik Ibsen）的戏剧《海达·加布勒（Hedda Gabler）》，
+6:42 舞台上有一个圆肚火炉
+6:43 开演时火炉门半开着
+6:46 里面只有微弱的余烬
+6:47 随着剧情推进火越烧越大
+6:49 你会看到一份手稿在道具旁边
+6:52 你就知道那份手稿最终会进火里
+6:54 道具的张力贯穿全剧
+6:56 这就是温斯顿几十年后还记得的东西
+6:59 然后他又讲了两个用道具教学的经典案例
+7:02 一个是自行车轮实验
+7:04 你把轮子转起来，然后施加扭矩
+7:06 问题是它往哪个方向倒
+7:08 机械工程的学生会用右手定则判断
+7:11 正确率大概百分之五十
+7:12 跟抛硬币差不多
+7:14 但如果你换个思路
+7:15 用胶带贴在轮子的一小段上
+7:18 只盯着那段胶带看
+7:19 它滚到顶上你吹一口气
+7:21 它必然就会往前倒
+7:23 每一段都一样，整个轮子就翻过去了
+7:26 从此你再也不会搞错
+7:27 因为你在用正确的方式思考问题
+7:29 另一个是艾伦·拉扎勒斯（Alan Lazarus）的能量守恒实验
+7:33 他把一个钢球摆从墙面贴脸释放
+7:35 锤摆摆回来时轻轻碰到他的鼻子
+7:38 中间有好几秒钟让你觉得
+7:40 这个人真的相信能量守恒
+7:42 温斯顿说不要在家尝试
+7:43 因为第一次做的时候人会有本能去推
+7:47 为什么板书和道具比幻灯片更有效呢？
+7:49 温斯顿有一个他自嘲为疯子边缘的理论
+7:53 叫做共情镜像（Empathetic Mirroring）
+7:54 当你坐在台下看我写字
+7:56 你脑子里那些镜像神经元（mirror neuron）就被激活了
+7:58 你能感觉到自己也在写
+8:00 我讲钢球摆动的时候
+8:02 你也能感觉到那个球
+8:03 但是幻灯片和图片做不到这一点
+8:06 必须是物理世界中的实物和动作才行
+8:09 所以他坚信板书和道具的感染力
+8:11 有神经科学层面的根基
+8:13 说到幻灯片，温斯顿的观点非常鲜明
+8:16 幻灯片是用来展示想法的
+8:17 不是用来教授想法的
+8:19 他列举了一堆使用幻灯片的常见错误
+8:22 文字太多是头号问题
+8:24 他讲了一个在机场偶遇的故事
+8:26 一个要去欧洲做求职演讲的年轻人
+8:28 请他点评幻灯片
+8:30 温斯顿说你的幻灯片太多、每张字太多
+8:34 对方惊讶地问你怎么知道
+8:35 他说因为这永远都是真的
+8:38 他做了个实验来佐证
+8:39 有个学生把同样的内容一半放在幻灯片上、一半口头讲
+8:43 然后对调
+8:44 结果听众记住的全是幻灯片上的文字
+8:47 没人记得讲者说了什么
+8:49 有个受试者甚至在反馈里说
+8:51 希望你别讲那么多话
+8:52 挺干扰的
+8:53 所以当你的幻灯片字太多
+8:55 等于强迫听众去读而不是听你说话
+8:59 因为人只有一个语言处理器
+9:01 要么用来读要么用来听
+9:03 温斯顿的建议是，去掉背景杂讯
+9:05 去掉多余的文字，去掉logo
+9:06 甚至去掉标题
+9:08 你能去掉多少就去掉多少
+9:10 字号最小建议四十到五十
+9:12 不是因为小于三十五看不清
+9:13 而是因为小字号往往意味着你会试图塞进太多的字
+9:18 还有激光笔也是个问题
+9:19 用它你就得转头看屏幕
+9:21 这样跟观众的目光接触就断了
+9:24 有个学生曾经说
+9:24 用激光笔的时候我们全走了他都不知道
+9:27 替代方案是在图上直接画箭头标注
+9:30 最后是不要让幻灯片太重
+9:32 你可以把幻灯片打印出来铺在桌上
+9:35 如果密密麻麻全是字
+9:36 没有留白，就是太重了
+9:38 温斯顿还提了一个有趣的概念
+9:40 整场演讲你可以用一张让听众无法完全理解、但是能传递核心感受的复杂幻灯片
+9:47 比如那张著名的展示阿富汗治理复杂性的图
+9:50 但这种图整场只能用一次
+9:52 一本书里也只能用一次
+9:54 多了就不行了
+9:55 然后温斯顿转向了几个特殊场景
+9:57 先说怎么用演讲来启发人
+9:59 而不只是传递信息
+10:01 他做过一个调研
+10:02 问新生和资深教授各自是被什么启发的
+10:06 新生说是高中老师告诉他们，你能行
+10:09 资深教授说是有人帮他们用新的方式来看问题
+10:13 而所有人的共同点是
+10:14 他们被展现热情的人所启发
+10:17 温斯顿说这对他来说很容易
+10:19 因为他做的是人工智能
+10:20 怎么可能对人工智能不感兴趣呢
+10:22 他举了自己AI课的例子
+10:24 开场展示一个给美国各州上色的程序
+10:27 如果用最笨的算法，等它跑完
+10:29 太阳都爆炸了，地球都被吞噬了
+10:32 然后他说，只需要稍微调整一下算法
+10:34 接下来五十分钟你们就会懂
+10:36 然后就秒级出结果
+10:38 他问学生，这酷不酷
+10:39 这种对内容的真实热情
+10:41 就是最好的启发
+10:43 温斯顿还有一个很深的判断
+10:45 关于怎么教人思考
+10:46 他说你问MIT教授最重要的事是什么
+10:49 他们都说教人思考
+10:51 你追问怎么教，就只剩下一片空白
+10:53 温斯顿的观点是
+10:55 人类是讲故事的动物
+10:56 我们从童年的童话开始
+10:58 发展出对故事的理解和操控能力
+11:01 一直延续到法学院、商学院、医学院、工程学院
+11:05 所以教人思考
+11:06 本质上是给他们需要知道的故事
+11:08 需要提出的关于这些故事的问题
+11:10 分析故事的机制，拼接故事的方式
+11:13 以及评估故事可靠性的方法
+11:15 关于口试
+11:16 温斯顿说过去口试比现在可怕得多
+11:18 还包括外语文献阅读，挂科率很高
+11:22 失败最常见的原因是没能把自己的研究放到背景中
+11:25 也就是没有交代清楚
+11:27 这个问题全世界都在攻关
+11:29 过去三十年没有突破
+11:30 一旦解决对很多领域有重大影响
+11:33 这就叫做定位
+11:35 另一个失败原因是缺乏练习
+11:37 而且不能只练给同一个办公室的人看
+11:39 因为他们知道你在做什么
+11:40 会脑补你幻灯片里没有的内容
+11:43 你的导师也不是好的练习对象
+11:45 也是同样的原因
+11:46 所以
+11:46 你得找不了解你工作的朋友来听
+11:49 求职演讲是温斯顿讲得比较透的部分
+11:51 他说在酒吧里跟两位海军科学委员会的同事聊天
+11:55 一位是多洛雷斯·埃德尔（Dolores Eder）
+11:56 写了二十一本书
+11:58 另一位是比尔·韦尔登（Bill Weldon）
+11:59 研究电磁炮的
+12:01 他问他们，招教职候选人看什么
+12:03 多洛雷斯说要看他有没有愿景
+12:06 紧接着比尔补充说
+12:07 还要看他做没做出东西
+12:09 温斯顿问，给他多久能建立这两件事
+12:12 答案是五分钟
+12:13 五分钟之内你没有展示愿景和成果
+12:16 就输了
+12:17 那怎么展示愿景呢
+12:18 就是讲一个有人在乎的问题和一个新的切入角度
+12:22 温斯顿自己的例子是
+12:23 问题是如何理解人类智能的本质
+12:26 角度是问人类和黑猩猩、尼安德特人到底有什么不同
+12:30 答案是我们是符号动物
+12:32 能构建符号描述、串联成故事
+12:34 这就是我们的独特之处
+12:36 那怎么展示你做过了什么呢
+12:38 这就需要列举实现解决方案需要的步骤
+12:41 你不一定每步都做了
+12:42 但是你要能说清楚这需要哪些步骤
+12:45 然后告诉对方你已经做了哪些
+12:47 演示出来
+12:47 最后用贡献列表收尾
+12:49 跟开头的步骤列举形成镜像关系
+12:52 说到怎么让自己的工作被记住
+12:54 温斯顿提出了他的温斯顿之星（Winston&#x27;s Star）概念
+12:57 也就是五个S开头的要素
+12:59 他用自己的博士论文做例子
+13:01 那篇关于拱门学习的论文后来变得小有名气
+13:04 很多年后他才意识到
+13:05 那篇工作偶然凑齐了这五个要素
+13:08 第一个是符号
+13:09 就是那个拱门图案本身
+13:11 一个视觉上的锚点
+13:13 第二个是口号
+13:14 他的论文总结出了一次学习（One-shot learning）这个概念
+13:18 程序从每个例子中都能学到确定的知识
+13:21 一次学习就是那个精炼的口号
+13:23 第三个是惊喜
+13:24 你不需要一百万个例子才能学习
+13:27 一个例子就够了，只要你会用
+13:29 这打破了常识
+13:30 第四个是凸显概念
+13:32 他说的不是重要的概念
+13:33 而是凸出来的概念
+13:35 论文里那个近似错失的想法
+13:37 虽然不是拱门，但是差得不远
+13:39 这个概念就会被非常鲜明地凸显出来
+13:42 第五个是故事
+13:43 完整讲述你怎么探索这个问题、怎么解决它、为什么重要
+13:47 这五颗星如果凑齐了
+13:49 你的工作就会被记住
+13:51 关于被记住这件事
+13:52 温斯顿讲了一个朱莉娅·查尔德（Julia Child）的轶事
+13:55 在一次威尼斯保护基金筹款活动上
+13:57 他坐在著名厨师朱莉娅旁边
+13:59 整个晚上不断有人过来请朱莉娅签名、说她的节目改变了自己的人生
+14:04 温斯顿问她，出名好玩吗
+14:06 朱莉娅想了想说，你会习惯的
+14:08 然后温斯顿补了一句
+14:09 但你永远不会习惯被忽视
+14:12 他的意思是，你的想法就像你的孩子
+14:14 你不想让它们衣衫褴褛地走向世界
+14:17 所以学习如何包装和呈现你的想法
+14:19 让它们被看到、被认可
+14:21 这是一件正当的事
+14:23 最后，温斯顿讲了怎么收尾
+14:25 先说最后一页幻灯片
+14:26 他明确说不能用合作者列表做结尾
+14:29 那会让人觉得你的工作被一千个教职分摊
+14:32 每份都很小，合作者应该放在第一页
+14:35 更不能用问答或者谢谢来做最后一页
+14:38 因为那页会挂在那里二十分钟
+14:40 白白浪费视觉焦点和自我展示的机会
+14:43 正确的做法是放你的贡献总结页
+14:46 让它在你回答问题和观众离场时
+14:48 一直悬挂在屏幕上
+14:50 至于最后的话，温斯顿说可以说笑话
+14:52 他同事道格·莱纳特（Doug Lenat）的秘诀就是每场以笑话结尾
+14:56 这样人们会觉得整个过程都很有趣
+14:58 但是不建议说谢谢
+14:59 因为那暗示大家是出于礼貌才留下的
+15:02 他们本来想去别的地方
+15:03 温斯顿用政治演讲来举例
+15:06 克里斯蒂州长（Governor Christie）在共和党大会上用
+15:08 上帝保佑你们，上帝保佑美国来收尾
+15:11 比尔·克林顿（Bill Clinton）在民主党大会上
+15:13 也是同样的祝福语式结尾
+15:15 没有人说谢谢
+15:16 当然，你也可以致敬观众
+15:18 说很荣幸来到这里
+15:19 被你们的问题所启发，期待再来
+15:21 温斯顿最后说
+15:22 拉丁弥撒用散会来结束
+15:24 音乐会指挥会用跟首席小提琴握手来示意
+15:27 这些都是告诉听众活动结束的信号
+15:30 演讲也一样，你需要一个明确的收束
+15:33 但不必是谢谢
+15:34 温斯顿在最后说了一句话
+15:36 我觉得很适合作为今天的收束
+15:38 他对同学们说，你们今天来到这里
+15:40 本身就说明你们理解了一件事
+15:42 如何呈现和包装你的想法
+15:44 是一件重要的事
+15:46 这其实也是我做这个频道一直在想的问题
+15:49 我们每天都在消费海量的信息
+15:51 但是真正能被记住的
+15:52 不是信息量最大的那些
+15:54 而是被最清晰地呈现、被最深刻地理解的那些
+15:58 温斯顿用一辈子讲了一门关于表达的课
+16:00 这门课之所以能火几十年
+16:02 不是因为他教了什么高深的技巧
+16:04 而是他把一件被所有人当作软技能、当作锦上添花的事
+16:09 当作成一件关乎思想存亡的事来对待
+16:12 希望这期视频能对大家有所帮助
+16:14 不妨在下次演讲或者汇报的时候
+16:16 借用一下温斯顿的这些小技巧
+16:18 看看是否会真的提高效果
+16:20 感谢收看，我们下期再见</pre></div><div class="raw-block" data-field="raw_source_item" data-raw-type="transcript"><div class="raw-label">YouTube zh-Hans subtitles with timestamps<button class="copy-btn" id="raw_transcript_4336625728_srt" onclick="copyRaw(this,'raw_transcript_4336625728_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_transcript_4336625728_text" onclick="copyRawText(this,'raw_transcript_4336625728_text')">📋 複製純文字</button></div><pre>原始逐字稿另存於 /tmp/u9wjz5RJ_bY_transcript.json；渲染時若需要完整附錄可使用 render_report.py --raw-srt 注入 timestamped_text。</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://youtu.be/u9wjz5RJ_bY" target="_blank" rel="noopener">https://youtu.be/u9wjz5RJ_bY</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
