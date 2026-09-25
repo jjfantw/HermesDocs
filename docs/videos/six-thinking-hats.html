@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>《六頂思考帽》：用六種固定視角讓會議不再雞同鴨講 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>《六頂思考帽》：用六種固定視角讓會議不再雞同鴨講</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-09-25 22:55</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">《六頂思考帽》：用六種固定視角讓會議不再雞同鴨講</h1>
+    <div class="meta"><span data-field="channel">📺 下一本讀什麼?</span><span data-field="duration">⏱ 15:19</span><span data-field="published_date">🗓 2025-03-18</span><span data-field="original_language">🌐 zh-TW</span><a data-field="source_url" href="https://youtu.be/8ovJxyq4LOY?si=R4vUveJdOdDyzkG-" target="_blank" rel="noopener">🔗 https://youtu.be/8ovJxyq4LOY?si=R4vUveJdOdDyzkG-</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>這支影片整理愛德華・狄波諾《六頂思考帽》的核心用法：把討論切成六種明確的思考模式，讓團隊在同一時間專注於同一種角度，避免意見、情緒、風險、創意與流程控制混在一起。影片依序說明白帽、紅帽、黑帽、黃帽、綠帽、藍帽的含義、會議用語與職場範例，最後提醒實務上不一定要真的講出帽子顏色；更重要的是自己知道現在要引導團隊切換到哪一種思考框架。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">先把討論切成同一種思考模式</h2><span class="ts-badge" data-field="lesson_timestamp">01:01</span></div><div class="body" data-field="lesson_body"><p>六頂思考帽的目的，是讓個人或團隊在不同時間點專注於某一種思維方式。影片指出，這樣能避免思考過程混亂，也能確保不同觀點都被充分考慮。</p><p>實際討論時，可以依情況挑一頂帽子，也可以按順序輪流使用幾頂帽子；不必每次用完六頂。重點是先說清楚：現在要從哪個角度討論，而不是讓事實、情緒、風險、創意與流程控制混在一起。</p><span class="tag" data-field="lesson_tag">核心概念</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">白帽：先整理客觀事實與資訊缺口</h2><span class="ts-badge" data-field="lesson_timestamp">04:13</span></div><div class="body" data-field="lesson_body"><p>白色思考帽代表客觀數據與事實。戴上白帽時，目標是用中立態度整理現有資訊，盡量不帶情緒或偏見。</p><p>影片用新產品市場潛力作例子：此時會議焦點應該放在市場數據、營銷報告、消費者調查，或像「過去三個季度類似產品銷售額持續成長」「75% 用戶希望看到更低價替代品」這類客觀資訊。白帽也用來找出還需要補哪些資料。</p><span class="tag" data-field="lesson_tag">客觀與資料</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">紅帽：讓感受與直覺有合法出口</h2><span class="ts-badge" data-field="lesson_timestamp">05:36</span></div><div class="body" data-field="lesson_body"><p>紅色思考帽代表情感、直覺和感受。影片強調，戴上紅帽時不需要理性分析或解釋原因，而是讓團隊短時間內表達對某個想法的心理反應。</p><p>例如討論新策略時，可以直接說「我覺得這個方案有一點冒險，我心裡有些擔心」，或「根據我的直覺判斷，這個提案有很大的潛力」。這種透明表達有助於打破僵局，降低因壓抑情緒造成的摩擦與誤解。</p><span class="tag" data-field="lesson_tag">情緒與直覺</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">黑帽：刻意檢查風險與問題</h2><span class="ts-badge" data-field="lesson_timestamp">07:01</span></div><div class="body" data-field="lesson_body"><p>黑色思考帽代表風險、缺點和問題。它的任務不是唱衰，而是謹慎評估提案中可能出現的風險，提出質疑並找出問題所在。</p><p>影片的例子是新產品開發計畫：可以提醒團隊「開發時間看起來太樂觀，可能影響上市時間」，或「這個方案可能增加很多成本，需要評估是否在預算範圍內」。黑帽讓決策在執行前先把風險想清楚。</p><span class="tag" data-field="lesson_tag">風險評估</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">黃帽：主動找出機會、優勢與價值</h2><span class="ts-badge" data-field="lesson_timestamp">08:24</span></div><div class="body" data-field="lesson_body"><p>黃色思考帽代表樂觀、積極與價值。它要求團隊從正面角度看問題，尋找可能的機會、優勢與好處。</p><p>影片舉例：討論新專案時，可以說「如果成功完成，會為公司打開全新市場機會」，或「這個策略雖然風險高，但若執行到位可能帶來很高效益」。黃帽能讓團隊看到計畫的正面價值，激發動力與信心。</p><span class="tag" data-field="lesson_tag">樂觀與價值</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">綠帽：暫時跳出框架，自由製造更多選項</h2><span class="ts-badge" data-field="lesson_timestamp">09:43</span></div><div class="body" data-field="lesson_body"><p>綠色思考帽代表創意、突破與想像力。戴上綠帽時，重點是自由發想，不受傳統框架限制，探索新穎甚至顛覆既有做法的想法。</p><p>影片提供兩種引導語：如果大家陷入固定模式，可以問「如果不是要成長兩倍，而是成長十倍，我們會改用什麼行銷方式？」；或在討論卡住時問「如果換成競爭對手來做決定，他們會怎麼想？」綠帽的價值是創造更多解法與機會。</p><span class="tag" data-field="lesson_tag">創意發想</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">07</span><h2 data-field="lesson_title">藍帽：像指揮者一樣設計討論流程</h2><span class="ts-badge" data-field="lesson_timestamp">11:02</span></div><div class="body" data-field="lesson_body"><p>藍色思考帽代表組織、統籌與控制。戴上藍帽時，要像指揮者一樣設定方向、安排流程，並在適當時機總結。</p><p>影片舉例，會議開始時可以說：「今天先從數據開始，收集現有資訊，然後再輪流進行創意發想跟風險評估。」會議結尾則可以整理共識並確認下一步行動。藍帽讓討論不失控，幫助團隊達成更有效率的決策成果。</p><span class="tag" data-field="lesson_tag">流程控制</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">08</span><h2 data-field="lesson_title">實務上不必真的說出帽子顏色</h2><span class="ts-badge" data-field="lesson_timestamp">13:33</span></div><div class="body" data-field="lesson_body"><p>影片最後提醒，這套方法在真實職場不一定要直接說「請戴上綠帽」或「換成某某顏色的帽子」，因為這樣聽起來可能很怪。</p><p>講者認為比較好的用法是：自己知道現在要引導大家進入哪一種思考框架，並用更自然的職場語句提出來。也就是說，六頂帽子的重點不是術語，而是背後六種角度的切換能力。</p><span class="tag" data-field="lesson_tag">職場使用方式</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">「自己知道現在是在進行哪一種帽子的討論，想引導大家進行哪一種討論；至於有沒有講出帽子的顏色，其實沒有那麼重要。」</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="00:00"><span class="ts">00:00</span><span class="text" data-field="key_point_text">影片開場指出，會議抓狂或討論雞同鴨講時，需要一套能切換分析、發想與風險評估的思考框架。</span></li><li data-field="key_point" data-timestamp="00:31"><span class="ts">00:31</span><span class="text" data-field="key_point_text">《六頂思考帽》提供一套簡單實用的思考工具，幫助個人或團隊從不同角度看問題、提升討論效率並做出決策。</span></li><li data-field="key_point" data-timestamp="02:08"><span class="ts">02:08</span><span class="text" data-field="key_point_text">六頂帽子可分成三組記憶：白帽與紅帽是客觀與情緒，黑帽與黃帽是風險與樂觀，綠帽與藍帽是創意與控制。</span></li><li data-field="key_point" data-timestamp="03:20"><span class="ts">03:20</span><span class="text" data-field="key_point_text">使用時不一定每次都要用完六頂帽子；重點是先定義當下要用哪一種思維，避免討論隨意跳來跳去。</span></li><li data-field="key_point" data-timestamp="04:13"><span class="ts">04:13</span><span class="text" data-field="key_point_text">白色思考帽代表客觀事實、數據與資訊缺口，適合整理市場資料、消費者調查與現有證據。</span></li><li data-field="key_point" data-timestamp="05:36"><span class="ts">05:36</span><span class="text" data-field="key_point_text">紅色思考帽代表情感、直覺與感受，讓團隊能短時間表達心理反應，降低壓抑情緒造成的誤解。</span></li><li data-field="key_point" data-timestamp="07:01"><span class="ts">07:01</span><span class="text" data-field="key_point_text">黑色思考帽代表風險、缺點與問題，用來謹慎評估提案、避免團隊因過度樂觀而忽略成本或時程風險。</span></li><li data-field="key_point" data-timestamp="08:24"><span class="ts">08:24</span><span class="text" data-field="key_point_text">黃色思考帽代表樂觀、積極與價值，提醒團隊尋找計畫可能帶來的機會、優勢與效益。</span></li><li data-field="key_point" data-timestamp="09:43"><span class="ts">09:43</span><span class="text" data-field="key_point_text">綠色思考帽代表創意、突破與想像力，適合在卡住時提出不同假設，創造更多選項。</span></li><li data-field="key_point" data-timestamp="11:02"><span class="ts">11:02</span><span class="text" data-field="key_point_text">藍色思考帽代表組織、統籌與控制，負責設定流程、引導討論、收斂共識與確認下一步行動。</span></li><li data-field="key_point" data-timestamp="12:32"><span class="ts">12:32</span><span class="text" data-field="key_point_text">影片結論認為，本書最大價值是讓人有條理地切換角度，提高討論品質與效率；但在真實職場不一定要直接說出帽子顏色。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="六頂思考帽">六頂思考帽</span><span class="tag-chip" data-tag="愛德華狄波諾">愛德華狄波諾</span><span class="tag-chip" data-tag="會議溝通">會議溝通</span><span class="tag-chip" data-tag="決策框架">決策框架</span><span class="tag-chip" data-tag="創意思考">創意思考</span><span class="tag-chip" data-tag="團隊討論">團隊討論</span><span class="tag-chip" data-tag="下一本讀什麼">下一本讀什麼</span></div>
+  </section>
+
+  
+  
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="description"><div class="raw-label">YouTube description<button class="copy-btn" id="raw_description_4381221888_srt" onclick="copyRaw(this,'raw_description_4381221888_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_description_4381221888_text" onclick="copyRawText(this,'raw_description_4381221888_text')">📋 複製純文字</button></div><pre>💌 訂閱免費電子報 https://readingoutpost.com 
+加入70,000位訂閱者，每週收到讀書心得和好書金句
+
+每次會議都開到快抓狂？跟別人討論總是雞同鴨講？你需要的是一套有效的「思考框架」，不管你是要冷靜分析、自由發想，還是評估風險，只要用對框架，就能瞬間找到新方向！一旦學會，你會發現，思考原來可以這麼輕鬆又有趣！
+
+00:00 本集概述
+00:31 這本書在說什麼？
+02:08 六頂思考帽的分類與用法
+04:11 六頂帽子的含義及範例
+04:13 白色思考帽
+05:36 紅色思考帽
+07:01 黑色思考帽
+08:24 黃色思考帽
+09:43 綠色思考帽
+11:02 藍色思考帽
+12:32 本集結論
+14:47 瓦基推薦下一本讀什麼
+
+📝部落格文字版：
+《六頂思考帽》讀後心得：最簡單又高效的解決問題思考框架
+https://readingoutpost.com/six-thinking-hats/
+
+📚關於書評部落格「閱讀前哨站」
+訂閱免費電子報（閱讀筆記、好書金句） https://readingoutpost.com
+傳送門連結（與我聯絡、業配折扣專區） https://readingoutpost.com/bio
+
+🎧收聽 Podcast 說書節目「下一本讀什麼」
+Apple Podcasts https://apple.co/34gUy39​
+Spotify https://spoti.fi/3i71G70​
+
+📚我讀過的其他好書，以及閱讀習慣的培養
+2023 年瓦基最喜歡的 10 本精選書單 https://readingoutpost.com/2023-favorite-books/
+2022 年瓦基最喜歡的 10 本精選書單 https://readingoutpost.com/2022-favorite-books/
+2021 年瓦基最喜歡的 10 本精選書單 https://readingoutpost.com/2021-favorite-books/
+養成這3個習慣，一年讀50本書改變人生軌跡 https://readingoutpost.com/how-to-read-50-books-a-year/
+喜歡看別人的讀書心得？愛書人50個私藏去處 https://readingoutpost.com/book-lover-collection/
+
+#讀書心得 #好書介紹 #說書推薦 #書摘濃縮 #閱讀筆記</pre></div><div class="raw-block" data-field="raw_source_item" data-raw-type="transcript"><div class="raw-label">Official zh-TW transcript with timestamps<button class="copy-btn" id="raw_transcript_4381222208_srt" onclick="copyRaw(this,'raw_transcript_4381222208_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_transcript_4381222208_text" onclick="copyRawText(this,'raw_transcript_4381222208_text')">📋 複製純文字</button></div><pre>0:00 你會不會每次跟人家開會
+0:02 都開到快要抓狂
+0:03 跟別人討論的時候
+0:05 總是雞同鴨講的呢
+0:07 你需要的是一套有效的思考框架
+0:10 不管你是要
+0:11 冷靜分析
+0:12 自由發想
+0:13 還是你要評估風險
+0:15 只要你用對了思考框架
+0:17 就可以瞬間找到新的方向
+0:19 一旦學會了
+0:20 你會發現
+0:21 原來思考可以這麼樣的輕鬆又有趣
+0:34 今天要分享的這本書
+0:35 它的書名叫做 《六頂思考帽》
+0:38 這本書的作者
+0:39 是被人家譽為
+0:40 創意思考之父的愛德華．狄波諾
+0:43 他也是全球最具影響力的
+0:45 商業思想家之一
+0:47 他透過這本書
+0:48 提供我們一套很簡單實用的思考工具
+0:51 就叫做 「六頂思考帽」
+0:53 幫助我們去突破一些思考上面的瓶頸
+0:56 在團隊的溝通當中  跟別人達成共識
+0:59 更有效率的可以做出決策
+1:01 那麼六頂思考帽
+1:02 可以讓我們從很多個角度去看待問題
+1:05 也可以提升討論的效率
+1:07 這六頂帽子
+1:08 各自代表著不同的思維方式
+1:12 白色帽子代表客觀的事實
+1:15 紅色帽子代表情緒跟感覺
+1:18 黑色的帽子代表要關注風險跟缺點
+1:21 那麼黃色的帽子
+1:23 則強調的是樂觀跟價值
+1:25 綠色的帽子鼓勵的是創意跟突破
+1:28 那麼藍色的帽子
+1:30 就是負責統籌
+1:31 跟控制我們整體的思考方向
+1:34 當我們輪流
+1:35 去使用這六個帽子來思考的時候
+1:37 我們個人或是團隊
+1:39 就可以在不同的時間點
+1:41 去專注在某一個思維的方式
+1:44 這樣子
+1:45 可以避免思考過程當中出現混亂
+1:47 也可以確保所有的觀點
+1:49 都可以被充分的考慮到
+1:51 無論你是企業主管團隊領導者
+1:54 或是任何想要提升思考能力的人
+1:57 都可以學到更有效率的思考
+1:59 跟解決問題的方式
+2:01 接下來我就跟你分享
+2:02 六頂帽子的這個使用方式
+2:05 以及每一頂帽子的一些使用範例
+2:08 那首先我先來談一下
+2:10 這個六頂思考帽的分類跟它的用法
+2:13 作者他建議我們
+2:14 可以把這六頂帽子分成三組來做記憶
+2:18 這樣子你會比較好記它們的關係
+2:21 第一組
+2:21 你可以想的是白色跟紅色的帽子
+2:25 代表的是客觀跟情緒
+2:28 那麼第二組是黑色跟黃色的帽子
+2:31 代表的是風險和樂觀
+2:35 那麼第三組是綠色跟藍色的帽子
+2:38 代表的是創意跟控制
+2:41 你只要這樣子分組
+2:43 就可以很容易記下每一頂帽子的意義
+2:46 那麼在實際的討論當中
+2:47 你可以根據情況
+2:49 去挑選出一頂合適的帽子
+2:51 例如說  當有人提出了一個想法
+2:53 大家覺得有點擔憂的時候
+2:56 你就可以戴上黑色的帽子
+2:58 你就說
+2:58 讓我們一起來評估一下風險吧
+3:02 如果你覺得討論的方向
+3:03 好像變得太負面了
+3:05 你也可以戴上黃色的帽子來提醒大家
+3:08 你就說
+3:09 不然我們改用樂觀一點的態度
+3:11 去找出這個想法的優點吧
+3:14 你只要可以這樣子切換帽子
+3:16 就可以從不同的角度去看待問題
+3:19 那另外一種用法是
+3:20 你可以按照順序
+3:21 去輪流使用不同的帽子
+3:24 這個特別適合深入討論
+3:26 或是想要解決問題的時候
+3:28 你不一定每一次都要用完六頂帽子
+3:30 你可以只選擇其中的三、四頂來用
+3:34 重要的是什麼
+3:35 是打開大家的視野
+3:37 在這個對談的過程當中
+3:39 先明確的定義
+3:40 你現在會想要用哪一個帽子
+3:42 來確保在這個範圍之內
+3:44 討論這個主題
+3:45 而不是隨意的跳來跳去
+3:48 就像是作者所說的
+3:49 創意就包含了挑戰  探索和冒險
+3:53 創意涉及到的是思想實驗
+3:56 你沒有辦法事先預測實驗的結果
+3:59 但是你希望
+4:01 能夠進行這樣子的思想實驗
+4:04 那麼六頂思考帽
+4:05 就是讓我們進行
+4:06 思想實驗的一種思考方式
+4:09 接下來我跟你一一的分享
+4:11 這六頂帽子分別的含義
+4:12 還有範例
+4:13 第一個叫做白色思考帽
+4:16 它代表的是客觀的數據跟事實
+4:19 你要聚焦在資訊的收集跟分析
+4:21 當你戴上白色帽子的時候
+4:24 你的目標
+4:24 是用中立的態度  去整理現有的資訊
+4:28 盡量不要帶有任何的情感或偏見
+4:31 以確保所有的事實
+4:32 都有被充分的考慮到
+4:34 同時啊  白色的帽子也代表了
+4:36 找出一些資訊的缺口
+4:39 思考一下
+4:39 有哪一些需要進一步收集的資料
+4:42 在職場會議當中
+4:43 假設團隊正在討論
+4:45 一個新產品的市場潛力
+4:47 你就戴上白色的帽子思考
+4:49 會議的重點應該就會變成
+4:51 現在的市場數據是什麼
+4:53 像是營銷的報告
+4:54 像是消費者的調查結果等等的
+4:57 這個時候你就可以說
+4:58 目前我們的資料顯示
+5:00 過去三個季度
+5:02 類似的產品銷售額持續的增長
+5:04 或者你就可以說
+5:06 根據客戶回饋的調查
+5:08 75%的用戶  希望看到更低價的代替品
+5:12 這個描述呢
+5:13 就提供了一些客觀的資訊
+5:15 讓團隊可以瞭解情況
+5:17 那麼白色思考帽在職場當中
+5:19 非常的有用
+5:20 它可以引導團隊去專注在客觀的事實
+5:23 避免被個人的意見或情緒干擾
+5:26 透過白色的帽子思考
+5:27 團隊可以更清楚的掌握現有的狀況
+5:30 為後續的討論  奠定一個很可靠的基礎
+5:33 有助於我們做出更理性的決策
+5:36 那麼再來要分享的是第二頂帽子
+5:38 是紅色的思考帽
+5:40 紅色思考帽代表的是情感
+5:42 直覺還有感受
+5:44 當你表達自己
+5:45 對於某個想法的情緒反應的時候
+5:48 你其實不太需要什麼理性分析
+5:50 或者解釋原因
+5:51 紅色思考帽
+5:52 就提供了一個
+5:53 讓你可以發洩情緒的空間
+5:55 讓團隊可以更能夠理解
+5:57 彼此之間的感受
+5:59 也能夠讓直覺的判斷浮現出來
+6:02 在職場當中
+6:03 假設你的團隊正在討論一項新的策略
+6:06 那麼當你戴上紅色思考帽的時候
+6:09 你就可以選擇直接表達你的感受
+6:12 例如你可以說
+6:13 我覺得這個方案有一點點冒險
+6:16 我的心裡面有一些擔心
+6:18 或者是你可以說
+6:19 根據我的直覺判斷
+6:21 我認為這個提案有很大的潛力
+6:25 那麼紅帽思考呢
+6:26 就允許你在短時間之內可以表達情感
+6:29 讓團隊更清楚
+6:31 每個人內心的反應跟感受
+6:34 紅帽思考在團隊討論的時候
+6:36 有助於打破僵局
+6:38 因為它會鼓勵大家
+6:39 坦率的表達自己的情緒跟直覺
+6:42 這種透明的情感交流
+6:44 可以降低彼此的摩擦
+6:45 避免因為壓抑情感
+6:47 而引發的其他誤解
+6:50 這樣可以進一步的提升團隊的溝通效率
+6:53 那此外啊
+6:53 直覺往往會提供一些
+6:55 理性分析所忽略掉的東西
+6:58 為團隊的決策  帶來新的思路
+7:01 那麼第三頂帽子叫做黑色思考帽
+7:04 黑色思考帽代表的是
+7:06 風險缺點跟問題
+7:09 當你戴上黑帽的時候
+7:10 你的目標就是
+7:11 謹慎的評估提案裡面的所有風險
+7:15 提出質疑
+7:16 找出可能的問題所在
+7:19 黑帽思考它強調的是保守跟務實
+7:22 它會確保團隊
+7:24 不要盲目的追求樂觀的表現
+7:26 而忽視了潛在的風險
+7:29 例如說啊
+7:29 在公司的會議裡面
+7:31 正在討論一個新的產品開發計畫
+7:33 這個時候  你就可以鼓勵大家
+7:35 可以戴上黑帽思考就是說
+7:38 這個產品的開發時間
+7:39 看起來好像太過樂觀了
+7:41 有可能會影響到我們最終上市的時間
+7:44 或者是呢
+7:45 你可以講
+7:46 這個方案可能會增加很多成本
+7:49 我們需要仔細的評估
+7:50 這是否在預算範圍之內
+7:53 透過黑帽的思考
+7:55 團隊就可以仔細的分析風險
+7:58 避免犯下過於樂觀的錯誤
+8:01 那麼黑帽思考是非常有用的
+8:03 因為它強調的
+8:04 就是這種很謹慎的思考方式
+8:06 幫我們辨識出潛在的問題
+8:09 降低風險
+8:11 那雖然有時候
+8:12 這個黑帽思考看起來好像有點負面
+8:14 但它其實是為了
+8:16 讓我們的決策可以更完善
+8:18 確保我們在執行決策之前呢
+8:21 所有的風險  都已經被充分的考慮過了
+8:24 那麼再來第四頂帽子
+8:26 叫做黃色思考帽
+8:29 黃色思考帽它象徵的是樂觀  積極
+8:32 還有價值
+8:34 當你戴上黃色思考帽的時候
+8:36 你的目標
+8:37 就是從正面的角度去看待問題
+8:40 尋找可能的機會  優勢  還有好處
+8:44 那麼黃帽思考會強調
+8:45 我們去探索事物的積極面
+8:48 我們試著去尋找背後的潛在價值
+8:52 像是在討論某個新專案的時候
+8:54 你就可以戴上黃色思考帽說
+8:56 如果我們成功的完成了這個專案
+8:59 就會為公司打開一個全新的市場機會
+9:03 或者是呢
+9:04 你可以很樂觀的說
+9:05 這個策略看起來風險雖然很高
+9:08 但是如果可以執行到位的話
+9:11 可能可以帶來很高的效益
+9:13 黃帽思考呢
+9:14 就可以讓大家看到
+9:15 計畫當中可能帶來的好處
+9:18 去激發團隊的動力跟創造力
+9:21 黃帽思考在團隊當中
+9:22 就有助於我們去培養積極的心態
+9:25 當我們專注於
+9:26 去尋找計畫的優勢的時候
+9:28 更能夠激發團隊的熱情
+9:31 也提高對於目標的信心
+9:33 同時黃帽的思考也會讓團隊瞭解到
+9:36 在困難的面前  也有一些潛在的機會
+9:40 為計畫的成功  可以找出更多的可能性
+9:44 那麼第五頂帽子  叫做綠色思考帽
+9:47 綠色思考帽代表的是創意
+9:50 突破跟想像力
+9:52 當你戴上綠帽子思考的時候
+9:54 重點就是自由的發想
+9:56 不要受傳統的框架限制住
+9:59 你要探索各種新穎的
+10:01 跟顛覆傳統的想法
+10:03 這是一種鼓勵創新
+10:05 跟解決問題的思考方式
+10:07 像是在團隊的腦力激盪會議當中
+10:10 如果大家都已經陷入了一個
+10:12 固定的思維模式
+10:13 你就可以提醒大家
+10:15 如果我們不是要成長兩倍
+10:17 而是要成長十倍的話
+10:19 我們會改用什麼行銷方式呢
+10:22 又或者  當某個討論卡住的時候
+10:24 你可以鼓勵大家
+10:26 如果換成我們的競爭對手
+10:28 來幫我們做決定
+10:29 他們會怎麼想
+10:31 綠帽子思考就提供了創新的空間
+10:34 讓團隊可以跳脫常規
+10:36 找到解決問題的新方法
+10:38 所以綠色思考帽  它的價值就在於
+10:41 它會激發創造力
+10:43 鼓勵團隊思考出更多元的可能性
+10:46 它提供了一個完全天馬行空
+10:48 自由發想的環境
+10:50 讓大家可以突破現有的框架
+10:52 產生新的點子
+10:54 這個在解決複雜問題
+10:55 或者是制定新策略的時候
+10:57 是特別有用的
+10:59 因為它能夠創造出更多的選擇
+11:01 還有機會
+11:02 那麼最後第六頂帽子叫做
+11:04 藍色思考帽
+11:06 藍色思考帽代表的是組織  統籌
+11:09 還有控制
+11:11 戴上藍帽子的時候啊
+11:13 你要思考的是指揮者
+11:15 你要當一個指揮者來引導討論的流程
+11:18 來設定討論的方向
+11:20 並且在適當的時機進行總結
+11:24 藍帽思考就是用來確保討論的秩序
+11:27 避免我們的思考發散
+11:29 像是在會議的一開始
+11:31 你可以戴上藍帽子
+11:32 你可以說
+11:33 今天我們就先從數據開始
+11:36 收集現有的資訊
+11:37 然後呢
+11:38 再輪流進行創意的發想
+11:40 跟風險的評估
+11:42 或者是在一個會議結尾的時候
+11:44 你可以做總結
+11:45 你說
+11:46 剛剛討論過了很多種觀點
+11:49 我們現在就來整理一下我們的共識
+11:52 確保下一步的行動計畫是什麼
+11:55 藍帽思考可以幫助團隊去保持專注
+11:58 確保討論可以按照既定的方向前進
+12:01 藍帽思考在團隊當中的討論
+12:04 就是有一種統籌全局的作用
+12:06 把看似一團混亂的討論
+12:08 整理出一個模樣
+12:10 這個就是藍帽思考者的任務
+12:12 它可以設置討論的流程
+12:15 幫每頂帽子的使用做好規劃
+12:17 並且在最後引導大家做出總結
+12:21 藍帽的存在是確保討論不要失控
+12:24 讓我們所有的想法
+12:25 都可以被納入決策的考量當中
+12:28 幫團隊達成更有效率的決策成果
+12:35 最後呢  我總結一下
+12:36 我認為這本書它最大的價值就是
+12:39 讓我們學會
+12:40 怎麼樣有條理的
+12:42 去切換不同的角度
+12:44 進行分析跟討論
+12:46 如同作者在書裡面寫的這句話
+12:49 他說
+12:49 真實人生跟學校算術是完全不同的
+12:53 答案往往不只有一個
+12:55 其中某一些會比較好
+12:58 也許是成本比較低  品質比較好
+13:00 或者是比較容易實施
+13:02 那麼六頂思考帽
+13:04 就讓我們可以更容易找出
+13:06 比較好的選項
+13:08 跟其他在提倡思考
+13:10 或腦力激盪的書不太一樣
+13:12 我認為這本書
+13:12 它不只是簡單的鼓勵自由發想
+13:15 或者是跳出框架而已
+13:17 它是提供了一個有條有理的思考方式
+13:20 讓我們在特定的時間之內
+13:22 從一個角度去出發
+13:24 然後再輪流切換到其他的角度
+13:26 確保每一個面向都有被充分的考慮到
+13:30 這個就可以提高討論的品質跟效率
+13:33 但是老實說
+13:34 這本書也不是說完全沒有缺點
+13:37 作者他提倡大家用帽子的顏色來溝通
+13:40 但是你想想看
+13:42 這個在真實的職場上面
+13:43 不太可能發生
+13:45 如果你叫別人戴綠帽思考
+13:47 你可能會被狂翻白眼吧
+13:48 或者是呢
+13:49 你教大家戴其他顏色的帽子
+13:52 這個聽起來好像會覺得
+13:54 自己是不是在上幼稚園呢
+13:55 好像聽老師在叫我們戴帽子一樣
+13:57 聽起來是怪怪的
+13:58 所以呢  我在這次的說書裡面
+14:00 這些句子的舉例當中
+14:02 我都刻意的不講到帽子的顏色
+14:05 改用更符合真實職場的說話方式
+14:07 來舉例
+14:08 因此我認為這本書最好的用法是什麼
+14:11 是
+14:11 你自己知道就好
+14:13 就像是
+14:14 你知道現在是在進行哪一種帽子的討論
+14:18 你想要引導大家進行
+14:20 哪一種帽子的討論
+14:22 你知道背後的六種框架
+14:24 如何切換就可以了
+14:26 那至於你有沒有講出這個帽子的顏色
+14:29 其實就沒有這麼重要
+14:31 那麼這本書
+14:31 還是提供了一個很棒的思考方法
+14:33 大家可以去參考看看
+14:35 OK  節目到這邊就進到了尾聲
+14:37 如果你喜歡今天的內容
+14:38 歡迎訂閱下一本讀什麼
+14:40 你也可以訂閱我的免費電子報
+14:42 每週收到最新的讀書心得
+14:43 還有好書金句
+14:44 我們就下次見囉  掰掰
+14:47 在資訊爆炸的現在
+14:48 我們如果只顧著吸收資訊
+14:50 卻不多加思考的話
+14:52 很容易就被別人洗腦
+14:54 你想要知道
+14:54 如何成為不被洗腦的聰明人嗎
+14:58 歡迎前往這本說書
+14:59 《不被洗腦的思維練習》
+15:02 你會學到如何整理資訊
+15:04 高效的溝通
+15:05 深度的閱讀
+15:06 還有激發潛能的思考方式</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://youtu.be/8ovJxyq4LOY?si=R4vUveJdOdDyzkG-" target="_blank" rel="noopener">https://youtu.be/8ovJxyq4LOY?si=R4vUveJdOdDyzkG-</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
