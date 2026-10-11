@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EP610 #專案經理 aka #PM 只是個出一張嘴的工作嗎？｜大人的Small Talk - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>EP610 #專案經理 aka #PM 只是個出一張嘴的工作嗎？｜大人的Small Talk</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-10-11 21:07</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">EP610 #專案經理 aka #PM 只是個出一張嘴的工作嗎？｜大人的Small Talk</h1>
+    <div class="meta"><span data-field="channel">📺 大人學</span><span data-field="duration">⏱ 20:48</span><span data-field="published_date">🗓 2025-10-09</span><span data-field="original_language">🌐 zh-Hant</span><a data-field="source_url" href="https://www.youtube.com/watch?v=n_s91KiasK4" target="_blank" rel="noopener">🔗 https://www.youtube.com/watch?v=n_s91KiasK4</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>這集以「PM 是否只是出一張嘴」為題，說明專案經理真正的價值不在行政協調或跳下去解技術問題，而在能否從管理、責任與權力三個層次保護專案與團隊。Joe 先把專案問題分成協調、技術、管理、責任、權力五類，指出前兩類雖然必要，卻不是 PM 最核心、最不可取代的價值。當客戶或內部利害關係人追加需求時，高價值 PM 不應第一時間問「怎麼做」，而要先判斷這是否牽涉資源、合約責任、決策權與權力結構。PM 要把成本、人力、時程、範疇等影響量化並視覺化，提出清楚選項，讓客戶或主管理解取捨。真正成熟的 PM 也要懂得釐清責任邊界、運用合約或規範談判，並判斷誰有權決策、誰能支持或阻擋需求。最後，影片把好的 PM 比喻成團隊的防火牆：他能排除障礙、爭取資源、釐清方向，讓工程師與設計師專注在真正擅長的技術問題上。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">PM 不是靠協調存在，而是靠判斷問題層次創造價值</h2><span class="ts-badge" data-field="lesson_timestamp">3:50</span></div><div class="body" data-field="lesson_body"><p>Joe 把專案中可能遇到的問題粗分成五類：<strong>協調、技術、管理、責任、權力</strong>。如果 PM 大多數時間都在處理前兩類，團隊很容易覺得這個角色可有可無；但如果 PM 能提供管理、責任與權力三個層次的價值，團隊才會感受到「有 PM 真好」。</p><p>這個分類也解釋了為什麼同樣叫 PM，有些人只是傳話、開會、追進度，有些人卻能幫專案排除阻礙。差異不在於頭銜，而在於他處理的是低取代性的行政支援，還是高槓桿的決策與風險問題。</p><span class="tag" data-field="lesson_tag">角色定位</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">協調與技術都重要，但不是 PM 最不可取代的價值</h2><span class="ts-badge" data-field="lesson_timestamp">4:47</span></div><div class="body" data-field="lesson_body"><p>協調問題包括通知、確認進度、召集會議、整理檔案、發會議記錄等。這些事對專案運作必要，但 Joe 直說：一個好的助理也應該能做好，因此若 PM 每天主要只做這些事，主管與團隊自然會覺得取代性很高。</p><p>技術問題同樣必要，但多數職場專案是應用型專案：使用已知技術、在合理時間與資源下把東西做出來。PM 若因為技術背景而把管理、責任、權力問題全都當技術問題解，就會陷入吃力不討好的陷阱。</p><span class="tag" data-field="lesson_tag">低取代性 vs 高取代性</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">客戶追加需求時，第一反應不該是「怎麼做」</h2><span class="ts-badge" data-field="lesson_timestamp">7:18</span></div><div class="body" data-field="lesson_body"><p>影片用客戶臨時追加功能作為例子。只用技術思維的 PM 會立刻想實作方式、找工程師討論、甚至自己跳下去幫忙或逼團隊加班；看起來負責，Joe 卻說這其實大錯特錯。</p><p>真正有價值的 PM 首要任務是<strong>保護專案與保護團隊</strong>。看到追加需求時，腦中第一個問題不是技術上怎麼做，而是：這真的是技術問題嗎？它可能其實是管理問題、責任問題，甚至是權力問題。</p><span class="tag" data-field="lesson_tag">需求變更</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">管理問題：把衝擊量化，讓取捨變成可討論的選項</h2><span class="ts-badge" data-field="lesson_timestamp">8:46</span></div><div class="body" data-field="lesson_body"><p>管理談的是資源配置。新需求進來，PM 要先分析它對成本、人力、時程與原本安排的衝擊，並把影響量化，再帶著資料找老闆或客戶討論。</p><p>Joe 舉例：如果要維持原上線時間，就需要額外增加兩個工程師一個月；如果用現有人力做，截止時間可能要延後一個月。前者增加成本，後者增加時間。PM 的價值在於把模糊壓力轉成清楚選項，並用排程、成本估算、資源管理等能力保護專案、團隊與公司。</p><span class="tag" data-field="lesson_tag">資源配置</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">責任問題：不是做得到就應該做，要先看邊界與補償</h2><span class="ts-badge" data-field="lesson_timestamp">10:50</span></div><div class="body" data-field="lesson_body"><p>責任問題問的是：即使技術上做得到、管理上有解，從合約與責任歸屬來看，我們應不應該做？如果合約沒有包含追加項目，除非客戶願意修改合約並給對應補償，否則貿然答應就是損害公司利益。</p><p>內部專案也一樣。別的部門丟來需求，可能會拖延大老闆最期待的核心功能；雖然最後全部都做了，卻晚了三個月，反而辜負一開始的期待。因此好 PM 要釐清責任邊界，而不是當什麼都答應的好好先生。</p><span class="tag" data-field="lesson_tag">責任邊界</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">權力問題：利害關係人不只看職稱，更要看誰能決定與承擔</h2><span class="ts-badge" data-field="lesson_timestamp">12:02</span></div><div class="body" data-field="lesson_body"><p>最能體現 PM 價值的是權力問題，也就是利害關係人的判斷。提出需求的客戶主管是否真是專案最終負責人？他是否有權決定？真正的窗口或背後大老闆怎麼看？如果變更造成延遲，這個主管能不能承擔責任？</p><p>厲害的 PM 會先盤點這些人，私下找支持專案的關鍵人物探口風，或找到真正有權力的負責人說明變更風險。需求有時不需要靠團隊硬做，而是透過處理權力關係，就能被化解於無形。</p><span class="tag" data-field="lesson_tag">利害關係人</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">07</span><h2 data-field="lesson_title">高價值 PM 的提問清單：該不該做、誰負責、誰能幫忙</h2><span class="ts-badge" data-field="lesson_timestamp">13:33</span></div><div class="body" data-field="lesson_body"><p>面對需求，高價值 PM 會先問一串非技術問題：這在合約責任範圍內嗎？如果要做，對時程、成本、人力有什麼影響？需要爭取多少額外資源？合約上能否要求補償？補償程序是什麼？</p><p>他也會追問：客戶為什麼現在才提出變更？背後商業目的是什麼？如果不做最壞狀況是什麼？能否拒絕？拒絕時用什麼理由最能說服對方？專案權力結構中誰支持、誰反對、誰可以結盟？這些問題與寫程式或做設計無關，卻對專案成敗至關重要。</p><span class="tag" data-field="lesson_tag">決策框架</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">08</span><h2 data-field="lesson_title">成熟 PM 是團隊的防火牆，而不是昂貴的工程師</h2><span class="ts-badge" data-field="lesson_timestamp">16:34</span></div><div class="body" data-field="lesson_body"><p>如果 PM 只會跳下去一起做，最後可能變成昂貴的工程師，反而更少時間處理真正有價值的事情；或者只會逼大家加班、叫大家交報告，讓團隊覺得他只是出一張嘴。</p><p>成熟 PM 掌握需求、目標、排程、成本、工作範疇、資源調度、合約等管理工具，能看清專案全貌與前方風險。更重要的是，他像防火牆一樣保護團隊，讓工程師與設計師能專注在自己最擅長的技術問題上，避免做白工與走冤枉路。</p><span class="tag" data-field="lesson_tag">團隊保護</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">09</span><h2 data-field="lesson_title">PM 的成長方向：從傳話者變成能運籌帷幄的領導者</h2><span class="ts-badge" data-field="lesson_timestamp">17:41</span></div><div class="body" data-field="lesson_body"><p>Joe 的結論是：PM 絕對不是、也不應該只是出一張嘴。當 PM 能從管理、責任、權力角度全盤思考，他會是團隊最寶貴的資產；他說出的每一句話，都可能是在替團隊排除障礙、爭取資源或釐清方向。</p><p>因此，想成為稱職 PM，除了原本的專業技能，也要學真正的專案管理知識，培養保護公司、保護老闆、談判與利害關係人思維。這樣才可能從傳話者、助理，蛻變成能真正運籌帷幄、帶領團隊成功的領導者。</p><span class="tag" data-field="lesson_tag">職涯成長</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">真正有價值的 PM，不是替團隊多做一點事，而是讓團隊少走冤枉路。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="2:18"><span class="ts">2:18</span><span class="text" data-field="key_point_text">本集討論專案管理；常見誤解是 PM 只是問進度、開會、出一張嘴，因此團隊感受不到 PM 的價值。</span></li><li data-field="key_point" data-timestamp="3:16"><span class="ts">3:16</span><span class="text" data-field="key_point_text">PM 被認為可有可無，常見原因是沒有理解自身角色，做了技術人員重疊或行政支援的事，卻沒處理真正關鍵問題。</span></li><li data-field="key_point" data-timestamp="3:50"><span class="ts">3:50</span><span class="text" data-field="key_point_text">專案問題可粗分為五類：協調、技術、管理、責任、權力；PM 的高價值主要在後三者。</span></li><li data-field="key_point" data-timestamp="4:47"><span class="ts">4:47</span><span class="text" data-field="key_point_text">協調問題包含通知、開會、整理檔案、會議記錄等，雖然重要，但不是 PM 最核心的價值。</span></li><li data-field="key_point" data-timestamp="5:37"><span class="ts">5:37</span><span class="text" data-field="key_point_text">技術問題在多數應用型專案中通常可由懂技術的人、足夠資源與時間解決；PM 若只用技術解處理所有問題，會掉入吃力不討好的陷阱。</span></li><li data-field="key_point" data-timestamp="7:18"><span class="ts">7:18</span><span class="text" data-field="key_point_text">以客戶追加功能為例，PM 若立刻想技術實作、找工程師討論或逼大家加班，看似負責，實際上可能沒有保護專案與團隊。</span></li><li data-field="key_point" data-timestamp="8:46"><span class="ts">8:46</span><span class="text" data-field="key_point_text">管理問題的核心是資源配置；新需求進來時，PM 應量化對成本、人力、時程與資源的衝擊，提出可選方案。</span></li><li data-field="key_point" data-timestamp="10:50"><span class="ts">10:50</span><span class="text" data-field="key_point_text">責任問題是從合約與責任歸屬判斷該不該做；PM 不應做什麼都答應的好好先生，而要釐清責任邊界。</span></li><li data-field="key_point" data-timestamp="12:02"><span class="ts">12:02</span><span class="text" data-field="key_point_text">權力問題涉及利害關係人；PM 要判斷提出需求的人是否有決策權、真正負責人是誰，以及誰能支持或阻擋變更。</span></li><li data-field="key_point" data-timestamp="13:33"><span class="ts">13:33</span><span class="text" data-field="key_point_text">高價值 PM 面對需求時會先問該不該做、影響是什麼、需要多少資源、合約能否補償、背後商業目的與權力結構為何。</span></li><li data-field="key_point" data-timestamp="16:34"><span class="ts">16:34</span><span class="text" data-field="key_point_text">成熟 PM 掌握需求、目標、排程、成本、範疇、資源、合約等工具，能看清專案全貌與風險。</span></li><li data-field="key_point" data-timestamp="17:18"><span class="ts">17:18</span><span class="text" data-field="key_point_text">好的 PM 像防火牆，保護團隊避免白工與冤枉路，讓技術成員專注在真正擅長的問題上。</span></li><li data-field="key_point" data-timestamp="18:25"><span class="ts">18:25</span><span class="text" data-field="key_point_text">想成為稱職 PM，除了專業技能，也要學習專案管理知識，培養保護公司、保護老闆、談判與利害關係人思維。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="專案管理">專案管理</span><span class="tag-chip" data-tag="PM">PM</span><span class="tag-chip" data-tag="利害關係人">利害關係人</span><span class="tag-chip" data-tag="需求變更">需求變更</span><span class="tag-chip" data-tag="資源配置">資源配置</span><span class="tag-chip" data-tag="責任邊界">責任邊界</span><span class="tag-chip" data-tag="職場管理">職場管理</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>逐字稿由 YouTube 字幕取得；內容整理未使用 OCR。逐字稿中約 16:19 附近出現一小段 SRT 格式殘留，主文已依上下文忽略該格式雜訊。</li></ul></div></section>
+  
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="description"><div class="raw-label">YouTube description<button class="copy-btn" id="raw_description_4305851776_srt" onclick="copyRaw(this,'raw_description_4305851776_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_description_4305851776_text" onclick="copyRawText(this,'raw_description_4305851776_text')">📋 複製純文字</button></div><pre>很多人以為PM只是「出一張嘴」的人，其實你只是還沒遇過真正厲害的PM。#Joe 在這集當中分享：協調與技術能力並不是專案經理的核心價值，真正的價值在於能從「#管理 × #責任 × #權力」三種角度去思考問題。當你能判斷客戶追加需求背後的責任與影響，懂得談判、設下界線，專案就不再失控，團隊也能無後顧之憂地專注把事做到最好。這集，讓你澈底破除對PM這個工作的迷思！
+
+相關集數
+【EP456 專案經理的責任是「看懂局」，然後引導公司做「有資格成功的事」】
+https://youtu.be/8lhEtYQE7kM
+【EP583 第一次當PM就被老闆罵爆？Bryan從三國演義領悟專案管理的3大關鍵能力】
+https://youtu.be/CN7Rgy9iky8
+
+專案經理系列實體課程
+【101專案管理一日特訓班｜專案管理課程】
+https://reurl.cc/qYlXAR
+【201a搞定利害關係人所需的職場政治力】
+https://reurl.cc/mYmXKG
+【302專案的談判與協商】
+https://reurl.cc/GN3D03
+
+有什麼問題想問Joe跟Bryan嗎？提問&amp;合作信箱：podcast@ftpm.com.tw
+**若需匿名，請自行提供暱稱**
+如果你喜歡我們的節目，歡迎贊助我們：https://bit.ly/3kskVsZ
+
+➡大人學網站：https://www.darencademy.com/
+➡大人學Facebook：https://www.facebook.com/darencademy/
+➡大人學Instagram：https://www.instagram.com/da.ren.cademy/
+
+#Podcast
+↓↓↓選擇下方任一連結，手機隨時收聽🎧↓↓↓
+➡Apple Podcast：https://apple.co/2TfttZE
+➡Spotify：https://spoti.fi/32LoD9Q
+➡KKBOX：https://bit.ly/3orkOQr
+➡大人學報名網站：http://bit.ly/35z1ebV
+
+【大人學】App下載
+iOS：https://apple.co/30vADNp
+Android：https://bit.ly/2YmreVI</pre></div><div class="raw-block" data-field="raw_source_item" data-raw-type="transcript"><div class="raw-label">YouTube 字幕逐字稿（含時間戳）<button class="copy-btn" id="raw_transcript_4305852096_srt" onclick="copyRaw(this,'raw_transcript_4305852096_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_transcript_4305852096_text" onclick="copyRawText(this,'raw_transcript_4305852096_text')">📋 複製純文字</button></div><pre>0:00 本集節目由大人學贊助提供
+0:04 如果你是一位專案經理
+0:06 以下這些問題你應該很熟悉
+0:09 比方說客戶希望產品能提早上線
+0:13 團隊某位成員臨時去支援別的部門了
+0:17 而老闆希望能調低預算等等
+0:20 種種的變動讓專案一延再延
+0:23 甚至成本超標難以達成
+0:26 很多的專案經理有去上過專案經理的相關課程
+0:29 或者買過相關的書籍
+0:32 甚至還去考了專業的證照
+0:34 然而面對實務上種種的變動
+0:37 最後還是被殺得措手不及
+0:40 因此我們把15年來擔任專案經理
+0:44 還有專案顧問的經驗
+0:46 做了一個總整理
+0:47 匯集成一堂專案管理一日特訓的實體課
+0:52 這堂課把抽象的管理知識壓縮在一天
+0:56 並且透過各種實用的工具
+0:57 解救PM於水深火熱之中
+1:01 課程當中呢
+1:01 我們會結合實際案例
+1:03 並且搭配精心設計的單頁表單
+1:07 讓大家可以從任務
+1:08 成本
+1:09 人力
+1:10 資源
+1:11 還有時間等各種層面
+1:13 重新對專案管理有個清楚的掌控
+1:17 透過一天紮實的訓練
+1:18 你會精準掌握專案管理的核心概念
+1:21 有能力掌握大局
+1:23 精準溝通
+1:24 即刻回應
+1:26 成為一位專業的專案管理者
+1:29 歡迎透過下方的連結
+1:30 查看這堂課更多的介紹哦
+1:41 歡迎收聽大人的Small Talk
+1:43 這是大人學的podcast節目
+1:45 我是Joe 張國洋
+1:47 大人學是個分享成為
+1:49 成熟大人必備學問的知識平台
+1:52 我們長期分享
+1:53 職涯發展
+1:54 人際溝通
+1:55 個人成長
+1:56 商業管理
+1:57 以及兩性關係等等的人生議題
+1:59 歡迎大家可以多多關注
+2:02 如果你有任何想找我們討論或提問的
+2:04 歡迎你寫信到podcast@ftpm.com.tw這個信箱
+2:11 如果你的問題是我們在30分鐘之內
+2:13 可以充分探討完畢的
+2:14 就會有機會被我們選中來放在節目之中
+2:18 那今天呢我想聊的不是讀者來函
+2:21 而是一個工作上面常見的議題
+2:24 那這個議題呢是我們的老本行
+2:26 也就是專案管理
+2:28 那之所以會想聊這個
+2:30 主要是因為我其實常常會聽到
+2:33 尤其是一些可能技術背景的朋友
+2:35 或者在第一線執行的朋友
+2:37 比方說呢工程師啊或者設計師啊
+2:41 他們心中啊其實常常會有一個疑問
+2:43 就是他會覺得專案經理
+2:46 好像就只是出一張嘴
+2:48 每天問問進度
+2:49 開開會
+2:51 可是對於整個專案的推進
+2:53 感覺有他跟沒他
+2:56 好像都沒有什麼差異
+2:58 所以就會很好奇
+2:59 到底為什麼要有PM這個職位
+3:02 如果你也曾經有這樣的一個感覺
+3:05 不管你是執行者的角色
+3:07 或者你自己就是那個PM
+3:09 可是你覺得這個團隊好像都不是很尊重你
+3:12 那我覺得今天這個節目
+3:14 可能就會對你有一些幫助
+3:16 其實啊
+3:18 我覺得會有這種PM可有可無的錯覺
+3:21 其中最大的問題
+3:23 通常其實還是那個專案的PM的錯
+3:26 就是呢
+3:27 他很可能沒有真正理解自己的角色到底是什麼
+3:31 以至於呢
+3:32 他可能做了很多事情
+3:33 可是做的都是跟
+3:35 要嘛就是跟技術人員重疊的事情
+3:37 要嘛就是一些行政支援的事情
+3:40 可是專案中明明有一些更關鍵的問題
+3:44 需要他來處理的
+3:45 可是他卻沒有意識到
+3:47 那是他自己的責任
+3:49 這要怎麼說呢
+3:50 我覺得我們可以這樣想
+3:52 就是一個專案
+3:54 有可能會碰到的問題
+3:56 其實我覺得可以粗略的分成五大類
+3:59 分別是什麼呢
+4:00 第一個我稱之為叫做協調性的問題
+4:04 第二個是技術性的問題
+4:06 第三個是管理性的問題
+4:08 然後第四個是責任問題
+4:11 最後一個是權力問題
+4:14 一個專案經理
+4:15 如果他大部分的時間跟心力
+4:18 都花在處理第一類
+4:19 也就是協調問題
+4:21 或者第二類技術問題
+4:23 那他很高的機率
+4:25 就會被團隊認為是一個用途不大,可有可無的人。
+4:30 可是反過來,如果他能夠提供第三、第四、第五類,
+4:35 也就是管理、責任跟權力這三個層次的價值,
+4:40 那這整個團隊就會覺得,哇,有這個人來當我們的PM,
+4:45 這實在是太好了。
+4:47 那我們先來聊聊什麼是協調問題。
+4:50 所謂協調問題,指的就是一些比較行政
+4:53 比較支援性的一些雜事
+4:55 比方說通知大家
+4:57 某個工作要開始了
+4:58 確認一下那個東西做完了嗎
+5:00 或者是我來召集大家開個會
+5:03 或者幫大家整理檔案
+5:05 發發會議記錄等等
+5:07 你說這些事情重不重要
+5:09 當然也重要
+5:10 一個專案是不能
+5:12 沒有人做這些事的
+5:13 可是它不是一個專案經理
+5:16 最核心的價值
+5:17 我說的直接一點
+5:19 這些事情一個好的助理
+5:21 其實應該就能夠做好
+5:23 所以如果你的頭銜是專案經理
+5:26 可是你每天最主要的工作
+5:28 都是在做這些事情
+5:29 都只是在支援團隊
+5:32 那你的主管
+5:33 你的團隊自然會覺得
+5:35 你的取代性很高
+5:37 再來我們看第二類
+5:38 技術問題
+5:40 任何專案都一定會有技術問題
+5:42 是需要去解決的
+5:44 不過除非你做的是那種
+5:46 非常前瞻的研發專案
+5:48 比方說要研究飛去火星
+5:50 所需要的火箭引擎的設計
+5:53 不然我覺得大部分人
+5:55 我們九成在職場上面會遇到的專案
+5:59 通常都是應用型的專案
+6:01 意思就是說這個技術本身
+6:03 可能是已知的
+6:05 比方說用資料庫
+6:06 用既有的程式語言去開發一個app
+6:09 或者是蓋棟大樓
+6:12 所以這些技術是已知的
+6:14 而且可能已經驗證過的
+6:16 問題是重點是怎麼讓專案團隊裡頭
+6:19 這些懂技術的夥伴能夠大家協調
+6:22 然後順利的把東西做出來
+6:24 換句話說
+6:25 應用型的專案
+6:26 只要團隊的技術能力是足夠的
+6:29 加上有合理的時間
+6:31 合理的資源
+6:32 這些技術問題最後多半都能解決
+6:35 就算團隊能力太差了
+6:37 就是我們公司沒有程式設計師
+6:40 那你有預算你可以外包
+6:42 或是你有時間可以讓團隊慢慢去鑽研
+6:45 多半最後也是能搞定的
+6:48 可是這裡最常碰到的狀況是什麼
+6:50 是有一些專案經理
+6:52 尤其是他是第一線技術背景出身的專案經理
+6:56 他們很容易不自覺的
+6:58 會把我們後面提到的管理問題
+7:01 責任問題
+7:02 還有權力問題
+7:04 通通都當成技術問題來解
+7:07 可是一個PM
+7:08 只要陷入這個思維
+7:11 就很容易會掉入一個
+7:12 吃力不討好的陷阱
+7:14 我舉一個
+7:16 就是大家一定都遇過的例子
+7:18 假設你現在有個專案
+7:20 你做到一半
+7:22 結果客戶那邊
+7:23 突然有一個主管冒出來
+7:25 然後來跟你說
+7:26 這個Joe啊
+7:27 我們能不能追加一個這樣那樣的功能
+7:31 這個時候
+7:31 如果你是一個只會用技術解來思考的PM
+7:35 那他通常第一反應
+7:37 就是立刻會被這個情境陷進去了
+7:40 他會跳進去
+7:41 然後再開始在腦中思考
+7:43 哦 這個功能很有趣
+7:46 這功能如果要做的話
+7:47 技術上到底要怎麼做
+7:48 我們可以這樣子
+7:50 然後那樣子搭配這個什麼東西
+7:51 然後我們就可以做到了
+7:53 然後馬上就跑去跟工程師
+7:55 討論實作的細節
+7:57 如果發現人力不夠
+7:59 他可能想說
+8:00 這個技術我其實也會
+8:02 那我跳下來一起來幫忙
+8:04 或者更糟的
+8:05 他會去拜託或者逼大家加班
+8:08 要想辦法把這個功能能夠生出來
+8:11 聽起來好像很負責任對不對
+8:13 不對這裡其實是大錯特錯
+8:16 因為一個真正有價值的PM
+8:19 他的首要任務
+8:20 其實是去保護專案
+8:22 還有保護團隊
+8:23 所以當他聽到
+8:25 知道看到這個追加功能的需求的時候
+8:28 腦中第一時間最應該浮現的
+8:31 不是怎麼做
+8:32 而是等等等等
+8:34 這真的是一個技術問題嗎
+8:37 因為這更有可能是一個管理問題
+8:39 也可能是一個責任問題
+8:41 甚至是一個權力問題
+8:44 好那我們分別來聊
+8:46 什麼是管理問題
+8:48 管理啊
+8:49 談的就是資源配置
+8:51 所以當一個新的需求進來
+8:53 它一定多多少少
+8:54 會對我們現有的專案造成衝擊嘛
+8:57 所以呢你應該先分析
+8:59 我們如果要接受
+9:01 這個衝擊在哪裡
+9:02 以及衝擊有多大
+9:05 它對我們成本會有影響嗎
+9:07 對人力會有影響嗎
+9:08 影響會在哪個層面
+9:10 對我們原來排定的時程
+9:12 會不會因此就造成了延誤
+9:14 等等等等
+9:15 他需要把這些影響都量化出來
+9:18 然後帶著這些資料去找老闆
+9:20 甚至找客戶去討論
+9:22 要麼就嘗試去爭取更多的資源
+9:25 或者更多的時間
+9:26 比方說他可能可以提出幾個選項
+9:28 他說報告客戶
+9:30 這個技術上面是做得到的
+9:32 但會有這樣跟那樣的一個衝擊
+9:35 所以我這邊有兩個建議
+9:37 你聽聽看
+9:38 選項一
+9:39 我們維持原來的上線時間
+9:42 可是這個新功能
+9:43 需要額外增加兩個工程師
+9:46 一個月的資源
+9:47 選項B
+9:48 我們用現有的人力來做
+9:50 但是整個專案的截止時間
+9:52 可能就需要往後延一個月
+9:55 那前者就會增加成本
+9:57 後者就會增加時間
+9:59 甚至更厲害的專業經理
+10:01 還要能做到我們自己在上課時候
+10:04 常常講到的所謂的視覺化
+10:06 還有具象化
+10:08 也就是要能夠讓主管或者客戶
+10:10 能夠很簡單的看到你看到的問題
+10:14 他看懂了
+10:15 很多時候很自然就能夠說服他們
+10:18 可是你要做到這一點
+10:20 你就需要具備排程的能力
+10:22 成本估算的能力
+10:24 資源管理的能力
+10:26 這些其實就是專案管理
+10:27 這門學問的核心知識
+10:30 這些你都懂了
+10:31 你才能夠保護專案
+10:33 保護團隊
+10:34 甚至保護公司
+10:35 而且當你有這個高度的時候
+10:38 作為專案經理
+10:39 就不再只是會解決技術
+10:42 而是可以做資源的這些權衡
+10:45 或者是時程成本上面的談判
+10:48 你看就更進階了一些
+10:50 那什麼是責任問題呢
+10:53 這裡指的是
+10:54 你要再更進一步
+10:56 就是這個功能
+10:57 就算技術上面我們做得到
+11:00 管理上面也有解
+11:01 可是從合約
+11:03 從責任歸屬的角度來看
+11:05 我們應不應該做
+11:07 比方說合約上
+11:09 根本沒有包含這個項目
+11:11 那除非客戶願意修改合約
+11:13 而且給我們對應的補償
+11:15 不然我們貿然做了
+11:17 不是等於就損害自己公司的利益嗎
+11:20 多加兩個工程師
+11:21 誰要出錢呢
+11:23 這個就是責任問題
+11:24 哪怕是公司內部的專案
+11:27 其實也是要做類似的考量
+11:29 今天別的部門
+11:31 隨意丟了一個額外的需求進來
+11:34 技術上或許是可以做的
+11:36 也做得到
+11:37 可是如果你答應下來了
+11:39 那搞不好
+11:40 這個會影響到大老闆最期待的核心功能
+11:43 這個核心功能
+11:44 可能沒辦法準時上線
+11:46 雖然最後什麼都做到了
+11:47 可是晚了三個月
+11:49 這樣其實你反而辜負了
+11:51 老闆最一開始的期待
+11:54 所以一個好的專案經理
+11:55 他也要去釐清責任的邊界
+11:58 而不是去當一個
+11:59 什麼都答應的好好先生
+12:02 那再來我們再來談最複雜
+12:04 也最能體現PM價值的
+12:06 則是權力的問題
+12:08 權力的問題
+12:09 其實談的就是利害關係人的議題
+12:12 今天跑來提這個需求的客戶主管
+12:16 他真的是對這個專案最終的負責人嗎
+12:19 他真的有權力來做這個決定嗎
+12:22 我們真正的這個客戶窗口
+12:25 或是他背後的大老闆
+12:26 那對這件事情的看法又是怎麼樣呢
+12:29 如果我們真的做下去了
+12:31 到時候結案的時候
+12:32 他們會認賬嗎
+12:34 甚至是如果因為我們多追加這個功能
+12:36 之後造成了專案的一個延遲
+12:39 這個主管他能承擔責任嗎
+12:42 一個厲害的PM
+12:43 他就會先去盤點這些人的問題
+12:45 他可能會先私下去找專案中
+12:48 支持我們的那個關鍵人物聊一聊
+12:50 探探口風
+12:51 搞不好你一問
+12:53 對方跟你講說
+12:54 喔那個主管講這個
+12:56 你不要理他
+12:58 他下個月就調走了
+12:59 他的這個意見不重要
+13:01 或者是你找到真正有權力的那個專案負責人
+13:06 你跟他說明這個變動可能會對時程造成影響
+13:10 會有一定的這個delay風險
+13:12 搞不好他聽完之後
+13:13 他自己就跑去跟那個主管溝通
+13:15 請他先不要做
+13:17 直接就把這個需求擋掉了
+13:20 那你看一個本來可能會讓整個團隊人仰馬翻的問題
+13:25 你透過處理權力關係
+13:26 結果有可能問題根本就化解於無形之中
+13:31 所以我們回到剛剛那個例子
+13:33 當一個需求發生的時候
+13:36 真正高價值的專案經理
+13:38 他腦中會浮現一連串的問題
+13:41 而不是怎麼做
+13:42 怎麼做還是要想啦
+13:44 可是他不是第一時間會想的事情
+13:46 他可能會想說
+13:47 第一個我們到底該不該做
+13:50 這個在這個合約的責任範圍之內嗎
+13:54 第二個如果要做
+13:55 那它對時程對成本對人力
+13:57 會造成什麼影響
+13:59 好那如果我們要再做第三步
+14:01 那我們需要爭取多少額外的資源呢
+14:03 那合約上面我們能要求補償嗎
+14:06 要求補償要跑什麼程序呢
+14:08 然後第四個
+14:09 那客戶為什麼是現在
+14:11 才提出這個變更呢
+14:13 它背後的商業目的是什麼
+14:15 這是一個真的有必要性的一個變更嗎
+14:18 那再來如果我們不做呢
+14:20 那最壞的這個狀況會是什麼
+14:22 我們有沒有機會拒絕
+14:24 那如果要拒絕我們該用什麼理由
+14:27 對方才最可以被說服呢
+14:29 那再來那個專案的權力結構
+14:32 到底是怎麼樣的
+14:33 誰是支持我的誰是反對我的
+14:35 誰是我們可以結盟的對象
+14:37 那我有沒有機會可以借力使力
+14:39 讓支持我的人去幫我排除掉這個阻礙呢
+14:43 你看這些思考
+14:45 全部都跟寫程式啊
+14:47 算力學啊
+14:48 做設計啊
+14:49 無關
+14:50 他們都不是技術問題
+14:51 可是卻對專案的成敗
+14:54 有著至關重要的影響
+14:56 可是呢
+14:57 如果一個PM
+14:58 不去想這些事情
+14:59 把所有的問題
+15:01 都當成技術問題來解
+15:03 唯一會的就是加班
+15:05 就是逼大家做
+15:06 逼大家吞下來
+15:07 那當然團隊永遠都會覺得
+15:10 時間不夠用
+15:11 人力不夠用
+15:12 那最後的結果
+15:13 要嘛就是PM也跳下來
+15:16 想說好了我要共體時艱
+15:17 要陪大家
+15:18 然後也變成一個昂貴的工程師
+15:21 他就更少的時間精力
+15:23 去專注那些有價值的事情
+15:25 他不然就只是會逼大家天天加班
+15:28 或者叫大家交報告
+15:30 當然大家就會怨聲載道
+15:32 然後就覺得你就出一張嘴嘛
+15:35 對不對
+15:36 然後你沒有辦法對著整個專案
+15:38 產生任何的價值
+15:40 所以這也就解釋了
+15:42 為什麼不同專案經理的價值感
+15:44 會有這麼大的一個落差
+15:46 因為一個什麼能力都不具備的PM
+15:49 那他多半也就只能提供第一等級
+15:52 也就是協調的價值
+15:54 就是到處傳話安排會議
+15:56 可是我們也說了
+15:58 這個取代性太高了
+16:00 至於如果是一個純技術出身
+16:02 可是沒有學過專業管理的PM
+16:04 他也會自然而然去選擇自己最擅長
+16:08 也最舒服的路徑
+16:09 也就是技術解
+16:11 他就會覺得說
+16:12 我自己跳下去幫忙
+16:14 這總是可以幫上忙
+16:15 可是問題是你會的
+16:17 你的團隊成員也會
+458
+00:16:19,440 --&gt;00:16:22,930
+甚至因為你可能已經離開第一線一陣子了
+16:22 他們搞不好做的比你還好
+16:25 結果呢
+16:25 PM跟團隊成員都在搶同一件事情做的時候
+16:29 那執行者自然就會覺得
+16:31 你這個PM好像沒什麼價值
+16:34 可是如果一個專案經理
+16:36 能夠成長到比較後期
+16:38 他能夠掌握需求
+16:40 目標
+16:41 排程
+16:42 成本
+16:43 工作範疇
+16:44 資源調度
+16:45 數量調配
+16:46 合約等等這些管理工具
+16:49 他就能幫所有人看清楚專案的全貌
+16:52 以及前方的風險
+16:54 如果他有責任的概念
+16:55 他懂得運用合約或規範
+16:58 或者法律來進行談判或斡旋
+17:01 或者他更有權力的敏感度
+17:04 可以快速的判斷出去影響哪些厲利害關係人
+17:07 然後能夠讓專案的價值最大化
+17:11 當一個專案經理能做到所有這些事情
+17:14 他就能夠幫專案帶來巨大的利益
+17:18 更重要的是
+17:19 他可以像一個防火牆一樣
+17:21 他可以保護整個團隊
+17:23 讓工程師讓設計師可以安安心心
+17:26 專注在他們真正最擅長的技術問題上
+17:28 尤其是避免大家做白工
+17:31 避免大家走冤枉路
+17:33 我覺得這個才是能夠保護到公司
+17:36 而且保護到投資專案的老闆
+17:39 這個其實才是有價值的
+17:41 所以回到我們今天一開始的問題
+17:44 PM真的是一個出一張嘴的工作嗎
+17:47 我的答案是
+17:48 絕對不是
+17:49 而且絕對不應該是
+17:52 因為如果一個PM
+17:53 能夠做到我們剛剛提到的所有一切
+17:56 管理、責任、權力的角度
+17:58 去全盤的思考跟解決問題
+18:01 那它其實會是整個團隊最寶貴的資產
+18:05 可是你去想
+18:05 這種PM其實過去你可能很少碰到
+18:09 對不對
+18:10 可是如果你碰到一次
+18:12 發現有一個PM有這樣的一個高度
+18:14 那你就發現他出了那張嘴
+18:16 說的每一句話
+18:18 其實都能夠幫團隊去排除障礙
+18:21 或者爭取資源
+18:22 或者釐清方向等等等等
+18:25 所以如果你現在是一個專案的負責人
+18:28 或者你未來希望成為一個稱職的PM
+18:31 我其實非常鼓勵你
+18:33 除了你原本的專業技能
+18:35 那個其實還是很重要的
+18:37 一定要再花時間去學習
+18:39 真正的專案管理知識
+18:41 然後要有能夠保護公司的思維
+18:44 保護老闆的思維
+18:46 要有談判的思維
+18:48 要有利害關係人的思維
+18:49 那你就能夠進一步保護到整個專案團隊
+18:54 而且當你擁有這些技能
+18:56 你就能真正發揮一個PM的價值
+18:59 讓自己從一個傳話者
+19:01 從一個助理
+19:03 蛻變成一個能夠真正運籌帷幄
+19:06 帶領團隊邁向成功的領導者
+19:09 我們其實在很多文章中
+19:11 都會把專案經理比擬為將軍或者軍師
+19:15 因為一個真正成熟的專案經理
+19:18 他確實能夠運籌帷幄
+19:20 決戰於千里之外
+19:23 可是如果你覺得自己在這幾項能力上有缺乏
+19:26 我真心建議要在專案中活得好
+19:30 請務必要讓自己提升
+19:32 那當然如果你覺得要自己學比較難
+19:35 那也很歡迎來大人學上課
+19:38 因為這領域專案管理這個領域
+19:40 也是大人學我們最最最擅長的領域
+19:43 我們現在一直也在很多
+19:45 上市櫃公司啊
+19:47 常態開設專案管理的系列課程
+19:50 所以呢
+19:51 也非常真心建議
+19:52 大家可以來參加
+19:53 那一些呢
+19:54 跟今天主題相關的課程
+19:57 我會請我們的製作人啊
+19:58 放在這一集的資訊欄
+20:00 所以也建議大家聽完啊
+20:02 可以看看
+20:03 尤其如果你是老闆
+20:06 你希望你的專案經理
+20:07 可以發揮作用
+20:08 你希望你的專案投資
+20:10 不要打水漂
+20:12 那真心也建議
+20:14 可以把這些專案經理送來上課
+20:17 因為你作為老闆
+20:18 自己講有時候員工不太聽
+20:20 可是讓老師教
+20:23 或許就會大不一樣
+20:25 那我們今天節目就到這邊
+20:27 謝謝大家的收聽
+20:29 那如果你喜歡我們的節目
+20:31 歡迎分享給親朋好友
+20:33 那請繼續跟我們一起
+20:34 相信思考勇於改變
+20:36 那我們下次見囉
+20:38 掰掰</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://www.youtube.com/watch?v=n_s91KiasK4" target="_blank" rel="noopener">https://www.youtube.com/watch?v=n_s91KiasK4</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
