@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>你的職稱不是 PM，卻天天都在做專案管理 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>你的職稱不是 PM，卻天天都在做專案管理</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-10-11 20:59</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">你的職稱不是 PM，卻天天都在做專案管理</h1>
+    <div class="meta"><span data-field="channel">📺 大人學</span><span data-field="duration">⏱ 30:39</span><span data-field="published_date">🗓 2026-09-17</span><span data-field="original_language">🌐 zh-Hant</span><a data-field="source_url" href="https://www.youtube.com/watch?v=kMfSmCN6Dmw" target="_blank" rel="noopener">🔗 https://www.youtube.com/watch?v=kMfSmCN6Dmw</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>Joe 張國洋指出，專案管理不是 PM 才需要的職稱技能，而是任何要把事情從想法推到成果的人都會用到的工作方法。現代工作越來越專案化：新系統導入、AI 應用、新市場開拓、活動與產品線，都需要規劃、協調、追蹤與應變。真正實用的專案管理，不是背名詞或只畫甘特圖，而是把工作拆清楚、責任講清楚、變更影響算清楚，並用視覺化與數字讓老闆、同事、客戶看懂全貌，進而做出更好的決策。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">專案管理不是職稱，而是把事情推進的基本能力</h2><span class="ts-badge" data-field="lesson_timestamp">00:01:53</span></div><div class="body" data-field="lesson_body"><p>Joe 先把題目從「PM 的工作」拉回到一般工作者：你可能是行銷企劃、業務主管、工程師、設計師或行政人員，但只要工作有目標、有開始與結束、需要跨人協作與溝通協調，就已經在做專案。</p><p>他舉活動統籌與工程上線為例：要找誰做、花多少錢、時間夠不夠、誰 delay、依賴模組是否準備好、老闆臨時加需求後會不會影響時程。這些都不是單純執行任務，而是廣義的專案管理。</p><p>因此，專案管理更像是一套做事方法：把一個想法變成具體成果時，所需的思維、拆解、協調與應變能力。</p><span class="tag" data-field="lesson_tag">核心觀念</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">現代工作越來越專案化，不能只靠既有 SOP</h2><span class="ts-badge" data-field="lesson_timestamp">00:05:07</span></div><div class="body" data-field="lesson_body"><p>Joe 認為 2026 年的工作環境，專案化程度比過去更高。以前很多工作可能是流程性的，例如每月報表、季度預算編列，照既定做法執行即可。</p><p>但現在公司常常突然要換新系統、導入 AI、進入新市場、舉辦新活動、開新產品線、談新合作。這些事情都需要規劃、協調、追蹤與應變。</p><p>所以專案管理不應被限縮成 PM 職稱才需要的能力，而是現代工作者應該具備的基礎能力。</p><span class="tag" data-field="lesson_tag">工作趨勢</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">專案管理教育常見誤區：背名詞、畫甘特圖，卻無法處理真問題</h2><span class="ts-badge" data-field="lesson_timestamp">00:06:37</span></div><div class="body" data-field="lesson_body"><p>很多人一聽到專案管理，腦中浮現的是甘特圖、敏捷、站立會議、範疇潛變、三點預估、IPECC 等名詞。Joe 認為，若只是背了很多名詞，卻不知道如何用概念解決真實問題，實務幫助有限。</p><p>他指出，有些人不是不認真，而是看了很多書、上了很多課，最後遇到老闆問「能不能提早兩週上線」時仍不知道怎麼回答。</p><p>因此，學專案管理的第一步應該是「實用」：不是為了考試或自我感覺良好，而是能第一時間處理實務場景。</p><span class="tag" data-field="lesson_tag">學習誤區</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">面對提前上線，不要只用情緒回答</h2><span class="ts-badge" data-field="lesson_timestamp">00:09:02</span></div><div class="body" data-field="lesson_body"><p>Joe 用老闆要求案子提前上線作為典型情境。沒有受過專案管理訓練的人，常見兩種極端反應：一種是直覺拒絕，卻說不清楚為什麼；另一種是不評估就答應，最後靠加班硬拚，延遲或品質出問題才收拾殘局。</p><p>懂專案管理的人則會說：「我不確定，但我來分析一下。」接著帶著資料回去，視覺化說明若要提前兩週，可以有哪些路徑：砍功能、分期上線、加人但有上手成本、或維持原範疇與客戶重新溝通急迫部分。</p><p>差異在於：前者用情緒反應，後者用結構回應。專案管理的核心結構是範疇、時間、成本彼此聯動，動了一項，另外兩項通常會受影響。</p><span class="tag" data-field="lesson_tag">決策溝通</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">沒有 PM 頭銜時，更需要利害關係人與視覺化能力</h2><span class="ts-badge" data-field="lesson_timestamp">00:14:23</span></div><div class="body" data-field="lesson_body"><p>如果你不是正式 PM，卻被老闆指派負責新產品上市或跨部門任務，挑戰會更大：你沒有正式權力，別人未必認為你有資格追進度或指派工作。</p><p>Joe 說，這時候就不能靠頭銜壓人，而要靠正確判斷、影響力、政治力與利害關係人工具推進事情。</p><p>他特別指出，複雜商務環境裡的溝通能力，不只是會說話，而是能把任務、負責人、期限、前後依賴關係攤開來，讓大家看見某個任務延後三天會如何壓縮下一個人，甚至推遲整體交付日。</p><span class="tag" data-field="lesson_tag">無權推進</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">用數字與圖形把「很趕」變成可討論的問題</h2><span class="ts-badge" data-field="lesson_timestamp">00:17:38</span></div><div class="body" data-field="lesson_body"><p>單說「很趕」或「時間不夠」，老闆不一定聽得懂，因為這些都很抽象。Joe 建議，應該拿出整合資料，說明原定四週完成十二項工作、目前完成五項、進度落後二成、落後原因在哪裡，以及接下來有哪些選項。</p><p>例如要追回進度，可以加人、砍範疇、延期、協商客戶衝擊或處理合約影響。當資料之間的連貫關係被攤開，決策者即使不是專案管理專家，也能做出較好的判斷。</p><p>這會把討論從「我覺得很趕／我覺得還好」拉回到「問題在哪裡、還能怎麼辦」。</p><span class="tag" data-field="lesson_tag">視覺化</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">07</span><h2 data-field="lesson_title">快速上手專案管理的四件事</h2><span class="ts-badge" data-field="lesson_timestamp">00:20:46</span></div><div class="body" data-field="lesson_body"><p>Joe 認為，大部分人不需要一開始就讀完 PMBOK、背完整名詞或學複雜排程軟體；真正該先掌握的是幾個核心概念。</p><p>第一，把工作拆清楚。不要只看到「下個月網站上線」這種大目標，而要拆出內容誰寫、圖片誰做、測試誰負責、上線當天出問題誰值班。第二，把責任講清楚。每個任務都要有明確負責人，避免「我以為你要做」的責任空窗。</p><p>第三，把變更影響算清楚。任何變更都有成本、影響與衝擊，必須量化後讓決策者有依據。第四，視覺化讓別人看懂你的世界：用文字、圖形與數字，把複雜度轉成簡潔直覺、可溝通的資訊。</p><span class="tag" data-field="lesson_tag">入門框架</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">08</span><h2 data-field="lesson_title">PM&#x27;s Big Table：把複雜專案壓成一張可溝通的表</h2><span class="ts-badge" data-field="lesson_timestamp">00:23:17</span></div><div class="body" data-field="lesson_body"><p>Joe 介紹大人學課程中的工具 PM&#x27;s Big Table，中文可理解為「專案經理的大表單」。它把範疇、時間、成本、人力、資源等重要面向整合在一張表上。</p><p>這張表的特色包括：動態更新，讓工具跟著專案變化；針對人性設計，有預計與實際欄位，讓落差被看見；用數字量化，讓討論從感覺變成依據。</p><p>實務上，它可用於做計畫、開會溝通、處理需求變更、協商資源與談判。對沒有 PM 頭銜的人尤其有用，因為你不能靠頭銜推動事情，但可以靠清楚的計畫表讓大家看到全局。</p><span class="tag" data-field="lesson_tag">工具</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">09</span><h2 data-field="lesson_title">重點不是完美計畫，而是在混沌中活下來</h2><span class="ts-badge" data-field="lesson_timestamp">00:26:48</span></div><div class="body" data-field="lesson_body"><p>Joe 最後把大人學 101 專案管理一日特訓班定位為實用導向：不是為了 PMP 證照，也不是花一天背名詞，而是讓學員明天就能用、在真實工作環境裡存活。</p><p>他強調，專案幾乎不會照計畫走：需求會變、人會離開、預算可能被砍、老闆可能有新想法、客戶可能急著上線。因此課程重點不是做出完美計畫書，而是用工具與方法在持續變動中讓專案不要爆掉。</p><p>核心仍回到前面的主軸：拆工作、定責任、算影響、視覺化，並能在突發狀況中正確分析、溝通、爭取資源與談判。</p><span class="tag" data-field="lesson_tag">課程定位</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">專案管理不需要很複雜，也不需要很學術；你需要的是一個能把複雜狀況簡單解釋給別人聽，並用來協調、談判、解決變動的武器。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="00:01:53"><span class="ts">00:01:53</span><span class="text" data-field="key_point_text">Joe 表示，大人學的本業是專案管理；很多人雖然不是 PM，但工作中很大一部分其實都在做專案管理。</span></li><li data-field="key_point" data-timestamp="00:02:37"><span class="ts">00:02:37</span><span class="text" data-field="key_point_text">活動統籌、新功能上線、跨部門協調、廠商交期、老闆臨時加需求，廣義上都屬於專案管理問題。</span></li><li data-field="key_point" data-timestamp="00:04:21"><span class="ts">00:04:21</span><span class="text" data-field="key_point_text">專案管理不是職稱，而是把想法變成具體成果時，需要的一整套思維與方法。</span></li><li data-field="key_point" data-timestamp="00:05:07"><span class="ts">00:05:07</span><span class="text" data-field="key_point_text">2026 年的工作環境專案化程度更高，新系統導入、AI 應用、新市場、活動、產品線與合作計畫都需要專案能力。</span></li><li data-field="key_point" data-timestamp="00:06:37"><span class="ts">00:06:37</span><span class="text" data-field="key_point_text">很多人做不好專案管理，一是沒有認知，二是把它誤解成甘特圖、名詞、證照或學術理論。</span></li><li data-field="key_point" data-timestamp="00:08:37"><span class="ts">00:08:37</span><span class="text" data-field="key_point_text">學專案管理的第一步應該是實用：不是為考試或背定義，而是能第一時間解決實務問題。</span></li><li data-field="key_point" data-timestamp="00:09:02"><span class="ts">00:09:02</span><span class="text" data-field="key_point_text">面對老闆要求提前上線，直覺拒絕或直接答應都危險；懂專案管理的人會先分析並帶資料回去討論選項。</span></li><li data-field="key_point" data-timestamp="00:12:59"><span class="ts">00:12:59</span><span class="text" data-field="key_point_text">有專案管理能力的人不是用情緒回應，而是看懂全局後，用範疇、時間、成本的結構來回應。</span></li><li data-field="key_point" data-timestamp="00:14:23"><span class="ts">00:14:23</span><span class="text" data-field="key_point_text">沒有 PM 頭銜卻要做 PM 的事時，最大的挑戰是沒有正式權力，因此更需要利害關係人工具、判斷、影響力與政治力。</span></li><li data-field="key_point" data-timestamp="00:16:23"><span class="ts">00:16:23</span><span class="text" data-field="key_point_text">複雜商務環境中的溝通核心不是只會說話，而是能把任務、責任、期限與依賴關係視覺化。</span></li><li data-field="key_point" data-timestamp="00:18:02"><span class="ts">00:18:02</span><span class="text" data-field="key_point_text">若能用整合資料呈現原定計畫、完成項目、落後比例、原因與補救選項，決策者就能基於數字做判斷。</span></li><li data-field="key_point" data-timestamp="00:20:46"><span class="ts">00:20:46</span><span class="text" data-field="key_point_text">快速上手專案管理的四個核心：拆清楚工作、講清楚責任、算清楚變更影響、視覺化讓別人看懂。</span></li><li data-field="key_point" data-timestamp="00:23:17"><span class="ts">00:23:17</span><span class="text" data-field="key_point_text">大人學課程中使用 PM&#x27;s Big Table，將範疇、時間、成本、人力、資源整合在一張動態表單上。</span></li><li data-field="key_point" data-timestamp="00:24:28"><span class="ts">00:24:28</span><span class="text" data-field="key_point_text">這張表可用於做計畫、開會溝通、處理需求變更、協商資源、談判時程與成本。</span></li><li data-field="key_point" data-timestamp="00:26:15"><span class="ts">00:26:15</span><span class="text" data-field="key_point_text">如果能透過工具把工作、責任、變更成本與全貌講清楚，專案成功率會提高，協商難度也會降低。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="專案管理">專案管理</span><span class="tag-chip" data-tag="PM">PM</span><span class="tag-chip" data-tag="大人學">大人學</span><span class="tag-chip" data-tag="職場溝通">職場溝通</span><span class="tag-chip" data-tag="視覺化">視覺化</span><span class="tag-chip" data-tag="範疇時間成本">範疇時間成本</span><span class="tag-chip" data-tag="利害關係人">利害關係人</span><span class="tag-chip" data-tag="PM&#x27;s Big Table">PM&#x27;s Big Table</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>本報告依 YouTube 官方 zh 字幕與影片描述整理；未進行人工逐句校稿。</li></ul></div></section>
+  
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="transcript"><div class="raw-label">逐字稿全文<button class="copy-btn" id="raw_transcript_4318930496_srt" onclick="copyRaw(this,'raw_transcript_4318930496_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_transcript_4318930496_text" onclick="copyRawText(this,'raw_transcript_4318930496_text')">📋 複製純文字</button></div><pre>[00:00:00] 本集節目由大人學贊助提供
+[00:00:03] 如果你是一位專案經理
+[00:00:06] 以下這些問題你應該很熟悉
+[00:00:08] 比方說 客戶希望產品能提早上線
+[00:00:12] 團隊某位成員臨時去支援別的部門了
+[00:00:16] 而老闆希望能調低預算等等
+[00:00:20] 種種的變動讓專案一延再延
+[00:00:23] 甚至成本超標 難以達成
+[00:00:26] 很多的專案經理啊 有去上過專案經理的相關課程 或者買過相關的書籍 甚至呢 還去考了專業的證照
+[00:00:34] 然而呢 面對實務上種種的變動 最後還是被殺得措手不及
+[00:00:40] 因此啊 我們把15年來擔任專案經理還有專案顧問的經驗呢 做了一個總整理 匯集成一堂專案管理一日特訓的實體課
+[00:00:52] 這堂課把抽象的管理知識壓縮在一天
+[00:00:55] 並且透過各種實用的工具解救PM於水深火熱之中
+[00:01:00] 課程當中我們會結合實際案例
+[00:01:03] 並且搭配精心設計的單頁表單
+[00:01:06] 讓大家可以從任務、成本、人力、資源
+[00:01:11] 還有時間等各種層面 重新對專案管理有個清楚的掌控
+[00:01:17] 透過一天扎實的訓練 你會精準掌握專案管理的核心概念 有能力掌握大局 精準溝通 即刻回應 成為一位專業的專案管理者
+[00:01:28] 歡迎透過下方的連結 查看這堂課更多的介紹哦
+[00:01:41] 歡迎收聽大人的Small Talk
+[00:01:43] 這是大人學的podcast節目
+[00:01:45] 我是Joe 張國洋
+[00:01:47] 大人學是個分享成為成熟大人必備學問的知識平台
+[00:01:51] 歡迎大家可以多多關注
+[00:01:53] 那其實還蠻長一段時間 我們沒有聊我們的本業了
+[00:01:57] 那我們本業其實是專案管理
+[00:01:59] 所以這一集 我想要聊一個很多人可能從來沒有意識到的事情
+[00:02:05] 就是你的工作 有可能有一大半的時間
+[00:02:09] 其實都是在做所謂的專案管理
+[00:02:14] 那聽到這 你可能會說,
+[00:02:15] 欸不是啊不是啊 我又不是PM
+[00:02:17] 對不對 我也不是什麼專案經理
+[00:02:19] 專案管理關我什麼事?
+[00:02:21] 我的職稱可能是行銷企劃
+[00:02:24] 是業務主管 是工程師
+[00:02:26] 是設計師 甚至是行政人員
+[00:02:28] 既然我不是PM
+[00:02:30] 那Joe 你為什麼要說我在做專案管理呢?
+[00:02:33] 這聽起來好像有道理
+[00:02:35] 可是我要請你想一想
+[00:02:37] 就是你有沒有遇過這樣的情境
+[00:02:39] 你的老闆忽然跑來跟你說
+[00:02:42] 說他想要辦一個活動
+[00:02:44] 下個月要上線
+[00:02:46] 然後派你去統籌這件事
+[00:02:49] 所以接下來你就要開始去想 要找誰來做 可能要花多少錢 時間夠不夠
+[00:02:54] 那中間呢 如果有人可能工作delay 那這個時候該怎麼辦
+[00:02:58] 然後呢 你可能要去協調設計部門的時間啊 要確認這個廠商的交期啊 然後要跟老闆回報進度
+[00:03:06] 甚至呢 老闆可能中間會跟你說 欸~我覺得啊 我們來加一個環節 有個人上去表演 或者發表一場演說 你覺得怎麼樣
+[00:03:16] 所以加了這個內容 你就得要重新規劃 重新盤點 看看這個變更會不會影響到整個時程
+[00:03:23] 那你說這些事情它到底是什麼? 其實 廣義來說 就是專案管理
+[00:03:30] 或者你是一個工程師 產品部門跑來跟你說 想要兩周之後上一個新功能
+[00:03:36] 那你心裡知道這個東西可能正常要做四周 可是你有點不知道該怎麼跟上面溝通 你覺得這會很趕
+[00:03:45] 可是你又不知道怎麼量化這個趕
+[00:03:48] 然後你想說 算了 講不清楚
+[00:03:50] 算了 這個我就加班拼拼看吧
+[00:03:53] 結果拼到一半 你又發現
+[00:03:55] 哇 除了很趕以外
+[00:03:57] 還有另外一個依賴的模組
+[00:04:00] 其實是沒有準備好的
+[00:04:02] 所以現在整個進度都被卡住了
+[00:04:05] 可是這個資訊你沒有提早掌握
+[00:04:07] 因為你一開始沒有把所有工作
+[00:04:09] 都展開來看清楚
+[00:04:11] 而且現在卡住了
+[00:04:12] 你也不知道要怎麼把這件事情
+[00:04:14] 跟其他人講清楚
+[00:04:16] 這些事情、這些問題 說穿了 其實也是專案管理的問題
+[00:04:21] 所以我今天想要跟大家釐清一個我自己覺得這些年來很重要的一個觀念
+[00:04:28] 就是 專案管理這件事情 它並不是一個職稱
+[00:04:32] 它比較像是一個做事的方法 或是一種核心的技能
+[00:04:38] 換言之 它是把一個想法變成一個具體成果過程中 都需要會用到的一整套思維跟方法
+[00:04:46] 換言之 不管你在名片上面印的是什麼
+[00:04:50] 只要你的工作涉及到開始跟結束
+[00:04:54] 也就是有起有迄
+[00:04:56] 有目標 需要跟不同的人合作
+[00:04:58] 你常常要去溝通協調
+[00:05:01] 那你很高的幾率其實就是在做專案
+[00:05:05] 而且我要跟你分享
+[00:05:07] 現在 2026年的工作環境
+[00:05:10] 這種專案化的程度其實是越來越高的
+[00:05:15] 就是你回想一下 10年前 可能20年前 很多工作是什麼 比較都是流程性的 也就是有一個標準的SOP
+[00:05:23] 你可能照著做就對了 比方說每個月可能就是出一個報表 或者每個季度就是做一個這個預算的編列 這些可能過往都是有既定的做法
+[00:05:33] 可是啊 現在 你常常會碰到公司可能突然說 我們要換一個新系統 那新系統的導入就是一個專案 老闆說我們要能夠導入AI
+[00:05:45] AI的應用其實就是一個專案
+[00:05:47] 公司說我們要進一個新的市場
+[00:05:50] 所以要市場研究 通路的建立
+[00:05:53] 在地化 展覽 招商
+[00:05:56] 每一個都是一個小專案
+[00:05:58] 甚至公司說我們要辦一個新的活動的形式
+[00:06:02] 要做一個新的產品線
+[00:06:03] 要跟一個新的合作伙伴去談一個新的計劃
+[00:06:07] 每一件事情都需要你去規劃
+[00:06:09] 去協調 去追蹤 還有去應變
+[00:06:11] 這也就是為什麼我說專案管理在現在這個時代
+[00:06:16] 它並不是PM這個職稱的人才需要會的事情
+[00:06:19] 它並不是那麼狹隘那麼限制的事情
+[00:06:22] 它其實是每一個現代的工作者都應該要具備的基礎能力
+[00:06:28] 對 我會說它是基礎能力
+[00:06:30] 它可能像用這個Excel 用計算機
+[00:06:33] 甚至能夠閱讀 能夠寫字 是同樣的 是基礎能力
+[00:06:37] 可是問題就來囉
+[00:06:39] 既然我們每個人
+[00:06:41] 其實每天都有一部分的事情是跟專案管理有關
+[00:06:45] 那為什麼很多人其實根本上做不好
+[00:06:48] 我覺得一方面是認知
+[00:06:50] 很多人其實沒有這個認知
+[00:06:52] 所以壓根沒有學過專業管理
+[00:06:53] 我覺得另外一個誤解
+[00:06:55] 就是有些人一聽到專業管理
+[00:06:59] 腦子裡頭浮現的畫面是什麼?
+[00:07:01] 是甘特圖
+[00:07:03] 就是那個橫軸是時間
+[00:07:05] 縱軸是任務
+[00:07:06] 然後中間有很多長條形的這個色塊
+[00:07:09] 那個東西
+[00:07:10] 所以有些人就會覺得 哎呀 專案管理就是畫甘特圖嘛 就是排時程嘛 哎呀 那個其實好像太復雜了 跟我沒有關係 甚至有些人可能過去也上過一些專案管理課
+[00:07:24] 結果那些課教了很多名詞
+[00:07:26] 什麼敏捷、站立會議、範疇潛變、三點預估
+[00:07:30] 或者背什麼IPECC等等等等
+[00:07:33] 然後他們就會覺得 我名詞背了一堆
+[00:07:36] 結果回到工作上面 老闆問一句說
+[00:07:39] 這個案子能不能提早兩週上線
+[00:07:41] 他還是不知道怎麼回答
+[00:07:44] 換句話說 學了不能用的東西
+[00:07:46] 然後最後就變得很可惜
+[00:07:48] 所以這也是我自己接觸很多專案工作者
+[00:07:52] 我覺得很多人的困境
+[00:07:54] 就是一開始路就走錯了
+[00:07:57] 那事實上也是蠻多地方的專案管理的教育方向
+[00:08:01] 我覺得根本上就是有誤解的
+[00:08:03] 就是上了很多課 然後教你背名詞
+[00:08:06] 名詞背了很多
+[00:08:08] 可是沒有教你怎麼用這些概念來解決真實的問題
+[00:08:12] 我覺得這是一個大問題
+[00:08:14] 所以就造成了一些初學者
+[00:08:16] 他其實不是不認真
+[00:08:17] 他們很認真
+[00:08:19] 看了很多書
+[00:08:20] 背了很多名詞
+[00:08:21] 可是因為不知道怎麼用
+[00:08:23] 所以最後專案還是做不好
+[00:08:26] 我覺得這就變成一個還蠻大的可惜
+[00:08:29] 就是要麼沒有認知
+[00:08:31] 要麼有認知可是學錯了
+[00:08:33] 我覺得這些其實都是對實務上幫助有限
+[00:08:37] 所以我自己就覺得
+[00:08:38] 你要學專案管理
+[00:08:40] 第一步
+[00:08:41] 實用
+[00:08:42] 因為學習不是為了自我感覺良好
+[00:08:46] 不是為了考試 不是為了背書
+[00:08:48] 你不需要背一大堆名詞定義
+[00:08:51] 而是第一時間就要能夠去解決實務問題
+[00:08:54] 可是問題來了 什麼是實務問題?
+[00:08:57] 我就舉一個最常見
+[00:08:59] 辦公室一定會碰到的情境或者場景
+[00:09:02] 就是呢 你的老闆可能某一天走過來跟你說
+[00:09:07] 欸Joe 這個案子有沒有機會提早上線?
+[00:09:11] 因為我發現市場好像有一點風吹草動
+[00:09:15] 如果能夠早一點上線
+[00:09:17] 那我覺得會很好
+[00:09:18] 而且客戶其實有一點在催了
+[00:09:21] 那如果你過去是一個沒有受過專案管理訓練的人
+[00:09:26] 你的反應 面對這個問題常常可能是兩種
+[00:09:31] 這兩種我覺得都是極端 都不對
+[00:09:33] 第一種反應 就是直覺式的拒絕老板
+[00:09:37] 就是不行 來不及
+[00:09:39] 可是老闆就會問嘛 為什麼來不及?
+[00:09:43] 有沒有什麼方法變通一下
+[00:09:45] 可是這種人
+[00:09:46] 他說不出來為什麼來不及
+[00:09:48] 他只是心裡有一個感覺
+[00:09:50] 好多事情 事情做不完
+[00:09:53] 好幾個人都在加班 對不對?
+[00:09:56] 所以你現在要給我改
+[00:09:58] 改 很麻煩嘛
+[00:09:59] 要這個調整 要去協調
+[00:10:01] 要去做東做西
+[00:10:03] 所以腦中就浮現一個感覺
+[00:10:05] 這個感覺有可能是對的
+[00:10:07] 不是錯的 有可能是對的
+[00:10:10] 可是老闆就會覺得
+[00:10:12] 怎麼會? 總有什麼方法吧?
+[00:10:14] 你是不是不想做? 你態度很差
+[00:10:18] 所以你自己在這個專案中做得很艱辛
+[00:10:21] 可是最後好不容易做完了
+[00:10:24] 老闆心裡對你其實是打一個問號的
+[00:10:27] 這個是可惜的 這是一種極端
+[00:10:30] 可是還有一種極端 我覺得也很危險
+[00:10:33] 就是 二話不說就先答應下來
+[00:10:37] 就是老闆要趕趕看是不是? 好 我們拼拼看
+[00:10:40] 可是拼不拼得起來 其實他不知道 他只是覺得 那我們就盡力而為嘛 每天弄到個12點 那老闆可能也就不能罵我了 結果拼到最後做不到 兩手一攤
+[00:10:55] 延遲了 甚至品質出了問題 最後大家一起收拾殘局 這個最後也很委屈 做事的人覺得 你看我都拼到每天12點 對不對 你不能怪我吧
+[00:11:09] 那老闆覺得你不行 你一開始就說不行嘛 你讓我抱持了一個過高的期待
+[00:11:16] 結果到了最後一天你才跟我說不行 最後也是失望 老闆失望 你也失望
+[00:11:24] 所以這兩種極端 很容易、很認真、很努力、很拼 可是到了最後發現結果不好
+[00:11:33] 這個結果一方面是專案上面的成果不好
+[00:11:38] 另外一方面更嚴重的 是你在老闆心中的地位不保 而且這個長期而言對你的職涯是有害的 因為你很辛苦 結果沒有成為好寶寶貼紙 那這個不是毫無價值嗎?
+[00:11:51] 可是如果今天換一個懂專案管理的人 那你就發現他的反應是不一樣的
+[00:11:58] 如果是我們 我們通常可能會說 老闆 我不確定 可是我來分析一下
+[00:12:03] 然後呢 分析完了 我可能帶著資料去找他 視覺化的跟他解釋 老闆 有幾個可能性 如果我們要提早兩週 那這裡有幾條路
+[00:12:15] 第一條路 我們可以這樣這樣這樣 第二條路 我們可能把某個功能先拿掉 先上這幾個核心的部分 然後其他的 下一版再做 那或者是呢 第三條路 我們可能可以加人
+[00:12:28] 加人成本大概是這個
+[00:12:30] 你看一下
+[00:12:31] 可是我要提醒
+[00:12:32] 加人不是馬上就有效果
+[00:12:34] 我們可能需要一週的上手時間
+[00:12:36] 那甚至第四條路
+[00:12:37] 我們維持原來的範疇跟時程
+[00:12:40] 可是我們跟客戶溝通一下
+[00:12:42] 看看他們到底著急的是哪個部分
+[00:12:44] 那那個部分或許我們可以先怎麼樣
+[00:12:47] 所以你看
+[00:12:48] 同樣是面對老闆的一個問題
+[00:12:51] 有專案管理能力
+[00:12:53] 跟沒有專案管理能力
+[00:12:55] 回應的品質其實最後會差非常多
+[00:12:59] 因為前者你是用情緒在回應
+[00:13:02] 你沒有看到全貌
+[00:13:04] 我們常講看懂局嘛
+[00:13:05] 那很多人其實沒有看懂局
+[00:13:07] 他只是用情緒
+[00:13:09] 哦 好像可以試試看
+[00:13:11] 哦 好像會做不完
+[00:13:12] 可是 懂專案管理的人
+[00:13:15] 是看懂局之後
+[00:13:17] 用整個結構在回應
+[00:13:19] 而這個結構
+[00:13:20] 其實就是專案管理裡頭最核心的概念
+[00:13:23] 範疇、時間、成本
+[00:13:24] 這三者是互相聯動的
+[00:13:27] 因為你動了其中一個 另外兩個難免會受到影響
+[00:13:31] 所以如果你能夠把這個聯動關係量化出來
+[00:13:35] 甚至視覺化出來 讓老闆看到數字
+[00:13:38] 看到視覺化的變動 那他就可以看懂你看到了世界
+[00:13:43] 他也就可以做出合理的判斷
+[00:13:45] 所以這也就帶出另外一個重點
+[00:13:47] 我在之前的節目 應該是610那一集
+[00:13:52] 我那個時候有跟大家聊過
+[00:13:54] 在專案裡頭 我們通常會碰到五種層次的問題
+[00:13:58] 比方說協調的問題 技術的問題 管理的問題 責任的問題 還有權力的問題
+[00:14:05] 那一集我是強烈建議 如果你是在做這種有變動性的事情的時候 回去可以好好聽一下
+[00:14:12] 可是那一集我主要是從PM這個角色的角度來談
+[00:14:15] 但今天我想從另外一個角度來切入 就是 你甚至有可能不是PM
+[00:14:23] 意思就是你在做PM的事
+[00:14:25] 可是你沒有掛PM的頭銜
+[00:14:27] 那這個時候 你在處理專案問題的時候
+[00:14:31] 你就會面對一個更大的挑戰
+[00:14:33] 這個挑戰是什麼?
+[00:14:34] 就是你沒有正式權力
+[00:14:37] 你想想看 一個正式的PM
+[00:14:40] 他至少在組織裡頭是賦予一定的這個角色跟授權的
+[00:14:44] 意思就是 大家至少知道你是PM嘛
+[00:14:47] 所以你來追進度 你來開會 你來做決策
+[00:14:50] 這件事情叫做名正言順
+[00:14:53] 可是換過來哦 如果你是一個行銷企劃
+[00:14:57] 可是老闆叫你負責一個新產品上市的專案
+[00:14:59] 你的同事不見得會覺得你有權力來指揮他們
+[00:15:05] 對不對?
+[00:15:05] 大家會覺得 我們都是同一輩 我們都是平行的
+[00:15:09] 憑什麼你來問我們這個進度 來指派工作給我?
+[00:15:13] 甚至跨部門更有這個問題
+[00:15:16] 你跑到工程部門說 這個東西下禮拜要交
+[00:15:20] 然後人家心裡就覺得 你誰啊?
+[00:15:22] 你又不是我老闆 你去跟我主管講
+[00:15:26] 換句話說 你有PM的頭銜 問題少一點點
+[00:15:30] 可是還是很艱難
+[00:15:31] 但是你沒有PM的頭銜 你又要做PM的事情
+[00:15:36] 你就會沒有正式權力的情境中
+[00:15:39] 你要把事情推動出去
+[00:15:42] 這個時候 專案管理
+[00:15:43] 尤其是利害關係人的工具方法就變得格外重要
+[00:15:48] 因為這個時候 你甚至還不能靠頭銜去壓人
+[00:15:51] 你只能靠正確的判斷 甚至是政治力的推進
+[00:15:55] 影響力的借用 甚至是你知道狐假虎威
+[00:15:59] 總之 你要讓大家願意跟你合作
+[00:16:02] 這個其實是很多人在談的溝通能力
+[00:16:05] 可是我覺得很多人對溝通能力最大的誤解
+[00:16:09] 是把溝通能力當成說話
+[00:16:12] 我覺得溝通能力不僅僅是說話 說話當然很重要
+[00:16:17] 可是在復雜的商務環境中 尤其是做專案
+[00:16:21] 我覺得最核心的能力是什麼?
+[00:16:23] 其實是剛剛提到的 視覺化
+[00:16:25] 什麼是視覺化呢?
+[00:16:27] 就是 你可以把整個專案的工作拆解得清清楚楚
+[00:16:31] 每一個任務是什麼?
+[00:16:33] 誰負責?
+[00:16:34] 什麼時候要做完?
+[00:16:35] 前後的依賴關係是什麼?
+[00:16:37] 你能夠全部攤開來
+[00:16:39] 然後當你把這樣的一個圖形,
+[00:16:41] 能夠攤在大家面前的時候,
+[00:16:43] 這個時候你甚至不需要用什麼命令的語氣說,
+[00:16:46] 你下週要交
+[00:16:47] 你只需要指著這張圖說
+[00:16:51] 欸 大家來看一下 這個任務完成之後 下一個任務這個時候會開始
+[00:16:54] 然後下一個任務是小李負責的
+[00:16:56] 所以小陳 如果你這裡延後了三天 小李那邊就會被壓縮三天
+[00:17:02] 那甚至你看 最後整個專案的交付日都會延後
+[00:17:06] 所以你會發現 這個時候你不是用權力在壓人
+[00:17:10] 你是透過事實還有邏輯讓對方理解
+[00:17:14] 這件事情為什麼重要 為什麼現在重要
+[00:17:17] 為什麼現在這麼急 為什麼要派你去做 為什麼不能delay
+[00:17:22] 我覺得這是懂專案管理跟不懂專案管理最大的一個溝通能力的差異
+[00:17:27] 而且這個很厲害 因為它會讓你在沒有正式權力的情況中
+[00:17:32] 也可以盡量把事情解釋清楚 也可以盡量把事情推動出去
+[00:17:38] 甚至我覺得這個跟老闆溝通往往也是這樣
+[00:17:42] 就是我自己常常跟我的學員講說 就是你如果跟老闆講說
+[00:17:46] 哎喲這個很趕啊 老闆會聽不懂
+[00:17:48] 因為 什麼叫很趕? 很趕很抽象嘛
+[00:17:52] 那你說 那我換一句 老闆時間不夠
+[00:17:55] 時間不夠跟很趕是一樣的 老闆也聽不懂
+[00:17:58] 可是如果你能夠手邊拿出一張整合的資料
+[00:18:02] 上面可以清楚的呈現
+[00:18:04] 清楚的呈現整個脈絡
+[00:18:06] 原定計劃可能是四週要完成12項工作
+[00:18:10] 目前完成了5項
+[00:18:11] 進度落後了20%
+[00:18:13] 發生在哪裡?
+[00:18:14] 為什麼?
+[00:18:15] 誰造成的?
+[00:18:17] 如果我們接下來要追回進度
+[00:18:19] 我們其實有幾個選項
+[00:18:20] 可能是這裡加人
+[00:18:22] 可能是把這個範疇砍掉
+[00:18:24] 或者是從這邊延遲到某一個地方
+[00:18:27] 那再來 如果要加人 加人的成本是多少?
+[00:18:30] 那如果砍範疇可能會影響到哪些功能?
+[00:18:32] 那如果延期的話 我們可能會造成客戶端的什麼衝擊?
+[00:18:36] 我們可能要去協商什麼?
+[00:18:38] 甚至這個對合約的衝擊影響在哪裡?
+[00:18:40] 如果你可以把這些東西都很清晰地列清楚,
+[00:18:44] 那老闆 他通常他有商務的sense 對不對?
+[00:18:48] 他可能一看就懂了
+[00:18:50] 他不需要是專案管理的專家
+[00:18:52] 他只要能看懂資料之間的連貫關系
+[00:18:55] 他其實就能做出好的決策
+[00:18:58] 所以 我自己20多年快30年的專案經驗
+[00:19:01] 我的心得是 你是一個專業經理
+[00:19:04] 你的溝通的前期準備其實就是視覺化
+[00:19:08] 而且這件事情非常重要
+[00:19:10] 因為你在那邊講什麼 我覺得很趕啊
+[00:19:13] 然後對方可能就覺得 我覺得還好
+[00:19:16] 可是如果你能夠把這些資料攤出來
+[00:19:19] 要徑上面的關鍵任務
+[00:19:21] 目前已經延遲5天了
+[00:19:23] 因為延遲5天
+[00:19:24] 所以它推動到這一系列的事情
+[00:19:26] 所以我們現在會造成delay
+[00:19:28] 因為會delay 所以很趕
+[00:19:30] 好 那這就沒什麼好爭論的
+[00:19:32] 因為數字擺在那裡
+[00:19:34] 那最後我們就可以聚焦
+[00:19:36] 那我們現在要趕
+[00:19:37] 我們要趕哪一個
+[00:19:38] 我們怎麼趕
+[00:19:39] 我們是加人
+[00:19:40] 我們是改規格
+[00:19:42] 我們還是做什麼事情?
+[00:19:43] 所以我就可以讓整個討論 引導
+[00:19:46] 從我覺得很趕 我覺得沒有
+[00:19:49] 這樣的一個抽象的討論聚焦到
+[00:19:52] 你看現在問題在這裡
+[00:19:53] 我們還能怎麼辦
+[00:19:55] 所以你的事情
+[00:19:57] 你的人生就會輕鬆許多
+[00:20:00] 那可能聽到這你說 欸Joe 我稍微有聽懂了 專業管理好像很重要
+[00:20:06] 可是我也每天都在做這些事情
+[00:20:09] 而且我沒有時間去學什麼完整的專業管理理論
+[00:20:13] 然後我也沒有打算去考什麼PMP的證照
+[00:20:15] 有沒有什麼比較快、比較簡單的方式可以讓我快速上手?
+[00:20:20] 快速上手我覺得是有的
+[00:20:22] 而且我覺得這搞不好是九成的人真實的需求
+[00:20:27] 因為大部分人其實沒有真的想要做什麼
+[00:20:30] 你知道 學問上面的鑽研
+[00:20:32] 所以你說你真的去把那個PMBOK認真讀完
+[00:20:35] 把那些裡頭的這些名詞都搞清楚
+[00:20:38] 或者是學很複雜的排程軟體
+[00:20:41] 我都覺得這不是大部分人第一時間該做的事
+[00:20:46] 我覺得大部分人要快速切入專案管理
+[00:20:49] 可能就幾個核心概念先能弄懂
+[00:20:51] 第一個 能夠把工作拆清楚
+[00:20:55] 我覺得很多專案之所以失敗
+[00:20:57] 是因為一開始就沒有詳細的把工作展開
+[00:21:00] 大家只看到一個大目標
+[00:21:02] 比方說下個月要上線一個網站
+[00:21:05] 然後大家就開始碰手
+[00:21:06] 結果動到一半才發現
+[00:21:08] 哎呀 好多事情沒有想到
+[00:21:10] 對不對 內容誰要寫 圖片誰要做
+[00:21:13] 測試誰負責
+[00:21:14] 上線當天如果出了問題誰值班
+[00:21:17] 這些其實通通沒有想清楚
+[00:21:19] 所以就有點走一步算一步
+[00:21:22] 這是一個常常缺乏的觀念
+[00:21:25] 再來 第二個你需要有的觀念是能夠把責任講清楚
+[00:21:30] 意思就是 每個任務可能要有一個明確的負責人
+[00:21:33] 不是說大家一起做 因為大家一起做最後就是沒有人做
+[00:21:37] 所以我們可能就要定義清楚 這件事情可能是小李負責
+[00:21:42] 那件事情可能是小陳負責
+[00:21:45] 但是你會發現 許多專案其實原因一開始就是責任不清
+[00:21:51] 然後出了事情 我們大家互相看
+[00:21:53] 然後才有一種 我以為這個你要做
+[00:21:56] 然後另外一個說 沒有 我以為你要做
+[00:21:58] 那這個是責任不清
+[00:22:00] 再來第三個很重要 是把變更的影響算清楚
+[00:22:05] 我們前面提到 老板問說能不能提早上線
+[00:22:09] 那核心概念其實就是這個
+[00:22:11] 任何變更都有成本 都有影響 都有衝擊
+[00:22:16] 你要能夠把所有這些影響量化出來
+[00:22:19] 決策者才能有依據來做判斷
+[00:22:24] 再來 第四個觀念 是你要能夠視覺化的讓別人聽懂 看懂你的世界
+[00:22:31] 就是你生活很複雜 你的專案很複雜 你的工作很複雜
+[00:22:36] 可是如果這些複雜度 你沒有辦法讓老闆、讓同事、讓合作伙伴看懂
+[00:22:42] 那老實說 都是0
+[00:22:43] 換言之 你很厲害
+[00:22:45] 可是你不能只是自己厲害
+[00:22:48] 你要能夠把你的厲害
+[00:22:50] 透過文字 透過圖形
+[00:22:52] 透過任何的方式
+[00:22:54] 讓別人 讓所有專案相關的人
+[00:22:57] 都可以看懂聽懂
+[00:22:58] 所以它要簡潔 它要直覺
+[00:23:00] 而且要能夠用數字說話
+[00:23:03] 好 所以概念上面
+[00:23:05] 就是你能把這四件事情掌握
+[00:23:08] 你就具備基本的專案能力
+[00:23:11] 可是呢 如果對你來說這還太抽象
+[00:23:14] 那 我覺得我也可以跟大家分享一個東西
+[00:23:17] 就是我們其實有一堂課
+[00:23:19] 【專案管理一日特訓班】
+[00:23:22] 裡頭我們就有教一個工具
+[00:23:24] 那個工具我們有個名字
+[00:23:26] 是我們自己研發的
+[00:23:28] 叫做PM&#x27;s Big Table
+[00:23:30] 專案經理的大表單
+[00:23:32] 這個東西非常厲害
+[00:23:34] 他是一張表單 可是他可以幫你把專案管理裡頭最重要的幾個面向 範疇、時間、成本、人力、資源 全部整合在一個表上
+[00:23:45] 這個表有幾個特色 第一個 它是動態的 專案不斷變化 所以你的工具也要能夠跟著變 而且它可以讓你很快的重新看到全貌
+[00:23:56] 第二個 它是針對人性設計的
+[00:24:00] 它有預計、它有實際兩個欄位
+[00:24:02] 因為你總是容易低估工作需要的時間
+[00:24:06] 所以實際才能看到落差
+[00:24:08] 才能面對現實 才能了解變化
+[00:24:11] 第三個 它是用數字量化的
+[00:24:14] 我前面提到 數字讓整個討論可以聚焦
+[00:24:17] 所以這張表可以讓你的專案
+[00:24:20] 從一個模糊的感覺
+[00:24:21] 變成一組清晰的數字
+[00:24:24] 那實務上面 它就能幫你解決專案的問題
+[00:24:28] 最基本的做計劃
+[00:24:29] 把整個專案的工作時間、成本、人力
+[00:24:33] 讓你一目了然
+[00:24:34] 可是更重要的 其實是拿來溝通
+[00:24:37] 你帶著這個工具去開會
+[00:24:39] 所有人就可以在一個頁面上
+[00:24:41] 看懂你看到的世界
+[00:24:43] 然後你可以來隱隱變動
+[00:24:46] 老闆說加一個需求 你直接拿出這張表
+[00:24:49] 跟老闆解釋 加一個需求 衝擊可能在哪裡 我們可能要多做哪些事情
+[00:24:55] 多做的事情可能在資源上面會造成什麼樣的影響
+[00:24:59] 可能對時程、對成本會有什麼衝擊
+[00:25:02] 甚至你可以拿來協商
+[00:25:03] 跟老闆跟客戶談判的時候
+[00:25:06] 可以來說 如果我們要提早
+[00:25:08] 那我建議可能這裡要加人
+[00:25:10] 這裡要加人 這裡要加人
+[00:25:12] 那這裡要加人可能有這樣的一個數量
+[00:25:14] 這樣的數量可能會有這樣的一個成本
+[00:25:16] 有數字就有依據
+[00:25:18] 對話的品質就會完全不一樣
+[00:25:21] 而且我覺得這樣的一個工具
+[00:25:23] 尤其對那些沒有PM頭銜的人來說
+[00:25:26] 是非常有效的一個武器
+[00:25:30] 因為你沒有頭銜 你就不能靠頭銜去推動事情
+[00:25:33] 可是你可以靠一張清楚的計劃表
+[00:25:36] 讓別人看到全局
+[00:25:38] 讓大家看到專案目前已經delay了
+[00:25:41] 所以我們可能要來救這個專案
+[00:25:44] 那救這個專案 誰可能需要做什麼事情
+[00:25:47] 我們哪裡需要加人
+[00:25:49] 我們需要怎麼樣哪一個部門能夠配合
+[00:25:52] 那大家才會理解為什麼這件事情這麼複雜
+[00:25:56] 需要這麼多時間 需要這麼多資源
+[00:25:59] 我自己覺得 專案管理不需要很複雜 也不需要很學術
+[00:26:03] 可是你需要的是自己手上有一個武器
+[00:26:06] 能夠把整個複雜的狀況簡單的解釋給別人聽
+[00:26:10] 而且能夠以此來協調、來談判、來解決變動。
+[00:26:15] 能夠把工作拆清楚 能夠把責任講清楚
+[00:26:19] 能夠把變更的成本算清楚
+[00:26:21] 透過一個工具 讓所有人都看懂
+[00:26:24] 那你能夠做到這些事情
+[00:26:26] 你的專案的成功率就會大幅提升
+[00:26:30] 協商的難度也會降低
+[00:26:33] 所以如果你聽到這裡 你發現自己的工作確實有很大一個部分是在管專案
+[00:26:39] 可是 你過去可能一直沒有系統性的學過怎麼做
+[00:26:42] 或者你學過 可是學的是那種名詞很多 然後都是理論 然後不知道怎麼用的
+[00:26:48] 那我推薦 你可以來參加我們【101專案管理一日特訓班】
+[00:26:55] 那為什麼叫101?
+[00:26:57] 就像你去大學上課
+[00:26:58] 通常第一個入門班就是101這個代號
+[00:27:03] 所以呢 我們也有這樣的一個代號
+[00:27:05] 那這堂課 真的 它從2010年開到現在
+[00:27:10] 開了連續16年的時間
+[00:27:12] 甚至在台灣很多上市上櫃公司
+[00:27:15] 還有政府單位都有常態性的開設
+[00:27:18] 那這堂課之所以被很多大公司指定成為
+[00:27:21] 很多年輕PM必修課
+[00:27:24] 就是因為我們的課程邏輯
+[00:27:26] 跟大部分專案管理課程完全不一樣
+[00:27:29] 我們沒有要教大家去做什麼PMP的證照考試
+[00:27:33] 也不會讓你花一整天背名詞
+[00:27:36] 我們的核心定位就是實用
+[00:27:39] 明天可以用
+[00:27:41] 讓你活下來
+[00:27:42] 換言之
+[00:27:43] 我們不是要追求一個什麼
+[00:27:45] 你知道教科書的專案管理的一個概念
+[00:27:49] 我們是希望讓你能夠真正在真實的工作環境裡頭能夠存活
+[00:27:54] 為什麼?
+[00:27:55] 因為專案幾乎不會照著計劃走
+[00:27:57] 需求會變 人會離開
+[00:28:00] 預算可能會被砍
+[00:28:01] 老闆可能會有新的想法
+[00:28:03] 客戶可能急著想上線
+[00:28:05] 所以我們教的不是教你怎麼做出一個完美的計劃書
+[00:28:09] 沒有完美的計劃書
+[00:28:12] 而是怎麼樣透過一個武器、
+[00:28:14] 透過一個方法在高度混沌
+[00:28:16] 持續變化的環境裡頭讓你可以活下來
+[00:28:20] 讓你的專案不會爆掉
+[00:28:21] 讓你在面對各種突發狀況的時候
+[00:28:24] 有一個思維、有一個工具可以快速應對
+[00:28:27] 而且可以正確的去溝通
+[00:28:29] 可以解釋清楚
+[00:28:30] 可以爭取資源
+[00:28:31] 可以談判
+[00:28:32] 那課程的核心工具就是我們剛剛提到的那個
+[00:28:35] PM&#x27;s Big Table
+[00:28:37] 我們會帶著你用真實的案例去操作
+[00:28:40] 讓你當天還甚至當場就學會怎麼透過一張表來整合所有的專案資訊
+[00:28:46] 這張表你學會之後 第二天你立刻上班的時候就可以拿來用
+[00:28:53] 不管你是要跟老闆報告進度 跟團隊分配工作 或者是去評估一個變更的影響
+[00:28:59] 你都可以透過這一張表來搞定
+[00:29:02] 而且我覺得更有價值的 是這堂課會教你怎麼思考
+[00:29:07] 不只是工具的使用方法
+[00:29:09] 而是當你面對專案裡頭各種複雜的情境
+[00:29:12] 老闆問你能不能提早
+[00:29:14] 客戶臨時追加需求
+[00:29:16] 專案的這個成員忽然離職
+[00:29:18] 你的第一反應應該是什麼?
+[00:29:21] 你應該要先分析什麼?
+[00:29:23] 你應該要後做什麼?
+[00:29:25] 你應該怎麼調整?
+[00:29:27] 甚至你應該怎麼跟上面溝通?
+[00:29:29] 這些都是很多專案管理課程沒有去觸碰的。
+[00:29:33] 可是我們尤其有很多實務經驗 甚至有很多顧問經驗 就希望透過這樣的一個課程設計 能夠讓你演練 能夠讓你學會 甚至透過情境模擬能夠完整的內化
+[00:29:47] 所以 如果你一直有follow大人學
+[00:29:50] 然後你自己發現你又是在做跟專案相關的工作
+[00:29:54] 真的歡迎你上大人學的網站來看看這堂課的詳細介紹
+[00:29:58] 我覺得 不管你的職稱是什麼
+[00:30:01] 只要你的工作需要把事情從0到1推動出去
+[00:30:06] 那這堂課很可能對你都會有幫助
+[00:30:11] 那我們今天的節目就到這裡 謝謝大家的收聽
+[00:30:14] 如果你喜歡我們的節目 歡迎分享給親朋好友
+[00:30:18] 那如果你是收聽YouTube的朋友 請訂閱、分享、開啟小鈴鐺
+[00:30:23] 後續也請繼續跟我們一起相信思考 勇於改變
+[00:30:28] 那我們下次見囉 拜拜</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://www.youtube.com/watch?v=kMfSmCN6Dmw" target="_blank" rel="noopener">https://www.youtube.com/watch?v=kMfSmCN6Dmw</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
