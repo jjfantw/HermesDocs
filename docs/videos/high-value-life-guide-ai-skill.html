@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub 高性價比人生指南：用成本收益重新算人生帳 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>GitHub 高性價比人生指南：用成本收益重新算人生帳</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-10-14 18:12</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">GitHub 高性價比人生指南：用成本收益重新算人生帳</h1>
+    <div class="meta"><span data-field="channel">📺 楊竹筠</span><span data-field="duration">⏱ 02:36</span><span data-field="published_date">🗓 2026-10-14</span><span data-field="original_language">🌐 zh-Hans</span><a data-field="source_url" href="https://www.youtube.com/watch?v=HxNiWwpLeNc" target="_blank" rel="noopener">🔗 https://www.youtube.com/watch?v=HxNiWwpLeNc</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>這支 Shorts 介紹一份在 GitHub 上流傳的「高性價比人生指南」。講者把它定位成一份用最少金錢、時間與精力，換回壽命、金錢與自由的資料型指南。影片核心不是鼓勵擁有更多，而是提醒每天其實都在做交換：上班、購物、熬夜、內耗與維持關係，都有看得見或看不見的代價。講者強調，這份指南的特色是把建議拆成成本與收益，並附上期刊論文、科學依據、來源、備註、證據等級，甚至列出爭議條目與反方證據。影片舉了低鈉鹽、慢性病預防、急救操作、體檢套餐選擇，以及關掉自動續費、重算手機寬頻套餐、健身房按次付費等例子。最後建議可把指南保存下來；若有 Claude Code 或 Codex，可把它做成 skill 放進個人知識庫，讓 AI 在重大決策或人生卡點時調用指南資料。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">從表演生活轉向『過日子』：先問交換值不值得</h2><span class="ts-badge" data-field="lesson_timestamp">00:00</span></div><div class="body" data-field="lesson_body"><p>影片開頭說，大家已經從『表演生活』進入『過日子』時代；這裡的重點不是包裝生活，而是用更務實的方式看待每天的選擇。</p><p>講者提出一個核心問題：<strong>每天付出去的東西到底是什麼，又能換回什麼？</strong> 上班、購物、熬夜、內耗、為了不得罪人而委屈自己，都被放進同一套交換邏輯裡。</p><span class="tag" data-field="lesson_tag">人生帳本</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">指南的核心：用最少成本換回壽命、金錢與自由</h2><span class="ts-badge" data-field="lesson_timestamp">00:18</span></div><div class="body" data-field="lesson_body"><p>講者說，這份指南的目標很清楚：用最少的錢、最少的時間和精力，換回壽命、金錢與自由。</p><p>它不是單純列出『你應該早睡、存錢、健康飲食』這類一般建議，而是把每條建議放回成本收益表裡，讓人知道要付出什麼、能得到什麼。</p><span class="tag" data-field="lesson_tag">成本收益</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">嚴謹之處：每條建議都有證據、備註與等級</h2><span class="ts-badge" data-field="lesson_timestamp">01:13</span></div><div class="body" data-field="lesson_body"><p>影片強調，這份指南讓講者印象深刻的地方，在於它不是講大道理，而是把每條建議標出成本與收益。</p><p>更重要的是，建議背後有對應的期刊論文與科學依據，來源和備註寫清楚，甚至還有證據等級。講者也提到，拿不準的地方會標出爭議條目與反方證據。</p><span class="tag" data-field="lesson_tag">證據品質</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">健康範例：低鈉鹽與預期壽命的量化</h2><span class="ts-badge" data-field="lesson_timestamp">01:34</span></div><div class="body" data-field="lesson_body"><p>影片用『不要早死』這個主題舉例：把家裡的鹽換成低鈉鹽，多花幾塊錢，就可能讓高危人羣的中風概率降低 14%。</p><p>講者也提到慢性病預防、急救操作、體檢套餐選擇等內容；這些項目被量化到能增加多少預期壽命、需要付出多少成本。</p><span class="tag" data-field="lesson_tag">健康決策</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">金錢範例：把智商稅和日常開銷重新算一遍</h2><span class="ts-badge" data-field="lesson_timestamp">01:54</span></div><div class="body" data-field="lesson_body"><p>講者指出，很多人覺得自己沒花什麼錢，但錢就是莫名其妙不見了。指南裡因此包含許多省錢思路。</p><p>影片列出的日常例子包括：關掉自動續費、重算手機與寬頻套餐、健身房按次付費等。這些都不是抽象口號，而是可以立刻檢查的支出項。</p><span class="tag" data-field="lesson_tag">省錢策略</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">把指南做成 AI skill：重大決策時讓 AI 調用資料</h2><span class="ts-badge" data-field="lesson_timestamp">02:09</span></div><div class="body" data-field="lesson_body"><p>影片說這份指南一共有 34 個主題、690 條建議，建議有興趣的人保存下來。</p><p>如果使用 Claude Code 或 Codex，講者建議把指南做成一個 skill，放進個人知識庫。之後遇到重大決策或人生卡點時，就可以讓 AI 調用指南裡的資料，提供帶有成本收益覈算的理性建議。</p><p>影片有提到『複製這段代碼』，但抽幀沒有讀到完整可複製內容；因此本報告只記錄這個做法，不補寫任何影片沒有展示清楚的程式碼。</p><span class="tag" data-field="lesson_tag">AI 個人知識庫</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">地球 online，少踩坑就是贏。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="00:00"><span class="ts">00:00</span><span class="text" data-field="key_point_text">開場指出大家已從『表演生活』進入『過日子』時代，帶出近期很火的高性價比人生指南。</span></li><li data-field="key_point" data-timestamp="00:18"><span class="ts">00:18</span><span class="text" data-field="key_point_text">指南目標是用更少的金錢、時間與精力，換回壽命、金錢與自由。</span></li><li data-field="key_point" data-timestamp="00:29"><span class="ts">00:29</span><span class="text" data-field="key_point_text">影片用『每天付出什麼、換回什麼』來重新看人生交易：上班、購物、熬夜、內耗與關係維持都要算代價。</span></li><li data-field="key_point" data-timestamp="00:57"><span class="ts">00:57</span><span class="text" data-field="key_point_text">真正要學的不是擁有更多，而是算一筆人生帳；評估每個選擇的成本與收益。</span></li><li data-field="key_point" data-timestamp="01:13"><span class="ts">01:13</span><span class="text" data-field="key_point_text">講者認為這份指南嚴謹之處，是每條建議都標註成本收益，背後有期刊論文、科學依據、來源、備註與等級。</span></li><li data-field="key_point" data-timestamp="01:34"><span class="ts">01:34</span><span class="text" data-field="key_point_text">健康例子包含不要早死、低鈉鹽、慢性病預防、急救操作與體檢套餐選擇，並量化預期壽命與成本。</span></li><li data-field="key_point" data-timestamp="01:54"><span class="ts">01:54</span><span class="text" data-field="key_point_text">金錢例子包含關掉自動續費、重算手機與寬頻套餐、健身房按次付費等省錢思路。</span></li><li data-field="key_point" data-timestamp="02:09"><span class="ts">02:09</span><span class="text" data-field="key_point_text">指南規模為 34 個主題、690 條建議，講者建議保存下來。</span></li><li data-field="key_point" data-timestamp="02:13"><span class="ts">02:13</span><span class="text" data-field="key_point_text">若使用 Claude Code 或 Codex，可把指南做成 skill 放進個人知識庫，讓 AI 在重大決策或人生卡點時調用資料。</span></li><li data-field="key_point" data-timestamp="02:25"><span class="ts">02:25</span><span class="text" data-field="key_point_text">結尾主張：帶成本收益覈算的理性建議，可以幫助少踩坑；地球 online 少踩坑就是贏。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="高性價比人生">高性價比人生</span><span class="tag-chip" data-tag="成本收益">成本收益</span><span class="tag-chip" data-tag="人生決策">人生決策</span><span class="tag-chip" data-tag="GitHub">GitHub</span><span class="tag-chip" data-tag="Claude Code">Claude Code</span><span class="tag-chip" data-tag="Codex">Codex</span><span class="tag-chip" data-tag="個人知識庫">個人知識庫</span><span class="tag-chip" data-tag="AI skill">AI skill</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>影片提到『複製這段代碼』，但抽幀未拍到完整可複製的程式碼或 prompt；本報告不補寫未出現在來源中的程式碼。</li><li>Whisper 逐字稿有若干簡中同音漂字，已依語境與畫面字幕修正為繁中主文；原始 SRT 保留在附錄供核對。</li></ul></div></section>
+  <section class="glossary" data-field="asr_glossary"><h2>🎙️ ASR 漂字對照表</h2><div class="card"><table class="glossary"><tr data-field="asr_glossary_row"><td data-field="heard">高興價比人生指南</td><td>→</td><td data-field="corrected">高性價比人生指南</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">梯虎灌頂</td><td>→</td><td data-field="corrected">醍醐灌頂</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">反復的那號</td><td>→</td><td data-field="corrected">反覆的內耗</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">早稅存錢</td><td>→</td><td data-field="corrected">早睡、存錢</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">低納鹽</td><td>→</td><td data-field="corrected">低鈉鹽</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">慢性殯儀房</td><td>→</td><td data-field="corrected">慢性病預防</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">體檢逃餐</td><td>→</td><td data-field="corrected">體檢套餐</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Cloud Code</td><td>→</td><td data-field="corrected">Claude Code</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">重擔決策</td><td>→</td><td data-field="corrected">重大決策</td></tr></table></div></section>
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="whisper"><div class="raw-label">Whisper 原始 SRT（簡中原文，含 ASR 漂字）<button class="copy-btn" id="raw_whisper_4303161088_srt" onclick="copyRaw(this,'raw_whisper_4303161088_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_whisper_4303161088_text" onclick="copyRawText(this,'raw_whisper_4303161088_text')">📋 複製純文字</button></div><pre>1
+00:00:00,000 --&gt; 00:00:04,000
+我宣布所有人已经从表演生活进入成过日子时代了
+
+2
+00:00:04,000 --&gt; 00:00:07,040
+不知道大家有没有看过最近爆火的高兴价比人生指南
+
+3
+00:00:07,040 --&gt; 00:00:08,000
+很多人都在转发
+
+4
+00:00:08,000 --&gt; 00:00:10,220
+网友还给大家起了两个巨牛的名字
+
+5
+00:00:10,220 --&gt; 00:00:11,680
+现代版奇名要素
+
+6
+00:00:11,680 --&gt; 00:00:12,880
+地球online破解版
+
+7
+00:00:12,880 --&gt; 00:00:14,760
+我昨晚没忍住看到了三点钟
+
+8
+00:00:14,760 --&gt; 00:00:16,400
+看完真的是梯虎灌顶
+
+9
+00:00:16,400 --&gt; 00:00:18,880
+还没看过朋友直接跟我说免费分享给你
+
+10
+00:00:18,880 --&gt; 00:00:21,620
+这里面基本涵盖了你人生能踩的所有的坑
+
+11
+00:00:21,620 --&gt; 00:00:22,640
+目标就一个
+
+12
+00:00:22,640 --&gt; 00:00:25,660
+怎么用最少的钱最少的时间和精力
+
+13
+00:00:25,660 --&gt; 00:00:28,000
+还回你的寿命金钱和自由
+
+14
+00:00:28,000 --&gt; 00:00:29,120
+你有没有想过一个问题
+
+15
+00:00:29,120 --&gt; 00:00:32,540
+你每天付出去的东西到底是什么又能换回什么
+
+16
+00:00:32,540 --&gt; 00:00:34,360
+我最开始听到这个问题也觉得很简单
+
+17
+00:00:34,360 --&gt; 00:00:35,820
+但后来越想越不对劲
+
+18
+00:00:35,820 --&gt; 00:00:38,380
+因为其实我们的一生都在做交易
+
+19
+00:00:38,380 --&gt; 00:00:40,040
+上班是拿时间换钱
+
+20
+00:00:40,040 --&gt; 00:00:41,560
+购物是拿钱换东西
+
+21
+00:00:41,560 --&gt; 00:00:44,460
+熬夜是拿第二天的精力去换今晚的两三个小时
+
+22
+00:00:44,460 --&gt; 00:00:47,760
+反复的那号是用当下的时间去换一个根本没发生的事情
+
+23
+00:00:47,760 --&gt; 00:00:49,300
+为了不得罪人而委屈自己
+
+24
+00:00:49,300 --&gt; 00:00:52,140
+是拿自己的情绪和时间来维持一段关系
+
+25
+00:00:52,140 --&gt; 00:00:52,700
+你发现了吗
+
+26
+00:00:52,700 --&gt; 00:00:55,080
+绝大多数时候我们只是想着自己要什么
+
+27
+00:00:55,080 --&gt; 00:00:57,640
+却完全没有评估我们会付出什么代价
+
+28
+00:00:57,640 --&gt; 00:00:59,260
+但我们真正必须学会的
+
+29
+00:00:59,260 --&gt; 00:01:01,440
+其实不是怎么拥有更多的东西
+
+30
+00:01:01,440 --&gt; 00:01:02,980
+而是要学会算一笔账
+
+31
+00:01:02,980 --&gt; 00:01:04,400
+这笔账算的不是钱
+
+32
+00:01:04,400 --&gt; 00:01:05,760
+而是你的人生
+
+33
+00:01:05,760 --&gt; 00:01:08,140
+那这份子最让我拍完叫绝的地方就在于
+
+34
+00:01:08,140 --&gt; 00:01:11,300
+他真的把这笔账给你算的清清楚楚明明白白
+
+35
+00:01:11,300 --&gt; 00:01:12,340
+但完全不讲大道理
+
+36
+00:01:12,340 --&gt; 00:01:13,520
+做的特别严谨
+
+37
+00:01:13,520 --&gt; 00:01:14,760
+像我们平时听的人人建议
+
+38
+00:01:14,760 --&gt; 00:01:17,340
+大多是早税存钱健康饮食
+
+39
+00:01:17,340 --&gt; 00:01:18,140
+但他不是的
+
+40
+00:01:18,140 --&gt; 00:01:20,680
+里面的每一条建议都标注了成本和收益
+
+41
+00:01:20,680 --&gt; 00:01:21,480
+而且更有的是
+
+42
+00:01:21,480 --&gt; 00:01:24,640
+他的背后都有对应的期刊论文和科学依据作为证据
+
+43
+00:01:24,640 --&gt; 00:01:27,760
+来源和备注都写的明明白白甚至还有等级
+
+44
+00:01:27,760 --&gt; 00:01:30,880
+他拿不准的地方居然还给你标出了真一条目和反方证据
+
+45
+00:01:30,880 --&gt; 00:01:33,020
+这些才是真正最让我上投的地方
+
+46
+00:01:33,020 --&gt; 00:01:34,140
+具体个实用的例子
+
+47
+00:01:34,140 --&gt; 00:01:35,580
+不要早死这个主题
+
+48
+00:01:35,580 --&gt; 00:01:37,600
+把家里的盐换成低纳盐
+
+49
+00:01:37,600 --&gt; 00:01:41,340
+多花几块钱就能让高危人群的中风概率降低14%
+
+50
+00:01:41,340 --&gt; 00:01:42,480
+还有慢性殡仪房
+
+51
+00:01:42,480 --&gt; 00:01:43,240
+急救操作
+
+52
+00:01:43,240 --&gt; 00:01:44,300
+体检逃餐选择
+
+53
+00:01:44,300 --&gt; 00:01:46,640
+整个量化到了这件事能增加多少预期寿命
+
+54
+00:01:46,640 --&gt; 00:01:47,880
+要付出多少成本
+
+55
+00:01:47,880 --&gt; 00:01:48,560
+看完你就知道
+
+56
+00:01:48,560 --&gt; 00:01:51,260
+其实日常生活中随手能做的一件小事
+
+57
+00:01:51,260 --&gt; 00:01:54,060
+就能大概率的让我们的活得更久更好
+
+58
+00:01:54,060 --&gt; 00:01:54,960
+还有金钱这块
+
+59
+00:01:54,960 --&gt; 00:01:56,800
+你是不是总觉得自己也没花什么钱
+
+60
+00:01:56,800 --&gt; 00:01:58,560
+但钱就是莫名其妙不见了
+
+61
+00:01:58,560 --&gt; 00:02:01,220
+这里面涉及智商税很多的省钱思路
+
+62
+00:02:01,220 --&gt; 00:02:02,300
+你比如日常开销
+
+63
+00:02:02,300 --&gt; 00:02:03,960
+建议你关掉自动续费
+
+64
+00:02:03,960 --&gt; 00:02:05,460
+重算手机和宽带讨餐
+
+65
+00:02:05,460 --&gt; 00:02:07,360
+健身房按次付费等等
+
+66
+00:02:07,360 --&gt; 00:02:09,060
+里面还有很多板块都特别漂亮
+
+67
+00:02:09,060 --&gt; 00:02:11,800
+一共有34个主题690条建议
+
+68
+00:02:11,800 --&gt; 00:02:13,660
+感兴趣的真的建议保存下来
+
+69
+00:02:13,660 --&gt; 00:02:15,560
+如果你有Cloud Code或者Codex的话
+
+70
+00:02:15,560 --&gt; 00:02:17,060
+就直接复制这段代码
+
+71
+00:02:17,060 --&gt; 00:02:18,660
+把这份指南做成一个skill
+
+72
+00:02:18,660 --&gt; 00:02:20,060
+放在自己的个人知识库里
+
+73
+00:02:20,060 --&gt; 00:02:21,860
+以后做任何的重担决策
+
+74
+00:02:21,860 --&gt; 00:02:23,560
+或者人生遇到某一个卡点
+
+75
+00:02:23,560 --&gt; 00:02:25,760
+都可以让你的AI调用指南里的数据
+
+76
+00:02:25,760 --&gt; 00:02:28,260
+这种带着成本收益核算的理性建议
+
+77
+00:02:28,260 --&gt; 00:02:30,360
+真的仍然让我们少踩很多坑
+
+78
+00:02:30,360 --&gt; 00:02:32,760
+地球online少踩坑就是赢
+
+79
+00:02:32,760 --&gt; 00:02:33,360
+我是竹子
+
+80
+00:02:33,360 --&gt; 00:02:35,360
+关注我快点一步把握AI时代去遇
+
+</pre></div><div class="raw-block" data-field="raw_source_item" data-raw-type="ocr"><div class="raw-label">抽幀 OCR / 視覺補充<button class="copy-btn" id="raw_ocr_4303161408_srt" onclick="copyRaw(this,'raw_ocr_4303161408_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_ocr_4303161408_text" onclick="copyRawText(this,'raw_ocr_4303161408_text')">📋 複製純文字</button></div><pre>抽幀可見字幕包含：『我宣布所有人已經從表演生活』『全部量化到了這件事』『和很多的省錢思路』『或者 Codex 的話』『看完真的是醍醐灌頂』『真的能讓我們少踩很多坑』『你每天付出去的東西』『反覆的內耗是用當下的時間』『其實不是怎麼擁有更多的東西』『用最少的錢、時間和精力，換回壽命、金錢和自由』『大多是早睡』『標出了爭議條目和反方證據』『或者人生遇到某一個卡點』『調用指南裡的數據』『理性建議』『地球 online』『快人一步把握 AI 時代機遇』。畫面中有一張 GitHub/文件頁截圖，標題可辨識為『用最少的錢、時間和精力，換回壽命、金錢和自由 / 高性價比人生指南』；未讀到完整可複製程式碼或 prompt。</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://www.youtube.com/watch?v=HxNiWwpLeNc" target="_blank" rel="noopener">https://www.youtube.com/watch?v=HxNiWwpLeNc</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
