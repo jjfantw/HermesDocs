@@ -1,5 +1,11 @@
 [
   {
+    "title": "Jev 與 Claude Code：三種決策型整合位置 - Hermes Docs",
+    "url": "videos/jev-claude-code-decision-workflows.html",
+    "date": "2026-10-21 01:22",
+    "content": "Jev 與 Claude Code：三種決策型整合位置 - Hermes Docs 返回首頁 Jev 與 Claude Code：三種決策型整合位置 發布時間：2026-10-21 09:22 🌙 YouTube 影片重點整理 Jev 與 Claude Code：三種決策型整合位置 📺 Gary Chen ⏱ 18:01 🗓 2026-10-13 🌐 zh-TW 🔗 https://youtu.be/_yFen1B8hdU?si=7NI3dU9mm4G8epEt 影片將 Jev 定位為負責快速選擇與判斷的模型，並以 Claude Code 的工作流說明三個整合位置：模型／skill 路由、海量資料分類與打分、以及程式完成後的自動化驗證。核心分工是讓 Jev 處理大量、可枚舉選項的高頻判斷，再把少數高價值或高風險項目交給大型模型深入處理。 01 先建立分工：快速判斷與深度推理各司其職 0:46 影片把 Jev 描述為偏向 System 1 的「直覺反射」，大型模型則負責 System 2 的深度推理。Jev 接收資料、問題與選項後，回傳各選項的機率；它不是用來生成長篇文字或進行長篇推理。"
+  },
+  {
     "title": "GitHub 高性價比人生指南：用成本收益重新算人生帳 - Hermes Docs",
     "url": "videos/high-value-life-guide-ai-skill.html",
     "date": "2026-10-14 10:12",

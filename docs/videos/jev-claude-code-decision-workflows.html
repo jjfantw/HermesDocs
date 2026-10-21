@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jev 與 Claude Code：三種決策型整合位置 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>Jev 與 Claude Code：三種決策型整合位置</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-10-21 09:22</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">Jev 與 Claude Code：三種決策型整合位置</h1>
+    <div class="meta"><span data-field="channel">📺 Gary Chen</span><span data-field="duration">⏱ 18:01</span><span data-field="published_date">🗓 2026-10-13</span><span data-field="original_language">🌐 zh-TW</span><a data-field="source_url" href="https://youtu.be/_yFen1B8hdU?si=7NI3dU9mm4G8epEt" target="_blank" rel="noopener">🔗 https://youtu.be/_yFen1B8hdU?si=7NI3dU9mm4G8epEt</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>影片將 Jev 定位為負責快速選擇與判斷的模型，並以 Claude Code 的工作流說明三個整合位置：模型／skill 路由、海量資料分類與打分、以及程式完成後的自動化驗證。核心分工是讓 Jev 處理大量、可枚舉選項的高頻判斷，再把少數高價值或高風險項目交給大型模型深入處理。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">先建立分工：快速判斷與深度推理各司其職</h2><span class="ts-badge" data-field="lesson_timestamp">0:46</span></div><div class="body" data-field="lesson_body"><p>影片把 Jev 描述為偏向 System 1 的「直覺反射」，大型模型則負責 System 2 的深度推理。Jev 接收資料、問題與選項後，回傳各選項的機率；它不是用來生成長篇文字或進行長篇推理。</p><p>作者的實作起點是取得 API key，把 key 與官方文件交給 Claude，說明要達成的任務，並限制該判斷步驟使用 Jev。也可要求 Claude 將設定封裝為 skill 或開關，方便與原本工作流對照成本與輸出品質。</p></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">位置一：讓 Jev 先做模型與 skill 路由</h2><span class="ts-badge" data-field="lesson_timestamp">2:16</span></div><div class="body" data-field="lesson_body"><p>影片指出，不少日常任務不需要一直使用最高階模型，例如找檔案、轉換文字格式、查看函式參數。Jev 可在每次 prompt 送出後先判斷任務所需等級，再把任務交給相應模型。</p><p>同樣的選擇也可用於 skill：不必讓所有 skill 名稱與描述一直塞進 context，而由 Jev 從清單中挑出相關 skill，再通知 Claude 精準載入。作者提醒，省 token 後的品質是否足夠仍取決於個人工作內容與容錯率，必須自行測試。</p></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">位置二：海量、同題型資料的分類與打分</h2><span class="ts-badge" data-field="lesson_timestamp">6:19</span></div><div class="body" data-field="lesson_body"><p>影片列出留言分類、潛在客戶意向打分、會員流失風險、社羣貼文分流與客服逐字稿歸類等案例。共同模式是讓 Claude 自動調用 Jev 批次判斷，再輸出表格、CSV、Excel 或 dashboard。</p><p>作者將底層流程概括為：Jev 先粗篩，Claude 再處理篩出的精華。例如先替大量潛在名單打分，只把高分客戶交給 Claude 做背景研究與客製開發信；影片也把長影片精華挑選視為可讓 Jev 擔任第二雙眼睛的用途。</p><p>適用判準是任務量大、每筆資料問的是同一個問題；影片舉例包括發票是否可疑、Email 是否為垃圾信、留言是否違規、退款是否符合資格、會員是否可能退訂。</p></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">位置三：程式完成後的快速驗證迴圈</h2><span class="ts-badge" data-field="lesson_timestamp">10:54</span></div><div class="body" data-field="lesson_body"><p>影片將 Code Review 與多輪測試描述為昂貴的 feedback loop，並列出四種用法：用自然語言設定語意型 Linter 規則、掃描整個 codebase 的註解與 code smell、以大量具體問題初篩程式改動，以及以多個瀏覽器 agent 做對抗測試。</p><p>流程核心不是把所有審查交給 Jev：它在第一線進行大量快速條件判斷，再把高風險項目交給 Claude 深入審查與修復；若發現偏差，Claude 回頭調整 prompt 規則與門檻。</p></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">導入順序：先找工作流裡的「選擇題」</h2><span class="ts-badge" data-field="lesson_timestamp">15:30</span></div><div class="body" data-field="lesson_body"><p>作者總結三個位置共用同一原則：它們是 Claude Code 原本在做判斷、而非生成產出的環節。若答案能事先枚舉成明確選項，該步驟就是 Jev 的適用位置。</p><p>影片建議先從模型與 skill 路由開始，因為不需改變既有操作習慣；需要處理大批資料時導入分類與打分；每天寫程式、推 PR 的人則可優先探索自動化驗證。若不確定切入點，可讓 Claude 回看近期對話紀錄，盤點哪些步驟只是分類或篩選。</p></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">只要工作流中的某一步本質上是在做選擇與判斷，那一步就是影片所說 Jev 的黃金位置。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="0:00"><span class="ts">0:00</span><span class="text" data-field="key_point_text">Jev 只回傳選項機率、不生成長文；影片把其用途整理為模型／skill 選擇、海量資料分類、程式驗證三個位置。</span></li><li data-field="key_point" data-timestamp="0:46"><span class="ts">0:46</span><span class="text" data-field="key_point_text">可將 Jev 視為 System 1 的直覺反射，大型模型負責 System 2 的深度推理；作者建議把 API key 與文件交給 Claude，並以開關控制是否優先使用 Jev。</span></li><li data-field="key_point" data-timestamp="2:16"><span class="ts">2:16</span><span class="text" data-field="key_point_text">在模型與 skill 路由中，Jev 先判斷任務需要的模型等級與相關 skill；影片引用的測試顯示，效益與品質仍應依自身工作流實測。</span></li><li data-field="key_point" data-timestamp="6:19"><span class="ts">6:19</span><span class="text" data-field="key_point_text">針對大量資料、每筆都問同一問題的情境，Jev 可先批次分類、打分或粗篩，再由 Claude 整理輸出或處理高分項目。</span></li><li data-field="key_point" data-timestamp="10:54"><span class="ts">10:54</span><span class="text" data-field="key_point_text">程式完成後可用 Jev 做語意規則檢查、全 codebase 掃描、百問清單式風險初篩與大規模對抗測試，讓大型模型聚焦高風險項目。</span></li><li data-field="key_point" data-timestamp="15:30"><span class="ts">15:30</span><span class="text" data-field="key_point_text">判準是某一步是否本質上為可枚舉選項的選擇與判斷；作者建議先從模型與 skill 路由開始，再依資料量與工程需求擴展。</span></li><li data-field="key_point" data-timestamp="16:55"><span class="ts">16:55</span><span class="text" data-field="key_point_text">影片提到 shipwithjev 案例目錄與 OpenAI Decisions API，作為同類型「把判斷拆為選擇題」思路的延伸。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="Jev">Jev</span><span class="tag-chip" data-tag="Claude Code">Claude Code</span><span class="tag-chip" data-tag="模型路由">模型路由</span><span class="tag-chip" data-tag="Skill 路由">Skill 路由</span><span class="tag-chip" data-tag="資料分類">資料分類</span><span class="tag-chip" data-tag="Code Review">Code Review</span><span class="tag-chip" data-tag="Agentic Coding">Agentic Coding</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>本文依 YouTube 提供的繁中字幕與影片描述整理；影片中提到的第三方產品名稱、社羣實測數據與案例未另行做外部查證。</li></ul></div></section>
+  
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="transcript"><div class="raw-label">逐字稿全文<button class="copy-btn" id="raw_transcript_4370789120_srt" onclick="copyRaw(this,'raw_transcript_4370789120_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_transcript_4370789120_text" onclick="copyRawText(this,'raw_transcript_4370789120_text')">📋 複製純文字</button></div><pre>0:00 前陣子我們介紹過 Jev
+0:01 這個模型基本上只做一件事
+0:03 做選擇題
+0:04 你給它資料，問題跟幾個選項
+0:06 它只回你每個選項的機率
+0:08 因為它不生文字，不搞長篇推理
+0:10 所以反應快到只要零點幾秒
+0:12 而且便宜到輸出完全不收費
+0:14 上一支影片我們講的是它的基本原理
+0:17 而發布後社羣上已經出現各種
+0:19 把它接進 Claude Code 的玩法
+0:20 也長出幾個非常成熟的套路
+0:22 有人拿它幫 Claude 挑模型，挑 skill
+0:25 有人拿它一口氣分類幾千筆資料
+0:27 還有人拿它來驗證 agent 剛寫好的程式
+0:30 所以今天這支影片
+0:31 我把這些用法整理成三個核心位置
+0:33 照它們在 Claude Code 裡的執行順序來講
+0:35 第一個是幫 Claude 挑模型，挑 skill
+0:37 第二個是大量資料的分類
+0:39 第三個是程式寫完之後的驗證
+0:42 那我們就先從怎麼把 Jev 接進 Claude Code
+0:44 開始說起
+0:46 在動手之前
+0:47 我們先建立一個很簡單的心理模型
+0:49 TypeSafe 官方把 Jev 定位成 System 1 模型
+0:52 靠的是直覺反射
+0:53 而像 Fable，Astra 這些大模型
+0:56 則是 System 2，負責深度推理
+0:58 我們要做的
+0:59 就是把這個直覺反射神經
+1:01 無縫接進 Claude 的大腦裡
+1:03 而且把 Jev 接進 Claude Code 的方法
+1:05 其實簡單到有點不像話
+1:07 你只要去 TypeSafe 官網註冊
+1:09 拿一組 API key 就好
+1:11 現在已經不用排隊，全面開放了
+1:13 而且註冊還送 5 美元的額度
+1:15 這 5 美元其實已經夠你玩非常久了
+1:18 如果你不想走官方
+1:19 也可以透過 OpenRouter 來接
+1:21 拿到 key 之後
+1:22 你只要把這組 key
+1:22 連同 Jev 的官方文件網址一起貼給 Claude
+1:25 告訴它你想做什麼
+1:26 最後補上一句
+1:27 這一步不準用大模型，只准用 Jev
+1:30 就這樣，Claude 就會自己去讀文件
+1:32 自己決定這題該用是非題，單選題
+1:34 還是打分機制
+1:35 甚至連選項該怎麼設計
+1:37 它都會幫你想好
+1:38 你完全不需要去搞懂什麼 bool
+1:40 choice，score 這些工程名詞
+1:42 不過在這裡我建議你多做一件事
+1:44 你可以叫 Claude 直接把這個設定包成一個 skill
+1:47 或者做成一個開關指令
+1:48 打開的時候
+1:50 當前對話裡所有適合做判斷的任務
+1:52 都會優先丟給 Jev
+1:53 關掉的時候
+1:55 Claude Code 就會回到原本的運作方式
+1:57 這樣你隨時都可以做對照
+1:58 看看加了 Jev 到底有沒有幫你省到錢
+2:00 以及輸出的品質有沒有打折
+2:03 上次我說過
+2:04 Jev 的核心定位就是工作流裡的決策節點
+2:06 而這一次
+2:07 我們只是把這個節點搬進了 Claude Code 裡面
+2:10 好，那既然接好了
+2:11 它到底可以在哪些環節發揮作用呢？
+2:14 我們就從離 Claude Code 日常使用最近的
+2:16 第一個位置開始看
+2:18 第一個位置
+2:18 是讓 Claude Code 自己幫你省錢
+2:20 在這裡有兩件事最適合交給 Jev
+2:22 第一是挑模型，第二是挑 skill
+2:25 我們先講挑模型
+2:26 平常你在用 Claude Code 的時候
+2:28 很多人都是開著 Opus 或 Fable 一路用到底
+2:31 對吧？
+2:31 因為手動切來切去真的很麻煩
+2:33 但老實說
+2:34 你一天下來丟給它的任務裡
+2:35 很多根本用不到這麼強的模型
+2:37 像是找某個檔案在哪裡
+2:39 把一段文字轉成指定格式
+2:41 或是看一下某個函式喫什麼參數
+2:43 這種簡單的事情
+2:44 其實用 Haiku 就綽綽有餘了
+2:47 問題就在於
+2:48 這題到底該派誰上場這個判斷
+2:49 以前只能靠你自己手動做
+2:51 但根本沒有人會每打一句 prompt
+2:53 就去切換一次模型
+2:54 所以到最後，我們往往就是偷懶
+2:56 全部都用最貴的那顆大腦硬跑到底
+2:59 所以我們可以把這個判斷直接交給 Jev
+3:01 具體做法就是利用前面講到的 Jev 開關
+3:04 打開之後，你每送出一句話
+3:05 Jev 就會先在零點幾秒內掃一眼
+3:07 判斷這題到底需要哪個等級的模型
+3:10 再把任務派給對應的模型去執行
+3:12 社羣上有一組對照測試
+3:14 拿了 12 個任務
+3:15 一組全部用 Fable 5.1 硬幹
+3:17 另一組則讓 Jev 先做路由分配
+3:20 結果發現，這 12 題裡面
+3:21 有 9 題根本不需要動用到頂級模型
+3:24 整體花費直接省了整整 70%
+3:26 像是隻叫 Claude 找某個腳本的檔案路徑
+3:29 Jev 看了一眼
+3:30 就直接派便宜的 Haiku 去跑
+3:31 而不是傻傻地用原本預設的 Opus 5 去找
+3:35 其實這件事
+3:36 跟我七月那時候講的 Model Routing 是完全同一個方向
+3:39 當時我也是拿同一個專案來測
+3:41 把規劃，執行和 Review 這三個階段
+3:44 拆給不同的模型來跑
+3:46 結果成本直接降了 54%
+3:48 但當時的差別是
+3:50 誰該上場是我自己手動劃分的
+3:52 分完一次就固定死了
+3:53 而現在，這個判斷可以直接交給 Jev
+3:55 而且是你每敲進去一句 prompt
+3:57 它都會在毫秒內幫你動態重判一次
+4:00 完全不需要你介入
+4:01 不過這裡要提醒一下
+4:02 雖然省了 token
+4:03 但降級模型的輸出品質到底夠不夠你用？
+4:06 因為每個人的工作性質跟容錯率都不一樣
+4:08 所以這部分你一定要自己實測
+4:10 不要一看到能省 70%
+4:12 就無腦全開著不管了
+4:14 接著我們來看挑 skill
+4:16 這個痛點
+4:16 只要你用 Claude Code 用久了一定會深有體會
+4:19 你的 skill 越裝越多
+4:20 而每一個 skill 的名稱和描述
+4:22 都會被默默塞進 context 裡面
+4:24 跟著你每一次的對話重複送出
+4:27 如果你裝了一百多個 skill
+4:28 就等於你每講一句話
+4:29 都要先白白燒掉上萬個 token
+4:31 純粹只是為了讓 Claude 知道
+4:33 現在手邊有哪些工具可以用
+4:35 更慘的是
+4:36 Claude 自己還要花時間在龐大的列表裡慢慢挑
+4:38 速度直接被拖慢
+4:41 這時候把挑選工作交給 Jev
+4:43 可以說再適合不過了
+4:45 你的 prompt 就是題目
+4:46 而你所有的 skill 清單就是選項
+4:48 Jev 會在瞬間挑出最相關的那幾個
+4:50 再通知 Claude 去精準載入就好
+4:53 社羣有人在裝了 145 個 skill 的工作區
+4:55 實測了 14 次
+4:56 結果 Jev 總共只花了不到 5 秒鐘
+4:59 就把正確的 skill 全挑了出來
+5:00 但如果是交給 Opus 5 自己挑
+5:03 整整花了將近 30 秒
+5:05 TypeSafe 官方的 Cookbook 也有過類似測試
+5:07 面對 182 個 skill
+5:09 如果讓大模型 agent 自己挑
+5:10 挑錯的比例高達 17%
+5:12 但如果先讓 Jev 在前面做推薦篩選
+5:15 出錯率直接降到只剩 7.3%
+5:17 我在上一支影片結尾其實就提過
+5:20 未來如果 Anthropic 把要不要觸發某個 skill 這件事
+5:23 直接外包給 Jev 這種模型
+5:25 我一點都不會意外
+5:26 這兩個幫 Claude 挑模型跟挑 skill 的用法
+5:29 是我強烈建議每個人第一個去試的
+5:31 因為它完全不需要改變你現有的操作習慣
+5:34 Claude Code 你照常使用
+5:35 但背後默默多了一套幫你省錢
+5:37 省時間的直覺反射機制
+5:39 具體怎麼做
+5:40 其實你就把這支影片的逐字稿
+5:42 貼給 Claude Code
+5:42 我會放在資訊欄
+5:44 連同你的 Jev API key 跟官方文件網址一起丟進去
+5:47 然後跟它說
+5:48 照影片裡第一個位置的描述
+5:50 幫我做一個 Jev 開關
+5:51 打開的時候，我每送一句 prompt
+5:53 先讓 Jev 判斷這題該用哪個模型
+5:55 該載哪個 skill
+5:56 再交給對應的模型去做
+5:58 有需要釐清的地方請先向我詢問
+6:00 不要直接開始做
+6:01 做完先拿你平常最常用的幾個任務跑一輪
+6:04 開關打開跑一次，關掉跑一次
+6:06 對照 token 用量跟輸出品質
+6:08 你就知道這個工具對你的工作流來說
+6:10 是否有幫助
+6:11 那講完了幫 Claude 省錢
+6:13 Jev 的第二個位置是直接幫你做事
+6:15 而且是幫你處理那些以前成本太高
+6:17 根本做不起的事情
+6:19 第二個位置
+6:20 就是海量資料的分類與打分
+6:22 這個用法的核心概念我們上次聊過
+6:24 所以這次我們直接來看
+6:26 它在 Claude Code 裡跑起來到底長什麼樣子
+6:28 社羣上有一組很完整的實測
+6:30 用同一套邏輯連續跑了五個不同的真實場景
+6:33 每次都只丟給 Claude 一句簡單的指令
+6:35 Claude 就會自動調用 Jev 批次完成判斷
+6:38 最後再把結果乾乾淨淨的輸出成表格或儀錶板
+6:42 第一個案例之前分享過
+6:43 是處理一個 YouTube 頻道一整年下來的留言
+6:46 總共 1400 則
+6:47 要求分成五類
+6:48 正面，負面，產品建議
+6:50 未回覆的問題，以及已回覆過的問題
+6:53 最後直接輸出成一份 CSV 檔
+6:55 和視覺化的 dashboard
+6:56 為了做對照
+6:57 還故意拿 Opus 5 用一模一樣的 prompt 跑了一次
+7:01 結果你猜怎麼著？
+7:02 Opus 5 跑了整整 34 分鐘，燒掉了 23 美元
+7:05 而且最後還有幾則根本沒分類到
+7:07 而交給 Jev 處理
+7:09 只花了幾十秒，幾美分就乾淨俐落地搞定
+7:12 第二個案例
+7:12 是對 250 位潛在客戶進行意向打分
+7:15 只給了兩個核心條件
+7:16 第一，對方是不是決策者？
+7:18 第二，對方人在不在美國？
+7:20 再加上一套簡單的評分規則
+7:22 結果 Jev 只花了 4 秒鐘就全部跑完
+7:24 成本只要 1 美分
+7:25 最後 Claude 再把分數整理成 Excel 報表
+7:28 第三個案例
+7:29 是預測社羣會員的流失風險
+7:32 先整理好會員的加入天數，發文量
+7:34 最後登入時間，留言互動數
+7:36 以及參與活動的次數
+7:38 Jev 替上個月剛加入的 203 位新會員
+7:41 每個人打出 1 到 10 分的流失風險指數
+7:44 整個過程只花了 25 秒，成本同樣是 1 美分
+7:47 匯出的 Excel 還很貼心地
+7:49 按照風險高低自動標上顏色
+7:51 因為效果太好
+7:52 直接叫 Claude 把這套流程封裝成一個 skill
+7:54 設定每兩週自動排程跑一次
+7:57 第四個案例
+7:58 是 1300 則社羣貼文的自動分流
+8:01 把貼文分成六大類
+8:02 產品回饋，技術問題，業務諮詢
+8:04 商業合作，自我介紹，成果分享
+8:07 分類完成後
+8:08 系統就能自動把貼文派發給對應的人負責
+8:10 例如技術問題直接轉給工程主管
+8:13 這 1300 則貼文
+8:15 Jev 總共只花了 106 秒，成本僅僅 4 美分
+8:18 而且由於反應速度極快
+8:19 現在只要社羣有新貼文發佈
+8:21 就能做到毫秒級的即時分流
+8:23 完全不需要人工盯盤
+8:25 第五個案例
+8:26 則是針對 227 通客服電話的逐字稿進行問題歸類
+8:29 同樣分成六種情境
+8:31 這個任務 Jev 只花了 13 秒，成本 7 美分
+8:35 看完這五個案例
+8:36 你會發現它們的底層邏輯可以用一句話精準總結
+8:39 Jev 負責先粗篩
+8:40 Claude 只處理篩出來的精華
+8:42 想像你有幾千個潛在名單
+8:44 你先丟給 Jev 批次打分
+8:46 只有分數最高的那幾十個重點客戶
+8:48 才交給 Claude 去深入做背景調查
+8:50 撰寫客製化的開發信
+8:52 這樣一來
+8:53 大模型昂貴的 token
+8:54 就只會花在真正有價值的高槓桿環節上
+8:57 流程跑順之後
+8:58 你只要叫 Claude 把這套工作流包成一個 skill
+9:01 下次遇到類似任務
+9:02 一句指令就全部自動化
+9:04 Claude 也再也不會傻傻地拿昂貴的旗艦模型
+9:06 去幹這種體力活
+9:08 至於大家最關心的準確度
+9:10 從這幾組實測來看
+9:11 在這種封閉式的分類場景下
+9:13 Jev 的判斷準確度不輸 Opus
+9:15 甚至比 Sonnet 還要穩定
+9:17 如果你也是內容創作者
+9:18 這裡還有一個極度實用的玩法
+9:20 從長影片中自動抓出適合剪成短影音的精華片段
+9:24 做法是拿一支一小時左右的訪談
+9:26 先按語意切成幾百個候選片段
+9:29 然後一口氣丟給 Jev 評分
+9:31 結果 Jev 只用了幾秒鐘
+9:32 就把這幾百個片段全部評完分數
+9:35 最後只要拉出排名前 10 的高分片段
+9:37 去後製發佈就行了
+9:39 這個用法我自己最近也正在用
+9:41 我們頻道偶爾會引用一些業界大佬的精采訪談
+9:44 以前的做法
+9:45 都是我自己泡在裡面
+9:46 把整支影片從頭看到尾，邊看邊手動標記
+9:50 但剪輯過長影片的人都知道
+9:52 人看久了一定會疲勞，注意力一定會渙散
+9:54 很多前面講得很精彩的亮點
+9:56 往往就這樣漏掉了
+9:58 所以我現在的做法是
+9:59 我自己依然會挑
+10:00 但我同時會把逐字稿丟給 Jev 跑一次打分
+10:03 最後拿它挑出的高分候選
+10:04 跟我自己手動挑的名單交叉比對
+10:07 我不是要讓 AI 完全取代我的審美
+10:09 而是把它當作第二雙眼睛
+10:11 幫我把那些疲勞時不小心漏掉的金句和寶石
+10:14 給撿回來
+10:15 那要怎麼判斷自己手邊的工作
+10:17 適不適合套用這個模式？
+10:19 我把第二個位置的判斷準則總結成一句話
+10:21 只要你的任務數量非常大
+10:23 而且每一筆資料都在問同一個問題
+10:25 那就是 Jev 的主場
+10:27 舉例來說
+10:27 這張發票是不是可疑？
+10:29 這封 Email 是不是垃圾信？
+10:31 這則留言有沒有踩到版規？
+10:32 這張退款申請符不符合資格？
+10:34 或是，這個會員下個月會不會退訂？
+10:37 全部都是這個邏輯
+10:38 只要你的工作符合這個特徵
+10:40 丟給 Jev 就能釋放驚人的生產力
+10:43 像我自己下一個要落地的場景
+10:44 就是頻道底下的所有留言
+10:46 以及我們社羣裡的發文
+10:48 因為資料量每天都在暴增
+10:49 而我對每筆資料要問的審核問題
+10:52 本質上都是一模一樣的
+10:54 聊完了資料分類這種即學即用的場景
+10:56 我們來看第三個位置
+10:57 這也是我認為最具想像空間的領域
+11:00 放在程式寫完之後的自動化驗證
+11:02 只要平時有在接觸 Agentic Coding 的朋友都知道
+11:05 你的 AI coding agent 能不能寫出高品質的程式碼
+11:08 關鍵在於有沒有一個強大的 Feedback Loop
+11:10 也就是反饋迴圈
+11:12 程式寫完，必須有人審查
+11:14 抓出 Bug，要有人修復
+11:15 修復之後，又得再跑一次驗證
+11:17 但現實中的痛點是
+11:19 審查這件事非常昂貴
+11:20 在過去
+11:21 做 Code Review 和多輪跑測試
+11:23 是整個流程裡最燒 token，最花時間的環節
+11:26 而 Jev 的介入
+11:27 剛好把這個驗證迴圈變得極度便宜
+11:29 而且極度快速
+11:31 我從社羣整理出四種很有啟發性的硬核玩法
+11:34 第一種玩法
+11:35 是打造一個用語意寫規則的 Linter
+11:37 Linter 就是用來靜態檢查程式碼
+11:39 有沒有符合規範的工具
+11:41 以前我們要自訂 Linter 規則
+11:43 往往得寫複雜的抽象語法樹規則
+11:45 寫得又臭又長還經常誤判
+11:48 但現在，你的規則可以用大白話直接寫
+11:51 例如你給它一句規則
+11:52 檢查這個函式的命名
+11:53 有沒有清楚交代它所做的事情
+11:55 包括潛在的副作用？
+11:57 或是定一條
+11:58 檢查這行 Log 印出的內容
+12:00 如果是密鑰或金額直接報錯
+12:02 如果是敏感個資則跳出警告
+12:04 像這種高度仰賴語意理解的檢查
+12:07 現在每個 PR 送出時都能全自動掃描一次
+12:10 而且成本幾乎等於零
+12:12 第二種玩法
+12:12 是針對整個 Codebase 做地毯式掃描
+12:15 有人拿一個註解寫得很差的老專案來測
+12:17 讓 Claude Code 搭配 Jev
+12:19 把所有的程式碼註解完整掃過一遍
+12:21 一口氣揪出那些毫無意義的廢話註解
+12:24 以及年久失修，具有誤導性的註解
+12:27 前 150 條註解掃完只花了 9.3 秒
+12:29 成本大約 1 美分
+12:30 整個專案完整掃描下來
+12:32 總花費也才 57 美分
+12:34 Jev 最終挑出了
+12:35 大約 1700 條確實需要改寫的註解
+12:38 接著再把這份精簡後的清單
+12:39 丟給便宜的 Haiku 批量重寫
+12:42 隨後用同一套打法去掃描整個專案的 Code Smell
+12:45 也就是抓重複代碼
+12:46 沒人引用的 Dead Code
+12:47 以及寫死在程式裡的 Magic Number
+12:50 整個專案總共掃了高達 2800 萬個 token
+12:52 竟然只要 1.19 美元！
+12:54 第三種玩法
+12:55 是做一個百問清單的 Code Review
+12:57 具體做法是
+12:58 當工程師提交了一份程式碼改動
+13:00 系統一次向這份改動拋出 100 個非常具體的檢驗問題
+13:04 像是
+13:05 有沒有改動到不該動的共用模組？
+13:07 有沒有把原有的單元測試改弱了？
+13:09 這個改動引入效能瓶頸的風險有多高？
+13:12 把這 100 個問題一口氣丟給 Jev 評分
+13:14 接著你只把 Jev 判定為高風險
+13:16 問題最嚴重的少數幾項
+13:18 送給大模型 Claude 進行深度修復與審查
+13:21 社羣實測估算過
+13:22 雖然這種預先打分沒辦法完全取代
+13:24 最嚴格的架構審查
+13:26 但它能把審查階段真正需要耗費人類
+13:28 或高階模型心智的內容
+13:30 直接砍掉將近 10 倍
+13:32 第四種玩法，是大規模對抗測試
+13:35 現在已經有前沿團隊利用 Jev
+13:37 同時併發運行幾十個無頭瀏覽器
+13:39 模擬真實使用者的各種隨機操作
+13:41 在網站上瘋狂點擊，輸入極端情境
+13:44 試圖在新版本部署前把系統給搞崩
+13:47 而這一切的運行成本幾乎微不足道
+13:49 這項技術整合了 Browser-use 團隊開發的
+13:52 Jev 版瀏覽器 Agent
+13:53 它的速度有多快？
+13:54 讓它完成一次從蘇黎世到倫敦的機票預訂全流程
+13:58 僅花了 7 秒鐘，成本只要 0.4 美分
+14:01 你可以想像一下那個未來畫面
+14:03 每一次你的 PR 合併前
+14:04 背後都有幾十隻便宜，敏捷的 Agent
+14:06 像特種部隊一樣在替你做全方位的壓力測試
+14:09 除了社羣玩法，企業級應用也已經落地
+14:12 知名監控平臺 Sentry 的資安工程師
+14:15 就直接把 Jev 整合進了他們的漏洞檢測 Pipeline
+14:18 他們原本就是採用小型開源模型來降低成本
+14:21 但在改用 Jev 之後
+14:22 發現不僅判斷準確率提升，響應延遲大幅降低
+14:26 整個 Pipeline 的運算成本
+14:28 甚至比原先再便宜了整整 5 倍以上
+14:30 講了這麼多酷炫的玩法
+14:32 其實它們背後運行的都是同一個架構閉環
+14:34 讓 Jev 在第一線負責做成千上萬次極速的條件判斷
+14:38 而 Claude 則在後端監控結果
+14:40 當 Claude 發現 Jev 的某些判斷出現偏差時
+14:43 就負責回頭優化 Prompt 規則，調整門檻
+14:46 調完後再放手讓 Jev 繼續跑
+14:48 直到整個分類的精準度達到標準
+14:50 這本質上就是 System 2 在訓練 System 1
+14:53 就跟我們人類剛開始學開車一樣
+14:55 一開始需要大腦全神貫注地深度思考
+14:58 練久了
+14:58 就慢慢轉化成了不假思索的肌肉記憶
+15:01 這個自動化驗證的位置
+15:03 雖然對不寫程式的人來說聽起來有些技術門檻
+15:06 但對每天在推程式碼的開發者來說
+15:08 卻是價值最高的一環
+15:10 因為 Review 和測試本來就是研發中
+15:12 最耗損資源的黑洞
+15:15 另外，前面提到的 Jev 開關
+15:16 到底要怎麼在 Claude Code 裡接起來？
+15:18 hook 跟 subagent 要怎麼設？
+15:20 skill 要怎麼藏
+15:21 才真的省得到 token？
+15:22 這些細節我就不在影片裡細講了
+15:24 有興趣的朋友
+15:25 可以到 Gary AI 實戰營找對應的文章
+15:28 連結我放在下方資訊欄
+15:30 回顧今天聊的這三個位置
+15:31 你會發現它們底層貫穿著一個完全相同的邏輯
+15:34 它們原本都是 Claude Code 在做判斷的環節
+15:37 而不是在做生成產出的環節
+15:39 上一期影片我們總結的原則是
+15:41 這一步的答案
+15:42 能不能事先枚舉出明確的選項？
+15:44 而在 Claude Code 的實踐中
+15:46 我們可以把這個心法提煉得更純粹
+15:48 只要在你的 Agent 工作流裡
+15:50 哪一步的本質是在做選擇與判斷
+15:52 那一步就是留給 Jev 的黃金位置
+15:55 未來的 Claude Code 乃至所有成熟的 AI Agent
+15:57 高機率都會有這兩類大腦協同運作
+16:00 旗艦大模型負責深度的邏輯推理
+16:03 而 Jev 這種極速模型則負責高頻的直覺反射
+16:06 下一代主流的 Coding Agent 的標準架構
+16:08 也很有可能是 System 1 加 System 2
+16:11 今天介紹的三個位置
+16:12 我建議大家先從第一個起手
+16:14 也就是讓 Jev 幫你挑模型和挑 Skill
+16:16 因為這種用法完全不侵入你現有的操作習慣
+16:19 進入門檻最低，效益最直接
+16:21 至於第二個海量分類
+16:22 等你手頭上有大批數據要清洗時隨時能用
+16:25 而第三個自動化驗證
+16:27 則是留給每天在寫程式，推 PR 的朋友
+16:29 去大幅提升工程效能
+16:31 如果你聽到這裡
+16:32 依然不太確定自己的日常工作流裡
+16:34 到底哪裡適合導入 Jev
+16:36 我教你一個最省力的實操技巧
+16:38 你直接把這部影片的逐字稿丟給 Claude
+16:41 請它回去翻閱你過去這幾週的對話記錄
+16:43 叫它幫你盤點
+16:44 在過去處理過的任務中
+16:46 究竟有哪幾個步驟其實只是單純的分類與篩選
+16:49 完全可以替換成 Jev？
+16:51 從你自己真實跑過的情境裡去找切入點
+16:53 就完全不需要憑空想像
+16:55 另外還有一個網站叫 shipwithjev
+16:57 是社羣整理的目錄
+16:59 專門收集大家用 Jev 做出來的東西
+17:01 目前已經有五百多個案例
+17:02 有開源的 GitHub 專案
+17:04 也有人在 X 上分享的做法
+17:05 而且照用途分好類
+17:07 像是模型路由，瀏覽器 agent，文件處理這些
+17:10 你也可以進去逛逛
+17:12 看看有沒有跟你工作相近的
+17:13 甚至也可以把網址貼給 Claude
+17:15 讓它幫你從裡面挑出適合你的
+17:18 OpenAI 在 9 月 29 日的 DevDay 上
+17:20 也悄悄發佈了最新的 Decisions API
+17:23 它的底層邏輯如出一轍
+17:24 你給它一個問題和一組允許的答案選項
+17:26 它就在極短時間內回傳最有可能的選項
+17:29 雖然背後跑的 GPT-6 Luna
+17:31 目前還在 Limited Preview 階段
+17:33 但這傳遞了一個明確的信號
+17:35 就算你未來不選擇 Jev
+17:36 把決策拆成選擇題
+17:38 交由特化模型極速處理的這個架構思維
+17:41 各家 AI 巨頭接下來都一定會全面跟進
+17:44 好啦，以上就是今天這支影片的完整分享
+17:47 如果今天的內容對你的工作流有啟發
+17:49 別忘了幫我按讚，訂閱頻道並開啟小鈴鐺
+17:52 更歡迎把影片分享給身邊同樣在玩 AI 的朋友
+17:55 這會是我持續產出高質量內容的最大動力
+17:58 我們下一支影片見，拜拜！</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://youtu.be/_yFen1B8hdU?si=7NI3dU9mm4G8epEt" target="_blank" rel="noopener">https://youtu.be/_yFen1B8hdU?si=7NI3dU9mm4G8epEt</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
