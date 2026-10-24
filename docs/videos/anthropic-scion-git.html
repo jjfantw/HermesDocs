@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EP434 - Anthropic 把 Git 換掉了！一天合併 3 萬次，Git 為什麼撐不住？｜Scion - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>EP434 - Anthropic 把 Git 換掉了！一天合併 3 萬次，Git 為什麼撐不住？｜Scion</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-10-24 13:16</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">EP434 - Anthropic 把 Git 換掉了！一天合併 3 萬次，Git 為什麼撐不住？｜Scion</h1>
+    <div class="meta"><span data-field="channel">📺 AI懶人報</span><span data-field="duration">⏱ 10:06</span><span data-field="published_date">🗓 2026-10-17</span><span data-field="original_language">🌐 zh-Hant</span><a data-field="source_url" href="https://www.youtube.com/watch?v=P9NQhuktbIk" target="_blank" rel="noopener">🔗 https://www.youtube.com/watch?v=P9NQhuktbIk</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>影片以 Anthropic 將主要程式碼倉庫從 Git 遷往自建系統 Scion 為主題，說明其背景是大量常駐線上的 AI agent 與自動化工作改變了版本控制的負載型態。片中指出，Anthropic 在九月單日合併超過 30,000 次，CI 每天約需 checkout 2,500 萬次；在此規模下，完整複本與鏡像伺服器的做法逐漸成為瓶頸。Scion 將資料集中於伺服器端，工作端按需快取或查詢，讓測試與研究工作所需的 checkout 從數分鐘縮短到數秒。影片也以七人、五個月完成 Scion 與相關系統的案例，討論 Claude 在開發中的角色；人類工程師仍負責判斷系統規則、拒絕不恰當的改動並審核意圖。影片的結論不是一般團隊應淘汰 Git：Scion 並非通用替代品；更實際的提醒是，當多個 agent 同時開發時，版本控制、建置與測試等原本按人類速度設計的流程可能先成為瓶頸。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">Git 的設計假設，遇上大量常駐 agent</h2><span class="ts-badge" data-field="lesson_timestamp">01:04</span></div><div class="body" data-field="lesson_body"><p>影片先回到 Git 的原始設計：每個工作者保有完整程式碼與歷史，因此離線仍可查看歷史與比對版本。</p><p>Anthropic 的情況則是大量會自行寫程式、跑測試的 agent 與自動化工作；影片認為，這些幾乎不離線的使用者使原本的完整複本設計成為負擔。</p><span class="tag" data-field="lesson_tag">版本控制負載</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">高頻 merge 與 CI checkout 讓 Git 架構吃緊</h2><span class="ts-badge" data-field="lesson_timestamp">01:49</span></div><div class="body" data-field="lesson_body"><p>片中引述九月單日超過 30,000 次 merge，平均不到三秒一次；CI 每日約需 checkout 2,500 萬次。</p><p>影片說明，當每次工作都要取得完整程式碼，而壓縮後的單份倉庫已超過 25 GB，即使用過淺層複製、部分資料夾與多台鏡像伺服器，仍會因更新速度與儲存資源遇到限制。</p><span class="tag" data-field="lesson_tag">CI</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">Scion：把版本控制改成按需存取的伺服器模型</h2><span class="ts-badge" data-field="lesson_timestamp">03:35</span></div><div class="body" data-field="lesson_body"><p>影片把 Git 比作寄附件：每個人都有完整副本；把 Scion 比作雲端文件：資料分散存於伺服器，工作端只保留少量快取並按需取得資料。</p><p>以修正結帳頁錯字為例，agent 可只取所需資料夾或檔案；比較版本等查詢也可能直接由伺服器回答。片中指出 commit 在伺服器端完成，因此沒有傳統 push 這一步。</p><span class="tag" data-field="lesson_tag">Scion</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">AI 寫程式加速後，人類仍需做判斷與約束</h2><span class="ts-badge" data-field="lesson_timestamp">05:22</span></div><div class="body" data-field="lesson_body"><p>影片描述七人團隊在五個月內完成 Scion、Antique 與相關系統，並搬遷主要倉庫；也舉例 Claude 重寫 Git 資料匯入程式後，保留未明文化的資料匯入順序規則。</p><p>片中對工程師角色的說法是「對 Claude 說不」：拒絕可能違反核心規則的捷徑，或避免防禦性審查導致不必要的複雜度。每項改動仍由人審核，但重點放在它想完成什麼。</p><span class="tag" data-field="lesson_tag">工程審核</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">不必換掉 Git；先檢查人類速度的周邊流程</h2><span class="ts-badge" data-field="lesson_timestamp">07:44</span></div><div class="body" data-field="lesson_body"><p>影片明確引述 Anthropic 的立場：Scion 不適合作為一般用途的 Git 替代品，且未開放下載；它面對的是極大型 monorepo 與大量 agent 的特殊規模。</p><p>對正在使用多個 agent 的團隊，影片建議先量化測試取得程式碼的頻率與時間、以意圖審核 AI 改動，並檢查版本控制與測試能否跟上開發速度。</p><span class="tag" data-field="lesson_tag">實務建議</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">今天即可採用的隔離方式：git worktree</h2><span class="ts-badge" data-field="lesson_timestamp">08:49</span></div><div class="body" data-field="lesson_body"><p>影片建議使用 Git 內建的 worktree，讓不同 agent 在同一份程式碼的獨立工作目錄中處理各自分支，降低互相覆蓋檔案的機會。</p><p>這些工作目錄共用歷史資料，完成後再合併回來；影片將其列為在不更換 Git 前可先採取的做法。</p><span class="tag" data-field="lesson_tag">Git worktree</span></div><div class="lesson-cmds" data-field="lesson_commands"><h3 class="cmds-heading">📋 本節指令一覽</h3><ol class="cmds-list"><li><code>git worktree add</code></li></ol></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">當 AI 寫程式不再是瓶頸，先卡住的往往是版本控制、建置與測試等仍以人類速度為假設的流程。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="01:04"><span class="ts">01:04</span><span class="text" data-field="key_point_text">Git 的離線優勢來自每台機器保存完整程式碼與歷史；但 Anthropic 的大量 agent 與自動化工作幾乎永遠在線，使用情境已不同。</span></li><li data-field="key_point" data-timestamp="01:49"><span class="ts">01:49</span><span class="text" data-field="key_point_text">影片引述 Anthropic 的規模：九月單日超過 30,000 次 merge，CI 每日約 2,500 萬次 checkout；壓縮後的單份程式碼超過 25 GB。</span></li><li data-field="key_point" data-timestamp="03:35"><span class="ts">03:35</span><span class="text" data-field="key_point_text">Scion 以「寄附件」對比「雲端文件」：資料留在伺服器端，客戶端按需取得資料夾或檔案，部分查詢不必 checkout。</span></li><li data-field="key_point" data-timestamp="04:27"><span class="ts">04:27</span><span class="text" data-field="key_point_text">影片指出 Scion 並非首創集中式大型版本控制；其特別處在於需求來自大量 agent，而非大量人類工程師。</span></li><li data-field="key_point" data-timestamp="05:22"><span class="ts">05:22</span><span class="text" data-field="key_point_text">Scion 團隊有七人、歷時五個月；片中以舊 Git 資料匯入程式為例，描述 Claude 重寫後的記憶體與速度改善。</span></li><li data-field="key_point" data-timestamp="06:18"><span class="ts">06:18</span><span class="text" data-field="key_point_text">人類工程師仍需拒絕違反核心規則或造成過度複雜的 AI 改動，並以改動意圖進行審核。</span></li><li data-field="key_point" data-timestamp="07:44"><span class="ts">07:44</span><span class="text" data-field="key_point_text">影片明確表示 Scion 不適合做一般用途的 Git 替代品；它針對極大型 monorepo 與大量 agent 的情境。</span></li><li data-field="key_point" data-timestamp="08:49"><span class="ts">08:49</span><span class="text" data-field="key_point_text">對已讓多個 agent 同時開發的團隊，影片建議先檢查 checkout／測試負載，並可用 git worktree 為各 agent 建立獨立工作目錄。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="Anthropic">Anthropic</span><span class="tag-chip" data-tag="Scion">Scion</span><span class="tag-chip" data-tag="Git">Git</span><span class="tag-chip" data-tag="Claude">Claude</span><span class="tag-chip" data-tag="AI agent">AI agent</span><span class="tag-chip" data-tag="版本控制">版本控制</span><span class="tag-chip" data-tag="CI">CI</span><span class="tag-chip" data-tag="git worktree">git worktree</span></div>
+  </section>
+
+  
+  
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="transcript"><div class="raw-label">逐字稿全文<button class="copy-btn" id="raw_transcript_4317000512_srt" onclick="copyRaw(this,'raw_transcript_4317000512_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_transcript_4317000512_text" onclick="copyRawText(this,'raw_transcript_4317000512_text')">📋 複製純文字</button></div><pre>1
+00:00:00,000 --&gt; 00:00:00,600
+這個月，
+
+2
+00:00:00,600 --&gt; 00:00:02,901
+做 Claude 的公司 Anthropic
+
+3
+00:00:02,901 --&gt; 00:00:04,352
+在官方部落格公開了一件事：
+
+4
+00:00:04,352 --&gt; 00:00:06,026
+他們把公司最主要的程式碼倉庫，
+
+5
+00:00:06,026 --&gt; 00:00:09,634
+從 Git 搬到了一套自己做的系統，叫 Scion。
+
+6
+00:00:09,634 --&gt; 00:00:12,758
+Git 是幾乎每一個工程師每天都在用的工具，
+
+7
+00:00:12,758 --&gt; 00:00:15,030
+它把程式碼的每一個版本都記下來，
+
+8
+00:00:15,030 --&gt; 00:00:17,634
+誰在什麼時候改了什麼，全部查得到。
+
+9
+00:00:17,634 --&gt; 00:00:20,967
+大家熟悉的 GitHub，就是建在 Git 上面的網站。
+
+10
+00:00:20,967 --&gt; 00:00:23,300
+消息一出來，工程師社群的反應很一致。
+
+11
+00:00:23,300 --&gt; 00:00:26,198
+在討論這件事的影片底下，按讚最多的留言是：
+
+12
+00:00:26,198 --&gt; 00:00:30,567
+他們只是把 20 年前那種集中式的老系統，重新做了一次。
+
+13
+00:00:30,567 --&gt; 00:00:33,471
+集中式的意思是，程式碼都放在中央的伺服器，
+
+14
+00:00:33,471 --&gt; 00:00:35,234
+大家連上去拿。
+
+15
+00:00:35,234 --&gt; 00:00:36,567
+這句話對了一半。
+
+16
+00:00:36,567 --&gt; 00:00:40,067
+Scion 確實走回了把程式碼集中在伺服器那一端的做法。
+
+17
+00:00:40,067 --&gt; 00:00:43,410
+但是更值得注意的，是 Anthropic 為什麼會走這條路：
+
+18
+00:00:43,410 --&gt; 00:00:46,640
+因為在 Anthropic，用 Git 的幾乎已經不是人，
+
+19
+00:00:46,640 --&gt; 00:00:49,648
+而是 agent，也就是會自己寫程式、跑測試的 AI，
+
+20
+00:00:49,648 --&gt; 00:00:51,568
+還有各種自動化的工作。
+
+21
+00:00:51,568 --&gt; 00:00:53,534
+所以今天我們來回答三個問題。
+
+22
+00:00:53,534 --&gt; 00:00:57,234
+第一，Anthropic 為什麼要換掉全世界都在用的 Git。
+
+23
+00:00:57,234 --&gt; 00:01:00,835
+第二，這件事代表 AI 寫程式，已經到了什麼程度。
+
+24
+00:01:00,835 --&gt; 00:01:04,768
+第三，這跟你有什麼關係，你的團隊需不需要跟著換。
+
+25
+00:01:04,768 --&gt; 00:01:05,368
+先講第一個問題。
+
+26
+00:01:05,368 --&gt; 00:01:08,150
+要知道 Git 為什麼在 Anthropic 撐不住，
+
+27
+00:01:08,150 --&gt; 00:01:10,139
+得先知道 Git 當初是設計給誰用的，
+
+28
+00:01:10,139 --&gt; 00:01:13,735
+再看 Anthropic 的情況，跟那個時候差在哪裡。
+
+29
+00:01:13,735 --&gt; 00:01:15,019
+Git 是 2005 年，
+
+30
+00:01:15,019 --&gt; 00:01:18,018
+Linux 的作者為了管理 Linux 的程式碼做出來的。
+
+31
+00:01:18,018 --&gt; 00:01:20,631
+寫 Linux 的，是散落在世界各地的工程師，
+
+32
+00:01:20,631 --&gt; 00:01:22,785
+每個人都在自己的電腦上工作。
+
+33
+00:01:22,785 --&gt; 00:01:24,507
+所以 Git 的設計是這樣：
+
+34
+00:01:24,507 --&gt; 00:01:26,475
+每個人的電腦上都放一整份程式碼，
+
+35
+00:01:26,475 --&gt; 00:01:28,752
+連同從第一天到現在的所有歷史。
+
+36
+00:01:28,752 --&gt; 00:01:31,649
+好處是你在飛機上沒有網路，一樣可以查歷史、
+
+37
+00:01:31,649 --&gt; 00:01:34,785
+比對兩個版本、找出某一段程式碼是誰改的。
+
+38
+00:01:34,785 --&gt; 00:01:37,305
+對絕大多數的專案來說，這到今天都還是對的設計，
+
+39
+00:01:37,305 --&gt; 00:01:39,969
+Anthropic 自己也在文章裡這樣寫。
+
+40
+00:01:39,969 --&gt; 00:01:43,769
+問題出在，Anthropic 的情況已經不是絕大多數了。
+
+41
+00:01:43,769 --&gt; 00:01:45,385
+先認識一個詞，merge。
+
+42
+00:01:45,385 --&gt; 00:01:47,835
+一份改好的程式碼，正式併進公司的主線，
+
+43
+00:01:47,835 --&gt; 00:01:49,752
+就叫做一次 merge。
+
+44
+00:01:49,752 --&gt; 00:01:52,619
+今年九月，Anthropic 一天 merge 超過 30,000 次。
+
+45
+00:01:52,619 --&gt; 00:01:55,972
+換算下來，平均不到三秒，就有一份新的程式碼併進主線，
+
+46
+00:01:55,972 --&gt; 00:01:58,302
+一天 24 小時都是這樣。
+
+47
+00:01:58,302 --&gt; 00:02:00,478
+五月的時候，一天還只有大約 2,500 次，
+
+48
+00:02:00,478 --&gt; 00:02:02,836
+四個月就翻了 10 倍以上。
+
+49
+00:02:02,836 --&gt; 00:02:06,108
+官方的說法是，在 Anthropic，寫程式已經不是瓶頸了，
+
+50
+00:02:06,108 --&gt; 00:02:08,419
+Claude 可以自己從零做出新的服務。
+
+51
+00:02:08,419 --&gt; 00:02:10,884
+真正卡住的，是版本控制、build、
+
+52
+00:02:10,884 --&gt; 00:02:13,369
+測試這些當初照人類速度設計的東西。
+
+53
+00:02:13,369 --&gt; 00:02:16,069
+而且他們不覺得這個速度會慢下來。
+
+54
+00:02:16,069 --&gt; 00:02:18,853
+merge 變多之後，真正被壓垮的是另一件事。
+
+55
+00:02:18,853 --&gt; 00:02:21,869
+每一份改動都要跑自動測試，這個流程叫 CI。
+
+56
+00:02:21,869 --&gt; 00:02:24,248
+而每跑一次測試，機器都要先拿到一份程式碼，
+
+57
+00:02:24,248 --&gt; 00:02:26,653
+這個動作叫 checkout。
+
+58
+00:02:26,653 --&gt; 00:02:28,051
+Anthropic 光是 CI，
+
+59
+00:02:28,051 --&gt; 00:02:30,322
+一天就要 checkout 大約 2,500 萬次，
+
+60
+00:02:30,322 --&gt; 00:02:31,770
+平均每一秒將近 300 次。
+
+61
+00:02:31,770 --&gt; 00:02:35,059
+這還沒有算工程師自己的環境、agent 的工作環境，
+
+62
+00:02:35,059 --&gt; 00:02:36,420
+跟研究用的工作。
+
+63
+00:02:36,420 --&gt; 00:02:39,137
+照 Git 原本的設計，每一次都要拿到完整的一份程式碼，
+
+64
+00:02:39,137 --&gt; 00:02:43,787
+而 Anthropic 的程式碼，壓縮之後一份就超過 25 GB。
+
+65
+00:02:43,787 --&gt; 00:02:46,838
+Anthropic 不是一開始就想自己造輪子。
+
+66
+00:02:46,838 --&gt; 00:02:49,671
+Git 給大型專案的各種省力做法，像是只抓最近的歷史、
+
+67
+00:02:49,671 --&gt; 00:02:52,153
+只抓需要的資料夾，他們全部都用過。
+
+68
+00:02:52,153 --&gt; 00:02:52,943
+最多的時候，
+
+69
+00:02:52,943 --&gt; 00:02:55,967
+還同時開了好幾百台內部的 Git 鏡像伺服器，
+
+70
+00:02:55,967 --&gt; 00:02:58,203
+也就是在公司內部多放好幾份程式碼，
+
+71
+00:02:58,203 --&gt; 00:03:00,104
+讓測試機器就近去拿。
+
+72
+00:03:00,104 --&gt; 00:03:03,533
+可是 merge 的速度越來越快，事先存好的程式碼副本，
+
+73
+00:03:03,533 --&gt; 00:03:05,287
+跟最新版本的差距越來越大。
+
+74
+00:03:05,287 --&gt; 00:03:06,404
+最後程式碼大到，
+
+75
+00:03:06,404 --&gt; 00:03:09,504
+連一台鏡像伺服器的硬碟或記憶體都裝不下。
+
+76
+00:03:09,504 --&gt; 00:03:11,770
+這時候他們退一步看，發現一件事。
+
+77
+00:03:11,770 --&gt; 00:03:14,025
+Anthropic 跟大多數公司一樣，
+
+78
+00:03:14,025 --&gt; 00:03:16,160
+其實早就把 Git 當成集中式在用：
+
+79
+00:03:16,160 --&gt; 00:03:19,571
+公司有一份大家都認的正式版本，所有人都跟它同步。
+
+80
+00:03:19,571 --&gt; 00:03:22,754
+可是 Git 的設計，還是要每一台機器都抱著一整份。
+
+81
+00:03:22,754 --&gt; 00:03:26,402
+官方在文章裡的意思是，Git 最大的優點是離線也能用，
+
+82
+00:03:26,402 --&gt; 00:03:29,621
+但程式碼越長越大，這個優點反而變成了拖累。
+
+83
+00:03:29,621 --&gt; 00:03:32,849
+因為他們的使用者，幾乎都是 agent 跟自動化的工作，
+
+84
+00:03:32,849 --&gt; 00:03:35,121
+而這些使用者從來不會離線。
+
+85
+00:03:35,121 --&gt; 00:03:36,723
+所以他們問了一個問題：
+
+86
+00:03:36,723 --&gt; 00:03:39,198
+如果一開始就假設使用者永遠在線上，
+
+87
+00:03:39,198 --&gt; 00:03:41,354
+版本控制應該長什麼樣子？
+
+88
+00:03:41,354 --&gt; 00:03:44,521
+Scion 的答案，很像寄附件跟雲端文件的差別。
+
+89
+00:03:44,521 --&gt; 00:03:47,491
+Git 像是寄附件：每個人的信箱裡都有完整的一份，
+
+90
+00:03:47,491 --&gt; 00:03:49,238
+沒有網路也打得開。
+
+91
+00:03:49,238 --&gt; 00:03:52,677
+Scion 比較像雲端文件：資料分散存在伺服器那一端，
+
+92
+00:03:52,677 --&gt; 00:03:56,638
+你的機器只留一小份快取，要看哪幾頁，就只拿哪幾頁。
+
+93
+00:03:56,638 --&gt; 00:03:57,375
+舉一個例子。
+
+94
+00:03:57,375 --&gt; 00:03:59,721
+一個 agent 要修結帳頁面上的一個錯字。
+
+95
+00:03:59,721 --&gt; 00:04:02,505
+在 Scion 裡面，它不用先下載整份程式碼，
+
+96
+00:04:02,505 --&gt; 00:04:05,168
+只拿它要改的那一個資料夾，甚至是真的打開了，
+
+97
+00:04:05,168 --&gt; 00:04:06,588
+才去拿那個檔案。
+
+98
+00:04:06,588 --&gt; 00:04:09,810
+它想知道這一段程式碼上次是誰改的，不用自己翻歷史，
+
+99
+00:04:09,810 --&gt; 00:04:11,122
+直接問伺服器就好。
+
+100
+00:04:11,122 --&gt; 00:04:14,135
+很多只是想問問題的工作，像是比較兩個版本差在哪，
+
+101
+00:04:14,135 --&gt; 00:04:17,805
+甚至完全不用 checkout，直接問伺服器就有答案。
+
+102
+00:04:17,805 --&gt; 00:04:21,040
+改完之後，存一個版本的動作，也就是 commit，
+
+103
+00:04:21,040 --&gt; 00:04:22,539
+直接在伺服器上完成。
+
+104
+00:04:22,539 --&gt; 00:04:24,833
+所以在 Scion 裡面，不需要 push，
+
+105
+00:04:24,833 --&gt; 00:04:27,622
+也就是把改動從自己電腦送上去的那一步。
+
+106
+00:04:27,622 --&gt; 00:04:30,905
+那這是不是留言說的，把舊東西重新做一次？
+
+107
+00:04:30,905 --&gt; 00:04:34,855
+這套做法裡的很多技巧，確實不是 Anthropic 首創的。
+
+108
+00:04:34,855 --&gt; 00:04:35,683
+官方寫得很清楚，
+
+109
+00:04:35,683 --&gt; 00:04:39,614
+他們參考了 Google 的 Piper 跟 Meta 的 Sapling，
+
+110
+00:04:39,614 --&gt; 00:04:42,272
+這兩家公司內部早就有這種大型的版本控制系統。
+
+111
+00:04:42,272 --&gt; 00:04:43,772
+差別在規模是怎麼來的。
+
+112
+00:04:43,772 --&gt; 00:04:47,302
+官方說，這種設計只對真正巨大的程式碼倉庫有意義，
+
+113
+00:04:47,302 --&gt; 00:04:49,067
+像是有幾萬名工程師在寫，
+
+114
+00:04:49,067 --&gt; 00:04:52,006
+或是有一大群 agent 在寫的那種。
+
+115
+00:04:52,006 --&gt; 00:04:54,106
+Anthropic 是後面那一種。
+
+116
+00:04:54,106 --&gt; 00:04:56,698
+換成 Scion 之後，測試跟研究用的工作，
+
+117
+00:04:56,698 --&gt; 00:04:59,762
+checkout 從原本要好幾分鐘，變成只要幾秒鐘，
+
+118
+00:04:59,762 --&gt; 00:05:02,439
+快了兩個數量級，也就是大約 100 倍。
+
+119
+00:05:02,439 --&gt; 00:05:04,597
+整套系統吃掉的 CPU 跟記憶體，
+
+120
+00:05:04,597 --&gt; 00:05:07,773
+只有原本那些鏡像伺服器的 1/200。
+
+121
+00:05:07,773 --&gt; 00:05:11,208
+所以回到那一句留言，Scion 是不是走回頭路？
+
+122
+00:05:11,208 --&gt; 00:05:12,890
+確實，它回到了集中式。
+
+123
+00:05:12,890 --&gt; 00:05:15,520
+但是 Git 當初選擇讓每個人都有一整份，
+
+124
+00:05:15,520 --&gt; 00:05:17,606
+是因為用它的是會離線的人。
+
+125
+00:05:17,606 --&gt; 00:05:21,202
+現在用它的換成永遠在線的 agent，最適合的設計，
+
+126
+00:05:21,202 --&gt; 00:05:22,373
+也就跟著換了。
+
+127
+00:05:22,373 --&gt; 00:05:23,206
+第二個問題。
+
+128
+00:05:23,206 --&gt; 00:05:26,273
+一天 30,000 次 merge 聽起來已經很誇張，
+
+129
+00:05:26,273 --&gt; 00:05:28,545
+但更能說明 AI 寫程式到了什麼程度的，
+
+130
+00:05:28,545 --&gt; 00:05:31,440
+是 Scion 這套系統本身，是怎麼做出來的。
+
+131
+00:05:31,440 --&gt; 00:05:33,090
+做 Scion 的團隊只有七個人。
+
+132
+00:05:33,090 --&gt; 00:05:35,222
+他們用五個月，做完了 Scion、
+
+133
+00:05:35,222 --&gt; 00:05:37,855
+一套叫 Antique 的程式碼審查工具，
+
+134
+00:05:37,855 --&gt; 00:05:39,360
+還有大約六個相關的系統，
+
+135
+00:05:39,360 --&gt; 00:05:42,440
+而且把公司最主要的程式碼倉庫完整搬了過去。
+
+136
+00:05:42,440 --&gt; 00:05:45,507
+同一段時間，每天 merge 的數量還成長了 10 倍。
+
+137
+00:05:45,507 --&gt; 00:05:48,377
+官方說，以前一家公司要做這種規模的遷移，
+
+138
+00:05:48,377 --&gt; 00:05:51,807
+通常要花好幾年，也需要多很多的工程師。
+
+139
+00:05:51,807 --&gt; 00:05:53,240
+有一個例子特別驚人。
+
+140
+00:05:53,240 --&gt; 00:05:56,557
+Scion 需要一支程式，把舊的 Git 資料搬進來。
+
+141
+00:05:56,557 --&gt; 00:05:59,173
+這支程式的第一版，幾乎是工程師自己手寫的，
+
+142
+00:05:59,173 --&gt; 00:06:01,341
+他們原本也覺得寫得不錯。
+
+143
+00:06:01,341 --&gt; 00:06:05,374
+後來他們拿到了內部早期版本的 Claude Mythos Preview，
+
+144
+00:06:05,374 --&gt; 00:06:08,907
+請它把整支程式整個重新寫過，沒有給任何額外的指示。
+
+145
+00:06:08,907 --&gt; 00:06:12,268
+重新寫出來的版本，記憶體只用原本的 1/20，
+
+146
+00:06:12,268 --&gt; 00:06:15,774
+速度快了四倍，而且舊程式裡那些沒有寫下來的規則，
+
+147
+00:06:15,774 --&gt; 00:06:18,608
+像是資料匯入的順序，全部都保留住了。
+
+148
+00:06:18,608 --&gt; 00:06:20,207
+官方還寫了一句很少見的話：
+
+149
+00:06:20,207 --&gt; 00:06:21,929
+參與這個系統的每一位工程師，
+
+150
+00:06:21,929 --&gt; 00:06:25,191
+現在都會說 Claude 寫程式比他們強。
+
+151
+00:06:25,191 --&gt; 00:06:26,708
+那工程師在做什麼？
+
+152
+00:06:26,708 --&gt; 00:06:28,138
+官方的回答是：很多時候，
+
+153
+00:06:28,138 --&gt; 00:06:30,774
+工程師的工作是對 Claude 說不。
+
+154
+00:06:30,774 --&gt; 00:06:32,108
+說不有兩種情況。
+
+155
+00:06:32,108 --&gt; 00:06:34,684
+第一種，agent 有時候為了把事情做完，
+
+156
+00:06:34,684 --&gt; 00:06:36,525
+會去違反系統的核心規則。
+
+157
+00:06:36,525 --&gt; 00:06:37,683
+例如有好幾個系統，
+
+158
+00:06:37,683 --&gt; 00:06:41,029
+想知道某個改動是什麼時候併進主線的，不去問審查工具，
+
+159
+00:06:41,029 --&gt; 00:06:44,758
+而是把 commit 紀錄從頭一筆一筆翻過去。
+
+160
+00:06:44,758 --&gt; 00:06:48,184
+第二種，Anthropic 很常讓 AI 專門去挑程式的毛病，
+
+161
+00:06:48,184 --&gt; 00:06:49,575
+這叫對抗式審查。
+
+162
+00:06:49,575 --&gt; 00:06:51,942
+這招很有效，但有時候會太多疑。
+
+163
+00:06:51,942 --&gt; 00:06:54,274
+有一次審查對另一個內部服務過度防備，
+
+164
+00:06:54,274 --&gt; 00:06:56,866
+Claude 就加了一大堆不必要的檢查，
+
+165
+00:06:56,866 --&gt; 00:07:00,175
+系統反而變得更複雜，工程師要把它拉回來。
+
+166
+00:07:00,175 --&gt; 00:07:03,132
+這套系統的每一個改動，現在還是由人來審，
+
+167
+00:07:03,132 --&gt; 00:07:06,975
+但他們看的是這個改動想做什麼，不再一段一段讀程式碼。
+
+168
+00:07:06,975 --&gt; 00:07:09,725
+還有一件事，是整套流程都要重新想過。
+
+169
+00:07:09,725 --&gt; 00:07:12,425
+很多開發流程，是照人類的速度設計的。
+
+170
+00:07:12,425 --&gt; 00:07:15,223
+例如一般公司會讓改動排隊，一次放一個進去，
+
+171
+00:07:15,223 --&gt; 00:07:17,242
+測試通過了才能合併。
+
+172
+00:07:17,242 --&gt; 00:07:18,086
+可是當幾百、
+
+173
+00:07:18,086 --&gt; 00:07:21,180
+幾千個改動在測試還沒跑完的時候就已經併進去，
+
+174
+00:07:21,180 --&gt; 00:07:24,009
+這種一次只放一個的排隊方式就撐不住了。
+
+175
+00:07:24,009 --&gt; 00:07:27,030
+Anthropic 沒辦法做到這種一次一個的鎖，
+
+176
+00:07:27,030 --&gt; 00:07:30,259
+所以把力氣放在合併之後、部署之前的自動測試。
+
+177
+00:07:30,259 --&gt; 00:07:32,942
+代價是同時進來的改動，可能會互相衝突。
+
+178
+00:07:32,942 --&gt; 00:07:35,653
+官方說，Claude 修好這些衝突的速度，
+
+179
+00:07:35,653 --&gt; 00:07:37,742
+通常比人類發現衝突還要快。
+
+180
+00:07:37,742 --&gt; 00:07:41,017
+所以在 Anthropic，寫程式本身已經不是瓶頸，
+
+181
+00:07:41,017 --&gt; 00:07:44,309
+瓶頸移到了周邊那些照人類速度設計的流程。
+
+182
+00:07:44,309 --&gt; 00:07:46,459
+最後一個問題，這跟你有什麼關係？
+
+183
+00:07:46,459 --&gt; 00:07:47,998
+你可能也在用 AI 寫程式，
+
+184
+00:07:47,998 --&gt; 00:07:50,193
+甚至讓好幾個 agent 同時開工。
+
+185
+00:07:50,193 --&gt; 00:07:52,459
+那你的團隊要不要跟著換掉 Git？
+
+186
+00:07:52,459 --&gt; 00:07:54,443
+先講結論：不需要。
+
+187
+00:07:54,443 --&gt; 00:07:56,831
+這不是我說的，是 Anthropic 自己寫的：
+
+188
+00:07:56,831 --&gt; 00:07:59,760
+Scion 完全不適合拿來當一般用途的 Git 替代品。
+
+189
+00:07:59,760 --&gt; 00:08:02,400
+它只對真正巨大的 monorepo 有意義，
+
+190
+00:08:02,400 --&gt; 00:08:04,921
+也就是整間公司的程式碼都放在同一個倉庫裡，
+
+191
+00:08:04,921 --&gt; 00:08:08,910
+而且有幾萬名工程師，或一大群 agent 在寫的那種。
+
+192
+00:08:08,910 --&gt; 00:08:12,071
+官方也說，Anthropic 自己花在 AI 上的 token，
+
+193
+00:08:12,071 --&gt; 00:08:13,710
+遠遠超過一般公司會想花的量。
+
+194
+00:08:13,710 --&gt; 00:08:15,940
+而且 Scion 跟 Git 差太多，
+
+195
+00:08:15,940 --&gt; 00:08:19,777
+很難做成別家公司能直接用的版本，所以它沒有開放下載。
+
+196
+00:08:19,777 --&gt; 00:08:23,343
+網路上那些「Claude 殺死 GitHub」的標題，是講過頭了。
+
+197
+00:08:23,343 --&gt; 00:08:25,340
+Anthropic 反而把做法公開分享，
+
+198
+00:08:25,340 --&gt; 00:08:27,935
+讓大家把 Scion 最成功的部分用到 Git 上，
+
+199
+00:08:27,935 --&gt; 00:08:31,444
+也希望跟 GitHub、GitLab 和開源社群一起合作。
+
+200
+00:08:31,444 --&gt; 00:08:32,910
+但是有一句話值得記住。
+
+201
+00:08:32,910 --&gt; 00:08:34,928
+Anthropic 判斷，這一類的問題，
+
+202
+00:08:34,928 --&gt; 00:08:37,610
+會在未來 6 到 12 個月變得更常見。
+
+203
+00:08:37,610 --&gt; 00:08:41,712
+意思是，當你的團隊開始大量用 AI 寫程式，最先卡住的，
+
+204
+00:08:41,712 --&gt; 00:08:45,520
+不會是寫程式本身，而是周邊那些照人類速度設計的流程，
+
+205
+00:08:45,520 --&gt; 00:08:49,087
+像是版本控制、build 跟測試。
+
+206
+00:08:49,087 --&gt; 00:08:51,651
+如果你已經在用 Claude Code 這類工具，
+
+207
+00:08:51,651 --&gt; 00:08:53,701
+讓好幾個 agent 同時寫同一個專案，
+
+208
+00:08:53,701 --&gt; 00:08:57,587
+今天就可以用 Git 內建的一個功能，叫 worktree。
+
+209
+00:08:57,587 --&gt; 00:09:00,841
+打 git worktree add，開一個新分支、
+
+210
+00:09:00,841 --&gt; 00:09:01,967
+指定一個新資料夾，
+
+211
+00:09:01,967 --&gt; 00:09:05,094
+同一份程式碼就多出一個獨立的工作資料夾。
+
+212
+00:09:05,094 --&gt; 00:09:07,487
+每個 agent 分到自己的資料夾，
+
+213
+00:09:07,487 --&gt; 00:09:09,348
+就不會蓋掉別人正在改的檔案，
+
+214
+00:09:09,348 --&gt; 00:09:11,342
+而且這些資料夾共用同一份歷史，
+
+215
+00:09:11,342 --&gt; 00:09:14,211
+不用每個 agent 都複製一整份。
+
+216
+00:09:14,211 --&gt; 00:09:16,521
+最後再合併回來就好。
+
+217
+00:09:16,521 --&gt; 00:09:20,654
+我們把今天的三個問題，整理成三句你可以直接用的話。
+
+218
+00:09:20,654 --&gt; 00:09:23,720
+第一，讓很多 agent 同時寫程式之前，
+
+219
+00:09:23,720 --&gt; 00:09:28,388
+先算一算你的測試一天要拿幾次程式碼，每次要花多久。
+
+220
+00:09:28,388 --&gt; 00:09:31,983
+第二，審 AI 寫的程式，先看懂它想做什麼，
+
+221
+00:09:31,983 --&gt; 00:09:34,188
+該說不的時候就說不。
+
+222
+00:09:34,188 --&gt; 00:09:37,918
+第三，不用換掉 Git，先檢查你的版本控制跟測試，
+
+223
+00:09:37,918 --&gt; 00:09:40,555
+跟不跟得上 AI 寫程式的速度。
+
+224
+00:09:40,555 --&gt; 00:09:43,945
+Anthropic 官方原文的連結，我放在這一集的資訊欄。
+
+225
+00:09:43,945 --&gt; 00:09:46,903
+你如果覺得今天這一集對你有幫助，按個訂閱，
+
+226
+00:09:46,903 --&gt; 00:09:48,688
+把小鈴鐺打開。
+
+227
+00:09:48,688 --&gt; 00:09:52,367
+你對節目有任何回饋或指教，或是想聽我們聊什麼主題，
+
+228
+00:09:52,367 --&gt; 00:09:54,488
+都歡迎在下面留言告訴我。
+
+229
+00:09:54,488 --&gt; 00:09:57,395
+你也可以在 Instagram、Facebook、Threads 找到我們，
+
+230
+00:09:57,395 --&gt; 00:10:00,939
+Podcast 在 Apple Podcasts 跟 Spotify 都聽得到。
+
+231
+00:10:00,939 --&gt; 00:10:03,602
+如果你覺得我的內容不錯，歡迎請我喝杯咖啡，
+
+232
+00:10:03,602 --&gt; 00:10:05,062
+連結我放在資訊欄。
+
+233
+00:10:05,062 --&gt; 00:10:05,729
+我們下次見！
+
+</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://www.youtube.com/watch?v=P9NQhuktbIk" target="_blank" rel="noopener">https://www.youtube.com/watch?v=P9NQhuktbIk</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

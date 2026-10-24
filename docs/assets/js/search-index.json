@@ -1,5 +1,11 @@
 [
   {
+    "title": "EP434 - Anthropic 把 Git 換掉了！一天合併 3 萬次，Git 為什麼撐不住？｜Scion - Hermes Docs",
+    "url": "videos/anthropic-scion-git.html",
+    "date": "2026-10-24 05:16",
+    "content": "EP434 - Anthropic 把 Git 換掉了！一天合併 3 萬次，Git 為什麼撐不住？｜Scion - Hermes Docs 返回首頁 EP434 - Anthropic 把 Git 換掉了！一天合併 3 萬次，Git 為什麼撐不住？｜Scion 發布時間：2026-10-24 13:16 🌙 YouTube 影片重點整理 EP434 - Anthropic 把 Git 換掉了！一天合併 3 萬次，Git 為什麼撐不住？｜Scion 📺 AI懶人報 ⏱ 10:06 🗓 2026-10-17 🌐 zh-Hant 🔗 https://www.youtube.com/watch?v=P9NQhuktbIk 影片以 Anthropic 將主要程式碼倉庫從 Git 遷往自建系統 Scion 為主題，說明其背景是大量常駐線上的 AI agent 與自動化工作改變了版本控制的負載型態。片中指出，Anthropic 在九月單日合併超過 30,000 次，CI 每天約需 checkout 2,500 萬次；在此規模下，完整複本與鏡像伺服器的做法逐漸成為瓶頸。Scion 將資料集中於伺服器端"
+  },
+  {
     "title": "EP700：AI 時代拉開差距的是定義問題的能力 - Hermes Docs",
     "url": "videos/ai-problem-definition.html",
     "date": "2026-10-24 05:15",
