@@ -1,5 +1,11 @@
 [
   {
+    "title": "一個頂級開源專案，帶你學透任何領域知識！ - Hermes Docs",
+    "url": "videos/deeptutor-learning-loop.html",
+    "date": "2026-10-24 09:05",
+    "content": "一個頂級開源專案，帶你學透任何領域知識！ - Hermes Docs 返回首頁 一個頂級開源專案，帶你學透任何領域知識！ 發布時間：2026-10-24 17:05 🌙 YouTube 影片重點整理 一個頂級開源專案，帶你學透任何領域知識！ 📺 Oraink ⏱ 03:01 🗓 2026-08-16 🌐 zh-Hans 🔗 https://youtu.be/t9trzWxqVbM 影片實測香港大學開源的 DeepTutor，將 learn-claude-code 與 ai-agent-book 兩份資料匯入同一知識庫。講者把自學的困境描述為：資料雖多，但缺少依個人基礎與目標安排的路線、重點抽查，以及錯題與弱點的持續整理。DeepTutor 的流程是先匯入並索引資料，再依學習者背景與目標生成路線與教材；學習過程透過 Flashcards、QuickCheck 與自訂測驗要求回憶、判斷並核對答案。影片以兩條不同路線示範：一條從最小 agent loop 起步、逐步補齊工程細節；另一條從 agent 架構出發，串連上下文、工具、記憶與評估。講者的結論是，系統把資料、目標、教材、測驗與學習進度"
+  },
+  {
     "title": "GitHub 本週開源熱榜：八月第一週 Top 5 - Hermes Docs",
     "url": "videos/github-open-source-top5.html",
     "date": "2026-10-24 08:47",
