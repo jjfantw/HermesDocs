@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SpaceX 土豆女神最新 AI 分享：1 人指揮 50 多個 AI，完成 20 位工程師的工作 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>SpaceX 土豆女神最新 AI 分享：1 人指揮 50 多個 AI，完成 20 位工程師的工作</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-11-04 06:07</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">SpaceX 土豆女神最新 AI 分享：1 人指揮 50 多個 AI，完成 20 位工程師的工作</h1>
+    <div class="meta"><span data-field="channel">📺 楊竹筠</span><span data-field="duration">⏱ 02:27</span><span data-field="published_date">🗓 2026-11-03</span><span data-field="original_language">🌐 zh-Hans</span><a data-field="source_url" href="https://www.youtube.com/watch?v=YzXjqdklEUQ" target="_blank" rel="noopener">🔗 https://www.youtube.com/watch?v=YzXjqdklEUQ</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>影片轉述一名工程師以一人管理 50 多個 Bot 的做法，並以六項操作原則說明如何把 Bot 當成團隊成員管理。第一項是讓 Bot 協助設計與監督其他 Bot，先釐清工作、排程與對話對象，再建立職責清楚的 Bot。接著以新人訓練的方式交代身分與任務，讓 Bot 先自行思考、不懂再主動詢問。第三項是把已做對的工作沉澱為可重用的 skill，並可備份到 GitHub。影片也主張替 Bot 配置獨立信箱、帳號與工作身分，以進行隔離。其後建議移除人工複製貼上，讓不同 Bot 直接交接資訊與處理回覆；最後以語音快速輸入想法，並要求 Bot 複述以確認理解。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">讓 Bot 設計與監督其他 Bot</h2><span class="ts-badge" data-field="lesson_timestamp">00:25</span></div><div class="body" data-field="lesson_body"><p>影片首先提出讓 Bot 自己建立 Bot。轉寫中提到一個被稱為「Dr.EggBot」的機器人設計師，負責設計與監督其他 Bot。</p><p>它會先釐清新 Bot 要負責的工作、是否要定時執行，以及主要和誰互動；再依回答建立職責清楚的 Bot。之後還會定期檢查誤解、重複修正與 token 浪費，提出改善建議。</p><span class="tag" data-field="lesson_tag">Bot 架構</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">把每個 Bot 當成需要入職訓練的成員</h2><span class="ts-badge" data-field="lesson_timestamp">00:56</span></div><div class="body" data-field="lesson_body"><p>影片主張 Bot 不在多、而在精，並說應像帶實習生一樣帶每一個 Bot。</p><p>做法是先介紹自己的身分與目標，讓 Bot 自己思考並執行；只有不懂時才主動詢問。影片把這個流程稱為「入職培訓」。</p><span class="tag" data-field="lesson_tag">任務交接</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">把成功做法沉澱成可重用的 skill</h2><span class="ts-badge" data-field="lesson_timestamp">01:09</span></div><div class="body" data-field="lesson_body"><p>影片要求 Bot 養成沉澱 skill 的習慣：一件事做對一次，就保存成一個 skill。</p><p>轉寫列舉動效、產品與文案等例子；並提到這些 skill 可以放在 GitHub 備份，將其視為公司資產的管理。</p><span class="tag" data-field="lesson_tag">知識資產</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">配置工具，同時隔離 Bot 的工作身分</h2><span class="ts-badge" data-field="lesson_timestamp">01:26</span></div><div class="body" data-field="lesson_body"><p>影片提到，授權 Bot 做事可能令人不安，因此建議替 Bot 配置完成工作所需的工具。</p><p>具體例子包括設立獨立郵件、甚至註冊自己的帳號，藉此區分工作身分並做好隔離。</p><span class="tag" data-field="lesson_tag">權限與隔離</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">消除人工複製貼上，改成 Bot 對 Bot 的流程</h2><span class="ts-badge" data-field="lesson_timestamp">01:42</span></div><div class="body" data-field="lesson_body"><p>影片建議每當發現自己在人工複製貼上時，就停下來問 Bot：如何省略這個步驟？</p><p>片中舉例，讓蒐集資訊的 Bot 直接把原文發給研究 Bot；收到郵件後，也可以由人先說明大意，再交由 Bot 協助回覆。影片將這一點歸為團隊流程管理。</p><span class="tag" data-field="lesson_tag">流程自動化</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">用語音快速輸入，並以複述驗證理解</h2><span class="ts-badge" data-field="lesson_timestamp">02:00</span></div><div class="body" data-field="lesson_body"><p>最後一招是有想法時直接對 Bot 說，以語音快速傾倒大量資訊。</p><p>影片特別提醒：說完後要讓 Bot 複述一次，藉此判斷它是真的理解，或只是看似理解。</p><span class="tag" data-field="lesson_tag">溝通迴路</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">把 Bot 視為團隊成員：設計角色、完成入職、沉澱經驗、配置工具，並讓流程自行交接。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="00:25"><span class="ts">00:25</span><span class="text" data-field="key_point_text">讓 Bot 建立 Bot：先詢問工作內容、是否定時執行及主要互動對象，再建立職責清楚的 Bot。</span></li><li data-field="key_point" data-timestamp="00:56"><span class="ts">00:56</span><span class="text" data-field="key_point_text">像帶實習生一樣帶 Bot：先交代你是誰、要做什麼，讓它先自行處理，遇到不懂再回來問。</span></li><li data-field="key_point" data-timestamp="01:09"><span class="ts">01:09</span><span class="text" data-field="key_point_text">把已成功完成的工作保存成 skill；影片舉例動效、產品與文案工作，並提及可備份到 GitHub。</span></li><li data-field="key_point" data-timestamp="01:26"><span class="ts">01:26</span><span class="text" data-field="key_point_text">為 Bot 配置工作工具與獨立身分，例如獨立郵件和帳號，以區分工作身分並做好隔離。</span></li><li data-field="key_point" data-timestamp="01:42"><span class="ts">01:42</span><span class="text" data-field="key_point_text">發現人工複製貼上時，改問 Bot 如何省略這一步；例如讓蒐集資訊的 Bot 直接把原文交給研究 Bot。</span></li><li data-field="key_point" data-timestamp="02:00"><span class="ts">02:00</span><span class="text" data-field="key_point_text">有想法時直接用語音輸入；說完要求 Bot 複述一遍，以確認它是否真的理解。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="AI Agent">AI Agent</span><span class="tag-chip" data-tag="Bot 管理">Bot 管理</span><span class="tag-chip" data-tag="工作流程">工作流程</span><span class="tag-chip" data-tag="Skills">Skills</span><span class="tag-chip" data-tag="自動化">自動化</span><span class="tag-chip" data-tag="語音輸入">語音輸入</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>YouTube 未提供可用字幕；報告以 Whisper 語音轉寫為主。</li><li>影片中的公司、產品及人名在轉寫中出現 SpecsX／Growbot／Dr.EggBot 等拼寫，未以外部資料校正。</li></ul></div></section>
+  <section class="glossary" data-field="asr_glossary"><h2>🎙️ ASR 漂字對照表</h2><div class="card"><table class="glossary"><tr data-field="asr_glossary_row"><td data-field="heard">Glockbot</td><td>→</td><td data-field="corrected">Grokbot（依影片標題 hashtag 核對）</td></tr></table></div></section>
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="whisper"><div class="raw-label">Whisper 原始輸出<button class="copy-btn" id="raw_whisper_4371133184_srt" onclick="copyRaw(this,'raw_whisper_4371133184_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_whisper_4371133184_text" onclick="copyRawText(this,'raw_whisper_4371133184_text')">📋 複製純文字</button></div><pre>1
+00:00:00,000 --&gt; 00:00:00,760
+太疯狂了
+
+2
+00:00:00,760 --&gt; 00:00:03,600
+SpecsX AI负责Growbot的女工程师
+
+3
+00:00:03,600 --&gt; 00:00:05,680
+我们的土豆女神Lauren Tang
+
+4
+00:00:05,680 --&gt; 00:00:07,460
+最近的一个分享在外网炸狼
+
+5
+00:00:07,460 --&gt; 00:00:10,320
+她分享了自己是怎么一个人指挥50多个Bot
+
+6
+00:00:10,320 --&gt; 00:00:12,020
+直接干了20多个工程师的活
+
+7
+00:00:12,020 --&gt; 00:00:14,660
+而且她说现在90%的SpecsA的同事
+
+8
+00:00:14,660 --&gt; 00:00:16,960
+也就是马斯克公司的人都在怎么用
+
+9
+00:00:16,960 --&gt; 00:00:18,220
+更关键的是她说了
+
+10
+00:00:18,220 --&gt; 00:00:19,540
+只要掌握了她这套方法
+
+11
+00:00:19,540 --&gt; 00:00:21,840
+你绝对也可以达到类似的水平
+
+12
+00:00:21,840 --&gt; 00:00:22,940
+方法我放在最后了
+
+13
+00:00:22,940 --&gt; 00:00:25,600
+复制给你的AI就能打现你自己的AI团队
+
+14
+00:00:25,600 --&gt; 00:00:27,920
+那第一招就是让Bot自己建Bot
+
+15
+00:00:27,920 --&gt; 00:00:29,800
+她分享这个叫Dr.EggBot
+
+16
+00:00:29,800 --&gt; 00:00:30,860
+机器人设计师
+
+17
+00:00:30,860 --&gt; 00:00:33,680
+她是专门帮你设计和监督其他Bot
+
+18
+00:00:33,680 --&gt; 00:00:35,260
+你主要就跟她沟通
+
+19
+00:00:35,260 --&gt; 00:00:37,080
+你看她先问了我几个问题
+
+20
+00:00:37,080 --&gt; 00:00:38,460
+这个Bot负责什么工作
+
+21
+00:00:38,460 --&gt; 00:00:39,680
+要不要定时做事
+
+22
+00:00:39,680 --&gt; 00:00:40,840
+主要跟谁对话
+
+23
+00:00:40,840 --&gt; 00:00:41,640
+那根据你的回答
+
+24
+00:00:41,640 --&gt; 00:00:44,340
+她马上就会帮你创建一个职责清晰的Bot
+
+25
+00:00:44,340 --&gt; 00:00:46,360
+甚至之后她还会定期检查
+
+26
+00:00:46,360 --&gt; 00:00:47,820
+发现工作中的误解
+
+27
+00:00:47,820 --&gt; 00:00:49,680
+重复纠正和token浪费
+
+28
+00:00:49,680 --&gt; 00:00:50,880
+提出改进建议
+
+29
+00:00:50,880 --&gt; 00:00:52,080
+那看了这个我强烈感觉
+
+30
+00:00:52,080 --&gt; 00:00:54,100
+这不就是给自己找一个HID吗
+
+31
+00:00:54,100 --&gt; 00:00:55,020
+只不过她不用招人
+
+32
+00:00:55,020 --&gt; 00:00:56,080
+她自己捏人
+
+33
+00:00:56,080 --&gt; 00:00:56,720
+那第二招
+
+34
+00:00:56,720 --&gt; 00:00:58,280
+兵不再多而再精
+
+35
+00:00:58,280 --&gt; 00:00:59,240
+而且更重要的是
+
+36
+00:00:59,240 --&gt; 00:01:00,680
+你要像带实习生一样
+
+37
+00:01:00,680 --&gt; 00:01:01,540
+带每一个Bot
+
+38
+00:01:01,540 --&gt; 00:01:02,880
+先跟她介绍你是谁
+
+39
+00:01:02,880 --&gt; 00:01:03,680
+你要干什么
+
+40
+00:01:03,680 --&gt; 00:01:05,700
+然后让她自己动脑筋做事情
+
+41
+00:01:05,700 --&gt; 00:01:07,320
+有不懂的再来主动问你
+
+42
+00:01:07,320 --&gt; 00:01:08,200
+这个是什么呢
+
+43
+00:01:08,200 --&gt; 00:01:09,000
+入职培训
+
+44
+00:01:09,000 --&gt; 00:01:10,080
+第三招很重要
+
+45
+00:01:10,080 --&gt; 00:01:12,380
+让你的Bot形成沉淀skill的习惯
+
+46
+00:01:12,380 --&gt; 00:01:14,180
+做对一次就保存为一个skill
+
+47
+00:01:14,180 --&gt; 00:01:15,120
+你让她做动效
+
+48
+00:01:15,120 --&gt; 00:01:16,980
+她就生成一个做动效的skill
+
+49
+00:01:16,980 --&gt; 00:01:18,000
+你让她做产品
+
+50
+00:01:18,000 --&gt; 00:01:19,680
+她就生成一个做产品的skill
+
+51
+00:01:19,680 --&gt; 00:01:20,480
+你让她写文案
+
+52
+00:01:20,480 --&gt; 00:01:22,040
+她就生成一个写文案的skill
+
+53
+00:01:22,040 --&gt; 00:01:24,420
+这skill还可以存在你的GitHub上备份
+
+54
+00:01:24,420 --&gt; 00:01:26,660
+那这一招就叫管理公司资产
+
+55
+00:01:26,660 --&gt; 00:01:29,420
+第四招给你的Bot配起工作的工具
+
+56
+00:01:29,420 --&gt; 00:01:30,500
+因为要授权Bot做事
+
+57
+00:01:30,500 --&gt; 00:01:31,600
+你可能会有不安成感
+
+58
+00:01:31,600 --&gt; 00:01:32,860
+那老人怎么解决的
+
+59
+00:01:32,860 --&gt; 00:01:33,780
+简直神了
+
+60
+00:01:33,780 --&gt; 00:01:35,860
+让你的Bot设立独立邮件
+
+61
+00:01:35,860 --&gt; 00:01:37,620
+甚至能注册自己的账户
+
+62
+00:01:37,620 --&gt; 00:01:38,560
+区分工作身份
+
+63
+00:01:38,560 --&gt; 00:01:39,280
+做好隔离
+
+64
+00:01:39,280 --&gt; 00:01:40,120
+你发现了吗
+
+65
+00:01:40,120 --&gt; 00:01:42,280
+她是真的把这些Bot当员工再用了
+
+66
+00:01:42,280 --&gt; 00:01:44,420
+那第五招消除人肉复制粘贴
+
+67
+00:01:44,420 --&gt; 00:01:46,060
+就一旦你发现自己有这个动作的时候
+
+68
+00:01:46,060 --&gt; 00:01:47,120
+立刻停下来
+
+69
+00:01:47,120 --&gt; 00:01:47,740
+问你的Bot
+
+70
+00:01:47,740 --&gt; 00:01:49,400
+我怎么才能省下这个步骤
+
+71
+00:01:49,400 --&gt; 00:01:51,800
+比如我现在一般都让抓资讯的Bot
+
+72
+00:01:51,800 --&gt; 00:01:53,700
+直接把原文发给研究的Bot
+
+73
+00:01:53,700 --&gt; 00:01:54,740
+或者有邮件来的时候
+
+74
+00:01:54,740 --&gt; 00:01:56,580
+直接我看了告诉他大概意思
+
+75
+00:01:56,580 --&gt; 00:01:57,580
+他就帮我回复了
+
+76
+00:01:57,580 --&gt; 00:01:58,860
+那这招底层上来说
+
+77
+00:01:58,860 --&gt; 00:02:00,800
+就是在管理团队的流程
+
+78
+00:02:00,800 --&gt; 00:02:01,640
+还有第六招
+
+79
+00:02:01,640 --&gt; 00:02:02,420
+有什么想法
+
+80
+00:02:02,420 --&gt; 00:02:03,400
+直接语音
+
+81
+00:02:03,400 --&gt; 00:02:04,620
+这是老人最喜欢技巧
+
+82
+00:02:04,620 --&gt; 00:02:05,760
+他说自己就是这样
+
+83
+00:02:05,760 --&gt; 00:02:07,400
+快速倾斜大量信息
+
+84
+00:02:07,400 --&gt; 00:02:08,660
+但是有个小巧思
+
+85
+00:02:08,660 --&gt; 00:02:09,700
+大家一定要记住
+
+86
+00:02:09,700 --&gt; 00:02:11,660
+说完让你的Bot复述一遍
+
+87
+00:02:11,660 --&gt; 00:02:12,760
+这样你就知道
+
+88
+00:02:12,760 --&gt; 00:02:14,340
+他是真懂了还是假装了
+
+89
+00:02:14,340 --&gt; 00:02:15,020
+你发现了没有
+
+90
+00:02:15,020 --&gt; 00:02:16,480
+这个就是Glockbot的魅力
+
+91
+00:02:16,480 --&gt; 00:02:17,400
+那土豆女神
+
+92
+00:02:17,400 --&gt; 00:02:18,940
+是真的把每一个Bot
+
+93
+00:02:18,940 --&gt; 00:02:20,580
+都当做员工来做了
+
+94
+00:02:20,580 --&gt; 00:02:21,480
+赶紧去试试吧
+
+95
+00:02:21,480 --&gt; 00:02:23,420
+需要方法提示词和防弹事录的
+
+96
+00:02:23,420 --&gt; 00:02:24,220
+直接告诉我
+
+97
+00:02:24,220 --&gt; 00:02:24,800
+我竹子
+
+98
+00:02:24,800 --&gt; 00:02:25,340
+关注我
+
+99
+00:02:25,340 --&gt; 00:02:26,700
+快乐一步把我AI时代去
+
+</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://www.youtube.com/watch?v=YzXjqdklEUQ" target="_blank" rel="noopener">https://www.youtube.com/watch?v=YzXjqdklEUQ</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
