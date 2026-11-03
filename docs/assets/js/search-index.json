@@ -1,5 +1,11 @@
 [
   {
+    "title": "AI 不看螢幕怎麼操作電腦？看懂開源 Vercel 的 agent-desktop - Hermes Docs",
+    "url": "videos/agent-desktop-accessibility-tree.html",
+    "date": "2026-11-03 21:17",
+    "content": "AI 不看螢幕怎麼操作電腦？看懂開源 Vercel 的 agent-desktop - Hermes Docs 返回首頁 AI 不看螢幕怎麼操作電腦？看懂開源 Vercel 的 agent-desktop 發布時間：2026-11-04 05:17 🌙 YouTube 影片重點整理 AI 不看螢幕怎麼操作電腦？看懂開源 Vercel 的 agent-desktop 📺 Jerry_AI 工具X實作X新知 ⏱ 02:38 🗓 2026-11-03 🌐 zh-Hans 🔗 https://www.youtube.com/watch?v=54qAmNOJuWY 影片介紹 Vercel Labs 的開源工具 agent-desktop，並將它與以截圖辨識畫面、移動滑鼠點擊的 Computer Use 做法對照。影片稱，agent-desktop 讀取作業系統為無障礙功能提供的無障礙樹，將畫面元素整理成附有編號的清單；AI 可讀取清單、執行指定編號的動作，再讀取一次確認結果。影片列出三項好處：可先讀取大綱、只展開需要的區塊；動作透過系統送出而不碰滑鼠；多個 AI 可在同一台電腦上各自使用游標。影"
+  },
+  {
     "title": "每天刷影片怎麼才不把腦子刷廢？卡帕西兩小時做出 HackerTube - Hermes Docs",
     "url": "videos/hackertube-information-curation.html",
     "date": "2026-11-03 12:40",

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 不看螢幕怎麼操作電腦？看懂開源 Vercel 的 agent-desktop - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>AI 不看螢幕怎麼操作電腦？看懂開源 Vercel 的 agent-desktop</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-11-04 05:17</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">AI 不看螢幕怎麼操作電腦？看懂開源 Vercel 的 agent-desktop</h1>
+    <div class="meta"><span data-field="channel">📺 Jerry_AI 工具X實作X新知</span><span data-field="duration">⏱ 02:38</span><span data-field="published_date">🗓 2026-11-03</span><span data-field="original_language">🌐 zh-Hans</span><a data-field="source_url" href="https://www.youtube.com/watch?v=54qAmNOJuWY" target="_blank" rel="noopener">🔗 https://www.youtube.com/watch?v=54qAmNOJuWY</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>影片介紹 Vercel Labs 的開源工具 agent-desktop，並將它與以截圖辨識畫面、移動滑鼠點擊的 Computer Use 做法對照。影片稱，agent-desktop 讀取作業系統為無障礙功能提供的無障礙樹，將畫面元素整理成附有編號的清單；AI 可讀取清單、執行指定編號的動作，再讀取一次確認結果。影片列出三項好處：可先讀取大綱、只展開需要的區塊；動作透過系統送出而不碰滑鼠；多個 AI 可在同一台電腦上各自使用游標。影片也指出，遊戲或畫布等缺少元素資訊的畫面仍須改用截圖，且 AI 能讀取畫面內容，因此有人將其放在虛擬機中執行以隔離私人檔案。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">不看畫面，而是讀取系統提供的元素結構</h2><span class="ts-badge" data-field="lesson_timestamp">00:43</span></div><div class="body" data-field="lesson_body"><p>影片將 agent-desktop 的基礎描述為作業系統內建的「畫面說明書」：無障礙樹原先用來讓螢幕閱讀器知道每個按鈕的名稱與可否操作。</p><p>工具把這份結構轉成 AI 可讀的清單，並為元素編號；AI 依序讀取、執行指定編號、再讀取確認。</p><span class="tag" data-field="lesson_tag">無障礙樹</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">影片對比的三項特性</h2><span class="ts-badge" data-field="lesson_timestamp">01:22</span></div><div class="body" data-field="lesson_body"><p>影片表示，可先看複雜應用程式的大綱，只展開需要的區塊；官方示範中，整個視窗的 75 個元素可縮小到一張地點卡片的 45 個元素。</p><p>影片也表示，動作直接透過系統送出、不會碰滑鼠，使用者可繼續工作；多個 AI 則可同時使用同一台電腦，且各自有自己的游標。</p><span class="tag" data-field="lesson_tag">AI 電腦操作</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">仍需截圖的情況與隔離提醒</h2><span class="ts-badge" data-field="lesson_timestamp">02:05</span></div><div class="body" data-field="lesson_body"><p>遊戲或畫布等缺少元素資訊的畫面，無障礙樹可能無法表達，影片說此時仍需要工具提供的截圖指令。</p><p>影片也提醒 AI 能讀取畫面上的內容；其中提到有人把它放入虛擬機執行，讓 AI 只能看到虛擬機內的畫面，以避免碰到私人檔案。</p><span class="tag" data-field="lesson_tag">安全性</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">下次看到 AI 操作電腦，可以問：它是在看照片猜，還是在讀說明書？</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="00:15"><span class="ts">00:15</span><span class="text" data-field="key_point_text">Computer Use 透過截圖辨識按鈕位置、移動滑鼠操作，再以新截圖確認；影片認為此法消耗算力、畫面變動時容易猜錯，也會占用滑鼠。</span></li><li data-field="key_point" data-timestamp="00:43"><span class="ts">00:43</span><span class="text" data-field="key_point_text">agent-desktop 改讀作業系統的無障礙樹；這份結構原本供螢幕閱讀器辨識按鈕名稱與是否可操作。</span></li><li data-field="key_point" data-timestamp="01:00"><span class="ts">01:00</span><span class="text" data-field="key_point_text">工具把無障礙樹整理成 AI 可讀的編號清單；流程為讀清單、執行指定編號，再重新讀取確認。</span></li><li data-field="key_point" data-timestamp="01:22"><span class="ts">01:22</span><span class="text" data-field="key_point_text">影片的官方示範提到：整個視窗有 75 個元素，而只查看地點卡片時可縮至 45 個元素，作為可局部展開的例子。</span></li><li data-field="key_point" data-timestamp="01:36"><span class="ts">01:36</span><span class="text" data-field="key_point_text">動作直接透過系統送出、不碰滑鼠，因此使用者可繼續工作；多個 AI 可同時使用同一台電腦，並各有自己的游標。</span></li><li data-field="key_point" data-timestamp="02:05"><span class="ts">02:05</span><span class="text" data-field="key_point_text">遊戲或畫布等畫面可能無法由無障礙樹表達，仍須使用工具提供的截圖指令；影片同時提醒 AI 可讀取畫面內容，並提到以虛擬機隔離的做法。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="agent-desktop">agent-desktop</span><span class="tag-chip" data-tag="Vercel Labs">Vercel Labs</span><span class="tag-chip" data-tag="AI 電腦操作">AI 電腦操作</span><span class="tag-chip" data-tag="Computer Use">Computer Use</span><span class="tag-chip" data-tag="無障礙樹">無障礙樹</span><span class="tag-chip" data-tag="虛擬機">虛擬機</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>影片未提供可用的 YouTube 逐字稿；主文依 Whisper 語音辨識與官方影片描述整理。Whisper 在 01:51 的產品／工具名稱辨識不清，未納入主文。</li></ul></div></section>
+  <section class="glossary" data-field="asr_glossary"><h2>🎙️ ASR 漂字對照表</h2><div class="card"><table class="glossary"><tr data-field="asr_glossary_row"><td data-field="heard">Versel</td><td>→</td><td data-field="corrected">Vercel</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">Agent Dash Desktop</td><td>→</td><td data-field="corrected">agent-desktop</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">无障碍书</td><td>→</td><td data-field="corrected">無障礙樹</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">按辩号</td><td>→</td><td data-field="corrected">按編號</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">图片很稍算力</td><td>→</td><td data-field="corrected">圖片很燒算力</td></tr></table></div></section>
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="whisper"><div class="raw-label">Whisper 原始輸出<button class="copy-btn" id="raw_whisper_4333580480_srt" onclick="copyRaw(this,'raw_whisper_4333580480_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_whisper_4333580480_text" onclick="copyRawText(this,'raw_whisper_4333580480_text')">📋 複製純文字</button></div><pre>1
+00:00:00,000 --&gt; 00:00:04,800
+AI 帮你操作电脑,最聪明的做法可能是根本不看荧幕
+
+2
+00:00:04,800 --&gt; 00:00:10,540
+Versel刚开人的 Agent Dash Desktop,才三天就破140万次观看
+
+3
+00:00:10,540 --&gt; 00:00:14,840
+三分钟看懂它跟现在的 AI 操作电脑差在哪
+
+4
+00:00:14,840 --&gt; 00:00:18,980
+现在主流的做法叫 Computer Use
+
+5
+00:00:18,980 --&gt; 00:00:21,100
+就是让 AI 直接用你的电脑
+
+6
+00:00:21,100 --&gt; 00:00:25,400
+流程是先截图, AI 看图拆按钮在哪
+
+7
+00:00:25,400 --&gt; 00:00:28,320
+移动滑鼠点下去,再截一张确认
+
+8
+00:00:28,320 --&gt; 00:00:32,400
+就像隔着一张照片远端指挥别人按按钮
+
+9
+00:00:32,400 --&gt; 00:00:36,860
+问题是,图片很稍算力,画面一动就猜错
+
+10
+00:00:36,860 --&gt; 00:00:39,800
+还要占用你的滑鼠,你只能在旁边干等
+
+11
+00:00:39,800 --&gt; 00:00:42,860
+Agent Desktop 换了一条路
+
+12
+00:00:42,860 --&gt; 00:00:46,760
+其实,你的电脑里本来就有一份画面说明书
+
+13
+00:00:46,760 --&gt; 00:00:50,440
+它是作业系统替视障朋友准备的
+
+14
+00:00:50,440 --&gt; 00:00:55,280
+萤幕阅读器靠它念出每个按钮叫什么,能不能按
+
+15
+00:00:55,280 --&gt; 00:00:59,360
+这份说明书叫做无障碍书
+
+16
+00:00:59,360 --&gt; 00:01:03,820
+Agent Desktop 把它整理成 AI 读得懂的清单
+
+17
+00:01:03,820 --&gt; 00:01:07,900
+再帮每个按钮发一个编号
+
+18
+00:01:07,900 --&gt; 00:01:09,900
+AI 不用猜位置,只要说按下 18
+
+19
+00:01:09,900 --&gt; 00:01:11,900
+按完再读一次确认
+
+20
+00:01:11,900 --&gt; 00:01:15,360
+画面变了,它会收到提醒,重读一次就好
+
+21
+00:01:15,360 --&gt; 00:01:17,900
+读清单,按辩号再确认
+
+22
+00:01:17,900 --&gt; 00:01:19,900
+整套就这三步
+
+23
+00:01:19,900 --&gt; 00:01:21,900
+这样做有三个好处
+
+24
+00:01:21,900 --&gt; 00:01:23,560
+第一,省
+
+25
+00:01:23,560 --&gt; 00:01:25,800
+复杂的APP可以先看大纲
+
+26
+00:01:25,800 --&gt; 00:01:27,740
+只展开需要的那一块
+
+27
+00:01:27,740 --&gt; 00:01:31,440
+官方示范里整个视窗 75个元素
+
+28
+00:01:31,440 --&gt; 00:01:34,180
+只看地点卡片剩45个
+
+29
+00:01:34,180 --&gt; 00:01:36,320
+第二,不抢你的电脑
+
+30
+00:01:36,320 --&gt; 00:01:38,480
+动作直接透过系统送出
+
+31
+00:01:38,480 --&gt; 00:01:39,520
+不碰滑鼠
+
+32
+00:01:39,520 --&gt; 00:01:41,760
+你继续工作,它在背景做
+
+33
+00:01:41,760 --&gt; 00:01:45,720
+第三,好几个 AI 可以同时用同一台电脑
+
+34
+00:01:45,720 --&gt; 00:01:48,160
+每个都有自己的游标
+
+35
+00:01:48,160 --&gt; 00:01:51,160
+Mac OS, Windows, Linux 都能用
+
+36
+00:01:51,160 --&gt; 00:01:54,240
+Reho 会写程式的 AI 都能接上
+
+37
+00:01:54,240 --&gt; 00:01:57,360
+最新1.1版,连 Dock 选单列
+
+38
+00:01:57,360 --&gt; 00:01:59,340
+控制中心都能操作
+
+39
+00:01:59,340 --&gt; 00:02:02,740
+打字还看得到游标在跑
+
+40
+00:02:02,740 --&gt; 00:02:04,880
+当然,它也有限制
+
+41
+00:02:04,880 --&gt; 00:02:07,780
+有些画面,像游戏或画布
+
+42
+00:02:07,780 --&gt; 00:02:09,640
+说明书写不出来
+
+43
+00:02:09,640 --&gt; 00:02:12,880
+这时还是得用它另外提供的截图指令
+
+44
+00:02:12,880 --&gt; 00:02:15,820
+还有,AI 读得到你画面上的东西
+
+45
+00:02:15,820 --&gt; 00:02:18,060
+所以有人把它放进虚拟机里跑
+
+46
+00:02:18,060 --&gt; 00:02:19,460
+AI 只看得到里面
+
+47
+00:02:19,460 --&gt; 00:02:21,600
+私人档案碰不到
+
+48
+00:02:21,600 --&gt; 00:02:24,200
+所以下次看到 AI 操作电脑
+
+49
+00:02:24,200 --&gt; 00:02:25,440
+可以问一句
+
+50
+00:02:25,440 --&gt; 00:02:27,300
+它是在看照片猜
+
+51
+00:02:27,300 --&gt; 00:02:28,940
+还是在读说明书?
+
+52
+00:02:28,940 --&gt; 00:02:31,300
+Agent Desktop 开源免费
+
+53
+00:02:31,300 --&gt; 00:02:32,740
+一行指令就能装
+
+54
+00:02:32,740 --&gt; 00:02:33,940
+你会让它在背景
+
+55
+00:02:33,940 --&gt; 00:02:35,240
+先帮你做哪件事?
+
+</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://www.youtube.com/watch?v=54qAmNOJuWY" target="_blank" rel="noopener">https://www.youtube.com/watch?v=54qAmNOJuWY</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
