@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>每天刷影片怎麼才不把腦子刷廢？卡帕西兩小時做出 HackerTube - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>每天刷影片怎麼才不把腦子刷廢？卡帕西兩小時做出 HackerTube</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-11-03 20:40</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">每天刷影片怎麼才不把腦子刷廢？卡帕西兩小時做出 HackerTube</h1>
+    <div class="meta"><span data-field="channel">📺 楊竹筠</span><span data-field="duration">⏱ 02:06</span><span data-field="published_date">🗓 2026-11-02</span><span data-field="original_language">🌐 zh-Hans</span><a data-field="source_url" href="https://www.youtube.com/watch?v=Y-A9qpvSdPE" target="_blank" rel="noopener">🔗 https://www.youtube.com/watch?v=Y-A9qpvSdPE</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>影片以卡帕西製作的 HackerTube 為例，談如何避開短影片推薦流造成的時間消耗。講者稱，卡帕西以 Claude Code 製作一個依 Hacker News 長期社群推薦來挑選影片的網站，讓內容不再完全由 YouTube 的既有推薦主導。影片提出三步做法：先從生活中的困擾找出痛點，再把問題交給 AI 並給出明確限制，最後把做好的網站或產品發布出來。講者將發布視為取得回饋、理解市場痛點的重要環節。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">從「被推薦流帶走」辨認問題</h2><span class="ts-badge" data-field="lesson_timestamp">00:27</span></div><div class="body" data-field="lesson_body"><p>講者描述一種常見情境：原本想學習，卻被吵雜推薦、誇張標題與封面帶著刷下去，回神時已經過了大半天。</p><p>影片把這類日常困擾視為可以用 AI 與產品設計處理的起點。</p><span class="tag" data-field="lesson_tag">資訊攝取</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">HackerTube 的資料限制</h2><span class="ts-badge" data-field="lesson_timestamp">00:43</span></div><div class="body" data-field="lesson_body"><p>影片稱卡帕西讓 Claude Code 製作 HackerTube，並從 Hacker News 過去約二十年的社群評論中尋找被反覆推薦的影片。</p><p>講者特別指出，提示的關鍵限制是：<strong>只納入多年來在 HN 被反覆推薦過的影片</strong>。</p><span class="tag" data-field="lesson_tag">內容篩選</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">先明確定義痛點，再交給 AI</h2><span class="ts-badge" data-field="lesson_timestamp">01:30</span></div><div class="body" data-field="lesson_body"><p>第一步是從生活的痛苦與煩惱中找出痛點；影片舉例為資訊太亂、收藏內容總是積灰。</p><p>第二步是把問題交給 AI，但必須加上一句明確的指令或限制，而不是只給模糊需求。</p><span class="tag" data-field="lesson_tag">AI 實作</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">發布是取得回饋的一步</h2><span class="ts-badge" data-field="lesson_timestamp">01:49</span></div><div class="body" data-field="lesson_body"><p>第三步是把做好的網站或產品發出來。</p><p>講者認為這有助於取得正向回饋，也能更理解市場的痛點。</p><span class="tag" data-field="lesson_tag">產品發布</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">把痛點說清楚、把限制交代清楚，再把做好的東西發出來。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="00:00"><span class="ts">00:00</span><span class="text" data-field="key_point_text">以「想學東西卻被吵雜推薦與短影片耗掉時間」作為要解決的問題。</span></li><li data-field="key_point" data-timestamp="00:19"><span class="ts">00:19</span><span class="text" data-field="key_point_text">影片稱卡帕西花兩小時，讓 Claude 製作名為 HackerTube 的影片網站。</span></li><li data-field="key_point" data-timestamp="00:43"><span class="ts">00:43</span><span class="text" data-field="key_point_text">講者說網站從 Hacker News 過去約二十年的評論中，找出被反覆推薦的影片；提到的主題包含商業、人工智慧、生命科學、神經科學與心理健康。</span></li><li data-field="key_point" data-timestamp="01:03"><span class="ts">01:03</span><span class="text" data-field="key_point_text">影片提到對方分享的提示內容很短，重點是一句明確指令與「不要出錯」的限制。</span></li><li data-field="key_point" data-timestamp="01:23"><span class="ts">01:23</span><span class="text" data-field="key_point_text">講者表示過程中需要人工準備 API 金鑰、VPS 伺服器與網域名稱。</span></li><li data-field="key_point" data-timestamp="01:30"><span class="ts">01:30</span><span class="text" data-field="key_point_text">三步法：感受生活痛點、把問題交給 AI 並設定明確指令、把完成的網站或產品發布出去。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="HackerTube">HackerTube</span><span class="tag-chip" data-tag="卡帕西">卡帕西</span><span class="tag-chip" data-tag="Claude Code">Claude Code</span><span class="tag-chip" data-tag="Hacker News">Hacker News</span><span class="tag-chip" data-tag="AI">AI</span><span class="tag-chip" data-tag="產品發布">產品發布</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>YouTube 未提供可用字幕，內容由 Whisper 語音轉寫整理。</li><li>轉寫中的模型版本與部分收尾口播不清楚，未納入重點。</li><li>「Claude」、「Hacker News」等英文專名依語境還原；原始轉寫保留於附錄。</li></ul></div></section>
+  <section class="glossary" data-field="asr_glossary"><h2>🎙️ ASR 漂字對照表</h2><div class="card"><table class="glossary"><tr data-field="asr_glossary_row"><td data-field="heard">Cloud／Cloud Code</td><td>→</td><td data-field="corrected">Claude／Claude Code</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">HackNews</td><td>→</td><td data-field="corrected">Hacker News</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">洗腦解讀版的YouTube</td><td>→</td><td data-field="corrected">[語意不清，未作為事實主張]</td></tr></table></div></section>
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="whisper"><div class="raw-label">Whisper 原始輸出<button class="copy-btn" id="raw_whisper_4345787456_srt" onclick="copyRaw(this,'raw_whisper_4345787456_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_whisper_4345787456_text" onclick="copyRawText(this,'raw_whisper_4345787456_text')">📋 複製純文字</button></div><pre>1
+00:00:00,000 --&gt; 00:00:00,860
+每天都要刷视频
+
+2
+00:00:00,860 --&gt; 00:00:02,440
+怎么才能不把脑子刷费
+
+3
+00:00:02,440 --&gt; 00:00:05,140
+OpenID和创始人卡帕西这个做法简直绝了
+
+4
+00:00:05,140 --&gt; 00:00:07,000
+我敢说这里面就藏着今年
+
+5
+00:00:07,000 --&gt; 00:00:08,780
+普通人最值得抄的玩法之一
+
+6
+00:00:08,780 --&gt; 00:00:09,900
+方法我放到最后来
+
+7
+00:00:09,900 --&gt; 00:00:11,220
+你听完就能照做
+
+8
+00:00:11,220 --&gt; 00:00:12,740
+就像刚刚AI界初代大神
+
+9
+00:00:12,740 --&gt; 00:00:14,660
+特斯拉前AI总监卡帕西
+
+10
+00:00:14,660 --&gt; 00:00:16,340
+突然深夜发了一条动态
+
+11
+00:00:16,340 --&gt; 00:00:18,200
+很快就冲到了200多万楼梁
+
+12
+00:00:18,200 --&gt; 00:00:19,320
+他干了件什么事呢
+
+13
+00:00:19,320 --&gt; 00:00:20,180
+花了两小时
+
+14
+00:00:20,180 --&gt; 00:00:23,080
+让Cloud手搓了一个洗脑解读版的YouTube
+
+15
+00:00:23,080 --&gt; 00:00:24,200
+叫做HackTube
+
+16
+00:00:24,200 --&gt; 00:00:25,200
+我已经收藏了
+
+17
+00:00:25,200 --&gt; 00:00:26,320
+感兴趣朋友可以找我一样
+
+18
+00:00:26,320 --&gt; 00:00:27,560
+那经常刷短视频的人
+
+19
+00:00:27,560 --&gt; 00:00:28,800
+肯定碰到过这样的烦恼
+
+20
+00:00:28,800 --&gt; 00:00:30,260
+明明是想学点有用的
+
+21
+00:00:30,260 --&gt; 00:00:32,500
+结果推荐给你的全是吵吵闹闹的
+
+22
+00:00:32,500 --&gt; 00:00:33,960
+再一抬头半天过去了
+
+23
+00:00:33,960 --&gt; 00:00:34,900
+那卡帕西也是这样
+
+24
+00:00:34,900 --&gt; 00:00:36,060
+周末工作累了
+
+25
+00:00:36,060 --&gt; 00:00:37,800
+想打开YouTube学点东西吧
+
+26
+00:00:37,800 --&gt; 00:00:40,160
+就发现满屏都是翻来覆去的推荐
+
+27
+00:00:40,160 --&gt; 00:00:41,700
+还有一些夸张的标题和封面
+
+28
+00:00:41,700 --&gt; 00:00:43,280
+然后他的做法就非常极客
+
+29
+00:00:43,280 --&gt; 00:00:44,400
+直接打开Cloud Code
+
+30
+00:00:44,400 --&gt; 00:00:45,920
+让他从HackNews
+
+31
+00:00:45,920 --&gt; 00:00:48,180
+这个是硅谷创业圈超火的科技社区
+
+32
+00:00:48,180 --&gt; 00:00:51,820
+从他过去20年的4300万条评论里面
+
+33
+00:00:51,820 --&gt; 00:00:54,120
+找出那些被大家反复推荐的视频
+
+34
+00:00:54,120 --&gt; 00:00:54,760
+那我看了一下
+
+35
+00:00:54,760 --&gt; 00:00:57,300
+最喜欢的商业 人工智能 生命科学
+
+36
+00:00:57,300 --&gt; 00:00:59,420
+神经科学 心理健康等等全都有
+
+37
+00:00:59,420 --&gt; 00:01:00,500
+但最搞笑的是什么
+
+38
+00:01:00,500 --&gt; 00:01:01,760
+有人问卡帕西要圆满
+
+39
+00:01:01,760 --&gt; 00:01:02,600
+你看他发了个什么
+
+40
+00:01:02,600 --&gt; 00:01:03,600
+一句提示词
+
+41
+00:01:03,600 --&gt; 00:01:04,400
+不是长篇大论
+
+42
+00:01:04,400 --&gt; 00:01:06,000
+更没有任何的技术语言
+
+43
+00:01:06,000 --&gt; 00:01:06,800
+特搞笑
+
+44
+00:01:06,800 --&gt; 00:01:08,240
+前面一堆废话
+
+45
+00:01:08,240 --&gt; 00:01:08,760
+blah blah
+
+46
+00:01:08,760 --&gt; 00:01:10,000
+你好我好
+
+47
+00:01:10,000 --&gt; 00:01:11,240
+然后下了一句
+
+48
+00:01:11,240 --&gt; 00:01:12,600
+特别简单的指令
+
+49
+00:01:12,600 --&gt; 00:01:13,540
+最后附加一句
+
+50
+00:01:13,540 --&gt; 00:01:15,120
+千万别出错
+
+51
+00:01:15,120 --&gt; 00:01:15,720
+更重要的是
+
+52
+00:01:15,720 --&gt; 00:01:17,200
+他既然没有用最新的模型
+
+53
+00:01:17,200 --&gt; 00:01:18,420
+也没有把算力拉满
+
+54
+00:01:18,420 --&gt; 00:01:20,840
+只用了一个Opus 5.5中等的一个水平
+
+55
+00:01:20,840 --&gt; 00:01:21,300
+就这样
+
+56
+00:01:21,300 --&gt; 00:01:23,100
+Cloud两个小时就跑完了
+
+57
+00:01:23,100 --&gt; 00:01:25,200
+需要他手动配合的就三件事
+
+58
+00:01:25,200 --&gt; 00:01:26,100
+API密钥
+
+59
+00:01:26,100 --&gt; 00:01:27,200
+VPS服务器
+
+60
+00:01:27,200 --&gt; 00:01:27,980
+还有域名
+
+61
+00:01:27,980 --&gt; 00:01:28,760
+那最重要来了
+
+62
+00:01:28,760 --&gt; 00:01:29,840
+我们怎么抄
+
+63
+00:01:29,840 --&gt; 00:01:30,640
+就三步
+
+64
+00:01:30,640 --&gt; 00:01:31,260
+第一步
+
+65
+00:01:31,260 --&gt; 00:01:33,360
+感受生活中的痛苦和烦恼
+
+66
+00:01:33,360 --&gt; 00:01:34,280
+找到一个痛点
+
+67
+00:01:34,280 --&gt; 00:01:35,560
+比如信息太乱了
+
+68
+00:01:35,560 --&gt; 00:01:37,180
+收藏东西总是积灰
+
+69
+00:01:37,180 --&gt; 00:01:37,760
+好
+
+70
+00:01:37,760 --&gt; 00:01:38,280
+第二步
+
+71
+00:01:38,280 --&gt; 00:01:39,700
+把问题甩给你的AI
+
+72
+00:01:39,700 --&gt; 00:01:40,600
+但是注意啊
+
+73
+00:01:40,600 --&gt; 00:01:42,200
+要带一句明确的指令
+
+74
+00:01:42,200 --&gt; 00:01:43,480
+比如卡帕西的这个指令
+
+75
+00:01:43,480 --&gt; 00:01:44,500
+最重要的这一句
+
+76
+00:01:44,500 --&gt; 00:01:46,260
+只能上传这些年来
+
+77
+00:01:46,260 --&gt; 00:01:48,820
+HN上被反复推荐过的视频
+
+78
+00:01:48,820 --&gt; 00:01:49,580
+然后第三步
+
+79
+00:01:49,580 --&gt; 00:01:50,400
+把它发出来
+
+80
+00:01:50,400 --&gt; 00:01:52,140
+把你做好的这个网站也好
+
+81
+00:01:52,140 --&gt; 00:01:52,700
+产品也好
+
+82
+00:01:52,700 --&gt; 00:01:53,100
+发出来
+
+83
+00:01:53,100 --&gt; 00:01:54,560
+这个我认为是最关键的
+
+84
+00:01:54,560 --&gt; 00:01:56,060
+非常有助于得到正反馈
+
+85
+00:01:56,060 --&gt; 00:01:57,860
+以及让你越来越的理解
+
+86
+00:01:57,860 --&gt; 00:01:58,720
+市场的痛点
+
+87
+00:01:58,720 --&gt; 00:01:59,600
+赶紧去试试吧
+
+88
+00:01:59,600 --&gt; 00:02:01,340
+不要浪费这么好的一个时间窗口
+
+89
+00:02:01,340 --&gt; 00:02:02,420
+对网站感情的朋友呢
+
+90
+00:02:02,420 --&gt; 00:02:03,400
+也可以评论区告诉我
+
+91
+00:02:03,400 --&gt; 00:02:03,780
+我是主持
+
+92
+00:02:03,780 --&gt; 00:02:04,240
+关注我
+
+93
+00:02:04,240 --&gt; 00:02:04,620
+快点一步
+
+94
+00:02:04,620 --&gt; 00:02:05,560
+把我AI时代机遇
+
+95
+00:02:05,560 --&gt; 00:02:06,760
+了
+
+96
+00:02:06,760 --&gt; 00:02:10,660
+我现在非常点ind traits的
+
+97
+00:02:23,720 --&gt; 00:02:25,860
+给我们一起arias
+
+98
+00:02:25,860 --&gt; 00:02:26,940
+表示
+
+99
+00:02:26,940 --&gt; 00:02:29,300
+拜四
+
+100
+00:02:29,300 --&gt; 00:02:29,500
+欧费
+
+</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://www.youtube.com/watch?v=Y-A9qpvSdPE" target="_blank" rel="noopener">https://www.youtube.com/watch?v=Y-A9qpvSdPE</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
