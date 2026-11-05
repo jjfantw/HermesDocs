@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>別再對 AI 說「你是專家」：影片談 AI 辯論的用法 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>別再對 AI 說「你是專家」：影片談 AI 辯論的用法</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-11-05 22:08</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">別再對 AI 說「你是專家」：影片談 AI 辯論的用法</h1>
+    <div class="meta"><span data-field="channel">📺 楊竹筠</span><span data-field="duration">⏱ 01:41</span><span data-field="published_date">🗓 2026-11-05</span><span data-field="original_language">🌐 zh-Hans</span><a data-field="source_url" href="https://www.youtube.com/watch?v=RFN2uHrK_XU" target="_blank" rel="noopener">🔗 https://www.youtube.com/watch?v=RFN2uHrK_XU</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>影片主張，不要只要求 AI 扮演某個領域的專家，也不要直接採信單一 AI 給出的答案。它把避免 AI 幻覺的做法描述為讓不同 AI 進行辯論與互相審查。流程先要求 AI 自查答案是否已是最佳答案，再把結論交給另外兩個 AI 審查，最後由人挑出結論中最有價值的部分。影片也將人的角色歸納為提問與決斷，並認為批判性地使用 AI 辯論可作為思考訓練。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">不要把單一 AI 的答案當成終點</h2><span class="ts-badge" data-field="lesson_timestamp">00:20</span></div><div class="body" data-field="lesson_body"><p>影片先否定兩種做法：只替 AI 設定「某領域專家」角色，以及直接相信單一 AI 給出的現成答案。</p><p>它把避免跟隨錯誤邏輯的方法，描述為讓 AI 之間進行辯論，而非依賴某一個提示詞。</p><span class="tag" data-field="lesson_tag">AI 幻覺</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">以自查與交叉審查組織 AI 辯論</h2><span class="ts-badge" data-field="lesson_timestamp">00:39</span></div><div class="body" data-field="lesson_body"><p>影片描述的第一步，是在拿到答案後先問 AI：這是否已是它能給出的最佳答案，要求它先做一輪自查。</p><p>接著把該 AI 的結論交給另外兩個 AI 審查，讓它們找出彼此邏輯上的弱點；最後由人從結論中提煉出最有價值的部分。</p><span class="tag" data-field="lesson_tag">交叉審查</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">人的位置是提問與決斷</h2><span class="ts-badge" data-field="lesson_timestamp">01:02</span></div><div class="body" data-field="lesson_body"><p>影片提到高頻使用 AI 是否會讓大腦退化的疑問，並提出可透過組織 AI 辯論、以批判性思維檢視結果來進行思考訓練。</p><p>其結論是，人要抓住提問與決斷兩端；當 AI 使能力更便宜時，提問能力與決策能力會變得更重要。</p><span class="tag" data-field="lesson_tag">批判性思維</span></div></article></section>
+  <section class="closing" data-field="closing_quote"><p class="quote">人要牢牢抓住提問與決斷兩端。</p></section>
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="00:20"><span class="ts">00:20</span><span class="text" data-field="key_point_text">避免 AI 幻覺，影片提出的不是單一提示詞，而是將工具用成一場 AI 辯論；目的在於不跟著單一 AI 的錯誤邏輯一路走下去。</span></li><li data-field="key_point" data-timestamp="00:39"><span class="ts">00:39</span><span class="text" data-field="key_point_text">取得答案後，先要求 AI 自查：這是否已是它能提供的最佳答案。</span></li><li data-field="key_point" data-timestamp="00:46"><span class="ts">00:46</span><span class="text" data-field="key_point_text">將一個 AI 的結論交給另外兩個 AI 審查，讓它們找出彼此邏輯的弱點。</span></li><li data-field="key_point" data-timestamp="00:56"><span class="ts">00:56</span><span class="text" data-field="key_point_text">最後由人擔任裁判，從各項結論中提煉出最有價值的部分。</span></li><li data-field="key_point" data-timestamp="01:02"><span class="ts">01:02</span><span class="text" data-field="key_point_text">影片將 AI 的使用與思考訓練連結：組織 AI 辯論，並以批判性思維檢視結果。</span></li><li data-field="key_point" data-timestamp="01:22"><span class="ts">01:22</span><span class="text" data-field="key_point_text">影片歸納人的兩個核心角色是提問與決斷，並指出提問能力與決策能力會變得更重要。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="AI">AI</span><span class="tag-chip" data-tag="AI 辯論">AI 辯論</span><span class="tag-chip" data-tag="批判性思維">批判性思維</span><span class="tag-chip" data-tag="提問能力">提問能力</span><span class="tag-chip" data-tag="決策">決策</span><span class="tag-chip" data-tag="提示詞">提示詞</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>影片沒有可用字幕；內容依 Whisper 語音辨識整理。Whisper 將講者對黃仁勳的部分稱呼辨為「達黃人勳／老黃」，未以外部資料補正或驗證。</li><li>約 01:41 後的音訊辨識結果已變成零碎、無法可靠核對的文字，未納入重點。</li></ul></div></section>
+  <section class="glossary" data-field="asr_glossary"><h2>🎙️ ASR 漂字對照表</h2><div class="card"><table class="glossary"><tr data-field="asr_glossary_row"><td data-field="heard">变论赛</td><td>→</td><td data-field="corrected">辯論賽</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">反昏</td><td>→</td><td data-field="corrected">反問</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">为给</td><td>→</td><td data-field="corrected">餵給</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">建脑方</td><td>→</td><td data-field="corrected">健腦房（語義未完全確認）</td></tr></table></div></section>
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="whisper"><div class="raw-label">Whisper 原始輸出<button class="copy-btn" id="raw_whisper_4347720576_srt" onclick="copyRaw(this,'raw_whisper_4347720576_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_whisper_4347720576_text" onclick="copyRawText(this,'raw_whisper_4347720576_text')">📋 複製純文字</button></div><pre>1
+00:00:00,000 --&gt; 00:00:01,380
+你是不是还在对AI说
+
+2
+00:00:01,380 --&gt; 00:00:02,880
+你是一个某某领域的专家
+
+3
+00:00:02,880 --&gt; 00:00:03,880
+因为达黄人勋最近
+
+4
+00:00:03,880 --&gt; 00:00:06,860
+点破了一个绝大多数人都搞反了的AI用法
+
+5
+00:00:06,860 --&gt; 00:00:08,660
+他说他从来都不给AI定角色
+
+6
+00:00:08,660 --&gt; 00:00:10,400
+也从来都不相信任何一个AI
+
+7
+00:00:10,400 --&gt; 00:00:11,800
+给出的现成的答案
+
+8
+00:00:11,800 --&gt; 00:00:13,300
+我看完才发现他这套答法
+
+9
+00:00:13,300 --&gt; 00:00:15,980
+直接揭开了用AI最重要的三个真相
+
+10
+00:00:15,980 --&gt; 00:00:17,140
+方法我放到最后了
+
+11
+00:00:17,140 --&gt; 00:00:18,020
+发给你的AI们
+
+12
+00:00:18,020 --&gt; 00:00:19,560
+答案的质量直接翻倍
+
+13
+00:00:19,560 --&gt; 00:00:20,320
+第一个真相
+
+14
+00:00:20,320 --&gt; 00:00:22,040
+怎么避免AI幻觉
+
+15
+00:00:22,040 --&gt; 00:00:23,160
+不是某一个提示词
+
+16
+00:00:23,160 --&gt; 00:00:24,040
+老黄的做法是
+
+17
+00:00:24,040 --&gt; 00:00:26,380
+直接把工具降为成一场变论赛
+
+18
+00:00:26,380 --&gt; 00:00:28,540
+这就像你不要去幻想改变一个人
+
+19
+00:00:28,540 --&gt; 00:00:30,260
+AI的本质就是讨好的
+
+20
+00:00:30,260 --&gt; 00:00:31,140
+有幻觉的
+
+21
+00:00:31,140 --&gt; 00:00:32,060
+那你要做的就是
+
+22
+00:00:32,060 --&gt; 00:00:33,980
+不要顺着某一个AI的错误逻辑
+
+23
+00:00:33,980 --&gt; 00:00:35,060
+一路掉到坑里
+
+24
+00:00:35,060 --&gt; 00:00:36,620
+而是来一场AI辩论
+
+25
+00:00:36,620 --&gt; 00:00:37,360
+第二个真相
+
+26
+00:00:37,360 --&gt; 00:00:38,960
+怎么组织这个AI辩论
+
+27
+00:00:38,960 --&gt; 00:00:39,500
+关键来了
+
+28
+00:00:39,500 --&gt; 00:00:40,460
+老黄拿到一个答案
+
+29
+00:00:40,460 --&gt; 00:00:41,920
+第一句话永远先反昏
+
+30
+00:00:41,920 --&gt; 00:00:44,100
+你确定就是你能给出的最佳答案吗
+
+31
+00:00:44,100 --&gt; 00:00:46,280
+逼着AI先做一轮深度自查
+
+32
+00:00:46,280 --&gt; 00:00:48,340
+紧接着他把这个AI突出的结论
+
+33
+00:00:48,340 --&gt; 00:00:50,620
+原封不动的为给另外两个AI
+
+34
+00:00:50,620 --&gt; 00:00:52,520
+让他们在后台互相审查
+
+35
+00:00:52,520 --&gt; 00:00:53,180
+公开互撕
+
+36
+00:00:53,180 --&gt; 00:00:55,060
+逼着他们把各自的逻辑死穴
+
+37
+00:00:55,060 --&gt; 00:00:56,180
+全都给拔出来
+
+38
+00:00:56,180 --&gt; 00:00:58,140
+最后由他自己坐在裁判席上
+
+39
+00:00:58,140 --&gt; 00:00:59,120
+把所有结论里
+
+40
+00:00:59,120 --&gt; 00:01:01,100
+最硬核的部分全都提炼出来
+
+41
+00:01:01,100 --&gt; 00:01:02,180
+第三个真相
+
+42
+00:01:02,180 --&gt; 00:01:03,720
+怎么避免大脑腐蚀
+
+43
+00:01:03,720 --&gt; 00:01:04,800
+既然会看到一些研究
+
+44
+00:01:04,800 --&gt; 00:01:06,180
+关于高频使用AI
+
+45
+00:01:06,180 --&gt; 00:01:07,480
+会不会导致大脑退化
+
+46
+00:01:07,480 --&gt; 00:01:08,800
+对此老黄一针见血
+
+47
+00:01:08,800 --&gt; 00:01:10,120
+对顶级玩家来说
+
+48
+00:01:10,120 --&gt; 00:01:11,920
+用AI不但不会让你变笨
+
+49
+00:01:11,920 --&gt; 00:01:14,400
+相反它可以是最好的建脑方
+
+50
+00:01:14,400 --&gt; 00:01:15,760
+你可以组织AI辩论
+
+51
+00:01:15,760 --&gt; 00:01:17,880
+然后用高强度的批判性思维
+
+52
+00:01:17,880 --&gt; 00:01:19,360
+给我们的肉身大脑
+
+53
+00:01:19,360 --&gt; 00:01:20,600
+做抗阻训练
+
+54
+00:01:20,600 --&gt; 00:01:22,480
+所以黄仁勋这个方法的核心是什么
+
+55
+00:01:22,480 --&gt; 00:01:24,340
+人要牢牢的抓住两头
+
+56
+00:01:24,340 --&gt; 00:01:25,500
+一头是提问
+
+57
+00:01:25,500 --&gt; 00:01:26,680
+一头是决断
+
+58
+00:01:26,680 --&gt; 00:01:28,280
+AI是一定会让智能
+
+59
+00:01:28,280 --&gt; 00:01:29,500
+让能力越来越便宜的
+
+60
+00:01:29,500 --&gt; 00:01:30,520
+那什么会变贵呢
+
+61
+00:01:30,520 --&gt; 00:01:31,780
+就是你的提问能力
+
+62
+00:01:31,780 --&gt; 00:01:32,640
+决策能力
+
+63
+00:01:32,640 --&gt; 00:01:35,280
+以及你对美好生活的向往和动力
+
+64
+00:01:35,280 --&gt; 00:01:36,240
+老黄这条提出词
+
+65
+00:01:36,240 --&gt; 00:01:37,040
+我都整理好了
+
+66
+00:01:37,040 --&gt; 00:01:38,680
+感谢你的朋友评论区告诉我
+
+67
+00:01:38,680 --&gt; 00:01:39,220
+我是竹子
+
+68
+00:01:39,220 --&gt; 00:01:41,080
+关注我快点一步把握AI时代基于
+
+69
+00:01:41,080 --&gt; 00:01:42,080
+captures
+
+70
+00:01:42,080 --&gt; 00:01:43,800
+liver
+
+71
+00:01:43,800 --&gt; 00:01:44,380
+多性能牢的
+
+72
+00:01:44,380 --&gt; 00:01:45,920
+疏忽
+
+73
+00:01:45,920 --&gt; 00:01:47,020
+程
+
+74
+00:01:47,020 --&gt; 00:01:47,300
+со
+
+75
+00:01:47,300 --&gt; 00:01:48,200
+镑
+
+76
+00:01:48,200 --&gt; 00:01:50,640
+Nicki
+
+77
+00:01:50,640 --&gt; 00:01:51,080
+可是
+
+78
+00:01:51,080 --&gt; 00:01:52,080
+m
+
+79
+00:01:52,120 --&gt; 00:01:52,620
+Σ
+
+80
+00:01:52,620 --&gt; 00:01:54,240
+CPR
+
+81
+00:01:54,240 --&gt; 00:01:54,920
+还
+
+82
+00:01:54,920 --&gt; 00:01:55,680
+晩
+
+83
+00:01:56,120 --&gt; 00:01:57,140
+》
+
+84
+00:01:57,140 --&gt; 00:01:58,920
+Bene
+
+85
+00:01:58,920 --&gt; 00:01:59,640
+锦
+
+86
+00:01:59,640 --&gt; 00:02:00,300
+产
+
+87
+00:02:00,640 --&gt; 00:02:01,180
+boys
+
+</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://www.youtube.com/watch?v=RFN2uHrK_XU" target="_blank" rel="noopener">https://www.youtube.com/watch?v=RFN2uHrK_XU</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
