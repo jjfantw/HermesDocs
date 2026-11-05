@@ -1,5 +1,11 @@
 [
   {
+    "title": "Claude Code 實戰工作流程：從程式碼庫問答到團隊共用脈絡 - Hermes Docs",
+    "url": "videos/claude-code-workflow.html",
+    "date": "2026-11-05 22:34",
+    "content": "Claude Code 實戰工作流程：從程式碼庫問答到團隊共用脈絡 - Hermes Docs 返回首頁 Claude Code 實戰工作流程：從程式碼庫問答到團隊共用脈絡 發布時間：2026-11-06 06:34 🌙 YouTube 影片重點整理 Claude Code 實戰工作流程：從程式碼庫問答到團隊共用脈絡 📺 TM SQUARE ⏱ 27:55 🗓 2026-06-12 🌐 en 🔗 https://youtu.be/3fgJINHVLxc 影片由 Anthropic 技術人員 Boris Cherny 示範 Claude Code 的實際工作方式：先以程式碼庫問答理解專案，再讓工具協助探索、規劃、修改與驗證；之後透過 CLAUDE.md、權限設定與 MCP 伺服器，把個人與團隊脈絡整理成可重用的配置。影片也介紹終端機操作、SDK／管線化用法，以及對批次指令安全性的設計取捨。 01 先把 Claude Code 當成程式碼庫的問答入口 04:10 講者建議第一次使用時，先直接詢問程式碼庫問題，而不是急著要求修改。Claude Code 會探索程式碼庫並回答問題；影片以技術新"
+  },
+  {
     "title": "別再對 AI 說「你是專家」：影片談 AI 辯論的用法 - Hermes Docs",
     "url": "videos/ai-debate-questioning-judgment.html",
     "date": "2026-11-05 14:08",

@@ -1,0 +1,7994 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Code 實戰工作流程：從程式碼庫問答到團隊共用脈絡 - Hermes Docs</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; line-height: 1.8; color: var(--fg, #333); background: var(--bg, #f8f9fa); transition: background .2s, color .2s; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .back-bar { background: var(--card, #343a40); padding: 12px 0; transition: background .2s; }
+    .back-bar a { color: var(--fg, #fff); text-decoration: none; font-size: 0.95rem; }
+    .back-bar a:hover { text-decoration: underline; }
+    .back-bar a::before { content: "← "; }
+    article { background: var(--card, #fff); border-radius: 8px; padding: 40px; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: background .2s, box-shadow .2s; }
+    article h1 { font-size: 1.8rem; margin-bottom: 12px; color: var(--fg, #212529); }
+    article .meta { color: var(--muted, #868e96); font-size: 0.9rem; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border, #e9ecef); }
+    article .content { font-size: 1rem; }
+    article .content p { margin-bottom: 16px; }
+    article .content img { max-width: 100%; height: auto; border-radius: 4px; margin: 16px 0; }
+    article .content pre { background: var(--card, #f1f3f5); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content code { background: var(--card, #f1f3f5); padding: 2px 6px; border-radius: 3px; font-size: 0.9rem; border: 1px solid var(--border, transparent); }
+    article .content ul, article .content ol { margin: 8px 0 16px 24px; }
+    article .content blockquote { border-left: 4px solid var(--accent, #667eea); padding-left: 16px; color: var(--muted, #495057); margin: 16px 0; }
+    footer { background: var(--card, #343a40); color: var(--muted, #868e96); text-align: center; padding: 20px 0; font-size: 0.9rem; margin-top: 40px; transition: background .2s, color .2s; }
+
+    @media (max-width: 600px) {
+      article { padding: 20px; }
+      article h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <div class="container">
+      <a href="../index.html">返回首頁</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <article>
+      <h1>Claude Code 實戰工作流程：從程式碼庫問答到團隊共用脈絡</h1>
+      <div class="meta">
+        <span class="date">發布時間：2026-11-06 06:34</span>
+      </div>
+      <div class="content">
+        <style>
+
+:root {
+  --bg:#0f0f12; --card:#1a1a20; --fg:#e8e8ea; --muted:#9a9aa3;
+  --accent:#d4a574; --accent-soft:#f0d9b8; --border:#2a2a32; --quote-bg:#2a2018;
+}
+:root.light {
+  --bg:#f8f9fa; --card:#ffffff; --fg:#1a1a2e; --muted:#6b7280;
+  --accent:#b8860b; --accent-soft:#8b6914; --border:#e5e7eb; --quote-bg:#fef3e2;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--fg); line-height:1.75; }
+.wrap { max-width: 800px; margin: 0 auto; padding: 40px 24px 72px; }
+header.hero { text-align:center; border-bottom:1px solid var(--border); padding-bottom:2rem; margin-bottom:2.5rem; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; font-weight:700; }
+h1 { margin:0 0 12px; font-size: 28px; line-height: 1.4; color:var(--fg); font-weight:700; }
+.meta { display:flex; flex-wrap:wrap; justify-content:center; gap: 8px 16px; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+.meta a { color: var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+h2 { font-size: 18px; margin: 0 0 12px; padding-left: 12px; border-left: 4px solid var(--accent); color:var(--fg); }
+section { margin-bottom: 28px; }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 18px 24px; }
+.intro { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 4px; }
+.intro p { color: var(--muted); }
+.intro p + p { margin-top: 0.75rem; }
+.lesson { background: var(--card); border:1px solid var(--border); border-radius:8px; padding: 1.75rem 1.75rem 1.5rem; margin-bottom:1.25rem; }
+.lesson-head { display:flex; align-items:baseline; gap:0.75rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+.lesson .num { font-family: Georgia, serif; font-size:1.6rem; font-weight:700; color: var(--accent); line-height:1; }
+.lesson h2 { flex:1; margin:0; padding:0; border:none; font-size:1.2rem; }
+.lesson .ts-badge { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12px; color: var(--muted); background: var(--card); padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.lesson .tag { display:inline-block; background: var(--quote-bg); color: var(--accent-soft); font-size:0.8rem; padding:0.15rem 0.6rem; border-radius:3px; border:1px solid var(--accent); margin-top:0.6rem; }
+.lesson .body p { margin-top:0.5rem; color: var(--fg); }
+.lesson .body strong { color: var(--accent-soft); }
+.closing { background: linear-gradient(135deg, var(--quote-bg) 0%, var(--card) 100%); border:1px solid var(--accent); border-radius:8px; padding:2rem; text-align:center; }
+.closing .quote { font-size:1.05rem; color: var(--accent-soft); font-style:italic; line-height:1.6; }
+.lesson-cmds { margin-top:1rem; padding-top:0.75rem; border-top:1px dashed var(--border); }
+.cmds-heading { font-size:0.85rem; color: var(--accent); margin:0 0 0.5rem; font-weight:600; }
+.cmds-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.cmds-list li { display:inline-block; }
+.cmds-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:12.5px; background: var(--quote-bg); color: var(--accent-soft); padding:3px 10px; border-radius:4px; border:1px solid var(--border); white-space:nowrap; }
+.key-points ol { list-style:none; margin:0; padding:0; }
+.key-points li { display:flex; gap:14px; padding:10px 0; border-bottom:1px dashed var(--border); }
+.key-points li:last-child { border-bottom:none; }
+.key-points .ts { color: var(--accent); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size:13px; min-width:52px; padding-top:2px; flex-shrink:0; }
+.tags-box { display:flex; flex-wrap:wrap; gap:8px; }
+.tag-chip { background: var(--quote-bg); color: var(--accent-soft); border-radius:999px; padding:4px 12px; font-size:13px; border:1px solid var(--border); }
+.uncertain li, .glossary td { color: var(--accent-soft); }
+table.glossary { width:100%; border-collapse:collapse; font-size:13.5px; }
+table.glossary td, table.glossary th { padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; }
+details.raw-appendix { border:1px dashed var(--border); border-radius:8px; padding: 4px 18px; }
+details.raw-appendix summary { cursor:pointer; padding:12px 0; color: var(--muted); font-size:13.5px; user-select:none; }
+details.raw-appendix summary:hover { color: var(--accent); }
+.raw-block { margin: 8px 0 16px; }
+.raw-block .raw-label { font-size:12px; color: var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.raw-block pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size:13.5px; color: var(--muted); background: var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; max-height: 420px; overflow-y:auto; }
+.raw-block .copy-btn { float:right; background:var(--card); border:1px solid var(--border); border-radius:6px; padding:3px 10px; font-size:12px; color:var(--muted); cursor:pointer; transition:all .15s; margin-top:-2px; }
+.raw-block .copy-btn:hover { color:var(--accent); border-color:var(--accent); background:var(--quote-bg); }
+.raw-block .copy-btn.copied { color:var(--accent-soft); border-color:var(--accent); background:var(--quote-bg); }
+footer { color: var(--muted); font-size:12px; text-align:center; margin-top:32px; padding-top:1.5rem; border-top:1px solid var(--border); }
+footer a { color: var(--accent); }
+@media (max-width: 600px) { h1 { font-size: 22px; } .lesson { padding: 1.25rem; } .lesson h2 { flex-basis: 100%; } }
+
+/* ── Theme toggle ─────────────────────────────────────────────── */
+.theme-toggle-wrap { position:absolute; top:0; right:0; padding:0.5rem; }
+#theme-toggle { background:none; border:1px solid var(--border); border-radius:999px; padding:4px 10px; cursor:pointer; font-size:16px; line-height:1; color:var(--fg); transition:background .15s; }
+#theme-toggle:hover { background:var(--card); }
+header.hero { position:relative; }
+
+</style>
+<div class="wrap" data-field="report">
+  <header class="hero">
+    <div class="theme-toggle-wrap"><button id="theme-toggle" onclick="toggleTheme()" aria-label="切換深淺色模式">🌙</button></div>
+    <div class="eyebrow">YouTube 影片重點整理</div>
+    <h1 data-field="title">Claude Code 實戰工作流程：從程式碼庫問答到團隊共用脈絡</h1>
+    <div class="meta"><span data-field="channel">📺 TM SQUARE</span><span data-field="duration">⏱ 27:55</span><span data-field="published_date">🗓 2026-06-12</span><span data-field="original_language">🌐 en</span><a data-field="source_url" href="https://youtu.be/3fgJINHVLxc" target="_blank" rel="noopener">🔗 https://youtu.be/3fgJINHVLxc</a></div>
+  </header>
+
+  <section class="intro" data-field="summary"><p>影片由 Anthropic 技術人員 Boris Cherny 示範 Claude Code 的實際工作方式：先以程式碼庫問答理解專案，再讓工具協助探索、規劃、修改與驗證；之後透過 CLAUDE.md、權限設定與 MCP 伺服器，把個人與團隊脈絡整理成可重用的配置。影片也介紹終端機操作、SDK／管線化用法，以及對批次指令安全性的設計取捨。</p></section>
+  <section class="lessons" data-field="lessons"><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">01</span><h2 data-field="lesson_title">先把 Claude Code 當成程式碼庫的問答入口</h2><span class="ts-badge" data-field="lesson_timestamp">04:10</span></div><div class="body" data-field="lesson_body"><p>講者建議第一次使用時，先直接詢問程式碼庫問題，而不是急著要求修改。Claude Code 會探索程式碼庫並回答問題；影片以技術新人入職為例，說明這可減少向團隊成員逐一詢問與手動翻找程式碼的負擔。</p><p>講者也指出此流程不依賴遠端索引：程式碼留在本機，啟動後就能開始提問。</p><span class="tag" data-field="lesson_tag">起步方式</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">02</span><h2 data-field="lesson_title">用目標描述工作，讓工具鏈協助探索到修改</h2><span class="ts-badge" data-field="lesson_timestamp">07:10</span></div><div class="body" data-field="lesson_body"><p>影片說明 Claude Code 可使用 Bash、檔案搜尋等工具，將它們串接為探索、構想、最後修改的流程。講者的建議是描述想完成的事情，不必逐一指定每個工具。</p><p>對需要較明確控制的任務，影片示範先探索、再規劃，並要求在開始寫程式前確認；也提及可用自然語言指示完成提交、推送與建立 pull request。</p><span class="tag" data-field="lesson_tag">工作流程</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">03</span><h2 data-field="lesson_title">讓模型有可驗證的回饋迴路</h2><span class="ts-badge" data-field="lesson_timestamp">11:05</span></div><div class="body" data-field="lesson_body"><p>講者認為，若 Claude Code 能檢查自己的成果，效果會更好。影片舉例單元測試、整合測試、網頁或 App 截圖等，都是可提供回饋的工具。</p><p>提供這類檢查方式後，Claude Code 能自行反覆迭代；影片以從 mock 建置 UI 為例，說明多次迭代可使結果更接近預期。</p><span class="tag" data-field="lesson_tag">迭代驗證</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">04</span><h2 data-field="lesson_title">以 CLAUDE.md 管理可重用的專案脈絡</h2><span class="ts-badge" data-field="lesson_timestamp">12:30</span></div><div class="body" data-field="lesson_body"><p>將 CLAUDE.md 放在專案根目錄時，影片稱它會在每次工作階段開始時自動讀入。適合記錄常用 Bash 指令、MCP 工具、架構決策、重要檔案與風格規範。</p><p>共用的專案內容可提交進版本控制；個人的本機內容則不必提交。講者提醒檔案要保持短小，避免耗用脈絡卻沒有相對效益；巢狀目錄中的檔案則可在 Claude Code 於該目錄工作時按需載入。</p><span class="tag" data-field="lesson_tag">脈絡管理</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">05</span><h2 data-field="lesson_title">把團隊工具與安全規則一起配置</h2><span class="ts-badge" data-field="lesson_timestamp">15:45</span></div><div class="body" data-field="lesson_body"><p>影片介紹可透過分層設定共享 slash commands、允許／封鎖規則與 MCP 伺服器。講者建議不確定如何開始時，先建立團隊共用的專案脈絡。</p><p>他以將 MCP JSON 檔提交至程式碼庫為例，讓同一專案的成員獲得一致的伺服器設定；同時可設定自動核准某些團隊共用命令，或封鎖不應存取的 URL。</p><span class="tag" data-field="lesson_tag">團隊設定</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">06</span><h2 data-field="lesson_title">終端機互動與 SDK 擴展為自動化管線</h2><span class="ts-badge" data-field="lesson_timestamp">18:35</span></div><div class="body" data-field="lesson_body"><p>影片示範以鍵盤操作接受或停止工作、記住事項、執行 Bash，以及把檔案／資料夾帶入脈絡。講者特別說明：透過 Bash 執行的命令與輸出也會進入後續對話脈絡。</p><p>在 SDK 段落，講者說明可傳入提示、允許工具與指定輸出格式，例如 JSON；因此可把 Claude Code 接進事件處理與其他自動化管線，也可透過 Unix pipe 組合外部資料與處理結果。</p><span class="tag" data-field="lesson_tag">進階使用</span></div></article><article class="lesson" data-field="lesson"><div class="lesson-head"><span class="num">07</span><h2 data-field="lesson_title">批次命令的安全性是效率設計的一部分</h2><span class="ts-badge" data-field="lesson_timestamp">23:40</span></div><div class="body" data-field="lesson_body"><p>問答環節中，講者說明 Bash 指令可能以非預期方式改變系統狀態，但若逐一人工核准每個批次命令，也會嚴重干擾工程工作。</p><p>影片提到目前做法包含靜態分析與較複雜的分級權限系統，用來判斷不同命令的風險與核准方式。</p><span class="tag" data-field="lesson_tag">安全與權限</span></div></article></section>
+  
+  
+
+  <section class="key-points" data-field="key_points">
+    <h2>重點時間戳索引</h2>
+    <div class="card"><ol><li data-field="key_point" data-timestamp="02:20"><span class="ts">02:20</span><span class="text" data-field="key_point_text">初次設定可調整終端機操作、主題、GitHub App 與允許工具，降低重複確認的摩擦。</span></li><li data-field="key_point" data-timestamp="04:10"><span class="ts">04:10</span><span class="text" data-field="key_point_text">建議從對程式碼庫提問開始；講者以 Anthropic 新人入職為例，說明可讓 Claude Code 自行探索並回答專案問題。</span></li><li data-field="key_point" data-timestamp="05:10"><span class="ts">05:10</span><span class="text" data-field="key_point_text">影片稱程式碼保持在本機、沒有遠端索引；可立即提問，不需要等候建立索引。</span></li><li data-field="key_point" data-timestamp="07:10"><span class="ts">07:10</span><span class="text" data-field="key_point_text">用自然語言提出任務即可；Claude Code 會組合檔案搜尋、Bash 等工具，經探索與構想後再修改。</span></li><li data-field="key_point" data-timestamp="10:20"><span class="ts">10:20</span><span class="text" data-field="key_point_text">加入 MCP 工具後，要說明工具用途與用法；講者將此視為擴展工作流程的重要方式。</span></li><li data-field="key_point" data-timestamp="11:05"><span class="ts">11:05</span><span class="text" data-field="key_point_text">若提供可檢查成果的回饋工具，例如單元測試、整合測試或畫面截圖，Claude Code 能反覆迭代以改善結果。</span></li><li data-field="key_point" data-timestamp="12:30"><span class="ts">12:30</span><span class="text" data-field="key_point_text">CLAUDE.md 可在每次工作階段開始時載入專案脈絡；內容可涵蓋常用指令、MCP 工具、架構決策與重要檔案，並應保持精簡。</span></li><li data-field="key_point" data-timestamp="16:40"><span class="ts">16:40</span><span class="text" data-field="key_point_text">可把團隊共用的 MCP 設定檔納入程式碼庫，讓成員在該專案使用 Claude Code 時取得一致的工具設定。</span></li><li data-field="key_point" data-timestamp="20:50"><span class="ts">20:50</span><span class="text" data-field="key_point_text">Claude Code SDK 可接收提示、允許工具與輸出格式，讓它以 JSON 等形式接入自動化管線；影片也示範其 Unix 管線式使用思路。</span></li><li data-field="key_point" data-timestamp="23:40"><span class="ts">23:40</span><span class="text" data-field="key_point_text">批次指令必須兼顧效率與安全：影片提到會以靜態分析及分級權限系統判斷、管理命令的核准。</span></li></ol></div>
+  </section>
+
+  <section class="tags" data-field="tags">
+    <h2>關鍵字</h2>
+    <div class="card tags-box"><span class="tag-chip" data-tag="Claude Code">Claude Code</span><span class="tag-chip" data-tag="CLAUDE.md">CLAUDE.md</span><span class="tag-chip" data-tag="MCP">MCP</span><span class="tag-chip" data-tag="程式碼庫問答">程式碼庫問答</span><span class="tag-chip" data-tag="開發工作流程">開發工作流程</span><span class="tag-chip" data-tag="SDK">SDK</span><span class="tag-chip" data-tag="終端機自動化">終端機自動化</span><span class="tag-chip" data-tag="權限管理">權限管理</span></div>
+  </section>
+
+  <section class="uncertain" data-field="uncertain_items"><h2>⚠️ 未確認 / 無法核對項目</h2><div class="card"><ul><li>來源為 YouTube 英文自動字幕；字幕多次將「Claude Code」辨識為「Quad Code／Cloud Code」，本報告依影片標題與上下文統一標示為 Claude Code。</li><li>自動字幕未可靠保留投影片上的完整安裝與 slash 指令文字，因此未把不完整的指令片段列為可直接複製的命令。</li></ul></div></section>
+  <section class="glossary" data-field="asr_glossary"><h2>🎙️ ASR 漂字對照表</h2><div class="card"><table class="glossary"><tr data-field="asr_glossary_row"><td data-field="heard">Quad Code / Cloud Code</td><td>→</td><td data-field="corrected">Claude Code</td></tr><tr data-field="asr_glossary_row"><td data-field="heard">quad.mmd / quadmd</td><td>→</td><td data-field="corrected">CLAUDE.md</td></tr></table></div></section>
+  <details class="raw-appendix" data-field="raw_source"><summary>📎 原始內容（查證 / AI 追查用，非閱讀主文，點擊展開）</summary><div class="raw-block" data-field="raw_source_item" data-raw-type="transcript"><div class="raw-label">逐字稿全文<button class="copy-btn" id="raw_transcript_4381648896_srt" onclick="copyRaw(this,'raw_transcript_4381648896_srt')">📋 複製 SRT</button><button class="copy-btn" id="raw_transcript_4381648896_text" onclick="copyRawText(this,'raw_transcript_4381648896_text')">📋 複製純文字</button></div><pre>1
+00:00:01,309 --&gt; 00:00:04,309
+
+[applause and music]
+
+2
+00:00:04,309 --&gt; 00:00:04,319
+
+ 
+
+3
+00:00:04,319 --&gt; 00:00:06,789
+
+Hello.
+
+4
+00:00:06,789 --&gt; 00:00:06,799
+Hello.
+ 
+
+5
+00:00:06,799 --&gt; 00:00:08,950
+Hello.
+Hey everyone. Uh, I&#x27;m Boris. I&#x27;m a
+
+6
+00:00:08,950 --&gt; 00:00:08,960
+Hey everyone. Uh, I&#x27;m Boris. I&#x27;m a
+ 
+
+7
+00:00:08,960 --&gt; 00:00:10,950
+Hey everyone. Uh, I&#x27;m Boris. I&#x27;m a
+member of technical staff here at
+
+8
+00:00:10,950 --&gt; 00:00:10,960
+member of technical staff here at
+ 
+
+9
+00:00:10,960 --&gt; 00:00:14,230
+member of technical staff here at
+Anthropic and I created Quad Code and
+
+10
+00:00:14,230 --&gt; 00:00:14,240
+Anthropic and I created Quad Code and
+ 
+
+11
+00:00:14,240 --&gt; 00:00:15,669
+Anthropic and I created Quad Code and
+here to talk to you a little bit about
+
+12
+00:00:15,669 --&gt; 00:00:15,679
+here to talk to you a little bit about
+ 
+
+13
+00:00:15,679 --&gt; 00:00:17,510
+here to talk to you a little bit about
+some practical tips and tricks for using
+
+14
+00:00:17,510 --&gt; 00:00:17,520
+some practical tips and tricks for using
+ 
+
+15
+00:00:17,520 --&gt; 00:00:19,910
+some practical tips and tricks for using
+Quad Code. Um, it&#x27;s going to be very
+
+16
+00:00:19,910 --&gt; 00:00:19,920
+Quad Code. Um, it&#x27;s going to be very
+ 
+
+17
+00:00:19,920 --&gt; 00:00:21,590
+Quad Code. Um, it&#x27;s going to be very
+practical. I&#x27;m not going to go too much
+
+18
+00:00:21,590 --&gt; 00:00:21,600
+practical. I&#x27;m not going to go too much
+ 
+
+19
+00:00:21,600 --&gt; 00:00:23,509
+practical. I&#x27;m not going to go too much
+into the history or the theory or
+
+20
+00:00:23,509 --&gt; 00:00:23,519
+into the history or the theory or
+ 
+
+21
+00:00:23,519 --&gt; 00:00:26,870
+into the history or the theory or
+anything like this. Uh, and yeah, before
+
+22
+00:00:26,870 --&gt; 00:00:26,880
+anything like this. Uh, and yeah, before
+ 
+
+23
+00:00:26,880 --&gt; 00:00:28,230
+anything like this. Uh, and yeah, before
+we start, actually, can we get a quick
+
+24
+00:00:28,230 --&gt; 00:00:28,240
+we start, actually, can we get a quick
+ 
+
+25
+00:00:28,240 --&gt; 00:00:29,830
+we start, actually, can we get a quick
+show of hands? Who has used quad code
+
+26
+00:00:29,830 --&gt; 00:00:29,840
+show of hands? Who has used quad code
+ 
+
+27
+00:00:29,840 --&gt; 00:00:32,310
+show of hands? Who has used quad code
+before?
+
+28
+00:00:32,310 --&gt; 00:00:32,320
+before?
+ 
+
+29
+00:00:32,320 --&gt; 00:00:33,830
+before?
+Yeah. All right. That&#x27;s what we like to
+
+30
+00:00:33,830 --&gt; 00:00:33,840
+Yeah. All right. That&#x27;s what we like to
+ 
+
+31
+00:00:33,840 --&gt; 00:00:35,910
+Yeah. All right. That&#x27;s what we like to
+see. For everyone that didn&#x27;t raise your
+
+32
+00:00:35,910 --&gt; 00:00:35,920
+see. For everyone that didn&#x27;t raise your
+ 
+
+33
+00:00:35,920 --&gt; 00:00:37,750
+see. For everyone that didn&#x27;t raise your
+hands, uh I know you&#x27;re not supposed to
+
+34
+00:00:37,750 --&gt; 00:00:37,760
+hands, uh I know you&#x27;re not supposed to
+ 
+
+35
+00:00:37,760 --&gt; 00:00:39,510
+hands, uh I know you&#x27;re not supposed to
+do this while people are talking, but if
+
+36
+00:00:39,510 --&gt; 00:00:39,520
+do this while people are talking, but if
+ 
+
+37
+00:00:39,520 --&gt; 00:00:46,229
+do this while people are talking, but if
+you can open your laptop and type this
+
+38
+00:00:46,229 --&gt; 00:00:46,239
+
+ 
+
+39
+00:00:46,239 --&gt; 00:00:47,750
+
+and this will help you install Quad
+
+40
+00:00:47,750 --&gt; 00:00:47,760
+and this will help you install Quad
+ 
+
+41
+00:00:47,760 --&gt; 00:00:49,190
+and this will help you install Quad
+Code. Uh just so you can follow along
+
+42
+00:00:49,190 --&gt; 00:00:49,200
+Code. Uh just so you can follow along
+ 
+
+43
+00:00:49,200 --&gt; 00:00:55,510
+Code. Uh just so you can follow along
+for the rest of the talk.
+
+44
+00:00:55,510 --&gt; 00:00:55,520
+
+ 
+
+45
+00:00:55,520 --&gt; 00:00:57,670
+
+All you need is Node.js. If if you have
+
+46
+00:00:57,670 --&gt; 00:00:57,680
+All you need is Node.js. If if you have
+ 
+
+47
+00:00:57,680 --&gt; 00:01:04,390
+All you need is Node.js. If if you have
+it, this should work.
+
+48
+00:01:04,390 --&gt; 00:01:04,400
+
+ 
+
+49
+00:01:04,400 --&gt; 00:01:06,070
+
+&gt;&gt; Yeah, if you Well, you don&#x27;t have to you
+
+50
+00:01:06,070 --&gt; 00:01:06,080
+&gt;&gt; Yeah, if you Well, you don&#x27;t have to you
+ 
+
+51
+00:01:06,080 --&gt; 00:01:07,429
+&gt;&gt; Yeah, if you Well, you don&#x27;t have to you
+don&#x27;t have to follow along, but if you
+
+52
+00:01:07,429 --&gt; 00:01:07,439
+don&#x27;t have to follow along, but if you
+ 
+
+53
+00:01:07,439 --&gt; 00:01:09,270
+don&#x27;t have to follow along, but if you
+don&#x27;t have it yet, yeah, this is your
+
+54
+00:01:09,270 --&gt; 00:01:09,280
+don&#x27;t have it yet, yeah, this is your
+ 
+
+55
+00:01:09,280 --&gt; 00:01:10,550
+don&#x27;t have it yet, yeah, this is your
+chance to install it so you can follow
+
+56
+00:01:10,550 --&gt; 00:01:10,560
+chance to install it so you can follow
+ 
+
+57
+00:01:10,560 --&gt; 00:01:14,149
+chance to install it so you can follow
+along.
+
+58
+00:01:14,149 --&gt; 00:01:14,159
+
+ 
+
+59
+00:01:14,159 --&gt; 00:01:17,030
+
+So, what is quad code? Quad code is a
+
+60
+00:01:17,030 --&gt; 00:01:17,040
+So, what is quad code? Quad code is a
+ 
+
+61
+00:01:17,040 --&gt; 00:01:19,670
+So, what is quad code? Quad code is a
+new kind of AI assistant. And there&#x27;s
+
+62
+00:01:19,670 --&gt; 00:01:19,680
+new kind of AI assistant. And there&#x27;s
+ 
+
+63
+00:01:19,680 --&gt; 00:01:21,590
+new kind of AI assistant. And there&#x27;s
+been different generations of AI
+
+64
+00:01:21,590 --&gt; 00:01:21,600
+been different generations of AI
+ 
+
+65
+00:01:21,600 --&gt; 00:01:23,749
+been different generations of AI
+assistants for coding. Most of them have
+
+66
+00:01:23,749 --&gt; 00:01:23,759
+assistants for coding. Most of them have
+ 
+
+67
+00:01:23,759 --&gt; 00:01:25,350
+assistants for coding. Most of them have
+been about completing, you know, like a
+
+68
+00:01:25,350 --&gt; 00:01:25,360
+been about completing, you know, like a
+ 
+
+69
+00:01:25,360 --&gt; 00:01:27,190
+been about completing, you know, like a
+line at a time, completing a few lines
+
+70
+00:01:27,190 --&gt; 00:01:27,200
+line at a time, completing a few lines
+ 
+
+71
+00:01:27,200 --&gt; 00:01:29,670
+line at a time, completing a few lines
+of code at a time. Cloud code is not for
+
+72
+00:01:29,670 --&gt; 00:01:29,680
+of code at a time. Cloud code is not for
+ 
+
+73
+00:01:29,680 --&gt; 00:01:32,149
+of code at a time. Cloud code is not for
+that. It&#x27;s fully agentic. So, it&#x27;s meant
+
+74
+00:01:32,149 --&gt; 00:01:32,159
+that. It&#x27;s fully agentic. So, it&#x27;s meant
+ 
+
+75
+00:01:32,159 --&gt; 00:01:34,469
+that. It&#x27;s fully agentic. So, it&#x27;s meant
+for building features, for writing
+
+76
+00:01:34,469 --&gt; 00:01:34,479
+for building features, for writing
+ 
+
+77
+00:01:34,479 --&gt; 00:01:37,350
+for building features, for writing
+entire functions, entire files, fixing
+
+78
+00:01:37,350 --&gt; 00:01:37,360
+entire functions, entire files, fixing
+ 
+
+79
+00:01:37,360 --&gt; 00:01:40,789
+entire functions, entire files, fixing
+entire bugs at at the same time.
+
+80
+00:01:40,789 --&gt; 00:01:40,799
+entire bugs at at the same time.
+ 
+
+81
+00:01:40,799 --&gt; 00:01:42,469
+entire bugs at at the same time.
+And what&#x27;s kind of cool about cloud code
+
+82
+00:01:42,469 --&gt; 00:01:42,479
+And what&#x27;s kind of cool about cloud code
+ 
+
+83
+00:01:42,479 --&gt; 00:01:44,870
+And what&#x27;s kind of cool about cloud code
+is it works with all of your tools and
+
+84
+00:01:44,870 --&gt; 00:01:44,880
+is it works with all of your tools and
+ 
+
+85
+00:01:44,880 --&gt; 00:01:46,069
+is it works with all of your tools and
+you don&#x27;t have to change out your
+
+86
+00:01:46,069 --&gt; 00:01:46,079
+you don&#x27;t have to change out your
+ 
+
+87
+00:01:46,079 --&gt; 00:01:47,270
+you don&#x27;t have to change out your
+workflow. You don&#x27;t have to swap
+
+88
+00:01:47,270 --&gt; 00:01:47,280
+workflow. You don&#x27;t have to swap
+ 
+
+89
+00:01:47,280 --&gt; 00:01:48,550
+workflow. You don&#x27;t have to swap
+everything to start using it. So,
+
+90
+00:01:48,550 --&gt; 00:01:48,560
+everything to start using it. So,
+ 
+
+91
+00:01:48,560 --&gt; 00:01:51,270
+everything to start using it. So,
+whatever IDE you use, if you use VS Code
+
+92
+00:01:51,270 --&gt; 00:01:51,280
+whatever IDE you use, if you use VS Code
+ 
+
+93
+00:01:51,280 --&gt; 00:01:55,030
+whatever IDE you use, if you use VS Code
+or if you use Xcode or if you use uh Jet
+
+94
+00:01:55,030 --&gt; 00:01:55,040
+or if you use Xcode or if you use uh Jet
+ 
+
+95
+00:01:55,040 --&gt; 00:01:57,270
+or if you use Xcode or if you use uh Jet
+Brains IDEs, there&#x27;s some people at
+
+96
+00:01:57,270 --&gt; 00:01:57,280
+Brains IDEs, there&#x27;s some people at
+ 
+
+97
+00:01:57,280 --&gt; 00:01:59,350
+Brains IDEs, there&#x27;s some people at
+anthropic that you can&#x27;t pry Vim from
+
+98
+00:01:59,350 --&gt; 00:01:59,360
+anthropic that you can&#x27;t pry Vim from
+ 
+
+99
+00:01:59,360 --&gt; 00:02:01,270
+anthropic that you can&#x27;t pry Vim from
+their cold dead hands, but they use quad
+
+100
+00:02:01,270 --&gt; 00:02:01,280
+their cold dead hands, but they use quad
+ 
+
+101
+00:02:01,280 --&gt; 00:02:03,350
+their cold dead hands, but they use quad
+code because quad code works with every
+
+102
+00:02:03,350 --&gt; 00:02:03,360
+code because quad code works with every
+ 
+
+103
+00:02:03,360 --&gt; 00:02:05,910
+code because quad code works with every
+single ID, every terminal out there.
+
+104
+00:02:05,910 --&gt; 00:02:05,920
+single ID, every terminal out there.
+ 
+
+105
+00:02:05,920 --&gt; 00:02:08,790
+single ID, every terminal out there.
+It&#x27;ll work locally uh over remote SSH,
+
+106
+00:02:08,790 --&gt; 00:02:08,800
+It&#x27;ll work locally uh over remote SSH,
+ 
+
+107
+00:02:08,800 --&gt; 00:02:10,550
+It&#x27;ll work locally uh over remote SSH,
+over T-Max, whatever environment you&#x27;re
+
+108
+00:02:10,550 --&gt; 00:02:10,560
+over T-Max, whatever environment you&#x27;re
+ 
+
+109
+00:02:10,560 --&gt; 00:02:15,110
+over T-Max, whatever environment you&#x27;re
+in, you can run it.
+
+110
+00:02:15,110 --&gt; 00:02:15,120
+
+ 
+
+111
+00:02:15,120 --&gt; 00:02:17,350
+
+It&#x27;s general purpose and this is
+
+112
+00:02:17,350 --&gt; 00:02:17,360
+It&#x27;s general purpose and this is
+ 
+
+113
+00:02:17,360 --&gt; 00:02:18,949
+It&#x27;s general purpose and this is
+something where if you haven&#x27;t used
+
+114
+00:02:18,949 --&gt; 00:02:18,959
+something where if you haven&#x27;t used
+ 
+
+115
+00:02:18,959 --&gt; 00:02:20,470
+something where if you haven&#x27;t used
+these kind of free form coding
+
+116
+00:02:20,470 --&gt; 00:02:20,480
+these kind of free form coding
+ 
+
+117
+00:02:20,480 --&gt; 00:02:22,949
+these kind of free form coding
+assistants in the in the past, it can be
+
+118
+00:02:22,949 --&gt; 00:02:22,959
+assistants in the in the past, it can be
+ 
+
+119
+00:02:22,959 --&gt; 00:02:24,070
+assistants in the in the past, it can be
+kind of hard to figure out how to get
+
+120
+00:02:24,070 --&gt; 00:02:24,080
+kind of hard to figure out how to get
+ 
+
+121
+00:02:24,080 --&gt; 00:02:25,430
+kind of hard to figure out how to get
+started because you open it up and you
+
+122
+00:02:25,430 --&gt; 00:02:25,440
+started because you open it up and you
+ 
+
+123
+00:02:25,440 --&gt; 00:02:26,790
+started because you open it up and you
+just see a prompt bar and you might
+
+124
+00:02:26,790 --&gt; 00:02:26,800
+just see a prompt bar and you might
+ 
+
+125
+00:02:26,800 --&gt; 00:02:28,150
+just see a prompt bar and you might
+wonder like what do I what do I do with
+
+126
+00:02:28,150 --&gt; 00:02:28,160
+wonder like what do I what do I do with
+ 
+
+127
+00:02:28,160 --&gt; 00:02:30,390
+wonder like what do I what do I do with
+this? What do I type in? It&#x27;s a power
+
+128
+00:02:30,390 --&gt; 00:02:30,400
+this? What do I type in? It&#x27;s a power
+ 
+
+129
+00:02:30,400 --&gt; 00:02:31,830
+this? What do I type in? It&#x27;s a power
+tool so you can use it for a lot of
+
+130
+00:02:31,830 --&gt; 00:02:31,840
+tool so you can use it for a lot of
+ 
+
+131
+00:02:31,840 --&gt; 00:02:34,229
+tool so you can use it for a lot of
+things. Um but also because it can do so
+
+132
+00:02:34,229 --&gt; 00:02:34,239
+things. Um but also because it can do so
+ 
+
+133
+00:02:34,239 --&gt; 00:02:35,830
+things. Um but also because it can do so
+much we don&#x27;t try to guide you towards a
+
+134
+00:02:35,830 --&gt; 00:02:35,840
+much we don&#x27;t try to guide you towards a
+ 
+
+135
+00:02:35,840 --&gt; 00:02:37,670
+much we don&#x27;t try to guide you towards a
+particular workflow because really you
+
+136
+00:02:37,670 --&gt; 00:02:37,680
+particular workflow because really you
+ 
+
+137
+00:02:37,680 --&gt; 00:02:39,030
+particular workflow because really you
+should be able to use it however you
+
+138
+00:02:39,030 --&gt; 00:02:39,040
+should be able to use it however you
+ 
+
+139
+00:02:39,040 --&gt; 00:02:45,350
+should be able to use it however you
+want as an engineer.
+
+140
+00:02:45,350 --&gt; 00:02:45,360
+
+ 
+
+141
+00:02:45,360 --&gt; 00:02:46,869
+
+As you open up Cloud Code for the first
+
+142
+00:02:46,869 --&gt; 00:02:46,879
+As you open up Cloud Code for the first
+ 
+
+143
+00:02:46,879 --&gt; 00:02:48,309
+As you open up Cloud Code for the first
+time, there&#x27;s a few things that we
+
+144
+00:02:48,309 --&gt; 00:02:48,319
+time, there&#x27;s a few things that we
+ 
+
+145
+00:02:48,319 --&gt; 00:02:50,150
+time, there&#x27;s a few things that we
+recommend doing uh to get your
+
+146
+00:02:50,150 --&gt; 00:02:50,160
+recommend doing uh to get your
+ 
+
+147
+00:02:50,160 --&gt; 00:02:52,229
+recommend doing uh to get your
+environment set up. And these are pretty
+
+148
+00:02:52,229 --&gt; 00:02:52,239
+environment set up. And these are pretty
+ 
+
+149
+00:02:52,239 --&gt; 00:02:53,750
+environment set up. And these are pretty
+straightforward. So run terminal setup.
+
+150
+00:02:53,750 --&gt; 00:02:53,760
+straightforward. So run terminal setup.
+ 
+
+151
+00:02:53,760 --&gt; 00:02:55,110
+straightforward. So run terminal setup.
+This will give you shift enter for new
+
+152
+00:02:55,110 --&gt; 00:02:55,120
+This will give you shift enter for new
+ 
+
+153
+00:02:55,120 --&gt; 00:02:56,790
+This will give you shift enter for new
+lines. So you don&#x27;t have to do like
+
+154
+00:02:56,790 --&gt; 00:02:56,800
+lines. So you don&#x27;t have to do like
+ 
+
+155
+00:02:56,800 --&gt; 00:02:58,790
+lines. So you don&#x27;t have to do like
+backslashes to enter new lines. This is,
+
+156
+00:02:58,790 --&gt; 00:02:58,800
+backslashes to enter new lines. This is,
+ 
+
+157
+00:02:58,800 --&gt; 00:03:00,150
+backslashes to enter new lines. This is,
+you know, it it makes it a little bit
+
+158
+00:03:00,150 --&gt; 00:03:00,160
+you know, it it makes it a little bit
+ 
+
+159
+00:03:00,160 --&gt; 00:03:03,589
+you know, it it makes it a little bit
+nicer to use. Do theme to set light mode
+
+160
+00:03:03,589 --&gt; 00:03:03,599
+nicer to use. Do theme to set light mode
+ 
+
+161
+00:03:03,599 --&gt; 00:03:06,949
+nicer to use. Do theme to set light mode
+or dark mode or doltonize themes.
+
+162
+00:03:06,949 --&gt; 00:03:06,959
+or dark mode or doltonize themes.
+ 
+
+163
+00:03:06,959 --&gt; 00:03:09,270
+or dark mode or doltonize themes.
+Um you can do slashinstall github app.
+
+164
+00:03:09,270 --&gt; 00:03:09,280
+Um you can do slashinstall github app.
+ 
+
+165
+00:03:09,280 --&gt; 00:03:12,149
+Um you can do slashinstall github app.
+So today when we announced a GitHub app
+
+166
+00:03:12,149 --&gt; 00:03:12,159
+So today when we announced a GitHub app
+ 
+
+167
+00:03:12,159 --&gt; 00:03:15,350
+So today when we announced a GitHub app
+where you can at mention uh claude on
+
+168
+00:03:15,350 --&gt; 00:03:15,360
+where you can at mention uh claude on
+ 
+
+169
+00:03:15,360 --&gt; 00:03:17,670
+where you can at mention uh claude on
+any GitHub issue or pull request. So to
+
+170
+00:03:17,670 --&gt; 00:03:17,680
+any GitHub issue or pull request. So to
+ 
+
+171
+00:03:17,680 --&gt; 00:03:19,350
+any GitHub issue or pull request. So to
+install it just run this command in in
+
+172
+00:03:19,350 --&gt; 00:03:19,360
+install it just run this command in in
+ 
+
+173
+00:03:19,360 --&gt; 00:03:21,430
+install it just run this command in in
+your terminal.
+
+174
+00:03:21,430 --&gt; 00:03:21,440
+your terminal.
+ 
+
+175
+00:03:21,440 --&gt; 00:03:23,670
+your terminal.
+Um you can customize the set of allowed
+
+176
+00:03:23,670 --&gt; 00:03:23,680
+Um you can customize the set of allowed
+ 
+
+177
+00:03:23,680 --&gt; 00:03:24,869
+Um you can customize the set of allowed
+tools that you can use. So you&#x27;re not
+
+178
+00:03:24,869 --&gt; 00:03:24,879
+tools that you can use. So you&#x27;re not
+ 
+
+179
+00:03:24,879 --&gt; 00:03:26,070
+tools that you can use. So you&#x27;re not
+prompted for it every time. This is
+
+180
+00:03:26,070 --&gt; 00:03:26,080
+prompted for it every time. This is
+ 
+
+181
+00:03:26,080 --&gt; 00:03:27,670
+prompted for it every time. This is
+pretty convenient. Um for stuff that I&#x27;m
+
+182
+00:03:27,670 --&gt; 00:03:27,680
+pretty convenient. Um for stuff that I&#x27;m
+ 
+
+183
+00:03:27,680 --&gt; 00:03:29,270
+pretty convenient. Um for stuff that I&#x27;m
+prompted about a bunch, I&#x27;ll definitely
+
+184
+00:03:29,270 --&gt; 00:03:29,280
+prompted about a bunch, I&#x27;ll definitely
+ 
+
+185
+00:03:29,280 --&gt; 00:03:30,869
+prompted about a bunch, I&#x27;ll definitely
+customize it in this way so I don&#x27;t have
+
+186
+00:03:30,869 --&gt; 00:03:30,879
+customize it in this way so I don&#x27;t have
+ 
+
+187
+00:03:30,879 --&gt; 00:03:33,110
+customize it in this way so I don&#x27;t have
+to accept it every time. And something
+
+188
+00:03:33,110 --&gt; 00:03:33,120
+to accept it every time. And something
+ 
+
+189
+00:03:33,120 --&gt; 00:03:35,030
+to accept it every time. And something
+that I actually do is for a lot of my
+
+190
+00:03:35,030 --&gt; 00:03:35,040
+that I actually do is for a lot of my
+ 
+
+191
+00:03:35,040 --&gt; 00:03:36,789
+that I actually do is for a lot of my
+prompts, I won&#x27;t hand type them into
+
+192
+00:03:36,789 --&gt; 00:03:36,799
+prompts, I won&#x27;t hand type them into
+ 
+
+193
+00:03:36,799 --&gt; 00:03:39,350
+prompts, I won&#x27;t hand type them into
+quad code. If you&#x27;re on Mac OS, you can
+
+194
+00:03:39,350 --&gt; 00:03:39,360
+quad code. If you&#x27;re on Mac OS, you can
+ 
+
+195
+00:03:39,360 --&gt; 00:03:40,949
+quad code. If you&#x27;re on Mac OS, you can
+go into your system settings under
+
+196
+00:03:40,949 --&gt; 00:03:40,959
+go into your system settings under
+ 
+
+197
+00:03:40,959 --&gt; 00:03:43,270
+go into your system settings under
+accessibility is dictation and you can
+
+198
+00:03:43,270 --&gt; 00:03:43,280
+accessibility is dictation and you can
+ 
+
+199
+00:03:43,280 --&gt; 00:03:45,190
+accessibility is dictation and you can
+enable it. And so something I do is you
+
+200
+00:03:45,190 --&gt; 00:03:45,200
+enable it. And so something I do is you
+ 
+
+201
+00:03:45,200 --&gt; 00:03:47,509
+enable it. And so something I do is you
+just hit like that dictation key twice
+
+202
+00:03:47,509 --&gt; 00:03:47,519
+just hit like that dictation key twice
+ 
+
+203
+00:03:47,519 --&gt; 00:03:50,229
+just hit like that dictation key twice
+and you can just speak your prompt.
+
+204
+00:03:50,229 --&gt; 00:03:50,239
+and you can just speak your prompt.
+ 
+
+205
+00:03:50,239 --&gt; 00:03:51,830
+and you can just speak your prompt.
+And it helps a lot to have specific
+
+206
+00:03:51,830 --&gt; 00:03:51,840
+And it helps a lot to have specific
+ 
+
+207
+00:03:51,840 --&gt; 00:03:52,949
+And it helps a lot to have specific
+prompts. So this is actually pretty
+
+208
+00:03:52,949 --&gt; 00:03:52,959
+prompts. So this is actually pretty
+ 
+
+209
+00:03:52,959 --&gt; 00:03:54,390
+prompts. So this is actually pretty
+awesome. You can just talk to quad code
+
+210
+00:03:54,390 --&gt; 00:03:54,400
+awesome. You can just talk to quad code
+ 
+
+211
+00:03:54,400 --&gt; 00:03:56,550
+awesome. You can just talk to quad code
+and uh like you would another engineer
+
+212
+00:03:56,550 --&gt; 00:03:56,560
+and uh like you would another engineer
+ 
+
+213
+00:03:56,560 --&gt; 00:03:58,070
+and uh like you would another engineer
+and you don&#x27;t have to type a lot of
+
+214
+00:03:58,070 --&gt; 00:03:58,080
+and you don&#x27;t have to type a lot of
+ 
+
+215
+00:03:58,080 --&gt; 00:04:02,710
+and you don&#x27;t have to type a lot of
+code.
+
+216
+00:04:02,710 --&gt; 00:04:02,720
+
+ 
+
+217
+00:04:02,720 --&gt; 00:04:04,550
+
+So when you&#x27;re starting out with cloud
+
+218
+00:04:04,550 --&gt; 00:04:04,560
+So when you&#x27;re starting out with cloud
+ 
+
+219
+00:04:04,560 --&gt; 00:04:06,070
+So when you&#x27;re starting out with cloud
+code, it&#x27;s so free form and it can do
+
+220
+00:04:06,070 --&gt; 00:04:06,080
+code, it&#x27;s so free form and it can do
+ 
+
+221
+00:04:06,080 --&gt; 00:04:08,149
+code, it&#x27;s so free form and it can do
+everything. What do you start with? The
+
+222
+00:04:08,149 --&gt; 00:04:08,159
+everything. What do you start with? The
+ 
+
+223
+00:04:08,159 --&gt; 00:04:09,910
+everything. What do you start with? The
+thing I recommend above everything else
+
+224
+00:04:09,910 --&gt; 00:04:09,920
+thing I recommend above everything else
+ 
+
+225
+00:04:09,920 --&gt; 00:04:11,750
+thing I recommend above everything else
+is starting with codebased Q&amp;A. So just
+
+226
+00:04:11,750 --&gt; 00:04:11,760
+is starting with codebased Q&amp;A. So just
+ 
+
+227
+00:04:11,760 --&gt; 00:04:13,429
+is starting with codebased Q&amp;A. So just
+asking your question, asking questions
+
+228
+00:04:13,429 --&gt; 00:04:13,439
+asking your question, asking questions
+ 
+
+229
+00:04:13,439 --&gt; 00:04:15,750
+asking your question, asking questions
+to your codebase. This is something that
+
+230
+00:04:15,750 --&gt; 00:04:15,760
+to your codebase. This is something that
+ 
+
+231
+00:04:15,760 --&gt; 00:04:18,629
+to your codebase. This is something that
+we teach new hires at Enthropic. So on
+
+232
+00:04:18,629 --&gt; 00:04:18,639
+we teach new hires at Enthropic. So on
+ 
+
+233
+00:04:18,639 --&gt; 00:04:20,229
+we teach new hires at Enthropic. So on
+the first day in technical onboarding,
+
+234
+00:04:20,229 --&gt; 00:04:20,239
+the first day in technical onboarding,
+ 
+
+235
+00:04:20,239 --&gt; 00:04:21,749
+the first day in technical onboarding,
+you learn about cloud code, you download
+
+236
+00:04:21,749 --&gt; 00:04:21,759
+you learn about cloud code, you download
+ 
+
+237
+00:04:21,759 --&gt; 00:04:23,590
+you learn about cloud code, you download
+it, you get it set up, and then you
+
+238
+00:04:23,590 --&gt; 00:04:23,600
+it, you get it set up, and then you
+ 
+
+239
+00:04:23,600 --&gt; 00:04:25,189
+it, you get it set up, and then you
+immediately start asking questions about
+
+240
+00:04:25,189 --&gt; 00:04:25,199
+immediately start asking questions about
+ 
+
+241
+00:04:25,199 --&gt; 00:04:27,430
+immediately start asking questions about
+the codebase. And in the past when
+
+242
+00:04:27,430 --&gt; 00:04:27,440
+the codebase. And in the past when
+ 
+
+243
+00:04:27,440 --&gt; 00:04:28,950
+the codebase. And in the past when
+you&#x27;re doing technical onboarding, it&#x27;s
+
+244
+00:04:28,950 --&gt; 00:04:28,960
+you&#x27;re doing technical onboarding, it&#x27;s
+ 
+
+245
+00:04:28,960 --&gt; 00:04:30,790
+you&#x27;re doing technical onboarding, it&#x27;s
+something that taxes the team a lot,
+
+246
+00:04:30,790 --&gt; 00:04:30,800
+something that taxes the team a lot,
+ 
+
+247
+00:04:30,800 --&gt; 00:04:32,790
+something that taxes the team a lot,
+right? You have to ask other engineers
+
+248
+00:04:32,790 --&gt; 00:04:32,800
+right? You have to ask other engineers
+ 
+
+249
+00:04:32,800 --&gt; 00:04:34,790
+right? You have to ask other engineers
+on the team questions. You have to look
+
+250
+00:04:34,790 --&gt; 00:04:34,800
+on the team questions. You have to look
+ 
+
+251
+00:04:34,800 --&gt; 00:04:36,230
+on the team questions. You have to look
+around the code. And this takes a you
+
+252
+00:04:36,230 --&gt; 00:04:36,240
+around the code. And this takes a you
+ 
+
+253
+00:04:36,240 --&gt; 00:04:37,430
+around the code. And this takes a you
+have to figure out how to use the tools.
+
+254
+00:04:37,430 --&gt; 00:04:37,440
+have to figure out how to use the tools.
+ 
+
+255
+00:04:37,440 --&gt; 00:04:40,150
+have to figure out how to use the tools.
+It t this takes a long time.
+
+256
+00:04:40,150 --&gt; 00:04:40,160
+It t this takes a long time.
+ 
+
+257
+00:04:40,160 --&gt; 00:04:41,670
+It t this takes a long time.
+With cloud code, you can just ask cloud
+
+258
+00:04:41,670 --&gt; 00:04:41,680
+With cloud code, you can just ask cloud
+ 
+
+259
+00:04:41,680 --&gt; 00:04:43,590
+With cloud code, you can just ask cloud
+code and it&#x27;ll explore the codebase.
+
+260
+00:04:43,590 --&gt; 00:04:43,600
+code and it&#x27;ll explore the codebase.
+ 
+
+261
+00:04:43,600 --&gt; 00:04:45,189
+code and it&#x27;ll explore the codebase.
+It&#x27;ll answer these kind of questions.
+
+262
+00:04:45,189 --&gt; 00:04:45,199
+It&#x27;ll answer these kind of questions.
+ 
+
+263
+00:04:45,199 --&gt; 00:04:47,189
+It&#x27;ll answer these kind of questions.
+And so at Enthropic, onboarding used to
+
+264
+00:04:47,189 --&gt; 00:04:47,199
+And so at Enthropic, onboarding used to
+ 
+
+265
+00:04:47,199 --&gt; 00:04:48,310
+And so at Enthropic, onboarding used to
+take about two or three weeks for
+
+266
+00:04:48,310 --&gt; 00:04:48,320
+take about two or three weeks for
+ 
+
+267
+00:04:48,320 --&gt; 00:04:49,909
+take about two or three weeks for
+technical hires. It&#x27;s now about two or
+
+268
+00:04:49,909 --&gt; 00:04:49,919
+technical hires. It&#x27;s now about two or
+ 
+
+269
+00:04:49,919 --&gt; 00:04:53,749
+technical hires. It&#x27;s now about two or
+three days.
+
+270
+00:04:53,749 --&gt; 00:04:53,759
+
+ 
+
+271
+00:04:53,759 --&gt; 00:04:55,830
+
+What&#x27;s also kind of cool about Q&amp;A is we
+
+272
+00:04:55,830 --&gt; 00:04:55,840
+What&#x27;s also kind of cool about Q&amp;A is we
+ 
+
+273
+00:04:55,840 --&gt; 00:04:57,830
+What&#x27;s also kind of cool about Q&amp;A is we
+uh we don&#x27;t do any sort of indexing. So
+
+274
+00:04:57,830 --&gt; 00:04:57,840
+uh we don&#x27;t do any sort of indexing. So
+ 
+
+275
+00:04:57,840 --&gt; 00:04:59,350
+uh we don&#x27;t do any sort of indexing. So
+there&#x27;s no remote database with your
+
+276
+00:04:59,350 --&gt; 00:04:59,360
+there&#x27;s no remote database with your
+ 
+
+277
+00:04:59,360 --&gt; 00:05:00,950
+there&#x27;s no remote database with your
+code. We don&#x27;t upload it anywhere. Your
+
+278
+00:05:00,950 --&gt; 00:05:00,960
+code. We don&#x27;t upload it anywhere. Your
+ 
+
+279
+00:05:00,960 --&gt; 00:05:02,950
+code. We don&#x27;t upload it anywhere. Your
+code stays local. We do not train
+
+280
+00:05:02,950 --&gt; 00:05:02,960
+code stays local. We do not train
+ 
+
+281
+00:05:02,960 --&gt; 00:05:05,990
+code stays local. We do not train
+generative models on the code. So it&#x27;s
+
+282
+00:05:05,990 --&gt; 00:05:06,000
+generative models on the code. So it&#x27;s
+ 
+
+283
+00:05:06,000 --&gt; 00:05:07,270
+generative models on the code. So it&#x27;s
+there, you control it, there&#x27;s no
+
+284
+00:05:07,270 --&gt; 00:05:07,280
+there, you control it, there&#x27;s no
+ 
+
+285
+00:05:07,280 --&gt; 00:05:09,990
+there, you control it, there&#x27;s no
+indices or anything like this. And what
+
+286
+00:05:09,990 --&gt; 00:05:10,000
+indices or anything like this. And what
+ 
+
+287
+00:05:10,000 --&gt; 00:05:11,830
+indices or anything like this. And what
+that means is also there&#x27;s no setup. So
+
+288
+00:05:11,830 --&gt; 00:05:11,840
+that means is also there&#x27;s no setup. So
+ 
+
+289
+00:05:11,840 --&gt; 00:05:13,510
+that means is also there&#x27;s no setup. So
+you start cla you download it, you start
+
+290
+00:05:13,510 --&gt; 00:05:13,520
+you start cla you download it, you start
+ 
+
+291
+00:05:13,520 --&gt; 00:05:14,790
+you start cla you download it, you start
+it. There&#x27;s no indexing. You don&#x27;t have
+
+292
+00:05:14,790 --&gt; 00:05:14,800
+it. There&#x27;s no indexing. You don&#x27;t have
+ 
+
+293
+00:05:14,800 --&gt; 00:05:18,870
+it. There&#x27;s no indexing. You don&#x27;t have
+to wait. You can just use it right away.
+
+294
+00:05:18,870 --&gt; 00:05:18,880
+
+ 
+
+295
+00:05:18,880 --&gt; 00:05:20,790
+
+This is a technical talk. So um I&#x27;m
+
+296
+00:05:20,790 --&gt; 00:05:20,800
+This is a technical talk. So um I&#x27;m
+ 
+
+297
+00:05:20,800 --&gt; 00:05:22,390
+This is a technical talk. So um I&#x27;m
+going to show some very specific prompts
+
+298
+00:05:22,390 --&gt; 00:05:22,400
+going to show some very specific prompts
+ 
+
+299
+00:05:22,400 --&gt; 00:05:23,990
+going to show some very specific prompts
+and very specific code samples that you
+
+300
+00:05:23,990 --&gt; 00:05:24,000
+and very specific code samples that you
+ 
+
+301
+00:05:24,000 --&gt; 00:05:25,510
+and very specific code samples that you
+can use and hopefully improve and
+
+302
+00:05:25,510 --&gt; 00:05:25,520
+can use and hopefully improve and
+ 
+
+303
+00:05:25,520 --&gt; 00:05:28,390
+can use and hopefully improve and
+uplevel your quad code experience. So
+
+304
+00:05:28,390 --&gt; 00:05:28,400
+uplevel your quad code experience. So
+ 
+
+305
+00:05:28,400 --&gt; 00:05:29,670
+uplevel your quad code experience. So
+some kind of questions that you can ask
+
+306
+00:05:29,670 --&gt; 00:05:29,680
+some kind of questions that you can ask
+ 
+
+307
+00:05:29,680 --&gt; 00:05:31,749
+some kind of questions that you can ask
+is uh you know like how is this
+
+308
+00:05:31,749 --&gt; 00:05:31,759
+is uh you know like how is this
+ 
+
+309
+00:05:31,759 --&gt; 00:05:33,670
+is uh you know like how is this
+particular piece of code used or how do
+
+310
+00:05:33,670 --&gt; 00:05:33,680
+particular piece of code used or how do
+ 
+
+311
+00:05:33,680 --&gt; 00:05:35,270
+particular piece of code used or how do
+I instantiate this thing and cloud code
+
+312
+00:05:35,270 --&gt; 00:05:35,280
+I instantiate this thing and cloud code
+ 
+
+313
+00:05:35,280 --&gt; 00:05:36,629
+I instantiate this thing and cloud code
+it won&#x27;t just do like a text search and
+
+314
+00:05:36,629 --&gt; 00:05:36,639
+it won&#x27;t just do like a text search and
+ 
+
+315
+00:05:36,639 --&gt; 00:05:38,710
+it won&#x27;t just do like a text search and
+try to answer this. It&#x27;ll often go a
+
+316
+00:05:38,710 --&gt; 00:05:38,720
+try to answer this. It&#x27;ll often go a
+ 
+
+317
+00:05:38,720 --&gt; 00:05:40,629
+try to answer this. It&#x27;ll often go a
+level deeper and it&#x27;ll try to find
+
+318
+00:05:40,629 --&gt; 00:05:40,639
+level deeper and it&#x27;ll try to find
+ 
+
+319
+00:05:40,639 --&gt; 00:05:41,909
+level deeper and it&#x27;ll try to find
+examples of how is this class
+
+320
+00:05:41,909 --&gt; 00:05:41,919
+examples of how is this class
+ 
+
+321
+00:05:41,919 --&gt; 00:05:44,710
+examples of how is this class
+instantiated how is it used and it&#x27;ll
+
+322
+00:05:44,710 --&gt; 00:05:44,720
+instantiated how is it used and it&#x27;ll
+ 
+
+323
+00:05:44,720 --&gt; 00:05:46,150
+instantiated how is it used and it&#x27;ll
+give you a much deeper answer. So
+
+324
+00:05:46,150 --&gt; 00:05:46,160
+give you a much deeper answer. So
+ 
+
+325
+00:05:46,160 --&gt; 00:05:47,110
+give you a much deeper answer. So
+something that you would get out of a
+
+326
+00:05:47,110 --&gt; 00:05:47,120
+something that you would get out of a
+ 
+
+327
+00:05:47,120 --&gt; 00:05:49,270
+something that you would get out of a
+wiki or documentation instead of just
+
+328
+00:05:49,270 --&gt; 00:05:49,280
+wiki or documentation instead of just
+ 
+
+329
+00:05:49,280 --&gt; 00:05:52,230
+wiki or documentation instead of just
+like command f
+
+330
+00:05:52,230 --&gt; 00:05:52,240
+like command f
+ 
+
+331
+00:05:52,240 --&gt; 00:05:54,310
+like command f
+something that I do a lot also is ask it
+
+332
+00:05:54,310 --&gt; 00:05:54,320
+something that I do a lot also is ask it
+ 
+
+333
+00:05:54,320 --&gt; 00:05:57,029
+something that I do a lot also is ask it
+about git history. So for example, you
+
+334
+00:05:57,029 --&gt; 00:05:57,039
+about git history. So for example, you
+ 
+
+335
+00:05:57,039 --&gt; 00:05:58,870
+about git history. So for example, you
+know, why does this function have 15
+
+336
+00:05:58,870 --&gt; 00:05:58,880
+know, why does this function have 15
+ 
+
+337
+00:05:58,880 --&gt; 00:06:00,230
+know, why does this function have 15
+arguments and why are the arguments
+
+338
+00:06:00,230 --&gt; 00:06:00,240
+arguments and why are the arguments
+ 
+
+339
+00:06:00,240 --&gt; 00:06:02,150
+arguments and why are the arguments
+named this weird way? And this is
+
+340
+00:06:02,150 --&gt; 00:06:02,160
+named this weird way? And this is
+ 
+
+341
+00:06:02,160 --&gt; 00:06:03,270
+named this weird way? And this is
+something I bet in all of our code
+
+342
+00:06:03,270 --&gt; 00:06:03,280
+something I bet in all of our code
+ 
+
+343
+00:06:03,280 --&gt; 00:06:05,110
+something I bet in all of our code
+bases, you have some function like this
+
+344
+00:06:05,110 --&gt; 00:06:05,120
+bases, you have some function like this
+ 
+
+345
+00:06:05,120 --&gt; 00:06:08,150
+bases, you have some function like this
+or some class like this and cloud code
+
+346
+00:06:08,150 --&gt; 00:06:08,160
+or some class like this and cloud code
+ 
+
+347
+00:06:08,160 --&gt; 00:06:09,909
+or some class like this and cloud code
+can look through git history and it&#x27;ll
+
+348
+00:06:09,909 --&gt; 00:06:09,919
+can look through git history and it&#x27;ll
+ 
+
+349
+00:06:09,919 --&gt; 00:06:11,430
+can look through git history and it&#x27;ll
+look to figure out how did these
+
+350
+00:06:11,430 --&gt; 00:06:11,440
+look to figure out how did these
+ 
+
+351
+00:06:11,440 --&gt; 00:06:12,710
+look to figure out how did these
+arguments get introduced and who
+
+352
+00:06:12,710 --&gt; 00:06:12,720
+arguments get introduced and who
+ 
+
+353
+00:06:12,720 --&gt; 00:06:13,830
+arguments get introduced and who
+introduced them and what was the
+
+354
+00:06:13,830 --&gt; 00:06:13,840
+introduced them and what was the
+ 
+
+355
+00:06:13,840 --&gt; 00:06:15,110
+introduced them and what was the
+situation? What are the issues that
+
+356
+00:06:15,110 --&gt; 00:06:15,120
+situation? What are the issues that
+ 
+
+357
+00:06:15,120 --&gt; 00:06:17,029
+situation? What are the issues that
+those commits linked to? And it&#x27;ll look
+
+358
+00:06:17,029 --&gt; 00:06:17,039
+those commits linked to? And it&#x27;ll look
+ 
+
+359
+00:06:17,039 --&gt; 00:06:18,550
+those commits linked to? And it&#x27;ll look
+through all this and summarize it and
+
+360
+00:06:18,550 --&gt; 00:06:18,560
+through all this and summarize it and
+ 
+
+361
+00:06:18,560 --&gt; 00:06:19,990
+through all this and summarize it and
+you don&#x27;t have to tell it that in all
+
+362
+00:06:19,990 --&gt; 00:06:20,000
+you don&#x27;t have to tell it that in all
+ 
+
+363
+00:06:20,000 --&gt; 00:06:22,150
+you don&#x27;t have to tell it that in all
+these in all this detail. You just ask
+
+364
+00:06:22,150 --&gt; 00:06:22,160
+these in all this detail. You just ask
+ 
+
+365
+00:06:22,160 --&gt; 00:06:23,830
+these in all this detail. You just ask
+it. So just say look through git history
+
+366
+00:06:23,830 --&gt; 00:06:23,840
+it. So just say look through git history
+ 
+
+367
+00:06:23,840 --&gt; 00:06:26,390
+it. So just say look through git history
+and it&#x27;ll know to do this.
+
+368
+00:06:26,390 --&gt; 00:06:26,400
+and it&#x27;ll know to do this.
+ 
+
+369
+00:06:26,400 --&gt; 00:06:28,070
+and it&#x27;ll know to do this.
+The reason it knows by the way is not
+
+370
+00:06:28,070 --&gt; 00:06:28,080
+The reason it knows by the way is not
+ 
+
+371
+00:06:28,080 --&gt; 00:06:29,270
+The reason it knows by the way is not
+because we prompted it to. There&#x27;s
+
+372
+00:06:29,270 --&gt; 00:06:29,280
+because we prompted it to. There&#x27;s
+ 
+
+373
+00:06:29,280 --&gt; 00:06:30,469
+because we prompted it to. There&#x27;s
+nothing in the system prompt about
+
+374
+00:06:30,469 --&gt; 00:06:30,479
+nothing in the system prompt about
+ 
+
+375
+00:06:30,479 --&gt; 00:06:32,469
+nothing in the system prompt about
+looking through git history. It knows it
+
+376
+00:06:32,469 --&gt; 00:06:32,479
+looking through git history. It knows it
+ 
+
+377
+00:06:32,479 --&gt; 00:06:34,550
+looking through git history. It knows it
+because the model is awesome and if you
+
+378
+00:06:34,550 --&gt; 00:06:34,560
+because the model is awesome and if you
+ 
+
+379
+00:06:34,560 --&gt; 00:06:35,830
+because the model is awesome and if you
+tell it to use git, it&#x27;ll know how to
+
+380
+00:06:35,830 --&gt; 00:06:35,840
+tell it to use git, it&#x27;ll know how to
+ 
+
+381
+00:06:35,840 --&gt; 00:06:38,309
+tell it to use git, it&#x27;ll know how to
+use git. So we&#x27;re lucky to be building
+
+382
+00:06:38,309 --&gt; 00:06:38,319
+use git. So we&#x27;re lucky to be building
+ 
+
+383
+00:06:38,319 --&gt; 00:06:40,790
+use git. So we&#x27;re lucky to be building
+on such a good model.
+
+384
+00:06:40,790 --&gt; 00:06:40,800
+on such a good model.
+ 
+
+385
+00:06:40,800 --&gt; 00:06:44,469
+on such a good model.
+I often ask about uh GitHub issues. So
+
+386
+00:06:44,469 --&gt; 00:06:44,479
+I often ask about uh GitHub issues. So
+ 
+
+387
+00:06:44,479 --&gt; 00:06:46,629
+I often ask about uh GitHub issues. So
+um you know it can use web fetch and it
+
+388
+00:06:46,629 --&gt; 00:06:46,639
+um you know it can use web fetch and it
+ 
+
+389
+00:06:46,639 --&gt; 00:06:48,309
+um you know it can use web fetch and it
+can fetch issues and look up context on
+
+390
+00:06:48,309 --&gt; 00:06:48,319
+can fetch issues and look up context on
+ 
+
+391
+00:06:48,319 --&gt; 00:06:51,189
+can fetch issues and look up context on
+issues too. And this is pretty awesome.
+
+392
+00:06:51,189 --&gt; 00:06:51,199
+issues too. And this is pretty awesome.
+ 
+
+393
+00:06:51,199 --&gt; 00:06:52,870
+issues too. And this is pretty awesome.
+Uh, and this is something that I do
+
+394
+00:06:52,870 --&gt; 00:06:52,880
+Uh, and this is something that I do
+ 
+
+395
+00:06:52,880 --&gt; 00:06:55,029
+Uh, and this is something that I do
+every single Monday in our weekly
+
+396
+00:06:55,029 --&gt; 00:06:55,039
+every single Monday in our weekly
+ 
+
+397
+00:06:55,039 --&gt; 00:06:56,950
+every single Monday in our weekly
+standup is I ask, &quot;What did I ship this
+
+398
+00:06:56,950 --&gt; 00:06:56,960
+standup is I ask, &quot;What did I ship this
+ 
+
+399
+00:06:56,960 --&gt; 00:06:58,710
+standup is I ask, &quot;What did I ship this
+week?&quot; And Quad Code looks at the log.
+
+400
+00:06:58,710 --&gt; 00:06:58,720
+week?&quot; And Quad Code looks at the log.
+ 
+
+401
+00:06:58,720 --&gt; 00:07:00,469
+week?&quot; And Quad Code looks at the log.
+It knows my username and it&#x27;ll just give
+
+402
+00:07:00,469 --&gt; 00:07:00,479
+It knows my username and it&#x27;ll just give
+ 
+
+403
+00:07:00,479 --&gt; 00:07:02,150
+It knows my username and it&#x27;ll just give
+me a nice readout of everything I I
+
+404
+00:07:02,150 --&gt; 00:07:02,160
+me a nice readout of everything I I
+ 
+
+405
+00:07:02,160 --&gt; 00:07:03,589
+me a nice readout of everything I I
+shipped and I&#x27;ll just copy and paste
+
+406
+00:07:03,589 --&gt; 00:07:03,599
+shipped and I&#x27;ll just copy and paste
+ 
+
+407
+00:07:03,599 --&gt; 00:07:09,110
+shipped and I&#x27;ll just copy and paste
+that into a doc somewhere.
+
+408
+00:07:09,110 --&gt; 00:07:09,120
+
+ 
+
+409
+00:07:09,120 --&gt; 00:07:10,710
+
+So, yeah, that&#x27;s tip number one. For
+
+410
+00:07:10,710 --&gt; 00:07:10,720
+So, yeah, that&#x27;s tip number one. For
+ 
+
+411
+00:07:10,720 --&gt; 00:07:12,309
+So, yeah, that&#x27;s tip number one. For
+people that have not used quad code
+
+412
+00:07:12,309 --&gt; 00:07:12,319
+people that have not used quad code
+ 
+
+413
+00:07:12,319 --&gt; 00:07:13,589
+people that have not used quad code
+before, if you&#x27;re just showing it to
+
+414
+00:07:13,589 --&gt; 00:07:13,599
+before, if you&#x27;re just showing it to
+ 
+
+415
+00:07:13,599 --&gt; 00:07:15,189
+before, if you&#x27;re just showing it to
+someone for the first time, on boarding
+
+416
+00:07:15,189 --&gt; 00:07:15,199
+someone for the first time, on boarding
+ 
+
+417
+00:07:15,199 --&gt; 00:07:16,710
+someone for the first time, on boarding
+your team, the thing we definitely
+
+418
+00:07:16,710 --&gt; 00:07:16,720
+your team, the thing we definitely
+ 
+
+419
+00:07:16,720 --&gt; 00:07:18,550
+your team, the thing we definitely
+recommend is start with codebased Q&amp;A.
+
+420
+00:07:18,550 --&gt; 00:07:18,560
+recommend is start with codebased Q&amp;A.
+ 
+
+421
+00:07:18,560 --&gt; 00:07:20,150
+recommend is start with codebased Q&amp;A.
+Don&#x27;t start by using fancy tools. Don&#x27;t
+
+422
+00:07:20,150 --&gt; 00:07:20,160
+Don&#x27;t start by using fancy tools. Don&#x27;t
+ 
+
+423
+00:07:20,160 --&gt; 00:07:21,990
+Don&#x27;t start by using fancy tools. Don&#x27;t
+start by editing code. Just start by
+
+424
+00:07:21,990 --&gt; 00:07:22,000
+start by editing code. Just start by
+ 
+
+425
+00:07:22,000 --&gt; 00:07:23,350
+start by editing code. Just start by
+asking questions about the codebase. And
+
+426
+00:07:23,350 --&gt; 00:07:23,360
+asking questions about the codebase. And
+ 
+
+427
+00:07:23,360 --&gt; 00:07:25,430
+asking questions about the codebase. And
+that&#x27;ll teach people how to prompt. And
+
+428
+00:07:25,430 --&gt; 00:07:25,440
+that&#x27;ll teach people how to prompt. And
+ 
+
+429
+00:07:25,440 --&gt; 00:07:26,790
+that&#x27;ll teach people how to prompt. And
+it&#x27;ll start teaching them this boundary
+
+430
+00:07:26,790 --&gt; 00:07:26,800
+it&#x27;ll start teaching them this boundary
+ 
+
+431
+00:07:26,800 --&gt; 00:07:28,950
+it&#x27;ll start teaching them this boundary
+of like what can claude code do? What is
+
+432
+00:07:28,950 --&gt; 00:07:28,960
+of like what can claude code do? What is
+ 
+
+433
+00:07:28,960 --&gt; 00:07:30,870
+of like what can claude code do? What is
+it capable of versus what do you need to
+
+434
+00:07:30,870 --&gt; 00:07:30,880
+it capable of versus what do you need to
+ 
+
+435
+00:07:30,880 --&gt; 00:07:32,390
+it capable of versus what do you need to
+hold its hand with a little bit more?
+
+436
+00:07:32,390 --&gt; 00:07:32,400
+hold its hand with a little bit more?
+ 
+
+437
+00:07:32,400 --&gt; 00:07:33,909
+hold its hand with a little bit more?
+What can be oneshotted? What can be
+
+438
+00:07:33,909 --&gt; 00:07:33,919
+What can be oneshotted? What can be
+ 
+
+439
+00:07:33,919 --&gt; 00:07:35,749
+What can be oneshotted? What can be
+twoshotted, threeshotted? What do you
+
+440
+00:07:35,749 --&gt; 00:07:35,759
+twoshotted, threeshotted? What do you
+ 
+
+441
+00:07:35,759 --&gt; 00:07:37,189
+twoshotted, threeshotted? What do you
+need to use interactive mode for in a
+
+442
+00:07:37,189 --&gt; 00:07:37,199
+need to use interactive mode for in a
+ 
+
+443
+00:07:37,199 --&gt; 00:07:40,710
+need to use interactive mode for in a
+ripple?
+
+444
+00:07:40,710 --&gt; 00:07:40,720
+
+ 
+
+445
+00:07:40,720 --&gt; 00:07:42,309
+
+Once you&#x27;re comfortable with Q&amp;A, you
+
+446
+00:07:42,309 --&gt; 00:07:42,319
+Once you&#x27;re comfortable with Q&amp;A, you
+ 
+
+447
+00:07:42,319 --&gt; 00:07:44,790
+Once you&#x27;re comfortable with Q&amp;A, you
+can dive into editing code. This is the
+
+448
+00:07:44,790 --&gt; 00:07:44,800
+can dive into editing code. This is the
+ 
+
+449
+00:07:44,800 --&gt; 00:07:47,990
+can dive into editing code. This is the
+next thing. And the cool thing about uh
+
+450
+00:07:47,990 --&gt; 00:07:48,000
+next thing. And the cool thing about uh
+ 
+
+451
+00:07:48,000 --&gt; 00:07:50,870
+next thing. And the cool thing about uh
+any sort of agentic uh you know like
+
+452
+00:07:50,870 --&gt; 00:07:50,880
+any sort of agentic uh you know like
+ 
+
+453
+00:07:50,880 --&gt; 00:07:52,790
+any sort of agentic uh you know like
+using an LM in a aentic way is you give
+
+454
+00:07:52,790 --&gt; 00:07:52,800
+using an LM in a aentic way is you give
+ 
+
+455
+00:07:52,800 --&gt; 00:07:54,390
+using an LM in a aentic way is you give
+it tools and it it&#x27;s just like magical.
+
+456
+00:07:54,390 --&gt; 00:07:54,400
+it tools and it it&#x27;s just like magical.
+ 
+
+457
+00:07:54,400 --&gt; 00:07:56,550
+it tools and it it&#x27;s just like magical.
+It figures out how to use the tools. And
+
+458
+00:07:56,550 --&gt; 00:07:56,560
+It figures out how to use the tools. And
+ 
+
+459
+00:07:56,560 --&gt; 00:07:58,150
+It figures out how to use the tools. And
+with quad code we give it a pretty small
+
+460
+00:07:58,150 --&gt; 00:07:58,160
+with quad code we give it a pretty small
+ 
+
+461
+00:07:58,160 --&gt; 00:08:00,629
+with quad code we give it a pretty small
+set of tools. It&#x27;s not a lot. And so it
+
+462
+00:08:00,629 --&gt; 00:08:00,639
+set of tools. It&#x27;s not a lot. And so it
+ 
+
+463
+00:08:00,639 --&gt; 00:08:02,629
+set of tools. It&#x27;s not a lot. And so it
+has a tool to edit files. It has a tool
+
+464
+00:08:02,629 --&gt; 00:08:02,639
+has a tool to edit files. It has a tool
+ 
+
+465
+00:08:02,639 --&gt; 00:08:04,629
+has a tool to edit files. It has a tool
+to run bash commands. Uh it has a tool
+
+466
+00:08:04,629 --&gt; 00:08:04,639
+to run bash commands. Uh it has a tool
+ 
+
+467
+00:08:04,639 --&gt; 00:08:06,710
+to run bash commands. Uh it has a tool
+to search files. And it&#x27;ll string these
+
+468
+00:08:06,710 --&gt; 00:08:06,720
+to search files. And it&#x27;ll string these
+ 
+
+469
+00:08:06,720 --&gt; 00:08:08,629
+to search files. And it&#x27;ll string these
+together to explore the code,
+
+470
+00:08:08,629 --&gt; 00:08:08,639
+together to explore the code,
+ 
+
+471
+00:08:08,639 --&gt; 00:08:12,230
+together to explore the code,
+brainstorm, and then finally make edits.
+
+472
+00:08:12,230 --&gt; 00:08:12,240
+brainstorm, and then finally make edits.
+ 
+
+473
+00:08:12,240 --&gt; 00:08:13,589
+brainstorm, and then finally make edits.
+And you don&#x27;t have to prompt it
+
+474
+00:08:13,589 --&gt; 00:08:13,599
+And you don&#x27;t have to prompt it
+ 
+
+475
+00:08:13,599 --&gt; 00:08:14,869
+And you don&#x27;t have to prompt it
+specifically to use this tool and this
+
+476
+00:08:14,869 --&gt; 00:08:14,879
+specifically to use this tool and this
+ 
+
+477
+00:08:14,879 --&gt; 00:08:16,070
+specifically to use this tool and this
+tool and this tool. You just say, you
+
+478
+00:08:16,070 --&gt; 00:08:16,080
+tool and this tool. You just say, you
+ 
+
+479
+00:08:16,080 --&gt; 00:08:17,270
+tool and this tool. You just say, you
+know, do this thing and it&#x27;ll figure out
+
+480
+00:08:17,270 --&gt; 00:08:17,280
+know, do this thing and it&#x27;ll figure out
+ 
+
+481
+00:08:17,280 --&gt; 00:08:18,710
+know, do this thing and it&#x27;ll figure out
+how to do it. It&#x27;ll string it together
+
+482
+00:08:18,710 --&gt; 00:08:18,720
+how to do it. It&#x27;ll string it together
+ 
+
+483
+00:08:18,720 --&gt; 00:08:20,230
+how to do it. It&#x27;ll string it together
+in the right way that makes sense for
+
+484
+00:08:20,230 --&gt; 00:08:20,240
+in the right way that makes sense for
+ 
+
+485
+00:08:20,240 --&gt; 00:08:25,430
+in the right way that makes sense for
+quad code.
+
+486
+00:08:25,430 --&gt; 00:08:25,440
+
+ 
+
+487
+00:08:25,440 --&gt; 00:08:26,710
+
+There&#x27;s a lot of ways to use this.
+
+488
+00:08:26,710 --&gt; 00:08:26,720
+There&#x27;s a lot of ways to use this.
+ 
+
+489
+00:08:26,720 --&gt; 00:08:28,710
+There&#x27;s a lot of ways to use this.
+Something I like to do sometimes is
+
+490
+00:08:28,710 --&gt; 00:08:28,720
+Something I like to do sometimes is
+ 
+
+491
+00:08:28,720 --&gt; 00:08:31,430
+Something I like to do sometimes is
+before having Claude jump in to write
+
+492
+00:08:31,430 --&gt; 00:08:31,440
+before having Claude jump in to write
+ 
+
+493
+00:08:31,440 --&gt; 00:08:33,589
+before having Claude jump in to write
+code, I&#x27;ll ask it to brainstorm a little
+
+494
+00:08:33,589 --&gt; 00:08:33,599
+code, I&#x27;ll ask it to brainstorm a little
+ 
+
+495
+00:08:33,599 --&gt; 00:08:36,230
+code, I&#x27;ll ask it to brainstorm a little
+bit or make a plan. This is something we
+
+496
+00:08:36,230 --&gt; 00:08:36,240
+bit or make a plan. This is something we
+ 
+
+497
+00:08:36,240 --&gt; 00:08:37,750
+bit or make a plan. This is something we
+highly recommend and something I see
+
+498
+00:08:37,750 --&gt; 00:08:37,760
+highly recommend and something I see
+ 
+
+499
+00:08:37,760 --&gt; 00:08:39,269
+highly recommend and something I see
+sometimes is people, you know, they take
+
+500
+00:08:39,269 --&gt; 00:08:39,279
+sometimes is people, you know, they take
+ 
+
+501
+00:08:39,279 --&gt; 00:08:41,829
+sometimes is people, you know, they take
+cloud code and they ask it, hey,
+
+502
+00:08:41,829 --&gt; 00:08:41,839
+cloud code and they ask it, hey,
+ 
+
+503
+00:08:41,839 --&gt; 00:08:44,230
+cloud code and they ask it, hey,
+implement this enormous like 30,000 wine
+
+504
+00:08:44,230 --&gt; 00:08:44,240
+implement this enormous like 30,000 wine
+ 
+
+505
+00:08:44,240 --&gt; 00:08:46,150
+implement this enormous like 30,000 wine
+uh feature and sometimes it gets this
+
+506
+00:08:46,150 --&gt; 00:08:46,160
+uh feature and sometimes it gets this
+ 
+
+507
+00:08:46,160 --&gt; 00:08:47,990
+uh feature and sometimes it gets this
+right on the first shot. But sometimes
+
+508
+00:08:47,990 --&gt; 00:08:48,000
+right on the first shot. But sometimes
+ 
+
+509
+00:08:48,000 --&gt; 00:08:49,829
+right on the first shot. But sometimes
+what happens is the thing that it builds
+
+510
+00:08:49,829 --&gt; 00:08:49,839
+what happens is the thing that it builds
+ 
+
+511
+00:08:49,839 --&gt; 00:08:51,829
+what happens is the thing that it builds
+is not at all the thing that you wanted.
+
+512
+00:08:51,829 --&gt; 00:08:51,839
+is not at all the thing that you wanted.
+ 
+
+513
+00:08:51,839 --&gt; 00:08:53,350
+is not at all the thing that you wanted.
+And the easiest way to get the result
+
+514
+00:08:53,350 --&gt; 00:08:53,360
+And the easiest way to get the result
+ 
+
+515
+00:08:53,360 --&gt; 00:08:56,550
+And the easiest way to get the result
+you want is ask it to think first. So
+
+516
+00:08:56,550 --&gt; 00:08:56,560
+you want is ask it to think first. So
+ 
+
+517
+00:08:56,560 --&gt; 00:08:58,550
+you want is ask it to think first. So
+brainstorm ideas, make a plan, run it by
+
+518
+00:08:58,550 --&gt; 00:08:58,560
+brainstorm ideas, make a plan, run it by
+ 
+
+519
+00:08:58,560 --&gt; 00:09:00,710
+brainstorm ideas, make a plan, run it by
+me, ask for approval before you write
+
+520
+00:09:00,710 --&gt; 00:09:00,720
+me, ask for approval before you write
+ 
+
+521
+00:09:00,720 --&gt; 00:09:02,870
+me, ask for approval before you write
+code. And you don&#x27;t have to use plan
+
+522
+00:09:02,870 --&gt; 00:09:02,880
+code. And you don&#x27;t have to use plan
+ 
+
+523
+00:09:02,880 --&gt; 00:09:04,389
+code. And you don&#x27;t have to use plan
+mode. You don&#x27;t have to use any special
+
+524
+00:09:04,389 --&gt; 00:09:04,399
+mode. You don&#x27;t have to use any special
+ 
+
+525
+00:09:04,399 --&gt; 00:09:05,829
+mode. You don&#x27;t have to use any special
+tools to do this. All you have to do is
+
+526
+00:09:05,829 --&gt; 00:09:05,839
+tools to do this. All you have to do is
+ 
+
+527
+00:09:05,839 --&gt; 00:09:08,150
+tools to do this. All you have to do is
+ask Claude and it&#x27;ll know to do this. So
+
+528
+00:09:08,150 --&gt; 00:09:08,160
+ask Claude and it&#x27;ll know to do this. So
+ 
+
+529
+00:09:08,160 --&gt; 00:09:09,829
+ask Claude and it&#x27;ll know to do this. So
+just say before you write code, make a
+
+530
+00:09:09,829 --&gt; 00:09:09,839
+just say before you write code, make a
+ 
+
+531
+00:09:09,839 --&gt; 00:09:13,430
+just say before you write code, make a
+plan. That&#x27;s it.
+
+532
+00:09:13,430 --&gt; 00:09:13,440
+plan. That&#x27;s it.
+ 
+
+533
+00:09:13,440 --&gt; 00:09:15,030
+plan. That&#x27;s it.
+This is also I wanted to include this
+
+534
+00:09:15,030 --&gt; 00:09:15,040
+This is also I wanted to include this
+ 
+
+535
+00:09:15,040 --&gt; 00:09:16,470
+This is also I wanted to include this
+one. This commit push VR. This is a
+
+536
+00:09:16,470 --&gt; 00:09:16,480
+one. This commit push VR. This is a
+ 
+
+537
+00:09:16,480 --&gt; 00:09:18,230
+one. This commit push VR. This is a
+really common incantation that I use.
+
+538
+00:09:18,230 --&gt; 00:09:18,240
+really common incantation that I use.
+ 
+
+539
+00:09:18,240 --&gt; 00:09:19,509
+really common incantation that I use.
+There&#x27;s nothing special about it, but
+
+540
+00:09:19,509 --&gt; 00:09:19,519
+There&#x27;s nothing special about it, but
+ 
+
+541
+00:09:19,519 --&gt; 00:09:20,630
+There&#x27;s nothing special about it, but
+Cloud is kind of smart enough to
+
+542
+00:09:20,630 --&gt; 00:09:20,640
+Cloud is kind of smart enough to
+ 
+
+543
+00:09:20,640 --&gt; 00:09:22,070
+Cloud is kind of smart enough to
+interpret this. So it&#x27;ll make a commit.
+
+544
+00:09:22,070 --&gt; 00:09:22,080
+interpret this. So it&#x27;ll make a commit.
+ 
+
+545
+00:09:22,080 --&gt; 00:09:23,350
+interpret this. So it&#x27;ll make a commit.
+It&#x27;ll push it to the branch, make a
+
+546
+00:09:23,350 --&gt; 00:09:23,360
+It&#x27;ll push it to the branch, make a
+ 
+
+547
+00:09:23,360 --&gt; 00:09:24,550
+It&#x27;ll push it to the branch, make a
+branch, and then make a pull request for
+
+548
+00:09:24,550 --&gt; 00:09:24,560
+branch, and then make a pull request for
+ 
+
+549
+00:09:24,560 --&gt; 00:09:26,389
+branch, and then make a pull request for
+me on GitHub. You don&#x27;t have to explain
+
+550
+00:09:26,389 --&gt; 00:09:26,399
+me on GitHub. You don&#x27;t have to explain
+ 
+
+551
+00:09:26,399 --&gt; 00:09:27,750
+me on GitHub. You don&#x27;t have to explain
+anything. It&#x27;ll look through the code.
+
+552
+00:09:27,750 --&gt; 00:09:27,760
+anything. It&#x27;ll look through the code.
+ 
+
+553
+00:09:27,760 --&gt; 00:09:29,350
+anything. It&#x27;ll look through the code.
+It&#x27;ll look through the history. It&#x27;ll
+
+554
+00:09:29,350 --&gt; 00:09:29,360
+It&#x27;ll look through the history. It&#x27;ll
+ 
+
+555
+00:09:29,360 --&gt; 00:09:30,630
+It&#x27;ll look through the history. It&#x27;ll
+look through the git log by itself to
+
+556
+00:09:30,630 --&gt; 00:09:30,640
+look through the git log by itself to
+ 
+
+557
+00:09:30,640 --&gt; 00:09:32,310
+look through the git log by itself to
+figure out the commit format and all the
+
+558
+00:09:32,310 --&gt; 00:09:32,320
+figure out the commit format and all the
+ 
+
+559
+00:09:32,320 --&gt; 00:09:33,910
+figure out the commit format and all the
+stuff and it&#x27;ll make the commit and push
+
+560
+00:09:33,910 --&gt; 00:09:33,920
+stuff and it&#x27;ll make the commit and push
+ 
+
+561
+00:09:33,920 --&gt; 00:09:36,790
+stuff and it&#x27;ll make the commit and push
+it the right way.
+
+562
+00:09:36,790 --&gt; 00:09:36,800
+it the right way.
+ 
+
+563
+00:09:36,800 --&gt; 00:09:39,190
+it the right way.
+Again, we&#x27;re not system prompting to do
+
+564
+00:09:39,190 --&gt; 00:09:39,200
+Again, we&#x27;re not system prompting to do
+ 
+
+565
+00:09:39,200 --&gt; 00:09:40,710
+Again, we&#x27;re not system prompting to do
+this. It just knows how to do this. The
+
+566
+00:09:40,710 --&gt; 00:09:40,720
+this. It just knows how to do this. The
+ 
+
+567
+00:09:40,720 --&gt; 00:09:44,470
+this. It just knows how to do this. The
+model is good.
+
+568
+00:09:44,470 --&gt; 00:09:44,480
+
+ 
+
+569
+00:09:44,480 --&gt; 00:09:46,230
+
+As you get a little bit more advanced,
+
+570
+00:09:46,230 --&gt; 00:09:46,240
+As you get a little bit more advanced,
+ 
+
+571
+00:09:46,240 --&gt; 00:09:47,910
+As you get a little bit more advanced,
+you&#x27;re going to want to start to plug in
+
+572
+00:09:47,910 --&gt; 00:09:47,920
+you&#x27;re going to want to start to plug in
+ 
+
+573
+00:09:47,920 --&gt; 00:09:49,430
+you&#x27;re going to want to start to plug in
+your team&#x27;s tools. And this is where
+
+574
+00:09:49,430 --&gt; 00:09:49,440
+your team&#x27;s tools. And this is where
+ 
+
+575
+00:09:49,440 --&gt; 00:09:51,750
+your team&#x27;s tools. And this is where
+cloud code starts to really shine. And
+
+576
+00:09:51,750 --&gt; 00:09:51,760
+cloud code starts to really shine. And
+ 
+
+577
+00:09:51,760 --&gt; 00:09:53,110
+cloud code starts to really shine. And
+there&#x27;s generally two kinds of tools.
+
+578
+00:09:53,110 --&gt; 00:09:53,120
+there&#x27;s generally two kinds of tools.
+ 
+
+579
+00:09:53,120 --&gt; 00:09:55,190
+there&#x27;s generally two kinds of tools.
+So, one is batch tools. And an example
+
+580
+00:09:55,190 --&gt; 00:09:55,200
+So, one is batch tools. And an example
+ 
+
+581
+00:09:55,200 --&gt; 00:09:57,110
+So, one is batch tools. And an example
+of this, I just made up this like barley
+
+582
+00:09:57,110 --&gt; 00:09:57,120
+of this, I just made up this like barley
+ 
+
+583
+00:09:57,120 --&gt; 00:09:59,269
+of this, I just made up this like barley
+CLA. This isn&#x27;t a real thing. Um, but
+
+584
+00:09:59,269 --&gt; 00:09:59,279
+CLA. This isn&#x27;t a real thing. Um, but
+ 
+
+585
+00:09:59,279 --&gt; 00:10:01,190
+CLA. This isn&#x27;t a real thing. Um, but
+you can say use the CLI to do something
+
+586
+00:10:01,190 --&gt; 00:10:01,200
+you can say use the CLI to do something
+ 
+
+587
+00:10:01,200 --&gt; 00:10:02,949
+you can say use the CLI to do something
+and you can tell quad code about this
+
+588
+00:10:02,949 --&gt; 00:10:02,959
+and you can tell quad code about this
+ 
+
+589
+00:10:02,959 --&gt; 00:10:05,030
+and you can tell quad code about this
+and you can tell it to use, for example,
+
+590
+00:10:05,030 --&gt; 00:10:05,040
+and you can tell it to use, for example,
+ 
+
+591
+00:10:05,040 --&gt; 00:10:07,350
+and you can tell it to use, for example,
+like d-help to figure out how to use it.
+
+592
+00:10:07,350 --&gt; 00:10:07,360
+like d-help to figure out how to use it.
+ 
+
+593
+00:10:07,360 --&gt; 00:10:09,590
+like d-help to figure out how to use it.
+And this is efficient. If you find
+
+594
+00:10:09,590 --&gt; 00:10:09,600
+And this is efficient. If you find
+ 
+
+595
+00:10:09,600 --&gt; 00:10:11,030
+And this is efficient. If you find
+yourself using it a lot, you can also
+
+596
+00:10:11,030 --&gt; 00:10:11,040
+yourself using it a lot, you can also
+ 
+
+597
+00:10:11,040 --&gt; 00:10:12,870
+yourself using it a lot, you can also
+dump this into your QuadMD, which we&#x27;ll
+
+598
+00:10:12,870 --&gt; 00:10:12,880
+dump this into your QuadMD, which we&#x27;ll
+ 
+
+599
+00:10:12,880 --&gt; 00:10:14,230
+dump this into your QuadMD, which we&#x27;ll
+talk about in a bit. So, Quad can
+
+600
+00:10:14,230 --&gt; 00:10:14,240
+talk about in a bit. So, Quad can
+ 
+
+601
+00:10:14,240 --&gt; 00:10:15,750
+talk about in a bit. So, Quad can
+remember this across sessions, but this
+
+602
+00:10:15,750 --&gt; 00:10:15,760
+remember this across sessions, but this
+ 
+
+603
+00:10:15,760 --&gt; 00:10:17,350
+remember this across sessions, but this
+is a common pattern we follow at
+
+604
+00:10:17,350 --&gt; 00:10:17,360
+is a common pattern we follow at
+ 
+
+605
+00:10:17,360 --&gt; 00:10:19,590
+is a common pattern we follow at
+anthropic and we see external customers
+
+606
+00:10:19,590 --&gt; 00:10:19,600
+anthropic and we see external customers
+ 
+
+607
+00:10:19,600 --&gt; 00:10:23,110
+anthropic and we see external customers
+use too. And same thing with MCP. Um,
+
+608
+00:10:23,110 --&gt; 00:10:23,120
+use too. And same thing with MCP. Um,
+ 
+
+609
+00:10:23,120 --&gt; 00:10:24,870
+use too. And same thing with MCP. Um,
+quad code can use batch tools, it can
+
+610
+00:10:24,870 --&gt; 00:10:24,880
+quad code can use batch tools, it can
+ 
+
+611
+00:10:24,880 --&gt; 00:10:26,870
+quad code can use batch tools, it can
+use MCP tools. So, you know, just tell
+
+612
+00:10:26,870 --&gt; 00:10:26,880
+use MCP tools. So, you know, just tell
+ 
+
+613
+00:10:26,880 --&gt; 00:10:28,790
+use MCP tools. So, you know, just tell
+it about the tools and you can add the
+
+614
+00:10:28,790 --&gt; 00:10:28,800
+it about the tools and you can add the
+ 
+
+615
+00:10:28,800 --&gt; 00:10:30,310
+it about the tools and you can add the
+MCP tool and you can tell it how to use
+
+616
+00:10:30,310 --&gt; 00:10:30,320
+MCP tool and you can tell it how to use
+ 
+
+617
+00:10:30,320 --&gt; 00:10:33,350
+MCP tool and you can tell it how to use
+it and it&#x27;ll it&#x27;ll just start using it.
+
+618
+00:10:33,350 --&gt; 00:10:33,360
+it and it&#x27;ll it&#x27;ll just start using it.
+ 
+
+619
+00:10:33,360 --&gt; 00:10:35,269
+it and it&#x27;ll it&#x27;ll just start using it.
+And this is extremely powerful because
+
+620
+00:10:35,269 --&gt; 00:10:35,279
+And this is extremely powerful because
+ 
+
+621
+00:10:35,279 --&gt; 00:10:37,430
+And this is extremely powerful because
+when you start to use code on a new
+
+622
+00:10:37,430 --&gt; 00:10:37,440
+when you start to use code on a new
+ 
+
+623
+00:10:37,440 --&gt; 00:10:39,269
+when you start to use code on a new
+codebase, you can just give it all of
+
+624
+00:10:39,269 --&gt; 00:10:39,279
+codebase, you can just give it all of
+ 
+
+625
+00:10:39,279 --&gt; 00:10:41,269
+codebase, you can just give it all of
+your tools, all the tools your team
+
+626
+00:10:41,269 --&gt; 00:10:41,279
+your tools, all the tools your team
+ 
+
+627
+00:10:41,279 --&gt; 00:10:43,590
+your tools, all the tools your team
+already uses for this codebase and cloud
+
+628
+00:10:43,590 --&gt; 00:10:43,600
+already uses for this codebase and cloud
+ 
+
+629
+00:10:43,600 --&gt; 00:10:50,630
+already uses for this codebase and cloud
+code can use it on your behalf.
+
+630
+00:10:50,630 --&gt; 00:10:50,640
+
+ 
+
+631
+00:10:50,640 --&gt; 00:10:53,350
+
+There&#x27;s a few common workflows
+
+632
+00:10:53,350 --&gt; 00:10:53,360
+There&#x27;s a few common workflows
+ 
+
+633
+00:10:53,360 --&gt; 00:10:54,870
+There&#x27;s a few common workflows
+and this is the one that I talked about
+
+634
+00:10:54,870 --&gt; 00:10:54,880
+and this is the one that I talked about
+ 
+
+635
+00:10:54,880 --&gt; 00:10:56,550
+and this is the one that I talked about
+already. So kind of do a little bit of
+
+636
+00:10:56,550 --&gt; 00:10:56,560
+already. So kind of do a little bit of
+ 
+
+637
+00:10:56,560 --&gt; 00:10:58,550
+already. So kind of do a little bit of
+exploration, do a little bit of planning
+
+638
+00:10:58,550 --&gt; 00:10:58,560
+exploration, do a little bit of planning
+ 
+
+639
+00:10:58,560 --&gt; 00:11:00,790
+exploration, do a little bit of planning
+and ask ask me for confirmation before
+
+640
+00:11:00,790 --&gt; 00:11:00,800
+and ask ask me for confirmation before
+ 
+
+641
+00:11:00,800 --&gt; 00:11:03,190
+and ask ask me for confirmation before
+you start to write code. These other two
+
+642
+00:11:03,190 --&gt; 00:11:03,200
+you start to write code. These other two
+ 
+
+643
+00:11:03,200 --&gt; 00:11:05,910
+you start to write code. These other two
+on the right are extremely powerful when
+
+644
+00:11:05,910 --&gt; 00:11:05,920
+on the right are extremely powerful when
+ 
+
+645
+00:11:05,920 --&gt; 00:11:08,069
+on the right are extremely powerful when
+Claud has some way to check its work. So
+
+646
+00:11:08,069 --&gt; 00:11:08,079
+Claud has some way to check its work. So
+ 
+
+647
+00:11:08,079 --&gt; 00:11:10,389
+Claud has some way to check its work. So
+for example, by writing unit tests or
+
+648
+00:11:10,389 --&gt; 00:11:10,399
+for example, by writing unit tests or
+ 
+
+649
+00:11:10,399 --&gt; 00:11:12,069
+for example, by writing unit tests or
+screenshotting and puppeteer or
+
+650
+00:11:12,069 --&gt; 00:11:12,079
+screenshotting and puppeteer or
+ 
+
+651
+00:11:12,079 --&gt; 00:11:14,630
+screenshotting and puppeteer or
+screenshotting the iOS simulator, then
+
+652
+00:11:14,630 --&gt; 00:11:14,640
+screenshotting the iOS simulator, then
+ 
+
+653
+00:11:14,640 --&gt; 00:11:16,949
+screenshotting the iOS simulator, then
+it can iterate. And this is incredible
+
+654
+00:11:16,949 --&gt; 00:11:16,959
+it can iterate. And this is incredible
+ 
+
+655
+00:11:16,959 --&gt; 00:11:18,389
+it can iterate. And this is incredible
+because if you give it for example a
+
+656
+00:11:18,389 --&gt; 00:11:18,399
+because if you give it for example a
+ 
+
+657
+00:11:18,399 --&gt; 00:11:20,310
+because if you give it for example a
+mock and you say build this web UI,
+
+658
+00:11:20,310 --&gt; 00:11:20,320
+mock and you say build this web UI,
+ 
+
+659
+00:11:20,320 --&gt; 00:11:22,790
+mock and you say build this web UI,
+it&#x27;ll get it pretty good. But if you let
+
+660
+00:11:22,790 --&gt; 00:11:22,800
+it&#x27;ll get it pretty good. But if you let
+ 
+
+661
+00:11:22,800 --&gt; 00:11:24,790
+it&#x27;ll get it pretty good. But if you let
+it iterate two or three times, often it
+
+662
+00:11:24,790 --&gt; 00:11:24,800
+it iterate two or three times, often it
+ 
+
+663
+00:11:24,800 --&gt; 00:11:27,350
+it iterate two or three times, often it
+gets it almost perfect. So the trick is
+
+664
+00:11:27,350 --&gt; 00:11:27,360
+gets it almost perfect. So the trick is
+ 
+
+665
+00:11:27,360 --&gt; 00:11:29,030
+gets it almost perfect. So the trick is
+give it some sort of tool that it can
+
+666
+00:11:29,030 --&gt; 00:11:29,040
+give it some sort of tool that it can
+ 
+
+667
+00:11:29,040 --&gt; 00:11:31,350
+give it some sort of tool that it can
+use for feedback to check its work and
+
+668
+00:11:31,350 --&gt; 00:11:31,360
+use for feedback to check its work and
+ 
+
+669
+00:11:31,360 --&gt; 00:11:33,030
+use for feedback to check its work and
+then based on that it will iterate by
+
+670
+00:11:33,030 --&gt; 00:11:33,040
+then based on that it will iterate by
+ 
+
+671
+00:11:33,040 --&gt; 00:11:34,230
+then based on that it will iterate by
+itself and you&#x27;re going to get a much
+
+672
+00:11:34,230 --&gt; 00:11:34,240
+itself and you&#x27;re going to get a much
+ 
+
+673
+00:11:34,240 --&gt; 00:11:36,550
+itself and you&#x27;re going to get a much
+better result. So whatever your domain
+
+674
+00:11:36,550 --&gt; 00:11:36,560
+better result. So whatever your domain
+ 
+
+675
+00:11:36,560 --&gt; 00:11:38,150
+better result. So whatever your domain
+is, if it&#x27;s unit test or integration
+
+676
+00:11:38,150 --&gt; 00:11:38,160
+is, if it&#x27;s unit test or integration
+ 
+
+677
+00:11:38,160 --&gt; 00:11:40,949
+is, if it&#x27;s unit test or integration
+test or screenshots for apps or web or
+
+678
+00:11:40,949 --&gt; 00:11:40,959
+test or screenshots for apps or web or
+ 
+
+679
+00:11:40,959 --&gt; 00:11:42,310
+test or screenshots for apps or web or
+anything, just give it away to see its
+
+680
+00:11:42,310 --&gt; 00:11:42,320
+anything, just give it away to see its
+ 
+
+681
+00:11:42,320 --&gt; 00:11:48,790
+anything, just give it away to see its
+result and it&#x27;ll iterate and get better.
+
+682
+00:11:48,790 --&gt; 00:11:48,800
+
+ 
+
+683
+00:11:48,800 --&gt; 00:11:50,550
+
+So these are the next steps. teach Quad
+
+684
+00:11:50,550 --&gt; 00:11:50,560
+So these are the next steps. teach Quad
+ 
+
+685
+00:11:50,560 --&gt; 00:11:52,630
+So these are the next steps. teach Quad
+how to use your tools and figure out the
+
+686
+00:11:52,630 --&gt; 00:11:52,640
+how to use your tools and figure out the
+ 
+
+687
+00:11:52,640 --&gt; 00:11:54,630
+how to use your tools and figure out the
+right workflow. Um, if you want Quad to
+
+688
+00:11:54,630 --&gt; 00:11:54,640
+right workflow. Um, if you want Quad to
+ 
+
+689
+00:11:54,640 --&gt; 00:11:55,990
+right workflow. Um, if you want Quad to
+jump in a code, if you want it to
+
+690
+00:11:55,990 --&gt; 00:11:56,000
+jump in a code, if you want it to
+ 
+
+691
+00:11:56,000 --&gt; 00:11:57,590
+jump in a code, if you want it to
+brainstorm a little bit, make a plan, if
+
+692
+00:11:57,590 --&gt; 00:11:57,600
+brainstorm a little bit, make a plan, if
+ 
+
+693
+00:11:57,600 --&gt; 00:11:58,870
+brainstorm a little bit, make a plan, if
+you want it to iterate, kind of have
+
+694
+00:11:58,870 --&gt; 00:11:58,880
+you want it to iterate, kind of have
+ 
+
+695
+00:11:58,880 --&gt; 00:12:00,790
+you want it to iterate, kind of have
+some sense of that so you know how to
+
+696
+00:12:00,790 --&gt; 00:12:00,800
+some sense of that so you know how to
+ 
+
+697
+00:12:00,800 --&gt; 00:12:05,910
+some sense of that so you know how to
+prompt Quad to do what you want.
+
+698
+00:12:05,910 --&gt; 00:12:05,920
+
+ 
+
+699
+00:12:05,920 --&gt; 00:12:08,389
+
+As you go deeper beyond tools, you want
+
+700
+00:12:08,389 --&gt; 00:12:08,399
+As you go deeper beyond tools, you want
+ 
+
+701
+00:12:08,399 --&gt; 00:12:10,629
+As you go deeper beyond tools, you want
+to start to give Quad more context. And
+
+702
+00:12:10,629 --&gt; 00:12:10,639
+to start to give Quad more context. And
+ 
+
+703
+00:12:10,639 --&gt; 00:12:12,310
+to start to give Quad more context. And
+the more context, the smarter the
+
+704
+00:12:12,310 --&gt; 00:12:12,320
+the more context, the smarter the
+ 
+
+705
+00:12:12,320 --&gt; 00:12:13,990
+the more context, the smarter the
+decisions will be because as an engineer
+
+706
+00:12:13,990 --&gt; 00:12:14,000
+decisions will be because as an engineer
+ 
+
+707
+00:12:14,000 --&gt; 00:12:15,190
+decisions will be because as an engineer
+working in a codebase, you have a ton of
+
+708
+00:12:15,190 --&gt; 00:12:15,200
+working in a codebase, you have a ton of
+ 
+
+709
+00:12:15,200 --&gt; 00:12:16,870
+working in a codebase, you have a ton of
+context in your head about your systems
+
+710
+00:12:16,870 --&gt; 00:12:16,880
+context in your head about your systems
+ 
+
+711
+00:12:16,880 --&gt; 00:12:19,190
+context in your head about your systems
+and all the history and and everything
+
+712
+00:12:19,190 --&gt; 00:12:19,200
+and all the history and and everything
+ 
+
+713
+00:12:19,200 --&gt; 00:12:20,629
+and all the history and and everything
+else. So you can there&#x27;s different ways
+
+714
+00:12:20,629 --&gt; 00:12:20,639
+else. So you can there&#x27;s different ways
+ 
+
+715
+00:12:20,639 --&gt; 00:12:22,550
+else. So you can there&#x27;s different ways
+to give this to quad and as you give
+
+716
+00:12:22,550 --&gt; 00:12:22,560
+to give this to quad and as you give
+ 
+
+717
+00:12:22,560 --&gt; 00:12:25,750
+to give this to quad and as you give
+quad more context it&#x27;ll do better.
+
+718
+00:12:25,750 --&gt; 00:12:25,760
+quad more context it&#x27;ll do better.
+ 
+
+719
+00:12:25,760 --&gt; 00:12:27,670
+quad more context it&#x27;ll do better.
+There&#x27;s different ways to do this. The
+
+720
+00:12:27,670 --&gt; 00:12:27,680
+There&#x27;s different ways to do this. The
+ 
+
+721
+00:12:27,680 --&gt; 00:12:30,629
+There&#x27;s different ways to do this. The
+simplest one is what we call quad MD and
+
+722
+00:12:30,629 --&gt; 00:12:30,639
+simplest one is what we call quad MD and
+ 
+
+723
+00:12:30,639 --&gt; 00:12:33,750
+simplest one is what we call quad MD and
+quad.mmd is the special file name. The
+
+724
+00:12:33,750 --&gt; 00:12:33,760
+quad.mmd is the special file name. The
+ 
+
+725
+00:12:33,760 --&gt; 00:12:35,509
+quad.mmd is the special file name. The
+simplest place to put it is in the
+
+726
+00:12:35,509 --&gt; 00:12:35,519
+simplest place to put it is in the
+ 
+
+727
+00:12:35,519 --&gt; 00:12:37,430
+simplest place to put it is in the
+project root. So the same directory you
+
+728
+00:12:37,430 --&gt; 00:12:37,440
+project root. So the same directory you
+ 
+
+729
+00:12:37,440 --&gt; 00:12:40,310
+project root. So the same directory you
+start quad in put a quadmd in there and
+
+730
+00:12:40,310 --&gt; 00:12:40,320
+start quad in put a quadmd in there and
+ 
+
+731
+00:12:40,320 --&gt; 00:12:41,829
+start quad in put a quadmd in there and
+that&#x27;ll get automatically read into
+
+732
+00:12:41,829 --&gt; 00:12:41,839
+that&#x27;ll get automatically read into
+ 
+
+733
+00:12:41,839 --&gt; 00:12:43,509
+that&#x27;ll get automatically read into
+context at the start of every session
+
+734
+00:12:43,509 --&gt; 00:12:43,519
+context at the start of every session
+ 
+
+735
+00:12:43,519 --&gt; 00:12:45,430
+context at the start of every session
+and essentially the first user turn will
+
+736
+00:12:45,430 --&gt; 00:12:45,440
+and essentially the first user turn will
+ 
+
+737
+00:12:45,440 --&gt; 00:12:48,310
+and essentially the first user turn will
+include the quadd.
+
+738
+00:12:48,310 --&gt; 00:12:48,320
+include the quadd.
+ 
+
+739
+00:12:48,320 --&gt; 00:12:51,750
+include the quadd.
+You can also have a local cloudmd and uh
+
+740
+00:12:51,750 --&gt; 00:12:51,760
+You can also have a local cloudmd and uh
+ 
+
+741
+00:12:51,760 --&gt; 00:12:53,190
+You can also have a local cloudmd and uh
+this one you don&#x27;t usually check into
+
+742
+00:12:53,190 --&gt; 00:12:53,200
+this one you don&#x27;t usually check into
+ 
+
+743
+00:12:53,200 --&gt; 00:12:55,110
+this one you don&#x27;t usually check into
+source control. So cloudmd you should
+
+744
+00:12:55,110 --&gt; 00:12:55,120
+source control. So cloudmd you should
+ 
+
+745
+00:12:55,120 --&gt; 00:12:56,949
+source control. So cloudmd you should
+check into source control share with
+
+746
+00:12:56,949 --&gt; 00:12:56,959
+check into source control share with
+ 
+
+747
+00:12:56,959 --&gt; 00:12:58,389
+check into source control share with
+your team so that you can write it once
+
+748
+00:12:58,389 --&gt; 00:12:58,399
+your team so that you can write it once
+ 
+
+749
+00:12:58,399 --&gt; 00:13:00,710
+your team so that you can write it once
+and share it with your team. This one
+
+750
+00:13:00,710 --&gt; 00:13:00,720
+and share it with your team. This one
+ 
+
+751
+00:13:00,720 --&gt; 00:13:03,750
+and share it with your team. This one
+you don&#x27;t check in it&#x27;s just for you.
+
+752
+00:13:03,750 --&gt; 00:13:03,760
+you don&#x27;t check in it&#x27;s just for you.
+ 
+
+753
+00:13:03,760 --&gt; 00:13:05,430
+you don&#x27;t check in it&#x27;s just for you.
+The kinds of things you put in quadm
+
+754
+00:13:05,430 --&gt; 00:13:05,440
+The kinds of things you put in quadm
+ 
+
+755
+00:13:05,440 --&gt; 00:13:07,030
+The kinds of things you put in quadm
+it&#x27;s like common bash commands common
+
+756
+00:13:07,030 --&gt; 00:13:07,040
+it&#x27;s like common bash commands common
+ 
+
+757
+00:13:07,040 --&gt; 00:13:10,389
+it&#x27;s like common bash commands common
+MCP tools uh architectural decisions
+
+758
+00:13:10,389 --&gt; 00:13:10,399
+MCP tools uh architectural decisions
+ 
+
+759
+00:13:10,399 --&gt; 00:13:12,550
+MCP tools uh architectural decisions
+important files anything that you would
+
+760
+00:13:12,550 --&gt; 00:13:12,560
+important files anything that you would
+ 
+
+761
+00:13:12,560 --&gt; 00:13:14,069
+important files anything that you would
+kind of typically need to know in order
+
+762
+00:13:14,069 --&gt; 00:13:14,079
+kind of typically need to know in order
+ 
+
+763
+00:13:14,079 --&gt; 00:13:16,230
+kind of typically need to know in order
+to work in this codebase. Try to keep it
+
+764
+00:13:16,230 --&gt; 00:13:16,240
+to work in this codebase. Try to keep it
+ 
+
+765
+00:13:16,240 --&gt; 00:13:17,829
+to work in this codebase. Try to keep it
+pretty short because if it gets too
+
+766
+00:13:17,829 --&gt; 00:13:17,839
+pretty short because if it gets too
+ 
+
+767
+00:13:17,839 --&gt; 00:13:19,190
+pretty short because if it gets too
+long, it&#x27;s just going to use up a bunch
+
+768
+00:13:19,190 --&gt; 00:13:19,200
+long, it&#x27;s just going to use up a bunch
+ 
+
+769
+00:13:19,200 --&gt; 00:13:21,030
+long, it&#x27;s just going to use up a bunch
+of context and it&#x27;s usually not that
+
+770
+00:13:21,030 --&gt; 00:13:21,040
+of context and it&#x27;s usually not that
+ 
+
+771
+00:13:21,040 --&gt; 00:13:22,710
+of context and it&#x27;s usually not that
+useful. So just try to keep it as short
+
+772
+00:13:22,710 --&gt; 00:13:22,720
+useful. So just try to keep it as short
+ 
+
+773
+00:13:22,720 --&gt; 00:13:25,430
+useful. So just try to keep it as short
+as you can. And for for example, in our
+
+774
+00:13:25,430 --&gt; 00:13:25,440
+as you can. And for for example, in our
+ 
+
+775
+00:13:25,440 --&gt; 00:13:27,670
+as you can. And for for example, in our
+codebase, we have uh common bash
+
+776
+00:13:27,670 --&gt; 00:13:27,680
+codebase, we have uh common bash
+ 
+
+777
+00:13:27,680 --&gt; 00:13:29,350
+codebase, we have uh common bash
+commands, we have a style guide, we have
+
+778
+00:13:29,350 --&gt; 00:13:29,360
+commands, we have a style guide, we have
+ 
+
+779
+00:13:29,360 --&gt; 00:13:30,949
+commands, we have a style guide, we have
+a few core files, kind of things like
+
+780
+00:13:30,949 --&gt; 00:13:30,959
+a few core files, kind of things like
+ 
+
+781
+00:13:30,959 --&gt; 00:13:33,670
+a few core files, kind of things like
+that. All the other quadmds, you can put
+
+782
+00:13:33,670 --&gt; 00:13:33,680
+that. All the other quadmds, you can put
+ 
+
+783
+00:13:33,680 --&gt; 00:13:35,750
+that. All the other quadmds, you can put
+them in other nested child directories
+
+784
+00:13:35,750 --&gt; 00:13:35,760
+them in other nested child directories
+ 
+
+785
+00:13:35,760 --&gt; 00:13:39,030
+them in other nested child directories
+and claude will pull them in on demand.
+
+786
+00:13:39,030 --&gt; 00:13:39,040
+and claude will pull them in on demand.
+ 
+
+787
+00:13:39,040 --&gt; 00:13:40,790
+and claude will pull them in on demand.
+So these are the quadmds that will get
+
+788
+00:13:40,790 --&gt; 00:13:40,800
+So these are the quadmds that will get
+ 
+
+789
+00:13:40,800 --&gt; 00:13:42,870
+So these are the quadmds that will get
+pulled in automatically. Um but then
+
+790
+00:13:42,870 --&gt; 00:13:42,880
+pulled in automatically. Um but then
+ 
+
+791
+00:13:42,880 --&gt; 00:13:44,949
+pulled in automatically. Um but then
+also you can put in put cloudmds in
+
+792
+00:13:44,949 --&gt; 00:13:44,959
+also you can put in put cloudmds in
+ 
+
+793
+00:13:44,959 --&gt; 00:13:46,389
+also you can put in put cloudmds in
+nested directories and those will get
+
+794
+00:13:46,389 --&gt; 00:13:46,399
+nested directories and those will get
+ 
+
+795
+00:13:46,399 --&gt; 00:13:47,990
+nested directories and those will get
+put those will get automatically pulled
+
+796
+00:13:47,990 --&gt; 00:13:48,000
+put those will get automatically pulled
+ 
+
+797
+00:13:48,000 --&gt; 00:13:51,350
+put those will get automatically pulled
+when cloud works in those directories.
+
+798
+00:13:51,350 --&gt; 00:13:51,360
+when cloud works in those directories.
+ 
+
+799
+00:13:51,360 --&gt; 00:13:53,350
+when cloud works in those directories.
+Um and of course if you&#x27;re you know a
+
+800
+00:13:53,350 --&gt; 00:13:53,360
+Um and of course if you&#x27;re you know a
+ 
+
+801
+00:13:53,360 --&gt; 00:13:54,949
+Um and of course if you&#x27;re you know a
+company maybe you want a cloudmd that&#x27;s
+
+802
+00:13:54,949 --&gt; 00:13:54,959
+company maybe you want a cloudmd that&#x27;s
+ 
+
+803
+00:13:54,959 --&gt; 00:13:56,150
+company maybe you want a cloudmd that&#x27;s
+shared across all the different code
+
+804
+00:13:56,150 --&gt; 00:13:56,160
+shared across all the different code
+ 
+
+805
+00:13:56,160 --&gt; 00:13:57,509
+shared across all the different code
+bases and you want to manage it on
+
+806
+00:13:57,509 --&gt; 00:13:57,519
+bases and you want to manage it on
+ 
+
+807
+00:13:57,519 --&gt; 00:13:59,269
+bases and you want to manage it on
+behalf of your users and you can put it
+
+808
+00:13:59,269 --&gt; 00:13:59,279
+behalf of your users and you can put it
+ 
+
+809
+00:13:59,279 --&gt; 00:14:00,949
+behalf of your users and you can put it
+in your enterprise route and that&#x27;ll get
+
+810
+00:14:00,949 --&gt; 00:14:00,959
+in your enterprise route and that&#x27;ll get
+ 
+
+811
+00:14:00,959 --&gt; 00:14:05,750
+in your enterprise route and that&#x27;ll get
+pulled in automatically.
+
+812
+00:14:05,750 --&gt; 00:14:05,760
+
+ 
+
+813
+00:14:05,760 --&gt; 00:14:07,110
+
+There&#x27;s a ton of ways to pull in
+
+814
+00:14:07,110 --&gt; 00:14:07,120
+There&#x27;s a ton of ways to pull in
+ 
+
+815
+00:14:07,120 --&gt; 00:14:08,550
+There&#x27;s a ton of ways to pull in
+context. I actually had a lot of trouble
+
+816
+00:14:08,550 --&gt; 00:14:08,560
+context. I actually had a lot of trouble
+ 
+
+817
+00:14:08,560 --&gt; 00:14:10,389
+context. I actually had a lot of trouble
+putting this spite together just to
+
+818
+00:14:10,389 --&gt; 00:14:10,399
+putting this spite together just to
+ 
+
+819
+00:14:10,399 --&gt; 00:14:11,910
+putting this spite together just to
+communicate the breadth of ways you can
+
+820
+00:14:11,910 --&gt; 00:14:11,920
+communicate the breadth of ways you can
+ 
+
+821
+00:14:11,920 --&gt; 00:14:14,150
+communicate the breadth of ways you can
+do this, but quadmd is pulled in
+
+822
+00:14:14,150 --&gt; 00:14:14,160
+do this, but quadmd is pulled in
+ 
+
+823
+00:14:14,160 --&gt; 00:14:16,550
+do this, but quadmd is pulled in
+automatically. You can also use slash
+
+824
+00:14:16,550 --&gt; 00:14:16,560
+automatically. You can also use slash
+ 
+
+825
+00:14:16,560 --&gt; 00:14:18,550
+automatically. You can also use slash
+commands. So this is quad/comands and
+
+826
+00:14:18,550 --&gt; 00:14:18,560
+commands. So this is quad/comands and
+ 
+
+827
+00:14:18,560 --&gt; 00:14:20,550
+commands. So this is quad/comands and
+this can be in your home directory or it
+
+828
+00:14:20,550 --&gt; 00:14:20,560
+this can be in your home directory or it
+ 
+
+829
+00:14:20,560 --&gt; 00:14:21,910
+this can be in your home directory or it
+can be checked into your project. And
+
+830
+00:14:21,910 --&gt; 00:14:21,920
+can be checked into your project. And
+ 
+
+831
+00:14:21,920 --&gt; 00:14:24,790
+can be checked into your project. And
+this is for slash commands. And over
+
+832
+00:14:24,790 --&gt; 00:14:24,800
+this is for slash commands. And over
+ 
+
+833
+00:14:24,800 --&gt; 00:14:26,629
+this is for slash commands. And over
+here
+
+834
+00:14:26,629 --&gt; 00:14:26,639
+here
+ 
+
+835
+00:14:26,639 --&gt; 00:14:28,790
+here
+we have a few examples of the slash
+
+836
+00:14:28,790 --&gt; 00:14:28,800
+we have a few examples of the slash
+ 
+
+837
+00:14:28,800 --&gt; 00:14:30,550
+we have a few examples of the slash
+commands that we have in cloud code
+
+838
+00:14:30,550 --&gt; 00:14:30,560
+commands that we have in cloud code
+ 
+
+839
+00:14:30,560 --&gt; 00:14:32,949
+commands that we have in cloud code
+itself. And so for example, if you&#x27;re in
+
+840
+00:14:32,949 --&gt; 00:14:32,959
+itself. And so for example, if you&#x27;re in
+ 
+
+841
+00:14:32,959 --&gt; 00:14:35,430
+itself. And so for example, if you&#x27;re in
+the cloud code repo and you see issues
+
+842
+00:14:35,430 --&gt; 00:14:35,440
+the cloud code repo and you see issues
+ 
+
+843
+00:14:35,440 --&gt; 00:14:37,189
+the cloud code repo and you see issues
+getting labeled, that&#x27;s actually this
+
+844
+00:14:37,189 --&gt; 00:14:37,199
+getting labeled, that&#x27;s actually this
+ 
+
+845
+00:14:37,199 --&gt; 00:14:38,790
+getting labeled, that&#x27;s actually this
+workflow running here. It&#x27;s labeled
+
+846
+00:14:38,790 --&gt; 00:14:38,800
+workflow running here. It&#x27;s labeled
+ 
+
+847
+00:14:38,800 --&gt; 00:14:41,350
+workflow running here. It&#x27;s labeled
+GitHub issues and we have a GitHub
+
+848
+00:14:41,350 --&gt; 00:14:41,360
+GitHub issues and we have a GitHub
+ 
+
+849
+00:14:41,360 --&gt; 00:14:42,710
+GitHub issues and we have a GitHub
+action running, the same one we talked
+
+850
+00:14:42,710 --&gt; 00:14:42,720
+action running, the same one we talked
+ 
+
+851
+00:14:42,720 --&gt; 00:14:44,870
+action running, the same one we talked
+about this morning,
+
+852
+00:14:44,870 --&gt; 00:14:44,880
+about this morning,
+ 
+
+853
+00:14:44,880 --&gt; 00:14:46,470
+about this morning,
+where Cloud Code will run this command,
+
+854
+00:14:46,470 --&gt; 00:14:46,480
+where Cloud Code will run this command,
+ 
+
+855
+00:14:46,480 --&gt; 00:14:48,230
+where Cloud Code will run this command,
+and it&#x27;s just a slash command. It&#x27;ll run
+
+856
+00:14:48,230 --&gt; 00:14:48,240
+and it&#x27;s just a slash command. It&#x27;ll run
+ 
+
+857
+00:14:48,240 --&gt; 00:14:50,069
+and it&#x27;s just a slash command. It&#x27;ll run
+and it&#x27;ll label the issues so humans
+
+858
+00:14:50,069 --&gt; 00:14:50,079
+and it&#x27;ll label the issues so humans
+ 
+
+859
+00:14:50,079 --&gt; 00:14:51,509
+and it&#x27;ll label the issues so humans
+don&#x27;t have to. It just saves us a bunch
+
+860
+00:14:51,509 --&gt; 00:14:51,519
+don&#x27;t have to. It just saves us a bunch
+ 
+
+861
+00:14:51,519 --&gt; 00:14:53,189
+don&#x27;t have to. It just saves us a bunch
+of time.
+
+862
+00:14:53,189 --&gt; 00:14:53,199
+of time.
+ 
+
+863
+00:14:53,199 --&gt; 00:14:54,629
+of time.
+And of course, you can add mention files
+
+864
+00:14:54,629 --&gt; 00:14:54,639
+And of course, you can add mention files
+ 
+
+865
+00:14:54,639 --&gt; 00:14:57,110
+And of course, you can add mention files
+to pull them into context. Um, and like
+
+866
+00:14:57,110 --&gt; 00:14:57,120
+to pull them into context. Um, and like
+ 
+
+867
+00:14:57,120 --&gt; 00:14:59,590
+to pull them into context. Um, and like
+I said before, quadm in a nested
+
+868
+00:14:59,590 --&gt; 00:14:59,600
+I said before, quadm in a nested
+ 
+
+869
+00:14:59,600 --&gt; 00:15:01,189
+I said before, quadm in a nested
+directory get pulled in when quad works
+
+870
+00:15:01,189 --&gt; 00:15:01,199
+directory get pulled in when quad works
+ 
+
+871
+00:15:01,199 --&gt; 00:15:06,790
+directory get pulled in when quad works
+in that directory.
+
+872
+00:15:06,790 --&gt; 00:15:06,800
+
+ 
+
+873
+00:15:06,800 --&gt; 00:15:09,430
+
+So give quad more context and it&#x27;s
+
+874
+00:15:09,430 --&gt; 00:15:09,440
+So give quad more context and it&#x27;s
+ 
+
+875
+00:15:09,440 --&gt; 00:15:11,030
+So give quad more context and it&#x27;s
+definitely worth taking the time to tune
+
+876
+00:15:11,030 --&gt; 00:15:11,040
+definitely worth taking the time to tune
+ 
+
+877
+00:15:11,040 --&gt; 00:15:12,389
+definitely worth taking the time to tune
+context. You can run it through a prompt
+
+878
+00:15:12,389 --&gt; 00:15:12,399
+context. You can run it through a prompt
+ 
+
+879
+00:15:12,399 --&gt; 00:15:15,110
+context. You can run it through a prompt
+improver. Consider who the context is
+
+880
+00:15:15,110 --&gt; 00:15:15,120
+improver. Consider who the context is
+ 
+
+881
+00:15:15,120 --&gt; 00:15:16,710
+improver. Consider who the context is
+for. If you want to pull it in every
+
+882
+00:15:16,710 --&gt; 00:15:16,720
+for. If you want to pull it in every
+ 
+
+883
+00:15:16,720 --&gt; 00:15:18,069
+for. If you want to pull it in every
+time, if you want to pull it in on
+
+884
+00:15:18,069 --&gt; 00:15:18,079
+time, if you want to pull it in on
+ 
+
+885
+00:15:18,079 --&gt; 00:15:19,590
+time, if you want to pull it in on
+demand, if you want to share it with a
+
+886
+00:15:19,590 --&gt; 00:15:19,600
+demand, if you want to share it with a
+ 
+
+887
+00:15:19,600 --&gt; 00:15:21,509
+demand, if you want to share it with a
+team, if it&#x27;s a personal preference,
+
+888
+00:15:21,509 --&gt; 00:15:21,519
+team, if it&#x27;s a personal preference,
+ 
+
+889
+00:15:21,519 --&gt; 00:15:22,710
+team, if it&#x27;s a personal preference,
+definitely take the time to tune it.
+
+890
+00:15:22,710 --&gt; 00:15:22,720
+definitely take the time to tune it.
+ 
+
+891
+00:15:22,720 --&gt; 00:15:23,670
+definitely take the time to tune it.
+This will improve performance
+
+892
+00:15:23,670 --&gt; 00:15:23,680
+This will improve performance
+ 
+
+893
+00:15:23,680 --&gt; 00:15:30,310
+This will improve performance
+dramatically uh if you do it right.
+
+894
+00:15:30,310 --&gt; 00:15:30,320
+
+ 
+
+895
+00:15:30,320 --&gt; 00:15:32,629
+
+As you get more advanced, you&#x27;re going
+
+896
+00:15:32,629 --&gt; 00:15:32,639
+As you get more advanced, you&#x27;re going
+ 
+
+897
+00:15:32,639 --&gt; 00:15:34,069
+As you get more advanced, you&#x27;re going
+to want to think about this a little bit
+
+898
+00:15:34,069 --&gt; 00:15:34,079
+to want to think about this a little bit
+ 
+
+899
+00:15:34,079 --&gt; 00:15:35,269
+to want to think about this a little bit
+more. This kind of hierarchy of
+
+900
+00:15:35,269 --&gt; 00:15:35,279
+more. This kind of hierarchy of
+ 
+
+901
+00:15:35,279 --&gt; 00:15:37,030
+more. This kind of hierarchy of
+different ways to pull in everything. So
+
+902
+00:15:37,030 --&gt; 00:15:37,040
+different ways to pull in everything. So
+ 
+
+903
+00:15:37,040 --&gt; 00:15:40,069
+different ways to pull in everything. So
+like not just cloudmd, but also config
+
+904
+00:15:40,069 --&gt; 00:15:40,079
+like not just cloudmd, but also config
+ 
+
+905
+00:15:40,079 --&gt; 00:15:43,189
+like not just cloudmd, but also config
+and uh kind of everything about quad you
+
+906
+00:15:43,189 --&gt; 00:15:43,199
+and uh kind of everything about quad you
+ 
+
+907
+00:15:43,199 --&gt; 00:15:45,509
+and uh kind of everything about quad you
+can pull in in this hierarchical way. So
+
+908
+00:15:45,509 --&gt; 00:15:45,519
+can pull in in this hierarchical way. So
+ 
+
+909
+00:15:45,519 --&gt; 00:15:48,069
+can pull in in this hierarchical way. So
+projects uh are specific to your git
+
+910
+00:15:48,069 --&gt; 00:15:48,079
+projects uh are specific to your git
+ 
+
+911
+00:15:48,079 --&gt; 00:15:49,829
+projects uh are specific to your git
+repo and this you can check in or you
+
+912
+00:15:49,829 --&gt; 00:15:49,839
+repo and this you can check in or you
+ 
+
+913
+00:15:49,839 --&gt; 00:15:51,749
+repo and this you can check in or you
+can make it just for you. You can also
+
+914
+00:15:51,749 --&gt; 00:15:51,759
+can make it just for you. You can also
+ 
+
+915
+00:15:51,759 --&gt; 00:15:53,670
+can make it just for you. You can also
+have global configs that are across all
+
+916
+00:15:53,670 --&gt; 00:15:53,680
+have global configs that are across all
+ 
+
+917
+00:15:53,680 --&gt; 00:15:55,430
+have global configs that are across all
+your projects or you can have enterprise
+
+918
+00:15:55,430 --&gt; 00:15:55,440
+your projects or you can have enterprise
+ 
+
+919
+00:15:55,440 --&gt; 00:15:57,189
+your projects or you can have enterprise
+policies. And this is essentially a
+
+920
+00:15:57,189 --&gt; 00:15:57,199
+policies. And this is essentially a
+ 
+
+921
+00:15:57,199 --&gt; 00:15:58,710
+policies. And this is essentially a
+global config that you row out for all
+
+922
+00:15:58,710 --&gt; 00:15:58,720
+global config that you row out for all
+ 
+
+923
+00:15:58,720 --&gt; 00:16:00,230
+global config that you row out for all
+of your employees, everyone on your team
+
+924
+00:16:00,230 --&gt; 00:16:00,240
+of your employees, everyone on your team
+ 
+
+925
+00:16:00,240 --&gt; 00:16:02,710
+of your employees, everyone on your team
+automatically.
+
+926
+00:16:02,710 --&gt; 00:16:02,720
+automatically.
+ 
+
+927
+00:16:02,720 --&gt; 00:16:03,990
+automatically.
+And this slide is like pretty
+
+928
+00:16:03,990 --&gt; 00:16:04,000
+And this slide is like pretty
+ 
+
+929
+00:16:04,000 --&gt; 00:16:06,069
+And this slide is like pretty
+information dense, but the point is this
+
+930
+00:16:06,069 --&gt; 00:16:06,079
+information dense, but the point is this
+ 
+
+931
+00:16:06,079 --&gt; 00:16:07,829
+information dense, but the point is this
+applies to a lot of stuff. So you can do
+
+932
+00:16:07,829 --&gt; 00:16:07,839
+applies to a lot of stuff. So you can do
+ 
+
+933
+00:16:07,839 --&gt; 00:16:09,189
+applies to a lot of stuff. So you can do
+this for slash commands, you can do it
+
+934
+00:16:09,189 --&gt; 00:16:09,199
+this for slash commands, you can do it
+ 
+
+935
+00:16:09,199 --&gt; 00:16:11,110
+this for slash commands, you can do it
+for permissions. So for example, if you
+
+936
+00:16:11,110 --&gt; 00:16:11,120
+for permissions. So for example, if you
+ 
+
+937
+00:16:11,120 --&gt; 00:16:12,710
+for permissions. So for example, if you
+have a batch command that you would run
+
+938
+00:16:12,710 --&gt; 00:16:12,720
+have a batch command that you would run
+ 
+
+939
+00:16:12,720 --&gt; 00:16:15,030
+have a batch command that you would run
+for all your employees uh like all your
+
+940
+00:16:15,030 --&gt; 00:16:15,040
+for all your employees uh like all your
+ 
+
+941
+00:16:15,040 --&gt; 00:16:16,389
+for all your employees uh like all your
+employees use this like test command for
+
+942
+00:16:16,389 --&gt; 00:16:16,399
+employees use this like test command for
+ 
+
+943
+00:16:16,399 --&gt; 00:16:18,389
+employees use this like test command for
+example, you can actually just check it
+
+944
+00:16:18,389 --&gt; 00:16:18,399
+example, you can actually just check it
+ 
+
+945
+00:16:18,399 --&gt; 00:16:21,430
+example, you can actually just check it
+into this enterprise policies file and
+
+946
+00:16:21,430 --&gt; 00:16:21,440
+into this enterprise policies file and
+ 
+
+947
+00:16:21,440 --&gt; 00:16:23,110
+into this enterprise policies file and
+then any employee when they run this
+
+948
+00:16:23,110 --&gt; 00:16:23,120
+then any employee when they run this
+ 
+
+949
+00:16:23,120 --&gt; 00:16:24,710
+then any employee when they run this
+command, it will be auto approved which
+
+950
+00:16:24,710 --&gt; 00:16:24,720
+command, it will be auto approved which
+ 
+
+951
+00:16:24,720 --&gt; 00:16:26,629
+command, it will be auto approved which
+is pretty convenient. And you can also
+
+952
+00:16:26,629 --&gt; 00:16:26,639
+is pretty convenient. And you can also
+ 
+
+953
+00:16:26,639 --&gt; 00:16:28,150
+is pretty convenient. And you can also
+use this to block commands. So for
+
+954
+00:16:28,150 --&gt; 00:16:28,160
+use this to block commands. So for
+ 
+
+955
+00:16:28,160 --&gt; 00:16:29,509
+use this to block commands. So for
+example, let&#x27;s say there&#x27;s a URL that
+
+956
+00:16:29,509 --&gt; 00:16:29,519
+example, let&#x27;s say there&#x27;s a URL that
+ 
+
+957
+00:16:29,519 --&gt; 00:16:31,590
+example, let&#x27;s say there&#x27;s a URL that
+should never be fetched. Um just add it
+
+958
+00:16:31,590 --&gt; 00:16:31,600
+should never be fetched. Um just add it
+ 
+
+959
+00:16:31,600 --&gt; 00:16:33,990
+should never be fetched. Um just add it
+to this config and that&#x27;ll make it so an
+
+960
+00:16:33,990 --&gt; 00:16:34,000
+to this config and that&#x27;ll make it so an
+ 
+
+961
+00:16:34,000 --&gt; 00:16:36,389
+to this config and that&#x27;ll make it so an
+employee cannot overwrite it and that
+
+962
+00:16:36,389 --&gt; 00:16:36,399
+employee cannot overwrite it and that
+ 
+
+963
+00:16:36,399 --&gt; 00:16:38,710
+employee cannot overwrite it and that
+that URL can never be fetched. So pretty
+
+964
+00:16:38,710 --&gt; 00:16:38,720
+that URL can never be fetched. So pretty
+ 
+
+965
+00:16:38,720 --&gt; 00:16:40,150
+that URL can never be fetched. So pretty
+convenient both to unblock people and
+
+966
+00:16:40,150 --&gt; 00:16:40,160
+convenient both to unblock people and
+ 
+
+967
+00:16:40,160 --&gt; 00:16:43,269
+convenient both to unblock people and
+also just to keep your codebase safe.
+
+968
+00:16:43,269 --&gt; 00:16:43,279
+also just to keep your codebase safe.
+ 
+
+969
+00:16:43,279 --&gt; 00:16:45,110
+also just to keep your codebase safe.
+And then same thing for MCP servers.
+
+970
+00:16:45,110 --&gt; 00:16:45,120
+And then same thing for MCP servers.
+ 
+
+971
+00:16:45,120 --&gt; 00:16:47,110
+And then same thing for MCP servers.
+Have a MCP JSON file, check it into the
+
+972
+00:16:47,110 --&gt; 00:16:47,120
+Have a MCP JSON file, check it into the
+ 
+
+973
+00:16:47,120 --&gt; 00:16:49,509
+Have a MCP JSON file, check it into the
+codebase. That way anytime someone runs
+
+974
+00:16:49,509 --&gt; 00:16:49,519
+codebase. That way anytime someone runs
+ 
+
+975
+00:16:49,519 --&gt; 00:16:51,030
+codebase. That way anytime someone runs
+quad code in your codebase, they&#x27;ll be
+
+976
+00:16:51,030 --&gt; 00:16:51,040
+quad code in your codebase, they&#x27;ll be
+ 
+
+977
+00:16:51,040 --&gt; 00:16:52,949
+quad code in your codebase, they&#x27;ll be
+prompted to install the MCP servers and
+
+978
+00:16:52,949 --&gt; 00:16:52,959
+prompted to install the MCP servers and
+ 
+
+979
+00:16:52,959 --&gt; 00:16:58,389
+prompted to install the MCP servers and
+share it with the team.
+
+980
+00:16:58,389 --&gt; 00:16:58,399
+
+ 
+
+981
+00:16:58,399 --&gt; 00:16:59,670
+
+If you&#x27;re not sure which of these to
+
+982
+00:16:59,670 --&gt; 00:16:59,680
+If you&#x27;re not sure which of these to
+ 
+
+983
+00:16:59,680 --&gt; 00:17:01,269
+If you&#x27;re not sure which of these to
+use, this is like a kind of an insane
+
+984
+00:17:01,269 --&gt; 00:17:01,279
+use, this is like a kind of an insane
+ 
+
+985
+00:17:01,279 --&gt; 00:17:02,949
+use, this is like a kind of an insane
+matrix because we support a lot of stuff
+
+986
+00:17:02,949 --&gt; 00:17:02,959
+matrix because we support a lot of stuff
+ 
+
+987
+00:17:02,959 --&gt; 00:17:04,789
+matrix because we support a lot of stuff
+and engineer workflows are very flexible
+
+988
+00:17:04,789 --&gt; 00:17:04,799
+and engineer workflows are very flexible
+ 
+
+989
+00:17:04,799 --&gt; 00:17:06,230
+and engineer workflows are very flexible
+and every company is different, so we
+
+990
+00:17:06,230 --&gt; 00:17:06,240
+and every company is different, so we
+ 
+
+991
+00:17:06,240 --&gt; 00:17:07,510
+and every company is different, so we
+kind of want to support everything. So
+
+992
+00:17:07,510 --&gt; 00:17:07,520
+kind of want to support everything. So
+ 
+
+993
+00:17:07,520 --&gt; 00:17:09,270
+kind of want to support everything. So
+if you&#x27;re not sure how to get started, I
+
+994
+00:17:09,270 --&gt; 00:17:09,280
+if you&#x27;re not sure how to get started, I
+ 
+
+995
+00:17:09,280 --&gt; 00:17:10,630
+if you&#x27;re not sure how to get started, I
+would recommend start with shared
+
+996
+00:17:10,630 --&gt; 00:17:10,640
+would recommend start with shared
+ 
+
+997
+00:17:10,640 --&gt; 00:17:12,710
+would recommend start with shared
+project context.
+
+998
+00:17:12,710 --&gt; 00:17:12,720
+project context.
+ 
+
+999
+00:17:12,720 --&gt; 00:17:13,909
+project context.
+You write this once and then you share
+
+1000
+00:17:13,909 --&gt; 00:17:13,919
+You write this once and then you share
+ 
+
+1001
+00:17:13,919 --&gt; 00:17:15,350
+You write this once and then you share
+it with everyone on the team and you get
+
+1002
+00:17:15,350 --&gt; 00:17:15,360
+it with everyone on the team and you get
+ 
+
+1003
+00:17:15,360 --&gt; 00:17:16,870
+it with everyone on the team and you get
+this kind of network effect where you
+
+1004
+00:17:16,870 --&gt; 00:17:16,880
+this kind of network effect where you
+ 
+
+1005
+00:17:16,880 --&gt; 00:17:18,069
+this kind of network effect where you
+know someone does a little bit of work
+
+1006
+00:17:18,069 --&gt; 00:17:18,079
+know someone does a little bit of work
+ 
+
+1007
+00:17:18,079 --&gt; 00:17:23,350
+know someone does a little bit of work
+and everyone on the team benefits.
+
+1008
+00:17:23,350 --&gt; 00:17:23,360
+
+ 
+
+1009
+00:17:23,360 --&gt; 00:17:25,029
+
+There&#x27;s a lot of tools built into quad
+
+1010
+00:17:25,029 --&gt; 00:17:25,039
+There&#x27;s a lot of tools built into quad
+ 
+
+1011
+00:17:25,039 --&gt; 00:17:27,590
+There&#x27;s a lot of tools built into quad
+to manage this. Uh so as an example, if
+
+1012
+00:17:27,590 --&gt; 00:17:27,600
+to manage this. Uh so as an example, if
+ 
+
+1013
+00:17:27,600 --&gt; 00:17:29,510
+to manage this. Uh so as an example, if
+you run /memory, you can see all the
+
+1014
+00:17:29,510 --&gt; 00:17:29,520
+you run /memory, you can see all the
+ 
+
+1015
+00:17:29,520 --&gt; 00:17:30,870
+you run /memory, you can see all the
+different memory files that are getting
+
+1016
+00:17:30,870 --&gt; 00:17:30,880
+different memory files that are getting
+ 
+
+1017
+00:17:30,880 --&gt; 00:17:32,789
+different memory files that are getting
+pulled in. So maybe I have an enterprise
+
+1018
+00:17:32,789 --&gt; 00:17:32,799
+pulled in. So maybe I have an enterprise
+ 
+
+1019
+00:17:32,799 --&gt; 00:17:35,190
+pulled in. So maybe I have an enterprise
+policy. I have my user memory. I have
+
+1020
+00:17:35,190 --&gt; 00:17:35,200
+policy. I have my user memory. I have
+ 
+
+1021
+00:17:35,200 --&gt; 00:17:37,590
+policy. I have my user memory. I have
+project quadmd and then maybe there&#x27;s a
+
+1022
+00:17:37,590 --&gt; 00:17:37,600
+project quadmd and then maybe there&#x27;s a
+ 
+
+1023
+00:17:37,600 --&gt; 00:17:39,510
+project quadmd and then maybe there&#x27;s a
+nested quadmd that&#x27;s only pulled in for
+
+1024
+00:17:39,510 --&gt; 00:17:39,520
+nested quadmd that&#x27;s only pulled in for
+ 
+
+1025
+00:17:39,520 --&gt; 00:17:42,390
+nested quadmd that&#x27;s only pulled in for
+certain directories.
+
+1026
+00:17:42,390 --&gt; 00:17:42,400
+certain directories.
+ 
+
+1027
+00:17:42,400 --&gt; 00:17:44,549
+certain directories.
+And then similarly when you do smeary
+
+1028
+00:17:44,549 --&gt; 00:17:44,559
+And then similarly when you do smeary
+ 
+
+1029
+00:17:44,559 --&gt; 00:17:46,230
+And then similarly when you do smeary
+you can edit particular memory files.
+
+1030
+00:17:46,230 --&gt; 00:17:46,240
+you can edit particular memory files.
+ 
+
+1031
+00:17:46,240 --&gt; 00:17:47,669
+you can edit particular memory files.
+When you type pound sign to remember
+
+1032
+00:17:47,669 --&gt; 00:17:47,679
+When you type pound sign to remember
+ 
+
+1033
+00:17:47,679 --&gt; 00:17:49,110
+When you type pound sign to remember
+something you can pick which memory you
+
+1034
+00:17:49,110 --&gt; 00:17:49,120
+something you can pick which memory you
+ 
+
+1035
+00:17:49,120 --&gt; 00:17:54,630
+something you can pick which memory you
+want it to go to.
+
+1036
+00:17:54,630 --&gt; 00:17:54,640
+
+ 
+
+1037
+00:17:54,640 --&gt; 00:17:56,310
+
+So yeah that&#x27;s the next step. take the
+
+1038
+00:17:56,310 --&gt; 00:17:56,320
+So yeah that&#x27;s the next step. take the
+ 
+
+1039
+00:17:56,320 --&gt; 00:17:59,430
+So yeah that&#x27;s the next step. take the
+time to configure Quantum MD, MCP
+
+1040
+00:17:59,430 --&gt; 00:17:59,440
+time to configure Quantum MD, MCP
+ 
+
+1041
+00:17:59,440 --&gt; 00:18:01,190
+time to configure Quantum MD, MCP
+servers, all the stuff that your team
+
+1042
+00:18:01,190 --&gt; 00:18:01,200
+servers, all the stuff that your team
+ 
+
+1043
+00:18:01,200 --&gt; 00:18:02,870
+servers, all the stuff that your team
+uses so that you can use it once,
+
+1044
+00:18:02,870 --&gt; 00:18:02,880
+uses so that you can use it once,
+ 
+
+1045
+00:18:02,880 --&gt; 00:18:04,230
+uses so that you can use it once,
+configure it once, and then share it
+
+1046
+00:18:04,230 --&gt; 00:18:04,240
+configure it once, and then share it
+ 
+
+1047
+00:18:04,240 --&gt; 00:18:07,350
+configure it once, and then share it
+with everyone.
+
+1048
+00:18:07,350 --&gt; 00:18:07,360
+with everyone.
+ 
+
+1049
+00:18:07,360 --&gt; 00:18:09,990
+with everyone.
+Um, an example of this is uh in our apps
+
+1050
+00:18:09,990 --&gt; 00:18:10,000
+Um, an example of this is uh in our apps
+ 
+
+1051
+00:18:10,000 --&gt; 00:18:12,310
+Um, an example of this is uh in our apps
+repo uh for Enthropic. This is like the
+
+1052
+00:18:12,310 --&gt; 00:18:12,320
+repo uh for Enthropic. This is like the
+ 
+
+1053
+00:18:12,320 --&gt; 00:18:15,190
+repo uh for Enthropic. This is like the
+repo that we have all of our uh web and
+
+1054
+00:18:15,190 --&gt; 00:18:15,200
+repo that we have all of our uh web and
+ 
+
+1055
+00:18:15,200 --&gt; 00:18:17,430
+repo that we have all of our uh web and
+apps code in. There&#x27;s a Puppeteer MCP
+
+1056
+00:18:17,430 --&gt; 00:18:17,440
+apps code in. There&#x27;s a Puppeteer MCP
+ 
+
+1057
+00:18:17,440 --&gt; 00:18:19,270
+apps code in. There&#x27;s a Puppeteer MCP
+server and we share this with the team.
+
+1058
+00:18:19,270 --&gt; 00:18:19,280
+server and we share this with the team.
+ 
+
+1059
+00:18:19,280 --&gt; 00:18:21,190
+server and we share this with the team.
+Um, and there&#x27;s an MCPJ JSON checked in.
+
+1060
+00:18:21,190 --&gt; 00:18:21,200
+Um, and there&#x27;s an MCPJ JSON checked in.
+ 
+
+1061
+00:18:21,200 --&gt; 00:18:23,190
+Um, and there&#x27;s an MCPJ JSON checked in.
+So any engineer working in that repo can
+
+1062
+00:18:23,190 --&gt; 00:18:23,200
+So any engineer working in that repo can
+ 
+
+1063
+00:18:23,200 --&gt; 00:18:25,110
+So any engineer working in that repo can
+use Puppeteer in order to pilot end to
+
+1064
+00:18:25,110 --&gt; 00:18:25,120
+use Puppeteer in order to pilot end to
+ 
+
+1065
+00:18:25,120 --&gt; 00:18:26,150
+use Puppeteer in order to pilot end to
+end tests and to screenshot
+
+1066
+00:18:26,150 --&gt; 00:18:26,160
+end tests and to screenshot
+ 
+
+1067
+00:18:26,160 --&gt; 00:18:27,909
+end tests and to screenshot
+automatically and iterate so that every
+
+1068
+00:18:27,909 --&gt; 00:18:27,919
+automatically and iterate so that every
+ 
+
+1069
+00:18:27,919 --&gt; 00:18:29,110
+automatically and iterate so that every
+engineer doesn&#x27;t have to install it
+
+1070
+00:18:29,110 --&gt; 00:18:29,120
+engineer doesn&#x27;t have to install it
+ 
+
+1071
+00:18:29,120 --&gt; 00:18:34,470
+engineer doesn&#x27;t have to install it
+themselves.
+
+1072
+00:18:34,470 --&gt; 00:18:34,480
+
+ 
+
+1073
+00:18:34,480 --&gt; 00:18:35,990
+
+This is a talk about pro tips. So I I
+
+1074
+00:18:35,990 --&gt; 00:18:36,000
+This is a talk about pro tips. So I I
+ 
+
+1075
+00:18:36,000 --&gt; 00:18:37,430
+This is a talk about pro tips. So I I
+just want to take a quick interlude to
+
+1076
+00:18:37,430 --&gt; 00:18:37,440
+just want to take a quick interlude to
+ 
+
+1077
+00:18:37,440 --&gt; 00:18:39,110
+just want to take a quick interlude to
+talk about some common key bindings that
+
+1078
+00:18:39,110 --&gt; 00:18:39,120
+talk about some common key bindings that
+ 
+
+1079
+00:18:39,120 --&gt; 00:18:40,789
+talk about some common key bindings that
+people may not know. It&#x27;s a it&#x27;s very
+
+1080
+00:18:40,789 --&gt; 00:18:40,799
+people may not know. It&#x27;s a it&#x27;s very
+ 
+
+1081
+00:18:40,799 --&gt; 00:18:42,390
+people may not know. It&#x27;s a it&#x27;s very
+hard to build for terminal. It&#x27;s also
+
+1082
+00:18:42,390 --&gt; 00:18:42,400
+hard to build for terminal. It&#x27;s also
+ 
+
+1083
+00:18:42,400 --&gt; 00:18:44,390
+hard to build for terminal. It&#x27;s also
+very fun. It feels like rediscovering
+
+1084
+00:18:44,390 --&gt; 00:18:44,400
+very fun. It feels like rediscovering
+ 
+
+1085
+00:18:44,400 --&gt; 00:18:46,710
+very fun. It feels like rediscovering
+this new design language. But something
+
+1086
+00:18:46,710 --&gt; 00:18:46,720
+this new design language. But something
+ 
+
+1087
+00:18:46,720 --&gt; 00:18:48,630
+this new design language. But something
+about terminal is it&#x27;s it&#x27;s extremely
+
+1088
+00:18:48,630 --&gt; 00:18:48,640
+about terminal is it&#x27;s it&#x27;s extremely
+ 
+
+1089
+00:18:48,640 --&gt; 00:18:51,110
+about terminal is it&#x27;s it&#x27;s extremely
+minimal. And so sometimes it&#x27;s hard to
+
+1090
+00:18:51,110 --&gt; 00:18:51,120
+minimal. And so sometimes it&#x27;s hard to
+ 
+
+1091
+00:18:51,120 --&gt; 00:18:53,270
+minimal. And so sometimes it&#x27;s hard to
+discover these key bindings. And here&#x27;s
+
+1092
+00:18:53,270 --&gt; 00:18:53,280
+discover these key bindings. And here&#x27;s
+ 
+
+1093
+00:18:53,280 --&gt; 00:18:55,510
+discover these key bindings. And here&#x27;s
+just a quick reference sheet. So anytime
+
+1094
+00:18:55,510 --&gt; 00:18:55,520
+just a quick reference sheet. So anytime
+ 
+
+1095
+00:18:55,520 --&gt; 00:18:58,150
+just a quick reference sheet. So anytime
+you can hit shift tab to accept edits.
+
+1096
+00:18:58,150 --&gt; 00:18:58,160
+you can hit shift tab to accept edits.
+ 
+
+1097
+00:18:58,160 --&gt; 00:18:59,510
+you can hit shift tab to accept edits.
+Uh and this switches you into auto
+
+1098
+00:18:59,510 --&gt; 00:18:59,520
+Uh and this switches you into auto
+ 
+
+1099
+00:18:59,520 --&gt; 00:19:01,029
+Uh and this switches you into auto
+accept edits mode. So bash commands
+
+1100
+00:19:01,029 --&gt; 00:19:01,039
+accept edits mode. So bash commands
+ 
+
+1101
+00:19:01,039 --&gt; 00:19:03,029
+accept edits mode. So bash commands
+still need approval, but edits are auto
+
+1102
+00:19:03,029 --&gt; 00:19:03,039
+still need approval, but edits are auto
+ 
+
+1103
+00:19:03,039 --&gt; 00:19:04,549
+still need approval, but edits are auto
+accepted. And you can always ask quad to
+
+1104
+00:19:04,549 --&gt; 00:19:04,559
+accepted. And you can always ask quad to
+ 
+
+1105
+00:19:04,559 --&gt; 00:19:06,470
+accepted. And you can always ask quad to
+undo them later.
+
+1106
+00:19:06,470 --&gt; 00:19:06,480
+undo them later.
+ 
+
+1107
+00:19:06,480 --&gt; 00:19:08,070
+undo them later.
+Um for example, I&#x27;ll do this if I know
+
+1108
+00:19:08,070 --&gt; 00:19:08,080
+Um for example, I&#x27;ll do this if I know
+ 
+
+1109
+00:19:08,080 --&gt; 00:19:09,510
+Um for example, I&#x27;ll do this if I know
+Quad&#x27;s on the right track or if it&#x27;s
+
+1110
+00:19:09,510 --&gt; 00:19:09,520
+Quad&#x27;s on the right track or if it&#x27;s
+ 
+
+1111
+00:19:09,520 --&gt; 00:19:10,950
+Quad&#x27;s on the right track or if it&#x27;s
+writing unit tests and iterating on
+
+1112
+00:19:10,950 --&gt; 00:19:10,960
+writing unit tests and iterating on
+ 
+
+1113
+00:19:10,960 --&gt; 00:19:12,470
+writing unit tests and iterating on
+tests. I&#x27;ll usually just switch into
+
+1114
+00:19:12,470 --&gt; 00:19:12,480
+tests. I&#x27;ll usually just switch into
+ 
+
+1115
+00:19:12,480 --&gt; 00:19:14,390
+tests. I&#x27;ll usually just switch into
+auto accept mode so I don&#x27;t have to okay
+
+1116
+00:19:14,390 --&gt; 00:19:14,400
+auto accept mode so I don&#x27;t have to okay
+ 
+
+1117
+00:19:14,400 --&gt; 00:19:17,110
+auto accept mode so I don&#x27;t have to okay
+every single edit
+
+1118
+00:19:17,110 --&gt; 00:19:17,120
+every single edit
+ 
+
+1119
+00:19:17,120 --&gt; 00:19:18,470
+every single edit
+anytime you want Cloud to remember
+
+1120
+00:19:18,470 --&gt; 00:19:18,480
+anytime you want Cloud to remember
+ 
+
+1121
+00:19:18,480 --&gt; 00:19:20,630
+anytime you want Cloud to remember
+something. So, for example, if it&#x27;s not
+
+1122
+00:19:20,630 --&gt; 00:19:20,640
+something. So, for example, if it&#x27;s not
+ 
+
+1123
+00:19:20,640 --&gt; 00:19:22,470
+something. So, for example, if it&#x27;s not
+using a tool correctly and you want it
+
+1124
+00:19:22,470 --&gt; 00:19:22,480
+using a tool correctly and you want it
+ 
+
+1125
+00:19:22,480 --&gt; 00:19:23,830
+using a tool correctly and you want it
+to use it correctly from then on, just
+
+1126
+00:19:23,830 --&gt; 00:19:23,840
+to use it correctly from then on, just
+ 
+
+1127
+00:19:23,840 --&gt; 00:19:25,430
+to use it correctly from then on, just
+type the pound sign and then tell it
+
+1128
+00:19:25,430 --&gt; 00:19:25,440
+type the pound sign and then tell it
+ 
+
+1129
+00:19:25,440 --&gt; 00:19:26,950
+type the pound sign and then tell it
+what to remember and it&#x27;ll remember it.
+
+1130
+00:19:26,950 --&gt; 00:19:26,960
+what to remember and it&#x27;ll remember it.
+ 
+
+1131
+00:19:26,960 --&gt; 00:19:28,390
+what to remember and it&#x27;ll remember it.
+It&#x27;ll incorporate it into QuadMD
+
+1132
+00:19:28,390 --&gt; 00:19:28,400
+It&#x27;ll incorporate it into QuadMD
+ 
+
+1133
+00:19:28,400 --&gt; 00:19:30,630
+It&#x27;ll incorporate it into QuadMD
+automatically.
+
+1134
+00:19:30,630 --&gt; 00:19:30,640
+automatically.
+ 
+
+1135
+00:19:30,640 --&gt; 00:19:32,150
+automatically.
+If you ever want to drop down to bash
+
+1136
+00:19:32,150 --&gt; 00:19:32,160
+If you ever want to drop down to bash
+ 
+
+1137
+00:19:32,160 --&gt; 00:19:33,830
+If you ever want to drop down to bash
+mode, so just run a bash command. You
+
+1138
+00:19:33,830 --&gt; 00:19:33,840
+mode, so just run a bash command. You
+ 
+
+1139
+00:19:33,840 --&gt; 00:19:35,510
+mode, so just run a bash command. You
+can hit the exclamation mark and type in
+
+1140
+00:19:35,510 --&gt; 00:19:35,520
+can hit the exclamation mark and type in
+ 
+
+1141
+00:19:35,520 --&gt; 00:19:37,029
+can hit the exclamation mark and type in
+your command. That&#x27;ll run locally, but
+
+1142
+00:19:37,029 --&gt; 00:19:37,039
+your command. That&#x27;ll run locally, but
+ 
+
+1143
+00:19:37,039 --&gt; 00:19:39,510
+your command. That&#x27;ll run locally, but
+that also goes into the context window.
+
+1144
+00:19:39,510 --&gt; 00:19:39,520
+that also goes into the context window.
+ 
+
+1145
+00:19:39,520 --&gt; 00:19:42,070
+that also goes into the context window.
+So, Claude will see it on the next turn.
+
+1146
+00:19:42,070 --&gt; 00:19:42,080
+So, Claude will see it on the next turn.
+ 
+
+1147
+00:19:42,080 --&gt; 00:19:43,190
+So, Claude will see it on the next turn.
+Um, and this is pretty good for
+
+1148
+00:19:43,190 --&gt; 00:19:43,200
+Um, and this is pretty good for
+ 
+
+1149
+00:19:43,200 --&gt; 00:19:44,630
+Um, and this is pretty good for
+longrunning commands if you know exactly
+
+1150
+00:19:44,630 --&gt; 00:19:44,640
+longrunning commands if you know exactly
+ 
+
+1151
+00:19:44,640 --&gt; 00:19:46,310
+longrunning commands if you know exactly
+what you want to do or any command that
+
+1152
+00:19:46,310 --&gt; 00:19:46,320
+what you want to do or any command that
+ 
+
+1153
+00:19:46,320 --&gt; 00:19:48,070
+what you want to do or any command that
+you want to get into context and claude
+
+1154
+00:19:48,070 --&gt; 00:19:48,080
+you want to get into context and claude
+ 
+
+1155
+00:19:48,080 --&gt; 00:19:51,590
+you want to get into context and claude
+will see the command and the output.
+
+1156
+00:19:51,590 --&gt; 00:19:51,600
+will see the command and the output.
+ 
+
+1157
+00:19:51,600 --&gt; 00:19:53,510
+will see the command and the output.
+You can appmentntion files and folders.
+
+1158
+00:19:53,510 --&gt; 00:19:53,520
+You can appmentntion files and folders.
+ 
+
+1159
+00:19:53,520 --&gt; 00:19:55,750
+You can appmentntion files and folders.
+Uh, anytime you can hit escape to stop
+
+1160
+00:19:55,750 --&gt; 00:19:55,760
+Uh, anytime you can hit escape to stop
+ 
+
+1161
+00:19:55,760 --&gt; 00:19:57,510
+Uh, anytime you can hit escape to stop
+what Claude is doing. Um, no matter what
+
+1162
+00:19:57,510 --&gt; 00:19:57,520
+what Claude is doing. Um, no matter what
+ 
+
+1163
+00:19:57,520 --&gt; 00:19:58,870
+what Claude is doing. Um, no matter what
+Claude is doing, you can always safely
+
+1164
+00:19:58,870 --&gt; 00:19:58,880
+Claude is doing, you can always safely
+ 
+
+1165
+00:19:58,880 --&gt; 00:20:00,310
+Claude is doing, you can always safely
+hit escape. It&#x27;s not going to corrupt
+
+1166
+00:20:00,310 --&gt; 00:20:00,320
+hit escape. It&#x27;s not going to corrupt
+ 
+
+1167
+00:20:00,320 --&gt; 00:20:01,510
+hit escape. It&#x27;s not going to corrupt
+the session. It&#x27;s not going to mess
+
+1168
+00:20:01,510 --&gt; 00:20:01,520
+the session. It&#x27;s not going to mess
+ 
+
+1169
+00:20:01,520 --&gt; 00:20:03,590
+the session. It&#x27;s not going to mess
+anything up. So maybe Claude is doing a
+
+1170
+00:20:03,590 --&gt; 00:20:03,600
+anything up. So maybe Claude is doing a
+ 
+
+1171
+00:20:03,600 --&gt; 00:20:05,190
+anything up. So maybe Claude is doing a
+file edit. I&#x27;ll hit escape. I&#x27;ll tell it
+
+1172
+00:20:05,190 --&gt; 00:20:05,200
+file edit. I&#x27;ll hit escape. I&#x27;ll tell it
+ 
+
+1173
+00:20:05,200 --&gt; 00:20:07,350
+file edit. I&#x27;ll hit escape. I&#x27;ll tell it
+what to do differently. Or maybe it
+
+1174
+00:20:07,350 --&gt; 00:20:07,360
+what to do differently. Or maybe it
+ 
+
+1175
+00:20:07,360 --&gt; 00:20:09,029
+what to do differently. Or maybe it
+suggested a 20 line edit and I&#x27;m like
+
+1176
+00:20:09,029 --&gt; 00:20:09,039
+suggested a 20 line edit and I&#x27;m like
+ 
+
+1177
+00:20:09,039 --&gt; 00:20:10,630
+suggested a 20 line edit and I&#x27;m like
+actually 19 of these lines look perfect
+
+1178
+00:20:10,630 --&gt; 00:20:10,640
+actually 19 of these lines look perfect
+ 
+
+1179
+00:20:10,640 --&gt; 00:20:12,549
+actually 19 of these lines look perfect
+but one line you should change. I&#x27;ll hit
+
+1180
+00:20:12,549 --&gt; 00:20:12,559
+but one line you should change. I&#x27;ll hit
+ 
+
+1181
+00:20:12,559 --&gt; 00:20:13,990
+but one line you should change. I&#x27;ll hit
+escape. I&#x27;ll tell it that and then I&#x27;ll
+
+1182
+00:20:13,990 --&gt; 00:20:14,000
+escape. I&#x27;ll tell it that and then I&#x27;ll
+ 
+
+1183
+00:20:14,000 --&gt; 00:20:17,270
+escape. I&#x27;ll tell it that and then I&#x27;ll
+tell it to redo the edit.
+
+1184
+00:20:17,270 --&gt; 00:20:17,280
+tell it to redo the edit.
+ 
+
+1185
+00:20:17,280 --&gt; 00:20:19,270
+tell it to redo the edit.
+Uh you can hit escape twice to jump back
+
+1186
+00:20:19,270 --&gt; 00:20:19,280
+Uh you can hit escape twice to jump back
+ 
+
+1187
+00:20:19,280 --&gt; 00:20:21,510
+Uh you can hit escape twice to jump back
+in history. Um and then after you&#x27;re
+
+1188
+00:20:21,510 --&gt; 00:20:21,520
+in history. Um and then after you&#x27;re
+ 
+
+1189
+00:20:21,520 --&gt; 00:20:22,950
+in history. Um and then after you&#x27;re
+done with the session you can start quad
+
+1190
+00:20:22,950 --&gt; 00:20:22,960
+done with the session you can start quad
+ 
+
+1191
+00:20:22,960 --&gt; 00:20:24,630
+done with the session you can start quad
+with a resume to resume that session if
+
+1192
+00:20:24,630 --&gt; 00:20:24,640
+with a resume to resume that session if
+ 
+
+1193
+00:20:24,640 --&gt; 00:20:28,549
+with a resume to resume that session if
+you want. Um or d- continue.
+
+1194
+00:20:28,549 --&gt; 00:20:28,559
+you want. Um or d- continue.
+ 
+
+1195
+00:20:28,559 --&gt; 00:20:29,990
+you want. Um or d- continue.
+And then anytime if you want to see more
+
+1196
+00:20:29,990 --&gt; 00:20:30,000
+And then anytime if you want to see more
+ 
+
+1197
+00:20:30,000 --&gt; 00:20:32,310
+And then anytime if you want to see more
+output, hit control-R and that&#x27;ll show
+
+1198
+00:20:32,310 --&gt; 00:20:32,320
+output, hit control-R and that&#x27;ll show
+ 
+
+1199
+00:20:32,320 --&gt; 00:20:33,990
+output, hit control-R and that&#x27;ll show
+you the entire output. The same thing
+
+1200
+00:20:33,990 --&gt; 00:20:34,000
+you the entire output. The same thing
+ 
+
+1201
+00:20:34,000 --&gt; 00:20:41,909
+you the entire output. The same thing
+that Claude sees in its context window.
+
+1202
+00:20:41,909 --&gt; 00:20:41,919
+
+ 
+
+1203
+00:20:41,919 --&gt; 00:20:43,510
+
+The next thing I want to talk about is
+
+1204
+00:20:43,510 --&gt; 00:20:43,520
+The next thing I want to talk about is
+ 
+
+1205
+00:20:43,520 --&gt; 00:20:45,270
+The next thing I want to talk about is
+the Cloud Code SDK. So, we talked about
+
+1206
+00:20:45,270 --&gt; 00:20:45,280
+the Cloud Code SDK. So, we talked about
+ 
+
+1207
+00:20:45,280 --&gt; 00:20:47,510
+the Cloud Code SDK. So, we talked about
+this at the top. Uh right after this,
+
+1208
+00:20:47,510 --&gt; 00:20:47,520
+this at the top. Uh right after this,
+ 
+
+1209
+00:20:47,520 --&gt; 00:20:49,350
+this at the top. Uh right after this,
+Sid is doing a session, I think, just
+
+1210
+00:20:49,350 --&gt; 00:20:49,360
+Sid is doing a session, I think, just
+ 
+
+1211
+00:20:49,360 --&gt; 00:20:50,870
+Sid is doing a session, I think, just
+across the hallway and he&#x27;s going to go
+
+1212
+00:20:50,870 --&gt; 00:20:50,880
+across the hallway and he&#x27;s going to go
+ 
+
+1213
+00:20:50,880 --&gt; 00:20:53,029
+across the hallway and he&#x27;s going to go
+super deep on the SDK. If you hadn&#x27;t
+
+1214
+00:20:53,029 --&gt; 00:20:53,039
+super deep on the SDK. If you hadn&#x27;t
+ 
+
+1215
+00:20:53,039 --&gt; 00:20:55,029
+super deep on the SDK. If you hadn&#x27;t
+played around with this, if you use the
+
+1216
+00:20:55,029 --&gt; 00:20:55,039
+played around with this, if you use the
+ 
+
+1217
+00:20:55,039 --&gt; 00:20:57,909
+played around with this, if you use the
+-p flag in Claude, this is what the SDK
+
+1218
+00:20:57,909 --&gt; 00:20:57,919
+-p flag in Claude, this is what the SDK
+ 
+
+1219
+00:20:57,919 --&gt; 00:20:59,590
+-p flag in Claude, this is what the SDK
+is. And we&#x27;ve been winning a bunch of
+
+1220
+00:20:59,590 --&gt; 00:20:59,600
+is. And we&#x27;ve been winning a bunch of
+ 
+
+1221
+00:20:59,600 --&gt; 00:21:01,029
+is. And we&#x27;ve been winning a bunch of
+features over the last few weeks to make
+
+1222
+00:21:01,029 --&gt; 00:21:01,039
+features over the last few weeks to make
+ 
+
+1223
+00:21:01,039 --&gt; 00:21:03,270
+features over the last few weeks to make
+it even even better.
+
+1224
+00:21:03,270 --&gt; 00:21:03,280
+it even even better.
+ 
+
+1225
+00:21:03,280 --&gt; 00:21:05,029
+it even even better.
+Um, so yeah, you can you can build on
+
+1226
+00:21:05,029 --&gt; 00:21:05,039
+Um, so yeah, you can you can build on
+ 
+
+1227
+00:21:05,039 --&gt; 00:21:06,310
+Um, so yeah, you can you can build on
+top of this. You can do cool stuff. This
+
+1228
+00:21:06,310 --&gt; 00:21:06,320
+top of this. You can do cool stuff. This
+ 
+
+1229
+00:21:06,320 --&gt; 00:21:07,830
+top of this. You can do cool stuff. This
+is exactly the thing that Claude Code
+
+1230
+00:21:07,830 --&gt; 00:21:07,840
+is exactly the thing that Claude Code
+ 
+
+1231
+00:21:07,840 --&gt; 00:21:11,110
+is exactly the thing that Claude Code
+uses. It&#x27;s exactly the same SDK.
+
+1232
+00:21:11,110 --&gt; 00:21:11,120
+uses. It&#x27;s exactly the same SDK.
+ 
+
+1233
+00:21:11,120 --&gt; 00:21:12,549
+uses. It&#x27;s exactly the same SDK.
+And so, for example, something you can
+
+1234
+00:21:12,549 --&gt; 00:21:12,559
+And so, for example, something you can
+ 
+
+1235
+00:21:12,559 --&gt; 00:21:15,110
+And so, for example, something you can
+do is cla-p. So, this is the the CLI
+
+1236
+00:21:15,110 --&gt; 00:21:15,120
+do is cla-p. So, this is the the CLI
+ 
+
+1237
+00:21:15,120 --&gt; 00:21:17,350
+do is cla-p. So, this is the the CLI
+SDK. You can pass up you can pass a
+
+1238
+00:21:17,350 --&gt; 00:21:17,360
+SDK. You can pass up you can pass a
+ 
+
+1239
+00:21:17,360 --&gt; 00:21:19,669
+SDK. You can pass up you can pass a
+prompt. You can pass some allowed tools
+
+1240
+00:21:19,669 --&gt; 00:21:19,679
+prompt. You can pass some allowed tools
+ 
+
+1241
+00:21:19,679 --&gt; 00:21:21,590
+prompt. You can pass some allowed tools
+which could include specific batch
+
+1242
+00:21:21,590 --&gt; 00:21:21,600
+which could include specific batch
+ 
+
+1243
+00:21:21,600 --&gt; 00:21:23,270
+which could include specific batch
+commands and you can tell it which
+
+1244
+00:21:23,270 --&gt; 00:21:23,280
+commands and you can tell it which
+ 
+
+1245
+00:21:23,280 --&gt; 00:21:25,590
+commands and you can tell it which
+format you want. So you might want JSON
+
+1246
+00:21:25,590 --&gt; 00:21:25,600
+format you want. So you might want JSON
+ 
+
+1247
+00:21:25,600 --&gt; 00:21:27,669
+format you want. So you might want JSON
+or you might want streaming JSON if you
+
+1248
+00:21:27,669 --&gt; 00:21:27,679
+or you might want streaming JSON if you
+ 
+
+1249
+00:21:27,679 --&gt; 00:21:30,070
+or you might want streaming JSON if you
+want to process this somehow. So this is
+
+1250
+00:21:30,070 --&gt; 00:21:30,080
+want to process this somehow. So this is
+ 
+
+1251
+00:21:30,080 --&gt; 00:21:31,830
+want to process this somehow. So this is
+awesome for for building on. We use this
+
+1252
+00:21:31,830 --&gt; 00:21:31,840
+awesome for for building on. We use this
+ 
+
+1253
+00:21:31,840 --&gt; 00:21:34,070
+awesome for for building on. We use this
+in CI all the time. We use this for
+
+1254
+00:21:34,070 --&gt; 00:21:34,080
+in CI all the time. We use this for
+ 
+
+1255
+00:21:34,080 --&gt; 00:21:35,590
+in CI all the time. We use this for
+incident response. We use this in all
+
+1256
+00:21:35,590 --&gt; 00:21:35,600
+incident response. We use this in all
+ 
+
+1257
+00:21:35,600 --&gt; 00:21:37,590
+incident response. We use this in all
+sorts of pipelines. So really
+
+1258
+00:21:37,590 --&gt; 00:21:37,600
+sorts of pipelines. So really
+ 
+
+1259
+00:21:37,600 --&gt; 00:21:38,789
+sorts of pipelines. So really
+convenient. Just think of it as like a
+
+1260
+00:21:38,789 --&gt; 00:21:38,799
+convenient. Just think of it as like a
+ 
+
+1261
+00:21:38,799 --&gt; 00:21:40,390
+convenient. Just think of it as like a
+Unix utility. You give it a prompt. It
+
+1262
+00:21:40,390 --&gt; 00:21:40,400
+Unix utility. You give it a prompt. It
+ 
+
+1263
+00:21:40,400 --&gt; 00:21:42,310
+Unix utility. You give it a prompt. It
+gives you JSON. You can use this in any
+
+1264
+00:21:42,310 --&gt; 00:21:42,320
+gives you JSON. You can use this in any
+ 
+
+1265
+00:21:42,320 --&gt; 00:21:43,750
+gives you JSON. You can use this in any
+way. You can pipe into it. You can pipe
+
+1266
+00:21:43,750 --&gt; 00:21:43,760
+way. You can pipe into it. You can pipe
+ 
+
+1267
+00:21:43,760 --&gt; 00:21:48,549
+way. You can pipe into it. You can pipe
+out of it.
+
+1268
+00:21:48,549 --&gt; 00:21:48,559
+
+ 
+
+1269
+00:21:48,559 --&gt; 00:21:50,710
+
+The piping is also pretty cool. So you
+
+1270
+00:21:50,710 --&gt; 00:21:50,720
+The piping is also pretty cool. So you
+ 
+
+1271
+00:21:50,720 --&gt; 00:21:52,870
+The piping is also pretty cool. So you
+can use like for example git status and
+
+1272
+00:21:52,870 --&gt; 00:21:52,880
+can use like for example git status and
+ 
+
+1273
+00:21:52,880 --&gt; 00:21:55,270
+can use like for example git status and
+pipe this in and you know use jq to
+
+1274
+00:21:55,270 --&gt; 00:21:55,280
+pipe this in and you know use jq to
+ 
+
+1275
+00:21:55,280 --&gt; 00:21:57,830
+pipe this in and you know use jq to
+select the result. It the combinations
+
+1276
+00:21:57,830 --&gt; 00:21:57,840
+select the result. It the combinations
+ 
+
+1277
+00:21:57,840 --&gt; 00:21:59,510
+select the result. It the combinations
+are endless and it&#x27;s sort of this new
+
+1278
+00:21:59,510 --&gt; 00:21:59,520
+are endless and it&#x27;s sort of this new
+ 
+
+1279
+00:21:59,520 --&gt; 00:22:01,430
+are endless and it&#x27;s sort of this new
+idea. It&#x27;s like a super intelligent Unix
+
+1280
+00:22:01,430 --&gt; 00:22:01,440
+idea. It&#x27;s like a super intelligent Unix
+ 
+
+1281
+00:22:01,440 --&gt; 00:22:03,430
+idea. It&#x27;s like a super intelligent Unix
+utility and I think we barely scratched
+
+1282
+00:22:03,430 --&gt; 00:22:03,440
+utility and I think we barely scratched
+ 
+
+1283
+00:22:03,440 --&gt; 00:22:05,029
+utility and I think we barely scratched
+the surface of how to use this. We&#x27;re
+
+1284
+00:22:05,029 --&gt; 00:22:05,039
+the surface of how to use this. We&#x27;re
+ 
+
+1285
+00:22:05,039 --&gt; 00:22:07,270
+the surface of how to use this. We&#x27;re
+just figuring this out.
+
+1286
+00:22:07,270 --&gt; 00:22:07,280
+just figuring this out.
+ 
+
+1287
+00:22:07,280 --&gt; 00:22:09,190
+just figuring this out.
+You can read from like a GCP bucket
+
+1288
+00:22:09,190 --&gt; 00:22:09,200
+You can read from like a GCP bucket
+ 
+
+1289
+00:22:09,200 --&gt; 00:22:10,950
+You can read from like a GCP bucket
+read, you know, like a giant log and
+
+1290
+00:22:10,950 --&gt; 00:22:10,960
+read, you know, like a giant log and
+ 
+
+1291
+00:22:10,960 --&gt; 00:22:12,630
+read, you know, like a giant log and
+pipe it in and tell cloud to figure out
+
+1292
+00:22:12,630 --&gt; 00:22:12,640
+pipe it in and tell cloud to figure out
+ 
+
+1293
+00:22:12,640 --&gt; 00:22:14,789
+pipe it in and tell cloud to figure out
+what&#x27;s interesting about this log. Um,
+
+1294
+00:22:14,789 --&gt; 00:22:14,799
+what&#x27;s interesting about this log. Um,
+ 
+
+1295
+00:22:14,799 --&gt; 00:22:17,270
+what&#x27;s interesting about this log. Um,
+you can fetch data from like the Sentry
+
+1296
+00:22:17,270 --&gt; 00:22:17,280
+you can fetch data from like the Sentry
+ 
+
+1297
+00:22:17,280 --&gt; 00:22:19,669
+you can fetch data from like the Sentry
+uh CLI. You can also pipe it in and have
+
+1298
+00:22:19,669 --&gt; 00:22:19,679
+uh CLI. You can also pipe it in and have
+ 
+
+1299
+00:22:19,679 --&gt; 00:22:26,630
+uh CLI. You can also pipe it in and have
+Claude do something with it.
+
+1300
+00:22:26,630 --&gt; 00:22:26,640
+
+ 
+
+1301
+00:22:26,640 --&gt; 00:22:28,310
+
+The final thing, and this is probably
+
+1302
+00:22:28,310 --&gt; 00:22:28,320
+The final thing, and this is probably
+ 
+
+1303
+00:22:28,320 --&gt; 00:22:29,909
+The final thing, and this is probably
+like the most advanced use cases we see.
+
+1304
+00:22:29,909 --&gt; 00:22:29,919
+like the most advanced use cases we see.
+ 
+
+1305
+00:22:29,919 --&gt; 00:22:32,310
+like the most advanced use cases we see.
+I&#x27;m sort of a quad normy. So, I&#x27;ll have
+
+1306
+00:22:32,310 --&gt; 00:22:32,320
+I&#x27;m sort of a quad normy. So, I&#x27;ll have
+ 
+
+1307
+00:22:32,320 --&gt; 00:22:34,149
+I&#x27;m sort of a quad normy. So, I&#x27;ll have
+usually like one quad running at a time
+
+1308
+00:22:34,149 --&gt; 00:22:34,159
+usually like one quad running at a time
+ 
+
+1309
+00:22:34,159 --&gt; 00:22:35,750
+usually like one quad running at a time
+and maybe I&#x27;ll have like a few terminal
+
+1310
+00:22:35,750 --&gt; 00:22:35,760
+and maybe I&#x27;ll have like a few terminal
+ 
+
+1311
+00:22:35,760 --&gt; 00:22:37,270
+and maybe I&#x27;ll have like a few terminal
+tabs for a few different repos running
+
+1312
+00:22:37,270 --&gt; 00:22:37,280
+tabs for a few different repos running
+ 
+
+1313
+00:22:37,280 --&gt; 00:22:39,669
+tabs for a few different repos running
+at a time. When I look at power users in
+
+1314
+00:22:39,669 --&gt; 00:22:39,679
+at a time. When I look at power users in
+ 
+
+1315
+00:22:39,679 --&gt; 00:22:41,590
+at a time. When I look at power users in
+an adavanthropic,
+
+1316
+00:22:41,590 --&gt; 00:22:41,600
+an adavanthropic,
+ 
+
+1317
+00:22:41,600 --&gt; 00:22:43,029
+an adavanthropic,
+almost always they&#x27;re going to have like
+
+1318
+00:22:43,029 --&gt; 00:22:43,039
+almost always they&#x27;re going to have like
+ 
+
+1319
+00:22:43,039 --&gt; 00:22:45,669
+almost always they&#x27;re going to have like
+SSH sessions. They&#x27;ll have uh like T-Max
+
+1320
+00:22:45,669 --&gt; 00:22:45,679
+SSH sessions. They&#x27;ll have uh like T-Max
+ 
+
+1321
+00:22:45,679 --&gt; 00:22:47,669
+SSH sessions. They&#x27;ll have uh like T-Max
+tunnels into their quad sessions.
+
+1322
+00:22:47,669 --&gt; 00:22:47,679
+tunnels into their quad sessions.
+ 
+
+1323
+00:22:47,679 --&gt; 00:22:48,549
+tunnels into their quad sessions.
+They&#x27;re going to have a bunch of
+
+1324
+00:22:48,549 --&gt; 00:22:48,559
+They&#x27;re going to have a bunch of
+ 
+
+1325
+00:22:48,559 --&gt; 00:22:50,549
+They&#x27;re going to have a bunch of
+checkouts of the same repo so that they
+
+1326
+00:22:50,549 --&gt; 00:22:50,559
+checkouts of the same repo so that they
+ 
+
+1327
+00:22:50,559 --&gt; 00:22:52,070
+checkouts of the same repo so that they
+can run a bunch of quads in parallel in
+
+1328
+00:22:52,070 --&gt; 00:22:52,080
+can run a bunch of quads in parallel in
+ 
+
+1329
+00:22:52,080 --&gt; 00:22:53,909
+can run a bunch of quads in parallel in
+that repo. Or they&#x27;re using git work
+
+1330
+00:22:53,909 --&gt; 00:22:53,919
+that repo. Or they&#x27;re using git work
+ 
+
+1331
+00:22:53,919 --&gt; 00:22:55,669
+that repo. Or they&#x27;re using git work
+trees to have some kind of isolation as
+
+1332
+00:22:55,669 --&gt; 00:22:55,679
+trees to have some kind of isolation as
+ 
+
+1333
+00:22:55,679 --&gt; 00:22:57,669
+trees to have some kind of isolation as
+they do this. And we&#x27;re actively working
+
+1334
+00:22:57,669 --&gt; 00:22:57,679
+they do this. And we&#x27;re actively working
+ 
+
+1335
+00:22:57,679 --&gt; 00:23:00,789
+they do this. And we&#x27;re actively working
+on making this easier to use. But uh for
+
+1336
+00:23:00,789 --&gt; 00:23:00,799
+on making this easier to use. But uh for
+ 
+
+1337
+00:23:00,799 --&gt; 00:23:02,950
+on making this easier to use. But uh for
+now, like these these are some ideas for
+
+1338
+00:23:02,950 --&gt; 00:23:02,960
+now, like these these are some ideas for
+ 
+
+1339
+00:23:02,960 --&gt; 00:23:04,549
+now, like these these are some ideas for
+how to do more work in parallel with
+
+1340
+00:23:04,549 --&gt; 00:23:04,559
+how to do more work in parallel with
+ 
+
+1341
+00:23:04,559 --&gt; 00:23:06,470
+how to do more work in parallel with
+quad. You can run as many sessions as
+
+1342
+00:23:06,470 --&gt; 00:23:06,480
+quad. You can run as many sessions as
+ 
+
+1343
+00:23:06,480 --&gt; 00:23:08,070
+quad. You can run as many sessions as
+you want.
+
+1344
+00:23:08,070 --&gt; 00:23:08,080
+you want.
+ 
+
+1345
+00:23:08,080 --&gt; 00:23:09,430
+you want.
+Uh, and there&#x27;s a lot that you can get
+
+1346
+00:23:09,430 --&gt; 00:23:09,440
+Uh, and there&#x27;s a lot that you can get
+ 
+
+1347
+00:23:09,440 --&gt; 00:23:13,350
+Uh, and there&#x27;s a lot that you can get
+done in Perl.
+
+1348
+00:23:13,350 --&gt; 00:23:13,360
+
+ 
+
+1349
+00:23:13,360 --&gt; 00:23:15,510
+
+So, yeah, that&#x27;s it. I wanted to also
+
+1350
+00:23:15,510 --&gt; 00:23:15,520
+So, yeah, that&#x27;s it. I wanted to also
+ 
+
+1351
+00:23:15,520 --&gt; 00:23:17,830
+So, yeah, that&#x27;s it. I wanted to also
+leave some time for Q&amp;A. So, I think
+
+1352
+00:23:17,830 --&gt; 00:23:17,840
+leave some time for Q&amp;A. So, I think
+ 
+
+1353
+00:23:17,840 --&gt; 00:23:20,390
+leave some time for Q&amp;A. So, I think
+this is the last slide that I have. And
+
+1354
+00:23:20,390 --&gt; 00:23:20,400
+this is the last slide that I have. And
+ 
+
+1355
+00:23:20,400 --&gt; 00:23:21,830
+this is the last slide that I have. And
+yeah, if folks have questions, there&#x27;s
+
+1356
+00:23:21,830 --&gt; 00:23:21,840
+yeah, if folks have questions, there&#x27;s
+ 
+
+1357
+00:23:21,840 --&gt; 00:23:23,990
+yeah, if folks have questions, there&#x27;s
+mics on both sides.
+
+1358
+00:23:23,990 --&gt; 00:23:24,000
+mics on both sides.
+ 
+
+1359
+00:23:24,000 --&gt; 00:23:25,669
+mics on both sides.
+And yeah, we&#x27;d love to answer any
+
+1360
+00:23:25,669 --&gt; 00:23:25,679
+And yeah, we&#x27;d love to answer any
+ 
+
+1361
+00:23:25,679 --&gt; 00:23:28,256
+And yeah, we&#x27;d love to answer any
+questions.
+
+1362
+00:23:28,256 --&gt; 00:23:28,266
+questions.
+ 
+
+1363
+00:23:28,266 --&gt; 00:23:40,701
+questions.
+[applause]
+
+1364
+00:23:40,701 --&gt; 00:23:40,711
+
+ 
+
+1365
+00:23:40,711 --&gt; 00:23:42,310
+
+&gt;&gt; [laughter]
+
+1366
+00:23:42,310 --&gt; 00:23:42,320
+&gt;&gt; [laughter]
+ 
+
+1367
+00:23:42,320 --&gt; 00:23:49,029
+&gt;&gt; [laughter]
+&gt;&gt; I did.
+
+1368
+00:23:49,029 --&gt; 00:23:49,039
+
+ 
+
+1369
+00:23:49,039 --&gt; 00:23:51,510
+
+&gt;&gt; Hey Boris, thanks for building a cloud
+
+1370
+00:23:51,510 --&gt; 00:23:51,520
+&gt;&gt; Hey Boris, thanks for building a cloud
+ 
+
+1371
+00:23:51,520 --&gt; 00:23:53,350
+&gt;&gt; Hey Boris, thanks for building a cloud
+code. And I was wondering what was the
+
+1372
+00:23:53,350 --&gt; 00:23:53,360
+code. And I was wondering what was the
+ 
+
+1373
+00:23:53,360 --&gt; 00:23:55,510
+code. And I was wondering what was the
+hardest implementation like part of the
+
+1374
+00:23:55,510 --&gt; 00:23:55,520
+hardest implementation like part of the
+ 
+
+1375
+00:23:55,520 --&gt; 00:23:59,669
+hardest implementation like part of the
+implementation for you of building it?
+
+1376
+00:23:59,669 --&gt; 00:23:59,679
+implementation for you of building it?
+ 
+
+1377
+00:23:59,679 --&gt; 00:24:03,190
+implementation for you of building it?
+I think there&#x27;s a lot of tricky parts.
+
+1378
+00:24:03,190 --&gt; 00:24:03,200
+I think there&#x27;s a lot of tricky parts.
+ 
+
+1379
+00:24:03,200 --&gt; 00:24:05,990
+I think there&#x27;s a lot of tricky parts.
+Um I think one part that is especially
+
+1380
+00:24:05,990 --&gt; 00:24:06,000
+Um I think one part that is especially
+ 
+
+1381
+00:24:06,000 --&gt; 00:24:07,909
+Um I think one part that is especially
+tricky is the things that we do to make
+
+1382
+00:24:07,909 --&gt; 00:24:07,919
+tricky is the things that we do to make
+ 
+
+1383
+00:24:07,919 --&gt; 00:24:10,549
+tricky is the things that we do to make
+batch commands safe. Um bash is
+
+1384
+00:24:10,549 --&gt; 00:24:10,559
+batch commands safe. Um bash is
+ 
+
+1385
+00:24:10,559 --&gt; 00:24:12,070
+batch commands safe. Um bash is
+inherently pretty dangerous and it can
+
+1386
+00:24:12,070 --&gt; 00:24:12,080
+inherently pretty dangerous and it can
+ 
+
+1387
+00:24:12,080 --&gt; 00:24:14,630
+inherently pretty dangerous and it can
+change system state in unexpected ways.
+
+1388
+00:24:14,630 --&gt; 00:24:14,640
+change system state in unexpected ways.
+ 
+
+1389
+00:24:14,640 --&gt; 00:24:18,149
+change system state in unexpected ways.
+But at the same time, if you have to
+
+1390
+00:24:18,149 --&gt; 00:24:18,159
+But at the same time, if you have to
+ 
+
+1391
+00:24:18,159 --&gt; 00:24:20,070
+But at the same time, if you have to
+manually approve every single batch
+
+1392
+00:24:20,070 --&gt; 00:24:20,080
+manually approve every single batch
+ 
+
+1393
+00:24:20,080 --&gt; 00:24:21,750
+manually approve every single batch
+command, it&#x27;s super annoying as an
+
+1394
+00:24:21,750 --&gt; 00:24:21,760
+command, it&#x27;s super annoying as an
+ 
+
+1395
+00:24:21,760 --&gt; 00:24:22,789
+command, it&#x27;s super annoying as an
+engineer and you can&#x27;t really be
+
+1396
+00:24:22,789 --&gt; 00:24:22,799
+engineer and you can&#x27;t really be
+ 
+
+1397
+00:24:22,799 --&gt; 00:24:23,590
+engineer and you can&#x27;t really be
+productive because you&#x27;re just
+
+1398
+00:24:23,590 --&gt; 00:24:23,600
+productive because you&#x27;re just
+ 
+
+1399
+00:24:23,600 --&gt; 00:24:25,750
+productive because you&#x27;re just
+constantly approving every command. And
+
+1400
+00:24:25,750 --&gt; 00:24:25,760
+constantly approving every command. And
+ 
+
+1401
+00:24:25,760 --&gt; 00:24:27,430
+constantly approving every command. And
+just kind of navigating how to do this
+
+1402
+00:24:27,430 --&gt; 00:24:27,440
+just kind of navigating how to do this
+ 
+
+1403
+00:24:27,440 --&gt; 00:24:29,430
+just kind of navigating how to do this
+safely in a way that that scales across
+
+1404
+00:24:29,430 --&gt; 00:24:29,440
+safely in a way that that scales across
+ 
+
+1405
+00:24:29,440 --&gt; 00:24:30,870
+safely in a way that that scales across
+the different kinds of code bases people
+
+1406
+00:24:30,870 --&gt; 00:24:30,880
+the different kinds of code bases people
+ 
+
+1407
+00:24:30,880 --&gt; 00:24:32,470
+the different kinds of code bases people
+have because not everyone runs their
+
+1408
+00:24:32,470 --&gt; 00:24:32,480
+have because not everyone runs their
+ 
+
+1409
+00:24:32,480 --&gt; 00:24:35,066
+have because not everyone runs their
+code in a Docker container um was was
+
+1410
+00:24:35,066 --&gt; 00:24:35,076
+code in a Docker container um was was
+ 
+
+1411
+00:24:35,076 --&gt; 00:24:36,549
+code in a Docker container um was was
+[clears throat] pretty tricky. And
+
+1412
+00:24:36,549 --&gt; 00:24:36,559
+[clears throat] pretty tricky. And
+ 
+
+1413
+00:24:36,559 --&gt; 00:24:37,750
+[clears throat] pretty tricky. And
+essentially the thing we landed on is
+
+1414
+00:24:37,750 --&gt; 00:24:37,760
+essentially the thing we landed on is
+ 
+
+1415
+00:24:37,760 --&gt; 00:24:39,350
+essentially the thing we landed on is
+there&#x27;s some commands that are readon.
+
+1416
+00:24:39,350 --&gt; 00:24:39,360
+there&#x27;s some commands that are readon.
+ 
+
+1417
+00:24:39,360 --&gt; 00:24:41,029
+there&#x27;s some commands that are readon.
+There&#x27;s some static analysis that we do
+
+1418
+00:24:41,029 --&gt; 00:24:41,039
+There&#x27;s some static analysis that we do
+ 
+
+1419
+00:24:41,039 --&gt; 00:24:42,630
+There&#x27;s some static analysis that we do
+in order to figure out which commands
+
+1420
+00:24:42,630 --&gt; 00:24:42,640
+in order to figure out which commands
+ 
+
+1421
+00:24:42,640 --&gt; 00:24:44,950
+in order to figure out which commands
+can be combined in safe ways. And then
+
+1422
+00:24:44,950 --&gt; 00:24:44,960
+can be combined in safe ways. And then
+ 
+
+1423
+00:24:44,960 --&gt; 00:24:46,950
+can be combined in safe ways. And then
+we have this pretty complex tiered
+
+1424
+00:24:46,950 --&gt; 00:24:46,960
+we have this pretty complex tiered
+ 
+
+1425
+00:24:46,960 --&gt; 00:24:48,710
+we have this pretty complex tiered
+permission system so that you can allow
+
+1426
+00:24:48,710 --&gt; 00:24:48,720
+permission system so that you can allow
+ 
+
+1427
+00:24:48,720 --&gt; 00:24:49,909
+permission system so that you can allow
+list and block list commands at
+
+1428
+00:24:49,909 --&gt; 00:24:49,919
+list and block list commands at
+ 
+
+1429
+00:24:49,919 --&gt; 00:24:53,590
+list and block list commands at
+different levels.
+
+1430
+00:24:53,590 --&gt; 00:24:53,600
+
+ 
+
+1431
+00:24:53,600 --&gt; 00:24:56,390
+
+&gt;&gt; Hi Boris, you mentioned uh giving an
+
+1432
+00:24:56,390 --&gt; 00:24:56,400
+&gt;&gt; Hi Boris, you mentioned uh giving an
+ 
+
+1433
+00:24:56,400 --&gt; 00:24:58,630
+&gt;&gt; Hi Boris, you mentioned uh giving an
+image to cloud code which made me wonder
+
+1434
+00:24:58,630 --&gt; 00:24:58,640
+image to cloud code which made me wonder
+ 
+
+1435
+00:24:58,640 --&gt; 00:25:00,710
+image to cloud code which made me wonder
+if there&#x27;s some sort of multimodal
+
+1436
+00:25:00,710 --&gt; 00:25:00,720
+if there&#x27;s some sort of multimodal
+ 
+
+1437
+00:25:00,720 --&gt; 00:25:02,310
+if there&#x27;s some sort of multimodal
+functionality that I&#x27;m not aware of. Is
+
+1438
+00:25:02,310 --&gt; 00:25:02,320
+functionality that I&#x27;m not aware of. Is
+ 
+
+1439
+00:25:02,320 --&gt; 00:25:03,909
+functionality that I&#x27;m not aware of. Is
+that are you just pointing it at an
+
+1440
+00:25:03,909 --&gt; 00:25:03,919
+that are you just pointing it at an
+ 
+
+1441
+00:25:03,919 --&gt; 00:25:05,830
+that are you just pointing it at an
+image on the file system or something?
+
+1442
+00:25:05,830 --&gt; 00:25:05,840
+image on the file system or something?
+ 
+
+1443
+00:25:05,840 --&gt; 00:25:07,750
+image on the file system or something?
+&gt;&gt; Yeah, so cloud code is fully multimodal.
+
+1444
+00:25:07,750 --&gt; 00:25:07,760
+&gt;&gt; Yeah, so cloud code is fully multimodal.
+ 
+
+1445
+00:25:07,760 --&gt; 00:25:09,510
+&gt;&gt; Yeah, so cloud code is fully multimodal.
+Um, it has been from the start. It&#x27;s in
+
+1446
+00:25:09,510 --&gt; 00:25:09,520
+Um, it has been from the start. It&#x27;s in
+ 
+
+1447
+00:25:09,520 --&gt; 00:25:11,430
+Um, it has been from the start. It&#x27;s in
+a terminal, so it&#x27;s a little uh hard to
+
+1448
+00:25:11,430 --&gt; 00:25:11,440
+a terminal, so it&#x27;s a little uh hard to
+ 
+
+1449
+00:25:11,440 --&gt; 00:25:13,669
+a terminal, so it&#x27;s a little uh hard to
+discover. Uh, but yeah, you can take a
+
+1450
+00:25:13,669 --&gt; 00:25:13,679
+discover. Uh, but yeah, you can take a
+ 
+
+1451
+00:25:13,679 --&gt; 00:25:15,110
+discover. Uh, but yeah, you can take a
+image and just drag and drop it in.
+
+1452
+00:25:15,110 --&gt; 00:25:15,120
+image and just drag and drop it in.
+ 
+
+1453
+00:25:15,120 --&gt; 00:25:17,110
+image and just drag and drop it in.
+That&#x27;ll work. Uh, you can give it a file
+
+1454
+00:25:17,110 --&gt; 00:25:17,120
+That&#x27;ll work. Uh, you can give it a file
+ 
+
+1455
+00:25:17,120 --&gt; 00:25:19,830
+That&#x27;ll work. Uh, you can give it a file
+path that&#x27;ll work. Um, you can copy and
+
+1456
+00:25:19,830 --&gt; 00:25:19,840
+path that&#x27;ll work. Um, you can copy and
+ 
+
+1457
+00:25:19,840 --&gt; 00:25:23,350
+path that&#x27;ll work. Um, you can copy and
+paste the image in and that works too.
+
+1458
+00:25:23,350 --&gt; 00:25:23,360
+paste the image in and that works too.
+ 
+
+1459
+00:25:23,360 --&gt; 00:25:25,269
+paste the image in and that works too.
+Um, so I&#x27;ll use this pretty often for if
+
+1460
+00:25:25,269 --&gt; 00:25:25,279
+Um, so I&#x27;ll use this pretty often for if
+ 
+
+1461
+00:25:25,279 --&gt; 00:25:26,549
+Um, so I&#x27;ll use this pretty often for if
+I have like a mock of something, I&#x27;ll
+
+1462
+00:25:26,549 --&gt; 00:25:26,559
+I have like a mock of something, I&#x27;ll
+ 
+
+1463
+00:25:26,559 --&gt; 00:25:28,230
+I have like a mock of something, I&#x27;ll
+just drag and drop in the mock. I&#x27;ll
+
+1464
+00:25:28,230 --&gt; 00:25:28,240
+just drag and drop in the mock. I&#x27;ll
+ 
+
+1465
+00:25:28,240 --&gt; 00:25:29,830
+just drag and drop in the mock. I&#x27;ll
+tell it to implement it. I&#x27;ll give it up
+
+1466
+00:25:29,830 --&gt; 00:25:29,840
+tell it to implement it. I&#x27;ll give it up
+ 
+
+1467
+00:25:29,840 --&gt; 00:25:31,350
+tell it to implement it. I&#x27;ll give it up
+a tier server so it can iterate against
+
+1468
+00:25:31,350 --&gt; 00:25:31,360
+a tier server so it can iterate against
+ 
+
+1469
+00:25:31,360 --&gt; 00:25:36,549
+a tier server so it can iterate against
+it. And yeah, it&#x27;s just fully automated.
+
+1470
+00:25:36,549 --&gt; 00:25:36,559
+
+ 
+
+1471
+00:25:36,559 --&gt; 00:25:39,990
+
+Um, hey, uh, why did you build a CLI
+
+1472
+00:25:39,990 --&gt; 00:25:40,000
+Um, hey, uh, why did you build a CLI
+ 
+
+1473
+00:25:40,000 --&gt; 00:25:43,110
+Um, hey, uh, why did you build a CLI
+tool instead of an IDE?
+
+1474
+00:25:43,110 --&gt; 00:25:43,120
+tool instead of an IDE?
+ 
+
+1475
+00:25:43,120 --&gt; 00:25:44,390
+tool instead of an IDE?
+&gt;&gt; Yeah, it&#x27;s a it&#x27;s a good question. I
+
+1476
+00:25:44,390 --&gt; 00:25:44,400
+&gt;&gt; Yeah, it&#x27;s a it&#x27;s a good question. I
+ 
+
+1477
+00:25:44,400 --&gt; 00:25:45,750
+&gt;&gt; Yeah, it&#x27;s a it&#x27;s a good question. I
+think there&#x27;s probably two reasons. One
+
+1478
+00:25:45,750 --&gt; 00:25:45,760
+think there&#x27;s probably two reasons. One
+ 
+
+1479
+00:25:45,760 --&gt; 00:25:49,110
+think there&#x27;s probably two reasons. One
+is, uh, we started this adanthropic, and
+
+1480
+00:25:49,110 --&gt; 00:25:49,120
+is, uh, we started this adanthropic, and
+ 
+
+1481
+00:25:49,120 --&gt; 00:25:50,950
+is, uh, we started this adanthropic, and
+at anthropic people use a broad range of
+
+1482
+00:25:50,950 --&gt; 00:25:50,960
+at anthropic people use a broad range of
+ 
+
+1483
+00:25:50,960 --&gt; 00:25:53,909
+at anthropic people use a broad range of
+IDEs, and some people use VS Code, other
+
+1484
+00:25:53,909 --&gt; 00:25:53,919
+IDEs, and some people use VS Code, other
+ 
+
+1485
+00:25:53,919 --&gt; 00:25:58,070
+IDEs, and some people use VS Code, other
+people use Zed or Xcode or Vim or Emacs,
+
+1486
+00:25:58,070 --&gt; 00:25:58,080
+people use Zed or Xcode or Vim or Emacs,
+ 
+
+1487
+00:25:58,080 --&gt; 00:25:59,669
+people use Zed or Xcode or Vim or Emacs,
+and it was just hard to build something
+
+1488
+00:25:59,669 --&gt; 00:25:59,679
+and it was just hard to build something
+ 
+
+1489
+00:25:59,679 --&gt; 00:26:01,669
+and it was just hard to build something
+that works for everyone, and so terminal
+
+1490
+00:26:01,669 --&gt; 00:26:01,679
+that works for everyone, and so terminal
+ 
+
+1491
+00:26:01,679 --&gt; 00:26:03,990
+that works for everyone, and so terminal
+is just the common denominator. The
+
+1492
+00:26:03,990 --&gt; 00:26:04,000
+is just the common denominator. The
+ 
+
+1493
+00:26:04,000 --&gt; 00:26:07,909
+is just the common denominator. The
+second thing is at Enthropic we&#x27;re uh we
+
+1494
+00:26:07,909 --&gt; 00:26:07,919
+second thing is at Enthropic we&#x27;re uh we
+ 
+
+1495
+00:26:07,919 --&gt; 00:26:09,990
+second thing is at Enthropic we&#x27;re uh we
+see up close how fast the model is
+
+1496
+00:26:09,990 --&gt; 00:26:10,000
+see up close how fast the model is
+ 
+
+1497
+00:26:10,000 --&gt; 00:26:11,750
+see up close how fast the model is
+getting better and so I think there&#x27;s a
+
+1498
+00:26:11,750 --&gt; 00:26:11,760
+getting better and so I think there&#x27;s a
+ 
+
+1499
+00:26:11,760 --&gt; 00:26:13,110
+getting better and so I think there&#x27;s a
+good chance that by the end of the year
+
+1500
+00:26:13,110 --&gt; 00:26:13,120
+good chance that by the end of the year
+ 
+
+1501
+00:26:13,120 --&gt; 00:26:16,149
+good chance that by the end of the year
+people aren&#x27;t using IDs anymore and so
+
+1502
+00:26:16,149 --&gt; 00:26:16,159
+people aren&#x27;t using IDs anymore and so
+ 
+
+1503
+00:26:16,159 --&gt; 00:26:17,830
+people aren&#x27;t using IDs anymore and so
+we want to get ready for this future and
+
+1504
+00:26:17,830 --&gt; 00:26:17,840
+we want to get ready for this future and
+ 
+
+1505
+00:26:17,840 --&gt; 00:26:19,990
+we want to get ready for this future and
+we want to avoid overinvesting in UI and
+
+1506
+00:26:19,990 --&gt; 00:26:20,000
+we want to avoid overinvesting in UI and
+ 
+
+1507
+00:26:20,000 --&gt; 00:26:23,110
+we want to avoid overinvesting in UI and
+other layers on top given that the way
+
+1508
+00:26:23,110 --&gt; 00:26:23,120
+other layers on top given that the way
+ 
+
+1509
+00:26:23,120 --&gt; 00:26:24,870
+other layers on top given that the way
+the models are progressing it just it
+
+1510
+00:26:24,870 --&gt; 00:26:24,880
+the models are progressing it just it
+ 
+
+1511
+00:26:24,880 --&gt; 00:26:31,110
+the models are progressing it just it
+may not be useful work pretty soon.
+
+1512
+00:26:31,110 --&gt; 00:26:31,120
+
+ 
+
+1513
+00:26:31,120 --&gt; 00:26:33,669
+
+&gt;&gt; Yeah. How much have you I don&#x27;t know if
+
+1514
+00:26:33,669 --&gt; 00:26:33,679
+&gt;&gt; Yeah. How much have you I don&#x27;t know if
+ 
+
+1515
+00:26:33,679 --&gt; 00:26:36,149
+&gt;&gt; Yeah. How much have you I don&#x27;t know if
+this is is this on. How much have you
+
+1516
+00:26:36,149 --&gt; 00:26:36,159
+this is is this on. How much have you
+ 
+
+1517
+00:26:36,159 --&gt; 00:26:38,870
+this is is this on. How much have you
+used mode for machine learning modeling
+
+1518
+00:26:38,870 --&gt; 00:26:38,880
+used mode for machine learning modeling
+ 
+
+1519
+00:26:38,880 --&gt; 00:26:41,029
+used mode for machine learning modeling
+and almost that autoML experience? I was
+
+1520
+00:26:41,029 --&gt; 00:26:41,039
+and almost that autoML experience? I was
+ 
+
+1521
+00:26:41,039 --&gt; 00:26:43,269
+and almost that autoML experience? I was
+curious what the experience has been so
+
+1522
+00:26:43,269 --&gt; 00:26:43,279
+curious what the experience has been so
+ 
+
+1523
+00:26:43,279 --&gt; 00:26:44,390
+curious what the experience has been so
+far with that.
+
+1524
+00:26:44,390 --&gt; 00:26:44,400
+far with that.
+ 
+
+1525
+00:26:44,400 --&gt; 00:26:46,070
+far with that.
+&gt;&gt; Yeah, I think I think the question was
+
+1526
+00:26:46,070 --&gt; 00:26:46,080
+&gt;&gt; Yeah, I think I think the question was
+ 
+
+1527
+00:26:46,080 --&gt; 00:26:48,149
+&gt;&gt; Yeah, I think I think the question was
+how much are we using cloud code for
+
+1528
+00:26:48,149 --&gt; 00:26:48,159
+how much are we using cloud code for
+ 
+
+1529
+00:26:48,159 --&gt; 00:26:50,390
+how much are we using cloud code for
+machine learning and and modeling? We
+
+1530
+00:26:50,390 --&gt; 00:26:50,400
+machine learning and and modeling? We
+ 
+
+1531
+00:26:50,400 --&gt; 00:26:52,230
+machine learning and and modeling? We
+actually use it for this a bunch. So
+
+1532
+00:26:52,230 --&gt; 00:26:52,240
+actually use it for this a bunch. So
+ 
+
+1533
+00:26:52,240 --&gt; 00:26:54,230
+actually use it for this a bunch. So
+both engineers and researchers at
+
+1534
+00:26:54,230 --&gt; 00:26:54,240
+both engineers and researchers at
+ 
+
+1535
+00:26:54,240 --&gt; 00:26:56,950
+both engineers and researchers at
+anthropic use cloud code every day. Um I
+
+1536
+00:26:56,950 --&gt; 00:26:56,960
+anthropic use cloud code every day. Um I
+ 
+
+1537
+00:26:56,960 --&gt; 00:26:59,590
+anthropic use cloud code every day. Um I
+think about 80% of people at Anthropic
+
+1538
+00:26:59,590 --&gt; 00:26:59,600
+think about 80% of people at Anthropic
+ 
+
+1539
+00:26:59,600 --&gt; 00:27:01,190
+think about 80% of people at Anthropic
+that are technical use cloud code every
+
+1540
+00:27:01,190 --&gt; 00:27:01,200
+that are technical use cloud code every
+ 
+
+1541
+00:27:01,200 --&gt; 00:27:02,950
+that are technical use cloud code every
+day. And hopefully you can see that in
+
+1542
+00:27:02,950 --&gt; 00:27:02,960
+day. And hopefully you can see that in
+ 
+
+1543
+00:27:02,960 --&gt; 00:27:04,230
+day. And hopefully you can see that in
+the product and kind of the amount of
+
+1544
+00:27:04,230 --&gt; 00:27:04,240
+the product and kind of the amount of
+ 
+
+1545
+00:27:04,240 --&gt; 00:27:06,390
+the product and kind of the amount of
+love and dog fooding we&#x27;ve put into it.
+
+1546
+00:27:06,390 --&gt; 00:27:06,400
+love and dog fooding we&#x27;ve put into it.
+ 
+
+1547
+00:27:06,400 --&gt; 00:27:08,070
+love and dog fooding we&#x27;ve put into it.
+Um, but this includes researchers who
+
+1548
+00:27:08,070 --&gt; 00:27:08,080
+Um, but this includes researchers who
+ 
+
+1549
+00:27:08,080 --&gt; 00:27:09,830
+Um, but this includes researchers who
+use tools like the notebook notebook
+
+1550
+00:27:09,830 --&gt; 00:27:09,840
+use tools like the notebook notebook
+ 
+
+1551
+00:27:09,840 --&gt; 00:27:12,149
+use tools like the notebook notebook
+tool to edit and run notebooks.
+
+1552
+00:27:12,149 --&gt; 00:27:12,159
+tool to edit and run notebooks.
+ 
+
+1553
+00:27:12,159 --&gt; 00:27:15,990
+tool to edit and run notebooks.
+&gt;&gt; Okay, very cool. Thank you.
+
+1554
+00:27:15,990 --&gt; 00:27:16,000
+&gt;&gt; Okay, very cool. Thank you.
+ 
+
+1555
+00:27:16,000 --&gt; 00:27:17,508
+&gt;&gt; Okay, very cool. Thank you.
+&gt;&gt; All right, I think that&#x27;s it. Thanks.
+
+1556
+00:27:17,508 --&gt; 00:27:17,518
+&gt;&gt; All right, I think that&#x27;s it. Thanks.
+ 
+
+1557
+00:27:17,518 --&gt; 00:27:20,128
+&gt;&gt; All right, I think that&#x27;s it. Thanks.
+[applause]
+
+1558
+00:27:20,128 --&gt; 00:27:20,138
+
+ 
+
+1559
+00:27:20,138 --&gt; 00:27:29,669
+
+[music]
+
+1560
+00:27:29,669 --&gt; 00:27:29,679
+
+ 
+
+1561
+00:27:29,679 --&gt; 00:27:38,469
+
+Heat. Heat. [music]
+
+1562
+00:27:38,469 --&gt; 00:27:38,479
+
+ 
+
+1563
+00:27:38,479 --&gt; 00:27:53,534
+
+[music]
+
+1564
+00:27:53,534 --&gt; 00:27:53,544
+
+ 
+
+1565
+00:27:53,544 --&gt; 00:27:55,564
+
+&gt;&gt; [music]
+
+</pre></div></details>
+
+  <footer>
+    <p>來源：<a href="https://youtu.be/3fgJINHVLxc" target="_blank" rel="noopener">https://youtu.be/3fgJINHVLxc</a></p>
+    <p>本報告由 youtube-content skill 從結構化 JSON 自動渲染，JSON 為唯一資料源。</p>
+  </footer>
+</div>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('theme-toggle'),s=localStorage.getItem('yt-theme');if(s==='light'){r.classList.add('light');b.textContent='☀️'}else if(!s&&window.matchMedia('(prefers-color-scheme:light)').matches){r.classList.add('light');b.textContent='☀️'}window.toggleTheme=function(){r.classList.toggle('light');var l=r.classList.contains('light');b.textContent=l?'☀️':'🌙';localStorage.setItem('yt-theme',l?'light':'dark')}})()
+
+function copyRaw(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var txt=pre.textContent;navigator.clipboard.writeText(txt).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製 SRT';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+function copyRawText(btn,blockId){var pre=btn.closest('.raw-block').querySelector('pre');if(!pre)return;var lines=pre.textContent.split('\n');var txt='';for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(!/^\d+$/.test(l)&&!/^\d{2}:\d{2}:\d{2},\d{3}\s*-->/.test(l)&&l!==''){txt+=lines[i]+'\n'}}navigator.clipboard.writeText(txt.trim()).then(function(){btn.textContent='✅ 已複製';btn.classList.add('copied');setTimeout(function(){btn.textContent='📋 複製純文字';btn.classList.remove('copied')},2000)}).catch(function(){alert('複製失敗，請手動選取文字後複製')})}
+</script>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Hermes Docs. Powered by AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
