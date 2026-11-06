@@ -1,5 +1,11 @@
 [
   {
+    "title": "本地 AI 的記憶體、模型與設定指南 - Hermes Docs",
+    "url": "videos/local-ai-memory-model-guide.html",
+    "date": "2026-11-06 00:39",
+    "content": "本地 AI 的記憶體、模型與設定指南 - Hermes Docs 返回首頁 本地 AI 的記憶體、模型與設定指南 發布時間：2026-11-06 08:39 🌙 YouTube 影片重點整理 本地 AI 的記憶體、模型與設定指南 📺 AI懶人報 ⏱ 16:00 🗓 2026-11-04 🌐 zh-TW 🔗 https://youtu.be/1nomxygMILI 影片以本地 AI 的記憶體配置為主軸，先說明模型容量、context 與 Mac 統一記憶體的關係，再比較 16GB、32GB、64GB、128GB 可承擔的模型與工作。後續解釋 MoE 為何可能更快，並區分 LM Studio、Ollama、llama.cpp 的定位；最後以實例說明適合與不適合留在本地的工作，以及 context、模型包裝、KV cache、容量餘裕與連線安全五類常見問題。 01 先判斷失敗是不是 context 設定造成 0:14 影片指出，許多人把本地模型接到 agent 後遇到遺忘、失敗，會直接歸因於模型不夠聰明；但設定也可能是原因。影片引述 Ollama 文件：顯示記憶體小於 24GB 時預設 co"
+  },
+  {
     "title": "Claude Code 實戰工作流程：從程式碼庫問答到團隊共用脈絡 - Hermes Docs",
     "url": "videos/claude-code-workflow.html",
     "date": "2026-11-05 22:37",
