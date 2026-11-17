@@ -1,5 +1,11 @@
 [
   {
+    "title": "AI 寫的程式怎麼驗證！2 分鐘看懂 Claude Code 的驗證訣竅 - Hermes Docs",
+    "url": "videos/claude-code-verification.html",
+    "date": "2026-11-17 23:48",
+    "content": "AI 寫的程式怎麼驗證！2 分鐘看懂 Claude Code 的驗證訣竅 - Hermes Docs 返回首頁 AI 寫的程式怎麼驗證！2 分鐘看懂 Claude Code 的驗證訣竅 發布時間：2026-11-18 07:48 🌙 YouTube 影片重點整理 AI 寫的程式怎麼驗證！2 分鐘看懂 Claude Code 的驗證訣竅 📺 Jerry_AI 工具X實作X新知 ⏱ 2:19 🗓 2026-11-17 🌐 zh-Hant 🔗 https://www.youtube.com/watch?v=IO6DuxWRHbQ 影片以 Claude Code 團隊的做法說明：AI 完成程式後，不能只接受「寫好了」的回報，而要要求可檢查的證據。核心是實際執行程式，並以端到端、鐵則與差異三類測試驗證結果。影片也強調，驗收規則必須與被驗收的修改隔離；新規則先在觀察模式記錄，確認沒有誤判後再強制執行。對非工程角色，片中建議要求 AI 實際操作、事先定義完成條件，且不可修改驗收測試來過關。 01 先要求可驗證的證據 00:00 影片的起點是：AI 說程式完成，不等於程式真的可用。做法是要求它把程式實"
+  },
+  {
     "title": "Mark Cuban 警告：下一次股災，可能從「債」開始 - Hermes Docs",
     "url": "videos/mark-cuban-debt-bubble-warning.html",
     "date": "2026-11-15 08:32",
